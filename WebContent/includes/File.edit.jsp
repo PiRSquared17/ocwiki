@@ -10,10 +10,10 @@
 <textarea id="fileSource" name="fileSource" cols="80" rows="1"></textarea> <br/>
 
 <label>Tác giả           :</label>
-<textarea id="author" name="author" cols="80" rows=""></textarea> <br/>
+<textarea id="author" name="author" cols="80" rows="1"></textarea> <br/>
 
 <label>Thông tin thêm    :</label>
-<textarea id="additionalInfo" name="additionalInfo" cols="80" rows=""></textarea> <br/>
+<textarea id="additionalInfo" name="additionalInfo" cols="80" rows="1"></textarea> <br/>
 
 <label>Bản quyền         </label>
 <select name="license" id="license">

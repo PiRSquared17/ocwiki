@@ -1,6 +1,7 @@
 package oop.db.dao;
 
 import oop.data.File;
+import oop.data.Resource;
 import oop.persistence.HibernateUtil;
 
 import org.hibernate.HibernateException;
@@ -9,9 +10,8 @@ import org.hibernate.Transaction;
 
 public class FileDAO {
 
-	public static File fetchById(long id){
-		Session session = HibernateUtil.getSession();
-		return (File) session.get(File.class, id);
+	public static Resource<File> fetchById(long id){
+		return ResourceDAO.fetchById(id, File.class);
 	}
 	
 	public static void persist(File uploadedFile) {

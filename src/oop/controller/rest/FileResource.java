@@ -8,6 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.File;
+import oop.data.Resource;
 import oop.db.dao.FileDAO;
 
 @Path(FileResource.PATH)
@@ -18,8 +19,8 @@ public class FileResource extends AbstractResource {
 	@GET
 	@Path("/{id: \\d+}")
 	public ObjectResult<File> get(@PathParam("id") long id){
-		File file = FileDAO.fetchById(id);
-		assertResourceFound(file);
+		Resource<File> fileResource = FileDAO.fetchById(id);
+		File file = fileResource.getArticle();
 		return new ObjectResult<File>(file);
 	}
 	
@@ -27,7 +28,8 @@ public class FileResource extends AbstractResource {
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ObjectResult<File> update(@PathParam("id") long id, File data) {
-		File file = FileDAO.fetchById(id);
+		Resource<File> fileResource = FileDAO.fetchById(id);
+		File file = fileResource.getArticle();
 		assertResourceFound(file);
 		file.setOriginalSource(data.getOriginalSource());
 		file.setAuthor(data.getAuthor());
