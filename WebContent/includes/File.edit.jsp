@@ -56,6 +56,14 @@
 <table>
 	<tbody>
 		<tr>
+		<td><label>Tên tệp tin sau khi tải lên:</label></td>
+		<td>
+		<textarea id=filename name="filename" cols="60" rows="1" readonly>${file.filename}</textarea>
+		<div style="font-size: smaller; font-color: red" ><span>Chú ý: Bạn cần điền đủ phần mở rộng của tên file</span></div>
+		</td>
+		</tr>
+		
+		<tr>
 		<td><label>Nguồn gốc tệp tin:</label></td>
 		<td>
 		<textarea id="fileSource" name="fileSource" cols="60" rows="1">${file.originalSource}</textarea>
@@ -122,6 +130,7 @@
 	
 	EditAction.save = function(){
 		// gửi dữ liệu lên server
+		file.filename = tinymce.get('filename').getContent();
 		file.originalSource = tinymce.get('fileSource').getContent();
 		file.author = tinymce.get('author').getContent();
 		file.additionalInfo = tinymce.get('additionalInfo').getContent();
