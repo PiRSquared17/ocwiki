@@ -5,7 +5,31 @@
 <c:set var="file" value="${empty article ? action.article : article}"></c:set>
 
 <fieldset> 
-<legend>File description</legend> 
+<legend><b>Tải tệp tin</b></legend>
+
+<table class="" id="uploadFile">
+	<tbody>
+	<tr>
+	<td><label>Tệp tin trên máy :</label></td>
+	<td><input id="uploadFile" name="uploadFile" size="60" value="" type="file" />
+	</td></tr>
+	<tr>
+	<td colspan="2" class="htmlform-tip">Kích thước tối đa: 10 MB</td>
+	</tr>
+	<tr>
+	<td><label>Các định dạng cho phép:</label></td>
+	<td><div id="uploadPermitted"><p>png, gif, jpg, jpeg, svg.</p></div></td>
+	</tr>
+	</tbody>
+	<tr>
+	<td><input type="submit" name="submit" value="Tải tệp tin lên"></td>
+	<td><ocw:error code="file"></ocw:error></td>
+	</tr>
+</table>
+</fieldset>
+
+<fieldset> 
+<legend><b>File description</b></legend> 
 <table>
 	<tbody>
 		<tr>
