@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class File extends CategorizableArticle {
 
-	private String filename;
+	private String filename="";
 	private String author = "";
 	private ContentLicense license = ContentLicense.UNKNOWN;
 	private String originalSource = "";
@@ -81,8 +81,14 @@ public class File extends CategorizableArticle {
 	}
 
 	public boolean isImage() {
-		boolean isImage = filename.endsWith("jpg") ||filename.endsWith("png") ||filename.endsWith("gif") ;
-		return isImage;
+		if (filename.equals("")){
+			return false;
+		}
+		else
+		{
+			boolean isImage = filename.endsWith("jpg") ||filename.endsWith("png") ||filename.endsWith("gif") ;
+			return isImage;
+		}
 	}
 
 	public void setImage(boolean isImage) {
