@@ -85,7 +85,7 @@ public class UploadService extends AbstractResource {
 							item.getName());
 					item.write(uploadedFile);
 					oop.data.File file = new oop.data.File();
-					file.setName(uploadedFile.getName());
+					file.setFilename(uploadedFile.getName());
 					file.setNamespace(NamespaceDAO.fetch(Namespace.FILE));
 					// FileDAO.persist(file);
 				} else {
