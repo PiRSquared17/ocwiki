@@ -15,6 +15,7 @@ public class File extends CategorizableArticle {
 	private String originalSource = "";
 	private Date dateOfWork = new Date();
 	private String additionalInfo = "";
+	private boolean isImage ;
 
 	public File() {
 	}
@@ -77,5 +78,14 @@ public class File extends CategorizableArticle {
 
 	public ContentLicense getLicense() {
 		return license;
+	}
+
+	public boolean isImage() {
+		boolean isImage = filename.endsWith("jpg") ||filename.endsWith("png") ||filename.endsWith("gif") ;
+		return isImage;
+	}
+
+	public void setImage(boolean isImage) {
+		this.isImage = isImage;
 	}
 }
