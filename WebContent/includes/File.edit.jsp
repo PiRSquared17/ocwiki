@@ -30,19 +30,21 @@
 <script type="text/javascript">
 <!--
 	var file;
-	new Ajax.Request(restPath + '/files/' + resourceId,{
-		method: 'get',
-		requestHeaders : {
-	       Accept : 'application/json'
-			},
-	    evalJSON : true,
-	    onSuccess : function(transport) {
-			file = transport.responseJSON.result;
-	    },
-	    onFailure: function(transport){ 
-	    	DefaultTemplate.onFailure(transport); 
-		}
-	})
+	Event.observe(window, 'load', function() {
+		new Ajax.Request(restPath + '/files/' + resourceId,{
+			method: 'get',
+			requestHeaders : {
+		       Accept : 'application/json'
+				},
+		    evalJSON : true,
+		    onSuccess : function(transport) {
+				file = transport.responseJSON.result;
+		    },
+		    onFailure: function(transport){ 
+		    	DefaultTemplate.onFailure(transport); 
+			}
+		})
+	});	
 	EditAction=Class.create();
 
 	EditAction.preview=function(){
