@@ -9,13 +9,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class File extends CategorizableArticle {
 
-	private String filename="";
+	private String filename = "";
 	private String author = "";
 	private ContentLicense license = ContentLicense.UNKNOWN;
 	private String originalSource = "";
 	private Date dateOfWork = new Date();
 	private String additionalInfo = "";
-	private boolean isImage ;
 
 	public File() {
 	}
@@ -81,17 +80,14 @@ public class File extends CategorizableArticle {
 	}
 
 	public boolean isImage() {
-		if (filename.equals("")){
+		if (filename == null)
 			return false;
-		}
 		else
-		{
-			boolean isImage = filename.endsWith("jpg") ||filename.endsWith("png") ||filename.endsWith("gif") ;
-			return isImage;
+		{ 
+			if(filename.equals(""))
+				return false;
+			else
+				return (filename.endsWith("jpg") ||filename.endsWith("png") ||filename.endsWith("gif"));
 		}
-	}
-
-	public void setImage(boolean isImage) {
-		this.isImage = isImage;
 	}
 }
