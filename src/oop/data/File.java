@@ -5,15 +5,16 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+
 @XmlRootElement
 public class File extends CategorizableArticle {
 
 	private String filename;
-	private String author;
-	private ContentLicense license;
-	private String originalSource;
-	private Date dateOfWork;
-	private String additionalInfo;
+	private String author = "UNKNOWN";
+	private ContentLicense license = ContentLicense.UNKNOWN;
+	private String originalSource = "UNKNOWN";
+	private Date dateOfWork = new Date() ;
+	private String additionalInfo = "UNKNOWN";
 
 	public File() {
 	}
@@ -77,5 +78,4 @@ public class File extends CategorizableArticle {
 	public ContentLicense getLicense() {
 		return license;
 	}
-
 }

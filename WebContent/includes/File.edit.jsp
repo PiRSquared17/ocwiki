@@ -10,14 +10,14 @@
 <textarea id="fileSource" name="fileSource" cols="80" rows="1"></textarea> <br/>
 
 <label>Tác giả           :</label>
-<textarea id="author" name="author" cols="80" rows="1"></textarea> <br/>
+<textarea id="author" name="author" cols="80" rows=""></textarea> <br/>
 
 <label>Thông tin thêm    :</label>
-<textarea id="additionalInfo" name="additionalInfo" cols="80" rows="1"></textarea> <br/>
+<textarea id="additionalInfo" name="additionalInfo" cols="80" rows=""></textarea> <br/>
 
 <label>Bản quyền         </label>
 <select name="license" id="license">
-<option selected="selected" value="">Không chọn</option> 
+<option selected="selected" value="UNKNOWN">Không chọn</option> 
 <option value="CC3">CC3</option>  
 <option value="CC_SA3">CC_SA3</option> 
 <option value="GFPL">GFPL</option> 

@@ -2,6 +2,8 @@ package oop.data;
 
 public enum ContentLicense {
 
+	UNKNOWN,
+	
 	/**
 	 * Giấy phép <a
 	 * href="http://creativecommons.org/licenses/by/3.0/deed.en">Creative
