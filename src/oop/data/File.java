@@ -13,7 +13,6 @@ public class File extends CategorizableArticle {
 	private ContentLicense license;
 	private String originalSource;
 	private Date dateOfWork;
-	private String description;
 	private String additionalInfo;
 
 	public File() {
@@ -42,14 +41,6 @@ public class File extends CategorizableArticle {
 
 	public void setDateOfWork(Date dateOfWork) {
 		this.dateOfWork = dateOfWork;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getAdditionalInfo() {

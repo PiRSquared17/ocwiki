@@ -22,9 +22,6 @@
 		<property name="originalSource" type="java.lang.String">
 			<column name="original_source" />
 		</property>
-		<property name="description" type="java.lang.String">
-			<column name="description" />
-		</property>
 		<property name="additionalInfo" type="java.lang.String">
 			<column name="additional_info"  />
 		</property>
