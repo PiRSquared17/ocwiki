@@ -57,17 +57,26 @@
 	<tbody>
 		<tr>
 		<td><label>Nguồn gốc tệp tin:</label></td>
-		<td><textarea id="fileSource" name="fileSource" cols="60" rows="1">${file.originalSource}</textarea></td>
+		<td>
+		<textarea id="fileSource" name="fileSource" cols="60" rows="1">${file.originalSource}</textarea>
+		<div style="font-size: smaller;" ><span>Tập tin này từ đâu có?</span></div>
+		</td>
 		</tr>
 		
 		<tr>
 		<td><label>Tác giả:</label></td>
-		<td><textarea id="author" name="author" cols="60" rows="1">${file.author}</textarea></td>
+		<td>
+		<textarea id="author" name="author" cols="60" rows="1">${file.author}</textarea>
+		<div style="font-size: smaller;" ><span>Ai tạo ra tập tin này? Ngoài ra, nếu nó là một tác phẩm nghệ thuật, ai đã tạo ra nó?</span></div>
+		</td>
 		</tr>
 		
 		<tr>
 		<td><label>Thông tin thêm:</label></td>
-		<td><textarea id="additionalInfo" name="additionalInfo" cols="60" rows="1">${file.additionalInfo}</textarea></td>
+		<td>
+		<textarea id="additionalInfo" name="additionalInfo" cols="60" rows="1">${file.additionalInfo}</textarea>
+		<div style="font-size: smaller;" ><span>Bạn có chú thích hay thông tin thêm về tệp tin này?</span></div>
+		</td>
 		</tr>
 		
 		<tr>
@@ -75,12 +84,12 @@
 		<td>
 			<select name="license" id="license">
 			<option selected="selected" value="UNKNOWN">Không chọn</option> 
-			<option value="CC3">CC3</option>  
-			<option value="CC_SA3">CC_SA3</option> 
-			<option value="GFPL">GFPL</option> 
-			<option value="CC_SA3_GFDL">CC_SA3_GFDL</option> 
-			<option value="PUBLIC_DOMAIN">PUBLIC_DOMAIN</option> 
-			<option value="CREATIVE_COMMONS_ZERO_WAIVER">CREATIVE_COMMONS_ZERO_WAIVER</option> 
+			<option value="CC3">Giấy phép Creative Commons 3.0</option>  
+			<option value="CC_SA3">Giấy phép Creative Commons - Share Alike 3.0CC_SA3</option> 
+			<option value="GFPL">Giấy phép GNU Free Documentation License</option> 
+			<option value="CC_SA3_GFDL">Kết hợp 2 giấy phép Creative Commons 3.0 và GNU Free Documentation License</option> 			 
+			<option value="CREATIVE_COMMONS_ZERO_WAIVER">Giấy phép CC0 Waiver</option> 
+			<option value="PUBLIC_DOMAIN">Không nắm giữ bản quyền</option>
 			</select>
 		</td>
 		</tr>
