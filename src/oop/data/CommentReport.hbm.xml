@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 12:42:13 07-09-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="oop.data.CommentReport" table="CommentReportWithUser"
+		entity-name="CommentReportWithUser" mutable="false">
+		<composite-id>
+			<key-many-to-one name="user" class="oop.data.User"
+				access="field">
+				<column name="user" />
+			</key-many-to-one>
+			<key-many-to-one name="comment" class="oop.data.Comment"
+				access="field">
+				<column name="comment" />
+			</key-many-to-one>
+		</composite-id>
+		<property name="status" access="field">
+			<column name="status" />
+			<type name="org.hibernate.type.EnumType">
+				<param name="type">12</param>
+				<param name="enumClass">oop.data.CommentStatus</param>
+			</type>
+		</property>
+		<property name="likeCount" type="integer" access="field">
+			<column name="like_count"></column>
+		</property>
+	</class>
+	<class name="oop.data.CommentReport" table="CommentReportWithoutUser"
+		entity-name="CommentReportWithoutUser">
+		<composite-id>
+			<key-many-to-one name="comment" class="oop.data.Comment"
+				access="field">
+				<column name="comment" />
+			</key-many-to-one>
+		</composite-id>
+		<many-to-one name="user" class="oop.data.User" access="field">
+			<formula>NULL</formula>
+		</many-to-one>
+		<property name="status" access="field">
+			<formula>'NORMAL'</formula>
+			<type name="org.hibernate.type.EnumType">
+				<param name="type">12</param>
+				<param name="enumClass">oop.data.CommentStatus</param>
+			</type>
+		</property>
+		<property name="likeCount" type="integer" access="field">
+			<column name="like_count"></column>
+		</property>
+	</class>
+</hibernate-mapping>
