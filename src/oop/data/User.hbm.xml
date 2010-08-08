@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="oop.data.User" table="user">
+        <id name="id" type="long" access="field">
+            <column name="user_id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="user_name" />
+        </property>
+        <property name="fullname" type="java.lang.String">
+            <column name="user_fullname" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="user_pass" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="user_email" />
+        </property>
+        <property name="group" type="java.lang.String">
+            <column name="user_group" />
+        </property>
+        <property name="blocked" type="boolean">
+            <column name="user_blocked" />
+        </property>
+        <property name="warningMessage" type="java.lang.String">
+            <column name="user_warning" />
+        </property>
+        <property name="avatar" type="java.lang.String" access="field">
+            <column name="user_avatar" />
+        </property>
+        <property name="registerDate" type="java.util.Date" access="field">
+            <column name="USER_REGISTER_DATE" />
+        </property>
+    </class>
+</hibernate-mapping>

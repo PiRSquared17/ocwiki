@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="oop.data.Question" table="sectionQuestion">
+        <id name="id" type="long" access="field">
+            <column name="sq_id" />
+            <generator class="identity" />
+        </id>
+        <version name="version" column="sq_version"></version>
+        <many-to-one name="section" class="oop.data.Section" fetch="select">
+            <column name="sq_section" />
+        </many-to-one>
+        <many-to-one name="base" class="oop.data.BaseQuestion" access="field" fetch="select">
+            <column name="sq_question" />
+        </many-to-one>
+        <property name="mark" type="int">
+            <column name="sq_mark" />
+        </property>
+        <set name="answers" inverse="false" table="sectionQuestionAnswer" 
+                lazy="true" order-by="ans_id asc">
+            <key>
+                <column name="sq_id" />
+            </key>
+            <many-to-many class="oop.data.Answer" column="ans_id"/>
+        </set>
+    </class>
+</hibernate-mapping>

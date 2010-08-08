@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+
+  <description>JSTL 1.1 functions library</description>
+  <display-name>JSTL functions</display-name>
+  <tlib-version>1.1</tlib-version>
+  <short-name>ocw</short-name>
+  <uri>http://code.google.com/tracnghiem-csforce/tld/ocwiki</uri>
+
+  <function>
+    <description>
+      Trả về đường dẫn đến hành động (action).
+    </description>
+    <name>actionUrl</name>
+    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-signature>java.lang.String getActionURL(java.lang.String)</function-signature>
+    <example>
+      ${ocw:actionUrl('ques.view')}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Trả về đường dẫn đến API.
+    </description>
+    <name>apiUrl</name>
+    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-signature>java.lang.String getAPIURL(java.lang.String)</function-signature>
+    <example>
+      ${ocw:apiUrl('topic.ajaxsearch')}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Kiểm tra người sử dụng có quyền thực hiện hành động được cho trước hay không.
+    </description>
+    <name>checkPermission</name>
+    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-signature>boolean checkPermission(oop.data.User, java.lang.String)</function-signature>
+    <example><![CDATA[
+      <c:if test="${ocw:checkPermission('question.edit', sessionScope.user)}">
+        link to question editing action
+      </c:if>
+    ]]></example>
+  </function>
+
+</taglib>
+  

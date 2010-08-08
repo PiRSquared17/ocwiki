@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <homeDir>http://localhost:8080/ocwiki</homeDir>
+    <dbhost>localhost</dbhost>
+    <dbport>3306</dbport>
+    <tablePrefix>ocw</tablePrefix>
+    <dbname>ocwiki_unittest</dbname>
+    <username>root</username>
+    <password>root</password>
+</config>

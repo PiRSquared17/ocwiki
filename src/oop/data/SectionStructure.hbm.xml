@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22:00:03 19-07-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="oop.data.SectionStructure" table="sectionStructure">
+        <id name="id" type="long" access="field">
+            <column name="sstr_id" />
+            <generator class="identity" />
+        </id>
+        <version name="version" column="sstr_version"></version>
+        <many-to-one name="content" class="oop.data.Text" fetch="join" cascade="all">
+            <column name="sstr_content" />
+        </many-to-one>
+        <property name="order" type="int">
+            <column name="sstr_order" />
+        </property>
+        <many-to-one name="testStructure" class="oop.data.TestStructure" fetch="select">
+            <column name="sstr_test" />
+        </many-to-one>
+        <property name="deleted" type="boolean">
+            <column name="sstr_deleted" />
+        </property>
+        <set name="constraints" lazy="true">
+            <key column="con_section" />
+            <one-to-many class="oop.data.Constraint" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <union-subclass name="oop.data.TestStructure" table="testStructure"
+            extends="oop.data.BaseArticle">
+        <property name="name" type="java.lang.String">
+            <column name="tstr_name" />
+        </property>
+        <property name="type" type="java.lang.String">
+            <column name="tstr_type" />
+        </property>
+        <property name="time" type="int">
+            <column name="tstr_time" />
+        </property>
+        <set name="sectionStructures" inverse="false" table="sectionStructure"
+	           lazy="true" where="sstr_deleted=0" order-by="sstr_order asc">
+            <key column="sstr_test" />
+            <one-to-many class="oop.data.SectionStructure" />
+        </set>
+    </union-subclass>
+</hibernate-mapping>

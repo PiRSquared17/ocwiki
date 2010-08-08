@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19:07:23 18-07-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="oop.data.Article" abstract="true">
+        <id name="id" type="long" access="field">
+            <column name="art_id" />
+            <generator class="increment" />
+        </id>
+        <version name="version" column="art_version"></version>
+        <property name="deleted" type="boolean">
+            <column name="art_deleted" />
+        </property>
+        <many-to-one name="content" class="oop.data.Text" fetch="select">
+            <column name="art_content" />
+        </many-to-one>
+        <many-to-one name="author" class="oop.data.User" access="field" fetch="join">
+            <column name="art_author" />
+        </many-to-one>
+        <property name="createDate" type="java.util.Date" access="field">
+            <column name="art_create_date" />
+        </property>
+        <many-to-one name="lastChange" class="oop.change.Change" fetch="select">
+            <column name="art_last_change"></column>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

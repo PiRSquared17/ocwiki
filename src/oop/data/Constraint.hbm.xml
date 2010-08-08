@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="oop.data.Constraint" table="constraint">
+        <id column="con_id" type="long" access="field">
+            <generator class="identity" />
+        </id>
+        <discriminator column="con_type" type="string" />
+        <version name="version" column="con_version"></version>
+	    <property name="count" type="int" column="con_count" />
+	    <many-to-one name="sectionStructure" column="con_section" class="oop.data.SectionStructure" />
+	    <property name="deleted" type="boolean" column="con_deleted" />
+    </class>
+</hibernate-mapping>

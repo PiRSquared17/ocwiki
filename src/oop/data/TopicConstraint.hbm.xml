@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <subclass name="oop.data.TopicConstraint" extends="oop.data.Constraint">
+        <set name="topics" table="TopicConstraintTopic" fetch="join">
+            <key column="con_id" />
+            <many-to-many class="oop.data.Topic" column="top_id" />
+        </set>
+    </subclass>
+</hibernate-mapping>
