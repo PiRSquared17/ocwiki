@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+<dataset>
+    <table name="ocwTopic">
+        <column>top_id</column>
+        <column>top_name</column>
+        <column>top_parent</column>
+        <row>
+            <value>5</value>
+            <value>Xã hội</value>
+            <null />
+        </row>
+        <row>
+            <value>1</value>
+            <value>Ngoại ngữ</value>
+            <value>5</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>Tiếng Anh</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>Tiếng Pháp</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>Khoa học</value>
+            <null />
+        </row>
+    </table>
+</dataset>

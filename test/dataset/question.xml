@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+<dataset>
+
+    <table name="ocwUser">
+        <column>user_id</column>
+        <column>user_name</column>
+        <column>user_fullname</column>
+        <column>user_pass</column>
+        <column>user_email</column>
+        <column>user_group</column>
+        
+        <row>
+            <value>1</value>
+            <value>cumeo89</value>
+            <value>Lê Ngọc Minh</value>
+            <value>1234</value>
+            <value>cumeo89@gmail.com</value>
+            <value>admin</value>
+        </row>
+    </table>
+    
+    <table name="ocwTopic">
+        <column>art_id</column>
+        <column>top_name</column>
+        <column>top_parent</column>
+        <column>art_author</column>
+        <row>
+            <value>105</value>
+            <value>Xã hội</value>
+            <null />
+            <value>1</value>
+        </row>
+        <row>
+            <value>101</value>
+            <value>Ngoại ngữ</value>
+            <value>105</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>102</value>
+            <value>Tiếng Anh</value>
+            <value>101</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>103</value>
+            <value>Tiếng Pháp</value>
+            <value>101</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>104</value>
+            <value>Khoa học</value>
+            <null />
+            <value>1</value>
+        </row>
+    </table>
+
+    <table name="ocwText">
+        <column>txt_id</column>
+        <column>txt_text</column>
+        <row>
+            <value>1</value>
+            <value>Đây là văn bản thử nghiệm</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>Việt Nam vô địch!!</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>Neil Armstrong was the first man ______ on the moon.</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>Ai là người đầu tiên đặt chân lên mặt trăng?</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>Cấu trúc đề thi đại học 2010</value>
+        </row>
+        <row>
+            <value>6</value>
+            <value>Phần I - Nghe</value>
+        </row>
+        <row>
+            <value>10</value>
+            <value>to walk</value>
+        </row>
+        <row>
+            <value>11</value>
+            <value>walking</value>
+        </row>
+        <row>
+            <value>12</value>
+            <value>walked</value>
+        </row>
+        <row>
+            <value>13</value>
+            <value>has walked</value>
+        </row>
+        <row>
+            <value>14</value>
+            <value>Đặng Tiểu Bình</value>
+        </row>
+        <row>
+            <value>15</value>
+            <value>Geogre W.Bush</value>
+        </row>
+        <row>
+            <value>16</value>
+            <value>Neil Amstrong</value>
+        </row>
+        <row>
+            <value>17</value>
+            <value>Lans Amstrong</value>
+        </row>
+        
+        <row>
+            <value>20</value>
+            <value>Good luck!</value>
+        </row>
+        <row>
+            <value>21</value>
+            <value>Part I - Listening</value>
+        </row>
+    </table>
+    
+    <table name="ocwQuestion">
+        <column>art_id</column>
+        <column>art_content</column>
+        <column>ques_level</column>
+        <column>art_author</column>
+        <column>art_deleted</column>
+        <row>
+            <value>1</value>
+            <value>3</value>
+            <value>3</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>4</value>
+            <value>2</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>4</value>
+            <value>2</value>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>3</value>
+            <value>3</value>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>3</value>
+            <value>2</value>
+            <value>1</value>
+            <value>1</value>
+        </row>
+    </table>
+
+    <table name="ocwAnswer">
+        <column>ans_id</column>
+        <column>ans_content</column>
+        <column>ans_question</column>
+        <column>ans_correct</column>
+        <column>ans_deleted</column>
+        <row>
+            <value>1</value>
+            <value>10</value>
+            <value>1</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>11</value>
+            <value>1</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>12</value>
+            <value>1</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>13</value>
+            <value>1</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>14</value>
+            <value>2</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>6</value>
+            <value>15</value>
+            <value>2</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>7</value>
+            <value>16</value>
+            <value>2</value>
+            <value>1</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>8</value>
+            <value>17</value>
+            <value>2</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+    </table>
+
+</dataset>
