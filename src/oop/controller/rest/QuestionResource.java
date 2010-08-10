@@ -7,8 +7,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response.Status;
 
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
@@ -25,9 +23,8 @@ public class QuestionResource extends AbstractResource {
 	public ListResult<BaseQuestion> list(
 			@DefaultValue("0") @QueryParam("start") int start,
 			@DefaultValue("10") @QueryParam("size") int size) {
-		if (size > MAX_PAGE_SIZE) {
-			throw new WebApplicationException(Status.BAD_REQUEST);
-		}
+		ResourceUtil.assertParamValid(size <= MAX_PAGE_SIZE, "size", size,
+				"too large");
 		List<BaseQuestion> list = BaseQuestionDAO.fetch(start, size);
 		String nextUrl = null;
 		if (list.size() >= size) {

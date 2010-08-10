@@ -11,6 +11,7 @@ import oop.conf.APIDescriptor;
 import oop.conf.Config;
 import oop.controller.api.API;
 import oop.data.User;
+import oop.persistence.HibernateUtil;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
@@ -70,6 +71,8 @@ public class APIController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.getWriter().write(e.getMessage());
+		} finally {
+			HibernateUtil.closeSession();
 		}
 	}
 

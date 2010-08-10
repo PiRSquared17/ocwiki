@@ -40,11 +40,11 @@
 	</div>
 	
 	<div class="meta-wrapper">
-	    Tác giả: <tags:user user="${question.author}" />
+	    Tác giả: <tags:userLink user="${question.author}" />
 	    (${u:formatDateTime(question.createDate)})
 	    <c:if test="${not empty question.lastChange}">
 	        -
-	        Sửa lần cuối bởi <tags:user user="${question.lastChange.user}" />
+	        Sửa lần cuối bởi <tags:userLink user="${question.lastChange.user}" />
 	        <a href="${ocw:actionUrl('article.changelog')}?article=${question.id}">Nhật kí</a>
 	    </c:if> 
 	</div>

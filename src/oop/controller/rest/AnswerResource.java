@@ -41,6 +41,7 @@ public class AnswerResource extends AbstractResource {
 	
 	@PUT
 	@Path("/{id: \\d+}")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ObjectResult<Answer> update(
 			@PathParam("id") long id, 
 			@FormParam("content") String contentStr,

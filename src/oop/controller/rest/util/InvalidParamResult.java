@@ -6,12 +6,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class InvalidParamResult extends ErrorResult {
 
 	public String name;
-	public String value;
+	public Object value;
 
 	InvalidParamResult() {
 	}
 	
-	public InvalidParamResult(String code, String name, String value) {
+	public InvalidParamResult(String code, String name, Object value) {
 		super(code);
 		this.name = name;
 		this.value = value;

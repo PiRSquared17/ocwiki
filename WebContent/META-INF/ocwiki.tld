@@ -31,7 +31,7 @@
     <function-class>oop.controller.action.ActionUtil</function-class>
     <function-signature>java.lang.String getAPIURL(java.lang.String)</function-signature>
     <example>
-      ${ocw:apiUrl('topic.ajaxsearch')}
+      ${ocw:apiUrl('topic.search')}
     </example>
   </function>
 
