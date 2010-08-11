@@ -59,15 +59,15 @@ public class Config {
 	}
 
 	public String getActionPath() {
-		return actionPath;
+		return replaceMagicWords(actionPath);
 	}
 
 	public String getTemplatePath() {
-		return templatePath;
+		return replaceMagicWords(templatePath);
 	}
 	
 	public String getUploadPath() {
-		return uploadPath;
+		return replaceMagicWords(uploadPath);
 	}
 	
 	public String getMainEntry() {
@@ -95,7 +95,7 @@ public class Config {
 	}
 
 	public String getApiPath() {
-		return apiPath;
+		return replaceMagicWords(apiPath);
 	}
 
 	public Set<APIDescriptor> getApiDescriptors() {
@@ -152,22 +152,18 @@ public class Config {
 	}
 
 	public void setActionPath(String actionPath) {
-		actionPath = replaceMagicWords(actionPath);
 		this.actionPath = actionPath;
 	}
 
 	public void setApiPath(String apiPath) {
-		apiPath = replaceMagicWords(apiPath);
 		this.apiPath = apiPath;
 	}
 
 	public void setTemplatePath(String templatePath) {
-		templatePath = replaceMagicWords(templatePath);
 		this.templatePath = templatePath;
 	}
 
 	public void setUploadPath(String uploadPath) {
-		uploadPath = replaceMagicWords(uploadPath);
 		this.uploadPath = uploadPath;
 	}
 
