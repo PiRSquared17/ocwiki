@@ -3,6 +3,7 @@ package oop.controller.action.question;
 import oop.controller.action.AbstractAction;
 import oop.data.Answer;
 import oop.data.BaseQuestion;
+import oop.data.Status;
 import oop.db.dao.AnswerDAO;
 
 public class DeleteAnswerAction extends AbstractAction {
@@ -12,7 +13,7 @@ public class DeleteAnswerAction extends AbstractAction {
 		try {
 			long id = getParams().getLong("id");
 			Answer answer = AnswerDAO.fetch(id);
-			answer.setDeleted(true);
+			answer.setStatus(Status.DELETED);
 			BaseQuestion question = answer.getQuestion();
 			setNextAction("question.view&qv_id=" + question.getId());
 		} catch (NumberFormatException ex) {

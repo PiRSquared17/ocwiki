@@ -2,8 +2,6 @@ package oop.test.hibernate;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import oop.conf.Config;
@@ -26,6 +24,12 @@ public class HibernateTest {
 	private static Config config;
 	private String datasetFile;
 
+	static {
+		config = new Config();
+		ConfigIO.loadDirectory(config, "test/conf");
+		HibernateUtil.init(config);		
+	}
+	
 	public HibernateTest() {
 	}
 	
@@ -36,27 +40,16 @@ public class HibernateTest {
 
 	@BeforeClass
 	public static void _initAll() throws Exception {
-		config = new Config();
-		ConfigIO.loadDirectory(config, "test/conf");
-		HibernateUtil.init(config);
-
 		// truncate all tables
 		IDatabaseConnection dbconn = createDbconn();
 		IDataSet all = readDataSet("test/dataset/all.xml");
 		DatabaseOperation.TRUNCATE_TABLE.execute(dbconn, all);
-		dbconn.close();
 	}
 
 	private static IDatabaseConnection createDbconn()
 			throws ClassNotFoundException, SQLException, DatabaseUnitException {
-		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://" + config.getDatabaseHost() + ":"
-				+ config.getDatabasePort() + "/" + config.getDatabaseName()
-				+ "?useUnicode=true&characterEncoding=UTF-8";
-		Connection conn = DriverManager.getConnection(url, config
-				.getUserName(), config.getPassword());
-		IDatabaseConnection dbconn = new MySqlConnection(conn,
-				"ocwiki_unittest");
+		IDatabaseConnection dbconn = new MySqlConnection(HibernateUtil
+				.getSession().connection(), "ocwiki_unittest");
 		return dbconn;
 	}
 
@@ -79,14 +72,11 @@ public class HibernateTest {
 			IDatabaseConnection dbconn = createDbconn();
 			IDataSet dataset = readDataSet("test/dataset/" + datasetFile);
 			DatabaseOperation.CLEAN_INSERT.execute(dbconn, dataset);
-			dbconn.close();
 		}
 	}
 
 	@After
 	public void _clean() throws Exception {
-		HibernateUtil.getSession().flush();
-		HibernateUtil.getSession().clear();
 		HibernateUtil.closeSession();
 	}
 

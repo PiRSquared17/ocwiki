@@ -16,10 +16,22 @@ public abstract class Article implements Entity {
 	protected Date createDate;
 	protected Change lastChange;
 	protected User author;
-	protected boolean deleted;
+	private Status status = Status.NORMAL;
 	protected Text content;
-	protected int version;
+	protected int version = 0;
 	
+	Article() {
+	}
+	
+	public Article(User author, Text content) {
+		super();
+		this.author = author;
+		this.content = content;
+		createDate = new Date();
+	}
+
+
+
 	@XmlAttribute
 	public long getId() {
 		return id;
@@ -44,13 +56,8 @@ public abstract class Article implements Entity {
 		return author;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	@XmlAttribute
 	public boolean isDeleted() {
-		return deleted;
+		return status == Status.DELETED;
 	}
 
 	public Text getContent() {
@@ -71,6 +78,11 @@ public abstract class Article implements Entity {
 	}
 
 	@XmlAttribute
+	public Status getStatus() {
+		return status;
+	}
+
+	@XmlAttribute
 	public abstract String getName();
 	
 	public String getQualifiedName() {
@@ -78,5 +90,9 @@ public abstract class Article implements Entity {
 	}
 	
 	public abstract Namespace getNamespace();
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 	
 }

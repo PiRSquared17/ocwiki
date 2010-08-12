@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 import oop.data.Topic;
+import oop.data.User;
 import oop.db.dao.TopicDAO;
+import oop.db.dao.UserDAO;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,15 +20,15 @@ public class TopicTest extends HibernateTest {
 	
 	@Test
 	public void self() {
-		Topic topic = TopicDAO.fetchById(4);
-		Assert.assertEquals(4, topic.getId());
+		Topic topic = TopicDAO.fetchById(104);
+		Assert.assertEquals(104, topic.getId());
 		Assert.assertEquals("Khoa học", topic.getName());
 		Assert.assertNull(topic.getParent());
 	}
 	
 	@Test
 	public void ancestors() {
-		Topic topic = TopicDAO.fetchById(2);
+		Topic topic = TopicDAO.fetchById(102);
 		List<Topic> ancestors = topic.getAncestors();
 		Assert.assertEquals("Ngoại ngữ", ancestors.get(0).getName());
 		Assert.assertEquals("Xã hội", ancestors.get(1).getName());
@@ -49,7 +51,8 @@ public class TopicTest extends HibernateTest {
 	
 	@Test
 	public void create() {
-		Topic topic = TopicDAO.create("thử 123", null);
+		User author = UserDAO.fetchById(1);
+		Topic topic = TopicDAO.create("thử 123", null, author);
 		Assert.assertTrue(topic.getId() > 0);
 	}
 	

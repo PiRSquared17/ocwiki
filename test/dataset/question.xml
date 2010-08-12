@@ -132,41 +132,41 @@
         <column>art_content</column>
         <column>ques_level</column>
         <column>art_author</column>
-        <column>art_deleted</column>
+        <column>art_status</column>
         <row>
             <value>1</value>
             <value>3</value>
             <value>3</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>2</value>
             <value>4</value>
             <value>2</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>3</value>
             <value>4</value>
             <value>2</value>
             <value>1</value>
-            <value>1</value>
+            <value>DELETED</value>
         </row>
         <row>
             <value>4</value>
             <value>3</value>
             <value>3</value>
             <value>1</value>
-            <value>1</value>
+            <value>DELETED</value>
         </row>
         <row>
             <value>5</value>
             <value>3</value>
             <value>2</value>
             <value>1</value>
-            <value>1</value>
+            <value>DELETED</value>
         </row>
     </table>
 
@@ -175,62 +175,161 @@
         <column>ans_content</column>
         <column>ans_question</column>
         <column>ans_correct</column>
-        <column>ans_deleted</column>
+        <column>ans_status</column>
         <row>
             <value>1</value>
             <value>10</value>
             <value>1</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>2</value>
             <value>11</value>
             <value>1</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>3</value>
             <value>12</value>
             <value>1</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>4</value>
             <value>13</value>
             <value>1</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>5</value>
             <value>14</value>
             <value>2</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>6</value>
             <value>15</value>
             <value>2</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>7</value>
             <value>16</value>
             <value>2</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>8</value>
             <value>17</value>
             <value>2</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
+        </row>
+    </table>
+
+    <table name="ocwArticleTopic">
+        <column>art_id</column>
+        <column>art_topic</column>
+        
+        <row>
+            <value>1</value>
+            <value>102</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>104</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>104</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>102</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>102</value>
+        </row>
+        <row>
+            <value>6</value>
+            <value>102</value>
+        </row>
+        <row>
+            <value>7</value>
+            <value>102</value>
+        </row>
+    </table>
+
+    <table name="ocwTest">
+        <column>art_id</column>
+        <column>test_name</column>
+        <column>art_content</column>
+        <column>art_author</column>
+        <column>test_type</column>
+        <column>test_time</column>
+        <column>art_status</column>
+        <row>
+            <value>6</value>
+            <value>Tiếng Anh khối D 2010</value>
+            <value>20</value>
+            <value>1</value>
+            <value>tngh</value>
+            <value>90</value>
+            <value>NORMAL</value>
+        </row>
+    </table>
+    
+    <table name="ocwSection">
+        <column>sect_id</column>
+        <column>sect_test</column>
+        <column>sect_text</column>
+        <column>sect_order</column>
+        <column>sect_status</column>
+        <row>
+            <value>1</value>
+            <value>6</value>
+            <value>21</value>
+            <value>1</value>
+            <value>NORMAL</value>
+        </row>
+    </table>
+    
+    <table name="ocwSectionQuestion">
+        <column>sq_id</column>
+        <column>sq_section</column>
+        <column>sq_question</column>
+        <row>
+            <value>1</value>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>1</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>1</value>
+            <value>3</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>1</value>
+            <value>4</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>1</value>
+            <value>5</value>
         </row>
     </table>
 

@@ -3,6 +3,7 @@ package oop.controller.action.test;
 import java.util.List;
 
 import oop.controller.action.AbstractAction;
+import oop.data.Status;
 import oop.data.Test;
 import oop.data.Topic;
 import oop.data.User;
@@ -29,7 +30,7 @@ public class ListAction extends AbstractAction {
 				int count = 0;
 				for (String item : items) {
 					long id = Long.parseLong(item);
-					TestDAO.fetchById(id).setDeleted(true);
+					TestDAO.fetchById(id).setStatus(Status.DELETED);
 				}
 				message("Đã xóa " + count + " mục.");
 			} catch (NumberFormatException ex) {

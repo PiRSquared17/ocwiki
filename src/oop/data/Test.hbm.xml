@@ -15,7 +15,7 @@
             <column name="test_time" />
         </property>
         <set name="sections" inverse="false" table="section" lazy="true"
-                where="sect_deleted=0" order-by="sect_order asc">
+                where="sect_status &lt;&gt; 'DELETED'" order-by="sect_order asc">
             <key>
                 <column name="sect_test" />
             </key>

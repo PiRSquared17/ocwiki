@@ -6,13 +6,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 public class Question implements Entity {
 
 	private long id;
 	private Section section;
 	private BaseQuestion base;
 	private int mark;
-	private boolean deleted;
+	private Status status = Status.NORMAL;
 	private Set<Answer> answers = new HashSet<Answer>();
 	private int version;
 
@@ -37,6 +39,7 @@ public class Question implements Entity {
 		return usedAnswerMap;
 	}
 	
+	@XmlAttribute
 	public long getId() {
 		return id;
 	}
@@ -85,12 +88,8 @@ public class Question implements Entity {
 		return base.getLevel();
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
 	public boolean isDeleted() {
-		return deleted;
+		return status == Status.DELETED;
 	}
 
 	public BaseQuestion getBase() {
@@ -103,6 +102,15 @@ public class Question implements Entity {
 
 	public int getVersion() {
 		return version;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	@XmlAttribute
+	public Status getStatus() {
+		return status;
 	}
 
 }

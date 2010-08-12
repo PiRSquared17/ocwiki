@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import oop.data.SectionStructure;
+import oop.data.Status;
 import oop.data.TestStructure;
 import oop.data.Text;
 import oop.db.Database;
@@ -55,14 +56,14 @@ public class SectionStructureDAO {
 		}
 	}
 
-	public static void drop(long sectionId, boolean deleted) throws SQLException {
+	public static void drop(long sectionId, boolean deleted) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
 			SectionStructure sectionStructure = (SectionStructure) session
 					.load(SectionStructure.class, sectionId);
 			tx = session.beginTransaction();
-			sectionStructure.setDeleted(deleted);
+			sectionStructure.setStatus(Status.DELETED);
 			tx.commit();
 			session.refresh(sectionStructure.getTestStructure());
 		} catch (HibernateException ex) {

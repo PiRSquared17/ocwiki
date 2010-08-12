@@ -45,7 +45,7 @@ public class TestTest extends HibernateTest {
 		List<oop.data.Test> tests = TestDAO.fetch(0, 5);
 		Assert.assertEquals(1, TestDAO.count());
 		Assert.assertEquals(1, tests.size());
-		Assert.assertEquals(1, tests.get(0).getId());
+		Assert.assertEquals(6, tests.get(0).getId());
 		Assert.assertTrue(!tests.get(0).isDeleted());
 	}
 	

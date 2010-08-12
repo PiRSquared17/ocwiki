@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import oop.data.Article;
 import oop.data.Section;
+import oop.data.Status;
 import oop.data.Test;
 import oop.data.Text;
 import oop.db.Database;
@@ -58,7 +59,7 @@ public class SectionDAO {
 		try {
 			Section section = (Section) session.load(Section.class, sectionId);
 			tx = session.beginTransaction();
-			section.setDeleted(deleted);
+			section.setStatus(Status.DELETED);
 			tx.commit();
 			session.refresh(section.getTest());
 		} catch (HibernateException ex) {

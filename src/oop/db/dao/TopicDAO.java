@@ -3,6 +3,7 @@ package oop.db.dao;
 import java.util.List;
 
 import oop.data.Topic;
+import oop.data.User;
 import oop.persistence.HibernateUtil;
 
 import org.hibernate.HibernateException;
@@ -43,12 +44,12 @@ public final class TopicDAO {
 		return query.list();
 	}
 
-	public static Topic create(String name, Topic parent) {
+	public static Topic create(String name, Topic parent, User author) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Topic newTopic = new Topic(name, parent);
+			Topic newTopic = new Topic(name, parent, author);
 			session.save(newTopic);
 			tx.commit();
 			return newTopic;

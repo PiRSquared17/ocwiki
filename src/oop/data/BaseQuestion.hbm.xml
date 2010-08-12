@@ -3,11 +3,12 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<union-subclass name="oop.data.BaseQuestion" table="question"
-		extends="oop.data.Article">
+    		extends="oop.data.BaseArticle">
 		<property name="level" type="int">
 			<column name="ques_level" />
 		</property>
-		<set name="answers" table="answer" lazy="true" where="ans_deleted=0"
+		<set name="answers" table="answer" lazy="true" 
+		      where="ans_status &lt;&gt; 'DELETED'"
 			order-by="ans_id asc">
             <key>
                 <column name="ans_question" />

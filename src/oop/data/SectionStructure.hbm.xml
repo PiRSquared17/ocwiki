@@ -18,9 +18,12 @@
         <many-to-one name="testStructure" class="oop.data.TestStructure" fetch="select">
             <column name="sstr_test" />
         </many-to-one>
-        <property name="deleted" type="boolean">
-            <column name="sstr_deleted" />
-        </property>
+        <property name="status" length="10" column="sstr_status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">oop.data.Status</param>
+                <param name="type">12</param> <!-- VARCHAR -->
+            </type>
+        </property> 
         <set name="constraints" lazy="true">
             <key column="con_section" />
             <one-to-many class="oop.data.Constraint" />

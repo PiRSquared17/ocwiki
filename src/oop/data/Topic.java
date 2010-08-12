@@ -19,7 +19,8 @@ public class Topic extends Article {
 		// default constructor
 	}
 
-	public Topic(String name, Topic parent) {
+	public Topic(String name, Topic parent, User author) {
+		super(author, null);
 		this.name = name;
 		this.parent = parent;
 	}

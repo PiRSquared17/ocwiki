@@ -3,6 +3,7 @@ package oop.db.dao;
 import java.util.Date;
 import java.util.List;
 
+import oop.data.Status;
 import oop.data.TestStructure;
 import oop.data.Text;
 import oop.data.User;
@@ -82,7 +83,7 @@ public class TestStructureDAO {
 			TestStructure testStructure = (TestStructure) session.load(
 					TestStructure.class, id);
 			tx = session.beginTransaction();
-			testStructure.setDeleted(deleted);
+			testStructure.setStatus(Status.DELETED);
 			tx.commit();
 		} catch (HibernateException ex) {
 			if (tx != null)

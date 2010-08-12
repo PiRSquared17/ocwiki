@@ -9,6 +9,11 @@
         <version name="version" column="con_version"></version>
 	    <property name="count" type="int" column="con_count" />
 	    <many-to-one name="sectionStructure" column="con_section" class="oop.data.SectionStructure" />
-	    <property name="deleted" type="boolean" column="con_deleted" />
+        <property name="status" length="10" column="con_status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">oop.data.Status</param>
+                <param name="type">12</param> <!-- VARCHAR -->
+            </type>
+        </property> 
     </class>
 </hibernate-mapping>

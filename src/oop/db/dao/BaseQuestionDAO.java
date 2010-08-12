@@ -6,6 +6,8 @@ import java.util.List;
 
 import oop.data.Article;
 import oop.data.BaseQuestion;
+import oop.data.Status;
+import oop.data.Test;
 import oop.data.Text;
 import oop.data.Topic;
 import oop.data.User;
@@ -23,7 +25,7 @@ public class BaseQuestionDAO {
 			int length) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from BaseQuestion " +
-				"where topic=:topic and deleted=0 " +
+				"where :topic in elements(topics) and (status <> 'DELETED') " +
 				"order by id desc";
 		Query query = session.createQuery(hql);
 		Object topic = session.load(Topic.class, topicId);
@@ -37,7 +39,7 @@ public class BaseQuestionDAO {
 			int length) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from BaseQuestion " +
-				"where author=:author and deleted=0" +
+				"where author=:author and status <> 'DELETED'" +
 				"order by id desc";
 		Query query = session.createQuery(hql);
 		Object author = session.load(Topic.class, authorId);
@@ -49,7 +51,7 @@ public class BaseQuestionDAO {
 
 	public static List<BaseQuestion> fetch(int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from BaseQuestion where deleted=0";
+		String hql = "from BaseQuestion where status <> 'DELETED'";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
@@ -69,7 +71,7 @@ public class BaseQuestionDAO {
 	public static long countByAuthor(long authorId) {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from BaseQuestion " +
-				"where author=:author and deleted=0";
+				"where author=:author and status <> 'DELETED'";
 		Query query = session.createQuery(hql);
 		Object author = session.load(Topic.class, authorId);
 		query.setEntity("author", author);
@@ -79,7 +81,7 @@ public class BaseQuestionDAO {
 	public static long countByTopic(long topicId) {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from BaseQuestion " +
-				"where topic=:topic and deleted=0";
+				"where :topic in elements(topics) and (status <> 'DELETED')";
 		Query query = session.createQuery(hql);
 		Object topic = session.load(Topic.class, topicId);
 		query.setEntity("topic", topic);
@@ -110,7 +112,7 @@ public class BaseQuestionDAO {
 	public static List<BaseQuestion> fetchByContent(String content, int limit) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from BaseQuestion " + 
-		"where content.text like :content and deleted=0 ";
+		"where content.text like :content and status <> 'DELETED' ";
 		Query query = session.createQuery(hql);
 		query.setString("content", content);
 		query.setMaxResults(limit);
@@ -124,7 +126,7 @@ public class BaseQuestionDAO {
 			Article question = (Article) session.load(
 					BaseQuestion.class, questionId); 
 			tx = session.beginTransaction();
-			question.setDeleted(deleted);
+			question.setStatus(Status.DELETED);
 			tx.commit();
 		} catch (HibernateException ex) {
 			if (tx != null)
@@ -149,12 +151,19 @@ public class BaseQuestionDAO {
 	public static List<BaseQuestion> fetchRandomly(long testId,
 			long topicId, int quantity) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from BaseQuestion " +
-				"where topic=:topic and deleted=0 " +
+		String hql = "from BaseQuestion as q " +
+				"where q in " +
+					"(select base from Question " +
+						"where " +
+							"section in (" +
+								"from Section where test = :test " +
+									"and status <> 'DELETED') " +
+							"and status <> 'DELETED') " +
+					"and :topic in elements(topics) and status <> 'DELETED' " +
 				"order by rand()";
 		Query query = session.createQuery(hql);
-		Topic topic = (Topic) session.load(Topic.class, topicId);
-		query.setEntity("topic", topic);
+		query.setEntity("topic", session.load(Topic.class, topicId));
+		query.setEntity("test", session.load(Test.class, testId));
 		query.setMaxResults(quantity);
 		return query.list();
 	}
@@ -169,7 +178,7 @@ public class BaseQuestionDAO {
 
 	public static long count() {
 		String sql = "SELECT COUNT(*) FROM  BaseQuestion " +
-				"where deleted=0";
+				"where status <> 'DELETED'";
 		return HibernateUtil.count(sql);
 	}
 

@@ -9,9 +9,12 @@
             <generator class="increment" />
         </id>
         <version name="version" column="art_version"></version>
-        <property name="deleted" type="boolean">
-            <column name="art_deleted" />
-        </property>
+        <property name="status" length="10" column="art_status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">oop.data.Status</param>
+                <param name="type">12</param> <!-- VARCHAR -->
+            </type>
+        </property> 
         <many-to-one name="content" class="oop.data.Text" fetch="select">
             <column name="art_content" />
         </many-to-one>

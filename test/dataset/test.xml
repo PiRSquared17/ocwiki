@@ -132,41 +132,41 @@
         <column>art_content</column>
         <column>ques_level</column>
         <column>art_author</column>
-        <column>art_deleted</column>
+        <column>art_status</column>
         <row>
             <value>1</value>
             <value>3</value>
             <value>3</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>2</value>
             <value>4</value>
             <value>2</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>3</value>
             <value>4</value>
             <value>2</value>
             <value>1</value>
-            <value>1</value>
+            <value>DELETED</value>
         </row>
         <row>
             <value>4</value>
             <value>3</value>
             <value>3</value>
             <value>1</value>
-            <value>1</value>
+            <value>DELETED</value>
         </row>
         <row>
             <value>5</value>
             <value>3</value>
             <value>2</value>
             <value>1</value>
-            <value>1</value>
+            <value>DELETED</value>
         </row>
     </table>
 
@@ -175,62 +175,69 @@
         <column>ans_content</column>
         <column>ans_question</column>
         <column>ans_correct</column>
-        <column>ans_deleted</column>
+        <column>ans_status</column>
         <row>
             <value>1</value>
             <value>10</value>
             <value>1</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>2</value>
             <value>11</value>
             <value>1</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>3</value>
             <value>12</value>
             <value>1</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>4</value>
             <value>13</value>
             <value>1</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>5</value>
             <value>14</value>
             <value>2</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>6</value>
             <value>15</value>
             <value>2</value>
             <value>0</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>7</value>
             <value>16</value>
             <value>2</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>8</value>
             <value>17</value>
             <value>2</value>
             <value>0</value>
+            <value>NORMAL</value>
+        </row>
+        <row>
+            <value>9</value>
+            <value>17</value>
+            <value>1</value>
             <value>0</value>
+            <value>DELETED</value>
         </row>
     </table>
 
@@ -241,7 +248,7 @@
         <column>art_author</column>
         <column>test_type</column>
         <column>test_time</column>
-        <column>art_deleted</column>
+        <column>art_status</column>
         <row>
             <value>6</value>
             <value>Tiếng Anh khối D 2010</value>
@@ -249,7 +256,7 @@
             <value>1</value>
             <value>tngh</value>
             <value>90</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>7</value>
@@ -258,7 +265,7 @@
             <value>1</value>
             <value>tngh</value>
             <value>120</value>
-            <value>1</value>
+            <value>DELETED</value>
         </row>
     </table>
     
@@ -267,13 +274,13 @@
         <column>sect_test</column>
         <column>sect_text</column>
         <column>sect_order</column>
-        <column>sect_deleted</column>
+        <column>sect_status</column>
         <row>
             <value>1</value>
             <value>6</value>
             <value>21</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
     </table>
     

@@ -14,7 +14,7 @@
             <column name="tstr_time" />
         </property>
         <set name="sectionStructures" inverse="false" table="sectionStructure"
-	           lazy="true" where="sstr_deleted=0" order-by="sstr_order asc">
+	           lazy="true" where="sstr_status &lt;&gt; 'DELETED'" order-by="sstr_order asc">
             <key column="sstr_test" />
             <one-to-many class="oop.data.SectionStructure" />
         </set>

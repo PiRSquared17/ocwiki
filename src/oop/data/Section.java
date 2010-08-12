@@ -5,13 +5,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 public class Section implements Entity {
 
 	private long id;
 	private Text text;
 	private int order;
 	private Article test;
-	private boolean deleted;
+	private Status status = Status.NORMAL;
 	private Set<Question> questions = new HashSet<Question>();
 	private int version;
 
@@ -71,12 +73,8 @@ public class Section implements Entity {
 		return test;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
 	public boolean isDeleted() {
-		return deleted;
+		return status == Status.DELETED;
 	}
 
 	public void setVersion(int version) {
@@ -85,6 +83,15 @@ public class Section implements Entity {
 
 	public int getVersion() {
 		return version;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	@XmlAttribute
+	public Status getStatus() {
+		return status;
 	}
 
 }

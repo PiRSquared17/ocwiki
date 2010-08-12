@@ -66,16 +66,16 @@ public class QuestionTest extends HibernateTest {
 	
 	@Test
 	public void fetchRandomly() {
-		List<BaseQuestion> questions = BaseQuestionDAO.fetchRandomly(0, 2, 2);
+		List<BaseQuestion> questions = BaseQuestionDAO.fetchRandomly(6, 102, 2);
 		Assert.assertEquals(1, questions.size());
 		Assert.assertEquals(1, questions.get(0).getId());
 	}
 	
 	@Test
 	public void fetchByTopic() {
-		List<BaseQuestion> questions = BaseQuestionDAO.fetchByTopic(2, 0, 2);
+		List<BaseQuestion> questions = BaseQuestionDAO.fetchByTopic(102, 0, 2);
 		Assert.assertEquals(1, questions.size());
-		Assert.assertEquals(1, BaseQuestionDAO.countByTopic(2));
+		Assert.assertEquals(1, BaseQuestionDAO.countByTopic(102));
 		Assert.assertEquals(1, questions.get(0).getId());
 	}
 	
@@ -106,7 +106,7 @@ public class QuestionTest extends HibernateTest {
 		Assert.assertEquals(4, size);
 		Answer answer = answers.iterator().next();
 		AnswerDAO.delete(answer.getId());
-		Assert.assertEquals(3, size);
+		Assert.assertEquals(3, question.getAnswers().size());
 	}
 	
 }

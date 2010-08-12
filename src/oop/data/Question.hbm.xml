@@ -17,6 +17,12 @@
         <property name="mark" type="int">
             <column name="sq_mark" />
         </property>
+        <property name="status" length="10" column="sq_status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">oop.data.Status</param>
+                <param name="type">12</param> <!-- VARCHAR -->
+            </type>
+        </property> 
         <set name="answers" inverse="false" table="sectionQuestionAnswer" 
                 lazy="true" order-by="ans_id asc">
             <key>

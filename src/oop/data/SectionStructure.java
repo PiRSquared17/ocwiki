@@ -9,7 +9,7 @@ public class SectionStructure implements Entity {
 	private int order;
 	private Text content;
 	private Set<Constraint> constraints = null;
-	private boolean deleted;
+	private Status status = Status.NORMAL;
 	private int version;
 	
 	SectionStructure() {
@@ -58,12 +58,8 @@ public class SectionStructure implements Entity {
 		this.testStructure = testStructure;
 	}
 	
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
 	public boolean isDeleted() {
-		return deleted;
+		return status == Status.DELETED;
 	}
 
 	public void setVersion(int version) {
@@ -72,6 +68,14 @@ public class SectionStructure implements Entity {
 
 	public int getVersion() {
 		return version;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Status getStatus() {
+		return status;
 	}
 
 }

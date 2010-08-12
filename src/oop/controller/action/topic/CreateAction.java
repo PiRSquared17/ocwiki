@@ -37,7 +37,7 @@ public class CreateAction extends AbstractAction {
 				}
 
 				if (!error) {
-					TopicDAO.create(name, parent);
+					TopicDAO.create(name, parent, getUser());
 					setNextAction("topic.list");
 					return;
 				}

@@ -5,6 +5,7 @@ import java.util.List;
 import oop.data.BaseQuestion;
 import oop.data.Question;
 import oop.data.Section;
+import oop.data.Status;
 import oop.persistence.HibernateUtil;
 
 import org.hibernate.HibernateException;
@@ -68,7 +69,7 @@ public class QuestionDAO {
 			Question question = (Question) session.load(Question.class,
 					questionId);
 			tx = session.beginTransaction();
-			question.setDeleted(deleted);
+			question.setStatus(Status.DELETED);
 			tx.commit();
 			session.refresh(question.getSection());
 		} catch (HibernateException ex) {

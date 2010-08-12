@@ -11,7 +11,7 @@ public class Answer implements Entity {
 	private BaseQuestion question;
 	private Text content;
 	private boolean correct;
-	private boolean deleted;
+	private Status status = Status.NORMAL;
 	private int version;
 
 	/**
@@ -70,12 +70,8 @@ public class Answer implements Entity {
 		return Long.valueOf(id).hashCode();
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
 	public boolean isDeleted() {
-		return deleted;
+		return status == Status.DELETED;
 	}
 
 	public void setVersion(int version) {
@@ -84,6 +80,15 @@ public class Answer implements Entity {
 
 	public int getVersion() {
 		return version;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	@XmlAttribute
+	public Status getStatus() {
+		return status;
 	}
 	
 }

@@ -2,6 +2,7 @@ package oop.controller.action.section;
 
 import oop.controller.action.AbstractAction;
 import oop.data.Article;
+import oop.data.Status;
 import oop.db.dao.SectionDAO;
 import oop.db.dao.TestDAO;
 
@@ -13,7 +14,7 @@ public class DeleteAction extends AbstractAction {
 		long testId = getParams().getLong("sd_testid");
 		Article test = TestDAO.fetchById(testId);
 
-		SectionDAO.fetchById(sectionId).setDeleted(true);
+		SectionDAO.fetchById(sectionId).setStatus(Status.DELETED);
 		SectionDAO.normalize(testId);
 
 		setNextAction("test.view&tv_id=" + testId);

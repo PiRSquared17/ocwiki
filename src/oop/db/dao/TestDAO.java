@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import oop.data.Article;
+import oop.data.Status;
 import oop.data.Test;
 import oop.data.Text;
 import oop.data.Topic;
@@ -30,7 +31,7 @@ public class TestDAO {
 	
 	public static Article fetchByName(String name) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Test where name=:name and deleted=0";
+		String hql = "from Test where name=:name and status <> 'DELETED'";
 		Query query = session.createQuery(hql);
 		query.setString("name", name);
 		return (Article) query.uniqueResult();
@@ -38,7 +39,7 @@ public class TestDAO {
 
 	public static List<Test> fetchByNameLike(String name, int limit) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Test where name like :name and deleted=0";
+		String hql = "from Test where name like :name and status <> 'DELETED'";
 		Query query = session.createQuery(hql);
 		query.setString("name", name);
 		query.setMaxResults(limit);
@@ -47,13 +48,13 @@ public class TestDAO {
 
 	public static long count() {
 		String hql = "SELECT COUNT(*) FROM Test " +
-				"where deleted=0";
+				"where status <> 'DELETED'";
 		return HibernateUtil.count(hql);
 	}
 	
 	public static List<Test> fetch(int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Test where deleted=0 order by id desc";
+		String hql = "from Test where status <> 'DELETED' order by id desc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
@@ -62,7 +63,7 @@ public class TestDAO {
 	
 	public static List<Test> fetchCreateDateOrder(int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Test where deleted=0 order by id desc";
+		String hql = "from Test where status <> 'DELETED' order by id desc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
@@ -72,7 +73,7 @@ public class TestDAO {
 	public static long countByTopic(long id) {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from Test " +
-				"where topic=:topic and deleted=0";
+				"where topic=:topic and status <> 'DELETED'";
 		Query query = session.createQuery(hql);
 		query.setEntity("topic", session.load(Topic.class, id));
 		return (Long) query.uniqueResult();
@@ -80,7 +81,7 @@ public class TestDAO {
 
 	public static List<Test> fetchByTopic(long id, int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Test where topic=:topic and deleted=0 " +
+		String hql = "from Test where topic=:topic and status <> 'DELETED' " +
 				"order by id desc";
 		Query query = session.createQuery(hql);
 		query.setEntity("topic", session.load(Topic.class, id));
@@ -92,7 +93,7 @@ public class TestDAO {
 	public static long countByAuthor(long id) {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from Test " +
-				"where author=:author and deleted=0";
+				"where author=:author and status <> 'DELETED'";
 		Query query = session.createQuery(hql);
 		query.setEntity("author", session.load(User.class, id));
 		return (Long) query.uniqueResult();
@@ -100,7 +101,7 @@ public class TestDAO {
 
 	public static List<Test> fetchByAuthor(long id, int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Test where author=:author deleted=0";
+		String hql = "from Test where author=:author status <> 'DELETED'";
 		Query query = session.createQuery(hql);
 		query.setEntity("author", session.load(User.class, id));
 		query.setFirstResult(start);
@@ -136,7 +137,7 @@ public class TestDAO {
 		try {
 			Article test = (Article) session.load(Test.class, testId);
 			tx = session.beginTransaction();
-			test.setDeleted(deleted);
+			test.setStatus(Status.DELETED);
 			tx.commit();
 		} catch (HibernateException ex) {
 			if (tx != null)

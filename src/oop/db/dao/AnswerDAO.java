@@ -2,6 +2,7 @@ package oop.db.dao;
 
 import oop.data.Answer;
 import oop.data.BaseQuestion;
+import oop.data.Status;
 import oop.data.Text;
 import oop.persistence.HibernateUtil;
 
@@ -48,7 +49,7 @@ public final class AnswerDAO {
 		try {
 			tx = session.beginTransaction();
 			Answer answer = (Answer) session.load(Answer.class, answerId);
-			answer.setDeleted(true);
+			answer.setStatus(Status.DELETED);
 			tx.commit();
 			session.refresh(answer.getQuestion());
 		} catch (HibernateException ex) {

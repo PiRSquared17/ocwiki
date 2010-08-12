@@ -1,32 +1,36 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 22:00:03 19-07-2010 by Hibernate Tools 3.3.0.GA -->
+	<!-- Generated 22:00:03 19-07-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-    <class name="oop.data.Section" table="section">
-        <id name="id" type="long" access="field">
-            <column name="sect_id" />
-            <generator class="identity" />
-        </id>
-        <version name="version" column="sect_version"></version>
-        <many-to-one name="text" class="oop.data.Text" fetch="join" cascade="all">
-            <column name="sect_text" />
-        </many-to-one>
-        <property name="order" type="int">
-            <column name="sect_order" />
-        </property>
-        <many-to-one name="test" class="oop.data.Test" fetch="select">
-            <column name="sect_test" />
-        </many-to-one>
-        <property name="deleted" type="boolean">
-            <column name="sect_deleted" />
-        </property>
-        <set name="questions" inverse="false" table="sectionQuestion" 
-                lazy="true" where="sq_deleted=0" order-by="sq_id desc">
-            <key>
-                <column name="sq_section" />
-            </key>
-            <one-to-many class="oop.data.Question" />
-        </set>
-    </class>
+	<class name="oop.data.Section" table="section">
+		<id name="id" type="long" access="field">
+			<column name="sect_id" />
+			<generator class="identity" />
+		</id>
+		<version name="version" column="sect_version"></version>
+		<many-to-one name="text" class="oop.data.Text" fetch="join"
+			cascade="all">
+			<column name="sect_text" />
+		</many-to-one>
+		<property name="order" type="int">
+			<column name="sect_order" />
+		</property>
+		<many-to-one name="test" class="oop.data.Test" fetch="select">
+			<column name="sect_test" />
+		</many-to-one>
+		<property name="status" length="10" column="sect_status">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">oop.data.Status</param>
+				<param name="type">12</param> <!-- VARCHAR -->
+			</type>
+		</property>
+		<set name="questions" inverse="false" table="sectionQuestion"
+			lazy="true" where="sq_status &lt;&gt; 'DELETED'" order-by="sq_id desc">
+			<key>
+				<column name="sq_section" />
+			</key>
+			<one-to-many class="oop.data.Question" />
+		</set>
+	</class>
 </hibernate-mapping>

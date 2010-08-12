@@ -1,11 +1,13 @@
 package oop.data;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 public abstract class Constraint implements Entity {
 
 	private long id;
 	private SectionStructure sectionStructure;
 	private int count;
-	private boolean deleted;
+	private Status status = Status.NORMAL;
 	private int version;
 
 	Constraint() {
@@ -33,12 +35,8 @@ public abstract class Constraint implements Entity {
 		return sectionStructure;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
 	public boolean isDeleted() {
-		return deleted;
+		return status == Status.DELETED;
 	}
 
 	public void setId(long id) {
@@ -55,6 +53,15 @@ public abstract class Constraint implements Entity {
 
 	public int getVersion() {
 		return version;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	@XmlAttribute
+	public Status getStatus() {
+		return status;
 	}
 
 }

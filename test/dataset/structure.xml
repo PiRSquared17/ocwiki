@@ -132,41 +132,105 @@
         <column>art_content</column>
         <column>ques_level</column>
         <column>art_author</column>
-        <column>art_deleted</column>
+        <column>art_status</column>
         <row>
             <value>1</value>
             <value>3</value>
             <value>3</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>2</value>
             <value>4</value>
             <value>2</value>
             <value>1</value>
-            <value>0</value>
+            <value>NORMAL</value>
         </row>
         <row>
             <value>3</value>
             <value>4</value>
             <value>2</value>
             <value>1</value>
-            <value>1</value>
+            <value>DELETED</value>
         </row>
         <row>
             <value>4</value>
             <value>3</value>
             <value>3</value>
             <value>1</value>
-            <value>1</value>
+            <value>DELETED</value>
         </row>
         <row>
             <value>5</value>
             <value>3</value>
             <value>2</value>
             <value>1</value>
+            <value>DELETED</value>
+        </row>
+    </table>
+
+    <table name="ocwAnswer">
+        <column>ans_id</column>
+        <column>ans_content</column>
+        <column>ans_question</column>
+        <column>ans_correct</column>
+        <column>ans_status</column>
+        <row>
             <value>1</value>
+            <value>10</value>
+            <value>1</value>
+            <value>1</value>
+            <value>NORMAL</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>11</value>
+            <value>1</value>
+            <value>0</value>
+            <value>NORMAL</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>12</value>
+            <value>1</value>
+            <value>0</value>
+            <value>NORMAL</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>13</value>
+            <value>1</value>
+            <value>0</value>
+            <value>NORMAL</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>14</value>
+            <value>2</value>
+            <value>0</value>
+            <value>NORMAL</value>
+        </row>
+        <row>
+            <value>6</value>
+            <value>15</value>
+            <value>2</value>
+            <value>0</value>
+            <value>NORMAL</value>
+        </row>
+        <row>
+            <value>7</value>
+            <value>16</value>
+            <value>2</value>
+            <value>1</value>
+            <value>NORMAL</value>
+        </row>
+        <row>
+            <value>8</value>
+            <value>17</value>
+            <value>2</value>
+            <value>0</value>
+            <value>NORMAL</value>
         </row>
     </table>
 
@@ -193,70 +257,6 @@
         <row>
             <value>5</value>
             <value>2</value>
-        </row>
-    </table>
-
-    <table name="ocwAnswer">
-        <column>ans_id</column>
-        <column>ans_content</column>
-        <column>ans_question</column>
-        <column>ans_correct</column>
-        <column>ans_deleted</column>
-        <row>
-            <value>1</value>
-            <value>10</value>
-            <value>1</value>
-            <value>1</value>
-            <value>0</value>
-        </row>
-        <row>
-            <value>2</value>
-            <value>11</value>
-            <value>1</value>
-            <value>0</value>
-            <value>0</value>
-        </row>
-        <row>
-            <value>3</value>
-            <value>12</value>
-            <value>1</value>
-            <value>0</value>
-            <value>0</value>
-        </row>
-        <row>
-            <value>4</value>
-            <value>13</value>
-            <value>1</value>
-            <value>0</value>
-            <value>0</value>
-        </row>
-        <row>
-            <value>5</value>
-            <value>14</value>
-            <value>2</value>
-            <value>0</value>
-            <value>0</value>
-        </row>
-        <row>
-            <value>6</value>
-            <value>15</value>
-            <value>2</value>
-            <value>0</value>
-            <value>0</value>
-        </row>
-        <row>
-            <value>7</value>
-            <value>16</value>
-            <value>2</value>
-            <value>1</value>
-            <value>0</value>
-        </row>
-        <row>
-            <value>8</value>
-            <value>17</value>
-            <value>2</value>
-            <value>0</value>
-            <value>0</value>
         </row>
     </table>
     
