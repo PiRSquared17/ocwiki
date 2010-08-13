@@ -4,6 +4,7 @@
 	<mainEntry>/index.jsp</mainEntry>
 	<actionPath>${homeDir}/action</actionPath>
 	<apiPath>${homeDir}/api</apiPath>
+	<restPath>${homeDir}/rest</restPath>
 	<templatePath>${homeDir}/templates/${template}</templatePath>
 	<uploadPath>${homeDir}/uploads</uploadPath>
 	<defaultTemplate>default</defaultTemplate>

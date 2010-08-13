@@ -13,10 +13,11 @@ public class Config {
 	private String username = "root";
 	private String password = "root";
 	private String homeDir = "http://localhost:8080";
-	private String actionPath = homeDir + "/action";
-	private String apiPath = homeDir + "/api";
-	private String templatePath = homeDir + "/templates";
-	private String uploadPath = homeDir + "/uploads";
+	private String actionPath = "${homeDir}/action";
+	private String apiPath = "${homeDir}/api";
+	private String restPath = "${homeDir}/rest";
+	private String templatePath = "${homeDir}/templates";
+	private String uploadPath = "${homeDir}/uploads";
 	private String mainEntry = "/index.jsp";
 	private String siteName = "OCWiki";
 	private String tablePrefix = "tbl";
@@ -203,6 +204,14 @@ public class Config {
 
 	public void setApiMap(Map<String, APIDescriptor> apiMap) {
 		this.apiMap = apiMap;
+	}
+
+	public void setRestPath(String restPath) {
+		this.restPath = restPath;
+	}
+
+	public String getRestPath() {
+		return replaceMagicWords(restPath);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package oop.controller.rest;
+package oop.controller;
 
 import java.io.IOException;
 

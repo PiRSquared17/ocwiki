@@ -10,15 +10,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ListResult<T> {
 	
-	public List<T> list;
+	public List<T> result;
 	public String next;
 	
 	ListResult() {
 	}
 	
-	public ListResult(List<T> list, String next) {
+	public ListResult(List<T> result, String next) {
 		super();
-		this.list = list;
+		this.result = result;
 		this.next = next;
 	}
 	

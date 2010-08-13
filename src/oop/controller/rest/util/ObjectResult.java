@@ -3,20 +3,22 @@
  */
 package oop.controller.rest.util;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
 @XmlRootElement
 public class ObjectResult<T> {
 	
-	public T object;
+	@XmlElement
+	public T result;
 	
 	ObjectResult() {
 	}
 
-	public ObjectResult(T object) {
+	public ObjectResult(T result) {
 		super();
-		this.object = object;
+		this.result = result;
 	}
 	
 }

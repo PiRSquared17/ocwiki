@@ -101,7 +101,15 @@ public class HibernateUtil {
 		if (sessionLocal.get() != null) {
 			Session session = sessionLocal.get();
 			if (session.isOpen()) {
-				session.close();
+				try {
+					session.flush();
+					Transaction tx = session.getTransaction();
+					if (tx.isActive()) {
+						tx.commit();
+					}
+				} finally {
+					session.close();
+				}
 			}
 			sessionLocal.set(null);
 		}

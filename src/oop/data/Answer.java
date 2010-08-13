@@ -44,6 +44,7 @@ public class Answer implements Entity {
 		this.correct = correct;
 	}
 
+	@XmlAttribute
 	public boolean isCorrect() {
 		return correct;
 	}
@@ -70,6 +71,7 @@ public class Answer implements Entity {
 		return Long.valueOf(id).hashCode();
 	}
 
+	@XmlTransient
 	public boolean isDeleted() {
 		return status == Status.DELETED;
 	}
@@ -78,6 +80,7 @@ public class Answer implements Entity {
 		this.version = version;
 	}
 
+	@XmlAttribute
 	public int getVersion() {
 		return version;
 	}

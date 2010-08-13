@@ -49,7 +49,7 @@
   <servlet>
     <description></description>
     <servlet-name>REST Service</servlet-name>
-    <servlet-class>oop.controller.rest.RestController</servlet-class>
+    <servlet-class>oop.controller.RestController</servlet-class>
     <init-param>
       <param-name>com.sun.jersey.config.property.packages</param-name>
       <param-value>oop.controller.rest</param-value>
