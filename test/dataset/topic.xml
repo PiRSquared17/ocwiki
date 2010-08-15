@@ -6,27 +6,27 @@
         <column>top_name</column>
         <column>top_parent</column>
         <row>
-            <value>5</value>
+            <value>105</value>
             <value>Xã hội</value>
             <null />
         </row>
         <row>
-            <value>1</value>
+            <value>101</value>
             <value>Ngoại ngữ</value>
-            <value>5</value>
+            <value>105</value>
         </row>
         <row>
-            <value>2</value>
+            <value>102</value>
             <value>Tiếng Anh</value>
-            <value>1</value>
+            <value>101</value>
         </row>
         <row>
-            <value>3</value>
+            <value>103</value>
             <value>Tiếng Pháp</value>
-            <value>1</value>
+            <value>101</value>
         </row>
         <row>
-            <value>4</value>
+            <value>104</value>
             <value>Khoa học</value>
             <null />
         </row>

@@ -24,7 +24,7 @@ public class ActionUtil {
 	public static boolean checkPermission(User user, String actionName) {
 		ActionDescriptor actionDescriptor = Config.get().getActionDescriptor(
 				actionName);
-		Set<String> groups = actionDescriptor.getRequiredGroup();
+		Set<String> groups = actionDescriptor.getRequiredGroups();
 		boolean loginRequired = actionDescriptor.isLoginRequired()
 				|| !Utils.isEmpty(groups);
 		return !(loginRequired && user == null) && (Utils.isEmpty(groups)

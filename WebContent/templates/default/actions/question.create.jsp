@@ -30,20 +30,6 @@ function validate() {
         <div class="error-validating">${action.levelError}</div>
 	</p>
 	<br />
-    <!--<p>Điểm: 
-        <input type="text" id="txtMark" name="qc_mark" 
-                value="${empty param.qc_mark ? 1 : param.qc_mark}"
-                maxlength="2" onblur="" style="width:300px;"></input>
-        <div class="error-validating">${action.markError}</div>
-    </p>
-	<br />
-	--><!-- 
-	<label>
-	   <input type="checkbox" name="more" value="true" 
-	           ${param.more ? 'checked' : ''} style="float: none"></input>
-	   Thêm nữa
-	</label>
-	 -->
 	<p>
 		<button type="submit" name="qc_submit" value="create">Tạo</button>
 		<button type="button" onclick="location.href='${scripPath}?action=question.list'">Quay về danh sách</button>

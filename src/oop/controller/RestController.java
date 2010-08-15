@@ -8,18 +8,19 @@ import javax.servlet.ServletResponse;
 
 import oop.persistence.HibernateUtil;
 
-public class RestController extends com.sun.jersey.spi.container.servlet.ServletContainer {
+public class RestController extends
+		com.sun.jersey.spi.container.servlet.ServletContainer {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void service(ServletRequest arg0, ServletResponse arg1)
+	public void service(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
 		try {
-			super.service(arg0, arg1);
+			super.service(request, response);
 		} finally {
 			HibernateUtil.closeSession();
 		}
 	}
-	
+
 }

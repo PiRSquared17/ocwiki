@@ -15,7 +15,7 @@ import org.junit.Test;
 public class TopicTest extends HibernateTest {
 
 	public TopicTest() {
-		super("test.xml");
+		super("topic.xml");
 	}
 	
 	@Test

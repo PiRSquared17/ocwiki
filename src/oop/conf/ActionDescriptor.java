@@ -18,7 +18,7 @@ public class ActionDescriptor {
 		return loginRequired;
 	}
 
-	public Set<String> getRequiredGroup() {
+	public Set<String> getRequiredGroups() {
 		return requiredGroups;
 	}
 

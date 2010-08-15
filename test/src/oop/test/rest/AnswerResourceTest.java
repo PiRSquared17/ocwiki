@@ -30,8 +30,8 @@ public class AnswerResourceTest {
 				+ "/answers/1");
 		MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
 		formData.putSingle("content", "xyz");
-		String json = resource.type(MediaType.APPLICATION_FORM_URLENCODED).put(
-				String.class, formData);
+		String json = resource.type(MediaType.APPLICATION_FORM_URLENCODED)
+				.post(String.class, formData);
 		ObjectResult<Answer> obj = GsonFactory.get().fromJson(json,
 				new TypeToken<ObjectResult<Answer>>() {
 				}.getType());

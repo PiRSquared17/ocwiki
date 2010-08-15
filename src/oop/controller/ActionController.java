@@ -91,11 +91,11 @@ public class ActionController extends HttpServlet {
 						"Bạn cần đăng nhập để thực hiện chức năng này.");
 				return;
 			}
-			Set<String> requiredGroup = actionDesc.getRequiredGroup();
-			if (!Utils.isEmpty(requiredGroup)
-					&& (!loggedIn || !requiredGroup.contains(user.getGroup()))) {
+			Set<String> requiredGroups = actionDesc.getRequiredGroups();
+			if (!Utils.isEmpty(requiredGroups)
+					&& (!loggedIn || !requiredGroups.contains(user.getGroup()))) {
 				error(request, response, "Bạn cần phải thuộc nhóm "
-						+ requiredGroup + " để thực hiện chức năng này.");
+						+ requiredGroups + " để thực hiện chức năng này.");
 				return;
 			}
 
@@ -116,7 +116,7 @@ public class ActionController extends HttpServlet {
 						request.getQueryString());
 			}
 			if (action.getNextAction() != null) {
-				String url = Config.get().getActionPath() + "/"
+				String url = Config.get().getHomeDir() + "/index.jsp?action="
 						+ action.getNextAction();
 				response.sendRedirect(url);
 			} else if (action.getRedirect() != null) {

@@ -3,20 +3,24 @@
  */
 package oop.controller.rest.util;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class ListResult<T> {
 	
-	public List<T> result;
+	public Collection<T> result;
 	public String next;
 	
 	ListResult() {
 	}
+
+	public ListResult(Collection<T> result) {
+		this(result, null);
+	}
 	
-	public ListResult(List<T> result, String next) {
+	public ListResult(Collection<T> result, String next) {
 		super();
 		this.result = result;
 		this.next = next;

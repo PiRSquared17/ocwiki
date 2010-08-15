@@ -18,11 +18,11 @@ public class SignUpAction extends AbstractAction {
 		}
 		if ("Sign Up".equals(getParams().get("signUp"))) {
 			int error = 0;
-			String userName = getParams().get("userName");
-			String email = getParams().get("userEmail");
+			String userName = getParams().get("userName").trim();
+			String email = getParams().get("userEmail").trim();
 			String password = getParams().get("password");
 			String confirm = getParams().get("confirmPass");
-			String fullname = getParams().getString("fullName");
+			String fullname = getParams().getString("fullName").trim();
 
 			if (UserDAO.fetchByUsername(userName) != null) {
 				// nguoi dung da ton tai
