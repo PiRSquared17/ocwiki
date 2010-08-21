@@ -11,79 +11,6 @@
   <short-name>ocw</short-name>
   <uri>http://code.google.com/tracnghiem-csforce/tld/ocwiki</uri>
 
-  <function>
-    <description>
-      Trả về đường dẫn đến hành động (action).
-    </description>
-    <name>actionUrl</name>
-    <function-class>oop.controller.action.ActionUtil</function-class>
-    <function-signature>java.lang.String getActionURL(java.lang.String)</function-signature>
-    <example>
-      ${ocw:actionUrl('ques.view')}
-    </example>
-  </function>
-
-  <function>
-    <description>
-      Trả về đường dẫn đến API.
-    </description>
-    <name>apiUrl</name>
-    <function-class>oop.controller.action.ActionUtil</function-class>
-    <function-signature>java.lang.String getAPIURL(java.lang.String)</function-signature>
-    <example>
-      ${ocw:apiUrl('topic.search')}
-    </example>
-  </function>
-
-  <function>
-    <description>
-      Kiểm tra người sử dụng có quyền thực hiện hành động được cho trước hay không.
-    </description>
-    <name>checkPermission</name>
-    <function-class>oop.controller.action.ActionUtil</function-class>
-    <function-signature>boolean checkPermission(oop.data.User, java.lang.String)</function-signature>
-    <example><![CDATA[
-      <c:if test="${ocw:checkPermission('question.edit', sessionScope.user)}">
-        link to question editing action
-      </c:if>
-    ]]></example>
-  </function>
-
-  <tag-file>
-    <description>Hiển thị danh sách chủ đề cho một bài viết nhất định</description>
-    <display-name>Danh sách chủ đề</display-name>
-    <name>topics</name>
-    <path>/WEB-INF/tags/topics.tag</path>
-  </tag-file>
-
-  <tag-file>
-    <description>Thông báo lỗi</description>
-    <display-name>Thông báo lỗi</display-name>
-    <name>error</name>
-    <path>/WEB-INF/tags/error.tag</path>
-  </tag-file>
-
-  <tag-file>
-    <description>Tạo liên kết đến bài viết</description>
-    <display-name>Liên kết bài viết</display-name>
-    <name>articleLink</name>
-    <path>/WEB-INF/tags/articleLink.tag</path>
-  </tag-file>
-  
-  <tag-file>
-    <description>Tạo liên kết đến profile của người dùng</description>
-    <display-name>Profile người dùng</display-name>
-    <name>userLink</name>
-    <path>/WEB-INF/tags/userLink.tag</path>
-  </tag-file>
-  
-  <tag-file>
-    <description>Tạo nút nhấn đến bài viết</description>
-    <display-name>Nút nhấn bài viết</display-name>
-    <name>articleButton</name>
-    <path>/WEB-INF/tags/articleButton.tag</path>
-  </tag-file>
-
   <tag>
     <description>Chèn form HTML</description>
     <display-name>form</display-name>
@@ -171,6 +98,79 @@
         <rtexprvalue>true</rtexprvalue>
     </attribute>    
   </tag>
+
+  <tag-file>
+    <description>Hiển thị danh sách chủ đề cho một bài viết nhất định</description>
+    <display-name>Danh sách chủ đề</display-name>
+    <name>topics</name>
+    <path>/WEB-INF/tags/topics.tag</path>
+  </tag-file>
+
+  <tag-file>
+    <description>Thông báo lỗi</description>
+    <display-name>Thông báo lỗi</display-name>
+    <name>error</name>
+    <path>/WEB-INF/tags/error.tag</path>
+  </tag-file>
+
+  <tag-file>
+    <description>Tạo liên kết đến bài viết</description>
+    <display-name>Liên kết bài viết</display-name>
+    <name>articleLink</name>
+    <path>/WEB-INF/tags/articleLink.tag</path>
+  </tag-file>
+  
+  <tag-file>
+    <description>Tạo liên kết đến profile của người dùng</description>
+    <display-name>Profile người dùng</display-name>
+    <name>userLink</name>
+    <path>/WEB-INF/tags/userLink.tag</path>
+  </tag-file>
+  
+  <tag-file>
+    <description>Tạo nút nhấn đến bài viết</description>
+    <display-name>Nút nhấn bài viết</display-name>
+    <name>articleButton</name>
+    <path>/WEB-INF/tags/articleButton.tag</path>
+  </tag-file>
+
+  <function>
+    <description>
+      Trả về đường dẫn đến hành động (action).
+    </description>
+    <name>actionUrl</name>
+    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-signature>java.lang.String getActionURL(java.lang.String)</function-signature>
+    <example>
+      ${ocw:actionUrl('ques.view')}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Trả về đường dẫn đến API.
+    </description>
+    <name>apiUrl</name>
+    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-signature>java.lang.String getAPIURL(java.lang.String)</function-signature>
+    <example>
+      ${ocw:apiUrl('topic.search')}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Kiểm tra người sử dụng có quyền thực hiện hành động được cho trước hay không.
+    </description>
+    <name>checkPermission</name>
+    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-signature>boolean checkPermission(oop.data.User, java.lang.String)</function-signature>
+    <example><![CDATA[
+      <c:if test="${ocw:checkPermission('question.edit', sessionScope.user)}">
+        link to question editing action
+      </c:if>
+    ]]></example>
+  </function>
 
 </taglib>
   

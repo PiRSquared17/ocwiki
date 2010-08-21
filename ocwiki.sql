@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 21, 2010 at 07:51 PM
+-- Generation Time: Aug 21, 2010 at 11:21 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.2-1ubuntu4.2
 
@@ -25,6 +25,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `ocwAnswer`
 --
 
+DROP TABLE IF EXISTS `ocwAnswer`;
 CREATE TABLE IF NOT EXISTS `ocwAnswer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) NOT NULL,
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `ocwAnswer` (
 -- Table structure for table `ocwArticleAttachment`
 --
 
+DROP TABLE IF EXISTS `ocwArticleAttachment`;
 CREATE TABLE IF NOT EXISTS `ocwArticleAttachment` (
   `article_id` bigint(20) NOT NULL,
   `file_id` bigint(20) NOT NULL,
@@ -62,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticleAttachment` (
 -- Table structure for table `ocwArticleEmbed`
 --
 
+DROP TABLE IF EXISTS `ocwArticleEmbed`;
 CREATE TABLE IF NOT EXISTS `ocwArticleEmbed` (
   `article_id` bigint(20) NOT NULL,
   `file_id` bigint(20) NOT NULL,
@@ -80,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticleEmbed` (
 -- Table structure for table `ocwArticleTopic`
 --
 
+DROP TABLE IF EXISTS `ocwArticleTopic`;
 CREATE TABLE IF NOT EXISTS `ocwArticleTopic` (
   `article_id` bigint(20) NOT NULL,
   `topic_id` bigint(20) NOT NULL,
@@ -98,6 +102,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticleTopic` (
 -- Table structure for table `ocwBaseQuestion`
 --
 
+DROP TABLE IF EXISTS `ocwBaseQuestion`;
 CREATE TABLE IF NOT EXISTS `ocwBaseQuestion` (
   `id` bigint(20) NOT NULL,
   `namespace` bigint(20) NOT NULL,
@@ -122,6 +127,7 @@ INSERT INTO `ocwBaseQuestion` (`id`, `namespace`, `content`, `name`, `level`) VA
 -- Table structure for table `ocwBaseQuestionAnswer`
 --
 
+DROP TABLE IF EXISTS `ocwBaseQuestionAnswer`;
 CREATE TABLE IF NOT EXISTS `ocwBaseQuestionAnswer` (
   `question_id` bigint(20) NOT NULL,
   `answer_id` bigint(20) NOT NULL,
@@ -142,6 +148,7 @@ CREATE TABLE IF NOT EXISTS `ocwBaseQuestionAnswer` (
 -- Table structure for table `ocwComment`
 --
 
+DROP TABLE IF EXISTS `ocwComment`;
 CREATE TABLE IF NOT EXISTS `ocwComment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user` bigint(20) NOT NULL,
@@ -167,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `ocwComment` (
 -- Table structure for table `ocwConstraint`
 --
 
+DROP TABLE IF EXISTS `ocwConstraint`;
 CREATE TABLE IF NOT EXISTS `ocwConstraint` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -186,6 +194,7 @@ CREATE TABLE IF NOT EXISTS `ocwConstraint` (
 -- Table structure for table `ocwFile`
 --
 
+DROP TABLE IF EXISTS `ocwFile`;
 CREATE TABLE IF NOT EXISTS `ocwFile` (
   `id` bigint(20) NOT NULL,
   `namespace` bigint(20) NOT NULL,
@@ -208,6 +217,7 @@ CREATE TABLE IF NOT EXISTS `ocwFile` (
 -- Table structure for table `ocwHistory`
 --
 
+DROP TABLE IF EXISTS `ocwHistory`;
 CREATE TABLE IF NOT EXISTS `ocwHistory` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user` bigint(20) DEFAULT NULL,
@@ -231,6 +241,7 @@ CREATE TABLE IF NOT EXISTS `ocwHistory` (
 -- Table structure for table `ocwLog`
 --
 
+DROP TABLE IF EXISTS `ocwLog`;
 CREATE TABLE IF NOT EXISTS `ocwLog` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -259,6 +270,7 @@ CREATE TABLE IF NOT EXISTS `ocwLog` (
 -- Table structure for table `ocwNamespace`
 --
 
+DROP TABLE IF EXISTS `ocwNamespace`;
 CREATE TABLE IF NOT EXISTS `ocwNamespace` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -284,6 +296,7 @@ INSERT INTO `ocwNamespace` (`id`, `name`) VALUES
 -- Table structure for table `ocwQuestion`
 --
 
+DROP TABLE IF EXISTS `ocwQuestion`;
 CREATE TABLE IF NOT EXISTS `ocwQuestion` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `base_resource` bigint(20) DEFAULT NULL,
@@ -305,6 +318,7 @@ CREATE TABLE IF NOT EXISTS `ocwQuestion` (
 -- Table structure for table `ocwResource`
 --
 
+DROP TABLE IF EXISTS `ocwResource`;
 CREATE TABLE IF NOT EXISTS `ocwResource` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
@@ -332,6 +346,7 @@ INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `a
 -- Table structure for table `ocwRevision`
 --
 
+DROP TABLE IF EXISTS `ocwRevision`;
 CREATE TABLE IF NOT EXISTS `ocwRevision` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource` bigint(20) NOT NULL,
@@ -358,6 +373,7 @@ INSERT INTO `ocwRevision` (`id`, `resource`, `article`, `author`, `timestamp`, `
 -- Table structure for table `ocwSection`
 --
 
+DROP TABLE IF EXISTS `ocwSection`;
 CREATE TABLE IF NOT EXISTS `ocwSection` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) NOT NULL,
@@ -376,6 +392,7 @@ CREATE TABLE IF NOT EXISTS `ocwSection` (
 -- Table structure for table `ocwSectionQuestion`
 --
 
+DROP TABLE IF EXISTS `ocwSectionQuestion`;
 CREATE TABLE IF NOT EXISTS `ocwSectionQuestion` (
   `section_id` bigint(20) NOT NULL,
   `question_id` bigint(20) NOT NULL,
@@ -395,6 +412,7 @@ CREATE TABLE IF NOT EXISTS `ocwSectionQuestion` (
 -- Table structure for table `ocwSectionStructure`
 --
 
+DROP TABLE IF EXISTS `ocwSectionStructure`;
 CREATE TABLE IF NOT EXISTS `ocwSectionStructure` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) DEFAULT NULL,
@@ -413,6 +431,7 @@ CREATE TABLE IF NOT EXISTS `ocwSectionStructure` (
 -- Table structure for table `ocwSectionStructureConstraint`
 --
 
+DROP TABLE IF EXISTS `ocwSectionStructureConstraint`;
 CREATE TABLE IF NOT EXISTS `ocwSectionStructureConstraint` (
   `section_id` bigint(20) NOT NULL,
   `constraint_id` bigint(20) NOT NULL,
@@ -433,6 +452,7 @@ CREATE TABLE IF NOT EXISTS `ocwSectionStructureConstraint` (
 -- Table structure for table `ocwTest`
 --
 
+DROP TABLE IF EXISTS `ocwTest`;
 CREATE TABLE IF NOT EXISTS `ocwTest` (
   `id` bigint(20) NOT NULL,
   `namespace` bigint(20) NOT NULL,
@@ -456,6 +476,7 @@ CREATE TABLE IF NOT EXISTS `ocwTest` (
 -- Table structure for table `ocwTestSection`
 --
 
+DROP TABLE IF EXISTS `ocwTestSection`;
 CREATE TABLE IF NOT EXISTS `ocwTestSection` (
   `id` bigint(20) NOT NULL,
   `section_id` bigint(20) NOT NULL,
@@ -476,6 +497,7 @@ CREATE TABLE IF NOT EXISTS `ocwTestSection` (
 -- Table structure for table `ocwTestSectionStructure`
 --
 
+DROP TABLE IF EXISTS `ocwTestSectionStructure`;
 CREATE TABLE IF NOT EXISTS `ocwTestSectionStructure` (
   `id` bigint(20) NOT NULL,
   `section_id` bigint(20) NOT NULL,
@@ -496,6 +518,7 @@ CREATE TABLE IF NOT EXISTS `ocwTestSectionStructure` (
 -- Table structure for table `ocwTestStructure`
 --
 
+DROP TABLE IF EXISTS `ocwTestStructure`;
 CREATE TABLE IF NOT EXISTS `ocwTestStructure` (
   `id` bigint(20) NOT NULL,
   `namespace` bigint(20) NOT NULL,
@@ -519,6 +542,7 @@ CREATE TABLE IF NOT EXISTS `ocwTestStructure` (
 -- Table structure for table `ocwText`
 --
 
+DROP TABLE IF EXISTS `ocwText`;
 CREATE TABLE IF NOT EXISTS `ocwText` (
   `txt_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `txt_text` mediumtext COLLATE utf8_vietnamese1_ci,
@@ -538,6 +562,7 @@ INSERT INTO `ocwText` (`txt_id`, `txt_text`) VALUES
 -- Table structure for table `ocwTextArticle`
 --
 
+DROP TABLE IF EXISTS `ocwTextArticle`;
 CREATE TABLE IF NOT EXISTS `ocwTextArticle` (
   `id` bigint(20) NOT NULL,
   `namespace` bigint(20) NOT NULL,
@@ -559,6 +584,7 @@ CREATE TABLE IF NOT EXISTS `ocwTextArticle` (
 -- Table structure for table `ocwTopic`
 --
 
+DROP TABLE IF EXISTS `ocwTopic`;
 CREATE TABLE IF NOT EXISTS `ocwTopic` (
   `id` bigint(20) NOT NULL,
   `namespace` bigint(20) NOT NULL,
@@ -582,6 +608,7 @@ CREATE TABLE IF NOT EXISTS `ocwTopic` (
 -- Table structure for table `ocwTopicConstraintTopic`
 --
 
+DROP TABLE IF EXISTS `ocwTopicConstraintTopic`;
 CREATE TABLE IF NOT EXISTS `ocwTopicConstraintTopic` (
   `constraint_id` bigint(20) NOT NULL,
   `topic_id` bigint(20) NOT NULL,
@@ -601,6 +628,7 @@ CREATE TABLE IF NOT EXISTS `ocwTopicConstraintTopic` (
 -- Table structure for table `ocwUser`
 --
 
+DROP TABLE IF EXISTS `ocwUser`;
 CREATE TABLE IF NOT EXISTS `ocwUser` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
