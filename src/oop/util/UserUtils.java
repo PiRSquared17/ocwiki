@@ -4,8 +4,6 @@ import static org.apache.commons.lang.StringUtils.isEmpty;
 
 import java.util.regex.Pattern;
 
-
-
 import org.apache.commons.lang.StringUtils;
 
 public final class UserUtils {

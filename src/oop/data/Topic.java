@@ -1,7 +1,6 @@
 package oop.data;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -12,64 +11,36 @@ import oop.util.Utils;
 public class Topic extends Article {
 
 	protected String name;
-	private Topic parent;
-	private Set<Topic> children = new HashSet<Topic>();
+	private Resource<Topic> parent;
 
 	Topic() {
 		// default constructor
 	}
 
-	public Topic(String name, Topic parent, User author) {
-		super(author, null);
+	public Topic(String name, Resource<Topic> parent, User author) {
 		this.name = name;
 		this.parent = parent;
 	}
 
-	public Topic getParent() {
+	public Resource<Topic> getParent() {
 		return parent;
 	}
 
-	public void setParent(Topic parent) {
+	public void setParent(Resource<Topic> parent) {
 		this.parent = parent;
 	}
 
 	@XmlTransient
 	public Set<Topic> getChildren() {
-		return children;
+		return Collections.emptySet();
 	}
 
-	public void setChildren(Set<Topic> children) {
-		this.children = children;
-	}
-	
 	public List<Topic> getAncestors() {
-		List<Topic> ancestors = new LinkedList<Topic>();
-		addAncestorRecursively(this, ancestors);
-		return ancestors;
-	}
-	
-	private void addAncestorRecursively(Topic child, List<Topic> ancestors) {
-		if (child.getParent() == null) {
-			return;
-		}
-		ancestors.add(child.getParent());
-		addAncestorRecursively(child.getParent(), ancestors);
+		return Collections.emptyList();
 	}
 	
 	public Set<Topic> getDescendants() {
-		Set<Topic> descendants = new HashSet<Topic>();
-		for (Topic topic : getChildren()) {
-			addDescendantRecursively(topic, descendants);
-		}
-		return descendants;
-	}
-
-	private static void addDescendantRecursively(Topic topic,
-			Set<Topic> descendants) {
-		descendants.add(topic);
-		for (Topic child : topic.getChildren()) {
-			addDescendantRecursively(child, descendants);
-		}
+		return Collections.emptySet();
 	}
 
 	public String getName() {
@@ -81,12 +52,6 @@ public class Topic extends Article {
 	}
 	
 	@Override
-	public String toString() {
-		return getName() + " (parent: " + (getParent() == null ? "none"
-				: getParent().getName()) + ")";
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Topic) {
 			return getId() == ((Topic) obj).getId();
@@ -96,12 +61,19 @@ public class Topic extends Article {
 
 	@Override
 	public int hashCode() {
-		return Utils.hashCode(id);
-	}
-	
-	@Override
-	public Namespace getNamespace() {
-		return Namespace.TOPIC;
+		return Utils.hashCode(getId());
 	}
 
+	protected <T> T copyTo(T obj) {
+		Topic topic = (Topic) obj;
+		topic.setName(getName());
+		topic.setParent(getParent());
+		return super.copyTo(obj);
+	};
+	
+	@Override
+	public Topic copy() {
+		return copyTo(new Topic());
+	}
+	
 }

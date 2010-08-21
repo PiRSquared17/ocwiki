@@ -3,7 +3,7 @@ package oop.controller.api.test;
 import java.util.List;
 
 import oop.controller.api.AbstractAPI;
-import oop.data.Article;
+import oop.data.Resource;
 import oop.data.Test;
 import oop.db.dao.TestDAO;
 
@@ -16,7 +16,7 @@ public class Search extends AbstractAPI {
 	@Override
 	public Object performImpl() throws Exception {
 		String query = getParams().get("query");
-		List<Test> tests = TestDAO.fetchByNameLike("%" + query + "%", 20);
+		List<Resource<Test>> tests = TestDAO.fetchByNameLike("%" + query + "%", 20);
 		
 		JsonObject result = new JsonObject();
 		result.addProperty("query", query);
@@ -24,7 +24,7 @@ public class Search extends AbstractAPI {
 		result.add("suggestions", suggestions);
 		JsonArray data = new JsonArray();
 		result.add("data", data);
-		for (Article test : tests) {
+		for (Resource<Test> test : tests) {
 			suggestions.add(new JsonPrimitive(test.getName()));
 			data.add(new JsonPrimitive(test.getId()));
 		}

@@ -1,7 +1,10 @@
 package oop.controller.action.topic;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
+import oop.data.Resource;
 import oop.data.Topic;
+import oop.db.dao.ResourceDAO;
 import oop.db.dao.TopicDAO;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -16,37 +19,34 @@ public class CreateAction extends AbstractAction {
 		try {
 			String submitted = getParams().get("cc_submit");
 			if ("create".equals(submitted)) {
-				boolean error = false;
-
 				String name = "";
 				try {
 					name = getParams().getString("cc_name");
 				} catch (ParameterNotFoundException ex) {
-					error = true;
-					request.setAttribute("nameErr", "Bạn cần nhập tên chủ đề.");
+					addError("name", "Bạn cần nhập tên chủ đề.");
 				}
-				
-				Topic parent = null;
+
+				Resource<Topic> parent = null;
 				try {
-					parent = TopicDAO.fetchById(getParams().getLong("cc_parent"));
+					parent = ResourceDAO.fetchById(getParams().getLong(
+							"cc_parent"), Topic.class);
 				} catch (ParameterNotFoundException e) {
 					parent = null;
 				} catch (NumberFormatException ex) {
-					error = true;
-					request.setAttribute("parentErr", "Chủ đề không hợp lệ");
+					addError("parent", "Chủ đề không hợp lệ");
 				}
 
-				if (!error) {
+				if (!hasErrors()) {
 					TopicDAO.create(name, parent, getUser());
 					setNextAction("topic.list");
 					return;
 				}
 			}
 		} catch (NumberFormatException ex) {
-			error("ID không hợp lệ");
+			throw new ActionException("ID không hợp lệ");
 		} catch (ConstraintViolationException ex) {
 			if ("top_name".equals(ex.getConstraintName())) { // trùng tên
-				request.setAttribute("nameErr", "Đã có chủ đề trùng tên");
+				addError("name", "Đã có chủ đề trùng tên");
 			} else {
 				throw ex;
 			}

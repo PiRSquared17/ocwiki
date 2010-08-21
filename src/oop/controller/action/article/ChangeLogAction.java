@@ -2,34 +2,29 @@ package oop.controller.action.article;
 
 import java.util.List;
 
-import oop.change.Change;
 import oop.controller.action.AbstractAction;
-import oop.data.Article;
-import oop.db.dao.ArticleDAO;
-import oop.db.dao.ChangeDAO;
+import oop.data.log.ResourceLog;
+import oop.db.dao.LogDAO;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
 public class ChangeLogAction extends AbstractAction {
 
-	private List<Change> changes;
+	private List<ResourceLog> logs;
 
 	@Override
 	protected void performImpl() throws Exception {
 		try {
-			String name = getParams().getString("article");
-			Article article = ArticleDAO.fetchByName(name);
-			if (article == null) {
-				error("Không tìm thấy bài viết có tên: " + name);
-			}
-			changes = ChangeDAO.fetchByArticle(article);
+			long resourceId = getParams().getLong("resid");
+			int start = getParams().getInt("start");
+			int size = getParams().getInt("length");
+			logs = LogDAO.fetchByResource(resourceId, start, size);
 		} catch (ParameterNotFoundException ex) {
-			error("Thiếu tên bài viết");
 		}
 	}
 
-	public List<Change> getChanges() {
-		return changes;
+	public List<ResourceLog> getLogs() {
+		return logs;
 	}
 	
 }

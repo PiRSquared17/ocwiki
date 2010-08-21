@@ -3,18 +3,12 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 19:07:23 18-07-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-    <union-subclass name="oop.data.Topic" table="topic" extends="oop.data.Article">
-        <property name="name" type="java.lang.String">
-            <column name="top_name" />
-        </property>
-        <many-to-one name="parent" class="oop.data.Topic" fetch="select">
-            <column name="top_parent" />
+    <union-subclass name="oop.data.Topic" table="Topic" extends="oop.data.Article">
+        <many-to-one name="namespace" class="oop.data.Namespace" formula="2">
+           <column name="namespace" not-null="true"></column>
         </many-to-one>
-        <set name="children" table="topic" inverse="false" lazy="true">
-            <key>
-                <column name="top_parent" />
-            </key>
-            <one-to-many class="oop.data.Topic" />
-        </set>
+        <many-to-one name="parent" class="oop.data.Topic" fetch="select">
+            <column name="parent" not-null="false" />
+        </many-to-one>
     </union-subclass>
 </hibernate-mapping>

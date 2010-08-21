@@ -2,4 +2,3 @@
 <%@ taglib uri="/META-INF/utils.tld" prefix="u" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="/META-INF/ocwiki.tld" prefix="ocw" %>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>    

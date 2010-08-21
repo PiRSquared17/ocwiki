@@ -5,7 +5,7 @@
 <script>
 
 function validateName() {
-	var txtName = $('ssc_name');
+	var txtName = $('sname');
 	var msgName = $('msgName');
 
 	if (txtName.value == '') {
@@ -22,17 +22,17 @@ function validateName() {
 
 <form id="form_edit" action="${scriptPath}" method="get">
 
-	<input type="hidden" name="action" value="sectstruct.create"></input>
-	<input type="hidden" name="ssc_testid" value="${test.id}"></input>
+	<input type="hidden" name="action" value="sectstruct.create">
+	<input type="hidden" name="tstr" value="${test.id}">
 	
-	<p><label>Nội dung: <textarea style="width:100%" name="ssc_text">${param.ssc_name}</textarea></label>
-		<span id="msgName" style='${"block"}'>${nameErr}</span>
+	<p><label>Nội dung: <textarea style="width:100%" name="stext">${param.sname}</textarea></label>
+		<ocw:error code="name"></ocw:error>
 	</p>
     <br></br>
 	
 	<p><label>Thứ tự: 
 		<c:set var="last" value="0"></c:set>e
-		<select name="ssc_order">
+		<select name="sindex">
 			<c:forEach items="${test.sectionStructures}" var="section">
 				<option value="${section.order}">
 					${section.order}: ${isection.text}
@@ -40,7 +40,7 @@ function validateName() {
 			    <c:set var="last" value="${item.order+1}"></c:set>
 			</c:forEach>
 			<option value="${last}"
-		      	     ${(empty param.ssc_order) || param.ssc_order=='last' ? 'selected="selected"' : ''}>
+		      	     ${(empty param.sindex) || param.sindex=='last' ? 'selected="selected"' : ''}>
 		         -- cuối cùng --
 			</option>
 		</select>
@@ -48,8 +48,8 @@ function validateName() {
     <br></br>
 
 	<p>
-		<button type="submit" name="ssc_submit" value="create">Tạo</button>
-		<button type="button" onclick="location.href='${scriptPath}?action=teststruct.view&tsv_id=${test.id}'">Quay về cấu trúc đề</button>
+		<button type="submit" name="ssubmit" value="create">Tạo</button>
+		<ocw:articleButton resource="${action.resource}">Quay về cấu trúc đề</ocw:articleButton>
 	</p>
 
 </form>

@@ -17,7 +17,7 @@
 
 <p><strong>Custom Avatar</strong></p>
 
-<form action="${ocw:actionUrl(@'user.preference')}" method="post"
+<form action="${ocw:actionUrl('user.preference')}" method="post"
     	enctype="multipart/form-data">
     Choose Your Avatar:<br>
 	<input type="file" name="file1"> <br>

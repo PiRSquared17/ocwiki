@@ -49,5 +49,128 @@
     ]]></example>
   </function>
 
+  <tag-file>
+    <description>Hiển thị danh sách chủ đề cho một bài viết nhất định</description>
+    <display-name>Danh sách chủ đề</display-name>
+    <name>topics</name>
+    <path>/WEB-INF/tags/topics.tag</path>
+  </tag-file>
+
+  <tag-file>
+    <description>Thông báo lỗi</description>
+    <display-name>Thông báo lỗi</display-name>
+    <name>error</name>
+    <path>/WEB-INF/tags/error.tag</path>
+  </tag-file>
+
+  <tag-file>
+    <description>Tạo liên kết đến bài viết</description>
+    <display-name>Liên kết bài viết</display-name>
+    <name>articleLink</name>
+    <path>/WEB-INF/tags/articleLink.tag</path>
+  </tag-file>
+  
+  <tag-file>
+    <description>Tạo liên kết đến profile của người dùng</description>
+    <display-name>Profile người dùng</display-name>
+    <name>userLink</name>
+    <path>/WEB-INF/tags/userLink.tag</path>
+  </tag-file>
+  
+  <tag-file>
+    <description>Tạo nút nhấn đến bài viết</description>
+    <display-name>Nút nhấn bài viết</display-name>
+    <name>articleButton</name>
+    <path>/WEB-INF/tags/articleButton.tag</path>
+  </tag-file>
+
+  <tag>
+    <description>Chèn form HTML</description>
+    <display-name>form</display-name>
+    <name>form</name>
+    <tag-class>oop.taglib.FormTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+        <description>Tên hành động</description>
+        <name>action</name>
+        <required>true</required>
+    </attribute>    
+    <attribute>
+        <description>Lớp CSS dùng để định dạng</description>
+        <name>class</name>
+    </attribute>
+    <attribute>
+        <description>Id dùng để định dạng</description>
+        <name>id</name>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <description>Tạo nút nhấn đến hành động</description>
+    <display-name>Nút hành động</display-name>
+    <name>actionButton</name>
+    <tag-class>oop.taglib.ActionButtonTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+        <description>Tên của hành động</description>
+        <name>name</name>
+        <required>true</required>
+    </attribute>    
+    <attribute>
+        <description>Lớp CSS dùng để định dạng</description>
+        <name>class</name>
+    </attribute>
+    <attribute>
+        <description>Câu lệnh JavaScript để xác nhận muốn thực hiện hành động</description>
+        <name>confirm</name>
+    </attribute>    
+  </tag>
+
+  <tag>
+    <description>Tạo liên kết đến hành động</description>
+    <display-name>Liên kết hành động</display-name>
+    <name>actionLink</name>
+    <tag-class>oop.taglib.ActionLinkTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+        <description>Tên của hành động</description>
+        <name>name</name>
+        <required>true</required>
+    </attribute>    
+    <attribute>
+        <description>Lớp CSS dùng để định dạng</description>
+        <name>class</name>
+    </attribute>
+    <attribute>
+        <description>Câu lệnh JavaScript để xác nhận muốn thực hiện hành động</description>
+        <name>confirm</name>
+    </attribute>    
+  </tag>
+
+  <tag>
+    <description>Thiết lập một tham số cho hành động</description>
+    <display-name>Tham số</display-name>
+    <name>param</name>
+    <tag-class>oop.taglib.ParamTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+        <description>Tên của tham số</description>
+        <name>name</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>    
+    <attribute>
+        <description>Giá trị của tham số</description>
+        <name>value</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>    
+    <attribute>
+        <description>Giá trị mặc định của tham số</description>
+        <name>default</name>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>    
+  </tag>
+
 </taglib>
   

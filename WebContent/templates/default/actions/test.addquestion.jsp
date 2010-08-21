@@ -5,8 +5,8 @@
 <c:if test="${not empty message}"><div class="notification">${message}</div></c:if>
 
 <form action="${scriptPath}">
-	<input type="hidden" name="action" value="test.addquestion"></input>
-	<input type="hidden" name="taq_test" value="${test.id}"></input>
+	<input type="hidden" name="action" value="test.addquestion">
+	<input type="hidden" name="taq_test" value="${test.id}">
 	
 	<c:if test="${u:size(test.sections) != 0 && !(u:size(test.sections) == 1 && (empty test.sections[0].text)) }">
 		<div>
@@ -22,41 +22,41 @@
 		   </c:if>
 		</div>
 	</c:if>
-	<span class="error-validating">${action.sectionError}</span>
+	<ocw:error code="section"></ocw:error>
 	
     <div>
         <label><input type="radio" ${(empty param.mode || param.mode=='search') ? 'checked' : ''} 
-            id="type-id" name="mode" value="search"></input>
+            id="type-id" name="mode" value="search">
         Chọn câu hỏi:</label> 
         <input type="text" id="txtQuestionName" name="taq_content" 
-                    value="${param.taq_content}"></input>
+                    value="${param.taq_content}">
             </label>
         <input type="hidden" id="txtQuestionId" name="taq_question" 
-                 value="${param.taq_question}"></input>
-        <span class="error-validating">${searchErr}</span>
+                 value="${param.taq_question}">
+        <ocw:error code="search"></ocw:error>
     </div>
     <div>
         <label><input type="radio" ${(empty param.mode || param.mode=='id') ? 'checked' : ''} 
-            id="type-id" name="mode" value="id"></input>
+            id="type-id" name="mode" value="id">
         Nhập ID câu hỏi:</label> 
         <input type="text" id="txtQuestionId" name="taq_question_id" 
-                 value="${param.taq_question_id}"></input>
-        <span class="error-validating">${idErr}</span>
+                 value="${param.taq_question_id}">
+        <ocw:error code="id"></ocw:error>
     </div>
 	<div>
 		<label><input type="radio" id="type-random" name="mode" 
-			"${param.mode=='random' ? 'checked' : ''} value="random"></input>
+			"${param.mode=='random' ? 'checked' : ''} value="random">
 		Chọn ngẫu nhiên:</label>
 		
 
 		<p><label>Chủ đề:
             <input type="text" id="txtTopicName" name="taq_topicname" 
                     value="${param.taq_topicname}"
-                    onfocus="$('type-random').checked = 'checked'"></input>
+                    onfocus="$('type-random').checked = 'checked'">
 			</label>
 			<input type="hidden" id="txtTopicId" name="taq_topicid" 
-			         value="${param.taq_topicid}"></input>
-			<span style="color:red">${topicErr}</span>
+			         value="${param.taq_topicid}">
+			<ocw:error code="topic"></ocw:error>
 		</p>
 
 		<p><label>Số lượng: 
@@ -64,14 +64,14 @@
 				value="${(empty param.taq_quantity) ? 1 : param.taq_quantity}" 
                 onfocus="$('type-random').checked = 'checked'"
                 maxlength="3">
-			</input></label>
-			<span class="error-validating">${action.quantityError}</span>
+			</label>
+			<ocw:error code="quantity"></ocw:error>
 		</p>
 		
 		<p>
 		  <label>
 			  <input type="checkbox" name="more" value="true"
-			          ${param.more ? 'checked' : ''}></input>
+			          ${param.more ? 'checked' : ''}>
               Thêm nữa			          
 		  </label>
 		</p>
@@ -79,7 +79,7 @@
 
     <div>
 		<button type="submit" name="taq_submit" value="add">Lưu</button>
-		<button type="button" onclick="location.href='${scriptPath}?action=test.view&tv_id=${test.id}'">Quay về đề thi</button>
+		<ocw:articleButton resource="${action.resource}">Quay về đề thi</ocw:articleButton>
 	</div>
 	
 </form>

@@ -1,32 +1,23 @@
 package oop.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import oop.util.Copiable;
 
-public class Section implements Entity {
+public class Section implements Entity, Copiable<Section> {
 
 	private long id;
-	private Text text;
-	private int order;
-	private Article test;
-	private Status status = Status.NORMAL;
-	private Set<Question> questions = new HashSet<Question>();
-	private int version;
+	private Text content;
+	private List<Question> questions = new ArrayList<Question>();
 
-	/**
-	 * For Hibernate
-	 */
 	Section() {
 	}
-	
-	public Section(Text text, int order, Article test) {
-		this.text = text;
-		this.order = order;
-		this.test = test;
+
+	public Section(Text content) {
+		this.content = content;
 	}
 
 	public Map<Long, Question> getQuestionById() {
@@ -37,61 +28,31 @@ public class Section implements Entity {
 		return questionMap;
 	}
 
-	public Set<Question> getQuestions() {
+	public List<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Set<Question> questions) {
+	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
 	}
-	
+
 	public long getId() {
 		return id;
 	}
 
-	public Text getText() {
-		return text;
+	public Text getContent() {
+		return content;
 	}
 
-	public void setText(Text text) {
-		this.text = text;
+	public void setContent(Text text) {
+		this.content = text;
 	}
 
-	public int getOrder() {
-		return order;
-	}
-
-	public void setOrder(int order) {
-		this.order = order;
-	}
-
-	void setTest(Article test) {
-		this.test = test;
-	}
-
-	public Article getTest() {
-		return test;
-	}
-
-	public boolean isDeleted() {
-		return status == Status.DELETED;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	@XmlAttribute
-	public Status getStatus() {
-		return status;
+	public Section copy() {
+		Section section = new Section();
+		section.setContent(getContent());
+		section.setQuestions(new ArrayList<Question>(getQuestions()));
+		return section;
 	}
 
 }

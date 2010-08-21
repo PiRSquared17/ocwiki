@@ -6,6 +6,7 @@ import javax.xml.bind.JAXBException;
 
 import oop.conf.Config;
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
 import oop.data.Test;
 import oop.data.TestVersion;
 import oop.db.dao.TestDAO;
@@ -23,7 +24,7 @@ public class SaveDocxAction extends AbstractAction {
 	@Override
 	public void performImpl() throws Exception{
 		long testId = getParams().getLong("testid");
-		Test test = TestDAO.fetchById(testId);
+		Test test = TestDAO.fetchById(testId).getArticle();
 		
 		String verIdStr = getParams().get("verid");
 		TestVersion version = TestUtils.naturalOrder(test);
@@ -35,13 +36,11 @@ public class SaveDocxAction extends AbstractAction {
 		} catch (NullPointerException e) {
 			throw e;
 		} catch (JAXBException e) {
-			error("Quá trình tạo gặp sự cố!");
-			return;
+			throw new ActionException("Quá trình tạo gặp sự cố!");
 		} catch (SQLException e) {
 			throw e;
 		} catch (Docx4JException e) {
-			error("Không thể tạo hoặc lưu file này!");
-			return;
+			throw new ActionException("Không thể tạo hoặc lưu file này!");
 		}
 				
 		//need to save docx list?

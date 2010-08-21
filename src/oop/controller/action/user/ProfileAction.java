@@ -3,7 +3,9 @@ package oop.controller.action.user;
 import java.util.List;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
 import oop.data.History;
+import oop.data.Resource;
 import oop.data.Test;
 import oop.data.User;
 import oop.db.dao.HistoryDAO;
@@ -16,7 +18,7 @@ public class ProfileAction extends AbstractAction {
 
 	private User user;
 	private List<History> histories;
-	private List<Test> tests;
+	private List<Resource<Test>> tests;
 
 	@Override
 	public void performImpl() throws Exception {
@@ -29,9 +31,9 @@ public class ProfileAction extends AbstractAction {
 			histories = HistoryDAO.fetchByUser(userId, 0, 5);
 			tests = TestDAO.fetchByAuthor(userId, 0, 5);
 		} catch (ParameterNotFoundException ex) {
-			error("Bạn cần chọn người sử dụng.");
+			throw new ActionException("Bạn cần chọn người sử dụng.");
 		} catch (NumberFormatException ex) {
-			error("ID không hợp lệ.");
+			throw new ActionException("ID không hợp lệ.");
 		}
 	}
 	
@@ -43,7 +45,7 @@ public class ProfileAction extends AbstractAction {
 		return histories;
 	}
 	
-	public List<Test> getTests() {
+	public List<Resource<Test>> getTests() {
 		return tests;
 	}
 

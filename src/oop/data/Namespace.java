@@ -1,39 +1,45 @@
 package oop.data;
 
-public class Namespace {
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
-	public static final Namespace MAIN = new Namespace(0, "", "Chính");
-	public static final Namespace QUESTION = new Namespace(-1, "cau-hoi", "Câu hỏi");
-	public static final Namespace TEST = new Namespace(-2, "de-thi", "Đề thi");
-	public static final Namespace TEST_STRUCTURE = new Namespace(-3, "cau-truc", "Cấu trúc đề");
-	public static final Namespace SOLUTION = new Namespace(-4, "bai-giai", "Bài giải");
-	public static final Namespace TOPIC = new Namespace(-5, "chu-de", "Chủ đề");
-	public static final Namespace MEDIA = new Namespace(-5, "chu-de", "Chủ đề");
+@XmlRootElement
+public class Namespace implements Entity {
 
+	// don't change these constants!!!
+	public static final int MAIN = 0;
+	public static final int OCWIKI = 1;
+	public static final int TOPIC = 2;
+	public static final int QUESTION = 3;
+	public static final int TEST = 4;
+	public static final int TEST_STRUCTURE = 5;
+	public static final int FILE = 6;
+	
 	private long id;
 	private String name;
-	private String displayName;
 
 	Namespace() {
 	}
 	
-	public Namespace(long id, String name, String displayName) {
+	public Namespace(long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.displayName = displayName;
 	}
 
+	@XmlAttribute
 	public long getId() {
 		return id;
 	}
 
+	@XmlAttribute
 	public String getName() {
 		return name;
 	}
 	
-	public String getDisplayName() {
-		return displayName;
+	@Override
+	public String toString() {
+		return getId() + ": " + getName();
 	}
-	
+
 }

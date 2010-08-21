@@ -2,17 +2,15 @@ package oop.data;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
+import oop.util.Copiable;
 
 @XmlRootElement
-public class Answer implements Entity {
+public class Answer implements Entity, Copiable<Answer> {
 
 	private long id;
-	private BaseQuestion question;
 	private Text content;
 	private boolean correct;
-	private Status status = Status.NORMAL;
-	private int version;
 
 	/**
 	 * For Hibernate only
@@ -20,9 +18,8 @@ public class Answer implements Entity {
 	public Answer() {
 	}
 	
-	public Answer(BaseQuestion question, Text content, boolean correct) {
+	public Answer(Text content, boolean correct) {
 		super();
-		this.question = question;
 		this.correct = correct;
 		this.content = content;
 	}
@@ -49,15 +46,6 @@ public class Answer implements Entity {
 		return correct;
 	}
 
-	public void setQuestion(BaseQuestion question) {
-		this.question = question;
-	}
-
-	@XmlTransient
-	public BaseQuestion getQuestion() {
-		return question;
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Answer) {
@@ -71,27 +59,8 @@ public class Answer implements Entity {
 		return Long.valueOf(id).hashCode();
 	}
 
-	@XmlTransient
-	public boolean isDeleted() {
-		return status == Status.DELETED;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
-
-	@XmlAttribute
-	public int getVersion() {
-		return version;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	@XmlAttribute
-	public Status getStatus() {
-		return status;
+	public Answer copy() {
+		return new Answer(content, correct);
 	}
 	
 }

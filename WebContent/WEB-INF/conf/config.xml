@@ -121,11 +121,6 @@
       <requiredGroup>teacher</requiredGroup>
     </action>
     <action>
-      <name>topicconst.edit</name>
-      <class>oop.controller.action.topicconst.EditAction</class>
-      <requiredGroup>teacher</requiredGroup>
-    </action>
-    <action>
       <name>sectstruct.create</name>
       <class>oop.controller.action.sectstruct.CreateAction</class>
       <requiredGroup>teacher</requiredGroup>
@@ -267,11 +262,6 @@
                                   API  
      ********************************************************************-->
     <api>
-      <name>test.edit</name>
-      <class>oop.controller.api.test.Edit</class>
-      <requiredGroup>teacher</requiredGroup>
-    </api>
-    <api>
       <name>topic.search</name>
       <class>oop.controller.api.topic.Search</class>
     </api>
@@ -287,16 +277,12 @@
       <name>question.search</name>
       <class>oop.controller.api.question.Search</class>
     </api>
-    <api>
-      <name>section.create</name>
-      <class>oop.controller.api.section.Create</class>
-      <requiredGroup>teacher</requiredGroup>
-    </api>
     
     <!--********************************************************************
                                 Modules 
      ********************************************************************-->
 
+    <!-- 
     <module>
        <name>qtopics</name>
         <title>Câu hỏi</title>
@@ -318,6 +304,7 @@
         <position>left</position>
         <order>6</order>
     </module>
+     -->
     <module>
        <name>user</name>
         <title>Công cụ</title>

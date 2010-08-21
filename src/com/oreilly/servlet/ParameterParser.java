@@ -28,9 +28,9 @@ public class ParameterParser implements ParameterList {
 		// Use getParameterValues() to avoid the once-deprecated getParameter()
 		String[] values = req.getParameterValues(name);
 		if (values == null)
-			throw new ParameterNotFoundException(name + " not found");
+			throw new ParameterNotFoundException(name, name + " not found");
 		else if (values[0].length() == 0)
-			throw new ParameterNotFoundException(name + " was empty");
+			throw new ParameterNotFoundException(name, name + " was empty");
 		else
 			return values[0]; // ignore multiple field values
 	}
@@ -90,7 +90,7 @@ public class ParameterParser implements ParameterList {
 	public char getChar(String name) throws ParameterNotFoundException {
 		String param = getString(name);
 		if (param.length() == 0) // shouldn't be possible
-			throw new ParameterNotFoundException(name + " is empty string");
+			throw new ParameterNotFoundException(name, name + " is empty string");
 		else
 			return (param.charAt(0));
 	}
@@ -220,9 +220,9 @@ public class ParameterParser implements ParameterList {
 			throws ParameterNotFoundException {
 		String[] values = req.getParameterValues(name);
 		if (values == null)
-			throw new ParameterNotFoundException(name + " not found");
+			throw new ParameterNotFoundException(name, name + " not found");
 		else if (values[index].length() == 0)
-			throw new ParameterNotFoundException(name + " was empty");
+			throw new ParameterNotFoundException(name, name + " was empty");
 		return values[index];
 	}
 	
@@ -278,7 +278,7 @@ public class ParameterParser implements ParameterList {
 	public char getIndexedChar(String name, int index) throws ParameterNotFoundException {
 		String param = getIndexedString(name, index);
 		if (param.length() == 0) // shouldn't be possible
-			throw new ParameterNotFoundException(name + " is empty string");
+			throw new ParameterNotFoundException(name, name + " is empty string");
 		else
 			return (param.charAt(0));
 	}

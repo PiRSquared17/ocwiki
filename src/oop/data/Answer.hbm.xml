@@ -2,26 +2,12 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="oop.data.Answer" table="answer">
-        <id name="id" type="long" access="field">
-            <column name="ans_id" />
-            <generator class="identity" />
-        </id>
-        <version name="version" column="ans_version"></version>
-        <many-to-one name="question" class="oop.data.BaseQuestion" fetch="select">
-            <column name="ans_question" />
-        </many-to-one>
-        <many-to-one name="content" class="oop.data.Text" fetch="join" cascade="all">
-            <column name="ans_content" />
-        </many-to-one>
-        <property name="correct" type="boolean">
-            <column name="ans_correct" />
-        </property>
-        <property name="status" length="10" column="ans_status">
-			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">oop.data.Status</param>
-				<param name="type">12</param> <!-- VARCHAR -->
-			</type>
-		</property> 
-    </class>
+	<class name="oop.data.Answer" table="Answer" mutable="false">
+		<id name="id" type="long" column="id" access="field">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="content" column="content" class="oop.data.Text"
+			fetch="join" cascade="all" not-null="true" />
+		<property name="correct" type="boolean" not-null="true" />
+	</class>
 </hibernate-mapping>

@@ -3,10 +3,13 @@ package oop.controller.action.test;
 import java.util.List;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
+import oop.data.Resource;
 import oop.data.Status;
 import oop.data.Test;
 import oop.data.Topic;
 import oop.data.User;
+import oop.db.dao.ResourceDAO;
 import oop.db.dao.TestDAO;
 import oop.db.dao.TopicDAO;
 import oop.db.dao.UserDAO;
@@ -21,7 +24,7 @@ public class ListAction extends AbstractAction {
 	@Override
 	public void performImpl() throws Exception {
 		
-		title("Danh sách các đề thi trên website trắc nghiệm CSForce");
+		title("Danh sách đề thi");
 
 		String submit = getParams().get("tl_submit");
 		if ("delete".equals(submit)) {
@@ -30,11 +33,11 @@ public class ListAction extends AbstractAction {
 				int count = 0;
 				for (String item : items) {
 					long id = Long.parseLong(item);
-					TestDAO.fetchById(id).setStatus(Status.DELETED);
+					ResourceDAO.fetchById(id).setStatus(Status.DELETED);
 				}
-				message("Đã xóa " + count + " mục.");
+				addMessage("Đã xóa " + count + " mục.");
 			} catch (NumberFormatException ex) {
-				error("ID không hợp lệ.");
+				throw new ActionException("ID không hợp lệ.");
 			}
 		}
 
@@ -42,18 +45,17 @@ public class ListAction extends AbstractAction {
 		String topicIdStr = getParams().get("topic");
 		String authorIdStr = getParams().get("author");
 
-		List<Test> tests;
+		List<Resource<Test>> tests;
 		long count;
 		if (!StringUtils.isEmpty(topicIdStr)) {
 			long id = Long.parseLong(topicIdStr);
-			Topic topic = TopicDAO.fetchById(id);
+			Resource<Topic> topic = TopicDAO.fetchById(id);
 			if (topic == null) {
-				error("Không tìm thấy chủ đề có mã số: " + id);
-				return;
+				throw new ActionException("Không tìm thấy chủ đề có mã số: " + id);
 			} else {
 				tests = TestDAO.fetchByTopic(id, (page - 1) * PAGE_LENGTH,
 						PAGE_LENGTH);
-				title("Danh sách các đề thi thuộc chủ đề " + topic.getName() + " trên website trắc nghiệm CSForce");
+				title("Danh sách đề thi thuộc chủ đề " + topic.getName());
 				count = TestDAO.countByTopic(id);
 			}
 		} else if (!StringUtils.isEmpty(authorIdStr)) {

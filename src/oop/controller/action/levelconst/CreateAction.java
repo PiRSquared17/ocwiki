@@ -1,13 +1,15 @@
 package oop.controller.action.levelconst;
 
-import java.util.Set;
+import java.util.List;
 
 import oop.controller.action.AbstractAction;
+import oop.data.LevelConstraint;
+import oop.data.Resource;
 import oop.data.SectionStructure;
 import oop.data.TestStructure;
-import oop.db.dao.LevelConstraintDAO;
-import oop.db.dao.SectionStructureDAO;
+import oop.data.Text;
 import oop.db.dao.TestStructureDAO;
+import oop.util.Utils;
 
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -20,35 +22,33 @@ public class CreateAction extends AbstractAction {
 
 	@Override
 	public void performImpl() throws Exception {
-		TestStructure testStructure = TestStructureDAO.fetchById(getParams()
+		resource = TestStructureDAO.fetchById(getParams()
 				.getLong("teststruct"));
-		request.setAttribute("test", testStructure);
+		testStructure = resource.getArticle();
 
 		String submit = getParams().get("submit");
 		if ("add".equals(submit)) {
-			doCreate(testStructure);
+			doCreate();
 		}
 	}
 
-	private void doCreate(TestStructure testStructure) throws Exception {
+	private void doCreate() throws Exception {
+		testStructure = testStructure.copy();
+		
 		SectionStructure sectionStructure = null;
 		try {
-			long sectionId = getParams().getLong("section");
-			sectionStructure = SectionStructureDAO.fetchById(sectionId);
+			sectionStructure = Utils.replaceByCopy(testStructure
+					.getSectionStructures(), getParams().getInt("section"));
 		} catch (NumberFormatException ex) {
-			sectionError = "Mã số mục không hợp lệ.";
+			addError("section", "Mã số mục không hợp lệ.");
 		} catch (ParameterNotFoundException ex) {
-			Set<SectionStructure> sectionStructures = testStructure
+			List<SectionStructure> sectionStructures = testStructure
 					.getSectionStructures();
 			if (sectionStructures.isEmpty()) {
-				sectionStructure = SectionStructureDAO.create(null,
-						testStructure.getId(), 1);
+				sectionStructure = new SectionStructure(new Text(""));
+				testStructure.getSectionStructures().add(sectionStructure);
 			} else {
-				if (sectionStructures.size() == 1) {
-					sectionStructure = sectionStructures.iterator().next();
-				} else {
-					sectionError = "Bạn cần chọn một mục.";
-				}
+				addError("section", "Bạn cần chọn một mục.");
 			}
 		}
 
@@ -56,51 +56,45 @@ public class CreateAction extends AbstractAction {
 		try {
 			quantity = getParams().getInt("quantity");
 			if (quantity <= 0) {
-				quantityError = "Số lượng phải nguyên dương.";
+				addError("quantity", "Số lượng phải nguyên dương.");
 			}
 		} catch (ParameterNotFoundException ex) {
-			quantityError = "Bạn cần nhập số lượng.";
+			addError("quantity", "Bạn cần nhập số lượng.");
 		} catch (NumberFormatException ex) {
-			quantityError = "Số lượng không hợp lệ.";
+			addError("quantity", "Số lượng không hợp lệ.");
 		}
 
 		int level = -1;
 		try {
 			level = getParams().getInt("level");
 			if (level < 1 || level > 5) {
-				levelError = "Độ khó không hợp lệ.";
+				addError("level", "Độ khó không hợp lệ.");
 			}
 		} catch (ParameterNotFoundException ex) {
-			levelError = "Bạn cần chọn độ khó.";
+			addError("level", "Bạn cần chọn độ khó.");
 		} catch (NumberFormatException ex) {
-			levelError = "Độ khó không hợp lệ.";
+			addError("level", "Độ khó không hợp lệ.");
 		}
 
-		if (sectionError == null && levelError == null && quantityError == null) {
+		if (!hasErrors()) {
 			try {
-				LevelConstraintDAO.create(sectionStructure.getId(), level,
-						quantity);
-				setNextAction("teststruct.view&tsv_id=" + testStructure);
+				LevelConstraint constraint = new LevelConstraint(level, quantity);
+				sectionStructure.getConstraints().add(constraint);
+				saveNewRevision(resource, testStructure);
+				setNextAction("teststruct.view&tstr=" + resource.getId());
 			} catch (ConstraintViolationException ex) {
-				levelError = "Độ khó đã được thêm từ trước.";
+				addError("level", "Độ khó đã được thêm từ trước.");
 			}
 		}
 	}
-
-	private String sectionError = null;
-	private String levelError = null;
-	private String quantityError = null;
-
-	public String getSectionError() {
-		return sectionError;
+	private TestStructure testStructure;
+	private Resource<TestStructure> resource;
+	
+	public TestStructure getTest() {
+		return testStructure;
 	}
 	
-	public String getLevelError() {
-		return levelError;
-	}
-	
-	public String getQuantityError() {
-		return quantityError;
-	}
-	
+	public Resource<TestStructure> getResource() {
+		return resource;
+	}			
 }

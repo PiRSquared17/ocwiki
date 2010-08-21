@@ -1,30 +1,38 @@
 package oop.controller.action.question;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
 import oop.data.BaseQuestion;
+import oop.data.Resource;
 import oop.db.dao.BaseQuestionDAO;
 
 public class EnhancedViewAction extends AbstractAction {
 	
 	private BaseQuestion question;
+	private Resource<BaseQuestion> resource;
 
 	@Override
 	public void performImpl() throws Exception {
 		try {
-			question = BaseQuestionDAO.fetchById(getParams().getLong("id"));
+			resource = BaseQuestionDAO.fetchById(getParams().getLong("id"));
+			question = resource.getArticle();
 
 			if (question == null) {
-				error("Không tìm thấy câu hỏi có mã số " + getParams().get("id"));
+				throw new ActionException("Không tìm thấy câu hỏi có mã số " + getParams().get("id"));
 			} else {
 				title("Câu hỏi "+question.getId());
 			}
 		} catch (NumberFormatException ex) {
-			error("Id không hợp lệ: " + getParams().get("id"));
+			throw new ActionException("Id không hợp lệ: " + getParams().get("id"));
 		}
 	}
 	
 	public BaseQuestion getQuestion() {
 		return question;
+	}
+	
+	public Resource<BaseQuestion> getResource() {
+		return resource;
 	}
 	
 }

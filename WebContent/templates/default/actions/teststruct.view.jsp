@@ -9,7 +9,7 @@
             onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
 	<c:if test="${sessionScope.login && user.group=='teacher'}">
 	    <div class="buttons">
-	        <a href='${scriptPath}?action=teststruct.edit&tse_id=${teststruct.id}'><img src="${templatePath}/images/edit.png" alt="edit" title="edit" width="16px" height="16px"/></a>
+	        <a href='${scriptPath}?action=teststruct.edit&tid=${teststruct.id}'><img src="${templatePath}/images/edit.png" alt="edit" title="edit" width="16px" height="16px"/></a>
 	    </div>
 	</c:if>
 	<p>Tên: <b>${teststruct.name}</b></p>
@@ -18,10 +18,12 @@
 		   <div><b>${teststruct.description}</b></div>
 		</div>
 	</c:if>
-	<p>Tác giả: <b><a href="${scriptPath}?action=user.profile&id=${teststruct.author.id}">${teststruct.author.fullname}</a></b></p>
+	<p>Tác giả: <ocw:userLink user="${action.resource.author}">${action.resource.author.fullname}</ocw:userLink></p>
 </div>
 
-<c:forEach items="${teststruct.sectionStructures}" var="sectstruct">
+<c:set var="sectionIndex" value="0"></c:set>
+<c:forEach items="${teststruct.sectionStructures}" var="resource">
+<c:set value="${resource.sectstruct}" var="sectstruct"></c:set>
 <div class="section">
     <div class="section-text-wrapper mouse-out"
         onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
@@ -29,12 +31,22 @@
     <c:choose>
         <c:when test="${sessionScope.login && sessionScope.user.group=='teacher'}">
             <div class="buttons">
-                <a href="${scriptPath}?action=sectstruct.edit&sse_id=${sectstruct.id}"><img src="${templatePath}/images/edit.png" alt="remove" title="Sửa" width="16px" height="16px" /></a>
-                <a href="${scriptPath}?action=sectstruct.delete&ssd_id=${sectstruct.id}&ssd_testid=${teststruct.id}"
-                        onclick="return confirm('Bạn có chắc muốn xoá phần này?')"
-                        ><img src="${templatePath}/images/wrong.png" alt="remove" title="remove" width="16px" height="16px" /></a>
-                <a href="${scriptPath}?action=sectstruct.moveup&ssu_id=${sectstruct.id}&ssu_testid=${teststruct.id}"><img src="${templatePath}/images/up.png" alt="move up" title="Move up" width="16px" height="16px" /></a>
-                <a href="${scriptPath}?action=sectstruct.movedown&ssw_id=${sectstruct.id}&ssw_testid=${teststruct.id}"><img src="${templatePath}/images/down.png" alt="move down" title="Move down" width="16px" height="16px" /></a>
+                <a href="${scriptPath}?action=sectstruct.edit&sid=${sectstruct.id}"><img src="${templatePath}/images/edit.png" alt="remove" title="Sửa" width="16px" height="16px" /></a>
+                <ocw:actionButton name="sectstruct.delete" confirm="confirm('Bạn có chắc muốn xoá phần này?')">
+				    <ocw:param name="tstr" value="${resource.id}"></ocw:param>
+				    <ocw:param name="section" value="${sectionIndex}"></ocw:param>
+				    <img src="${templatePath}/images/wrong.png" alt="remove" title="remove" width="16px" height="16px" />
+				</ocw:actionButton>
+                <ocw:actionButton name="sectstruct.moveup">
+				    <ocw:param name="tstr" value="${resource.id}"></ocw:param>
+				    <ocw:param name="section" value="${sectionIndex}"></ocw:param>
+				    <img src="${templatePath}/images/up.png" alt="move up" title="Move up" width="16px" height="16px" />
+				</ocw:actionButton>
+                <ocw:actionButton name="sectstruct.movedown">
+				    <ocw:param name="tstr" value="${resource.id}"></ocw:param>
+				    <ocw:param name="section" value="${sectionIndex}"></ocw:param>
+				    <img src="${templatePath}/images/down.png" alt="move down" title="Move down" width="16px" height="16px" />
+				</ocw:actionButton>
             </div>
             <div class="section-text">
                 ${(empty sectstruct.text) ? "&lt;Mục mặc định&gt;" : sectstruct.text}
@@ -85,4 +97,5 @@
     </table>
 
 </div>
+<c:set var="sectionIndex" value="${sectionIndex+1}"></c:set>
 </c:forEach>

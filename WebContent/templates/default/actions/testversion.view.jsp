@@ -11,15 +11,15 @@ var alphabetArr = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
 	<div style="clear:both">
 		<h3>${test.name}</h3>
-		<p><b>Mô tả:</b> ${test.description}</p>
+		<p><b>Mô tả:</b> ${test.content}</p>
 		<p><b>Thời gian:</b> ${test.time} phút</p>
 		<p><b>Phiên bản:</b> ${version.code}</p>
 	</div>
 
 
-	<input type="hidden" name="action" value="test.solve"></input>
-	<input type="hidden" name="testId" value="${test.id}"></input>
-	<input type="hidden" name="versionId" value="${version.id}"></input>
+	<input type="hidden" name="action" value="test.solve">
+	<input type="hidden" name="testId" value="${test.id}">
+	<input type="hidden" name="versionId" value="${version.id}">
 	
 	<c:set var="i" value="0"></c:set>
 

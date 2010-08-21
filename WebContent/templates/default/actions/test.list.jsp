@@ -16,26 +16,16 @@
 	
 	<table>
 	<tr>
-        <c:if test="${sessionScope.login && sessionScope.user.group == 'teacher'}">
-    		<th width="20px">&nbsp;</th>
-    	</c:if>
 		<th>Tên</th>
 		<th width="140px">Tác giả</th>
 		<th width="120px">Thời điểm tạo</th>
-		
 	</tr>
-	<c:forEach items="${tests}" var="test">
+	<c:forEach items="${tests}" var="resource">
+	<c:set var="test" value="${resource.article}"></c:set>
 	<tr>
-        <c:if test="${sessionScope.login && sessionScope.user.group == 'teacher'}">
-		   <td>
-	            <input type="checkbox" name="tl_tests" value="${test.id}"></input>
-	       </td>
-        </c:if>
-		<td><a href="${scriptPath}?action=test.view&tv_id=${test.id}">${test.name}</a></td>
-		<td><a href="${scriptPath}?action=test.list&author=${test.author.id}">
-			${test.author.fullname}
-		</a></td>
-		<td>${u:formatDateTime(test.createDate)}</td>
+		<td><ocw:articleLink resource="${resource}">${test.name}</ocw:articleLink></td>
+		<td><ocw:userLink user="${resource.author}">${resource.author.fullname}</ocw:userLink></td>
+		<td>${u:formatDateTime(resource.createDate)}</td>
 	</tr>
 	</c:forEach>
 	<tr>
@@ -43,12 +33,9 @@
 	</table>
 	
 	<jsp:include page="test.list-nav.jsp"></jsp:include>
-	<jsp:include page="test.list-toolbar.jsp"></jsp:include>
-	
 	</form>
     
 </c:when>
-
 <c:otherwise>
     <div class="empty-notif">
         Chưa có dữ liệu
@@ -57,3 +44,4 @@
 
 </c:choose>
     
+<jsp:include page="test.list-toolbar.jsp"></jsp:include>

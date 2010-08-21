@@ -42,7 +42,7 @@
 	
 <p>Change User Information</p>
 <form class="user" id="form1" name="form1" method="post" action="?action=user.edituser">
-<input type="hidden" name="action" value="Sign Up" ></input>
+<input type="hidden" name="action" value="Sign Up" >
 <p>
 <c:if test="${error}"><div class="notification"><font color ="red"> Some error need to be fixed: </font><br />
 	<c:if test="${invalidUserName}"><font color ="red">  o Invalid User Name! </font><br /></c:if>

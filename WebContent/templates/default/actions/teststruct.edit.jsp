@@ -5,7 +5,7 @@
 <script>
 
 function validateName() {
-    var txtName = $('tse_name');
+    var txtName = $('tname');
     var msgName = $('msgName');
 
     if (txtName.value == '') {
@@ -22,24 +22,24 @@ function validateName() {
 
 <form action="${scriptPath}" method="get">
 
-    <input type="hidden" name="action" value="teststruct.edit"></input>
-    <input type="hidden" name="tse_id" value="${testStruct.id}"></input>
+    <input type="hidden" name="action" value="teststruct.edit">
+    <input type="hidden" name="tid" value="${testStruct.id}">
     
     <p>
-       <label>Tên: <input type="text" name="tse_name" 
-            value="${(empty param.tse_name) ? testStruct.name : param.tse_name}"></input></label>
-        <span id="msgName" style='${(empty nameErr) ? "none" : "block"}'>${nameErr}</span>
+       <label>Tên: <input type="text" name="tname" 
+            value="${(empty param.tname) ? testStruct.name : param.tname}"></label>
+        <ocw:error code="name"></ocw:error>
     </p>
     
     <p>
-       <label>Mô tả: <textarea name="tse_description">
-           ${(empty param.tse_name) ? testStruct.description : param.tse_description}
+       <label>Mô tả: <textarea name="tdescription">
+           ${(empty param.tname) ? testStruct.description : param.tdescription}
        </textarea></label>
     </p>
 
     <p>
-       <button type="submit" name="tse_submit" value="update">Lưu</button>
-       <button type="button" onclick="location.href='${scriptPath}?action=teststruct.view&tsv_id=${testStruct.id}'">Thôi</button>
+       <button type="submit" name="tsubmit" value="update">Lưu</button>
+       <ocw:articleButton resource="${action.resource}">Thôi</ocw:articleButton>
     </p>
     
 </form>

@@ -1,18 +1,26 @@
 package oop.controller.action.section;
 
 import oop.controller.action.AbstractAction;
-import oop.db.dao.SectionDAO;
+import oop.data.Resource;
+import oop.data.Section;
+import oop.data.Test;
+import oop.db.dao.ResourceDAO;
 
 public class MoveDownAction extends AbstractAction {
 	
+	private Resource<Test> resource;
+	private Test test;
+
 	@Override
 	public void performImpl() throws Exception {
-		long sectionId = getParams().getLong("sw_id");
-		long testId = getParams().getLong("sw_testid");
+		resource = ResourceDAO.fetchById(getParams().getLong("testid"));
+		test = resource.getArticle().copy();
+		int sectionIndex = getParams().getInt("id");
+		Section section = test.getSections().remove(sectionIndex);
+		test.getSections().add(sectionIndex+1, section);
+		saveNewRevision(resource, test);
 		
-		SectionDAO.moveDown(sectionId);
-		
-		setNextAction("test.view&tv_id=" + testId);
+		setNextAction("test.view&id=" + resource.getId());
 	}
 
 }

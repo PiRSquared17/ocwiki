@@ -6,13 +6,13 @@
 
 <form id="form_edit" action="${scriptPath}" method="get">
     
-    <input type="hidden" name="action" value="question.edit"></input>
-    <input type="hidden" name="qe_id" value="${question.id}"></input>
+    <input type="hidden" name="action" value="question.edit">
+    <input type="hidden" name="qe_id" value="${question.id}">
     
     <div>
 	    <label>Câu hỏi: 
 	        <textarea style="width:100%" name="qe_content">${u:defaultIfNull(param.qe_content, question.content)}</textarea></label>
-	        <span class="error-validating">${action.contentError}</span>
+	        <ocw:error code="content"></ocw:error>
     </div>
     
     <br /><br />
@@ -26,10 +26,10 @@
             <option value="5" ${level==5 ? 'selected' : ''}>${u:levelName(5)}</option>
         </select>
         </label>
-        <span class="error-validating">${action.levelError}</span>
+        <ocw:error code="level"></ocw:error>
     </p>
     <br />
     
 	<button type="submit" name="qe_submit" value="save">Lưu</button>
-	<button type="button" onclick="location.href='${scriptPath}?action=question.view&qv_id=${question.id}'">Thôi</button>
+	<ocw:articleButton resource="${action.resource}">Thôi</ocw:articleButton>
 </form>

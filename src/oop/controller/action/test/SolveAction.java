@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
 import oop.data.Article;
 import oop.data.History;
+import oop.data.Resource;
 import oop.data.Test;
 import oop.db.dao.HistoryDAO;
-import oop.db.dao.TestDAO;
+import oop.db.dao.ResourceDAO;
 import oop.taglib.UtilFunctions;
 
 public class SolveAction extends AbstractAction {
@@ -18,12 +20,12 @@ public class SolveAction extends AbstractAction {
 	@Override
 	public void performImpl() throws Exception {
 		String submit = getParams().getString("submit", "");
+		Resource<Test> resource = ResourceDAO.fetchById(getParams()
+				.getLong("testId"));
+		test = resource.getArticle();
 		if ("done".equals(submit)) {
-			test = TestDAO.fetchById(getParams().getLong("testId"));
-
 			if (test.getQuestionCount() <= 0) {
-				error("Đề thi chưa hoàn thiện.");
-				return;
+				throw new ActionException("Đề thi chưa hoàn thiện.");
 			}
 			
 			Map<Long, long[]> choices = getChoices();
@@ -34,12 +36,8 @@ public class SolveAction extends AbstractAction {
 
 			setNextAction("history.view&id=" + history.getId());
 		} else {
-			long testId = getParams().getLong("testId");
-			test = TestDAO.fetchById(testId);
-			
 			if (test.getQuestionCount() <= 0) {
-				error("Đề thi chưa hoàn thiện.");
-				return;
+				throw new ActionException("Đề thi chưa hoàn thiện.");
 			}
 			
 			title("Làm đề: " + test.getName());

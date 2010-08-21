@@ -4,9 +4,9 @@
 
 <form action="${scriptPath}" method="get">
 
-    <input type="hidden" name="action" value="answer.edit"></input>
-    <input type="hidden" name="question" value="${question.id}"></input>
-    <input type="hidden" name="answer" value="${param.answer}"></input>
+    <input type="hidden" name="action" value="answer.edit">
+    <input type="hidden" name="question" value="${question.id}">
+    <input type="hidden" name="answer" value="${param.answer}">
 
     ${question.content}
 	<div>
@@ -15,15 +15,15 @@
 		<c:forEach items="${question.answers}" var="answer">
 			<div class="answer-wrapper">
 		   <c:choose>
-		      <c:when test="${answer.id == editing}">
+		      <c:when test="${i == param.answer}">
 		          <div class="check-wrapper">
 		              <label><b>${u:alpha(i)}</b>. 
 		              <input type="checkbox" name="correct" value="true"
-		                  ${empty param.correct ? (answer.correct ? 'checked' : '') : 'checked' }></input>
+		                  ${empty param.correct ? (answer.correct ? 'checked' : '') : 'checked' }>
 		             </label> 
 		          </div>
-		          <textarea style="width:80%" name="content">${empty param.content ? answer.content : param.content}</textarea>
-		          <div class="error-validating">${action.contentError}</div>
+		          <textarea style="width:80%" name="content">${answer.content}</textarea>
+		          <ocw:error code="content"></ocw:error>
 		      </c:when>
 		      <c:otherwise>
 		          <div class="answer-number-wrapper">
@@ -39,5 +39,5 @@
     </div>
 	
 	<button type="submit" name="submit" value="save">Lưu</button>
-	<button type="button" onclick="location.href='${scriptPath}?action=question.view&qv_id=${question.id}'">Quay về câu hỏi</button>
+	<ocw:articleButton resource="${action.resource">Quay về câu hỏi</ocw:articleButton>
 </form>

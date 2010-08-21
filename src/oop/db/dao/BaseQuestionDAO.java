@@ -1,45 +1,39 @@
 package oop.db.dao;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-import oop.data.Article;
 import oop.data.BaseQuestion;
-import oop.data.Status;
-import oop.data.Test;
-import oop.data.Text;
+import oop.data.Resource;
 import oop.data.Topic;
-import oop.data.User;
 import oop.persistence.HibernateUtil;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 @SuppressWarnings("unchecked")
 public class BaseQuestionDAO {
 
-	public static List<BaseQuestion> fetchByTopic(long topicId, int start,
+	public static List<Resource<BaseQuestion>> fetchByTopic(long topicId, int start,
 			int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from BaseQuestion " +
-				"where :topic in elements(topics) and (status <> 'DELETED') " +
+		String hql = "from Resource where article in " +
+				"(from BaseQuestion " +
+				"where :topic in elements(topics)) " +
 				"order by id desc";
 		Query query = session.createQuery(hql);
-		Object topic = session.load(Topic.class, topicId);
+		Object topic = session.load(Resource.class, topicId);
 		query.setEntity("topic", topic);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
 		return query.list();
 	}
 
-	public static List<BaseQuestion> fetchByAuthor(long authorId, int start,
+	public static List<Resource<BaseQuestion>> fetchByAuthor(long authorId, int start,
 			int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from BaseQuestion " +
-				"where author=:author and status <> 'DELETED'" +
+		String hql = "from Resource where article in (from BaseQuestion) " +
+				"where author=:author" +
 				"order by id desc";
 		Query query = session.createQuery(hql);
 		Object author = session.load(Topic.class, authorId);
@@ -49,9 +43,9 @@ public class BaseQuestionDAO {
 		return query.list();
 	}
 
-	public static List<BaseQuestion> fetch(int start, int length) {
+	public static List<Resource<BaseQuestion>> fetch(int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from BaseQuestion where status <> 'DELETED'";
+		String hql = "from Resource where article in (from BaseQuestion)";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
@@ -63,15 +57,15 @@ public class BaseQuestionDAO {
 	 * @param id
 	 * @return
 	 */
-	public static BaseQuestion fetchById(long id) {
-		Session session = HibernateUtil.getSession();
-		return (BaseQuestion) session.get(BaseQuestion.class, id);
+	public static Resource<BaseQuestion> fetchById(long id) {
+		return ResourceDAO.fetchById(id, BaseQuestion.class);
 	}
 
 	public static long countByAuthor(long authorId) {
 		Session session = HibernateUtil.getSession();
-		String hql = "select count(*) from BaseQuestion " +
-				"where author=:author and status <> 'DELETED'";
+		String hql = "select count(*) from Resource where article in " +
+				"(from BaseQuestion) " +
+				"where author=:author";
 		Query query = session.createQuery(hql);
 		Object author = session.load(Topic.class, authorId);
 		query.setEntity("author", author);
@@ -80,65 +74,24 @@ public class BaseQuestionDAO {
 
 	public static long countByTopic(long topicId) {
 		Session session = HibernateUtil.getSession();
-		String hql = "select count(*) from BaseQuestion " +
-				"where :topic in elements(topics) and (status <> 'DELETED')";
+		String hql = "select count(*) from Resource where article in " +
+				"(from BaseQuestion where :topic in elements(topics))";
 		Query query = session.createQuery(hql);
 		Object topic = session.load(Topic.class, topicId);
 		query.setEntity("topic", topic);
 		return (Long) query.uniqueResult();
 	}
 
-	public static BaseQuestion create(String contentStr, int level, long authorId) {
-		Session session = HibernateUtil.getSession();
-		Transaction tx = null;
-		try {
-			User author = (User) session.load(User.class, authorId);
-			Text content = new Text(contentStr);
-			BaseQuestion baseQuestion = new BaseQuestion(content, level, author,
-					new Date());
-
-			tx = session.beginTransaction();
-			session.save(content);
-			session.save(baseQuestion);
-			tx.commit();
-			return baseQuestion;
-		} catch (HibernateException ex) {
-			if (tx != null)
-				tx.rollback();
-			throw ex;
-		}
-	}
-	
 	public static List<BaseQuestion> fetchByContent(String content, int limit) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from BaseQuestion " + 
-		"where content.text like :content and status <> 'DELETED' ";
+		String hql = "from Resource where article in " +
+				"(from BaseQuestion where content.text like :content)";
 		Query query = session.createQuery(hql);
 		query.setString("content", content);
 		query.setMaxResults(limit);
 		return query.list();
 	}
-
-	public static void setDeleted(long questionId, boolean deleted) {
-		Session session = HibernateUtil.getSession();
-		Transaction tx = null;
-		try {
-			Article question = (Article) session.load(
-					BaseQuestion.class, questionId); 
-			tx = session.beginTransaction();
-			question.setStatus(Status.DELETED);
-			tx.commit();
-		} catch (HibernateException ex) {
-			if (tx != null)
-				tx.rollback();
-			throw ex;
-		}
-	}
 	
-	@Deprecated
-	public static void persist(Article question) {
-	}
-
 	/**
 	 * Lấy về câu hỏi thuộc chủ đề <code>topicId</code> chưa có trong đề thi
 	 * <code>testId</code>.
@@ -148,22 +101,19 @@ public class BaseQuestionDAO {
 	 * @param quantity
 	 * @return
 	 */
-	public static List<BaseQuestion> fetchRandomly(long testId,
+	public static List<Resource<BaseQuestion>> fetchRandomly(long testId,
 			long topicId, int quantity) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from BaseQuestion as q " +
-				"where q in " +
-					"(select base from Question " +
-						"where " +
-							"section in (" +
-								"from Section where test = :test " +
-									"and status <> 'DELETED') " +
-							"and status <> 'DELETED') " +
-					"and :topic in elements(topics) and status <> 'DELETED' " +
-				"order by rand()";
+		String hql = "from Resource where article in (" +
+				"from BaseQuestion as q " +
+				"where q not in (select base from Question " +
+						"where section in (" +
+							"from Section where test = :test.article) " +
+					"and :topic in elements(topics) " +
+				"order by rand())";
 		Query query = session.createQuery(hql);
-		query.setEntity("topic", session.load(Topic.class, topicId));
-		query.setEntity("test", session.load(Test.class, testId));
+		query.setEntity("topic", session.load(Resource.class, topicId));
+		query.setEntity("test", session.load(Resource.class, testId));
 		query.setMaxResults(quantity);
 		return query.list();
 	}
@@ -177,8 +127,8 @@ public class BaseQuestionDAO {
 	}
 
 	public static long count() {
-		String sql = "SELECT COUNT(*) FROM  BaseQuestion " +
-				"where status <> 'DELETED'";
+		String sql = "SELECT COUNT(*) from Resource where article in " +
+				"(FROM  BaseQuestion)";
 		return HibernateUtil.count(sql);
 	}
 
@@ -208,7 +158,7 @@ public class BaseQuestionDAO {
 		 * groupBy.length()).insert(0, "GROUP BY ");
 		 * orderBy.delete(orderBy.length()-2, orderBy.length()).insert(0,
 		 * " ORDER BY "); } where.append("ques_id NOT IN ")
-		 * .append("(SELECT ques_id FROM vwTestQuestion WHERE test_id = ")
+		 * .append("(SELECT ques_id FROM vwTestQuestion WHERE id = ")
 		 * .append(testId).append(")");
 		 * 
 		 * String sql = select + "COUNT(ques_id) " + "FROM tblQuestion " + where

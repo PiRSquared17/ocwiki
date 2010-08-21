@@ -1,9 +1,11 @@
 package oop.controller.action.sectstruct;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
+import oop.data.Resource;
 import oop.data.SectionStructure;
 import oop.data.TestStructure;
-import oop.db.dao.SectionStructureDAO;
+import oop.data.Text;
 import oop.db.dao.TestStructureDAO;
 
 public class CreateAction extends AbstractAction {
@@ -11,22 +13,26 @@ public class CreateAction extends AbstractAction {
 	@Override
 	public void performImpl() throws Exception {
 		try {
-			long testStructureId = getParams().getLong("ssc_testid");
-			TestStructure test = TestStructureDAO.fetchById(testStructureId);
+			Resource<TestStructure> resource = TestStructureDAO
+					.fetchById(getParams().getLong("tstr"));
+			TestStructure test = resource.getArticle();
 			request.setAttribute("test", test);
 			title("Tạo phần mới trong cấu trúc đề " + test.getName());
 
-			String submit = getParams().get("ssc_submit");
+			String submit = getParams().get("ssubmit");
 			if ("create".equals(submit)) {
-				String text = getParams().get("ssc_text");
-				int order = getParams().getInt("ssc_order");
+				String text = getParams().get("stext");
 
-				SectionStructure sectionStructure = SectionStructureDAO.create(
-						text, testStructureId, order);
-				setNextAction("teststruct.view&tsv_id=" + testStructureId);
+				test = test.copy();
+				SectionStructure sectionStructure = new SectionStructure(
+						new Text(text));
+				test.getSectionStructures().add(sectionStructure);
+				saveNewRevision(resource, test);
+
+				setNextAction("teststruct.view&tstr=" + resource.getId());
 			}
 		} catch (NumberFormatException ex) {
-			error("ID không hợp lệ.");
+			throw new ActionException("ID không hợp lệ.");
 		}
 	}
 

@@ -1,14 +1,30 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 21:37:01 15-08-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-    <class name="oop.data.History" table="history">
-        <id name="id" type="long" access="field">
-            <column name="his_id" />
-            <generator class="identity" />
-        </id>
-        <property name="text" type="java.lang.String" access="field">
-            <column name="txt_text" />
-        </property>
-    </class>
+	<class name="oop.data.History" table="History" mutable="false">
+		<id name="id" type="long" access="field">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="user" class="oop.data.User" access="field"
+			fetch="select" not-null="true">
+			<column name="user" />
+		</many-to-one>
+		<many-to-one name="test" class="oop.data.Test" access="field"
+			fetch="select" not-null="true">
+			<column name="test" />
+		</many-to-one>
+		<property name="takenDate" type="java.util.Date" access="field"
+			not-null="true">
+			<column name="taken_date" sql-type="timestamp" not-null="true" />
+		</property>
+		<property name="mark" type="double" access="field" not-null="true">
+			<column name="mark" />
+		</property>
+		<property name="time" type="int" access="field" not-null="true">
+			<column name="time" />
+		</property>
+	</class>
 </hibernate-mapping>

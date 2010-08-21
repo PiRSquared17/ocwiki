@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 <hibernate-mapping>
-    <class name="oop.data.Constraint" table="constraint">
-        <id column="con_id" type="long" access="field">
-            <generator class="identity" />
+    <class name="oop.data.Constraint" table="Constraint" mutable="false">
+        <id name="id" column="id" type="long" access="field">
+            <generator class="native" />
         </id>
-        <discriminator column="con_type" type="string" />
-        <version name="version" column="con_version"></version>
-	    <property name="count" type="int" column="con_count" />
-	    <many-to-one name="sectionStructure" column="con_section" class="oop.data.SectionStructure" />
-        <property name="status" length="10" column="con_status">
-            <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">oop.data.Status</param>
-                <param name="type">12</param> <!-- VARCHAR -->
-            </type>
-        </property> 
+        <discriminator column="type" type="string" length="10" not-null="true" />
+	    <property name="count" column="count" type="int" not-null="true" />
     </class>
 </hibernate-mapping>

@@ -3,7 +3,6 @@ package oop.db.dao;
 import java.util.Date;
 import java.util.List;
 
-import oop.data.Group;
 import oop.data.User;
 import oop.persistence.HibernateUtil;
 
@@ -16,13 +15,13 @@ import org.hibernate.Transaction;
 public class UserDAO {
 
 	public static User create(String userName, String fullName,
-			String password, String email) {
+			String group, String password, String email) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			User user = new User(userName, fullName, password, email,
-					Group.USER, null, null, false, new Date());
+					group, null, null, false, new Date());
 			session.save(user);
 			tx.commit();
 			return user;

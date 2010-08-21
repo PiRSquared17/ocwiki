@@ -1,37 +1,37 @@
 package oop.controller.action.teststruct;
 
 import oop.controller.action.AbstractAction;
+import oop.data.Namespace;
+import oop.data.Resource;
 import oop.data.TestStructure;
-import oop.db.dao.TestStructureDAO;
+import oop.data.Text;
+import oop.db.dao.NamespaceDAO;
 
 import org.apache.commons.lang.StringUtils;
 
 public class CreateAction extends AbstractAction {
-	
+
 	@Override
 	public void performImpl() throws Exception {
-		String submit = getParams().get("tsc_submit");
+		String submit = getParams().get("tsubmit");
 		if ("create".equals(submit)) {
-			boolean error = false;
-			String name = getParams().get("tsc_name");
+			String name = getParams().get("tname");
 			if (StringUtils.isEmpty(name)) {
-				request
-						.setAttribute("nameErr",
-								"Bạn cần nhập tên cấu trúc đề.");
-				error = true;
+				addError("name", "Bạn cần nhập tên cấu trúc đề.");
 			}
 
-			String description = getParams().get("tsc_description");
+			String description = getParams().get("tdescription");
 			if (StringUtils.isEmpty(description)) {
-				request.setAttribute("descriptionErr",
-						"Bạn cần nhập mô tả cấu trúc đề");
-				error = true;
+				addError("description", "Bạn cần nhập mô tả cấu trúc đề");
 			}
-			
-			if (!error) {
-				TestStructure structure = TestStructureDAO.create(name,
-						description, getUser().getId());
-				setNextAction("teststruct.view&tsv_id=" + structure.getId());
+
+			if (!hasErrors()) {
+				Namespace namespace = NamespaceDAO
+						.fetch(Namespace.TEST_STRUCTURE);
+				TestStructure structure = new TestStructure(namespace, name,
+						new Text(description), "abc", 90);
+				Resource<TestStructure> resource = saveNewResource(structure);
+				setNextAction("teststruct.view&tstr=" + resource.getId());
 			} else if ("cancel".equals(submit)) {
 
 			}

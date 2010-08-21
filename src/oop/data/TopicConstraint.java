@@ -5,21 +5,20 @@ import java.util.Set;
 
 public class TopicConstraint extends Constraint {
 
-	private Set<Topic> topics = new HashSet<Topic>();
+	private Set<Resource<Topic>> topics = new HashSet<Resource<Topic>>();
 
-	TopicConstraint() {
+	public TopicConstraint() {
 	}
 	
-	public TopicConstraint(SectionStructure sectionStructure,
-			int count) {
-		super(sectionStructure, count);
+	public TopicConstraint(int count) {
+		super(count);
 	}
 
-	public Set<Topic> getTopics() {
+	public Set<Resource<Topic>> getTopics() {
 		return topics;
 	}
 	
-	public void setTopics(Set<Topic> topics) {
+	public void setTopics(Set<Resource<Topic>> topics) {
 		this.topics = topics;
 	}
 	

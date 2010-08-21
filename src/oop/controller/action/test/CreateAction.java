@@ -1,97 +1,77 @@
 package oop.controller.action.test;
 
-import java.sql.SQLException;
-
 import oop.controller.action.AbstractAction;
+import oop.data.Resource;
 import oop.data.Test;
-import oop.data.TestStructure;
-import oop.db.dao.TestDAO;
-import oop.db.dao.TestStructureDAO;
+import oop.data.Text;
 
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
 public class CreateAction extends AbstractAction {
-	
+
 	@Override
 	public void performImpl() throws Exception {
 		title("Tạo đề thi mới");
-		String submit = getParams().get("tc_submit");
+		String submit = getParams().get("submit");
 		if ("create".equals(submit)) {
 			doCreate();
 		}
 	}
 
-	private void doCreate() throws SQLException {
-		String name = null;
+	private void doCreate() throws Exception {
+		Test test = new Test();
+
 		try {
-			name = getParams().getString("tc_name");
+			String name = getParams().getString("name");
+			test.setName(name);
 		} catch (ParameterNotFoundException ex) {
-			request.setAttribute("nameErr", "Bạn cần nhập tên đề thi.");
-			return;
+			addError("name", "Bạn cần nhập tên đề thi.");
 		}
-		
-		String description = getParams().get("tc_description");
-		
-		int time;
+
+		String contentStr = getParams().get("content");
+		test.setContent(new Text(contentStr));
+
 		try {
-			time = getParams().getInt("tc_time");
+			int time = getParams().getInt("time");
+			test.setTime(time);
 		} catch (NumberFormatException e) {
-			timeError = "Định dạng thời gian không hợp lệ";
-			return;
+			addError("time", "Định dạng thời gian không hợp lệ");
 		} catch (ParameterNotFoundException e) {
-			timeError = "Bạn cần nhập thời gian";
-			return;
+			addError("time", "Bạn cần nhập thời gian");
 		}
-		
-		String type;
+
 		try {
-			type = getParams().getString("tc_type");
+			String type = getParams().getString("type");
+			test.setType(type);
 		} catch (ParameterNotFoundException e1) {
-			typeError = "Bạn cần chọn kiểu đề thi.";
-			return;
+			addError("type", "Bạn cần chọn kiểu đề thi.");
 		}
-		
-		boolean useStructure = getParams().hasParameter("tc_usestruct");
-		TestStructure structure = null;
-		if (useStructure) {
-			long structureId;
+
+		// boolean useStructure = getParams().hasParameter("usestruct");
+		// TestStructure structure = null;
+		// if (useStructure) {
+		// long structureId;
+		// try {
+		// structureId = getParams().getLong("struct");
+		// structure = TestStructureDAO.fetchById(structureId).getArticle();
+		// } catch (NumberFormatException e) {
+		// addError("struct", "Mã cấu trúc đề không hợp lệ.");
+		// return;
+		// } catch (ParameterNotFoundException e) {
+		// addError("struct", "Bạn cần chọn cấu trúc đề.");
+		// return;
+		// }
+		// }
+
+		if (!hasErrors()) {
 			try {
-				structureId = getParams().getLong("tc_struct");
-				structure = TestStructureDAO.fetchById(structureId);
-			} catch (NumberFormatException e) {
-				structError = "Mã cấu trúc đề không hợp lệ.";
-				return;
-			} catch (ParameterNotFoundException e) {
-				structError = "Bạn cần chọn cấu trúc đề.";
-				return;
+				Resource<Test> resource = saveNewResource(test);
+				setNextAction("test.view&id=" + resource.getId());
+			} catch (ConstraintViolationException ex) {
+				addError("name", "Tên đề thi đã được sử dụng.");
 			}
 		}
-
-		try {
-			Test test = TestDAO.create(name, description, getUser()
-					.getId(), type, time);
-			setNextAction("test.view&tv_id=" + test.getId());
-		} catch (ConstraintViolationException ex) {
-			request.setAttribute("nameErr", "Tên đề thi đã được sử dụng.");
-			return;
-		}
-	}
-
-	private String timeError;
-	private String structError;
-	private String typeError;
-	
-	public String getTimeError() {
-		return timeError;
-	}
-	
-	public String getStructError() {
-		return structError;
-	}
-	
-	public String getTypeError() {
-		return typeError;
 	}
 }

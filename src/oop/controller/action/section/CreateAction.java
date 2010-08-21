@@ -1,51 +1,54 @@
 package oop.controller.action.section;
 
-import java.sql.SQLException;
-
 import oop.controller.action.AbstractAction;
-import oop.data.Article;
-import oop.db.dao.SectionDAO;
-import oop.db.dao.TestDAO;
+import oop.controller.action.ActionException;
+import oop.data.Resource;
+import oop.data.Section;
+import oop.data.Test;
+import oop.data.Text;
+import oop.db.dao.ResourceDAO;
 
 public class CreateAction extends AbstractAction {
+
+	private Resource<Test> resource;
+	private Test test;
 
 	@Override
 	public void performImpl() throws Exception {
 		try {
-			long testId = getParams().getLong("sc_testid");
-			Article test = TestDAO.fetchById(testId);
-			if (test == null) {
-				error("Không tìm thấy đề thi được yêu cầu.");
-				return;
+			resource = ResourceDAO.fetchById(getParams().getLong("test"));
+			if (resource == null) {
+				throw new ActionException("Không tìm thấy đề thi được yêu cầu.");
 			}
+			test = resource.getArticle().copy();
 
 			title("Thêm mục mới vào đề " + test.getName());
-			request.setAttribute("test", test);
 
-			String submit = getParams().get("sc_submit");
+			String submit = getParams().get("submit");
 			if ("create".equals(submit)) {
-				doCreate(testId, test);
+				doCreate();
 			}
 		} catch (NumberFormatException ex) {
-			error("ID không hợp lệ.");
+			throw new ActionException("ID không hợp lệ.");
 		}
 	}
 
-	private void doCreate(long testId, Article test) throws SQLException {
-		String text = getParams().get("sc_text");
-		String orderStr = getParams().get("sc_order");
+	private void doCreate() throws Exception {
+		String contentStr = getParams().get("text");
+		int index = getParams().getInt("index", test.getSections().size());
+		Section section = new Section(new Text(contentStr));
+		test.getSections().add(index, section);
+		saveNewRevision(resource, test);
 
-		int order = 0;
-		if ("last".equals(orderStr)) {
-			order = SectionDAO.nextAvailableOrder(testId);
-		} else {
-			order = Integer.parseInt(orderStr);
-			SectionDAO.shiftDown(testId, order);
-		}
-
-		SectionDAO.create(text, order, testId);
-
-		setNextAction("test.view&tv_id=" + test.getId());
+		setNextAction("test.view&id=" + test.getId());
 	}
 
+	public Test getTest() {
+		return test;
+	}
+	
+	public Resource<Test> getResource() {
+		return resource;
+	}
+	
 }

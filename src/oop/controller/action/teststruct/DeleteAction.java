@@ -1,7 +1,9 @@
 package oop.controller.action.teststruct;
 
 import oop.controller.action.AbstractAction;
-import oop.db.dao.TestStructureDAO;
+import oop.controller.action.ActionException;
+import oop.data.Status;
+import oop.db.dao.ResourceDAO;
 
 public class DeleteAction extends AbstractAction {
 
@@ -9,10 +11,10 @@ public class DeleteAction extends AbstractAction {
 	public void performImpl() throws Exception {
 		try {
 			long teststructureId = getParams().getLong("teststructureId");
-			TestStructureDAO.setDeleted(teststructureId, true);
+			ResourceDAO.fetchById(teststructureId).setStatus(Status.DELETED);
 			setNextAction("teststruct.view");
 		} catch (NumberFormatException ex) {
-			error("ID khong hop le");
+			throw new ActionException("ID khong hop le");
 		}
 	}
 }

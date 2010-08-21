@@ -2,21 +2,20 @@ package oop.data;
 
 import java.util.Date;
 
-
 public class History implements Entity {
 
 	private long id;
 	private User user;
-	private Article test;
+	private Test test;
 	private Date takenDate;
 	private double mark;
 	private int time;
 
 	History() {
 	}
-	
-	public History(User user, Article test, Date takenDate, 
-			double mark, int time) {
+
+	public History(User user, Test test, Date takenDate, double mark,
+			int time) {
 		this.user = user;
 		this.test = test;
 		this.takenDate = takenDate;
@@ -27,7 +26,7 @@ public class History implements Entity {
 	public User getUser() {
 		return user;
 	}
-	
+
 	public Date getTakenDate() {
 		return takenDate;
 	}
@@ -44,7 +43,7 @@ public class History implements Entity {
 		return id;
 	}
 
-	public Article getTest() {
+	public Test getTest() {
 		return test;
 	}
 

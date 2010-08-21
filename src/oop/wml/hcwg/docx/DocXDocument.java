@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import javax.xml.bind.JAXBException;
 
+import oop.conf.Config;
 import oop.data.Answer;
 import oop.data.Article;
 import oop.data.Question;
@@ -100,7 +101,7 @@ public class DocXDocument {
 			verCode = "";
 		else
 			verCode = "-" + version.getCode();
-		return "CSForce_" + test.getId() + verCode + ".docx";
+		return Config.get().getSiteName() + test.getId() + verCode + ".docx";
 	}
 
 	public String getFullPath() {
@@ -143,7 +144,7 @@ public class DocXDocument {
 			sectionNumber++;
 			wordMLPackage.getMainDocumentPart().addParagraph(
 					WMLStyle.PARAGRAPH + WMLStyle.END_PARAGRAPH);
-			paragraphs = WMLStyle.section(section.getText().getText(), 
+			paragraphs = WMLStyle.section(section.getContent().getText(), 
 					UtilFunctions.toAlpha(sectionNumber));
 			for (String paragraph : paragraphs) {
 				wordMLPackage.getMainDocumentPart().addParagraph(paragraph);

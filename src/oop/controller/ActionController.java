@@ -18,6 +18,7 @@ import oop.conf.ActionDescriptor;
 import oop.conf.Config;
 import oop.conf.ModuleDescriptor;
 import oop.controller.action.Action;
+import oop.controller.action.ActionException;
 import oop.data.User;
 import oop.module.Module;
 import oop.persistence.HibernateUtil;
@@ -127,6 +128,8 @@ public class ActionController extends HttpServlet {
 				request.getRequestDispatcher(templateEntry).forward(request,
 						response);
 			}
+		} catch (ActionException e) {
+			error(request, response, e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

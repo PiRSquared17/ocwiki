@@ -1,10 +1,9 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="article"
-    description="Đối tượng bài viết (lớp BaseArticle)" required="true"
-    type="oop.data.BaseArticle"%>
+    description="Đối tượng bài viết (lớp BaseArticle)" required="true" 
+    rtexprvalue="true" type="oop.data.BaseArticle"%>
 <%@ attribute name="editable"
-    description="Có hiện các nút sửa đổi hay không" required="false"
-    type="java.lang.Boolean"%>
+    description="Có hiện các nút sửa đổi hay không" required="false"%>
 <%@ include file="/includes/common.jsp"%>
 
 <div class="topic-list">

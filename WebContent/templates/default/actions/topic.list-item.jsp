@@ -4,7 +4,7 @@
 
 <li>
 	<c:if test="${sessionScope.login && sessionScope.user.group == 'teacher'}">
-	   <input type="checkbox" name="cl_topics" value="${topic.id}"></input>
+	   <input type="checkbox" name="cl_topics" value="${topic.id}">
 	</c:if>
 	<c:if test="${sessionScope.login && sessionScope.user.group == 'teacher'}">
 	   <i><a href="${scriptPath}?action=topic.edit&ce_id=${topic.id}"><img src="${templatePath}/images/edit.png" alt="edit" title="edit" width="12" height="12" /></a></i>

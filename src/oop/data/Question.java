@@ -1,33 +1,35 @@
 package oop.data;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-public class Question implements Entity {
+import oop.util.Copiable;
+
+public class Question implements Entity, Copiable<Question> {
 
 	private long id;
-	private Section section;
-	private BaseQuestion base;
-	private int mark;
-	private Status status = Status.NORMAL;
-	private Set<Answer> answers = new HashSet<Answer>();
-	private int version;
+	@XmlElement
+	private Resource<? extends BaseQuestion> baseResource;
+	@XmlElement
+	private Revision<? extends BaseQuestion> baseRevision;
+	private double mark;
 
 	Question() {
 	}
-	
-	public Question(BaseQuestion base, Section section, int mark) {
-		this.base = base;
-		this.section = section;
+
+	public Question(ArticleContainer<? extends BaseQuestion> baseContainer, double d) {
+		setBaseContainer(baseContainer);
+		this.mark = d;
 	}
 
 	/**
 	 * Dành cho JSP, tránh sử dụng hàm này.
+	 * 
 	 * @return
 	 */
 	@Deprecated
@@ -38,79 +40,59 @@ public class Question implements Entity {
 		}
 		return usedAnswerMap;
 	}
-	
+
 	@XmlAttribute
 	public long getId() {
 		return id;
 	}
-	
-	public Set<Answer> getAnswers() {
-		return answers;
+
+	@XmlTransient
+	public List<Answer> getAnswers() {
+		return getBase().getAnswers();
 	}
-	
-	public void setAnswers(Set<Answer> usedAnswers) {
-		this.answers = usedAnswers;
-	}
-	
-	public int getMark() {
+
+	@XmlAttribute
+	public double getMark() {
 		return mark;
 	}
-	
+
 	public void setMark(int mark) {
 		this.mark = mark;
 	}
 
-	public Section getSection() {
-		return section;
-	}
-
-	public void setSection(Section section) {
-		this.section = section;
-	}
-
-	public Article getTest() {
-		return getSection().getTest();
-	}
-	
-	public User getAuthor() {
-		return base.getAuthor();
-	}
-
+	@XmlTransient
 	public Text getContent() {
-		return base.getContent();
+		return getBase().getContent();
 	}
 
-	public Date getCreateDate() {
-		return base.getCreateDate();
-	}
-
+	@XmlTransient
 	public int getLevel() {
-		return base.getLevel();
+		return getBase().getLevel();
 	}
 
-	public boolean isDeleted() {
-		return status == Status.DELETED;
-	}
-
+	@XmlElement
 	public BaseQuestion getBase() {
-		return base;
+		return baseResource.getArticle();
 	}
 
-	public void setVersion(int version) {
-		this.version = version;
+	@XmlTransient
+	public ArticleContainer<? extends BaseQuestion> getBaseContainer() {
+		return baseRevision == null ? baseResource : baseRevision;
 	}
 
-	public int getVersion() {
-		return version;
+	public void setBaseContainer(ArticleContainer<? extends BaseQuestion> baseContainer) {
+		if (baseContainer instanceof Resource<?>) {
+			baseResource = (Resource<? extends BaseQuestion>) baseContainer;
+			baseRevision = null;
+		} else if (baseContainer instanceof Revision<?>) {
+			baseResource = null;
+			baseRevision = (Revision<? extends BaseQuestion>) baseContainer;
+		}
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	@XmlAttribute
-	public Status getStatus() {
-		return status;
+	@Override
+	public Question copy() {
+		return new Question(getBaseContainer(), getMark());
 	}
 
 }

@@ -1,8 +1,11 @@
 package oop.controller.action.test;
 
 import oop.controller.action.AbstractAction;
-import oop.data.Question;
-import oop.db.dao.QuestionDAO;
+import oop.controller.action.ActionException;
+import oop.data.Resource;
+import oop.data.Section;
+import oop.data.Test;
+import oop.db.dao.ResourceDAO;
 
 public class DeleteQuestionAction extends AbstractAction {
 
@@ -11,14 +14,19 @@ public class DeleteQuestionAction extends AbstractAction {
 
 	@Override
 	public void performImpl() throws Exception {
-		title("Gỡ bỏ câu hỏi khỏi đề thi");
 		try {
-			long questionId = getParams().getLong("id");
-			Question question = QuestionDAO.fetchById(questionId);
-			QuestionDAO.setDeleted(questionId, true);
-			setNextAction("test.view&tv_id=" + question.getTest().getId());
+			Resource<Test> resource = ResourceDAO.fetchById(getParams().getLong("test"));
+			Test newTest = resource.getArticle().copy();
+			int sectionIndex = getParams().getInt("section");
+			Section newSection = newTest.getSections().get(sectionIndex).copy();
+			newTest.getSections().set(sectionIndex, newSection);
+			int questionIndex = getParams().getInt("question");
+			newSection.getQuestions().remove(questionIndex);
+			saveNewRevision(resource, newTest);
+			
+			setNextAction("test.view&id=" + resource.getId());
 		} catch (NumberFormatException ex) {
-			error("ID không hợp lệ");
+			throw new ActionException("ID không hợp lệ");
 		}
 	}
 

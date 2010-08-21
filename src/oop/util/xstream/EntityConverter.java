@@ -1,11 +1,11 @@
 package oop.util.xstream;
 
+import oop.data.Entity;
+import oop.data.log.ResourceLog;
+import oop.persistence.HibernateUtil;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
-
-import oop.change.Change;
-import oop.data.Entity;
-import oop.persistence.HibernateUtil;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -42,7 +42,7 @@ public class EntityConverter implements Converter {
 
 	@Override
 	public boolean canConvert(Class clazz) {
-		return Entity.class.isAssignableFrom(clazz) && clazz != Change.class;
+		return Entity.class.isAssignableFrom(clazz) && clazz != ResourceLog.class;
 	}
 
 }

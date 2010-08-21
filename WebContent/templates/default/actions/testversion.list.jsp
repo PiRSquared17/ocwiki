@@ -15,7 +15,7 @@
 </tr>
 <c:forEach items="${testVersions}" var="testversion">
 <tr>
-	<td><input type="checkbox" name="tl_testversions" value="${testversion.id}"></input></td>
+	<td><input type="checkbox" name="tl_testversions" value="${testversion.id}"></td>
 	<td><a href="${scriptPath}?action=testversion.view&testid=${test.id}&verid=${testversion.id}"> 
 	       ${empty testversion.code ? '&lt;không tên&gt;' : testversion.code}</a>
 	</td>

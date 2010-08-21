@@ -3355,10 +3355,10 @@ if (Prototype.BrowserFeatures.SelectorsAPI &&
     var div = document.createElement('div'),
      span = document.createElement('span');
 
-    div.id = "prototype_test_id";
+    div.id = "prototype_id";
     span.className = 'Test';
     div.appendChild(span);
-    var isIgnored = (div.querySelector('#prototype_test_id .test') !== null);
+    var isIgnored = (div.querySelector('#prototype_id .test') !== null);
     div = span = null;
     return isIgnored;
   })();

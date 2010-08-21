@@ -2,7 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <subclass name="oop.data.LevelConstraint" extends="oop.data.Constraint">
-        <property name="level" type="int" column="lc_level" />
-    </subclass>
+	<subclass name="oop.data.LevelConstraint" extends="oop.data.Constraint"
+		discriminator-value="LVL">
+		<property name="level" type="int" column="level" not-null="true" />
+	</subclass>
 </hibernate-mapping>

@@ -1,6 +1,7 @@
 package oop.controller.action.user;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
 import oop.data.User;
 import oop.db.dao.UserDAO;
 
@@ -19,9 +20,9 @@ public class EditGroupAction extends AbstractAction {
 				doUpdate();
 			}
 		} catch (ParameterNotFoundException ex) {
-			error("Bạn cần chọn người sử dụng.");
+			throw new ActionException("Bạn cần chọn người sử dụng.");
 		} catch (NumberFormatException ex) {
-			error("ID không hợp lệ.");
+			throw new ActionException("ID không hợp lệ.");
 		}
 	}
 	
@@ -31,7 +32,7 @@ public class EditGroupAction extends AbstractAction {
 			user.setGroup(group);
 			setNextAction("user.profile&user=" + user.getId());
 		} catch (ParameterNotFoundException ex) {
-			request.setAttribute("groupErr", "Bạn cần chọn nhóm người dùng");
+			addError("group", "Bạn cần chọn nhóm người dùng");
 		}
 	}
 

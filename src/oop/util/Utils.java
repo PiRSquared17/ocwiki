@@ -3,6 +3,9 @@ package oop.util;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Collection;
+import java.util.List;
+
+import oop.data.Entity;
 
 public class Utils {
 
@@ -58,6 +61,22 @@ public class Utils {
 
 	public static boolean isEmpty(Collection<?> coll) {
 		return coll == null || coll.isEmpty();
+	}
+	
+	public static <T extends Entity> T findById(Collection<T> coll, long id) {
+		for (T t : coll) {
+			if (t.getId() == id) {
+				return t;
+			}
+		}
+		return null;
+	}
+
+	public static <T extends Copiable<T>> T replaceByCopy(List<T> list,
+			int index) {
+		T newCopy = list.get(index).copy();
+		list.set(index, newCopy);
+		return newCopy;
 	}
 	
 }

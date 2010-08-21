@@ -1,10 +1,9 @@
 package oop.data;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,20 +11,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class BaseQuestion extends BaseArticle {
 
 	private int level;
-	private Set<Answer> answers = new HashSet<Answer>();
-	
-	/**
-	 * For Hibernate only
-	 */
+	private List<Answer> answers = new ArrayList<Answer>();
+
 	BaseQuestion() {
 	}
 	
-	public BaseQuestion(Text content, int level, User author,
-			Date createDate) {
-		this.content = content;
+	public BaseQuestion(Namespace namespace, Text content, int level) {
+		super(namespace, content);
 		this.level = level;
-		this.author = author;
-		this.createDate = createDate;
 	}
 
 	/** 
@@ -60,11 +53,11 @@ public class BaseQuestion extends BaseArticle {
 		return "<Không hợp lệ>";
 	}
 
-	public Set<Answer> getAnswers() {
+	public List<Answer> getAnswers() {
 		return answers;
 	}
 	
-	public void setAnswers(Set<Answer> answers) {
+	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
 	}
 
@@ -82,19 +75,16 @@ public class BaseQuestion extends BaseArticle {
 		return answerMap;
 	}
 
-	@Override
-	public Namespace getNamespace() {
-		return Namespace.QUESTION;
+	protected <T> T copyTo(T obj) {
+		super.copyTo(obj);
+		BaseQuestion question = (BaseQuestion) obj;
+		question.setAnswers(new ArrayList<Answer>(getAnswers()));
+		question.setLevel(getLevel());
+		return obj;
 	}
-
-	@Override
-	public String getName() {
-		return String.valueOf(id);
-	}
-
-	@Override
-	public String getQualifiedName() {
-		return getNamespace().getName() + ":" + getName();
+	
+	public BaseQuestion copy() {
+		return copyTo(new BaseQuestion());
 	}
 
 }

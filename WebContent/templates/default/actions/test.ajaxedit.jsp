@@ -23,7 +23,7 @@ function saveSectionCreate() {
         </div>
     </c:if>
     <h3>${test.name}</h3>
-    <p><b>Mô tả:</b> ${test.description}</p>
+    <p><b>Mô tả:</b> ${test.content}</p>
     <p><b>Thời gian:</b> ${test.time} phút</p>
 </div>
 
@@ -38,12 +38,12 @@ function saveSectionCreate() {
         <c:choose>
             <c:when test="${sessionScope.login && user.group=='teacher'}">
                 <div class="buttons">
-                    <a href="${scriptPath}?action=section.edit&se_id=${section.id}"><img src="${templatePath}/images/edit.png" alt="remove" title="Sửa" width="16px" height="16px" /></a> 
-                    <a href="${scriptPath}?action=section.delete&sd_id=${section.id}&sd_testid=${test.id}"><img src="${templatePath}/images/wrong.png" 
+                    <a href="${scriptPath}?action=section.edit&id=${section.id}"><img src="${templatePath}/images/edit.png" alt="remove" title="Sửa" width="16px" height="16px" /></a> 
+                    <a href="${scriptPath}?action=section.delete&sd_id=${section.id}&test=${test.id}"><img src="${templatePath}/images/wrong.png" 
                            onclick="return confirm('Bạn có chắc muốn xoá phần này?');"
                            alt="remove" title="remove" width="16px" height="16px" /></a> 
-                    <a href="${scriptPath}?action=section.moveup&su_id=${section.id}&su_testid=${test.id}"><img src="${templatePath}/images/up.png" alt="move up" title="Move up" width="16px" height="16px" /></a> 
-                    <a href="${scriptPath}?action=section.movedown&sw_id=${section.id}&sw_testid=${test.id}"><img src="${templatePath}/images/down.png" alt="move down" title="Move down" width="16px" height="16px" /></a>
+                    <a href="${scriptPath}?action=section.moveup&id=${section.id}&testid=${test.id}"><img src="${templatePath}/images/up.png" alt="move up" title="Move up" width="16px" height="16px" /></a> 
+                    <a href="${scriptPath}?action=section.movedown&id=${section.id}&testid=${test.id}"><img src="${templatePath}/images/down.png" alt="move down" title="Move down" width="16px" height="16px" /></a>
                 </div>
                 <div class="section-text">
                     ${(empty section.text) ? "&lt;Mục mặc định&gt;" : section.text}
@@ -57,13 +57,14 @@ function saveSectionCreate() {
         </c:choose>
     </div>
 
-    <c:forEach items="${section.questions}" var="question">
+    <c:forEach items="${section.questions}" var="questionContainer">
+        <c:set var="question" value="${questionContainer.article}"></c:set>
         <div class="question-wrapper mouse-out" 
               onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
               onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
             <c:if test="${sessionScope.login && user.group=='teacher'}">
                 <div class="buttons">
-                    <a href="${scriptPath}?action=test.editquestion&teq_test=${test.id}&teq_section=${section.id}&teq_question=${question.id}"><img src="${templatePath}/images/edit.png" alt="Sửa" title="Sửa" width="16px" height="16px" /></a>
+                    <a href="${scriptPath}?action=test.editquestion&test=${test.id}&section=${section.id}&question=${question.id}"><img src="${templatePath}/images/edit.png" alt="Sửa" title="Sửa" width="16px" height="16px" /></a>
                     <a href="${scriptPath}?action=test.deletequestion&tdq_sectid=${section.id}&tdq_question=${question.id}"
                            onclick="return confirm('Bạn có chắc muốn xoá câu hỏi này?');"
                            ><img src="${templatePath}/images/wrong.png" alt="Xoá" title="Xoá" width="16px" height="16px" /></a>
@@ -72,8 +73,7 @@ function saveSectionCreate() {
 
             <div class="question">
                 <div class="question-number-wrapper">
-                    <b><a href="${scriptPath}?action=question.view&qv_id=${question.id}">
-                        Câu ${i}</a></b> (${question.mark} điểm):
+                    <b><ocw:articleLink resource="${questionContainer}">Câu ${i}</ocw:articleLink></b> (${question.mark} điểm):
                 </div>
                 <div class="question-content-wrapper">${question.content}</div>
                 <div>

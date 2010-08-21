@@ -3,7 +3,6 @@ package oop.db.dao;
 import java.util.Date;
 import java.util.List;
 
-import oop.data.Article;
 import oop.data.History;
 import oop.data.Test;
 import oop.data.User;
@@ -48,7 +47,7 @@ public final class HistoryDAO {
 		try {
 			tx = session.beginTransaction();
 			User user = (User) session.load(User.class, userId);
-			Article test = (Article) session.load(Test.class, testId);
+			Test test = (Test) session.load(Test.class, testId);
 			History history = new History(user, test, new Date(), mark, time);
 			session.save(history);
 			tx.commit();

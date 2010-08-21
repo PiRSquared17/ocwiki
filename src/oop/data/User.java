@@ -21,7 +21,7 @@ public class User implements Serializable, Entity {
 	private String avatar;
 	private Date registerDate;
 	private String name;
-	private Preferences preferences;
+	private Preferences preferences = new Preferences();
 
 	public User(String name, String fullname, String password,
 			String email, String group, String avatar, String warning,

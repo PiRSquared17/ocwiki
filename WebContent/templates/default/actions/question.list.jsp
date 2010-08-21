@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
+<jsp:include page="question.list-toolbar.jsp"></jsp:include>
+
 <c:choose>
 
 <c:when test="${pageCount > 0}">
@@ -9,7 +11,8 @@
 	<script>
 	
 	var correct = {
-		<c:forEach items="${questions}" var="question">
+		<c:forEach items="${questions}" var="resource">
+		<c:set var="question" value="${resource.article}" />
 	 	q${question.id} :{
 			<c:forEach items="${question.answers}" var="answer">
 				a${answer.id} : ${answer.correct},
@@ -41,7 +44,6 @@
 	<form action="${scriptPath}" id="listForm">
 	<input type="hidden" name="action" value="question.list" />
 	
-	<jsp:include page="question.list-toolbar.jsp"></jsp:include>
 	<jsp:include page="question.list-nav.jsp"></jsp:include>
 	
 	<table>
@@ -52,21 +54,22 @@
 		<th>Nội dung</th>
 		<th width="100px">Tác&nbsp;giả</th>
 	</tr>
-	<c:forEach items="${questions}" var="question">
+    <c:forEach items="${questions}" var="resource">
+    <c:set var="question" value="${resource.article}" />
 	<tr>
         <c:if test="${sessionScope.login && sessionScope.user.group == 'teacher'}">
-		  <td><input type="checkbox" name="ql_questions" value="${question.id}"></input></td>
+		  <td><input type="checkbox" name="ql_questions" value="${question.id}"></td>
 		</c:if>
 		<td>
 		   <div style="float:left; margin-right: 5px">
-		      <i><a href="${scriptPath}?action=question.view&qv_id=${question.id}">#${question.id}</a></i>:
+		      <i><ocw:articleLink resource="${resource}">#${resource.id}</ocw:articleLink></i> 
 		   </div>
 		   ${question.content}
 			<div class="answer-list-wrapper">
 			<c:forEach items="${question.answers}" var="answer">
 				<div class="answer-wrapper">
 				    <div class="check-wrapper">
-					   <input type="radio" name="${question.id}-answers" value="${answer.id}" id="${question.id}-answer-${answer.id}"></input>
+					   <input type="radio" name="${question.id}-answers" value="${answer.id}" id="${question.id}-answer-${answer.id}">
 					</div>
                     <div class="marker-wrapper"> 
                         <span id="${question.id}a${answer.id}-rightanswer" style="display:none;"><img src="${templatePath}/images/right.png" alt="right answer" width="12" height="12" /></span>
@@ -78,8 +81,8 @@
 			</div>
 			<button type="button" onclick="checkanswer(${question.id})">Trả lời</button>
 		</td>
-		<td valign="top" align="center"><a href="${scriptPath}?action=question.list&author=${question.author.id}">
-			${question.author.fullname}
+		<td valign="top" align="center"><a href="${scriptPath}?action=question.list&author=${resource.author.id}">
+			${resource.author.fullname}
 		</a></td>
 	</tr>
 	</c:forEach>
@@ -87,7 +90,6 @@
 	</tr>
 	</table>
 	
-    <jsp:include page="question.list-toolbar.jsp"></jsp:include>
 	<jsp:include page="question.list-nav.jsp"></jsp:include>
 	
 	</form>
@@ -102,3 +104,4 @@
 
 </c:choose>
     
+<jsp:include page="question.list-toolbar.jsp"></jsp:include>

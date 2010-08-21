@@ -5,8 +5,8 @@
 <c:if test="${not empty message}"><div class="notification">${message}</div></c:if>
 
 <form id="form_edit" action="${scriptPath}">
-	<input type="hidden" name="action" value="levelconst.create"></input>
-	<input type="hidden" name="teststruct" value="${test.id}"></input>
+	<input type="hidden" name="action" value="levelconst.create">
+	<input type="hidden" name="teststruct" value="${test.id}">
 	
 	<c:if test="${u:size(test.sectionStructures) != 0 && !(u:size(test.sectionStructures) == 1 && (empty test.sectionStructures[0].text)) }">
 		<div>
@@ -16,7 +16,7 @@
 		           <option value="${section.id}">${section.order} - ${section.text}</option>
 		       </c:forEach>
 		   </select></label>
-           <span class="error-validating">${action.sectionError}</span>
+           <ocw:error code="section"></ocw:error>
 		</div>
 	    <br></br>
 	</c:if>
@@ -29,7 +29,7 @@
             <option value="4" ${param.level==4 ? 'selected' : ''}>${u:levelName(4)}</option>
             <option value="5" ${param.level==5 ? 'selected' : ''}>${u:levelName(5)}</option>
         </select>
-	    <span class="error-validating">${action.levelError}</span>
+	    <ocw:error code="level"></ocw:error>
     </p>
     <br></br>
 
@@ -38,14 +38,13 @@
 			value="${(empty param.quantity) ? 1 : param.quantity}" 
 	              onfocus="$('type-random').checked = 'checked'"
 	              maxlength="3">
-			</input></label>
-		<span class="error-validating">${action.quantityError}</span>
+			</label>
+		<ocw:error code="quantity"></ocw:error>
 	</p>
     <br></br>
 
 	<button type="submit" name="submit" value="add">Lưu</button>
-	<button type="button" onclick="location.href='${scriptPath}?action=teststruct.view&tsv_id=${test.id}'">Quay về cấu trúc đề</button>
-	
+	<ocw:articleButton resource="${action.resource}">Quay về cấu trúc đề</ocw:articleButton>
 </form>
 
 <script>

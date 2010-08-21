@@ -1,37 +1,43 @@
 package oop.controller.action;
 
-import java.util.Date;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import oop.change.Change;
-import oop.change.ChangeDelegate;
 import oop.conf.ActionDescriptor;
 import oop.conf.Config;
 import oop.controller.ActionController;
 import oop.data.Article;
+import oop.data.Resource;
+import oop.data.Revision;
 import oop.data.User;
-import oop.db.dao.ChangeDAO;
+import oop.db.dao.ResourceDAO;
 import oop.util.SessionUtils;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.oreilly.servlet.ParameterList;
+import com.oreilly.servlet.ParameterNotFoundException;
 import com.oreilly.servlet.ParameterParser;
 
 public abstract class AbstractAction implements Action {
 
 	private ActionController controller;
-	
+
 	/**
-	 * <p>Chứa yêu cầu được gửi đến server, hạn chế sử dụng trực tiếp đối tượng 
-	 * này để tăng tính rõ ràng, dễ đọc và tăng khả năng kiểm thử.</p> 
-	 * <p>Khi nhận tham số đầu vào, nên sử dụng các hàm tiện ích như 
-	 * getParams(), getUser(), getSession(). Khi trả về giá trị, nên định
-	 * nghĩa thuộc tính mới của lớp (thuộc tính sẽ được truy cập bởi các
-	 * trang JSP.</p>
+	 * <p>
+	 * Chứa yêu cầu được gửi đến server, hạn chế sử dụng trực tiếp đối tượng này
+	 * để tăng tính rõ ràng, dễ đọc và tăng khả năng kiểm thử.
+	 * </p>
+	 * <p>
+	 * Khi nhận tham số đầu vào, nên sử dụng các hàm tiện ích như getParams(),
+	 * getUser(), getSession(). Khi trả về giá trị, nên định nghĩa thuộc tính
+	 * mới của lớp (thuộc tính sẽ được truy cập bởi các trang JSP.
+	 * </p>
 	 */
 	@Deprecated
 	protected HttpServletRequest request;
@@ -39,18 +45,21 @@ public abstract class AbstractAction implements Action {
 	private String redirect = null;
 	private ParameterList params;
 	private ActionDescriptor descriptor;
+	private Map<String, String> errors = null;
 
 	public AbstractAction() {
 		// default constructor
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see oop.controller.action.Action#perform()
 	 */
 	public void perform() throws Exception {
-		performImpl(); 
+		performImpl();
 	}
-	
+
 	protected boolean isUserLoggedIn() {
 		return (Boolean) (ObjectUtils.defaultIfNull(request.getSession()
 				.getAttribute("login"), Boolean.FALSE));
@@ -64,29 +73,41 @@ public abstract class AbstractAction implements Action {
 		return request.getSession();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see oop.controller.action.Action#getController()
 	 */
 	public ActionController getController() {
 		return controller;
 	}
 
-	/* (non-Javadoc)
-	 * @see oop.controller.action.Action#setController(oop.controller.ControllerServlet)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * oop.controller.action.Action#setController(oop.controller.ControllerServlet
+	 * )
 	 */
 	public void setController(ActionController controller) {
 		this.controller = controller;
 	}
 
-	/* (non-Javadoc)
-	 * @see oop.controller.action.Action#setRequest(javax.servlet.http.HttpServletRequest)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * oop.controller.action.Action#setRequest(javax.servlet.http.HttpServletRequest
+	 * )
 	 */
 	public void setRequest(HttpServletRequest request) {
 		this.request = request;
 		params = new ParameterParser(request);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see oop.controller.action.Action#getRequest()
 	 */
 	public HttpServletRequest getRequest() {
@@ -108,18 +129,16 @@ public abstract class AbstractAction implements Action {
 		this.nextAction = nextAction;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see oop.controller.action.Action#getNextAction()
 	 */
 	public String getNextAction() {
 		return nextAction;
 	}
 
-	public void error(String msg) {
-		setNextAction("error?message=" + msg);
-	}
-
-	protected void message(String msg) {
+	protected void addMessage(String msg) {
 		request.setAttribute("message", msg);
 	}
 
@@ -127,20 +146,11 @@ public abstract class AbstractAction implements Action {
 		return StringUtils.defaultIfEmpty((String) request.getSession()
 				.getAttribute("previousQuery"), "homepage");
 	}
-	
+
 	public String getPreviousURL() {
 		return controller.getScriptPath() + "?" + getPreviousQuery();
 	}
 
-	protected Change change(Article article, ChangeDelegate delegate,
-			String comment, boolean minor) throws Exception {
-		Change change = new Change(getUser(), new Date(), comment, article,
-				minor, delegate);
-		change.perform();
-		ChangeDAO.save(change);
-		return change;
-	}
-	
 	public void setRedirect(String redirect) {
 		this.redirect = redirect;
 	}
@@ -154,10 +164,58 @@ public abstract class AbstractAction implements Action {
 	public ActionDescriptor getDescriptor() {
 		return descriptor;
 	}
-	
+
 	@Override
 	public void setDescriptor(ActionDescriptor desc) {
 		this.descriptor = desc;
+	}
+
+	protected <T extends Article> Revision<T> saveNewRevision(
+			Resource<T> resource, T article) throws ParameterNotFoundException {
+		if (resource.getVersion() != getBaseVersion()) {
+			throw new RuntimeException("old version");
+		}
+
+		User user = SessionUtils.getUser(getSession());
+		String editToken = SessionUtils.getEditToken(getSession());
+		if (!editToken.equals(getParams().getString("editToken"))) {
+			throw new RuntimeException("wrong edit token");
+		}
+		String summary = getParams().getString("summary", null);
+		boolean minor = getParams().getBoolean("minor", false);
+
+		return ResourceDAO.update(resource, article, user, summary, minor);
+	}
+	
+	protected <T extends Article> Resource<T> saveNewResource(T article) throws Exception {
+		User user = SessionUtils.getUser(getSession());
+		String editToken = SessionUtils.getEditToken(getSession());
+		if (!editToken.equals(getParams().getString("editToken"))) {
+			throw new RuntimeException("wrong edit token");
+		}
+		return ResourceDAO.create(user, (Class<T>)article.getClass(), article);
+	}
+
+	protected int getBaseVersion() throws ParameterNotFoundException {
+		return getParams().getInt("basever");
+	}
+
+	public Map<String, String> getErrors() {
+		if (errors == null) {
+			return Collections.emptyMap();
+		}
+		return errors;
+	}
+
+	public void addError(String name, String message) {
+		if (errors == null) {
+			errors = new HashMap<String, String>();
+		}
+		errors.put(name, message);
+	}
+	
+	public boolean hasErrors() {
+		return errors != null && !errors.isEmpty();
 	}
 	
 }

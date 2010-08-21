@@ -1,15 +1,17 @@
 package oop.controller.action.topic;
 
-import java.sql.SQLException;
-
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
+import oop.data.Resource;
 import oop.data.Topic;
 import oop.db.dao.TopicDAO;
 
-import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
 
 public class EditAction extends AbstractAction {
+
+	private Resource<Topic> resource;
+	private Topic topic;
 
 	@Override
 	public void performImpl() throws Exception {
@@ -17,70 +19,61 @@ public class EditAction extends AbstractAction {
 			long id = getParams().getLong("ce_id");
 			String submitted = getParams().get("ce_submit");
 
-			Topic topic = TopicDAO.fetchById(id);
-			if (topic == null) {
+			resource = TopicDAO.fetchById(id);
+			if (resource == null) {
 				// kiểm tra chủ đề tồn tại
-				error("Chủ đề không tồn tại.");
-				return;
+				throw new ActionException("Chủ đề không tồn tại.");
 			}
+			topic = resource.getArticle();
 
-			request.setAttribute("topic", topic);
-			title("Thay đổi thông tin chủ đề " + topic.getName());
-			
+			title("Sửa chủ đề " + topic.getName());
+
 			if ("update".equals(submitted)) {
-				doEdit(getParams(), topic);
+				doEdit();
 			}
 		} catch (NumberFormatException ex) {
-			request.setAttribute("message", "id không hợp lệ");
-			setNextAction("error");
-		} catch (SQLException ex) {
-			if (ex.getErrorCode() == 1062) {
-				request.setAttribute("nameErr", "Trùng tên!");
-			} else {
-				throw ex;
-			}
+			throw new ActionException("id không hợp lệ");
 		}
 	}
 
-	private void doEdit(ParameterList parser, Topic topic)
-			throws SQLException {
-		boolean error = false;
-
+	private void doEdit() throws Exception {
+		topic = topic.copy();
+		
 		try {
-			topic.setName(parser.getString("ce_name"));
+			topic.setName(getParams().getString("ce_name"));
 		} catch (ParameterNotFoundException ex) {
-			error = true;
-			request.setAttribute("nameErr", "Bạn cần nhập tên chủ đề.");
+			addError("name", "Bạn cần nhập tên chủ đề.");
 		}
 
 		// cập nhật cha nếu không bị nối vòng
-		int parentId;
 		try {
-			parentId = parser.getInt("ce_parent");
-
-			Topic parent = TopicDAO.fetchById(parentId);
+			Resource<Topic> parent = TopicDAO.fetchById(getParams().getInt(
+					"ce_parent"));
 			if (parent == null) { // kiểm tra chủ đề cha tồn tại
-				error = true;
-				request.setAttribute("parentErr",
-					"Chủ đề cha không tồn tại");
-			} else if (parent.getAncestors().contains(topic)) {
-				error = true;
-				request.setAttribute("parentErr",
-					"Không thể liên kết vòng");
+				addError("parent", "Chủ đề cha không tồn tại");
+			} else if (parent.getArticle().getAncestors().contains(topic)) {
+				addError("parent", "Không thể liên kết vòng");
 			}
 			topic.setParent(parent);
 		} catch (NumberFormatException e) {
-			request.setAttribute("parentErr",
-					"Mã số không hợp lệ");
+			addError("parent", "Mã số không hợp lệ");
 		} catch (ParameterNotFoundException e) {
 			topic.setParent(null);
 		}
 
 		// lưu nếu không có lỗi
-		if (!error) {
-			TopicDAO.persist(topic);
+		if (!hasErrors()) {
+			saveNewRevision(resource, topic);
 			setNextAction("topic.list");
 		}
 	}
 
+	public Resource<Topic> getResource() {
+		return resource;
+	}
+	
+	public Topic getTopic() {
+		return topic;
+	}
+	
 }

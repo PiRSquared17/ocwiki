@@ -4,8 +4,8 @@
 
 <form action="${scriptPath}" method="get">
 
-    <input type="hidden" name="action" value="user.editgroup"></input>
-    <input type="hidden" name="user" value="${action.editedUser.id}"></input>
+    <input type="hidden" name="action" value="user.editgroup">
+    <input type="hidden" name="user" value="${action.editedUser.id}">
     
     <h3>
 	Người dùng: ${action.editedUser.name}
@@ -23,8 +23,8 @@
 	Email: ${action.editedUser.email}
 	</p>
 	<p>
-	<label>Nhóm: <input type="text" name="group" value="${empty param.group ? action.editedUser.group : param.group}"></input></label>
-	<span class="error-validating">${groupErr}</span>
+	<label>Nhóm: <input type="text" name="group" value="${empty param.group ? action.editedUser.group : param.group}"></label>
+	<ocw:error code="group"></ocw:error>
 	</p>
 	</fieldset>
 	

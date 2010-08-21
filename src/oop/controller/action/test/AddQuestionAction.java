@@ -1,28 +1,24 @@
 package oop.controller.action.test;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 import oop.controller.action.AbstractAction;
-import oop.data.Article;
+import oop.controller.action.ActionException;
 import oop.data.BaseQuestion;
+import oop.data.Question;
+import oop.data.Resource;
 import oop.data.Section;
 import oop.data.Test;
+import oop.data.Text;
 import oop.db.dao.BaseQuestionDAO;
-import oop.db.dao.QuestionDAO;
-import oop.db.dao.SectionDAO;
-import oop.db.dao.SectionQuestionAnswerDAO;
+import oop.db.dao.ResourceDAO;
 import oop.db.dao.TestDAO;
-
-import org.apache.commons.lang.StringUtils;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
 public class AddQuestionAction extends AbstractAction {
 
 	private Test test;
-	private Section section;
 
 	public AddQuestionAction() {
 	}
@@ -31,44 +27,41 @@ public class AddQuestionAction extends AbstractAction {
 	public void performImpl() throws Exception {
 		try {
 			long testId = getParams().getLong("taq_test");
-			test = TestDAO.fetchById(testId);
+			resource = TestDAO.fetchById(testId);
+			test = resource.getArticle().copy();
 			title("Thêm câu hỏi vào đề " + test.getName());
 			request.setAttribute("test", test);
 		} catch (NumberFormatException e1) {
-			error("Mã đề thi không hợp lệ.");
-			return;
+			throw new ActionException("Mã đề thi không hợp lệ.");
 		} catch (ParameterNotFoundException e1) {
-			error("Bạn cần chọn đề thi.");
-			return;
+			throw new ActionException("Bạn cần chọn đề thi.");
 		}
-		
+
 		String submit = getParams().get("taq_submit");
 		if ("add".equals(submit)) {
+			Section section = null;
 			try {
-				long sectionId = getParams().getLong("taq_section");
-				section = SectionDAO.fetchById(sectionId);
+				int sectionIndex = getParams().getInt("taq_section");
+				section = test.getSections().get(sectionIndex).copy();
+				test.getSections().set(sectionIndex, section);
 			} catch (NumberFormatException e) {
-				sectionError = "Mã số phần không hợp lệ.";
-				return;
+				addError("section", "Mã số phần không hợp lệ.");
 			} catch (ParameterNotFoundException e) {
-				Set<Section> sections = test.getSections();
-				if (sections.isEmpty()) {
-					section = SectionDAO.create(null, 1, test.getId());
-				} else {
-					section = sections.iterator().next();
-				}
+				section = new Section(new Text(""));
+				test.getSections().add(section);
 			} catch (ArrayIndexOutOfBoundsException e) {
-				sectionError = "Phần được chọn không tồn tại.";
-				return;
+				addError("section", "Phần được chọn không tồn tại.");
 			}
-			
-			String mode = getParams().getString("mode");
-			if ("id".equals(mode)) {
-				addQuestionById(section);
-			} else if ("search".equals(mode)) {
-				addQuestionByAjaxSearch(section);
-			} else if ("random".equals(mode)) {
-				addQuestionRandomly(section);
+
+			if (!hasErrors()) {
+				String mode = getParams().getString("mode");
+				if ("id".equals(mode)) {
+					addQuestionById(section);
+				} else if ("search".equals(mode)) {
+					addQuestionByAjaxSearch(section);
+				} else if ("random".equals(mode)) {
+					addQuestionRandomly(section);
+				}
 			}
 		}
 	}
@@ -76,74 +69,48 @@ public class AddQuestionAction extends AbstractAction {
 	private void addQuestionRandomly(Section section) throws Exception {
 		long topicId = getParams().getLong("taq_topicid");
 		int quantity = getParams().getInt("taq_quantity");
-		
-		List<BaseQuestion> questions = BaseQuestionDAO.fetchRandomly(
-				section.getTest().getId(), topicId, quantity);
-		for (Article question : questions) {
-			QuestionDAO.create(section.getId(), question
-					.getId());
-			SectionQuestionAnswerDAO.addAnswers(section.getId(), question
-					.getId(), 4);
+
+		List<Resource<BaseQuestion>> bases = BaseQuestionDAO.fetchRandomly(
+				resource.getId(), topicId, quantity);
+		for (Resource<BaseQuestion> base : bases) {
+			Question question = new Question(base, 1);
+			section.getQuestions().add(question);
 		}
-		
-		if (questions.size() == 0) {
-			quantityError = "Chưa có câu hỏi nào được thêm. Xin hãy kiểm tra lại chủ đề bạn chọn.";
-		} else if (questions.size() < quantity) {
-			quantityError = "Chỉ thêm được " + questions.size()
-					+ " câu hỏi. Có thể do chủ đề quá hẹp hoặc đã có trong bài kiểm tra.";
-			setNextAction("test.addquestion&taq_quantity=" + (quantity - questions.size()));
+
+		if (bases.size() == 0) {
+			addError("quantity", "Chưa có câu hỏi nào được thêm. Xin hãy kiểm tra lại chủ đề bạn chọn.");
+		} else if (bases.size() < quantity) {
+			addError("quantity", "Chỉ thêm được " + bases.size()
+					+ " câu hỏi. Có thể do chủ đề quá hẹp hoặc đã có trong bài kiểm tra.");
+			setNextAction("test.addquestion&taq_quantity="
+					+ (quantity - bases.size()));
 		} else {
-			message("Đã thêm " + questions.size() + " câu hỏi.");
+			addMessage("Đã thêm " + bases.size() + " câu hỏi.");
 			goNextAction();
 		}
 	}
-	
+
 	private void addQuestionByAjaxSearch(Section section) throws Exception {
 		try {
-			long questionId = getParams().getLong("taq_question");
-			QuestionDAO.create(section.getId(), questionId);
-			SectionQuestionAnswerDAO.addAnswers(section.getId(), questionId, 4);
-			
-			message("Đã thêm 1 câu hỏi.");
+			Resource<BaseQuestion> base = ResourceDAO.fetchById(getParams()
+					.getLong("taq_question"), BaseQuestion.class);
+			section.getQuestions().add(new Question(base, 1));
+			addMessage("Đã thêm 1 câu hỏi.");
 			goNextAction();
 		} catch (NumberFormatException ex) {
-			request.setAttribute("searchErr", "Định dạng không hợp lệ");
-		} catch (SQLException ex) {
-			switch (ex.getErrorCode()) {
-			case 1062:
-				request.setAttribute("searchErr", "Câu hỏi đã có từ trước.");
-				break;
-			case 1452:
-				request.setAttribute("searchErr", "Câu hỏi không tồn tại.");
-				break;
-			default:
-				throw ex;
-			}
+			addError("search", "Định dạng không hợp lệ");
 		}
 	}
 
 	private void addQuestionById(Section section) throws Exception {
 		try {
-			long questionId = getParams().getLong("taq_question_id");
-			QuestionDAO.create(section.getId(), questionId);
-			SectionQuestionAnswerDAO.addAnswers(section.getId(), questionId, 4);
-			
-			message("Đã thêm 1 câu hỏi.");
+			Resource<BaseQuestion> base = ResourceDAO.fetchById(getParams()
+					.getLong("taq_question"), BaseQuestion.class);
+			section.getQuestions().add(new Question(base, 1));
+			addMessage("Đã thêm 1 câu hỏi.");
 			goNextAction();
 		} catch (NumberFormatException ex) {
-			request.setAttribute("idErr", "Định dạng không hợp lệ");
-		} catch (SQLException ex) {
-			switch (ex.getErrorCode()) {
-			case 1062:
-				request.setAttribute("idErr", "Câu hỏi đã có từ trước.");
-				break;
-			case 1452:
-				request.setAttribute("idErr", "Không tồn tại câu hỏi với ID "
-						+ getParams().get("taq_question_id"));
-				break;
-			default:
-				throw ex;
-			}
+			addError("id", "Định dạng không hợp lệ");
 		}
 	}
 
@@ -151,19 +118,12 @@ public class AddQuestionAction extends AbstractAction {
 		if (getParams().hasParameter("more")) {
 			setNextAction("test.addquestion&taq_question_id=&taq_question=&taq_content=&taq_topicid=&taq_topicname=&taq_submit=");
 		} else {
-			setNextAction("test.view&tv_id=" + test.getId());
+			setNextAction("test.view&id=" + test.getId());
 		}
 	}
-	
-	private String sectionError;
-	private String quantityError;
-	
-	public String getSectionError() {
-		return sectionError;
-	}
+	private Resource<Test> resource;
 
-	public String getQuantityError() {
-		return quantityError;
+	public Resource<Test> getResource() {
+		return resource;
 	}
-	
 }

@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<form action="${ocw:actionUrl('answer.create')}" method="get">
+<ocw:form action="answer.create">
+    <input type="hidden" name="question" value="${action.resource.id}">
 
-    <input type="hidden" name="question" value="${question.id}"></input>
-
-    ${question.content}
+    ${action.question.content}
 	<div>
         <c:set var="i" value="0"></c:set>
         <div class="answer-list-wrapper">        
-			<c:forEach items="${question.answers}" var="answer">
+			<c:forEach items="${action.question.answers}" var="answer">
 		      <div class="answer-wrapper">
 			      <div class="answer-number-wrapper">
 			           <b>${u:alpha(i)}</b>.
@@ -21,14 +20,14 @@
 			<div class="answer-wrapper">
 			    <div class="check-wrapper">
 		            <label><b>${u:alpha(i)}</b>. 
-		            <input type="checkbox" name="correct" value="true" ${empty param.correct ? '' : 'checked' }></input> </label>
+		            <input type="checkbox" name="correct" value="true" ${empty param.correct ? '' : 'checked' }> </label>
 	            </div>
 	            <textarea style="width:80%" name="content">${param.content}</textarea>
-	            <div class="error-validating">${action.contentError}</div>
+	            <div class="error-validating">${action.errors.content}</div>
 	        </div>
 		</div>
     </div>
 	<button type="submit" name="submit" value="more">Thêm nữa</button>
 	<button type="submit" name="submit" value="create">Lưu</button>
-	<button type="button" onclick="location.href='${ocw:actionUrl('question.view')}?qv_id=${question.id}'">Quay về câu hỏi</button>
-</form>
+	<ocw:articleButton resource="${action.resource}">Quay về câu hỏi</ocw:articleButton>
+</ocw:form>

@@ -6,8 +6,8 @@
 
 <form id="form_edit" action="${scriptPath}">
 
-	<input type="hidden" name="action" value="topicconst.create"></input>
-	<input type="hidden" name="teststruct" value="${test.id}"></input>
+	<input type="hidden" name="action" value="topicconst.create">
+	<input type="hidden" name="teststruct" value="${test.id}">
 	
 	<c:if test="${u:size(test.sectionStructures) != 0 && !(u:size(test.sectionStructures) == 1 && (empty test.sectionStructures[0].text)) }">
 		<div>
@@ -17,7 +17,7 @@
 		           <option value="${section.id}">${section.order} - ${section.text}</option>
 		       </c:forEach>
 		   </select></label>
-		   <span class="error-validating">${action.sectionError}</span>
+		   <ocw:error code="section"></ocw:error>
 		</div>
         <br></br>
 	</c:if>
@@ -25,11 +25,11 @@
 	<p><label>Chủ đề:
 	          <input type="text" id="txtTopicName" name="topicname" 
 	                  value="${param.topicname}"
-	                  onfocus="$('type-random').checked = 'checked'"></input>
+	                  onfocus="$('type-random').checked = 'checked'">
 		</label>
 		<input type="hidden" id="txtTopicId" name="topicid" 
-		         value="${param.topicid}"></input>
-		<span class="error-validating">${action.topicError}</span>
+		         value="${param.topicid}">
+		<ocw:error code="topic"></ocw:error>
 	</p>
     <br></br>
 	
@@ -38,13 +38,13 @@
 				value="${(empty param.quantity) ? 1 : param.quantity}" 
 				onfocus="$('type-random').checked = 'checked'"
 				maxlength="3">
-			</input></label>
-        <span class="error-validating">${action.quantityError}</span>
+			</label>
+        <ocw:error code="quantity"></ocw:error>
 	</p>
     <br></br>
 
 	<button type="submit" name="submit" value="add">Lưu</button>
-	<button type="button" onclick="location.href='${scriptPath}?action=teststruct.view&tsv_id=${test.id}'">Quay về cấu trúc đề</button>
+	<ocw:articleButton resource="${action.resource}">Quay về cấu trúc đề</ocw:articleButton>
 	
 </form>
 

@@ -22,37 +22,31 @@ function validateName() {
 
 <form id="form_edit" action="${scriptPath}" method="get">
 
-	<input type="hidden" name="action" value="test.edit"></input>
-	<input type="hidden" name="te_id" value="${test.id}"></input>
+	<input type="hidden" name="action" value="test.edit">
+	<input type="hidden" name="te_id" value="${test.id}">
 	
 	<p>
 	   <label>Tên: <input type="text" name="te_name" 
-			value="${(empty param.te_name) ? test.name : param.te_name}"></input></label>
-		<span id="msgName" style='${(empty nameErr) ? "none" : "block"}'>${nameErr}</span>
+			value="${(empty param.te_name) ? test.name : param.te_name}"></label>
+		<ocw:error code="name"></ocw:error>
 	</p>
-	<c:if test="${not empty action.nameError}">
-	   <div class="error-validating">${action.nameError}</div>
-	</c:if>
 	<br></br>
 	
 	<p>
 	   <label>Mô tả: <textarea name="te_description">
-	       ${(empty param.te_name) ? test.description : param.te_description}
+	       ${(empty param.te_name) ? test.content : param.te_description}
 	   </textarea></label>
 	</p>
     <br></br>
 
     <p><label>Chủ đề:
             <input type="text" id="txtTopicName" name="te_topicname" 
-                    value="${empty param.te_topicname ? test.topic.name : param.te_topicname}"></input>
+                    value="${empty param.te_topicname ? test.topic.name : param.te_topicname}">
             </label>
             <input type="hidden" id="txtTopicId" name="te_topic" 
-                     value="${empty param.te_topic ? test.topic.id : param.te_topic}"></input>
-            <span style="color:red">${topicErr}</span>
+                     value="${empty param.te_topic ? test.topic.id : param.te_topic}">
+            <ocw:error code="topic"></ocw:error>
     </p>
-    <c:if test="${not empty action.topicError}">
-       <div class="error-validating">${action.topicError}</div>
-    </c:if>
     <br></br>
 
     <p>Kiểu:
@@ -68,26 +62,22 @@ function validateName() {
             Nhiều câu đúng 
         </label>
         </p>
+        <ocw:error code="type"></ocw:error>
     </p>
-    <c:if test="${not empty action.typeError}">
-       <div class="error-validating">${action.typeError}</div>
-    </c:if>
     <br></br>
     
     <p><label>Thời gian
         <input type="text" id="txtTime" name="te_time" 
                 value="${(empty param.te_time)? test.time : param.te_time}"
-                maxlength="3"></input>
-    </label>
+                maxlength="3">
+        </label>
+        <ocw:error code="time"></ocw:error>
     </p>
-    <c:if test="${not empty action.timeError}">
-       <div class="error-validating">${action.timeError}</div>
-    </c:if>
     <br></br>
 	
 	<p>
 	   <button type="submit" name="te_submit" value="update">Lưu</button>
-	   <button type="button" onclick="location.href='${scriptPath}?action=test.view&tv_id=${test.id}'">Thôi</button>
+	   <ocw:articleButton resource="${action.resource}">Thôi</ocw:articleButton>
 	</p>
 
 </form>

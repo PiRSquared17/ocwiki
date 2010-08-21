@@ -8,14 +8,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.DefaultNamingStrategy;
 
 public class HibernateUtil {
 
 	private static SessionFactory sessionFactory = null;
 	private static ThreadLocal<Session> sessionLocal = new ThreadLocal<Session>();
 
-	@SuppressWarnings("serial")
 	public static void init(final Config config) {
 		if (sessionFactory != null) {
 			throw new IllegalStateException(
@@ -23,6 +21,9 @@ public class HibernateUtil {
 		}
 
 		Configuration hconf = new Configuration();
+
+		// modify table prefixes
+		hconf.setNamingStrategy(new PrefixNamingStrategy(config));
 
 		// init database connection
 		hconf.setProperty("hibernate.dialect",
@@ -38,34 +39,35 @@ public class HibernateUtil {
 		hconf.setProperty("hibernate.cache.provider_class", 
 				"org.hibernate.cache.NoCacheProvider");
 
-		// modify table prefix
-		hconf.setNamingStrategy(new DefaultNamingStrategy() {
-			
-			@Override
-			public String tableName(String tableName) {
-				return config.getTablePrefix()
-						+ Character.toUpperCase(tableName.charAt(0))
-						+ tableName.substring(1);
-			}
-		});
-
 		// add classes
-		hconf.addClass(oop.data.User.class);
-		hconf.addClass(oop.data.Topic.class);
-		hconf.addClass(oop.change.Change.class);
-		hconf.addClass(oop.data.BaseArticle.class);
-		hconf.addClass(oop.data.Article.class);
-		hconf.addClass(oop.data.Text.class);
-		hconf.addClass(oop.data.BaseQuestion.class);
-		hconf.addClass(oop.data.Answer.class);
-		hconf.addClass(oop.data.Question.class);
-		hconf.addClass(oop.data.Section.class);
-		hconf.addClass(oop.data.Test.class);
-		hconf.addClass(oop.data.SectionStructure.class);
-		hconf.addClass(oop.data.TestStructure.class);
-		hconf.addClass(oop.data.Constraint.class);
-		hconf.addClass(oop.data.TopicConstraint.class);
-		hconf.addClass(oop.data.LevelConstraint.class);
+        hconf.addClass(oop.data.User.class);
+        hconf.addClass(oop.data.Topic.class);
+        hconf.addClass(oop.data.Namespace.class);
+        hconf.addClass(oop.data.Revision.class);
+        hconf.addClass(oop.data.Resource.class);
+        hconf.addClass(oop.data.CategorizableArticle.class);
+        hconf.addClass(oop.data.TextArticle.class);
+        hconf.addClass(oop.data.BaseArticle.class);
+        hconf.addClass(oop.data.Article.class);
+        hconf.addClass(oop.data.Text.class);
+        hconf.addClass(oop.data.File.class);
+        hconf.addClass(oop.data.BaseQuestion.class);
+        hconf.addClass(oop.data.Answer.class);
+        hconf.addClass(oop.data.Question.class);
+        hconf.addClass(oop.data.Section.class);
+        hconf.addClass(oop.data.Test.class);
+        hconf.addClass(oop.data.SectionStructure.class);
+        hconf.addClass(oop.data.TestStructure.class);
+        hconf.addClass(oop.data.Constraint.class);
+        hconf.addClass(oop.data.TopicConstraint.class);
+        hconf.addClass(oop.data.LevelConstraint.class);
+        hconf.addClass(oop.data.History.class);
+        hconf.addClass(oop.data.Comment.class);
+        hconf.addClass(oop.data.log.Log.class);
+        hconf.addClass(oop.data.log.ResourceLog.class);
+        hconf.addClass(oop.data.log.CommentLog.class);
+        hconf.addClass(oop.data.log.RevisionLog.class);
+        hconf.addClass(oop.data.log.NewMemberLog.class);
 		
 		sessionFactory = hconf.buildSessionFactory();
 	}
@@ -99,19 +101,22 @@ public class HibernateUtil {
 
 	public static void closeSession() {
 		if (sessionLocal.get() != null) {
-			Session session = sessionLocal.get();
-			if (session.isOpen()) {
-				try {
-					session.flush();
-					Transaction tx = session.getTransaction();
-					if (tx.isActive()) {
-						tx.commit();
+			try {
+				Session session = sessionLocal.get();
+				if (session.isOpen()) {
+					try {
+						session.flush();
+						Transaction tx = session.getTransaction();
+						if (tx.isActive()) {
+							tx.commit();
+						}
+					} finally {
+						session.close();
 					}
-				} finally {
-					session.close();
 				}
+			} finally {
+				sessionLocal.set(null);
 			}
-			sessionLocal.set(null);
 		}
 	}
 

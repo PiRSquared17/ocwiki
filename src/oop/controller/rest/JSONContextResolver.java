@@ -19,6 +19,8 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
 
     private JAXBContext context;
 	private Class[] types = {
+			oop.data.Resource.class,
+			oop.data.Revision.class,
     		oop.data.Answer.class,
     		oop.data.BaseQuestion.class,
     		oop.data.History.class,

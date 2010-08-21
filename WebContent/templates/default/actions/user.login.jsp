@@ -12,8 +12,8 @@
 	<c:if test="${wrongUser}"><div class="notification"><font color="red"> Người dùng không tồn tại!</font></div><br /></c:if>
 	<c:if test="${sqlError}"><div class="notification"><font color ="red">  Database Error! </font></div><br /></c:if>
 	
-	<input type="hidden" name="action" value="user.login"></input>
-	<input type="hidden" name="returnAction" value="${param.returnAction}"></input>
+	<input type="hidden" name="action" value="user.login">
+	<input type="hidden" name="returnAction" value="${param.returnAction}">
 	
   <br />
   <p>

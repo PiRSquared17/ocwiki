@@ -10,9 +10,7 @@ function validate() {
 
 //-->
 </script>
-<form id="form_edit">
-	<input type="hidden" name="action" value="question.create" />
-	
+<ocw:form action="question.create" id="form_edit">
 	<p><label>Câu hỏi: 
 		<textarea name="qc_content">${param.qc_content}</textarea> 
 		</label>
@@ -27,11 +25,11 @@ function validate() {
             <option value="5" ${param.qc_level==5 ? 'selected' : ''}>${u:levelName(5)}</option>
 		</select>
 		</label>
-        <div class="error-validating">${action.levelError}</div>
+		<ocw:error code="level"></ocw:error>
 	</p>
 	<br />
 	<p>
 		<button type="submit" name="qc_submit" value="create">Tạo</button>
 		<button type="button" onclick="location.href='${scripPath}?action=question.list'">Quay về danh sách</button>
 	</p>
-</form>
+</ocw:form>

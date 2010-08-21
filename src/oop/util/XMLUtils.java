@@ -54,7 +54,7 @@ public final class XMLUtils {
 		xstream.alias("top", oop.data.Topic.class);
 		xstream.alias("tc", oop.data.TopicConstraint.class);
 		xstream.alias("user", oop.data.User.class);
-		xstream.alias("chg", oop.change.Change.class);
+		xstream.alias("chg", oop.data.log.ResourceLog.class);
 		// converters
 		xstream.registerConverter(new EntityConverter());
 		xstream.registerConverter(new ClassConverter());

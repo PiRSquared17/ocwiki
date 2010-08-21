@@ -2,9 +2,9 @@ package oop.util;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.math.RandomUtils;
-
 import oop.data.User;
+
+import org.apache.commons.lang.math.RandomUtils;
 
 public final class SessionUtils {
 

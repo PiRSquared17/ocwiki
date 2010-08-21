@@ -3,64 +3,58 @@
 <%@ include file="/includes/common.jsp" %>
 
 <div id="form_edit">
-<form>
-	<input type="hidden" name="action" value="test.create" />
-	
-	<p><label>Tên: 
-		<input type="text" name="tc_name" value="${param.tc_name}"></input> 
-		<c:if test="${!(empty nameErr)}">
-			<span class="error-validating">${nameErr}</span>
-		</c:if></label>
-	</p>
-	<br />
-	<p>Mô tả: <textarea name="tc_description">${param.tc_description}</textarea>
-		<c:if test="${!(empty descriptionErr)}">
-			<span class="error-validating">${descriptionErr}</span>
-		</c:if>
-	</p>
-	<br />
-	<p>Kiểu:
-	   <select name="tc_type">
-	       <option value="radio">Một câu đúng</option>
-	       <option value="check">Nhiều câu đúng</option>
-	   </select>
-		<span class="error-validating">${action.typeError}</span>
-	</p>
-	<br />
-	<p><label>Thời gian
-		<input type="text" id="txtTime" name="tc_time" 
-				value='${(empty param.tc_time)?"90":param.tc_time}'
-				maxlength="3"></input> phút
-    	</label>
-		<span class="error-validating">${action.timeError}</span>
-	</p>
-	<br />
-	
-	<fieldset>
-	   <legend>
-	       <label><input type="checkbox" name="tc_usestruct" value="true" style="float: none"
-                    ${param.tc_usestruct ? 'checked' : ''}></input>
-	       Sinh tự động</label>
-	   </legend>
-
-		<p>
-		    <label>
-		        Chọn cấu trúc đề:
-			    <input type="text" id="txtTestStructName" 
-			            name="tc_structname" value="${param.tc_structname}"></input>
-			    <input type="hidden" id="txtTestStructId" 
-			            name="tc_struct" value="${param.tc_struct}"></input>
-			</label>
-			<span class="error-validating">${action.structError}</span>
-		</p>
-	</fieldset>
-	
+<ocw:form action="test.create">
+    <p><label>Tên: 
+        <input type="text" name="name" value="${param.name}"> 
+        <ocw:error code="name"></ocw:error>
+    </p>
     <br />
-	<p>
-		<button type="submit" name="tc_submit" value="create">Tạo</button>
-		<button type="button" onclick="location.href='${scriptPath}?action=test.list'">Quay về danh sách đề</button>
-	</p>
-</form>
+    <p>Nội dung: <textarea name="description">${param.content}</textarea>
+        <ocw:error code="content"></ocw:error>
+    </p>
+    <br />
+    <p>Kiểu:
+       <select name="type">
+           <option value="radio">Một câu đúng</option>
+           <option value="check">Nhiều câu đúng</option>
+       </select>
+        <ocw:error code="type"></ocw:error>
+    </p>
+    <br />
+    <p><label>Thời gian
+        <input type="text" id="txtTime" name="time" 
+                value='${(empty param.time)?"90":param.time}'
+                maxlength="3"> phút
+        </label>
+        <ocw:error code="time"></ocw:error>
+    </p>
+    <br />
+    
+    <fieldset>
+       <legend>
+           <label><input type="checkbox" name="usestruct" value="true" style="float: none"
+                    ${param.usestruct ? 'checked' : ''}>
+           Sinh tự động</label>
+       </legend>
+
+        <p>
+            <label>
+                Chọn cấu trúc đề:
+                <input type="text" id="txtTestStructName" 
+                        name="structname" value="${param.structname}">
+                <input type="hidden" id="txtTestStructId" 
+                        name="struct" value="${param.struct}">
+            </label>
+            <ocw:error code="struct"></ocw:error>
+        </p>
+    </fieldset>
+    
+    <br />
+    <p>
+        <button type="submit" name="submit" value="create">Tạo</button>
+        <ocw:actionButton name="test.list">Quay về danh sách đề</ocw:actionButton>
+    </p>
+</ocw:form>
 </div>
 <script type="text/javascript">
 <!--

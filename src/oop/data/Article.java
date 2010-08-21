@@ -1,63 +1,28 @@
 package oop.data;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import oop.change.Change;
 
 @XmlRootElement
 public abstract class Article implements Entity {
 
-	protected long id;
-	protected Date createDate;
-	protected Change lastChange;
-	protected User author;
-	private Status status = Status.NORMAL;
-	protected Text content;
-	protected int version = 0;
-	
+	private long id;
+	private Text content;
+	private String name;
+	private Namespace namespace;
+
 	Article() {
 	}
-	
-	public Article(User author, Text content) {
+
+	public Article(Namespace namespace, Text content) {
 		super();
-		this.author = author;
+		this.namespace = namespace;
 		this.content = content;
-		createDate = new Date();
 	}
-
-
 
 	@XmlAttribute
 	public long getId() {
 		return id;
-	}
-	
-	@XmlAttribute
-	public Date getCreateDate() {
-		return createDate;
-	}
-	
-	public void setLastChange(Change lastChange) {
-		this.lastChange = lastChange;
-	}
-	
-	@XmlTransient
-	public Change getLastChange() {
-		return lastChange;
-	}
-
-	@XmlElement
-	public User getAuthor() {
-		return author;
-	}
-
-	public boolean isDeleted() {
-		return status == Status.DELETED;
 	}
 
 	public Text getContent() {
@@ -67,32 +32,30 @@ public abstract class Article implements Entity {
 	public void setContent(Text content) {
 		this.content = content;
 	}
-	
-	@XmlAttribute
-	public int getVersion() {
-		return version;
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setVersion(int version) {
-		this.version = version;
+	public String getName() {
+		return name;
 	}
 
-	@XmlAttribute
-	public Status getStatus() {
-		return status;
+	protected <T> T copyTo(T obj) {
+		Article article = (Article) obj;
+		article.setName(getName());
+		article.setContent(getContent());
+		return obj;
 	}
 
-	@XmlAttribute
-	public abstract String getName();
-	
-	public String getQualifiedName() {
-		return getNamespace().getDisplayName() + ":" + getName();
-	}
-	
-	public abstract Namespace getNamespace();
+	public abstract Article copy();
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setNamespace(Namespace namespace) {
+		this.namespace = namespace;
 	}
-	
+
+	public Namespace getNamespace() {
+		return namespace;
+	}
+
 }

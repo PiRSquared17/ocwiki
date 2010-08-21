@@ -5,7 +5,7 @@
 <script>
 
 function validateName() {
-	var txtName = $('sse_name');
+	var txtName = $('sname');
 	var msgName = $('msgName');
 
 	if (txtName.value == '') {
@@ -22,33 +22,33 @@ function validateName() {
 
 <form id="form_edit" action="${scriptPath}" method="get">
 
-    <input type="hidden" name="action" value="sectstruct.edit"></input>
-    <input type="hidden" name="sse_id" value="${section.id}"></input>
+    <input type="hidden" name="action" value="sectstruct.edit">
+    <input type="hidden" name="sid" value="${section.id}">
 	    
-	<p><label>Nội dung: <textarea name="sse_text" style="width: 100%">${(empty param.sse_text) ? section.text : param.sse_text}</textarea></label>
-		<span id="msgName" style='${(empty nameErr) ? "none" : "block"}'>${nameErr}</span>
+	<p><label>Nội dung: <textarea name="stext" style="width: 100%">${(empty param.stext) ? section.text : param.stext}</textarea></label>
+		<ocw:error code="name"></ocw:error>
 	</p>
     <br></br>
 
 	<p><label>Chèn vào trước: 
-		<select name="sse_order" >
+		<select name="sorder" >
 			<c:forEach items="${test.sectionStructures}" var="item">
 				<c:if test="${item != section}">
 					<option value="${item.order}" 
-					       ${item.order == (empty param.sse_order ? section.order : param.sse_order) ? 'selected="selected"' : '' }>
+					       ${item.order == (empty param.sorder ? section.order : param.sorder) ? 'selected="selected"' : '' }>
 						${item.order} - ${u:ellipsize(item.text, 45)}
 					</option>
 				</c:if>
                 <c:set var="last" value="${item.order+1}"></c:set>
 			</c:forEach>
-	        <option value="${last}" ${'last' == (empty param.sse_order ? section.order : param.sse_order) ? 'selected="selected"' : '' }>-- cuối cùng --</option>
+	        <option value="${last}" ${'last' == (empty param.sorder ? section.order : param.sorder) ? 'selected="selected"' : '' }>-- cuối cùng --</option>
 		</select>
 	</label></p>
 	<br></br>
 	
 	<p>
-		<button type="submit" name="sse_submit" value="update">Lưu</button>
-		<button type="button" onclick="location.href='${scriptPath}?action=teststruct.view&tsv_id=${test.id}'">Quay về cấu trúc đề</button>
+		<button type="submit" name="ssubmit" value="update">Lưu</button>
+		<ocw:articleButton resource="${action.resource}">Quay về cấu trúc đề</ocw:articleButton>
 	</p>
 
 </form>

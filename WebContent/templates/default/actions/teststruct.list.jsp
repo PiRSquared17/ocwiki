@@ -24,14 +24,15 @@
 		<th width="140px">Tác giả</th>
         <th width="120px">Thời điểm tạo</th>
 	</tr>
-	<c:forEach items="${structs}" var="struct">
+	<c:forEach items="${structs}" var="resource">
+	<c:set var="struct" value="${resource.article}"></c:set>
 	<tr>
 	   <c:if test="${sessionScope.login && sessionScope.user.group == 'teacher'}">
 	   	   <td>
-			   <input type="checkbox" name="selected" value="${struct.id}"></input>
+			   <input type="checkbox" name="selected" value="${struct.id}">
     		</td>
 	   </c:if>
-		<td><a href="${scriptPath}?action=teststruct.view&tsv_id=${struct.id}">${struct.name}</a></td>
+		<td><ocw:articleLink resource="${resource}">${struct.name}</ocw:articleLink></td>
 		<td><a href="${scriptPath}?action=teststruct.list&topic=${struct.topic.id}">
 			${struct.topic.name}
 		</a></td>

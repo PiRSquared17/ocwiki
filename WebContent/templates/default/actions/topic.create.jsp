@@ -20,20 +20,20 @@ function validate() {
 <c:if test="${not empty message}"><div class="notification">${message}</div></c:if>
 
 <form action="${scriptPath}" method="GET">
-	<input type="hidden" name="action" value="topic.create"></input> 
+	<input type="hidden" name="action" value="topic.create"> 
 	<p>
 		<label>Tên: <input type="text" id="txtName"
-		      name="cc_name" value="${topic.name}"></input></label>
-		${nameErr}
+		      name="cc_name" value="${topic.name}"></label>
+		<ocw:error code="name"></ocw:error>
 	</p>
 	<p><label>Chủ đề cha:
         <input type="text" id="txtParentName" name="cc_parentname" 
-                value="${param.cc_parentname}"></input>
+                value="${param.cc_parentname}">
         </label>
         <input type="hidden" id="txtParentId" name="cc_parent" 
-                 value="${param.cc_parent}"></input>
+                 value="${param.cc_parent}">
         <a href="javascript:clearParent();"><img src="${templatePath}/images/wrong.png" alt="remove" title="remove" width="12" height="12" /></a>
-        <span style="color:red">${parentErr}</span>
+        <ocw:error code="parent"></ocw:error>
 	</p>
 	<button type="submit" name="cc_submit" value="create">Tạo</button>
 	<button type="button" onclick="location.href='${scriptPath}?action=topic.list'">Quay về danh sách</button>

@@ -2,6 +2,7 @@ package oop.db.dao;
 
 import java.util.List;
 
+import oop.data.Resource;
 import oop.data.Topic;
 import oop.data.User;
 import oop.persistence.HibernateUtil;
@@ -11,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+//XXX
 @SuppressWarnings("unchecked")
 public final class TopicDAO {
 
@@ -33,18 +35,18 @@ public final class TopicDAO {
 	 * @param id
 	 * @return
 	 */
-	public static Topic fetchById(long topicId) {
-		Session session = HibernateUtil.getSession();
-		return (Topic) session.get(Topic.class, topicId);
+	public static Resource<Topic> fetchById(long id) {
+		return ResourceDAO.fetchById(id, Topic.class);
 	}
 
-	public static List<Topic> fetchTopLevels() {
+	public static List<Resource<Topic>> fetchTopLevels() {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("from Topic where parent is null");
+		Query query = session.createQuery("from Resource where article in (" +
+				"from Topic where parent is null) and status <> 'DELETED'");
 		return query.list();
 	}
 
-	public static Topic create(String name, Topic parent, User author) {
+	public static Topic create(String name, Resource<Topic> parent, User author) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
@@ -53,26 +55,6 @@ public final class TopicDAO {
 			session.save(newTopic);
 			tx.commit();
 			return newTopic;
-		} catch (HibernateException ex) {
-			if (tx != null)
-				tx.rollback();
-			throw ex;
-		}
-	}
-
-	@Deprecated
-	public static void persist(Topic topic) {
-		// DO NOTHING
-	}
-
-	public static int drop(Topic topic) {
-		Session session = HibernateUtil.getSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			session.delete(topic);
-			tx.commit();
-			return 1;
 		} catch (HibernateException ex) {
 			if (tx != null)
 				tx.rollback();

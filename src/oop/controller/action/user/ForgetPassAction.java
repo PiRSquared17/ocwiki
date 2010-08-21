@@ -12,22 +12,15 @@ public class ForgetPassAction extends AbstractAction {
 		title("Gửi mật khẩu");
 		if (getParams().hasParameter("sendPassword")) {
 			if (UserUtils.isValidEmail(getParams().get("userEmail")) == false) {
-				emailError = "Email sai quy cách.";
+				addError("email", "Email sai quy cách.");
 			} else {
 				User user = UserDAO.fetchByEmail(getParams().getString(
 						"userEmail"));
 				if (user == null) {
-					emailError = "Địa chỉ email không tồn tại.";
+					addError("email", "Địa chỉ email không tồn tại.");
 				}
 				// XXX viết code gửi email
 			}
 		}
 	}
-	
-	private String emailError = null;
-	
-	public String getEmailError() {
-		return emailError;
-	}
-
 }

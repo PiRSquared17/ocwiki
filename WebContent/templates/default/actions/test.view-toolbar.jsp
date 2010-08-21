@@ -5,16 +5,35 @@
 <div class="toolbar">
 	<c:if test="${sessionScope.login}">
 	   <c:if test="${test.questionCount > 0}">
-    		<button onclick="location.href='${scriptPath}?action=test.solve&testId=${test.id}'">Làm</button>
+	       <ocw:actionButton name="test.solve">
+	           <ocw:param name="test" value="${action.resource.id}"></ocw:param>
+	           Làm
+	       </ocw:actionButton>
 	   </c:if>
 		<c:if test="${sessionScope.user.group=='teacher'}">
-		      <button onclick="location.href='${scriptPath}?action=test.ajaxedit&testId=${test.id}'">new edit page</button>
-			<button onclick="location.href='${scriptPath}?action=section.create&sc_testid=${test.id}'">Thêm mục</button>
-			<button onclick="location.href='${scriptPath}?action=test.addquestion&taq_test=${test.id}'">Thêm câu hỏi</button>
-			<button onclick="return confirm('Bạn có chắc muốn xoá đề thi này?') && (location.href='${scriptPath}?action=test.list&tl_submit=delete&tl_tests=${test.id}')">Xóa</button>
+           <ocw:actionButton name="test.ajaxedit">
+               <ocw:param name="test" value="${action.resource.id}"></ocw:param>
+               new edit page
+           </ocw:actionButton>
+           <ocw:actionButton name="section.create">
+               <ocw:param name="test" value="${action.resource.id}"></ocw:param>
+               Thêm mục
+           </ocw:actionButton>
+           <ocw:actionButton name="test.addquestion">
+               <ocw:param name="test" value="${action.resource.id}"></ocw:param>
+               Thêm câu hỏi
+           </ocw:actionButton>
+           <ocw:actionButton name="test.list" confirm="confirm('Bạn có chắc muốn xoá đề thi này?')">
+               <ocw:param name="test" value="${action.resource.id}"></ocw:param>
+               Xóa
+           </ocw:actionButton>
 		</c:if>
 	</c:if>
-	<button onclick="location.href='${scriptPath}?action=testversion.list&testid=${test.id}'">Các phiên bản</button>
-	<button onclick="location.href='${scriptPath}?action=test.savedocx&testid=${test.id}&verid=${version.id}'">Xuất</button>
-	<button onclick="location.href='${scriptPath}?action=test.list'">Quay về danh sách</button>
+    <ocw:actionButton name="test.savedocx">
+        <ocw:param name="test" value="${action.resource.id}"></ocw:param>
+        Xuất DOCX
+    </ocw:actionButton>
+    <ocw:actionButton name="test.list">
+        Quay về danh sách
+    </ocw:actionButton>
 </div>

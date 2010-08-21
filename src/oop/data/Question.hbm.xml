@@ -2,33 +2,20 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="oop.data.Question" table="sectionQuestion">
-        <id name="id" type="long" access="field">
-            <column name="sq_id" />
-            <generator class="identity" />
-        </id>
-        <version name="version" column="sq_version"></version>
-        <many-to-one name="section" class="oop.data.Section" fetch="select">
-            <column name="sq_section" />
+	<class name="oop.data.Question" table="Question" mutable="false">
+		<id name="id" type="long" access="field">
+			<generator class="identity" />
+		</id>
+        <many-to-one name="baseResource" class="oop.data.Resource"
+            access="field" fetch="select" not-null="false">
+            <column name="base_resource" />
         </many-to-one>
-        <many-to-one name="base" class="oop.data.BaseQuestion" access="field" fetch="select">
-            <column name="sq_question" />
+        <many-to-one name="baseRevision" class="oop.data.Revision"
+            access="field" fetch="select" not-null="false">
+            <column name="base_revision" />
         </many-to-one>
-        <property name="mark" type="int">
-            <column name="sq_mark" />
-        </property>
-        <property name="status" length="10" column="sq_status">
-            <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">oop.data.Status</param>
-                <param name="type">12</param> <!-- VARCHAR -->
-            </type>
-        </property> 
-        <set name="answers" inverse="false" table="sectionQuestionAnswer" 
-                lazy="true" order-by="ans_id asc">
-            <key>
-                <column name="sq_id" />
-            </key>
-            <many-to-many class="oop.data.Answer" column="ans_id"/>
-        </set>
-    </class>
+		<property name="mark" type="double">
+			<column name="mark" not-null="true" />
+		</property>
+	</class>
 </hibernate-mapping>

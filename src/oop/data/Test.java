@@ -1,46 +1,32 @@
 package oop.data;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Test extends BaseArticle {
 
-	private String name;
 	private String type;
 	private int time;
-	private Set<Section> sections = new HashSet<Section>();
+	private List<Section> sections = new ArrayList<Section>();
 
-	Test() {
+	public Test() {
 	}
 	
-	public Test(String name, Text content, Date createDate,
-			User author, String type, int time) {
-		super();
-		this.name = name;
-		this.content = content;
-		this.createDate = createDate;
-		this.author = author;
+	public Test(Namespace namespace, String name, Text content, String type, int time) {
+		super(namespace, content);
+		setName(name);
 		this.type = type;
 		this.time = time;
 	}
 	
-	public Set<Section> getSections() {
+	public List<Section> getSections() {
 		return sections;
 	}
 	
-	public void setSections(Set<Section> sections) {
+	public void setSections(List<Section> sections) {
 		this.sections = sections;
 	}
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -65,9 +51,18 @@ public class Test extends BaseArticle {
 		return sum;
 	}
 
+	protected <T> T copyTo(T obj) {
+		Test test = (Test)obj;
+		test.setName(getName());
+		test.setType(getType());
+		test.setTime(getTime());
+		test.setSections(new ArrayList<Section>(getSections()));
+		return super.copyTo(obj);
+	};
+	
 	@Override
-	public Namespace getNamespace() {
-		return Namespace.TEST;
+	public Test copy() {
+		return copyTo(new Test());
 	}
 
 }

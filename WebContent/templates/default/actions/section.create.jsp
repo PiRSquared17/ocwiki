@@ -5,7 +5,7 @@
 <script>
 
 function validateName() {
-	var txtName = $('sc_name');
+	var txtName = $('name');
 	var msgName = $('msgName');
 
 	if (txtName.value == '') {
@@ -20,26 +20,25 @@ function validateName() {
 
 </script>
 
-<form id="form_edit" action="${scriptPath}" method="get">
+<form id="form_edit" action="${ocw:actionUrl('section.create')}" method="get">
 
-	<input type="hidden" name="action" value="section.create"></input>
-	<input type="hidden" name="sc_testid" value="${test.id}"></input>
+	<input type="hidden" name="test" value="${param.test}">
 	
-	<p><label>Nội dung: <textarea style="width:100%" name="sc_text" rows="15" cols="80" style="width: 80%">${param.sc_name}</textarea></label>
-		<span id="msgName" style='${"block"}'>${nameErr}</span>
+	<p><label>Nội dung: <textarea style="width:100%" name="text" rows="15" cols="80" style="width: 80%">${param.name}</textarea></label>
+		<ocw:error code="name"></ocw:error>
 	</p>
     <br></br>
 	
-	<p><label>Chèn vào trước: 
-		<select name="sc_order">
-			<c:forEach items="${test.sections}" var="item">
-				<option value="${item.order}" 
-				        ${item.order==param.sc_order ? 'selected="selected"' : ''}>
-					${item.order}: ${u:ellipsize(u:stripHTML(item.text), 50)}
+	<p><label>Vị trí: 
+		<select name="index">
+		    <c:set var="sectionIndex" value="0" />
+			<c:forEach items="${test.sections}" var="section">
+				<option value="${sectionIndex}">
+					${sectionIndex}: ${u:ellipsize(u:stripHTML(section.content.text), 50)}
 				</option>
+			    <c:set var="sectionIndex" value="${sectionIndex+1}" />
 			</c:forEach>
-			<option value="last"
-			         ${(empty param.sc_order) || param.sc_order=='last' ? 'selected="selected"' : ''}>
+			<option value="${sectionIndex}">
 			     -- cuối cùng --
 			</option>
 		</select>
@@ -47,8 +46,11 @@ function validateName() {
     <br></br>
 
 	<p>
-		<button type="submit" name="sc_submit" value="create">Tạo</button>
-		<button type="button" onclick="location.href='${scriptPath}?action=test.view&tv_id=${test.id}'">Quay về đề thi</button>
+		<button type="submit" name="submit" value="create">Tạo</button>
+		<ocw:actionButton name="test.view">
+		  <ocw:param name="id" value="${action.resource.id}"></ocw:param>
+		  Quay về đề thi
+		</ocw:actionButton>
 	</p>
 
 </form>

@@ -1,29 +1,22 @@
 package oop.controller.action.answer;
 
-import java.util.Iterator;
-
 import oop.controller.action.AbstractAction;
-import oop.data.Answer;
 import oop.data.BaseQuestion;
+import oop.data.Resource;
 import oop.db.dao.BaseQuestionDAO;
 
 public class DeleteAction extends AbstractAction {
 
+	private Resource<BaseQuestion> resource;
+
 	@Override
 	public void performImpl() throws Exception {
-		long questionId = getParams().getLong("question");
-		long answerId = getParams().getLong("answer");
-
-		BaseQuestion question = BaseQuestionDAO.fetchById(questionId);
-		for (Iterator<Answer> iter = question.getAnswers().iterator(); iter
-				.hasNext();) {
-			Answer answer = iter.next();
-			if (answer.getId() == answerId) {
-				iter.remove();
-			}
-		}
+		resource = BaseQuestionDAO.fetchById(getParams().getLong("question"));
+		BaseQuestion question = resource.getArticle().copy();
+		question.getAnswers().get(getParams().getInt("answer"));
+		saveNewRevision(resource, question);
 		
-		setNextAction("question.view&qv_id=" + questionId);
+		setNextAction("question.view&id=" + resource.getId());
 	}
 
 }

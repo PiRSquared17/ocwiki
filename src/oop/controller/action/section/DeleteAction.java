@@ -1,23 +1,21 @@
 package oop.controller.action.section;
 
 import oop.controller.action.AbstractAction;
-import oop.data.Article;
-import oop.data.Status;
-import oop.db.dao.SectionDAO;
-import oop.db.dao.TestDAO;
+import oop.data.Resource;
+import oop.data.Test;
+import oop.db.dao.ResourceDAO;
 
 public class DeleteAction extends AbstractAction {
 
 	@Override
 	public void performImpl() throws Exception {
-		long sectionId = getParams().getLong("sd_id");
-		long testId = getParams().getLong("sd_testid");
-		Article test = TestDAO.fetchById(testId);
+		Resource<Test> resource = ResourceDAO.fetchById(getParams().getLong(
+				"test"), Test.class); 
+		Test test = resource.getArticle().copy();
+		test.getSections().remove(getParams().getInt("section"));
+		saveNewRevision(resource, test);
 
-		SectionDAO.fetchById(sectionId).setStatus(Status.DELETED);
-		SectionDAO.normalize(testId);
-
-		setNextAction("test.view&tv_id=" + testId);
+		setNextAction("test.view&id=" + resource.getId());
 	}
 
 }

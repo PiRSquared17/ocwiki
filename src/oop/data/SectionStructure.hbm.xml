@@ -1,32 +1,23 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 22:00:03 19-07-2010 by Hibernate Tools 3.3.0.GA -->
+	<!-- Generated 22:00:03 19-07-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-    <class name="oop.data.SectionStructure" table="sectionStructure">
-        <id name="id" type="long" access="field">
-            <column name="sstr_id" />
-            <generator class="identity" />
-        </id>
-        <version name="version" column="sstr_version"></version>
-        <many-to-one name="content" class="oop.data.Text" fetch="join" cascade="all">
-            <column name="sstr_content" />
-        </many-to-one>
-        <property name="order" type="int">
-            <column name="sstr_order" />
-        </property>
-        <many-to-one name="testStructure" class="oop.data.TestStructure" fetch="select">
-            <column name="sstr_test" />
-        </many-to-one>
-        <property name="status" length="10" column="sstr_status">
-            <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">oop.data.Status</param>
-                <param name="type">12</param> <!-- VARCHAR -->
-            </type>
-        </property> 
-        <set name="constraints" lazy="true">
-            <key column="con_section" />
-            <one-to-many class="oop.data.Constraint" />
-        </set>
-    </class>
+	<class name="oop.data.SectionStructure" table="SectionStructure"
+		mutable="false">
+		<id name="id" type="long" access="field">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="content" class="oop.data.Text" fetch="join"
+			cascade="all" not-null="true">
+			<column name="content" />
+		</many-to-one>
+		<list inverse="false" name="constraints" lazy="true"
+			table="SectionStructureConstraint" cascade="all">
+			<key column="section_id" />
+			<index column="constraint_index"></index>
+			<many-to-many column="constraint_id" class="oop.data.Constraint" />
+		</list>
+	</class>
 </hibernate-mapping>

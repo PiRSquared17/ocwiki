@@ -1,41 +1,30 @@
 package oop.data;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestStructure extends BaseArticle {
 
-	private String name;
 	private String type;
 	private int time;
-	private Set<SectionStructure> sectionStructures = new HashSet<SectionStructure>();
+	private List<SectionStructure> sectionStructures = new ArrayList<SectionStructure>();
 
 	TestStructure() {
 	}
 
-	public TestStructure(String name, Text content, User author, 
-			Date createDate) {
-		super();
-		this.name = name;
-		this.content = content;
-		this.author = author;
-		this.createDate = createDate;
+	public TestStructure(Namespace namespace, String name, Text content, String type, int time) {
+		super(namespace, content);
+		setName(name);
+		this.type = type;
+		this.time = time;
 	}
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Set<SectionStructure> getSectionStructures() {
+	public List<SectionStructure> getSectionStructures() {
 		return sectionStructures;
 	}
 	
-	public void setSectionStructures(Set<SectionStructure> sectionStructures) {
+	public void setSectionStructures(List<SectionStructure> sectionStructures) {
 		this.sectionStructures = sectionStructures;
 	}
 	
@@ -55,9 +44,19 @@ public class TestStructure extends BaseArticle {
 		return time;
 	}
 
+	protected <T> T copyTo(T obj) {
+		TestStructure struct = (TestStructure) obj;
+		struct.setName(getName());
+		struct.setTime(getTime());
+		struct.setType(getType());
+		struct.setSectionStructures(new ArrayList<SectionStructure>(
+				getSectionStructures()));
+		return super.copyTo(obj);
+	};
+	
 	@Override
-	public Namespace getNamespace() {
-		return Namespace.TEST_STRUCTURE;
+	public TestStructure copy() {
+		return copyTo(new TestStructure());
 	}
 
 }

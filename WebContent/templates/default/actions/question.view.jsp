@@ -39,8 +39,8 @@ function checkanswer() {
     </div>
 </c:if>
 
-<p>Tác giả: <b><a href="${scriptPath}?action=user.profile&user=${question.author.id}">${question.author.fullname}</a></b></p>
-<p>Thời điểm tạo: <b>${u:formatDateTime(question.createDate)}</b></p>
+<p>Tác giả: <b><ocw:userLink user="${action.resource.author}">${action.resource.author.fullname}</ocw:userLink></b></p>
+<p>Thời điểm tạo: <b>${u:formatDateTime(action.resource.createDate)}</b></p>
 
 <div>
 	${question.content}
@@ -50,7 +50,7 @@ function checkanswer() {
 	            onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
 	            onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
 		    <div class="check-wrapper">
-				<input type="radio" name="${question.id}-answers" value="${answer.id}" id="answer-${answer.id}"></input>
+				<input type="radio" name="${question.id}-answers" value="${answer.id}" id="answer-${answer.id}">
 			</div>
 			<div class="marker-wrapper">
 				<span id="a${answer.id}-rightanswer" style="display:none;"><img src="${templatePath}/images/right.png" alt="right answer" width="16px" height="16px" /></span>
@@ -73,11 +73,11 @@ function checkanswer() {
 	</div>
 </div>
 
-<tags:topics article="${question}"/>
+<ocw:topics article="${question}"/>
 
 <p>
 	<button onclick="checkanswer()">Trả lời</button>
 </p>
 
-<a href="${scriptPath}?action=article.changelog&article=${u:urlEncode(question.qualifiedName)}">change log</a>
+<a href="${scriptPath}?action=article.changelog&article=${action.resource.id}">change log</a>
 

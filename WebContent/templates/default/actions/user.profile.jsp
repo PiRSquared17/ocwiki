@@ -31,7 +31,7 @@ Nhóm: <b>${action.displayedUser.group}</b>
 	<c:when test="${u:size(action.tests) > 0}">
 		<ul>
 		    <c:forEach items="${action.tests}" var="test">
-		        <li><a href="${scriptPath}?action=test.view&tv_id=${test.id}">${test.name}</a>; 
+		        <li><ocw:articleLink resource="${test}">${test.name}</ocw:articleLink>; 
 		            ${u:formatDateTime(test.createDate)}
 		        </li>
 			</c:forEach>

@@ -5,32 +5,28 @@
 <form id="form_edit">
 	<input type="hidden" name="action" value="teststruct.create" />
 	<p>Tên: 
-		<input type="text" name="tsc_name" value="${param.tsc_name}"></input> 
-		<c:if test="${!(empty nameErr)}">
-			<span style="">${nameErr}</span>
-		</c:if>
+		<input type="text" name="tname" value="${param.tname}"> 
+		<ocw:error code="name"></ocw:error>
 	</p>
 	<br></br>
 	
-	<p>Mô tả: <textarea style="width: 100%" name="tsc_description">${param.tsc_description}</textarea>
-		<c:if test="${!(empty descriptionErr)}">
-			<span style="">${descriptionErr}</span>
-		</c:if>
+	<p>Mô tả: <textarea style="width: 100%" name="tdescription">${param.tdescription}</textarea>
+		<ocw:error code="description"></ocw:error>
 	</p>
     <br></br>
 
     <p><label>Chủ đề:
-	       <input type="text" id="txtTopicName" name="tsc_topicname" 
-	               value="${param.tsc_topicname}"></input>
+	       <input type="text" id="txtTopicName" name="ttopicname" 
+	               value="${param.ttopicname}">
        </label>
-       <input type="hidden" id="txtTopicId" name="tsc_topic" 
-                value="${param.tsc_topicname}"></input>
-       <span style="color:red">${topicErr}</span>
+       <input type="hidden" id="txtTopicId" name="ttopic" 
+                value="${param.ttopicname}">
+       <ocw:error code="topic"></ocw:error>
     </p>
     <br></br>
     
 	<p>
-		<button type="submit" name="tsc_submit" value="create">Tạo</button>
+		<button type="submit" name="tsubmit" value="create">Tạo</button>
 		<button type="button" onclick="location.href='${scriptPath}?action=teststruct.list'">Quay về danh sách</button>
 	</p>
 </form>

@@ -40,12 +40,15 @@
 	</div>
 	
 	<div class="meta-wrapper">
-	    Tác giả: <tags:userLink user="${question.author}" />
+	    Tác giả: <ocw:userLink user="${question.author}" />
 	    (${u:formatDateTime(question.createDate)})
 	    <c:if test="${not empty question.lastChange}">
 	        -
-	        Sửa lần cuối bởi <tags:userLink user="${question.lastChange.user}" />
-	        <a href="${ocw:actionUrl('article.changelog')}?article=${question.id}">Nhật kí</a>
+	        Sửa lần cuối bởi <ocw:userLink user="${question.lastChange.user}" />
+	        <ocw:actionLink name="article.changelog">
+			   <ocw:param name="article" value="${action.resource}"></ocw:param>
+			   Nhật kí
+			</ocw:actionLink>
 	    </c:if> 
 	</div>
 	
@@ -98,7 +101,7 @@
 					            onmouseout="this.removeClassName('hover')">
 					        <c:set var="checkId" value="answer-${answer.id}"></c:set>
 					        <div class="check-wrapper">
-					            <input type="checkbox" name="${question.id}-answers" value="${answer.id}" id="${checkId}"></input>
+					            <input type="checkbox" name="${question.id}-answers" value="${answer.id}" id="${checkId}">
 					        </div>
 					        <div class="marker-wrapper">
 					            <span id="a${answer.id}-rightanswer" style="display: none;">
@@ -126,13 +129,15 @@
 			</c:when>
 			<c:otherwise>
 			    <div class="message">
-			        Hãy <a href="${ocw:actionUrl('user.login')}">đăng nhập</a> để trả lời câu hỏi.
+			        Hãy
+			        <ocw:actionLink name="user.login">đăng nhập</ocw:actionLink>
+                    để trả lời câu hỏi.
 			    </div>
 			</c:otherwise>
 	   </c:choose>
 	</div>
 	
-	<tags:topics article="${question}" editable="true"/>
+	<ocw:topics article="${question}" editable="true"/>
 	
 	<h2 class="section-title"><a name="bai-giai">Bài giải</a></h2>
 	<h2 class="section-title"><a name="thao-luan">Thảo luận</a></h2>
@@ -141,15 +146,15 @@
 </div>
 
 <form class="ajax-editor" id="question-editor">
-    <input type="hidden" name="id"></input>
+    <input type="hidden" name="id">
     <textarea rows="10" name="content"></textarea>
     <button type="button">Lưu</button>
     <button type="button">Huỷ</button>
 </form>
 
 <form class="ajax-editor" id="answer-editor">
-    <input type="hidden" name="id"></input>
-    <input type="checkbox" name="correct"></input>
+    <input type="hidden" name="id">
+    <input type="checkbox" name="correct">
     <textarea rows="10" name="content"></textarea>
     <button type="button">Lưu</button>
     <button type="button">Huỷ</button>

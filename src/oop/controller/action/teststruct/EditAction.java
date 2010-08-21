@@ -1,39 +1,46 @@
 package oop.controller.action.teststruct;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import org.hibernate.exception.ConstraintViolationException;
-
 import oop.controller.action.AbstractAction;
+import oop.data.Resource;
 import oop.data.TestStructure;
 import oop.db.dao.TestStructureDAO;
 import oop.db.dao.TextDAO;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 public class EditAction extends AbstractAction {
 
 	protected TestStructure testStructure;
+	private Resource<TestStructure> resource;
 
 	@Override
 	public void performImpl() throws Exception {
-		long id = getParams().getLong("tse_id");
-		TestStructure testStructure = TestStructureDAO.fetchById(id);
-		request.setAttribute("testStruct", testStructure);
+		long id = getParams().getLong("tid");
+		resource = TestStructureDAO.fetchById(id);
+		testStructure = resource.getArticle();
 
-		String submit = getParams().get("tse_submit");
+		String submit = getParams().get("tsubmit");
 		if ("update".equals(submit)) {
 			try {
-				testStructure.setName(getParams().get("tse_name"));
+				testStructure.copy();
+				testStructure.setName(getParams().get("tname"));
 				testStructure.setContent(TextDAO.create(getParams()
-						.getString("tse_description")));
-				TestStructureDAO.persist(testStructure);
+						.getString("tdescription")));
+				saveNewRevision(resource, testStructure);
 
-				setNextAction("teststruct.view&tsv_id=" + testStructure.getId());
+				setNextAction("teststruct.view&tstr=" + resource.getId());
 			} catch (ConstraintViolationException ex) {
-					request.setAttribute("nameErr",
-							"Tên cấu trúc đề thi đã dùng.");
+				addError("name", "Tên cấu trúc đề thi đã dùng.");
 			}
 		}
 	}
 
+	public Resource<TestStructure> getResource() {
+		return resource;
+	}
+	
+	public TestStructure getTestStructure() {
+		return testStructure;
+	}
+	
 }

@@ -11,10 +11,8 @@
 <ul class="list-new">
 <c:forEach items="${action.questions}" var="question">
     <li>
-	    <a href="${scriptPath}?action=question.view&qv_id=${question.id}">
-	       ${empty question.content ? '&lt;rỗng&gt;' : 
-	               u:ellipsize(u:stripHTML(question.content), 45)}<!--  
-        --></a>;
+        <ocw:articleLink resource="${question}">${empty question.article.content ? '&lt;rỗng&gt;' : 
+                   u:ellipsize(u:stripHTML(question.article.content), 45)}</ocw:articleLink>
         ${u:formatDateTime(question.createDate)} . . 
 	    <a href="${scriptPath}?action=user.profile&user=${question.author.id}"> 
 	       ${question.author.fullname}
@@ -28,9 +26,7 @@
 <ul class="list-new">
 <c:forEach items="${action.tests}" var="test">
     <li>
-	    <a href="${scriptPath}?action=test.view&tv_id=${test.id}">
-	        ${test.name}<!--  
-	    --></a>;
+        <ocw:articleLink resource="${test}"></ocw:articleLink>
         ${u:formatDateTime(test.createDate)} . . 
         <a href="${scriptPath}?action=user.profile&user=${test.author.id}"> 
            ${test.author.fullname}
@@ -43,9 +39,7 @@
 <ul class="list-new">
 <c:forEach items="${action.testStructures}" var="struct">
     <li>
-	    <a href="${scriptPath}?action=teststruct.view&tsv_id=${struct.id}">
-	        ${struct.name}<!--  
-        --></a>;
+        <ocw:articleLink resource="${struct}"></ocw:articleLink>
         ${u:formatDateTime(struct.createDate)} . . 
         <a href="${scriptPath}?action=user.profile&user=${struct.author.id}"> 
            ${struct.author.fullname}

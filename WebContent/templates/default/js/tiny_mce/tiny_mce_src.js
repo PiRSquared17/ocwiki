@@ -7781,8 +7781,8 @@ tinymce.create('tinymce.ui.Separator:tinymce.ui.Control', {
 
 			ic = DOM.add(n, 'span', {'class' : 'mceIcon' + (s.icon ? ' mce_' + s.icon : '')});
 
-			if (s.icon_src)
-				DOM.add(ic, 'img', {src : s.icon_src});
+			if (s.isrc)
+				DOM.add(ic, 'img', {src : s.isrc});
 
 			n = DOM.add(n, s.element || 'span', {'class' : 'mceText', title : o.settings.title}, o.settings.title);
 

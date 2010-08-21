@@ -56,14 +56,14 @@ function updateCount() {
 
 <form method="get" action="${scriptPath}" id="solve-form">
 	<h3>${action.test.name}</h3>
-	<p><b>Mô tả:</b> ${action.test.description}</p>
+	<p><b>Mô tả:</b> ${action.test.content}</p>
 	<p><b>Thời gian:</b> ${action.test.time} phút</p>
 
 
-	<input type="hidden" name="action" value="test.solve"></input>
-	<input type="hidden" name="testId" value="${action.test.id}"></input>
-	<input type="hidden" name="versionId" value="${action.version.id}"></input>
-	<input type="hidden" name="time" value="0" id="txtTime"></input>
+	<input type="hidden" name="action" value="test.solve">
+	<input type="hidden" name="testId" value="${action.test.id}">
+	<input type="hidden" name="versionId" value="${action.version.id}">
+	<input type="hidden" name="time" value="0" id="txtTime">
 	
 	<c:set var="i" value="0"></c:set>
 	<c:set var="type" value='${action.test.type=="radio" ? "radio" : "checkbox"}'></c:set>
@@ -92,7 +92,7 @@ function updateCount() {
 			                <div class="check-wrapper">
 			                    <input type="${type}" onchange="updateCount()"
 			                            name="q${question.id}" value="${answer.id}"
-			                            id="q${question.id}-a${answer.id}"></input>
+			                            id="q${question.id}-a${answer.id}">
 			                </div>
 			                <div class="answer-number-wrapper">
 			                    <label for="q${question.id}-a${answer.id}"><b>${u:alpha(j)}</b>.</label>
