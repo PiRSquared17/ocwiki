@@ -20,7 +20,7 @@ function validateName() {
 
 </script>
 
-<form id="form_edit" action="${ocw:actionUrl('section.create')}" method="get">
+<ocw:form action="section.create">
 
 	<input type="hidden" name="test" value="${param.test}">
 	
@@ -52,5 +52,4 @@ function validateName() {
 		  Quay về đề thi
 		</ocw:actionButton>
 	</p>
-
-</form>
+</ocw:form>

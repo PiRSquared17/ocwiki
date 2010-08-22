@@ -13,9 +13,10 @@ function clearParent() {
 //-->
 </script>
 
-<form action="${scriptPath}" method="GET">
-	<input type="hidden" name="action" value="topic.edit"> 
+<ocw:form action="topic.edit"> 
 	<input type="hidden" name="ce_id" value="${topic.id}">
+    <input type="hidden" name="basever" value="${action.resource.version}">
+
 	<p>Id: ${topic.id}</p>
 	<p>
 		<label>Tên: <input type="text" id="txtName" 
@@ -33,7 +34,7 @@ function clearParent() {
 	</p>
 	<button type="submit" name="ce_submit" value="update">Cập nhật</button>
 	<button type="button" onclick="location.href='${scriptPath}?action=topic.list'">Quay về danh sách</button>
-</form>
+</ocw:form>
 
 <script>
     $('txtName').focus();

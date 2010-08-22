@@ -7,6 +7,7 @@
 <form id="form_edit" action="${scriptPath}">
 	<input type="hidden" name="action" value="levelconst.create">
 	<input type="hidden" name="teststruct" value="${test.id}">
+    <input type="hidden" name="basever" value="${action.resource.version}">
 	
 	<c:if test="${u:size(test.sectionStructures) != 0 && !(u:size(test.sectionStructures) == 1 && (empty test.sectionStructures[0].text)) }">
 		<div>

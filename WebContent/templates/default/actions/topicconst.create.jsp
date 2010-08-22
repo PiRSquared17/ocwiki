@@ -4,9 +4,7 @@
 
 <c:if test="${not empty message}"><div class="notification">${message}</div></c:if>
 
-<form id="form_edit" action="${scriptPath}">
-
-	<input type="hidden" name="action" value="topicconst.create">
+<ocw:form action="topicconst.create">
 	<input type="hidden" name="teststruct" value="${test.id}">
 	
 	<c:if test="${u:size(test.sectionStructures) != 0 && !(u:size(test.sectionStructures) == 1 && (empty test.sectionStructures[0].text)) }">
@@ -45,8 +43,7 @@
 
 	<button type="submit" name="submit" value="add">Lưu</button>
 	<ocw:articleButton resource="${action.resource}">Quay về cấu trúc đề</ocw:articleButton>
-	
-</form>
+</ocw:form>
 
 <script>
 	filterNumericKey('txtQuantity');

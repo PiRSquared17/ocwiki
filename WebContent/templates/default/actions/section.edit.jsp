@@ -20,10 +20,9 @@ function validateName() {
 
 </script>
 
-<form id="form_edit" action="${scriptPath}" method="get">
-
-    <input type="hidden" name="action" value="section.edit">
+<ocw:form action="section.edit">
     <input type="hidden" name="id" value="${section.id}">
+    <input type="hidden" name="basever" value="${action.resource.version}">
 	    
 	<p><label>Nội dung: <textarea style="width:100%" name="text">${(empty param.text) ? section.text : param.text}</textarea></label>
 		<ocw:error code="name"></ocw:error>
@@ -49,5 +48,4 @@ function validateName() {
 		<button type="submit" name="submit" value="update">Lưu</button>
 		<ocw:articleButton resource="${action.resource}">Quay về đề thi</ocw:articleButton>
 	</p>
-
-</form>
+</ocw:form>

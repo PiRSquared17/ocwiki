@@ -19,8 +19,7 @@ function validate() {
 
 <c:if test="${not empty message}"><div class="notification">${message}</div></c:if>
 
-<form action="${scriptPath}" method="GET">
-	<input type="hidden" name="action" value="topic.create"> 
+<ocw:form action="topic.create"> 
 	<p>
 		<label>Tên: <input type="text" id="txtName"
 		      name="cc_name" value="${topic.name}"></label>
@@ -37,7 +36,7 @@ function validate() {
 	</p>
 	<button type="submit" name="cc_submit" value="create">Tạo</button>
 	<button type="button" onclick="location.href='${scriptPath}?action=topic.list'">Quay về danh sách</button>
-</form>
+</ocw:form>
 
 <script>
     $('txtName').focus();

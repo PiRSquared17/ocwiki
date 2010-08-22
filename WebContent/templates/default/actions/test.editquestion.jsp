@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<form action="${scriptPath}" method="get">
-    <input type="hidden" name="action" value="test.editquestion">
+<ocw:form action="test.editquestion">
     <input type="hidden" name="test" value="${param.test}">
     <input type="hidden" name="section" value="${param.section}">
     <input type="hidden" name="question" value="${question.id}">
+    <input type="hidden" name="basever" value="${action.resource.version}">
   
     <c:if test="${u:size(test.sections) != 0 && !(u:size(test.sections) == 1 && (empty test.sections[0].text)) }">
         <div>
@@ -46,4 +46,4 @@
 		<button type="submit" name="submit" value="save">Lưu</button>
 		<ocw:articleButton resource="${action.resource}">Quay về đề thi</ocw:articleButton>
 	</div>
-</form>
+</ocw:form>

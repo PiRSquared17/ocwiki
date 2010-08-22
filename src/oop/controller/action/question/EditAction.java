@@ -12,7 +12,6 @@ import oop.data.Text;
 import oop.data.Topic;
 import oop.db.dao.BaseQuestionDAO;
 import oop.db.dao.TopicDAO;
-import oop.util.Utils;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
@@ -44,7 +43,7 @@ public class EditAction extends AbstractAction {
 
 		int level = 3;
 		try {
-			level = getParams().getInt("qe_level");
+			level = getParams().getInt("level");
 			if (level < 1 || level > 5) {
 				addError("level", "Độ khó không hợp lệ.");
 			} else {
@@ -56,14 +55,14 @@ public class EditAction extends AbstractAction {
 			addError("level", "Bạn cần chọn độ khó.");
 		}
 
-		String contentStr = getParams().get("qe_content");
+		String contentStr = getParams().get("content");
 		if (!question.getContent().getText().equals(contentStr)) {
 			question.setContent(new Text(contentStr));
 		}
 
 		if (!hasErrors()) {
 			saveNewRevision(resource, question);
-			setNextAction("question.view&id=" + question.getId());
+			setNextAction("question.view&id=" + resource.getId());
 		}
 	}
 	private Resource<BaseQuestion> resource;	

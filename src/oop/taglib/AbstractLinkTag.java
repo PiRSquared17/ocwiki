@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -65,7 +66,7 @@ public abstract class AbstractLinkTag extends SimpleTagSupport {
 		}
 	}
 
-	protected abstract void appendHref() throws IOException;
+	protected abstract void appendHref() throws IOException, JspException;
 
 	protected JspWriter out() {
 		return getJspContext().getOut();

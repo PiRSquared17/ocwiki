@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<form id="form_edit">
-	<input type="hidden" name="action" value="teststruct.create" />
+<ocw:form action="teststruct.create">
 	<p>Tên: 
 		<input type="text" name="tname" value="${param.tname}"> 
 		<ocw:error code="name"></ocw:error>
@@ -29,7 +28,7 @@
 		<button type="submit" name="tsubmit" value="create">Tạo</button>
 		<button type="button" onclick="location.href='${scriptPath}?action=teststruct.list'">Quay về danh sách</button>
 	</p>
-</form>
+</ocw:form>
 
 <script type="text/javascript">
 <!--

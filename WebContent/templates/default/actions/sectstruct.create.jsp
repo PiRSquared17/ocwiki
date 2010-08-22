@@ -20,9 +20,7 @@ function validateName() {
 
 </script>
 
-<form id="form_edit" action="${scriptPath}" method="get">
-
-	<input type="hidden" name="action" value="sectstruct.create">
+<ocw:form action="sectstruct.create">
 	<input type="hidden" name="tstr" value="${test.id}">
 	
 	<p><label>Nội dung: <textarea style="width:100%" name="stext">${param.sname}</textarea></label>
@@ -51,5 +49,4 @@ function validateName() {
 		<button type="submit" name="ssubmit" value="create">Tạo</button>
 		<ocw:articleButton resource="${action.resource}">Quay về cấu trúc đề</ocw:articleButton>
 	</p>
-
-</form>
+</ocw:form>

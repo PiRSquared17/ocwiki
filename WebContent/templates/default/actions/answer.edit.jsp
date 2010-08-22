@@ -2,11 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<form action="${scriptPath}" method="get">
-
-    <input type="hidden" name="action" value="answer.edit">
-    <input type="hidden" name="question" value="${question.id}">
+<ocw:form action="answer.edit">
+    <input type="hidden" name="question" value="${action.resource.id}">
     <input type="hidden" name="answer" value="${param.answer}">
+    <input type="hidden" name="basever" value="${action.resource.version}">
 
     ${question.content}
 	<div>
@@ -39,5 +38,5 @@
     </div>
 	
 	<button type="submit" name="submit" value="save">Lưu</button>
-	<ocw:articleButton resource="${action.resource">Quay về câu hỏi</ocw:articleButton>
-</form>
+	<ocw:articleButton resource="${action.resource}">Quay về câu hỏi</ocw:articleButton>
+</ocw:form>

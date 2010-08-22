@@ -32,8 +32,8 @@ function checkanswer() {
 
 <c:if test="${sessionScope.user.group=='teacher'}">
     <div>
-        <button onclick="location.href='${scriptPath}?action=question.edit&qe_id=${question.id}'">Sửa</button>
-        <button onclick="location.href='${scriptPath}?action=answer.create&question=${question.id}'">Thêm phương án trả lời</button>
+        <button onclick="location.href='${scriptPath}?action=question.edit&id=${action.resource.id}'">Sửa</button>
+        <button onclick="location.href='${scriptPath}?action=answer.create&question=${action.resource.id}'">Thêm phương án trả lời</button>
         <button onclick="location.href='${scriptPath}?action=question.create'">Thêm câu hỏi</button>
         <button onclick="location.href='${scriptPath}?action=question.list'">Quay về danh sách</button>
     </div>
@@ -45,6 +45,7 @@ function checkanswer() {
 <div>
 	${question.content}
 	<div class="answer-list-wrapper">
+	<c:set var="answerIndex" value="0"></c:set>
 	<c:forEach items="${question.answers}" var="answer">
 		<div class="answer-wrapper mouse-out"
 	            onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
@@ -58,10 +59,16 @@ function checkanswer() {
 		    </div>
             <c:if test="${sessionScope.user.group=='teacher'}">
 	            <div class="buttons">
-	                <a href="${scriptPath}?action=answer.edit&question=${question.id}&answer=${answer.id}"><img src="${templatePath}/images/edit.png" alt="edit" title="edit" width="16px" height="16px" /></a>
-	                <a href="${scriptPath}?action=answer.delete&question=${question.id}&answer=${answer.id}"
-	                       onclick="return confirm('Bạn có chắc muốn xoá phương án trả lời này?');"
-                            ><img src="${templatePath}/images/wrong.png" alt="edit" title="remove" width="16px" height="16px" /></a>
+                   <ocw:actionLink name="answer.edit">
+                        <ocw:param name="question" value="${action.resource.id}"></ocw:param>
+                        <ocw:param name="answer" value="${answerIndex}"></ocw:param>
+                        <img src="${templatePath}/images/edit.png" alt="edit" title="edit" width="16px" height="16px" />
+                    </ocw:actionLink>
+                   <ocw:actionLink name="answer.delete" confirm="confirm('Bạn có chắc muốn xoá phương án trả lời này?')">
+                        <ocw:param name="question" value="${action.resource.id}"></ocw:param>
+                        <ocw:param name="answer" value="${answerIndex}"></ocw:param>
+                        <img src="${templatePath}/images/wrong.png" alt="edit" title="remove" width="16px" height="16px" />
+                    </ocw:actionLink>
 	            </div>
             </c:if>
 
@@ -69,6 +76,7 @@ function checkanswer() {
 			     <label for="answer-${answer.id}">${answer.content}</label>
 			</div>
 		</div>
+        <c:set var="answerIndex" value="${answerIndex+1}"></c:set>
 	</c:forEach>
 	</div>
 </div>

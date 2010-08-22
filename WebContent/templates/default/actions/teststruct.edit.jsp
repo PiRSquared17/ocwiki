@@ -24,6 +24,7 @@ function validateName() {
 
     <input type="hidden" name="action" value="teststruct.edit">
     <input type="hidden" name="tid" value="${testStruct.id}">
+    <input type="hidden" name="basever" value="${action.resource.version}">
     
     <p>
        <label>Tên: <input type="text" name="tname" 

@@ -4,9 +4,9 @@
 
 <c:if test="${not empty message}"><div class="notification">${message}</div></c:if>
 
-<form action="${scriptPath}">
-	<input type="hidden" name="action" value="test.addquestion">
+<ocw:form action="test.addquestion">
 	<input type="hidden" name="taq_test" value="${test.id}">
+    <input type="hidden" name="basever" value="${action.resource.version}">
 	
 	<c:if test="${u:size(test.sections) != 0 && !(u:size(test.sections) == 1 && (empty test.sections[0].text)) }">
 		<div>
@@ -81,8 +81,7 @@
 		<button type="submit" name="taq_submit" value="add">Lưu</button>
 		<ocw:articleButton resource="${action.resource}">Quay về đề thi</ocw:articleButton>
 	</div>
-	
-</form>
+</ocw:form>
 
 <script>
 	$('txtQuestionId').focus();

@@ -1,6 +1,7 @@
 package oop.taglib;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Map.Entry;
 
 import javax.servlet.jsp.JspException;
@@ -14,14 +15,18 @@ public class ActionLinkTag extends AbstractLinkTag {
 
 	@Override
 	public void doTag() throws JspException, IOException {
+		// cause param tags to be read
+		StringWriter sw = new StringWriter();
+		jspBody.invoke(sw);
+		// render
 		StringBuilder sb = new StringBuilder();
 		out().print("<a");
 		appendHref();
 		appendClass();
 		out().print("\">");
-		getJspContext().getOut().print(sb);
-		jspBody.invoke(getJspContext().getOut());
-		getJspContext().getOut().print("</a>");
+		out().append(sb);
+		out().append(sw.toString());
+		out().append("</a>");
 	}
 
 	@Override
@@ -43,8 +48,10 @@ public class ActionLinkTag extends AbstractLinkTag {
 	private void appendActionURL() throws IOException {
 		out().print(ActionUtil.getActionURL(getName()));
 		if (!getParams().isEmpty()) {
-			out().print("?");
+			boolean first = true;
 			for (Entry<String, String> entry : getParams().entrySet()) {
+				out().print(first ? "?" : "&");
+				first = false;
 				out().print(entry.getKey());
 				out().print("=");
 				out().print(StringEscapeUtils.escapeXml(entry.getValue()));

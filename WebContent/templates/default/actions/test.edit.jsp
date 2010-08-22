@@ -20,10 +20,9 @@ function validateName() {
 
 </script>
 
-<form id="form_edit" action="${scriptPath}" method="get">
-
-	<input type="hidden" name="action" value="test.edit">
+<ocw:form action="test.edit">
 	<input type="hidden" name="te_id" value="${test.id}">
+    <input type="hidden" name="basever" value="${action.resource.version}">
 	
 	<p>
 	   <label>Tên: <input type="text" name="te_name" 
@@ -79,8 +78,7 @@ function validateName() {
 	   <button type="submit" name="te_submit" value="update">Lưu</button>
 	   <ocw:articleButton resource="${action.resource}">Thôi</ocw:articleButton>
 	</p>
-
-</form>
+</ocw:form>
 
 <script type="text/javascript">
 <!--
