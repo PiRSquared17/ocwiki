@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<union-subclass name="oop.data.BaseQuestion" table="BaseQuestion"
+		extends="oop.data.BaseArticle">
+		<property name="level" type="int" not-null="true" />
+		<list name="answers" table="BaseQuestionAnswer" lazy="true"
+			cascade="all" inverse="false">
+			<key column="question_id" />
+			<index column="answer_index"></index>
+			<many-to-many column="answer_id" class="oop.data.Answer" />
+		</list>
+	</union-subclass>
+</hibernate-mapping>

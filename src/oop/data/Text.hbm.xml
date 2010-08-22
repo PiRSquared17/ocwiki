@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19:07:23 18-07-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="oop.data.Text" table="Text" mutable="false">
+        <id name="id" type="long" access="field">
+            <column name="txt_id" />
+            <generator class="identity" />
+        </id>
+        <property name="text" type="java.lang.String" access="field">
+            <column name="txt_text" sql-type="mediumtext" />
+        </property>
+    </class>
+</hibernate-mapping>
