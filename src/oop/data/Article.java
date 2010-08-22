@@ -44,6 +44,7 @@ public abstract class Article implements Entity {
 	protected <T> T copyTo(T obj) {
 		Article article = (Article) obj;
 		article.setName(getName());
+		article.setNamespace(getNamespace());
 		article.setContent(getContent());
 		return obj;
 	}

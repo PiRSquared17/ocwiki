@@ -44,7 +44,7 @@ public class CreateAction extends AbstractAction {
 				saveNewRevision(resource, question);
 
 				if ("more".equals(getParams().get("submit"))) {
-					setNextAction("answer.create&question=" + question.getId()
+					setNextAction("answer.create&question=" + resource.getId()
 							+ "&content=&correct=&submit=");
 				} else {
 					setNextAction("question.view&id=" + question.getId());

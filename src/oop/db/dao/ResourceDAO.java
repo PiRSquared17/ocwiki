@@ -96,12 +96,12 @@ public class ResourceDAO {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
-			resource.setArticle(article);
-			Revision<T> revision = new Revision<T>(0, resource, article,
-					author, new Date(), summary, minor);
 			tx = session.beginTransaction();
 			session.save(article);
+			Revision<T> revision = new Revision<T>(0, resource, article,
+					author, new Date(), summary, minor);
 			session.save(revision);
+			resource.setArticle(article);
 			session.update(resource);
 			tx.commit();
 			return revision;

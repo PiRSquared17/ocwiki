@@ -2,6 +2,7 @@
 <%@ include file="/includes/common.jsp" %>
 
 <ocw:form action="answer.create">
+    <input type="hidden" name="basever" value="${action.resource.version}">
     <input type="hidden" name="question" value="${action.resource.id}">
 
     ${action.question.content}

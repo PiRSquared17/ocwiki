@@ -33,7 +33,7 @@ public class AnswerResource extends AbstractResource {
 
 	@GET
 	@Path("/question/{questionId: \\d+}")
-	public ListResult<Answer> listByQuestion(@PathParam("id") long questionId) {
+	public ListResult<Answer> listByQuestion(@PathParam("questionId") long questionId) {
 		BaseQuestion question = (BaseQuestion) ResourceDAO
 				.fetchById(questionId).getArticle();
 		assertResourceFound(question);

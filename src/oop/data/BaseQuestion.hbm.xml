@@ -6,7 +6,7 @@
 		extends="oop.data.BaseArticle">
 		<property name="level" type="int" not-null="true" />
 		<list name="answers" table="BaseQuestionAnswer" lazy="true"
-			cascade="all">
+			cascade="all" inverse="false">
 			<key column="question_id" />
 			<index column="answer_index"></index>
 			<many-to-many column="answer_id" class="oop.data.Answer" />

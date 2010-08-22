@@ -181,7 +181,8 @@ public abstract class AbstractAction implements Action {
 		if (!editToken.equals(getParams().getString("editToken"))) {
 			throw new RuntimeException("wrong edit token");
 		}
-		String summary = getParams().getString("summary", null);
+		String summary = getParams().getString("summary",
+				"Sửa bài #" + resource.getId() + ": " + resource.getName());
 		boolean minor = getParams().getBoolean("minor", false);
 
 		return ResourceDAO.update(resource, article, user, summary, minor);
