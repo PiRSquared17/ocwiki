@@ -17,7 +17,7 @@ public class RevisionDAO {
 		return (Revision<T>) session.get(Revision.class, id);
 	}
 
-	public static List<Revision<Article>> fetchByResource(int resourceId,
+	public static List<Revision<Article>> fetchByResource(long resourceId,
 			long start, int size) {
 		Session session = HibernateUtil.getSession();
 		Query query = session
