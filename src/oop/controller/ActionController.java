@@ -51,9 +51,6 @@ public class ActionController extends HttpServlet {
 	protected void process(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// set encoding
-		response.setContentType("text/html;charset=UTF-8");
-
 		// set variables
 		String template = StringUtils.defaultIfEmpty((String) request
 				.getSession().getAttribute("template"), "default");
@@ -117,8 +114,12 @@ public class ActionController extends HttpServlet {
 						request.getQueryString());
 			}
 			if (action.getNextAction() != null) {
-				String url = Config.get().getHomeDir() + "/index.jsp?action="
-						+ action.getNextAction();
+				String url = action.getNextAction();
+				if (url.contains("&") && !url.contains("?")) {
+					int i = url.indexOf('&');
+					url = url.substring(0, i) + "?" + url.substring(i+1);
+				}
+				url = Config.get().getActionPath() + "/" + url;
 				response.sendRedirect(url);
 			} else if (action.getRedirect() != null) {
 				response.sendRedirect(action.getRedirect());

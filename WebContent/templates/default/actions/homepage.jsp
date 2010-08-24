@@ -26,7 +26,7 @@
 <ul class="list-new">
 <c:forEach items="${action.tests}" var="test">
     <li>
-        <ocw:articleLink resource="${test}"></ocw:articleLink>
+        <ocw:articleLink resource="${test}">${test.name}</ocw:articleLink>
         ${u:formatDateTime(test.createDate)} . . 
         <a href="${scriptPath}?action=user.profile&user=${test.author.id}"> 
            ${test.author.fullname}

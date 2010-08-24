@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import oop.conf.Config;
 import oop.data.Article;
 import oop.data.BaseQuestion;
+import oop.data.Resource;
 import oop.data.Test;
 import oop.data.TestStructure;
 import oop.db.dao.ArticleDAO;
@@ -47,11 +49,14 @@ public class ArticleController extends HttpServlet {
 
 	private void process(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String url = "/action";
+		String url = Config.get().getActionPath();
 		try {
 			Long id = Long.parseLong(request.getPathInfo().substring(1));
-			Article article = ArticleDAO.fetchById(id);
-			if (article instanceof BaseQuestion) {
+			Resource<? extends Article> resource = ArticleDAO.fetchById(id);
+			Article article = resource.getArticle();
+			if (article == null) {
+				url += "/error?message=" + Utils.urlEncode("Không tìm thấy bài viết.");
+			} else if (article instanceof BaseQuestion) {
 				url += "/question.view?id=" + article.getId();
 			} else if (article instanceof Test) {
 				url += "/test.view?id=" + article.getId();
@@ -63,7 +68,12 @@ public class ArticleController extends HttpServlet {
 		} catch (NumberFormatException e) {
 			url += "/error?message=" + Utils.urlEncode("Id không hợp lệ");
 		}
-		request.getRequestDispatcher(url).forward(request, response);
+		if (url.startsWith(Config.get().getHomeDir())) {
+			url = url.substring(Config.get().getHomeDir().length());
+			request.getRequestDispatcher(url).forward(request, response);
+		} else {
+			response.sendRedirect(url);
+		}
 	}
 
 }
