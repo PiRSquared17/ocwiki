@@ -30,7 +30,7 @@
             <option value="4" ${param.level==4 ? 'selected' : ''}>${u:levelName(4)}</option>
             <option value="5" ${param.level==5 ? 'selected' : ''}>${u:levelName(5)}</option>
         </select>
-	    <ocw:error code="level"></ocw:error>
+	    <ocw:error code="level"></ocw:error></label>
     </p>
     <br></br>
 

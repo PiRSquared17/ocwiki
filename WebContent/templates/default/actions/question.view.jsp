@@ -43,7 +43,7 @@ function checkanswer() {
 <p>Thời điểm tạo: <b>${u:formatDateTime(action.resource.createDate)}</b></p>
 
 <div>
-	${question.content}
+    <ocw:parse resource="${action.resource}">${question.content}</ocw:parse>
 	<div class="answer-list-wrapper">
 	<c:set var="answerIndex" value="0"></c:set>
 	<c:forEach items="${question.answers}" var="answer">
@@ -73,7 +73,9 @@ function checkanswer() {
             </c:if>
 
             <div style="margin-right: 60px">
-			     <label for="answer-${answer.id}">${answer.content}</label>
+			     <label for="answer-${answer.id}">
+			         <ocw:parse resource="${action.resource}">${answer.content}</ocw:parse>
+			     </label>
 			</div>
 		</div>
         <c:set var="answerIndex" value="${answerIndex+1}"></c:set>

@@ -18,13 +18,13 @@ public class RevisionDAO {
 	}
 
 	public static List<Revision<Article>> fetchByResource(long resourceId,
-			long start, int size) {
+			int start, int size) {
 		Session session = HibernateUtil.getSession();
 		Query query = session
 				.createQuery("from Revision where resource.id=:resId");
 		query.setLong("resId", resourceId);
-		query.setLong("start", start);
-		query.setInteger("size", size);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
 		return query.list();
 	}
 

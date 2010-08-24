@@ -29,7 +29,7 @@ public class RevisionResource extends AbstractResource{
 	}
 	
 	@GET
-	@Path("/{resourceID: \\d+}")
+	@Path("/resource/{resourceID: \\d+}")
 	public ListResult<Revision> listByResource(@PathParam("resourceID")
 			int resourceID ){
 		return (ListResult<Revision>) RevisionDAO.fetchByResource(resourceID, 1, 50);
