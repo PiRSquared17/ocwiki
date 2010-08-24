@@ -30,7 +30,6 @@
         Chọn câu hỏi:</label> 
         <input type="text" id="txtQuestionName" name="taq_content" 
                     value="${param.taq_content}">
-            </label>
         <input type="hidden" id="txtQuestionId" name="taq_question" 
                  value="${param.taq_question}">
         <ocw:error code="search"></ocw:error>

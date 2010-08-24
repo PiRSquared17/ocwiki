@@ -33,11 +33,11 @@ public class HomepageAction extends AbstractAction {
 		userCount = UserDAO.count();
 	}
 	
-	public List<Resource<Test>> getTestStructures() {
+	public List<Resource<Test>> getTests() {
 		return tests;
 	}
 	
-	public List<Resource<TestStructure>> getTests() {
+	public List<Resource<TestStructure>> getTestStructures() {
 		return testStructures;
 	}
 	

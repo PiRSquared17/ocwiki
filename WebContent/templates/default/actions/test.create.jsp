@@ -6,7 +6,7 @@
 <ocw:form action="test.create">
     <p><label>Tên: 
         <input type="text" name="name" value="${param.name}"> 
-        <ocw:error code="name"></ocw:error>
+        <ocw:error code="name"></ocw:error></label>
     </p>
     <br />
     <p>Nội dung: <textarea name="description">${param.content}</textarea>

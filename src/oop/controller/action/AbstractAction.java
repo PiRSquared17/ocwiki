@@ -18,7 +18,6 @@ import oop.db.dao.ResourceDAO;
 import oop.util.SessionUtils;
 
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
 
 import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
@@ -94,7 +93,7 @@ public abstract class AbstractAction implements Action {
 	}
 
 	/*
-	 * (non-Javadoc)
+	 * (non-Javadoc)getPreviousURL
 	 * 
 	 * @see
 	 * oop.controller.action.Action#setRequest(javax.servlet.http.HttpServletRequest
@@ -140,15 +139,6 @@ public abstract class AbstractAction implements Action {
 
 	protected void addMessage(String msg) {
 		request.setAttribute("message", msg);
-	}
-
-	public String getPreviousQuery() {
-		return StringUtils.defaultIfEmpty((String) request.getSession()
-				.getAttribute("previousQuery"), "homepage");
-	}
-
-	public String getPreviousURL() {
-		return controller.getScriptPath() + "?" + getPreviousQuery();
 	}
 
 	public void setRedirect(String redirect) {

@@ -99,6 +99,26 @@
     </attribute>    
   </tag>
 
+  <tag>
+    <description>Chuyển đổi văn bản từ định dạng nội bộ thành HTML</description>
+    <display-name>Parse content</display-name>
+    <name>parse</name>
+    <tag-class>oop.taglib.ParseTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+        <description>Đối tượng resource chứa văn bản</description>
+        <name>resource</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>    
+    <attribute>
+        <description>Đối tượng văn bản (String hoặc oop.data.Text)</description>
+        <name>content</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>    
+  </tag>
+
   <tag-file>
     <description>Hiển thị danh sách chủ đề cho một bài viết nhất định</description>
     <display-name>Danh sách chủ đề</display-name>

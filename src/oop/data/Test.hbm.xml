@@ -13,7 +13,7 @@
 		</property>
 		<list name="sections" inverse="false" table="TestSection" lazy="true"
 			cascade="all">
-			<key column="id" />
+			<key column="test_id" />
 			<index column="section_index" />
 			<many-to-many column="section_id" class="oop.data.Section" />
 		</list>
