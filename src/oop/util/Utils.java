@@ -9,6 +9,18 @@ import oop.data.Entity;
 
 public class Utils {
 
+	public static boolean isNumberic(Object value) {
+		if(value==null){
+			return false;
+		}
+		try {			
+			Long.parseLong(value.toString());			
+			return true;
+		} catch (NumberFormatException ex) {
+			return false;
+		}
+	}
+
 	public static int min(int... values) {
 		int min = Integer.MAX_VALUE;
 		for (int v : values) {
@@ -36,7 +48,7 @@ public class Utils {
 			}
 		}
 	}
-	
+
 	public static String urlEncode(String url) {
 		try {
 			return URLEncoder.encode(url, "UTF-8");
@@ -56,13 +68,13 @@ public class Utils {
 	}
 
 	public static int hashCode(long value) {
-		return (int)(value ^ (value >>> 32));
+		return (int) (value ^ (value >>> 32));
 	}
 
 	public static boolean isEmpty(Collection<?> coll) {
 		return coll == null || coll.isEmpty();
 	}
-	
+
 	public static <T extends Entity> T findById(Collection<T> coll, long id) {
 		for (T t : coll) {
 			if (t.getId() == id) {
@@ -78,5 +90,5 @@ public class Utils {
 		list.set(index, newCopy);
 		return newCopy;
 	}
-	
+
 }
