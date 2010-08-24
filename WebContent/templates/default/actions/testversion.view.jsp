@@ -25,7 +25,7 @@ var alphabetArr = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	
 	<c:forEach items="${test.sections}" var="section">
-	   ${section.text}
+	   ${section.content.text}
 	   
 	   <c:set var="questionIds" value="${version.data.questionsOrder[section.id]}"></c:set>
 	   

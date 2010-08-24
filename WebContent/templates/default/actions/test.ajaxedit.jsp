@@ -46,12 +46,12 @@ function saveSectionCreate() {
                     <a href="${scriptPath}?action=section.movedown&id=${section.id}&testid=${test.id}"><img src="${templatePath}/images/down.png" alt="move down" title="Move down" width="16px" height="16px" /></a>
                 </div>
                 <div class="section-text">
-                    ${(empty section.text) ? "&lt;Mục mặc định&gt;" : section.text}
+                    ${(empty section.content.text) ? "&lt;Mục mặc định&gt;" : section.content.text}
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="section-text">
-                    ${section.text}
+                    ${section.content.text}
                 </div>
             </c:otherwise>
         </c:choose>

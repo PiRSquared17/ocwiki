@@ -57,19 +57,18 @@
 				    </ocw:actionLink>
 				</div>
 				<div class="section-text">
-				    ${(empty section.text) ? "&lt;Mục mặc định&gt;" : section.text}
+				    ${(empty section.content.text) ? "&lt;Mục mặc định&gt;" : section.content.text}
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="section-text">
-    				${section.text}
+    				${section.content.text}
     			</div>
 			</c:otherwise>
 		</c:choose>
 	</div>
 
-	<c:forEach items="${section.questions}" var="questionContainer">
-	   <c:set var="question" value="questionContainer.article"></c:set>
+	<c:forEach items="${section.questions}" var="question">
 		<div class="question-wrapper mouse-out" 
 		      onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
 		      onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
@@ -90,15 +89,15 @@
 
             <div class="question">
 				<div class="question-number-wrapper">
-					<b><ocw:articleLink resource="${questionContainer}">Câu ${i}</ocw:articleLink></b> (${question.mark} điểm):
+					<b><ocw:articleLink resource="${question.baseContainer}">Câu ${i}</ocw:articleLink></b> (${question.mark} điểm):
 				</div>
 				<div class="question-content-wrapper">${question.content}</div>
 				<div>
 					<c:set var="j" value="0" />
                     <div class="answer-list-wrapper">
-					<c:forEach items="${question.usedAnswers}" var="answer">
+					<c:forEach items="${question.answers}" var="answer">
 					   <div class="answer-wrapper">
-						    <div class="answer-number-wrapper">
+						    <div class="number-wrapper">
 						       <b>${u:alpha(j)}</b>.
 		                    </div>
 		                    <div>${answer.content}</div>

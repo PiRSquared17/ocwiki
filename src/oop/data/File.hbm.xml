@@ -3,12 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 	<!-- Generated 21:35:18 19-08-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<union-subclass name="oop.data.File" table="File"
+	<subclass name="oop.data.File" discriminator-value="File"
 		extends="oop.data.CategorizableArticle">
-        <many-to-one name="namespace" class="oop.data.Namespace" formula="6">
-           <column name="namespace" not-null="true"></column>
-        </many-to-one>
 		<property name="filename" type="java.lang.String" column="filename"
-			access="field" not-null="true"></property>
-	</union-subclass>
+			access="field"></property>
+	</subclass>
 </hibernate-mapping>

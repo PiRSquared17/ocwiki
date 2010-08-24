@@ -27,7 +27,7 @@ public class HibernateTest {
 	static {
 		config = new Config();
 		ConfigIO.loadDirectory(config, "test/conf");
-		HibernateUtil.init(config);		
+		HibernateUtil.init(config);
 	}
 	
 	public HibernateTest() {

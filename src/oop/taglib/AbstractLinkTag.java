@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 
 public abstract class AbstractLinkTag extends SimpleTagSupport {
 
-	private Map<String, String> params = new HashMap<String, String>();
+	private Map<String, Object> params = new HashMap<String, Object>();
 	private String name;
 	protected String cssClass;
 	protected String confirm;
@@ -24,7 +24,7 @@ public abstract class AbstractLinkTag extends SimpleTagSupport {
 		super();
 	}
 
-	public Map<String, String> getParams() {
+	public Map<String, Object> getParams() {
 		return params;
 	}
 
