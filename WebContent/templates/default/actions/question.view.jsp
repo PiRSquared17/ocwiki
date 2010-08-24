@@ -32,7 +32,10 @@ function checkanswer() {
 
 <c:if test="${sessionScope.user.group=='teacher'}">
     <div>
-        <button onclick="location.href='${scriptPath}?action=question.edit&id=${action.resource.id}'">Sửa</button>
+        <ocw:actionButton name="question.edit">
+		    <ocw:param name="id" value="${action.resource.id}"></ocw:param>
+		    Sửa
+		</ocw:actionButton>
         <button onclick="location.href='${scriptPath}?action=answer.create&question=${action.resource.id}'">Thêm phương án trả lời</button>
         <button onclick="location.href='${scriptPath}?action=question.create'">Thêm câu hỏi</button>
         <button onclick="location.href='${scriptPath}?action=question.list'">Quay về danh sách</button>

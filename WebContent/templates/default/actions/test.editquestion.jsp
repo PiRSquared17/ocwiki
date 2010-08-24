@@ -15,7 +15,7 @@
            <select name="section_new">
                <c:forEach items="${test.sections}" var="section">
                    <option value="${section.id}" ${section.id==index ? 'selected="selected"' : ''}>
-                          ${section.order} - ${u:ellipsize(u:stripHTML(section.text), 50)}</option>
+                          ${section.order} - ${u:ellipsize(u:stripHTML(section.content.text), 50)}</option>
                </c:forEach>
            </select></label>
         </div>

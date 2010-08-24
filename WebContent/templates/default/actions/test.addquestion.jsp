@@ -14,7 +14,7 @@
 		   <select id="taq_section" name="taq_section">
 		       <c:forEach items="${test.sections}" var="section">
 		           <option value="${section.id}" ${section.id==param.taq_section ? 'selected' : ''}>
-		                  ${section.order} - ${u:ellipsize(u:stripHTML(section.text), 50)}</option>
+		                  ${section.order} - ${u:ellipsize(u:stripHTML(section.content.text), 50)}</option>
 		       </c:forEach>
 		   </select></label>
 		   <c:if test="${empty param.taq_section}">

@@ -6,26 +6,28 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspTag;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import org.apache.commons.lang.StringUtils;
-
 public class ParamTag extends SimpleTagSupport {
 
 	private String name;
-	private String value;
-	private String defaultValue;
-	
+	private Object value;
+	private Object defaultValue;
+
 	@Override
 	public void doTag() throws JspException, IOException {
 		AbstractLinkTag link = (AbstractLinkTag) getParent();
-		link.getParams().put(getName(),
-				StringUtils.defaultIfEmpty(getValue(), getDefault()));
+		if (getValue() == null
+				|| (getValue() instanceof String && ((String) getValue())
+						.isEmpty())) {
+			setValue(getDefault());
+		}
+		link.getParams().put(getName(), getValue());
 	}
-	
+
 	@Override
 	public void setParent(JspTag parent) {
 		super.setParent(parent);
 	}
-	
+
 	@Override
 	public JspTag getParent() {
 		return super.getParent();
@@ -39,20 +41,20 @@ public class ParamTag extends SimpleTagSupport {
 		return name;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Object value) {
 		this.value = value;
 	}
 
-	public String getValue() {
+	public Object getValue() {
 		return value;
 	}
 
-	public String getDefault() {
+	public Object getDefault() {
 		return defaultValue;
 	}
-	
-	public void setDefault(String defaultValue) {
+
+	public void setDefault(Object defaultValue) {
 		this.defaultValue = defaultValue;
 	}
-	
+
 }

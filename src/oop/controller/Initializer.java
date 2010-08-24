@@ -26,11 +26,11 @@ public class Initializer implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent evt) {
     	ServletContext context = evt.getServletContext();
-    	Config config = new Config();
-    	ConfigIO.loadDirectory(config, context.getRealPath("/WEB-INF/conf"));
-    	Config.setDefaultInstance(config);
-    	HibernateUtil.init(config);
-    }
+		Config config = new Config();
+		ConfigIO.loadDirectory(config, context.getRealPath("/WEB-INF/conf"));
+		Config.setDefaultInstance(config);
+		HibernateUtil.init(config);
+	}
 
 	/**
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)

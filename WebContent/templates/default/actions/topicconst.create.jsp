@@ -12,7 +12,7 @@
 		   <label>Phần: 
 		   <select name="section">
 		       <c:forEach items="${test.sectionStructures}" var="section">
-		           <option value="${section.id}">${section.order} - ${section.text}</option>
+		           <option value="${section.id}">${section.order} - ${section.content.text}</option>
 		       </c:forEach>
 		   </select></label>
 		   <ocw:error code="section"></ocw:error>

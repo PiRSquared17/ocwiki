@@ -3,6 +3,6 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 	<!-- Generated 19:07:23 18-07-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<union-subclass name="oop.data.TextArticle" table="TextArticle" extends="oop.data.BaseArticle">
-	</union-subclass>
+	<subclass name="oop.data.TextArticle" discriminator-value="Text" extends="oop.data.BaseArticle">
+	</subclass>
 </hibernate-mapping>
