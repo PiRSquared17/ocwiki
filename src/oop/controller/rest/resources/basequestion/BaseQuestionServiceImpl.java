@@ -1,8 +1,8 @@
 package oop.controller.rest.resources.basequestion;
 
-import java.util.List;
-
-import org.dbunit.database.AmbiguousTableNameException;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import oop.controller.rest.AbstractResource;
 import oop.controller.rest.util.ListResult;
@@ -14,6 +14,9 @@ import oop.db.dao.ResourceDAO;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
+
+@Path("/basequestion")
+@Produces( { MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 public class BaseQuestionServiceImpl extends AbstractResource implements BaseQuestionService {
 
 	

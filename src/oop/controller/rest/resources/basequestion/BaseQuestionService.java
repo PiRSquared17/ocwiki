@@ -1,7 +1,5 @@
 package oop.controller.rest.resources.basequestion;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,8 +13,7 @@ import oop.controller.rest.util.ListResult;
 import oop.data.Answer;
 import oop.data.BaseQuestion;
 
-@Path("/basequestion")
-@Produces( { MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
+
 public interface BaseQuestionService {
 	
 	@POST
