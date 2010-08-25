@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 	<!-- Generated 22:00:03 19-07-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<union-subclass name="oop.data.Test" table="Test"
-		extends="oop.data.BaseArticle">
+	<subclass name="oop.data.Test" extends="oop.data.BaseArticle"
+		discriminator-value="Test">
 		<property name="type" type="java.lang.String">
-			<column name="type" not-null="true" />
+			<column name="type" />
 		</property>
 		<property name="time" type="int">
-			<column name="time" not-null="true" />
+			<column name="time" />
 		</property>
 		<list name="sections" inverse="false" table="TestSection" lazy="true"
 			cascade="all">
@@ -17,5 +17,5 @@
 			<index column="section_index" />
 			<many-to-many column="section_id" class="oop.data.Section" />
 		</list>
-	</union-subclass>
+	</subclass>
 </hibernate-mapping>

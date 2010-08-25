@@ -56,7 +56,7 @@ public class Question implements Entity, Copiable<Question> {
 		return mark;
 	}
 
-	public void setMark(int mark) {
+	public void setMark(double mark) {
 		this.mark = mark;
 	}
 

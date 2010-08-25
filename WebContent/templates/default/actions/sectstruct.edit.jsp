@@ -26,7 +26,7 @@ function validateName() {
     <input type="hidden" name="sid" value="${section.id}">
     <input type="hidden" name="basever" value="${action.resource.version}">
 	    
-	<p><label>Nội dung: <textarea name="stext" style="width: 100%">${(empty param.stext) ? section.text : param.stext}</textarea></label>
+	<p><label>Nội dung: <textarea name="stext" style="width: 100%">${(empty param.stext) ? section.content.text : param.stext}</textarea></label>
 		<ocw:error code="name"></ocw:error>
 	</p>
     <br></br>

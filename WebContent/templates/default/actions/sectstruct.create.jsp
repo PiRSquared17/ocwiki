@@ -33,7 +33,7 @@ function validateName() {
 		<select name="sindex">
 			<c:forEach items="${test.sectionStructures}" var="section">
 				<option value="${section.order}">
-					${section.order}: ${isection.text}
+					${section.order}: ${isection.content.text}
 				</option>
 			    <c:set var="last" value="${item.order+1}"></c:set>
 			</c:forEach>

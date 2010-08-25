@@ -2,8 +2,9 @@ package oop.data;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * Lớp đóng gói dữ liệu văn bản (không thay đổi được). 
@@ -13,7 +14,8 @@ import javax.xml.bind.annotation.XmlValue;
 public class Text implements Entity, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@XmlAttribute
 	private long id;
 	private String text;
 
@@ -33,7 +35,7 @@ public class Text implements Entity, Serializable {
 		return id;
 	}
 	
-	@XmlValue
+	@XmlElement
 	public String getText() {
 		return text;
 	}
