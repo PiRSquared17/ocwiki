@@ -57,11 +57,11 @@ public class ArticleController extends HttpServlet {
 			if (article == null) {
 				url += "/error?message=" + Utils.urlEncode("Không tìm thấy bài viết.");
 			} else if (article instanceof BaseQuestion) {
-				url += "/question.view?id=" + article.getId();
+				url += "/question.view?id=" + resource.getId();
 			} else if (article instanceof Test) {
-				url += "/test.view?id=" + article.getId();
+				url += "/test.view?id=" + resource.getId();
 			} else if (article instanceof TestStructure) {
-				url += "/teststruct.view?id=" + article.getId();
+				url += "/teststruct.view?id=" + resource.getId();
 			} else {
 				url += "/error?message=" + Utils.urlEncode("Lỗi nội bộ.");
 			}

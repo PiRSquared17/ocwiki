@@ -47,7 +47,7 @@ public class CreateAction extends AbstractAction {
 					setNextAction("answer.create&question=" + resource.getId()
 							+ "&content=&correct=&submit=");
 				} else {
-					setNextAction("question.view&id=" + question.getId());
+					setNextAction("question.view&id=" + resource.getId());
 				}
 			}
 		}

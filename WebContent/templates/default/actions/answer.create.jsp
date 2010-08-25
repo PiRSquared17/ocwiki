@@ -11,7 +11,7 @@
         <div class="answer-list-wrapper">        
 			<c:forEach items="${action.question.answers}" var="answer">
 		      <div class="answer-wrapper">
-			      <div class="answer-number-wrapper">
+			      <div class="number-wrapper">
 			           <b>${u:alpha(i)}</b>.
 			       </div>
 			       <div ${answer.correct ? 'style="color:red"' : '' }>${answer.content}</div>
