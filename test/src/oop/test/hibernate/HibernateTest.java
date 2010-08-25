@@ -12,7 +12,7 @@ import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.XmlDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mysql.MySqlConnection;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
@@ -42,7 +42,7 @@ public class HibernateTest {
 	public static void _initAll() throws Exception {
 		// truncate all tables
 		IDatabaseConnection dbconn = createDbconn();
-		IDataSet all = readDataSet("test/dataset/all.xml");
+		IDataSet all = readDataSet("test/dataset/full.xml");
 		DatabaseOperation.TRUNCATE_TABLE.execute(dbconn, all);
 	}
 
@@ -53,12 +53,12 @@ public class HibernateTest {
 		return dbconn;
 	}
 
-	private static XmlDataSet readDataSet(String filename)
+	private static IDataSet readDataSet(String filename)
 			throws DataSetException, IOException {
 		FileReader reader = null;
 		try {
 			reader = new FileReader(filename);
-			return new XmlDataSet(reader);
+			return new FlatXmlDataSetBuilder().build(reader);
 		} finally {
 			if (reader != null) {
 				reader.close();

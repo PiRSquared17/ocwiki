@@ -36,8 +36,6 @@ public class HibernateUtil {
 		hconf.setProperty("hibernate.connection.url", url);
 		hconf.setProperty("hibernate.connection.username", config.getUserName());
 		hconf.setProperty("hibernate.connection.password", config.getPassword());
-		hconf.setProperty("hibernate.cache.provider_class", 
-				"org.hibernate.cache.NoCacheProvider");
 
 		// add classes
         hconf.addClass(oop.data.User.class);
