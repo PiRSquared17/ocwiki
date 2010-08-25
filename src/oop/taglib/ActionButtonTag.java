@@ -38,12 +38,14 @@ public class ActionButtonTag extends AbstractLinkTag {
 		out().print(ActionUtil.getActionURL(getName()));
 		if (!getParams().isEmpty()) {
 			boolean first = true;
-			for (Entry<String, String> entry : getParams().entrySet()) {
+			for (Entry<String, Object> entry : getParams().entrySet()) {
 				out().print(first ? "?" : "&");
 				first = false;
 				out().print(entry.getKey());
 				out().print("=");
-				out().print(StringEscapeUtils.escapeXml(entry.getValue()));
+				out().print(
+						StringEscapeUtils
+								.escapeXml(entry.getValue().toString()));
 			}
 		}
 		out().print("'\"");

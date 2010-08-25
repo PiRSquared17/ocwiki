@@ -15,7 +15,6 @@ import oop.wml.hcwg.docx.DocXDocument;
 
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 
-@SuppressWarnings("unused")
 public class SaveDocxAction extends AbstractAction {
 	public SaveDocxAction() {
 		// default constructor
@@ -23,10 +22,9 @@ public class SaveDocxAction extends AbstractAction {
 
 	@Override
 	public void performImpl() throws Exception{
-		long testId = getParams().getLong("testid");
+		long testId = getParams().getLong("test");
 		Test test = TestDAO.fetchById(testId).getArticle();
 		
-		String verIdStr = getParams().get("verid");
 		TestVersion version = TestUtils.naturalOrder(test);
 		
 		String savePath = getController().getServletContext().getRealPath("/");

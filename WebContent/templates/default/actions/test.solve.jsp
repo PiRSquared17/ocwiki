@@ -69,7 +69,7 @@ function updateCount() {
 	<c:set var="type" value='${action.test.type=="radio" ? "radio" : "checkbox"}'></c:set>
 	
 	<c:forEach items="${action.test.sections}" var="section">
-	   ${section.text}
+	   ${section.content.text}
 	   
 	   <c:set var="questionIds" value="${action.version.data.questionsOrder[section.id]}"></c:set>
 	   

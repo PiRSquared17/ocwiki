@@ -42,7 +42,7 @@ public class DocXDocument {
 		this.version = version;
 
 		this.savePath = savePath;
-		fileDir = "SavedDocx";
+		fileDir = "tmp/export";
 		fileName = generateFileName();
 	}
 
@@ -105,7 +105,7 @@ public class DocXDocument {
 	}
 
 	public String getFullPath() {
-		return savePath + fileDir + "\\" + fileName;
+		return savePath + fileDir + "/" + fileName;
 	}
 
 	public String getRelativePath() {
@@ -171,7 +171,7 @@ public class DocXDocument {
 		}
 		wordMLPackage.getMainDocumentPart().addParagraph(WMLStyle.end());
 
-		makeDirectory(savePath + "\\" + fileDir);
+		makeDirectory(savePath + "/" + fileDir);
 		wordMLPackage.save(new java.io.File(getFullPath()));
 	}
 }
