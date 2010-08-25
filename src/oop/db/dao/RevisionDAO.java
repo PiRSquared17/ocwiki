@@ -12,7 +12,7 @@ import org.hibernate.Session;
 @SuppressWarnings("unchecked")
 public class RevisionDAO {
 
-	public static <T extends Article> Revision<T> fetch(int id) {
+	public static <T extends Article> Revision<T> fetch(long id) {
 		Session session = HibernateUtil.getSession();
 		return (Revision<T>) session.get(Revision.class, id);
 	}
