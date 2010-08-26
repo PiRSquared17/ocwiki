@@ -14,14 +14,6 @@
      ********************************************************************-->
 
     <action>
-      <name>setup</name>
-      <class>oop.controller.action.SetupAction</class>
-    </action>
-    <action>
-      <name>setup</name>
-      <class>oop.controller.action.SetupAction</class>
-    </action>
-    <action>
       <name>homepage</name>
       <class>oop.controller.action.HomepageAction</class>
     </action>

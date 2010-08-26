@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +23,6 @@ public class SetupServlet extends HttpServlet {
 	 */
 	public SetupServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -35,27 +33,46 @@ public class SetupServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String sqlPath = getServletContext().getRealPath("/WEB-INF/setup.sql");
 		Config config = Config.get();
-		if (new File(sqlPath).exists()) {
+		response.setContentType("text/html; charset=UTF-8");
+		
+		File sqlFile = new File(sqlPath);
+		if (sqlFile.exists()) {
 			String[] command = { config.getMysqlCommand(),
-					config.getDatabaseName(), 
-					"-u", config.getUserName(),
-					"-p" + config.getPassword(), 
-					"-e", "source " + sqlPath};
-			Process process = new ProcessBuilder(command).start();
+					"--database=" + config.getDatabaseName(), 
+					"--verbose",
+					"--user=" + config.getUserName(),
+					"--password=" + config.getPassword(), 
+					"--execute=source " + sqlFile.getName()};
+			openDiv(response);
+			Process process = new ProcessBuilder(command).directory(sqlFile.getParentFile()).start();
+			int status = -1;
 			try {
 				pump(process.getInputStream(), response.getOutputStream());
-				int status = process.waitFor();
-				if (status == 0) {
-					response.getOutputStream().println("OK!");
-				} else {
-					response.getOutputStream().println("Error: " + status);
-				}
+				status = process.waitFor();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+			} finally {
+				closeDiv(response);
+			}
+			if (status == 0) {
+				response.getOutputStream().println("<h3>Installation completed successful!</h3>");
+			} else {
+				response.getOutputStream().println("Error: " + status);
 			}
 		} else {
 			response.sendRedirect(config.getHomeDir());
 		}
+	}
+
+	private void closeDiv(HttpServletResponse response) throws IOException {
+		response.getOutputStream().print("</pre>");
+		response.getOutputStream().print("</div>");
+	}
+
+	private void openDiv(HttpServletResponse response) throws IOException {
+		response.getOutputStream().print("<div style=" +
+				"\"width: 100%; height: 400px; border: solid black 2px; overflow: scroll;\">");
+		response.getOutputStream().print("<pre>");
 	}
 
 	private void pump(InputStream inp, OutputStream out) throws IOException {
@@ -63,6 +80,7 @@ public class SetupServlet extends HttpServlet {
 		int read;
 		while ((read = inp.read(buffer)) > 0) {
 			out.write(buffer, 0, read);
+			out.flush();
 		}
 	}
 
