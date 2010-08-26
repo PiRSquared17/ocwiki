@@ -18,6 +18,10 @@
       <class>oop.controller.action.SetupAction</class>
     </action>
     <action>
+      <name>setup</name>
+      <class>oop.controller.action.SetupAction</class>
+    </action>
+    <action>
       <name>homepage</name>
       <class>oop.controller.action.HomepageAction</class>
     </action>
@@ -31,6 +35,10 @@
     </action>
     <action>
       <name>test.list</name>
+      <class>oop.controller.action.test.ListAction</class>
+    </action>
+    <action>
+      <name>revision.list</name>
       <class>oop.controller.action.test.ListAction</class>
     </action>
     <action>
