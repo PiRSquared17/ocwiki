@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="oop.data.User" table="User">
+		<id name="id" type="long" access="field">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="name" not-null="true" unique="true" />
+		</property>
+		<property name="fullname" type="java.lang.String">
+			<column name="fullname" not-null="true" />
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="pass" not-null="true" />
+		</property>
+		<property name="email" type="java.lang.String">
+			<column name="email" not-null="true" unique="true" />
+		</property>
+		<property name="group" type="java.lang.String">
+			<column name="`group`" not-null="true" />
+		</property>
+		<property name="blocked" type="boolean">
+			<column name="blocked" not-null="true" />
+		</property>
+		<property name="warningMessage" type="java.lang.String">
+			<column name="warning" not-null="false" />
+		</property>
+		<property name="avatar" type="java.lang.String" access="field">
+			<column name="avatar" not-null="false" />
+		</property>
+		<property name="registerDate" type="java.util.Date" access="field">
+			<column name="register_date" not-null="true"
+				sql-type="timestamp default CURRENT_TIMESTAMP" />
+		</property>
+		<component name="preferences" lazy="true" class="oop.data.Preferences">
+			<property name="template" type="java.lang.String">
+				<column name="pref_template" not-null="true" length="50"
+					default="'default'"></column>
+			</property>
+		</component>
+	</class>
+</hibernate-mapping>
