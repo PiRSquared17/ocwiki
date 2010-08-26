@@ -64,4 +64,14 @@
     <filter-name>PrototypeMethodFilter</filter-name>
     <url-pattern>/rest/*</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SetupServlet</display-name>
+    <servlet-name>SetupServlet</servlet-name>
+    <servlet-class>oop.controller.SetupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetupServlet</servlet-name>
+    <url-pattern>/setup</url-pattern>
+  </servlet-mapping>
 </web-app>

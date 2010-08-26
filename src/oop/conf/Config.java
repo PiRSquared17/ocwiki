@@ -22,6 +22,7 @@ public class Config {
 	private String siteName = "OCWiki";
 	private String tablePrefix = "tbl";
 	private String defaultTemplate = "default";
+	private String mysqlCommand = "mysql";
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
 	private Set<ActionDescriptor> actionDescriptors = new HashSet<ActionDescriptor>();
 	private Set<APIDescriptor> apiDescriptors = new HashSet<APIDescriptor>();
@@ -212,6 +213,14 @@ public class Config {
 
 	public String getRestPath() {
 		return replaceMagicWords(restPath);
+	}
+
+	public void setMysqlCommand(String mysqlCommand) {
+		this.mysqlCommand = mysqlCommand;
+	}
+
+	public String getMysqlCommand() {
+		return mysqlCommand;
 	}
 	
 }

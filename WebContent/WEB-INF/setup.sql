@@ -3,11 +3,14 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 25, 2010 at 02:10 AM
+-- Generation Time: Aug 26, 2010 at 08:28 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.2-1ubuntu4.2
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT=0;
+START TRANSACTION;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -8640,15 +8643,15 @@ ALTER TABLE `ocwArticle`
 -- Constraints for table `ocwArticleAttachment`
 --
 ALTER TABLE `ocwArticleAttachment`
-  ADD CONSTRAINT `FKDCFAE3D62B8E11D2` FOREIGN KEY (`file_id`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FKDCFAE3D628588123` FOREIGN KEY (`article_id`) REFERENCES `ocwArticle` (`id`);
+  ADD CONSTRAINT `FKDCFAE3D628588123` FOREIGN KEY (`article_id`) REFERENCES `ocwArticle` (`id`),
+  ADD CONSTRAINT `FKDCFAE3D62B8E11D2` FOREIGN KEY (`file_id`) REFERENCES `ocwResource` (`id`);
 
 --
 -- Constraints for table `ocwArticleEmbed`
 --
 ALTER TABLE `ocwArticleEmbed`
-  ADD CONSTRAINT `FK1EA9A0462B8E11D2` FOREIGN KEY (`file_id`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FK1EA9A04628588123` FOREIGN KEY (`article_id`) REFERENCES `ocwArticle` (`id`);
+  ADD CONSTRAINT `FK1EA9A04628588123` FOREIGN KEY (`article_id`) REFERENCES `ocwArticle` (`id`),
+  ADD CONSTRAINT `FK1EA9A0462B8E11D2` FOREIGN KEY (`file_id`) REFERENCES `ocwResource` (`id`);
 
 --
 -- Constraints for table `ocwArticleTopic`
@@ -8661,31 +8664,31 @@ ALTER TABLE `ocwArticleTopic`
 -- Constraints for table `ocwBaseQuestionAnswer`
 --
 ALTER TABLE `ocwBaseQuestionAnswer`
-  ADD CONSTRAINT `FKCB25FAF8EF28C9F1` FOREIGN KEY (`question_id`) REFERENCES `ocwArticle` (`id`),
-  ADD CONSTRAINT `FKCB25FAF840890D80` FOREIGN KEY (`answer_id`) REFERENCES `ocwAnswer` (`id`);
+  ADD CONSTRAINT `FKCB25FAF840890D80` FOREIGN KEY (`answer_id`) REFERENCES `ocwAnswer` (`id`),
+  ADD CONSTRAINT `FKCB25FAF8EF28C9F1` FOREIGN KEY (`question_id`) REFERENCES `ocwArticle` (`id`);
 
 --
 -- Constraints for table `ocwComment`
 --
 ALTER TABLE `ocwComment`
-  ADD CONSTRAINT `FK27D95BBCB1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`),
   ADD CONSTRAINT `FK27D95BBC4A301B22` FOREIGN KEY (`resource`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FK27D95BBC53C202BC` FOREIGN KEY (`revision`) REFERENCES `ocwRevision` (`id`);
+  ADD CONSTRAINT `FK27D95BBC53C202BC` FOREIGN KEY (`revision`) REFERENCES `ocwRevision` (`id`),
+  ADD CONSTRAINT `FK27D95BBCB1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`);
 
 --
 -- Constraints for table `ocwHistory`
 --
 ALTER TABLE `ocwHistory`
-  ADD CONSTRAINT `FK267351F1B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`),
-  ADD CONSTRAINT `FK267351F1B1E38F2A` FOREIGN KEY (`test`) REFERENCES `ocwArticle` (`id`);
+  ADD CONSTRAINT `FK267351F1B1E38F2A` FOREIGN KEY (`test`) REFERENCES `ocwArticle` (`id`),
+  ADD CONSTRAINT `FK267351F1B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`);
 
 --
 -- Constraints for table `ocwLog`
 --
 ALTER TABLE `ocwLog`
-  ADD CONSTRAINT `FKC3144721B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`),
   ADD CONSTRAINT `FKC31447213B31D0F8` FOREIGN KEY (`comment`) REFERENCES `ocwComment` (`id`),
   ADD CONSTRAINT `FKC31447214A301B22` FOREIGN KEY (`resource`) REFERENCES `ocwResource` (`id`),
+  ADD CONSTRAINT `FKC3144721B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`),
   ADD CONSTRAINT `FKC3144721EC5981D4` FOREIGN KEY (`old_revision`) REFERENCES `ocwRevision` (`id`),
   ADD CONSTRAINT `FKC3144721F3DA5E7B` FOREIGN KEY (`new_revision`) REFERENCES `ocwRevision` (`id`);
 
@@ -8693,16 +8696,16 @@ ALTER TABLE `ocwLog`
 -- Constraints for table `ocwQuestion`
 --
 ALTER TABLE `ocwQuestion`
-  ADD CONSTRAINT `FKB1BC7A29D555486A` FOREIGN KEY (`base_revision`) REFERENCES `ocwRevision` (`id`),
-  ADD CONSTRAINT `FKB1BC7A29CBC360D0` FOREIGN KEY (`base_resource`) REFERENCES `ocwResource` (`id`);
+  ADD CONSTRAINT `FKB1BC7A29CBC360D0` FOREIGN KEY (`base_resource`) REFERENCES `ocwResource` (`id`),
+  ADD CONSTRAINT `FKB1BC7A29D555486A` FOREIGN KEY (`base_revision`) REFERENCES `ocwRevision` (`id`);
 
 --
 -- Constraints for table `ocwResource`
 --
 ALTER TABLE `ocwResource`
-  ADD CONSTRAINT `FKE2E6025172978E26` FOREIGN KEY (`article`) REFERENCES `ocwArticle` (`id`),
   ADD CONSTRAINT `FKE2E602515DDB135C` FOREIGN KEY (`author`) REFERENCES `ocwUser` (`id`),
-  ADD CONSTRAINT `FKE2E602515EB7070E` FOREIGN KEY (`link`) REFERENCES `ocwResource` (`id`);
+  ADD CONSTRAINT `FKE2E602515EB7070E` FOREIGN KEY (`link`) REFERENCES `ocwResource` (`id`),
+  ADD CONSTRAINT `FKE2E6025172978E26` FOREIGN KEY (`article`) REFERENCES `ocwArticle` (`id`);
 
 --
 -- Constraints for table `ocwRevision`
@@ -8722,8 +8725,8 @@ ALTER TABLE `ocwSection`
 -- Constraints for table `ocwSectionQuestion`
 --
 ALTER TABLE `ocwSectionQuestion`
-  ADD CONSTRAINT `FKB0F82A4866D4B300` FOREIGN KEY (`question_id`) REFERENCES `ocwQuestion` (`id`),
-  ADD CONSTRAINT `FKB0F82A485936BFD4` FOREIGN KEY (`section_id`) REFERENCES `ocwSection` (`id`);
+  ADD CONSTRAINT `FKB0F82A485936BFD4` FOREIGN KEY (`section_id`) REFERENCES `ocwSection` (`id`),
+  ADD CONSTRAINT `FKB0F82A4866D4B300` FOREIGN KEY (`question_id`) REFERENCES `ocwQuestion` (`id`);
 
 --
 -- Constraints for table `ocwSectionStructure`
@@ -8758,3 +8761,5 @@ ALTER TABLE `ocwTestSectionStructure`
 ALTER TABLE `ocwTopicConstraintTopic`
   ADD CONSTRAINT `FK7F38E1E62575393F` FOREIGN KEY (`topic_id`) REFERENCES `ocwResource` (`id`),
   ADD CONSTRAINT `FK7F38E1E68DCE1D63` FOREIGN KEY (`constraint_id`) REFERENCES `ocwConstraint` (`id`);
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
