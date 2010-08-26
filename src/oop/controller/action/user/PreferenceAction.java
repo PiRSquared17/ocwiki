@@ -9,9 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
 import oop.db.dao.UserDAO;
 
 import org.apache.commons.fileupload.FileItem;
@@ -27,10 +27,9 @@ public class PreferenceAction extends AbstractAction {
 
 	@Override
 	protected void performImpl() throws Exception {
-			// TODO Auto-generated method stub
 			tempDir = new File(TEMP_DIR);
 			if (!tempDir.isDirectory()) {
-				throw new ServletException(TEMP_DIR + "khong ton tai");
+				throw new ActionException(TEMP_DIR + "khong ton tai");
 			}
 
 			String realPath = super.getController().getServletContext()
@@ -38,7 +37,7 @@ public class PreferenceAction extends AbstractAction {
 			
 			destDir = new File(realPath);
 			if (!destDir.isDirectory()) {
-				throw new ServletException(DEST_DIR + "khong ton tai");
+				throw new ActionException(DEST_DIR + " khong ton tai");
 			}
 
 			DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
