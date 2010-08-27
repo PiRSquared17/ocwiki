@@ -9,7 +9,7 @@ public class TextArticle extends BaseArticle {
 	}
 
 	@Override
-	public Article copy() {
+	public TextArticle copy() {
 		return copyTo(new TextArticle());
 	}
 
