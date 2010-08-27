@@ -13,16 +13,15 @@ import oop.taglib.UtilFunctions;
 public class ListAction extends AbstractAction {
 	public static final int PAGE_LENGTH = 50;
 	private List<Revision<Article>> revList;
+	private long resourceID;
 
 	@Override
 	protected void performImpl() throws Exception {
 		// TODO Auto-generated method stub
 		int page = getParams().getInt("page", 1);
-		String resourceID = getParams().get("resID");
-		Resource<Article> res = ResourceDAO.fetchById(Long
-				.parseLong(resourceID));
-		revList = RevisionDAO.fetchByResource(Long
-				.parseLong(resourceID), (page - 1) * PAGE_LENGTH, PAGE_LENGTH);
+		resourceID = getParams().getLong("resID");
+		Resource<Article> res = ResourceDAO.fetchById(resourceID);
+		revList = RevisionDAO.fetchByResource(resourceID, (page - 1) * PAGE_LENGTH, PAGE_LENGTH);
 		title("Danh sách phiên bản thuộc tài nguyên: " + res.getName());
 	}
 
@@ -35,6 +34,6 @@ public class ListAction extends AbstractAction {
 	}
 
 	public long getPageCount() {
-		return UtilFunctions.ceil(getRevisions().size() / PAGE_LENGTH);
+		return UtilFunctions.ceil(RevisionDAO.countByResource(resourceID) / PAGE_LENGTH);
 	}
 }
