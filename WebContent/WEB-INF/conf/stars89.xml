@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <homeDir>http://localhost:8080/tracnghiem</homeDir>
+    <dbhost>localhost</dbhost>
+    <dbport>3306</dbport>
+    <tablePrefix>ocw</tablePrefix>
+    <dbname>ocw</dbname>
+    <username>root</username>
+    <password></password>
+    <mysqlCommand>C:\xampp\mysql\bin\mysql.exe</mysqlCommand> 
+</config>
