@@ -28,6 +28,14 @@ public class RevisionDAO {
 		query.setMaxResults(size);
 		return query.list();
 	}
+	
+	public static long countByResource(long resourceId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "select count(*) from Revision where resource.id = :resId";
+		Query query = session.createQuery(hql);
+		query.setLong("resId", resourceId);
+		return (Long) query.uniqueResult();
+	}
 
 	public static List<Revision<Article>> fetchByResourceBefore(
 			long resourceId, Date timestamp, int start, int size) {
