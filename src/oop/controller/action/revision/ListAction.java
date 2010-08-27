@@ -10,28 +10,31 @@ import oop.db.dao.ResourceDAO;
 import oop.db.dao.RevisionDAO;
 import oop.taglib.UtilFunctions;
 
-public class ListAction extends AbstractAction{
+public class ListAction extends AbstractAction {
 	public static final int PAGE_LENGTH = 50;
+	private List<Revision<Article>> revList;
 
 	@Override
 	protected void performImpl() throws Exception {
 		// TODO Auto-generated method stub
-	}
-	
-	public List<Revision<Article>> getRevisions(){
 		int page = getParams().getInt("page", 1);
 		String resourceID = getParams().get("resID");
-		Resource<Article> res = ResourceDAO.fetchById(Long.parseLong(resourceID));
-		List<Revision<Article>> revList = RevisionDAO.fetchByResource(Long.parseLong(resourceID),(page-1)*PAGE_LENGTH, PAGE_LENGTH);
+		Resource<Article> res = ResourceDAO.fetchById(Long
+				.parseLong(resourceID));
+		revList = RevisionDAO.fetchByResource(Long
+				.parseLong(resourceID), (page - 1) * PAGE_LENGTH, PAGE_LENGTH);
 		title("Danh sách phiên bản thuộc tài nguyên: " + res.getName());
+	}
+
+	public List<Revision<Article>> getRevisions() {
 		return revList;
 	}
-	
-	public int getPage(){
+
+	public int getPage() {
 		return getParams().getInt("page", 1);
 	}
-	
-	public long getPageCount(){
+
+	public long getPageCount() {
 		return UtilFunctions.ceil(getRevisions().size() / PAGE_LENGTH);
 	}
 }

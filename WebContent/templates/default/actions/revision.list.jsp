@@ -12,7 +12,7 @@
 
 <div><input type="submit" value="So sánh 2 phiên bản được chọn"
 	title="Xem điểm khác nhau giữa 2 phiên bản" /></div>
-
+ohlala
 <c:choose>
 	<c:when test="${pageCount > 0}">
 		<ol>
@@ -27,6 +27,18 @@
 		<div class="empty-notif">Chưa có dữ liệu</div>
 	</c:otherwise>
 </c:choose>
+<form method="post" action="revision.list">
+	<div>
+		<select id="selectItemsPerPage" name="Items per page">
+			<option>10</option>
+			<option>20</option>
+			<option>30</option>
+			<option>40</option>
+			<option selected="selected">50</option>
+			<option>100</option>
+		</select>
+	</div>
+</form>
 
 </body>
 </html>
