@@ -13,7 +13,7 @@ public class ViewAction extends AbstractAction {
 	@Override
 	protected void performImpl() throws Exception {
 		// TODO Auto-generated method stub
-		long id = getParams().getLong("id");
+		long id = getParams().getLong("revID");
 		revision = RevisionDAO.fetch(id);
 		if (revision == null) {
 			throw new ActionException("Không tìm thấy phiên bản"
