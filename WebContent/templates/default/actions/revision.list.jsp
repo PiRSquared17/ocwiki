@@ -35,7 +35,7 @@ trên một trang :</strong> <select id="selectItemsPerPage" name="Items per pag
 			<c:forEach items="${action.revisions}" var="revision">
 
 				<tr>
-					<td>${u:formatDateTime(revision.timestamp)}</td>
+					<td><ocw:articleLink resource="${revision.resource}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink></td>
 					<td><ocw:userLink user="${revision.author}">${revision.author.fullname}</ocw:userLink></td>
 					<td>${revision.summary}</td>
 				</tr>
@@ -43,11 +43,10 @@ trên một trang :</strong> <select id="selectItemsPerPage" name="Items per pag
 			<tr>
 			</tr>
 		</table>
-		
-		<jsp:include page="revision.list-nav.jsp"></jsp:include>
-		</form>
+
+		<jsp:include page="revision.list-nav.jsp"></jsp:include></form>
 	</c:when>
-	
+
 	<c:otherwise>
 		<div class="empty-notif">Chưa có dữ liệu</div>
 	</c:otherwise>
