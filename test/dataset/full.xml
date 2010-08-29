@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <ocwText/>
+  <ocwUser/>
+  <ocwArticle/>
+  <ocwArticleEmbed/>
+  <ocwArticleAttachment/>
+  <ocwArticleTopic/>
+  <ocwSectionStructure/>
+  <ocwTestSectionStructure/>
+  <ocwConstraint/>
+  <ocwTopicConstraintTopic/>
+  <ocwQuestion/>
+  <ocwSection/>
+  <ocwTestSection/>
+  <ocwAnswer/>
+  <ocwBaseQuestionAnswer/>
+  <ocwHistory/>
+  <ocwResource/>
+  <ocwRevision/>
+  <ocwComment/>
+  <ocwLog/>
+</dataset>

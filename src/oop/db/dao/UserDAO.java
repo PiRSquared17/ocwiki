@@ -83,4 +83,18 @@ public class UserDAO {
 		return HibernateUtil.count("select count(*) from User");
 	}
 
+	public static void persist(User user) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.save(user);
+			tx.commit();
+		} catch (HibernateException ex) {
+			if (tx != null)
+				tx.rollback();
+			throw ex;
+		}
+	}
+
 }

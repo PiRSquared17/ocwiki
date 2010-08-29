@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response.Status;
 import oop.controller.rest.util.ErrorResult;
 import oop.controller.rest.util.InvalidParamResult;
 import oop.data.Article;
+import oop.data.HasVersion;
 import oop.data.Resource;
 import oop.data.Revision;
 import oop.data.User;
@@ -115,6 +116,12 @@ public abstract class AbstractResource {
 			throw resourceNotFound();
 		}
 		return resource; 			
+	}
+
+	protected void assertVersion(HasVersion user, HasVersion data) {
+		if (user.getVersion() != data.getVersion()) {
+			throw new WebApplicationException();
+		}
 	}
 
 }
