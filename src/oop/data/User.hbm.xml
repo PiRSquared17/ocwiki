@@ -35,6 +35,14 @@
 			<column name="register_date" not-null="true"
 				sql-type="timestamp default CURRENT_TIMESTAMP" />
 		</property>
+		<property name="blockExpiredDate" type="java.util.Date" access="field">
+			<column name="block_expired_date"
+				sql-type="timestamp default null null" />
+		</property>
+		<property name="warningExpiredDate" type="java.util.Date" access="field">
+			<column name="warning_expired_date" not-null="false"
+				sql-type="timestamp default null null" />
+		</property>
 		<component name="preferences" lazy="true" class="oop.data.Preferences">
 			<property name="template" type="java.lang.String">
 				<column name="pref_template" not-null="true" length="50"
