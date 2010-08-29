@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response.Status;
 import oop.controller.rest.util.ErrorResult;
 import oop.controller.rest.util.InvalidParamResult;
 import oop.data.Article;
+import oop.data.HasVersion;
 import oop.data.Resource;
 import oop.data.Revision;
 import oop.data.User;
@@ -25,6 +26,8 @@ import com.oreilly.servlet.ParameterParser;
 @Produces( { MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 public abstract class AbstractResource {
 
+	public static final int MAX_PAGE_SIZE = 50;
+	
 	@Context
 	private HttpServletRequest request;
 	private ParameterList params;
@@ -102,6 +105,23 @@ public abstract class AbstractResource {
 				.entity(
 						new InvalidParamResult(errorCode, name, getParams()
 								.get(name))).build());
+	}
+
+	protected <T extends Article> Resource<T> safeGetResource(long id, Class<T> type) {
+		Resource<T> resource = ResourceDAO.fetchById(id);
+		assertResourceFound(resource);
+		T article = resource.getArticle();
+		assertResourceFound(article);
+		if (!(type.isInstance(article))) {
+			throw resourceNotFound();
+		}
+		return resource; 			
+	}
+
+	protected void assertVersion(HasVersion user, HasVersion data) {
+		if (user.getVersion() != data.getVersion()) {
+			throw new WebApplicationException();
+		}
 	}
 
 }

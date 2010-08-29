@@ -16,7 +16,6 @@ import oop.db.dao.RevisionDAO;
 @Path("/revisions")
 public class RevisionResource extends AbstractResource{
 	
-	public static final int MAX_PAGE_SIZE = 100;
 	@GET
 	@Path("/{revID: \\d+}")
 	public ObjectResult<Revision<Article>> get(
