@@ -31,6 +31,20 @@ public class UserDAO {
 			throw ex;
 		}
 	}
+	
+	public static void update(User user) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.merge(user);
+			tx.commit();
+		} catch (HibernateException ex) {
+			if (tx != null)
+				tx.rollback();
+			throw ex;
+		}
+	}
 
 	/**
 	 * Lấy dữ liệu từ DB, nếu không tìm thấy trả về null. 
@@ -70,6 +84,17 @@ public class UserDAO {
 	}
 
 	public static void persist(User user) {
-		// Hibernate did the job!
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.save(user);
+			tx.commit();
+		} catch (HibernateException ex) {
+			if (tx != null)
+				tx.rollback();
+			throw ex;
+		}
 	}
+
 }

@@ -28,6 +28,7 @@ public class HibernateTest {
 		config = new Config();
 		ConfigIO.loadDirectory(config, "test/conf");
 		HibernateUtil.init(config);
+		Config.setDefaultInstance(config);
 	}
 	
 	public HibernateTest() {
@@ -49,7 +50,7 @@ public class HibernateTest {
 	private static IDatabaseConnection createDbconn()
 			throws ClassNotFoundException, SQLException, DatabaseUnitException {
 		IDatabaseConnection dbconn = new MySqlConnection(HibernateUtil
-				.getSession().connection(), "ocwiki_unittest");
+				.getSession().connection(), config.getDatabaseName());
 		return dbconn;
 	}
 
@@ -59,6 +60,7 @@ public class HibernateTest {
 		try {
 			reader = new FileReader(filename);
 			return new FlatXmlDataSetBuilder().build(reader);
+//			return new XmlDataSet(reader);
 		} finally {
 			if (reader != null) {
 				reader.close();
