@@ -20,7 +20,7 @@
 			<column name="email" not-null="true" unique="true" />
 		</property>
 		<property name="group" type="java.lang.String">
-			<column name="`group`" not-null="true" />
+			<column name="ugroup" not-null="true" />
 		</property>
 		<property name="blocked" type="boolean">
 			<column name="blocked" not-null="true" />

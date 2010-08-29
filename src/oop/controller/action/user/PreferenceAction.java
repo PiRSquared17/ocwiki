@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
-import oop.db.dao.UserDAO;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -59,7 +58,6 @@ public class PreferenceAction extends AbstractAction {
 						uploadedFile = resizeAndRenameImage(item);
 						
 						getUser().setAvatar(uploadedFile.getName());
-						UserDAO.persist(getUser());
 					}
 				}
 			} catch (Exception ex) {

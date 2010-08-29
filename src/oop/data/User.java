@@ -3,6 +3,7 @@ package oop.data;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -10,7 +11,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class User implements Serializable, Entity {
 
 	private static final long serialVersionUID = -8984541011161716639L;
-	
+
+	@XmlAttribute
 	private long id;
 	private String fullname;
 	private String password;
@@ -140,6 +142,7 @@ public class User implements Serializable, Entity {
 		this.warningExpiredDate = warningExpiredDate;
 	}
 
+	@XmlAttribute
 	public Date getWarningExpiredDate() {
 		return warningExpiredDate;
 	}
@@ -148,6 +151,7 @@ public class User implements Serializable, Entity {
 		this.blockExpiredDate = blockExpiredDate;
 	}
 
+	@XmlAttribute
 	public Date getBlockExpiredDate() {
 		return blockExpiredDate;
 	}

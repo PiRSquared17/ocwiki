@@ -17,7 +17,7 @@ public class DataExporter {
 
 	public static void main(String[] args) throws Exception {
 		Config config = new Config();
-		ConfigIO.loadDirectory(config, "test/conf");
+		ConfigIO.loadDirectory(config, "WebContent/WEB-INF/conf");
 
 		// database connection
 		Class.forName("com.mysql.jdbc.Driver");
@@ -28,18 +28,27 @@ public class DataExporter {
 				.getUserName(), config.getPassword());
 		IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
-		// full database export
-		IDataSet fullDataSet = connection.createDataSet();
-		FlatXmlDataSet.write(fullDataSet, new FileOutputStream(
-				"test/dataset/full.xml"));
+//		// full database export
+//		IDataSet fullDataSet = connection.createDataSet();
+//		FlatXmlDataSet.write(fullDataSet, new FileOutputStream(
+//				"test/dataset/full.xml"));
 
+//		// export articles
+//		// dependent tables database export: export table X and all tables that
+//		// have a PK which is a FK on X, in the right order for insertion
+//		String[] depTableNames = TablesDependencyHelper.getAllDependentTables(
+//				connection, config.getTablePrefix() + "Article");
+//		IDataSet depDataset = connection.createDataSet(depTableNames);
+//		FlatXmlDataSet.write(depDataset, new FileOutputStream(
+//				"test/dataset/article.xml"));
+
+		// export user table
 		// dependent tables database export: export table X and all tables that
 		// have a PK which is a FK on X, in the right order for insertion
-		String[] depTableNames = TablesDependencyHelper.getAllDependentTables(
-				connection, config.getTablePrefix() + "Article");
+		String[] depTableNames = new String[] {"ocwUser"};
 		IDataSet depDataset = connection.createDataSet(depTableNames);
 		FlatXmlDataSet.write(depDataset, new FileOutputStream(
-				"test/dataset/article.xml"));
+				"test/dataset/user.xml"));
 	}
 
 }

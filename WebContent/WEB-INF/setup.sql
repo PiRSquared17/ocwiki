@@ -3,17 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 30, 2010 at 12:40 AM
+-- Generation Time: Aug 30, 2010 at 02:05 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.2-1ubuntu4.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `ocwiki`
@@ -31,11 +25,369 @@ CREATE TABLE IF NOT EXISTS `ocwAnswer` (
   `correct` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK81F532C1EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1293 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `ocwAnswer`
+-- Table structure for table `ocwArticle`
 --
+
+CREATE TABLE IF NOT EXISTS `ocwArticle` (
+  `id` bigint(20) NOT NULL,
+  `discriminator` varchar(255) NOT NULL,
+  `namespace` bigint(20) NOT NULL,
+  `content` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `parent` bigint(20) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `filename` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKC38C3A537D807870` (`namespace`),
+  KEY `FKC38C3A5348AB9093` (`parent`),
+  KEY `FKC38C3A53EA647FAC` (`content`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwArticleAttachment`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwArticleAttachment` (
+  `article_id` bigint(20) NOT NULL,
+  `file_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`article_id`,`file_id`),
+  KEY `FKDCFAE3D628588123` (`article_id`),
+  KEY `FKDCFAE3D62B8E11D2` (`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwArticleEmbed`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwArticleEmbed` (
+  `article_id` bigint(20) NOT NULL,
+  `file_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`article_id`,`file_id`),
+  KEY `FK1EA9A04628588123` (`article_id`),
+  KEY `FK1EA9A0462B8E11D2` (`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwArticleTopic`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwArticleTopic` (
+  `article_id` bigint(20) NOT NULL,
+  `topic_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`article_id`,`topic_id`),
+  KEY `FK1F7E1E9CACC8C07A` (`article_id`),
+  KEY `FK1F7E1E9C2575393F` (`topic_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwBaseQuestionAnswer`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwBaseQuestionAnswer` (
+  `question_id` bigint(20) NOT NULL,
+  `answer_id` bigint(20) NOT NULL,
+  `answer_index` int(11) NOT NULL,
+  PRIMARY KEY (`question_id`,`answer_index`),
+  KEY `FKCB25FAF840890D80` (`answer_id`),
+  KEY `FKCB25FAF8EF28C9F1` (`question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwComment`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwComment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user` bigint(20) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `message` text NOT NULL,
+  `resource` bigint(20) DEFAULT NULL,
+  `revision` bigint(20) DEFAULT NULL,
+  `status` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK27D95BBC53C202BC` (`revision`),
+  KEY `FK27D95BBC4A301B22` (`resource`),
+  KEY `FK27D95BBCB1E4DD9C` (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwConstraint`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwConstraint` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `type` varchar(10) NOT NULL,
+  `count` int(11) NOT NULL,
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwHistory`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwHistory` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user` bigint(20) DEFAULT NULL,
+  `test` bigint(20) DEFAULT NULL,
+  `taken_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `mark` double DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK267351F1B1E38F2A` (`test`),
+  KEY `FK267351F1B1E4DD9C` (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwLog`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwLog` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `type` varchar(10) NOT NULL,
+  `user` bigint(20) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `resource` bigint(20) DEFAULT NULL,
+  `comment` bigint(20) DEFAULT NULL,
+  `new_revision` bigint(20) DEFAULT NULL,
+  `old_revision` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKC3144721F3DA5E7B` (`new_revision`),
+  KEY `FKC3144721EC5981D4` (`old_revision`),
+  KEY `FKC31447214A301B22` (`resource`),
+  KEY `FKC31447213B31D0F8` (`comment`),
+  KEY `FKC3144721B1E4DD9C` (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwNamespace`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwNamespace` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwQuestion`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwQuestion` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `base_resource` bigint(20) DEFAULT NULL,
+  `base_revision` bigint(20) DEFAULT NULL,
+  `mark` double NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKB1BC7A29CBC360D0` (`base_resource`),
+  KEY `FKB1BC7A29D555486A` (`base_revision`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwResource`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwResource` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `version` int(11) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` varchar(255) NOT NULL,
+  `article` bigint(20) NOT NULL,
+  `author` bigint(20) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `link` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKE2E602515DDB135C` (`author`),
+  KEY `FKE2E602515EB7070E` (`link`),
+  KEY `FKE2E6025172978E26` (`article`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwRevision`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwRevision` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `resource` bigint(20) NOT NULL,
+  `article` bigint(20) NOT NULL,
+  `author` bigint(20) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `summary` varchar(255) NOT NULL,
+  `minor` bit(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKE7AEF61E5DDB135C` (`author`),
+  KEY `FKE7AEF61E72978E26` (`article`),
+  KEY `FKE7AEF61E4A301B22` (`resource`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwSection`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwSection` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `content` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK64A2EC42EA647FAC` (`content`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwSectionQuestion`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwSectionQuestion` (
+  `section_id` bigint(20) NOT NULL,
+  `question_id` bigint(20) NOT NULL,
+  `question_index` int(11) NOT NULL,
+  PRIMARY KEY (`section_id`,`question_index`),
+  KEY `FKB0F82A485936BFD4` (`section_id`),
+  KEY `FKB0F82A4866D4B300` (`question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwSectionStructure`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwSectionStructure` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `content` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKE0E50B51EA647FAC` (`content`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwSectionStructureConstraint`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwSectionStructureConstraint` (
+  `section_id` bigint(20) NOT NULL,
+  `constraint_id` bigint(20) NOT NULL,
+  `constraint_index` int(11) NOT NULL,
+  PRIMARY KEY (`section_id`,`constraint_index`),
+  KEY `FK2228CC0E9391B220` (`constraint_id`),
+  KEY `FK2228CC0E5CF139C9` (`section_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwTestSection`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwTestSection` (
+  `test_id` bigint(20) NOT NULL,
+  `section_id` bigint(20) NOT NULL,
+  `section_index` int(11) NOT NULL,
+  PRIMARY KEY (`test_id`,`section_index`),
+  KEY `FK80DC60D05CE45680` (`test_id`),
+  KEY `FK80DC60D05936BFD4` (`section_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwTestSectionStructure`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwTestSectionStructure` (
+  `id` bigint(20) NOT NULL,
+  `section_id` bigint(20) NOT NULL,
+  `section_index` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`section_index`),
+  KEY `FK3CCAD683A7507AD6` (`id`),
+  KEY `FK3CCAD6835CF139C9` (`section_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwText`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwText` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `text` mediumtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwTopicConstraintTopic`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwTopicConstraintTopic` (
+  `constraint_id` bigint(20) NOT NULL,
+  `topic_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`constraint_id`,`topic_id`),
+  KEY `FK7F38E1E68DCE1D63` (`constraint_id`),
+  KEY `FK7F38E1E62575393F` (`topic_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwUser`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwUser` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `ugroup` varchar(255) NOT NULL,
+  `blocked` bit(1) NOT NULL,
+  `warning` varchar(255) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `register_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `block_expired_date` timestamp NULL DEFAULT NULL,
+  `warning_expired_date` timestamp NULL DEFAULT NULL,
+  `pref_template` varchar(50) NOT NULL DEFAULT 'default',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 
 INSERT INTO `ocwAnswer` (`id`, `content`, `correct`) VALUES
 (2, 1, b'0'),
@@ -1069,24 +1421,6 @@ INSERT INTO `ocwAnswer` (`id`, `content`, `correct`) VALUES
 --
 -- Table structure for table `ocwArticle`
 --
-
-CREATE TABLE IF NOT EXISTS `ocwArticle` (
-  `id` bigint(20) NOT NULL,
-  `discriminator` varchar(255) NOT NULL,
-  `namespace` bigint(20) NOT NULL,
-  `content` bigint(20) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `parent` bigint(20) DEFAULT NULL,
-  `level` int(11) DEFAULT NULL,
-  `filename` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKC38C3A537D807870` (`namespace`),
-  KEY `FKC38C3A5348AB9093` (`parent`),
-  KEY `FKC38C3A53EA647FAC` (`content`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Dumping data for table `ocwArticle`
 --
@@ -1410,76 +1744,6 @@ INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`,
 
 --
 -- Table structure for table `ocwArticleAttachment`
---
-
-CREATE TABLE IF NOT EXISTS `ocwArticleAttachment` (
-  `article_id` bigint(20) NOT NULL,
-  `file_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`article_id`,`file_id`),
-  KEY `FKDCFAE3D628588123` (`article_id`),
-  KEY `FKDCFAE3D62B8E11D2` (`file_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwArticleAttachment`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwArticleEmbed`
---
-
-CREATE TABLE IF NOT EXISTS `ocwArticleEmbed` (
-  `article_id` bigint(20) NOT NULL,
-  `file_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`article_id`,`file_id`),
-  KEY `FK1EA9A04628588123` (`article_id`),
-  KEY `FK1EA9A0462B8E11D2` (`file_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwArticleEmbed`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwArticleTopic`
---
-
-CREATE TABLE IF NOT EXISTS `ocwArticleTopic` (
-  `article_id` bigint(20) NOT NULL,
-  `topic_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`article_id`,`topic_id`),
-  KEY `FK1F7E1E9CACC8C07A` (`article_id`),
-  KEY `FK1F7E1E9C2575393F` (`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwArticleTopic`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwBaseQuestionAnswer`
---
-
-CREATE TABLE IF NOT EXISTS `ocwBaseQuestionAnswer` (
-  `question_id` bigint(20) NOT NULL,
-  `answer_id` bigint(20) NOT NULL,
-  `answer_index` int(11) NOT NULL,
-  PRIMARY KEY (`question_id`,`answer_index`),
-  KEY `FKCB25FAF840890D80` (`answer_id`),
-  KEY `FKCB25FAF8EF28C9F1` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwBaseQuestionAnswer`
 --
 
 INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`) VALUES
@@ -2516,110 +2780,6 @@ INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`)
 -- Table structure for table `ocwComment`
 --
 
-CREATE TABLE IF NOT EXISTS `ocwComment` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user` bigint(20) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `message` text NOT NULL,
-  `resource` bigint(20) DEFAULT NULL,
-  `revision` bigint(20) DEFAULT NULL,
-  `status` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK27D95BBC53C202BC` (`revision`),
-  KEY `FK27D95BBC4A301B22` (`resource`),
-  KEY `FK27D95BBCB1E4DD9C` (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `ocwComment`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwConstraint`
---
-
-CREATE TABLE IF NOT EXISTS `ocwConstraint` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type` varchar(10) NOT NULL,
-  `count` int(11) NOT NULL,
-  `level` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `ocwConstraint`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwHistory`
---
-
-CREATE TABLE IF NOT EXISTS `ocwHistory` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user` bigint(20) DEFAULT NULL,
-  `test` bigint(20) DEFAULT NULL,
-  `taken_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `mark` double DEFAULT NULL,
-  `time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK267351F1B1E38F2A` (`test`),
-  KEY `FK267351F1B1E4DD9C` (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `ocwHistory`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwLog`
---
-
-CREATE TABLE IF NOT EXISTS `ocwLog` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type` varchar(10) NOT NULL,
-  `user` bigint(20) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `resource` bigint(20) DEFAULT NULL,
-  `comment` bigint(20) DEFAULT NULL,
-  `new_revision` bigint(20) DEFAULT NULL,
-  `old_revision` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKC3144721F3DA5E7B` (`new_revision`),
-  KEY `FKC3144721EC5981D4` (`old_revision`),
-  KEY `FKC31447214A301B22` (`resource`),
-  KEY `FKC31447213B31D0F8` (`comment`),
-  KEY `FKC3144721B1E4DD9C` (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `ocwLog`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwNamespace`
---
-
-CREATE TABLE IF NOT EXISTS `ocwNamespace` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwNamespace`
---
 
 INSERT INTO `ocwNamespace` (`id`, `name`) VALUES
 (0, 'Chính'),
@@ -2631,24 +2791,6 @@ INSERT INTO `ocwNamespace` (`id`, `name`) VALUES
 (6, 'T?p tin');
 
 -- --------------------------------------------------------
-
---
--- Table structure for table `ocwQuestion`
---
-
-CREATE TABLE IF NOT EXISTS `ocwQuestion` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `base_resource` bigint(20) DEFAULT NULL,
-  `base_revision` bigint(20) DEFAULT NULL,
-  `mark` double NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKB1BC7A29CBC360D0` (`base_resource`),
-  KEY `FKB1BC7A29D555486A` (`base_revision`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=422 ;
-
---
--- Dumping data for table `ocwQuestion`
---
 
 INSERT INTO `ocwQuestion` (`id`, `base_resource`, `base_revision`, `mark`) VALUES
 (1, 1, NULL, 1),
@@ -2919,24 +3061,6 @@ INSERT INTO `ocwQuestion` (`id`, `base_resource`, `base_revision`, `mark`) VALUE
 -- Table structure for table `ocwResource`
 --
 
-CREATE TABLE IF NOT EXISTS `ocwResource` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `version` int(11) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `type` varchar(255) NOT NULL,
-  `article` bigint(20) NOT NULL,
-  `author` bigint(20) NOT NULL,
-  `status` varchar(10) NOT NULL,
-  `link` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKE2E602515DDB135C` (`author`),
-  KEY `FKE2E602515EB7070E` (`link`),
-  KEY `FKE2E6025172978E26` (`article`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=422 ;
-
---
--- Dumping data for table `ocwResource`
---
 
 INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `author`, `status`, `link`) VALUES
 (1, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 1, 1, 'NORMAL', NULL),
@@ -3259,42 +3383,6 @@ INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `a
 -- Table structure for table `ocwRevision`
 --
 
-CREATE TABLE IF NOT EXISTS `ocwRevision` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `resource` bigint(20) NOT NULL,
-  `article` bigint(20) NOT NULL,
-  `author` bigint(20) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `summary` varchar(255) NOT NULL,
-  `minor` bit(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKE7AEF61E5DDB135C` (`author`),
-  KEY `FKE7AEF61E72978E26` (`article`),
-  KEY `FKE7AEF61E4A301B22` (`resource`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `ocwRevision`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwSection`
---
-
-CREATE TABLE IF NOT EXISTS `ocwSection` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `content` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK64A2EC42EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=335 ;
-
---
--- Dumping data for table `ocwSection`
---
-
 INSERT INTO `ocwSection` (`id`, `content`) VALUES
 (24, 1287),
 (25, 1288),
@@ -3613,18 +3701,6 @@ INSERT INTO `ocwSection` (`id`, `content`) VALUES
 -- Table structure for table `ocwSectionQuestion`
 --
 
-CREATE TABLE IF NOT EXISTS `ocwSectionQuestion` (
-  `section_id` bigint(20) NOT NULL,
-  `question_id` bigint(20) NOT NULL,
-  `question_index` int(11) NOT NULL,
-  PRIMARY KEY (`section_id`,`question_index`),
-  KEY `FKB0F82A485936BFD4` (`section_id`),
-  KEY `FKB0F82A4866D4B300` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwSectionQuestion`
---
 
 INSERT INTO `ocwSectionQuestion` (`section_id`, `question_id`, `question_index`) VALUES
 (24, 2, 0),
@@ -6490,56 +6566,6 @@ INSERT INTO `ocwSectionQuestion` (`section_id`, `question_id`, `question_index`)
 -- Table structure for table `ocwSectionStructure`
 --
 
-CREATE TABLE IF NOT EXISTS `ocwSectionStructure` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `content` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKE0E50B51EA647FAC` (`content`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `ocwSectionStructure`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwSectionStructureConstraint`
---
-
-CREATE TABLE IF NOT EXISTS `ocwSectionStructureConstraint` (
-  `section_id` bigint(20) NOT NULL,
-  `constraint_id` bigint(20) NOT NULL,
-  `constraint_index` int(11) NOT NULL,
-  PRIMARY KEY (`section_id`,`constraint_index`),
-  KEY `FK2228CC0E9391B220` (`constraint_id`),
-  KEY `FK2228CC0E5CF139C9` (`section_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwSectionStructureConstraint`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwTestSection`
---
-
-CREATE TABLE IF NOT EXISTS `ocwTestSection` (
-  `test_id` bigint(20) NOT NULL,
-  `section_id` bigint(20) NOT NULL,
-  `section_index` int(11) NOT NULL,
-  PRIMARY KEY (`test_id`,`section_index`),
-  KEY `FK80DC60D05CE45680` (`test_id`),
-  KEY `FK80DC60D05936BFD4` (`section_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwTestSection`
---
 
 INSERT INTO `ocwTestSection` (`test_id`, `section_id`, `section_index`) VALUES
 (13, 24, 0),
@@ -6858,32 +6884,6 @@ INSERT INTO `ocwTestSection` (`test_id`, `section_id`, `section_index`) VALUES
 --
 -- Table structure for table `ocwTestSectionStructure`
 --
-
-CREATE TABLE IF NOT EXISTS `ocwTestSectionStructure` (
-  `id` bigint(20) NOT NULL,
-  `section_id` bigint(20) NOT NULL,
-  `section_index` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`section_index`),
-  KEY `FK3CCAD683A7507AD6` (`id`),
-  KEY `FK3CCAD6835CF139C9` (`section_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwTestSectionStructure`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwText`
---
-
-CREATE TABLE IF NOT EXISTS `ocwText` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `text` mediumtext,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1649 ;
 
 --
 -- Dumping data for table `ocwText`
@@ -8550,47 +8550,6 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 -- Table structure for table `ocwTopicConstraintTopic`
 --
 
-CREATE TABLE IF NOT EXISTS `ocwTopicConstraintTopic` (
-  `constraint_id` bigint(20) NOT NULL,
-  `topic_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`constraint_id`,`topic_id`),
-  KEY `FK7F38E1E68DCE1D63` (`constraint_id`),
-  KEY `FK7F38E1E62575393F` (`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ocwTopicConstraintTopic`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ocwUser`
---
-
-CREATE TABLE IF NOT EXISTS `ocwUser` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `fullname` varchar(255) NOT NULL,
-  `pass` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `group` varchar(255) NOT NULL,
-  `blocked` bit(1) NOT NULL,
-  `warning` varchar(255) DEFAULT NULL,
-  `avatar` varchar(255) DEFAULT NULL,
-  `register_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `block_expired_date` timestamp NULL DEFAULT NULL,
-  `warning_expired_date` timestamp NULL DEFAULT NULL,
-  `pref_template` varchar(50) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `ocwUser`
---
 
 INSERT INTO `ocwUser` (`id`, `name`, `fullname`, `pass`, `email`, `group`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`) VALUES
 (1, 'admin', 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default'),
