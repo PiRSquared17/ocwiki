@@ -1,6 +1,7 @@
 <head>
 <title>AJAX with Prototype Example</title>
 <script src="prototype.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
 
@@ -45,7 +46,7 @@
 var restPath = 'http://localhost:8080/ocwiki/rest';
 
 function viewQuestion(id) {
-	new Ajax.Request(restPath + '/questions/' + id, {
+	new Ajax.Request(restPath + '/TextArtical/' + id, {
 		method: 'get',
 		requestHeaders: {Accept: 'application/json'},
 		evalJSON: true,
@@ -61,7 +62,7 @@ function viewQuestion(id) {
 }
 
 function listQuestions() {
-    new Ajax.Request(restPath + '/questions', {
+    new Ajax.Request(restPath + '/TextArtical', {
         method: 'get',
         requestHeaders: {Accept: 'application/json'},
         evalJSON: true,
