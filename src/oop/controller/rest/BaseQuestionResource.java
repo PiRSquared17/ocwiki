@@ -18,8 +18,6 @@ import oop.db.dao.ResourceDAO;
 @Path("/bquestions")
 public class BaseQuestionResource extends AbstractResource {
 
-	public static final int MAX_PAGE_SIZE = 50;
-
 	@GET
 	public ListResult<Resource<BaseQuestion>> list(
 			@DefaultValue("0") @QueryParam("start") int start,
@@ -37,12 +35,8 @@ public class BaseQuestionResource extends AbstractResource {
 	@GET
 	@Path("/{id: \\d+}")
 	public ObjectResult<Resource<BaseQuestion>> get(@PathParam("id") long id) {
-		Resource<BaseQuestion> resource = ResourceDAO.fetchById(id,
+		Resource<BaseQuestion> resource = safeGetResource(id,
 				BaseQuestion.class);
-		assertResourceFound(resource);
-		if (!(resource.getArticle() instanceof BaseQuestion)) {
-			throw resourceNotFound();
-		}
 		return new ObjectResult<Resource<BaseQuestion>>(resource);
 	}
 
