@@ -17,7 +17,9 @@ public class User implements Serializable, Entity {
 	private String email;
 	private String group;
 	private boolean blocked;
+	private Date blockExpiredDate;
 	private String warningMessage;
+	private Date warningExpiredDate;
 	private String avatar;
 	private Date registerDate;
 	private String name;
@@ -84,6 +86,10 @@ public class User implements Serializable, Entity {
 	}
 
 	public boolean isBlocked() {
+		if (blockExpiredDate != null && new Date().before(blockExpiredDate)) {
+			setBlocked(false);
+			setBlockExpiredDate(null);
+		}
 		return blocked;
 	}
 
@@ -92,6 +98,10 @@ public class User implements Serializable, Entity {
 	}
 
 	public String getWarningMessage() {
+		if (warningExpiredDate != null && new Date().before(warningExpiredDate)) {
+			setWarningMessage(null);
+			setWarningExpiredDate(null);
+		}
 		return warningMessage;
 	}
 
@@ -124,6 +134,22 @@ public class User implements Serializable, Entity {
 	@XmlTransient
 	public Preferences getPreferences() {
 		return preferences;
+	}
+
+	public void setWarningExpiredDate(Date warningExpiredDate) {
+		this.warningExpiredDate = warningExpiredDate;
+	}
+
+	public Date getWarningExpiredDate() {
+		return warningExpiredDate;
+	}
+
+	public void setBlockExpiredDate(Date blockExpiredDate) {
+		this.blockExpiredDate = blockExpiredDate;
+	}
+
+	public Date getBlockExpiredDate() {
+		return blockExpiredDate;
 	}
 	
 }
