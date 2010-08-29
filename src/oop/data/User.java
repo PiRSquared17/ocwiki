@@ -3,17 +3,19 @@ package oop.data;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
-public class User implements Serializable, Entity {
+public class User implements Serializable, Entity, HasVersion {
 
 	private static final long serialVersionUID = -8984541011161716639L;
 
-	@XmlAttribute
+	@XmlElement
 	private long id;
+	@XmlElement
+	private int version;
 	private String fullname;
 	private String password;
 	private String email;
@@ -23,7 +25,9 @@ public class User implements Serializable, Entity {
 	private String warningMessage;
 	private Date warningExpiredDate;
 	private String avatar;
+	@XmlElement
 	private Date registerDate;
+	@XmlElement
 	private String name;
 	private Preferences preferences = new Preferences();
 
@@ -46,14 +50,10 @@ public class User implements Serializable, Entity {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public long getId() {
 		return id;
 	}
-
+	
 	public String getFullname() {
 		return fullname;
 	}
@@ -142,7 +142,7 @@ public class User implements Serializable, Entity {
 		this.warningExpiredDate = warningExpiredDate;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public Date getWarningExpiredDate() {
 		return warningExpiredDate;
 	}
@@ -151,9 +151,16 @@ public class User implements Serializable, Entity {
 		this.blockExpiredDate = blockExpiredDate;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public Date getBlockExpiredDate() {
 		return blockExpiredDate;
+	}
+
+	/* (non-Javadoc)
+	 * @see oop.data.Versionable#getVersion()
+	 */
+	public int getVersion() {
+		return version;
 	}
 	
 }

@@ -7,7 +7,8 @@
 			<column name="id" />
 			<generator class="identity" />
 		</id>
-		<property name="name" type="java.lang.String">
+		<version name="version" type="integer" access="field"></version>
+		<property name="name" type="java.lang.String" access="field">
 			<column name="name" not-null="true" unique="true" />
 		</property>
 		<property name="fullname" type="java.lang.String">
@@ -22,10 +23,10 @@
 		<property name="group" type="java.lang.String">
 			<column name="ugroup" not-null="true" />
 		</property>
-		<property name="blocked" type="boolean">
+		<property name="blocked" type="boolean" access="field">
 			<column name="blocked" not-null="true" />
 		</property>
-		<property name="warningMessage" type="java.lang.String">
+		<property name="warningMessage" type="java.lang.String" access="field">
 			<column name="warning" not-null="false" />
 		</property>
 		<property name="avatar" type="java.lang.String" access="field">
