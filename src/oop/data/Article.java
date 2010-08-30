@@ -1,11 +1,12 @@
 package oop.data;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public abstract class Article implements Entity {
 
+	@XmlElement
 	private long id;
 	private Text content;
 	private String name;
@@ -20,7 +21,6 @@ public abstract class Article implements Entity {
 		this.content = content;
 	}
 
-	@XmlAttribute
 	public long getId() {
 		return id;
 	}

@@ -33,7 +33,7 @@ public class Revision<T extends Article> implements ArticleContainer<T> {
 		this.minor = minor;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public long getId() {
 		return id;
 	}
@@ -48,7 +48,7 @@ public class Revision<T extends Article> implements ArticleContainer<T> {
 		return author;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public Date getTimestamp() {
 		return timestamp;
 	}
@@ -58,7 +58,7 @@ public class Revision<T extends Article> implements ArticleContainer<T> {
 		return summary;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public boolean isMinor() {
 		return minor;
 	}

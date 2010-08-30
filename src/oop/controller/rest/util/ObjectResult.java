@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ObjectResult<T> {
 	
 	@XmlElement
-	public T result;
+	private T result;
 	
 	ObjectResult() {
 	}
@@ -19,6 +19,10 @@ public class ObjectResult<T> {
 	public ObjectResult(T result) {
 		super();
 		this.result = result;
+	}
+	
+	public T getResult() {
+		return result;
 	}
 	
 }

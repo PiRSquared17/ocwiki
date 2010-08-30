@@ -1,6 +1,6 @@
 package oop.data;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -15,7 +15,9 @@ public class Namespace implements Entity {
 	public static final int TEST_STRUCTURE = 5;
 	public static final int FILE = 6;
 	
+	@XmlElement
 	private long id;
+	@XmlElement
 	private String name;
 
 	Namespace() {
@@ -27,12 +29,10 @@ public class Namespace implements Entity {
 		this.name = name;
 	}
 
-	@XmlAttribute
 	public long getId() {
 		return id;
 	}
 
-	@XmlAttribute
 	public String getName() {
 		return name;
 	}

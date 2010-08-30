@@ -7,6 +7,8 @@ import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import oop.conf.Config;
+
 @XmlRootElement
 public class ListResult<T> {
 	
@@ -23,7 +25,7 @@ public class ListResult<T> {
 	public ListResult(Collection<T> result, String next) {
 		super();
 		this.result = result;
-		this.next = next;
+		this.next = Config.get().getRestPath() + next;
 	}
 	
 }

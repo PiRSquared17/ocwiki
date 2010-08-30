@@ -41,7 +41,7 @@ public class Question implements Entity, Copiable<Question> {
 		return usedAnswerMap;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public long getId() {
 		return id;
 	}
@@ -51,7 +51,7 @@ public class Question implements Entity, Copiable<Question> {
 		return getBase().getAnswers();
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public double getMark() {
 		return mark;
 	}

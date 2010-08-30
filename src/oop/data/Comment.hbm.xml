@@ -5,8 +5,9 @@
 		<id name="id" column="id" access="field">
 			<generator class="identity" />
 		</id>
-		<many-to-one name="user" access="field" column="user"
-			class="oop.data.User" fetch="select" not-null="true" />
+		<version name="version" type="integer" access="field"></version>
+		<many-to-one name="user" access="field" column="user" lazy="false"
+			class="oop.data.User" fetch="join" not-null="true" />
 		<property name="timestamp" access="field" type="java.util.Date">
 			<column name="timestamp" not-null="true"
 				sql-type="timestamp default CURRENT_TIMESTAMP"></column>
