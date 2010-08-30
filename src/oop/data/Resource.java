@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -42,12 +41,12 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		this.logs = logs;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public long getId() {
 		return id;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public Status getStatus() {
 		return status;
 	}
@@ -56,7 +55,7 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		this.status = status;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public Date getCreateDate() {
 		return createDate;
 	}

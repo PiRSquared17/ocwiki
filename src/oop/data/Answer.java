@@ -1,6 +1,6 @@
 package oop.data;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import oop.util.Copiable;
@@ -8,13 +8,11 @@ import oop.util.Copiable;
 @XmlRootElement
 public class Answer implements Entity, Copiable<Answer> {
 
+	@XmlElement
 	private long id;
 	private Text content;
 	private boolean correct;
 
-	/**
-	 * For Hibernate only
-	 */
 	public Answer() {
 	}
 	
@@ -24,7 +22,6 @@ public class Answer implements Entity, Copiable<Answer> {
 		this.content = content;
 	}
 
-	@XmlAttribute
 	public long getId() {
 		return id;
 	}
@@ -41,7 +38,7 @@ public class Answer implements Entity, Copiable<Answer> {
 		this.correct = correct;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public boolean isCorrect() {
 		return correct;
 	}

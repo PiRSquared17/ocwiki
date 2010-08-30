@@ -36,9 +36,9 @@ public class AnswerResourceTest {
 				new TypeToken<ObjectResult<Answer>>() {
 				}.getType());
 
-		Assert.assertEquals("xyz", obj.result.getContent().getText());
-		Assert.assertEquals(false, obj.result.isCorrect());
-		System.out.println(obj.result);
+		Assert.assertEquals("xyz", obj.getResult().getContent().getText());
+		Assert.assertEquals(false, obj.getResult().isCorrect());
+		System.out.println(obj.getResult());
 	}
 
 }

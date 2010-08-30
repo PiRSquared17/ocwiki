@@ -33,7 +33,7 @@ public class BaseQuestionDAO {
 			int length) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in (from BaseQuestion) " +
-				"where author=:author" +
+				"and author=:author" +
 				"order by id desc";
 		Query query = session.createQuery(hql);
 		Object author = session.load(Topic.class, authorId);
@@ -65,7 +65,7 @@ public class BaseQuestionDAO {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from Resource where article in " +
 				"(from BaseQuestion) " +
-				"where author=:author";
+				"and author=:author";
 		Query query = session.createQuery(hql);
 		Object author = session.load(Topic.class, authorId);
 		query.setEntity("author", author);

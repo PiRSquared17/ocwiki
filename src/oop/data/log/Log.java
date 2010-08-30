@@ -28,12 +28,12 @@ public class Log {
 		return user;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public Date getTimestamp() {
 		return timestamp;
 	}
 
-	@XmlAttribute
+	@XmlElement
 	public long getId() {
 		return id;
 	}

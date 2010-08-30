@@ -17,7 +17,7 @@ import oop.data.User;
 import oop.db.dao.UserDAO;
 
 @Path("/users")
-public class UserResource extends AbstractResource {
+public class UserService extends AbstractResource {
 
 	@GET
 	public ListResult<User> list(

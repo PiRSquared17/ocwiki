@@ -15,7 +15,7 @@ public class Text implements Entity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@XmlAttribute
+	@XmlElement
 	private long id;
 	private String text;
 
