@@ -5,25 +5,23 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import oop.controller.rest.beans.CommentBean;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Comment;
+import oop.data.CommentStatus;
 import oop.data.Resource;
 import oop.data.Revision;
-import oop.data.User;
 import oop.db.dao.CommentDAO;
 import oop.db.dao.ResourceDAO;
 import oop.db.dao.RevisionDAO;
-import oop.db.dao.UserDAO;
 
 @Path("/comments")
 public class CommentService extends AbstractResource {
@@ -61,7 +59,7 @@ public class CommentService extends AbstractResource {
 	}
 
 	@GET
-	@Path("{id: \\d+}")
+	@Path("/{id: \\d+}")
 	public ObjectResult<Comment> retrieve(@PathParam("id") long id) {
 		Comment comment = CommentDAO.fetch(id);
 		assertResourceFound(comment);
@@ -69,29 +67,30 @@ public class CommentService extends AbstractResource {
 	}
 
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public ObjectResult<Comment> create(CommentBean data) {
-		User user = UserDAO.fetchById(data.userId);
-		assertParamValid(user != null, "", "user not found");
-		Resource<?> resource = ResourceDAO.fetchById(data.resourceId);
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public ObjectResult<Comment> create(
+			@FormParam("resourceId") long resourceId,
+			@FormParam("revisionId") long revisionId,
+			@FormParam("message") String message) {
+		Resource<?> resource = ResourceDAO.fetchById(resourceId);
 		assertParamValid(resource != null, "", "resource not found");
-		Revision<?> revision = RevisionDAO.fetch(data.revisionId);
+		Revision<?> revision = RevisionDAO.fetch(revisionId);
 		assertParamValid(revision != null, "", "revision not found");
-		Comment comment = new Comment(user, new Date(), data.message, resource,
-				revision, data.status);
+		Comment comment = new Comment(getUser(), new Date(), message, resource,
+				revision, CommentStatus.NORMAL);
 		CommentDAO.persist(comment);
 		return new ObjectResult<Comment>(comment);
 	}
 
-	@PUT
-	@Path("{id: \\d+}")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
+	@Path("/{id: \\d+}")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ObjectResult<Comment> update(@PathParam("id") long id,
-			CommentBean data) {
+			@FormParam("message") String message,
+			@FormParam("status") CommentStatus status) {
 		Comment comment = CommentDAO.fetch(id);
-		assertVersion(comment, data);
-		comment.setMessage(data.message);
-		comment.setStatus(data.status);
+		comment.setMessage(message);
+		comment.setStatus(status);
 		CommentDAO.persist(comment);
 		return new ObjectResult<Comment>(comment);
 	}
