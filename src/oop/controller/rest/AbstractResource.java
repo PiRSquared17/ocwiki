@@ -70,6 +70,11 @@ public abstract class AbstractResource {
 			throw invalidParam(e.getName(), "param not found");
 		}
 	}
+	
+	protected User getUser() {
+		return SessionUtils.getUser(getSession());
+		
+	}
 
 	protected ParameterList getParams() {
 		if (params == null) {
