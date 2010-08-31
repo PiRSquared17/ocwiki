@@ -31,7 +31,7 @@ public class CommentService extends AbstractResource {
 	public ListResult<Comment> latestList(
 			@PathParam("resourceId") long resourceId,
 			@DefaultValue("0") @QueryParam("start") int start,
-			@DefaultValue("10") @QueryParam("start") int size) {
+			@DefaultValue("10") @QueryParam("size") int size) {
 		assertParamValid(size <= MAX_PAGE_SIZE, "size", "too large");
 		List<Comment> list = CommentDAO.fetchLatest(resourceId, start, size);
 		String nextUrl = null;
@@ -47,7 +47,7 @@ public class CommentService extends AbstractResource {
 	public ListResult<Comment> list(
 			@PathParam("resourceId") long resourceId,
 			@DefaultValue("0") @QueryParam("start") int start,
-			@DefaultValue("10") @QueryParam("start") int size) {
+			@DefaultValue("10") @QueryParam("size") int size) {
 		assertParamValid(size <= MAX_PAGE_SIZE, "size", "too large");
 		List<Comment> list = CommentDAO.fetch(resourceId, start, size);
 		String nextUrl = null;
