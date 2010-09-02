@@ -23,7 +23,7 @@ public class AnswerResourceTest {
 		TestConfig.getConfig();
 	}
 
-	@Test
+//	@Test
 	public void update() {
 		Client client = Client.create();
 		WebResource resource = client.resource(Config.get().getRestPath()

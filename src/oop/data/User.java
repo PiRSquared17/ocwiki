@@ -88,7 +88,7 @@ public class User implements Serializable, Entity, HasVersion {
 	}
 
 	public boolean isBlocked() {
-		if (blockExpiredDate != null && new Date().before(blockExpiredDate)) {
+		if (blockExpiredDate != null && new Date().after(blockExpiredDate)) {
 			setBlocked(false);
 			setBlockExpiredDate(null);
 		}
@@ -100,7 +100,7 @@ public class User implements Serializable, Entity, HasVersion {
 	}
 
 	public String getWarningMessage() {
-		if (warningExpiredDate != null && new Date().before(warningExpiredDate)) {
+		if (warningExpiredDate != null && new Date().after(warningExpiredDate)) {
 			setWarningMessage(null);
 			setWarningExpiredDate(null);
 		}

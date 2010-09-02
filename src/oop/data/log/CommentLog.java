@@ -10,6 +10,9 @@ import oop.data.User;
 public class CommentLog extends ResourceLog {
 
 	private Comment comment;
+
+	public CommentLog() {
+	}
 	
 	public CommentLog(User user, Date timestamp,
 			Resource<? extends Article> resource, Comment comment) {

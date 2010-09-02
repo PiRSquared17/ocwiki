@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
   <ocwText/>
-  <ocwUser/>
+
+  <ocwUser id="1" name="admin" version="0" fullname="admin" pass="1234" email="admin@ocwiki.org" ugroup="admin" blocked="false" register_date="2010-08-25 00:47:13.0" pref_template="default"/>
+  <ocwUser id="2" name="teacher" version="0" fullname="teacher" pass="1234" email="teacher@ocwiki.org" ugroup="teacher" blocked="false" register_date="2010-08-25 00:47:13.0" pref_template="default"/>
+
   <ocwArticle/>
   <ocwArticleEmbed/>
   <ocwArticleAttachment/>

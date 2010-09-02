@@ -16,7 +16,7 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class CommentServiceTest extends AbstractServiceTest {
 
-	@Test
+//	@Test
 	public void testCreate() throws Exception {
 		WebResource resource = createResource("/comments");
 		MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
@@ -30,7 +30,7 @@ public class CommentServiceTest extends AbstractServiceTest {
 		Assert.assertEquals("xyz", obj.getResult().getMessage());
 	}
 
-	@Test
+//	@Test
 	public void testUpdate() {
 		WebResource resource = createResource("/comments/1");
 		MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
