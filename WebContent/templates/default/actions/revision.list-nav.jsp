@@ -4,21 +4,21 @@
 
 <div class="navigator">
 <c:choose>
-	<c:when test="${page > 1}">
+	<c:when test="${action.page > 1}">
 		<a href="${scriptPath}?action=revision.list&page=1"><img src="${templatePath}/images/2leftarrow.png" alt="first" /></a>
-		<a href="${scriptPath}?action=revision.list&page=${page-1}"><img src="${templatePath}/images/1leftarrow.png" alt="previous" /></a>
+		<a href="${scriptPath}?action=revision.list&page=${action.page-1}"><img src="${templatePath}/images/1leftarrow.png" alt="previous" /></a>
 	</c:when>
 	<c:otherwise>
 		 
 	</c:otherwise>
 </c:choose>
 
-Trang ${page} / ${pageCount}
+Trang ${action.page} / ${action.pageCount}
 
 <c:choose>
-	<c:when test="${page < pageCount}">
-		<a href="${scriptPath}?action=revision.list&page=${page+1}"><img src="${templatePath}/images/1rightarrow.png" alt="next" /></a>
-		<a href="${scriptPath}?action=revision.list&page=${pageCount}"><img src="${templatePath}/images/2rightarrow.png" alt="last" /></a>
+	<c:when test="${action.page < action.pageCount}">
+		<a href="${scriptPath}?action=revision.list&page=${action.page+1}"><img src="${templatePath}/images/1rightarrow.png" alt="next" /></a>
+		<a href="${scriptPath}?action=revision.list&page=${action.pageCount}"><img src="${templatePath}/images/2rightarrow.png" alt="last" /></a>
 	</c:when>
 	<c:otherwise>
 		
