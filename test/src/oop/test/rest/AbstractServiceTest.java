@@ -35,7 +35,7 @@ public class AbstractServiceTest {
 	
 	protected WebResource createResource(String path) {
 		Client client = createClient();
-		return client .resource(Config.get().getRestPath() + path);
+		return client.resource(Config.get().getRestPath() + path);
 	}
 
 }

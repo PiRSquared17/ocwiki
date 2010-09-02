@@ -10,6 +10,7 @@ public class Config {
 	private String databaseHost = "localhost";
 	private String databasePort = "3306";
 	private String databaseName = "ocwiki";
+	private String domain = "http://localhost:8080";
 	private String username = "root";
 	private String password = "root";
 	private String homeDir = "http://localhost:8080";
@@ -115,9 +116,9 @@ public class Config {
 	}
 	
 	public static void setDefaultInstance(Config config) {
-		if (DEFAULT != null) {
-			throw new IllegalStateException("Already initialized.");
-		}
+//		if (DEFAULT != null) {
+//			throw new IllegalStateException("Already initialized.");
+//		}
 		DEFAULT = config;
 	}
 
@@ -221,6 +222,14 @@ public class Config {
 
 	public String getMysqlCommand() {
 		return mysqlCommand;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public String getDomain() {
+		return domain;
 	}
 	
 }

@@ -32,7 +32,7 @@ public class UserDAO {
 		}
 	}
 	
-	public static void update(User user) {
+	public static void merge(User user) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
@@ -88,11 +88,13 @@ public class UserDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.save(user);
+			session.saveOrUpdate(user);
 			tx.commit();
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}

@@ -27,7 +27,9 @@ public class Initializer implements ServletContextListener {
     public void contextInitialized(ServletContextEvent evt) {
     	ServletContext context = evt.getServletContext();
 		Config config = new Config();
-		ConfigIO.loadDirectory(config, context.getRealPath("/WEB-INF/conf"));
+		ConfigIO.loadDirectory(config, context.getRealPath(context
+				.getInitParameter("configDir")));
+		config.setHomeDir(config.getDomain() + context.getContextPath());
 		Config.setDefaultInstance(config);
 		HibernateUtil.init(config);
 	}

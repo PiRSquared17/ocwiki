@@ -36,8 +36,8 @@ public class CommentService extends AbstractResource {
 		List<Comment> list = CommentDAO.fetchLatest(resourceId, start, size);
 		String nextUrl = null;
 		if (list.size() >= size) {
-			nextUrl = "/comments/latest?start=" + (start + size) + "&size="
-					+ size;
+			nextUrl = "/comments/resource/" + resourceId + "/latest?start="
+					+ (start + size) + "&size=" + size;
 		}
 		return new ListResult<Comment>(list, nextUrl);
 	}
@@ -52,8 +52,8 @@ public class CommentService extends AbstractResource {
 		List<Comment> list = CommentDAO.fetch(resourceId, start, size);
 		String nextUrl = null;
 		if (list.size() >= size) {
-			nextUrl = "/comments/latest?start=" + (start + size) + "&size="
-					+ size;
+			nextUrl = "/comments/resource/" + resourceId + "?start="
+					+ (start + size) + "&size=" + size;
 		}
 		return new ListResult<Comment>(list, nextUrl);
 	}

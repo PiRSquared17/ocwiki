@@ -3,7 +3,7 @@
   <display-name>ocwiki</display-name>
   <context-param>
     <param-name>configDir</param-name>
-    <param-value>/WEB-INF/conf</param-value>
+    <param-value>test/conf</param-value>
   </context-param>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

@@ -17,13 +17,11 @@ public class Comment implements HasVersion {
 	private int version;
 	@XmlElement
 	private Date timestamp;
-	@XmlElement
 	private String message;
 	@XmlTransient
 	private Resource<? extends Article> resource;
 	@XmlTransient
 	private Revision<? extends Article> revision;
-	@XmlElement
 	private CommentStatus status;
 
 	public Comment() {

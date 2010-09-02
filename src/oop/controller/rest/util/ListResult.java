@@ -25,7 +25,7 @@ public class ListResult<T> {
 	public ListResult(Collection<T> result, String next) {
 		super();
 		this.result = result;
-		this.next = Config.get().getRestPath() + next;
+		this.next = (next == null ? null : Config.get().getRestPath() + next);
 	}
 	
 }

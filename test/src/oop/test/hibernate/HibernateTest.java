@@ -1,84 +1,53 @@
 package oop.test.hibernate;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.SQLException;
 
 import oop.conf.Config;
 import oop.conf.ConfigIO;
 import oop.persistence.HibernateUtil;
 
-import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DataSetException;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.ext.mysql.MySqlConnection;
-import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
 public class HibernateTest {
 
-	private static Config config;
 	private String datasetFile;
 
-	static {
-		config = new Config();
-		ConfigIO.loadDirectory(config, "test/conf");
-		HibernateUtil.init(config);
-		Config.setDefaultInstance(config);
-	}
-	
 	public HibernateTest() {
 	}
-	
+
 	public HibernateTest(String datasetFile) {
 		super();
 		this.datasetFile = datasetFile;
 	}
 
+	/**
+	 * Khởi tạo cấu hình và tất cả các bảng
+	 * @throws Exception
+	 */
 	@BeforeClass
-	public static void _initAll() throws Exception {
-		// truncate all tables
-		IDatabaseConnection dbconn = createDbconn();
-		IDataSet all = readDataSet("test/dataset/full.xml");
-		DatabaseOperation.TRUNCATE_TABLE.execute(dbconn, all);
+	public static void setupClass() throws Exception {
+		Config config = new Config();
+		ConfigIO.loadDirectory(config, "test/conf");
+		HibernateUtil.init(config);
+		Config.setDefaultInstance(config);
+		// clean insert all tables
+		HibernateTestUtil.cleanInsertDataset("test/dataset/full.xml");
 	}
 
-	private static IDatabaseConnection createDbconn()
-			throws ClassNotFoundException, SQLException, DatabaseUnitException {
-		IDatabaseConnection dbconn = new MySqlConnection(HibernateUtil
-				.getSession().connection(), config.getDatabaseName());
-		return dbconn;
-	}
-
-	private static IDataSet readDataSet(String filename)
-			throws DataSetException, IOException {
-		FileReader reader = null;
-		try {
-			reader = new FileReader(filename);
-			return new FlatXmlDataSetBuilder().build(reader);
-//			return new XmlDataSet(reader);
-		} finally {
-			if (reader != null) {
-				reader.close();
-			}
-		}
-	}
-
+	/**
+	 * Khởi tạo lại bảng được test case yêu cầu
+	 * @throws Exception
+	 */
 	@Before
-	public void _init() throws Exception {
+	public void setup() throws Exception {
 		if (datasetFile != null) {
-			IDatabaseConnection dbconn = createDbconn();
-			IDataSet dataset = readDataSet("test/dataset/" + datasetFile);
-			DatabaseOperation.CLEAN_INSERT.execute(dbconn, dataset);
+			HibernateTestUtil.cleanInsertDataset("test/dataset/" + datasetFile);
 		}
 	}
 
 	@After
-	public void _clean() throws Exception {
+	public void tearDown() throws Exception {
 		HibernateUtil.closeSession();
 	}
 

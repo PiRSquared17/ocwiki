@@ -15,9 +15,12 @@ public class HibernateUtil {
 	private static ThreadLocal<Session> sessionLocal = new ThreadLocal<Session>();
 
 	public static void init(final Config config) {
+		// if (sessionFactory != null) {
+		// throw new IllegalStateException(
+		// "Session factory is already initialized.");
+		// }
 		if (sessionFactory != null) {
-			throw new IllegalStateException(
-					"Session factory is already initialized.");
+			sessionFactory.close();
 		}
 
 		Configuration hconf = new Configuration();
@@ -34,39 +37,43 @@ public class HibernateUtil {
 				+ config.getDatabasePort() + "/" + config.getDatabaseName()
 				+ "?useUnicode=true&characterEncoding=UTF-8";
 		hconf.setProperty("hibernate.connection.url", url);
-		hconf.setProperty("hibernate.connection.username", config.getUserName());
-		hconf.setProperty("hibernate.connection.password", config.getPassword());
+		hconf
+				.setProperty("hibernate.connection.username", config
+						.getUserName());
+		hconf
+				.setProperty("hibernate.connection.password", config
+						.getPassword());
 
 		// add classes
-        hconf.addClass(oop.data.User.class);
-        hconf.addClass(oop.data.Topic.class);
-        hconf.addClass(oop.data.Namespace.class);
-        hconf.addClass(oop.data.Revision.class);
-        hconf.addClass(oop.data.Resource.class);
-        hconf.addClass(oop.data.CategorizableArticle.class);
-        hconf.addClass(oop.data.TextArticle.class);
-        hconf.addClass(oop.data.BaseArticle.class);
-        hconf.addClass(oop.data.Article.class);
-        hconf.addClass(oop.data.Text.class);
-        hconf.addClass(oop.data.File.class);
-        hconf.addClass(oop.data.BaseQuestion.class);
-        hconf.addClass(oop.data.Answer.class);
-        hconf.addClass(oop.data.Question.class);
-        hconf.addClass(oop.data.Section.class);
-        hconf.addClass(oop.data.Test.class);
-        hconf.addClass(oop.data.SectionStructure.class);
-        hconf.addClass(oop.data.TestStructure.class);
-        hconf.addClass(oop.data.Constraint.class);
-        hconf.addClass(oop.data.TopicConstraint.class);
-        hconf.addClass(oop.data.LevelConstraint.class);
-        hconf.addClass(oop.data.History.class);
-        hconf.addClass(oop.data.Comment.class);
-        hconf.addClass(oop.data.log.Log.class);
-        hconf.addClass(oop.data.log.ResourceLog.class);
-        hconf.addClass(oop.data.log.CommentLog.class);
-        hconf.addClass(oop.data.log.RevisionLog.class);
-        hconf.addClass(oop.data.log.NewMemberLog.class);
-		
+		hconf.addClass(oop.data.User.class);
+		hconf.addClass(oop.data.Topic.class);
+		hconf.addClass(oop.data.Namespace.class);
+		hconf.addClass(oop.data.Revision.class);
+		hconf.addClass(oop.data.Resource.class);
+		hconf.addClass(oop.data.CategorizableArticle.class);
+		hconf.addClass(oop.data.TextArticle.class);
+		hconf.addClass(oop.data.BaseArticle.class);
+		hconf.addClass(oop.data.Article.class);
+		hconf.addClass(oop.data.Text.class);
+		hconf.addClass(oop.data.File.class);
+		hconf.addClass(oop.data.BaseQuestion.class);
+		hconf.addClass(oop.data.Answer.class);
+		hconf.addClass(oop.data.Question.class);
+		hconf.addClass(oop.data.Section.class);
+		hconf.addClass(oop.data.Test.class);
+		hconf.addClass(oop.data.SectionStructure.class);
+		hconf.addClass(oop.data.TestStructure.class);
+		hconf.addClass(oop.data.Constraint.class);
+		hconf.addClass(oop.data.TopicConstraint.class);
+		hconf.addClass(oop.data.LevelConstraint.class);
+		hconf.addClass(oop.data.History.class);
+		hconf.addClass(oop.data.Comment.class);
+		hconf.addClass(oop.data.log.Log.class);
+		hconf.addClass(oop.data.log.ResourceLog.class);
+		hconf.addClass(oop.data.log.CommentLog.class);
+		hconf.addClass(oop.data.log.RevisionLog.class);
+		hconf.addClass(oop.data.log.NewMemberLog.class);
+
 		sessionFactory = hconf.buildSessionFactory();
 	}
 
@@ -91,7 +98,7 @@ public class HibernateUtil {
 	}
 
 	public static Session getSession() {
-		if (sessionLocal.get() == null) {
+		if (sessionLocal.get() == null || !sessionLocal.get().isOpen()) {
 			sessionLocal.set(getSessionFactory().openSession());
 		}
 		return sessionLocal.get();
@@ -99,22 +106,20 @@ public class HibernateUtil {
 
 	public static void closeSession() {
 		if (sessionLocal.get() != null) {
-			try {
-				Session session = sessionLocal.get();
-				if (session.isOpen()) {
+			Session session = sessionLocal.get();
+			if (session.isOpen()) {
+				session.flush();
+				Transaction tx = session.getTransaction();
+				if (tx.isActive()) {
 					try {
-						session.flush();
-						Transaction tx = session.getTransaction();
-						if (tx.isActive()) {
-							tx.commit();
-						}
-					} finally {
-						session.close();
+						tx.commit();
+					} catch (HibernateException ex) {
+						tx.rollback();
 					}
 				}
-			} finally {
-				sessionLocal.set(null);
+				session.close();
 			}
+			sessionLocal.set(null);
 		}
 	}
 
