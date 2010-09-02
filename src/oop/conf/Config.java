@@ -34,7 +34,9 @@ public class Config {
 	}
 	
 	private String replaceMagicWords(String str) {
-		return str.replaceAll("\\$\\{homeDir\\}", homeDir);
+		str = str.replaceAll("\\$\\{homeDir\\}", getHomeDir());
+		str = str.replaceAll("\\$\\{domain\\}", getDomain());
+		return str;
 	}
 
 	public String getDatabaseHost() {
