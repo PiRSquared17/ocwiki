@@ -5,9 +5,7 @@
 <h3>
 Người dùng: ${action.displayedUser.name}
 </h3> 
-<form>
 	<jsp:include page="user.profile-admintools.jsp"></jsp:include>
-</form>
 <fieldset>
 <legend>Thông tin</legend>
 <p>
