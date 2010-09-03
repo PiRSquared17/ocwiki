@@ -71,7 +71,7 @@ public class EditUserAction extends AbstractAction {
 		String confirmPass = getParams().get("confirmPass");
 		if (isEmpty(pass) || isEmpty(changedPass) || isEmpty(confirmPass)) {
 			return 0;}
-		else if (!pass.equals(getUser().getPassword()))
+		else if (!getUser().matchPassword(pass))
 			return -1;
 		else if (!pass.equals(confirmPass))
 			return -2;

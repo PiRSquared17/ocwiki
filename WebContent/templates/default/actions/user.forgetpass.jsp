@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<form id="form1" name="form1" method="post" action="?action=user.forgetpass">
+<ocw:form action="user.forgetpass">
 <p>
 <c:if test="${userNotExist}"><div class="notification"><font color ="red">  You have not signed up our system! </font></div><br /></c:if>
 <c:if test="${invalidEmail}"><div class="notification"><font color ="red">  You have to fill the field with a valid email address! </font></div><br /></c:if>
@@ -20,4 +20,4 @@
     </label>
   </p><br />
   <p><a href="/tracnghiem/" title="home" target="_self">Quay về trang chủ</a></p>
-</form>
+</ocw:form>

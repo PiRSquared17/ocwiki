@@ -13,6 +13,8 @@ import org.apache.commons.lang.StringUtils;
 
 public class ActionLinkTag extends AbstractLinkTag {
 
+	private String title;
+	
 	@Override
 	public void doTag() throws JspException, IOException {
 		// cause param tags to be read
@@ -23,6 +25,7 @@ public class ActionLinkTag extends AbstractLinkTag {
 		out().print("<a");
 		appendHref();
 		appendClass();
+		appendOnclick();
 		out().print("\">");
 		out().append(sb);
 		out().append(sw.toString());
@@ -59,6 +62,14 @@ public class ActionLinkTag extends AbstractLinkTag {
 								.escapeXml(entry.getValue().toString()));
 			}
 		}
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getTitle() {
+		return title;
 	}
 
 }

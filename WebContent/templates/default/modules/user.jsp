@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/includes/common.jsp" %>
     
 <ul>
-    <li><a href="?action=user.edituser" title="Thay đổi các thông tin cá nhân" target="_self">Thông tin cá nhân</a></li>
-    <li><a href="?action=history.list" title="Xem lịch sử các bài kiểm tra đã làm" target="_self">Lịch sử làm bài</a></li>
+    <li><ocw:actionLink name="user.edituser" title="Thay đổi các thông tin cá nhân">Thông tin cá nhân</ocw:actionLink></li>
+    <li><ocw:actionLink name="history.list" title="Xem lịch sử các bài kiểm tra đã làm">Lịch sử làm bài</ocw:actionLink></li>
 	<c:if test="${sessionScope.login && sessionScope.user.group=='teacher'}">
 	    <li><a href="${scriptPath}?action=exam.list">Lịch sử chấm bài</a></li>    
 	    <li><a href="${scriptPath}?action=exam.create">Hỗ trợ chấm bài</a></li>    

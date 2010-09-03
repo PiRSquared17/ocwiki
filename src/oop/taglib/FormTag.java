@@ -16,6 +16,7 @@ public class FormTag extends SimpleTagSupport {
 	private String id;
 	private String className;
 	private String action;
+	private String method;
 
 	@Override
 	public void doTag() throws JspException, IOException {
@@ -29,6 +30,9 @@ public class FormTag extends SimpleTagSupport {
 		}
 		if (!StringUtils.isEmpty(className)) {
 			out.append(" id=\"").append(className).append("\"");
+		}
+		if (!StringUtils.isEmpty(method)) {
+			out.append(" method=\"").append(method).append("\"");
 		}
 		out.append(">");
 		// append edit token
@@ -60,6 +64,14 @@ public class FormTag extends SimpleTagSupport {
 
 	public String getAction() {
 		return action;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	public String getMethod() {
+		return method;
 	}
 
 }

@@ -5,7 +5,7 @@
 <script type="text/javascript" src="${templatePath}/js/fieldcheck.js"></script>
 
 <p>Sign Up</p>
-<form id="form_edit" name="form1" method="post" action="?action=user.signup">
+<ocw:form action="user.signup" method="post" id="form_edit">
 <c:if test="${error}"><div class="notification"><font color ="red"> Some error need to be fixed: </font><br />
 	<c:if test="${invalidUserName}"><font color ="red">  o Invalid User Name! </font><br /></c:if>
 	<c:if test="${invalidEmail}"><font color ="red">  o Invalid Email! </font><br /></c:if>
@@ -50,4 +50,4 @@
     <input style="margin-left:0px; float:none;" type="reset" name="resetAll" id="resetAll" value="Reset All" />
   </p>
   <p><a href="/tracnghiem/" title="home" target="_self">Quay về trang chủ</a></p>
-</form>
+</ocw:form>

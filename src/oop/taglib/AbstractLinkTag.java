@@ -19,6 +19,7 @@ public abstract class AbstractLinkTag extends SimpleTagSupport {
 	protected String cssClass;
 	protected String confirm;
 	protected JspFragment jspBody;
+	private String onclick;
 
 	public AbstractLinkTag() {
 		super();
@@ -70,6 +71,18 @@ public abstract class AbstractLinkTag extends SimpleTagSupport {
 
 	protected JspWriter out() {
 		return getJspContext().getOut();
+	}
+
+	public void setOnclick(String onclick) {
+		this.onclick = onclick;
+	}
+
+	public String getOnclick() {
+		return onclick;
+	}
+
+	protected void appendOnclick() throws IOException {
+		out().append("onclick=\"").append(onclick).append("\"");
 	}
 
 }

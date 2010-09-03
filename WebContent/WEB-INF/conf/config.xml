@@ -317,11 +317,19 @@
         <order>2</order>
     </module>
     <module>
+       <name>session</name>
+        <title>Đăng nhập</title>
+        <class>oop.module.SessionModule</class>
+        <position>top_right</position>
+        <order>1</order>
+    </module>
+    <!-- 
+    <module>
        <name>login</name>
         <title>Đăng nhập</title>
         <class>oop.module.LoginModule</class>
         <position>left</position>
         <order>1</order>
     </module>
-
+    -->
 </config>

@@ -41,7 +41,7 @@
 </script>
 	
 <p>Change User Information</p>
-<form class="user" id="form1" name="form1" method="post" action="?action=user.edituser">
+<ocw:form action="user.edituser" id="form1">
 <input type="hidden" name="action" value="Sign Up" >
 <p>
 <c:if test="${error}"><div class="notification"><font color ="red"> Some error need to be fixed: </font><br />
@@ -98,5 +98,4 @@
     <label></label>
   </p>
   </div>
-</form>
-<p>&nbsp; </p>
+</ocw:form>
