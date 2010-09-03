@@ -22,6 +22,7 @@ public class ActionButtonTag extends AbstractLinkTag {
 		out().print("<button type=\"button\"");
 		appendHref();
 		appendClass();
+		appendOnclick();
 		out().print("\">");
 		out().print(sw);
 		out().print("</button>");

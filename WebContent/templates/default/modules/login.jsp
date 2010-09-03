@@ -11,8 +11,8 @@
     </c:when>
     <c:otherwise>
         <li><a href="${scriptPath}?action=user.login" title="Đăng nhập" target="_self">Đăng nhập</a> </li>
-        <li><a href="?action=user.signup" title="Đăng kí thành viên trang web" target="_self">Đăng kí</a></li>
-        <li><a href="?action=user.forgetpass" title="Khôi phục lại mật khẩu" target="_self">Quên mật khẩu</a></li>
+	    <li><ocw:actionLink name="user.forgetpass">Quên mật khẩu?</ocw:actionLink></li>
+	    <li><ocw:actionLink name="user.signup">Đăng kí</ocw:actionLink></li>
     </c:otherwise>
 </c:choose>
 </ul>

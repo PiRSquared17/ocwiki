@@ -62,11 +62,6 @@ public class User implements Serializable, Entity, HasVersion {
 		this.fullname = fullname;
 	}
 
-	@XmlTransient
-	public String getPassword() {
-		return password;
-	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -161,6 +156,10 @@ public class User implements Serializable, Entity, HasVersion {
 	 */
 	public int getVersion() {
 		return version;
+	}
+
+	public boolean matchPassword(String password) {
+		return this.password.equals(password);
 	}
 	
 }

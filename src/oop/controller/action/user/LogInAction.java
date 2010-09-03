@@ -30,7 +30,7 @@ public class LogInAction extends AbstractAction {
 				User user = UserDAO.fetchByUsername(getParams().getString("userName"));
 				if (user != null) {
 					String password = getParams().getString("password");
-					if (user.getPassword().equals(password)) {
+					if (user.matchPassword(password)) {
 						SessionUtils.setUser(getSession(), user);
 						setNextAction("homepage");
 					} else {

@@ -12,6 +12,7 @@ public class ModuleDescriptor {
 	private String name;
 	private String title;
 	private String position;
+	private String view;
 	private boolean loginRequired = false;
 	private Set<String> requiredGroups = new HashSet<String>();
 	private int order;
@@ -84,6 +85,14 @@ public class ModuleDescriptor {
 		module.setPage(StringUtils.defaultIfEmpty(page, name + ".jsp"));
 		module.setOrder(order);
 		return module;
+	}
+
+	public void setView(String view) {
+		this.view = view;
+	}
+
+	public String getView() {
+		return view;
 	}
 	
 }

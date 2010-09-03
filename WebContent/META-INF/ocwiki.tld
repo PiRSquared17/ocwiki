@@ -30,6 +30,9 @@
         <description>Id dùng để định dạng</description>
         <name>id</name>
     </attribute>
+    <attribute>
+        <name>method</name>
+    </attribute>
   </tag>
   
   <tag>
@@ -71,6 +74,12 @@
     <attribute>
         <description>Câu lệnh JavaScript để xác nhận muốn thực hiện hành động</description>
         <name>confirm</name>
+    </attribute>    
+    <attribute>
+        <name>title</name>
+    </attribute>    
+    <attribute>
+        <name>onclick</name>
     </attribute>    
   </tag>
 

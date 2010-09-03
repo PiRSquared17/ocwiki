@@ -14,19 +14,20 @@
 	<script type="text/javascript" src="${templatePath}/js/tiny_mce/tiny_mce.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/scriptaculous.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/ddmenu.js"></script>
-	<!--
+	<script type="text/javascript" src="${templatePath}/js/windowjs/javascripts/window.js"></script>
 	<script type="text/javascript">
 		tinyMCE.init({
 		    mode : "textareas",
-		    theme : "advanced"
+		    theme : "simple"
 		});
 	</script>
-	//-->
 
 	<link rel="stylesheet" href="${templatePath}/css/autocomplete.css" type="text/css" />
 	<link rel="stylesheet" href="${templatePath}/css/calendarview.css" type="text/css" />
 	<link rel="stylesheet" href="${templatePath}/css/main.css" type="text/css" />
 	<link rel="stylesheet" href="${templatePath}/css/ddmenu.css" type="text/css" />
+	<link rel="stylesheet" href="${templatePath}/js/windowjs/themes/default.css" type="text/css" />
+	<link rel="stylesheet" href="${templatePath}/js/windowjs/themes/alphacube.css" type="text/css" />
 	
 	<script type="text/javascript" src="${templatePath}/js/main.js"></script>
 	<script type="text/javascript">
@@ -34,13 +35,23 @@
 	   actionPath = '${config.actionPath}';
 	   apiPath = '${config.apiPath}';
 	   uploadPath = '${config.uploadPath}';
+	   restPath = '${config.restPath}';
 	   templatePath = '${templatePath}';
 	//-->
 	</script>
 </head>
 <body>
 <div id="content">
+<div class="headNav">
+    &nbsp;
+	<c:forEach items="${modules['top_right']}" var="module">
+	<div class="top_right">
+        <jsp:include page="modules/${module.page}"></jsp:include>
+	</div>
+	</c:forEach>
+</div>
 <!-- content begins -->
+<div class="clear"></div>
 <div id="main">
 	<div id="right">
         <div id="logo">         
@@ -53,8 +64,8 @@
 				<li id="button2"><a href="${scriptPath}?action=test.list" title="">Đề thi</a></li>
 				<li id="button3"><a href="${scriptPath}?action=teststruct.list" title="">Cấu trúc đề</a></li>
 				<li id="button4"><a href="${scriptPath}?action=question.list" title="">Câu hỏi</a></li>
-				<li id="button5"><a href="?action=user.list" title="Danh sách thành viên" target="_self">Thành viên</a></li>
-				<li id="button6"><a href="${scriptPath}?action=aboutus" title="">About Us</a></li>
+				<li id="button5"><a href="${scriptPath}?action=user.list" title="Danh sách thành viên" target="_self">Thành viên</a></li>
+				<li id="button6"><a href="http://code.google.com/p/ocwiki/" target="_blank" title="">About Us</a></li>
 			</ul>
 		</div>
     	<div id="righttop"></div>

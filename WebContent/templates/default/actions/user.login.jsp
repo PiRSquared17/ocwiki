@@ -36,8 +36,8 @@
   </p>
   <br />
   <p>
-	<a href="?action=user.forgetpass" title="forget it?" target="_self">Quên mật khẩu?</a>
-	<a href="?action=user.signup" title="sign up" target="_self">Đăng kí</a>
+    <ocw:actionLink name="user.forgetpass">Quên mật khẩu?</ocw:actionLink>
+    <ocw:actionLink name="user.signup">Đăng kí</ocw:actionLink>
   </p>
   <p><a href="/tracnghiem/" title="home" target="_self">Quay về trang chủ</a></p>
 </form>
