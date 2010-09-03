@@ -10,7 +10,7 @@ import oop.conf.ConfigIO;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
+import org.dbunit.dataset.xml.XmlDataSet;
 
 public class DataExporter {
 
@@ -27,10 +27,10 @@ public class DataExporter {
 				.getUserName(), config.getPassword());
 		IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
-//		// full database export
-//		IDataSet fullDataSet = connection.createDataSet();
-//		FlatXmlDataSet.write(fullDataSet, new FileOutputStream(
-//				"test/dataset/full.xml"));
+		// full database export
+		IDataSet fullDataSet = connection.createDataSet();
+		XmlDataSet.write(fullDataSet, new FileOutputStream(
+				"test/dataset/full.xml"));
 
 //		// export articles
 //		// dependent tables database export: export table X and all tables that
@@ -44,10 +44,10 @@ public class DataExporter {
 		// export user table
 		// dependent tables database export: export table X and all tables that
 		// have a PK which is a FK on X, in the right order for insertion
-		String[] depTableNames = new String[] {"ocwUser"};
-		IDataSet depDataset = connection.createDataSet(depTableNames);
-		FlatXmlDataSet.write(depDataset, new FileOutputStream(
-				"test/dataset/user.xml"));
+//		String[] depTableNames = new String[] {"ocwUser"};
+//		IDataSet depDataset = connection.createDataSet(depTableNames);
+//		FlatXmlDataSet.write(depDataset, new FileOutputStream(
+//				"test/dataset/user.xml"));
 	}
 
 }
