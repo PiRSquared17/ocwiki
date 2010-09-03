@@ -13,8 +13,8 @@ import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
 
 // disabled
 //@Provider
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+//@Produces(MediaType.APPLICATION_JSON)
+//@Consumes(MediaType.APPLICATION_JSON)
 public class JsonProvider extends JacksonJsonProvider {
 	
 	public JsonProvider() {

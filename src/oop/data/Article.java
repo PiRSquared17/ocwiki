@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public abstract class Article implements Entity {
 
-	@XmlElement
+	@XmlElement(type=Long.class)
 	private long id;
 	private Text content;
 	private String name;

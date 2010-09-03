@@ -129,4 +129,10 @@ public abstract class AbstractResource {
 		}
 	}
 
+	protected void assertBaseVersion(HasVersion entity) {
+		if (entity.getVersion() != getBaseVersion()) {
+			throw invalidParam("basever", "old version");			
+		}
+	}
+
 }

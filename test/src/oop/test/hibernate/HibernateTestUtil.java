@@ -13,7 +13,7 @@ import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.mysql.MySqlConnection;
 import org.dbunit.operation.DatabaseOperation;
 
@@ -48,7 +48,7 @@ public class HibernateTestUtil {
 		FileReader reader = null;
 		try {
 			reader = new FileReader(filename);
-			return new FlatXmlDataSetBuilder().build(reader);
+			return new XmlDataSet(reader);
 			// return new XmlDataSet(reader);
 		} finally {
 			if (reader != null) {
