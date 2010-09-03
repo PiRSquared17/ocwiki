@@ -13,12 +13,14 @@ public class ListAction extends AbstractAction {
 	private List<Revision<Article>> revList;
 	private long resourceID;
 	private long pageCount;
+	private int pageLength;
+	private int page;
 
 	@Override
 	protected void performImpl() throws Exception {
 		// TODO Auto-generated method stub
-		int pageLength = getParams().getInt("size",50);
-		int page = getParams().getInt("page", 1);
+		pageLength = getParams().getInt("size",10);
+		page = getParams().getInt("page", 1);
 		resourceID = getParams().getLong("resourceID");
 		pageCount = UtilFunctions.ceil(RevisionDAO.countByResource(resourceID)
 				/ (double)pageLength);
@@ -32,9 +34,17 @@ public class ListAction extends AbstractAction {
 	public List<Revision<Article>> getRevisions() {
 		return revList;
 	}
+	
+	public long getResourceID(){
+		return resourceID;
+	}
 
 	public int getPage() {
-		return getParams().getInt("page", 1);
+		return page;
+	}
+	
+	public int getSize(){
+		return pageLength;
 	}
 
 	public long getPageCount(){

@@ -5,11 +5,24 @@
 <div class="navigator">
 <c:choose>
 	<c:when test="${action.page > 1}">
-		<a href="${scriptPath}?action=revision.list&page=1"><img src="${templatePath}/images/2leftarrow.png" alt="first" /></a>
-		<a href="${scriptPath}?action=revision.list&page=${action.page-1}"><img src="${templatePath}/images/1leftarrow.png" alt="previous" /></a>
+				
+		<ocw:actionLink name="revision.list">
+			<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+			<ocw:param name="page" value="1"></ocw:param>
+			<ocw:param name="size" value="${action.size}"></ocw:param>
+			<img src="${templatePath}/images/2leftarrow.png" alt="first" />
+		</ocw:actionLink>
+		
+		<ocw:actionLink name="revision.list">
+			<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+			<ocw:param name="page" value="${action.page-1}"></ocw:param>
+			<ocw:param name="size" value="${action.size}"></ocw:param>
+			<img src="${templatePath}/images/1leftarrow.png" alt="previous" />
+		</ocw:actionLink>
+
 	</c:when>
 	<c:otherwise>
-		 
+		
 	</c:otherwise>
 </c:choose>
 
@@ -17,8 +30,21 @@ Trang ${action.page} / ${action.pageCount}
 
 <c:choose>
 	<c:when test="${action.page < action.pageCount}">
-		<a href="${scriptPath}?action=revision.list&page=${action.page+1}"><img src="${templatePath}/images/1rightarrow.png" alt="next" /></a>
-		<a href="${scriptPath}?action=revision.list&page=${action.pageCount}"><img src="${templatePath}/images/2rightarrow.png" alt="last" /></a>
+				
+		<ocw:actionLink name="revision.list">
+			<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+			<ocw:param name="page" value="${action.page+1}"></ocw:param>
+			<ocw:param name="size" value="${action.size}"></ocw:param>
+			<img src="${templatePath}/images/1rightarrow.png" alt="next" />
+		</ocw:actionLink>
+		
+		<ocw:actionLink name="revision.list">
+			<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+			<ocw:param name="page" value="${action.pageCount}"></ocw:param>
+			<ocw:param name="size" value="${action.size}"></ocw:param>
+			<img src="${templatePath}/images/2rightarrow.png" alt="last" />
+		</ocw:actionLink>
+
 	</c:when>
 	<c:otherwise>
 		
