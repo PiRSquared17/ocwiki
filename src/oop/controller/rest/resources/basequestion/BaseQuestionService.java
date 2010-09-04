@@ -6,13 +6,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import oop.controller.rest.util.ListResult;
 import oop.data.Answer;
 import oop.data.BaseQuestion;
-
 
 public interface BaseQuestionService {
 	
@@ -25,10 +23,7 @@ public interface BaseQuestionService {
 	@Path("/{basequestionid}")
 	public BaseQuestion get(@PathParam("basequestionid") String qid) throws Exception;
 			
-	@POST
-	@Path("/{basequestionid}")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public BaseQuestion update(@PathParam("basequestionid") String qid,BaseQuestion question) throws Exception;
+	public BaseQuestion update(String qid,BaseQuestion question) throws Exception;
 	
 	@GET
 	@Path("/{basequestionid}/answers")

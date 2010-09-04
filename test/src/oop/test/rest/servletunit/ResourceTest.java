@@ -13,12 +13,15 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.xml.sax.SAXException;
 
+import com.meterware.httpunit.PostMethodWebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
+import com.meterware.servletunit.ServletUnitClient;
 
 public class ResourceTest {
 
@@ -58,4 +61,15 @@ public class ResourceTest {
 		return servletRunner;
 	}
 
+	protected void login(String username, String password) throws IOException, SAXException {
+		ServletUnitClient client = getServletRunner().newClient();
+		PostMethodWebRequest request = new PostMethodWebRequest(Config.get().getRestPath() + "/login");
+		request.setParameter("name", username);
+		request.setParameter("password", password);
+		WebResponse response = client.getResponse(request);
+		
+		JsonNode root = parseJSON(response);
+		Assert.assertEquals(username, root.get("result").get("name").getTextValue());
+	}
+	
 }
