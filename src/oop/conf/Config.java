@@ -1,12 +1,15 @@
 package oop.conf;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class Config {
+public class Config implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String databaseHost = "localhost";
 	private String databasePort = "3306";
 	private String databaseName = "ocwiki";

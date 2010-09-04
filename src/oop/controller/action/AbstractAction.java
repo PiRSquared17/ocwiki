@@ -178,6 +178,7 @@ public abstract class AbstractAction implements Action {
 		return ResourceDAO.update(resource, article, user, summary, minor);
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected <T extends Article> Resource<T> saveNewResource(T article) throws Exception {
 		User user = SessionUtils.getUser(getSession());
 		String editToken = SessionUtils.getEditToken(getSession());
