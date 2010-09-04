@@ -122,9 +122,9 @@ public class PreferenceAction extends AbstractAction {
 		}
 		else{		
 			if (height >= width)
-				rate = height/SIZE;
+				rate = height/(float)SIZE;
 			else
-				rate = width/SIZE;	
+				rate = width/(float)SIZE;	
 		}
 		
 		return rate;	

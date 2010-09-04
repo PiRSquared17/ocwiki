@@ -53,4 +53,3 @@ trên một trang :</strong> <select id="selectItemsPerPage" name="Items per pag
 </c:choose>
 
 <jsp:include page="revision.list-toolbar.jsp"></jsp:include>
-

@@ -16,8 +16,7 @@ public class ViewAction extends AbstractAction {
 		long id = getParams().getLong("revID");
 		revision = RevisionDAO.fetch(id);
 		if (revision == null) {
-			throw new ActionException("Không tìm thấy phiên bản"
-					+ revision.getId());
+			throw new ActionException("Không tìm thấy phiên bản" + id);
 		}
 		article = revision.getArticle();
 		if (article == null) {
