@@ -1,7 +1,9 @@
 package oop.controller.rest.resources.basequestion;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 import oop.controller.rest.AbstractResource;
@@ -14,12 +16,8 @@ import oop.db.dao.ResourceDAO;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
-
 @Path("/basequestion")
-@Produces( { MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 public class BaseQuestionServiceImpl extends AbstractResource implements BaseQuestionService {
-
-	
 	
 	@Override
 	public BaseQuestion add(BaseQuestion question) throws Exception {
@@ -37,14 +35,17 @@ public class BaseQuestionServiceImpl extends AbstractResource implements BaseQue
 	}
 
 	@Override
-	public BaseQuestion update(String qid, BaseQuestion question) throws Exception {		
+	@POST
+	@Path("/{basequestionid}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public BaseQuestion update(
+			@PathParam("basequestionid") String qid, 
+			BaseQuestion question) throws Exception {		
 		long lqid = getSafeQuestionId(qid);
 		Resource<BaseQuestion> resource = getSafeQuestionResource(lqid);		
 		saveNewRevision(resource, question);
-		return question;			
+		return question;
 	}
-
-	
 
 	@Override
 	public Answer addAnswers(String qid, Answer answer) throws Exception {

@@ -1,5 +1,6 @@
 package oop.controller.rest;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.ContextResolver;
@@ -13,6 +14,7 @@ import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.api.json.JSONJAXBContext;
 
 @Provider
+@Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @SuppressWarnings("unchecked")
 public class JSONContextResolver implements ContextResolver<JAXBContext> {
@@ -47,9 +49,12 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     }
 
 	public JAXBContext getContext(Class<?> objectType) {
-		return (objectType == ListResult.class || 
-				objectType == ObjectResult.class) ? context
-				: null;
+		for (Class type : types) {
+			if (type.isAssignableFrom(objectType)) {
+				return context;
+			}
+		}
+		return null;
 	}
 }
 

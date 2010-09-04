@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public abstract class Article implements Entity {
 
-	@XmlElement(type=Long.class)
+	@XmlElement
 	private long id;
 	private Text content;
 	private String name;
@@ -25,6 +25,7 @@ public abstract class Article implements Entity {
 		return id;
 	}
 
+	@XmlElement
 	public Text getContent() {
 		return content;
 	}
@@ -55,6 +56,7 @@ public abstract class Article implements Entity {
 		this.namespace = namespace;
 	}
 
+	@XmlElement
 	public Namespace getNamespace() {
 		return namespace;
 	}
