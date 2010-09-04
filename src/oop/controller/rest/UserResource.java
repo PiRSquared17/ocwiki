@@ -1,11 +1,9 @@
 package oop.controller.rest;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -45,19 +43,14 @@ public class UserResource extends AbstractResource {
 	@POST
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ObjectResult<User> update(
-			@PathParam("id") long id, 
-			@FormParam("blocked") boolean blocked,
-			@FormParam("blockExpiredDate") Date blockExpiredDate,
-			@FormParam("warning") String warningMessage,
-			@FormParam("warningExpiredDate") Date warningExpiredDate) {
+	public ObjectResult<User> update(@PathParam("id") long id, User data) {
 		User user = UserDAO.fetchById(id);
 		assertResourceFound(user);
-		assertBaseVersion(user);
-		user.setBlocked(blocked);
-		user.setBlockExpiredDate(blockExpiredDate);
-		user.setWarningMessage(warningMessage);
-		user.setWarningExpiredDate(warningExpiredDate);
+		assertVersion(user, data);
+		user.setBlocked(data.isBlocked());
+		user.setBlockExpiredDate(data.getBlockExpiredDate());
+		user.setWarningMessage(data.getWarningMessage());
+		user.setWarningExpiredDate(data.getWarningExpiredDate());
 		UserDAO.persist(user);
 		return new ObjectResult<User>(user);
 	}
