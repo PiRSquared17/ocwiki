@@ -54,6 +54,9 @@
         <description>Câu lệnh JavaScript để xác nhận muốn thực hiện hành động</description>
         <name>confirm</name>
     </attribute>    
+    <attribute>
+        <name>onclick</name>
+    </attribute>    
   </tag>
 
   <tag>

@@ -3,7 +3,7 @@
 <%@ include file="/includes/common.jsp"%>
 
 
-<h2>Đối với các phiên bản dưới đây, click vào ngày tạo để xem !</h2>
+Đối với các phiên bản dưới đây, click vào ngày tạo để xem.
 
 <div><label><strong>Chọn số phiên bản hiển thị
 trên một trang :</strong> <select id="selectItemsPerPage" name="Items per page">
@@ -14,42 +14,42 @@ trên một trang :</strong> <select id="selectItemsPerPage" name="Items per pag
 	<option value='50'>50</option>
 	<option value='100'>100</option>
 </select> </label></div>
-<c:choose>
-	<c:when test="${action.pageCount > 0}">
-		<c:if test="${not empty message}">
-			<div class="notification">${message}</div>
-		</c:if>
-
-		<form action="${scriptPath}" id="listForm"><input type="hidden"
-			name="action" value="revision.list" /> <jsp:include
-			page="revision.list-toolbar.jsp"></jsp:include> <jsp:include
-			page="revision.list-nav.jsp"></jsp:include>
-
-		<table>
-			<tr>
-				<th width="120px">Thời điểm tạo</th>
-				<th width="140px">Tác giả</th>
-				<th width="200px">Tóm tắt</th>
-
-			</tr>
-			<c:forEach items="${action.revisions}" var="revision">
-
-				<tr>
-					<td><ocw:articleLink resource="${revision.resource}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink></td>
-					<td><ocw:userLink user="${revision.author}">${revision.author.fullname}</ocw:userLink></td>
-					<td>${revision.summary}</td>
-				</tr>
-			</c:forEach>
-			<tr>
-			</tr>
-		</table>
-
-		<jsp:include page="revision.list-nav.jsp"></jsp:include></form>
-	</c:when>
-
-	<c:otherwise>
-		<div class="empty-notif">Chưa có dữ liệu</div>
-	</c:otherwise>
-</c:choose>
+<form action="${scriptPath}" id="listForm"><input type="hidden"
+	name="action" value="revision.list" /> <jsp:include
+	page="revision.list-toolbar.jsp"></jsp:include> <jsp:include
+	page="revision.list-nav.jsp"></jsp:include>
+</form>
+<ul>
+    <c:set var="i" value="0"></c:set>
+    <c:forEach items="${action.revisions}" var="revision">
+		<li>
+		    (
+		    <ocw:actionLink name="article.diff">
+			    <ocw:param name="from" value="${revision.id}"></ocw:param>
+			    <ocw:param name="to" value="curr"></ocw:param>
+			    h.tại
+			</ocw:actionLink> 
+		     | 
+		     <c:choose>
+		          <c:when test="${revision.id == action.earliestRevision.id}">
+		              trước
+		          </c:when>
+		          <c:otherwise>
+		            <ocw:actionLink name="article.diff">
+		                <ocw:param name="from" value="prev"></ocw:param>
+		                <ocw:param name="to" value="${revision.id}"></ocw:param>
+		                trước
+		            </ocw:actionLink>
+		          </c:otherwise>
+		     </c:choose>
+		    )
+	        <ocw:articleLink resource="${revision}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink>
+			<ocw:userLink user="${revision.author}">${revision.author.fullname}</ocw:userLink>
+			${revision.summary}
+		</li>
+	    <c:set var="i" value="${i+1}"></c:set>
+	</c:forEach>
+</ul>
+<jsp:include page="revision.list-nav.jsp"></jsp:include>
 
 <jsp:include page="revision.list-toolbar.jsp"></jsp:include>

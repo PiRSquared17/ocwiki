@@ -23,6 +23,16 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
 
+/**
+ * Lớp cha của các lớp kiểm thử web service:
+ * <ul>
+ * <li>Khởi động ServletRunner dựa trên cấu hình trong test/web.xml</li>
+ * <li>Tạo lại dữ liệu lấy từ test/dataset/full.xml trước mỗi test case</li>
+ * <li>Đóng Hibernate session sau mỗi test case</li>
+ * <li>Cung cấp một số hàm dịch vụ</li>
+ * </ul> 
+ * @author cumeo89
+ */
 public class ResourceTest {
 
 	private static ServletRunner servletRunner;
@@ -31,6 +41,8 @@ public class ResourceTest {
 	public static void setupClass() throws IOException, SAXException {
 		String contextPath = "/ocwiki";
 		servletRunner = new ServletRunner(new File("test/web.xml"), contextPath);
+		// do lỗi của ServletRunner nên khi oop.controller.Initializer được gọi
+		// thì contextPath=null
 		Config.get().setHomeDir("http://localhost/" + contextPath);
 	}
 
@@ -46,17 +58,22 @@ public class ResourceTest {
 
 	protected JsonNode parseJSON(WebResponse response) throws IOException,
 			JsonParseException, JsonProcessingException {
-				ObjectMapper objMapper = new ObjectMapper();
-				JsonParser parser = objMapper.getJsonFactory().createJsonParser(
-						response.getText());
-				JsonNode tree = parser.readValueAsTree();
-				return tree;
-			}
+		ObjectMapper objMapper = new ObjectMapper();
+		JsonParser parser = objMapper.getJsonFactory().createJsonParser(
+				response.getText());
+		JsonNode tree = parser.readValueAsTree();
+		return tree;
+	}
 
 	public ResourceTest() {
 		super();
 	}
 
+	/**
+	 * Lấy về đối tượng ServletRunner. Đây là đối tượng có nhiệm vụ tạo môi 
+	 * trường hoạt động cho các Servlet thay cho Tomcat.
+	 * @return
+	 */
 	protected static ServletRunner getServletRunner() {
 		return servletRunner;
 	}
