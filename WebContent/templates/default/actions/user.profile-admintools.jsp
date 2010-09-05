@@ -56,6 +56,7 @@
 		new Ajax.Request(restPath + '/users/'+ userID,
 		  {
 		    method:'post',
+		    contentType: 'application/json',
 		    postBody: Object.toJSON(user),
 			requestHeaders : {
 				Accept : 'application/json'
@@ -77,6 +78,7 @@
 		new Ajax.Request(restPath + '/users/'+ userID,
 		  {
 		    method:'post',
+		    contentType: 'application/json',
 		    postBody: Object.toJSON(user),
 			requestHeaders : {
 				Accept : 'application/json'
