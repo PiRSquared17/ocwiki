@@ -25,13 +25,31 @@
       <name>aboutus</name>
       <class>oop.controller.action.AboutUsAction</class>
     </action>
+    
+    <!-- Article actions -->
     <action>
-      <name>test.list</name>
-      <class>oop.controller.action.test.ListAction</class>
+      <name>article.view</name>
+      <class>oop.controller.action.article.View</class>
+    </action>
+    <action>
+      <name>article.viewold</name>
+      <class>oop.controller.action.article.ViewOldRevision</class>
+    </action>
+    <action>
+      <name>article.diff</name>
+      <class>oop.controller.action.article.Differentiate</class>
     </action>
     <action>
       <name>revision.list</name>
       <class>oop.controller.action.revision.ListAction</class>
+    </action>
+    
+    
+    
+    
+    <action>
+      <name>test.list</name>
+      <class>oop.controller.action.test.ListAction</class>
     </action>
     <action>
       <name>test.view</name>

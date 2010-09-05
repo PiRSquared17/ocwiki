@@ -9,6 +9,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+/**
+ * Lớp cha của các lớp kiểm thử DAO:
+ * <ul>
+ * <li>Khởi tạo DB lấy dữ liệu từ tệp test/dataset/full.xml trước tất cả các hàm
+ * test</li>
+ * <li>Phục hồi một phần dữ liệu cần kiểm thử dựa vào dữ liệu trong tệp được chỉ
+ * định khi khởi tạo lớp trước khi thực hiện mỗi hàm test</li>
+ * <li>Đóng Hibernate session sau mỗi hàm test</li>
+ * </ul>
+ * 
+ * @author cumeo89
+ * 
+ */
 public class HibernateTest {
 
 	private String datasetFile;

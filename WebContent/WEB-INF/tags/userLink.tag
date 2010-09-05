@@ -4,4 +4,7 @@
     type="oop.data.User" rtexprvalue="true"%>
 <%@ include file="/includes/common.jsp"%>
 
-<a href="${ocw:actionUrl('user.profile')}?user=${user.id}"><jsp:doBody></jsp:doBody></a>
+<jsp:doBody var="customBody"></jsp:doBody>
+<a href="${ocw:actionUrl('user.profile')}?user=${user.id}">
+    
+</a>

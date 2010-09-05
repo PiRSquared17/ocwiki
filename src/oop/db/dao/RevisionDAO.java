@@ -18,15 +18,25 @@ public class RevisionDAO {
 		return (Revision<T>) session.get(Revision.class, id);
 	}
 
-	public static List<Revision<Article>> fetchByResource(long resourceId,
+	public static List<Revision<? extends Article>> fetchByResource(long resourceId,
 			int start, int size) {
 		Session session = HibernateUtil.getSession();
-		Query query = session
-				.createQuery("from Revision where resource.id=:resId");
+		String hql = "from Revision where resource.id=:resId";
+		Query query = session.createQuery(hql);
 		query.setLong("resId", resourceId);
 		query.setFirstResult(start);
 		query.setMaxResults(size);
 		return query.list();
+	}
+	
+	public static Revision<? extends Article> fetchEarliestByResource(long resourceId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Revision where id = " +
+					"(select min(id) from Revision " +
+					"where resource.id=:resId)";
+		Query query = session.createQuery(hql);
+		query.setLong("resId", resourceId);
+		return (Revision<? extends Article>) query.uniqueResult();
 	}
 	
 	public static long countByResource(long resourceId) {
