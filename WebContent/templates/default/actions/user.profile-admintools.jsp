@@ -12,52 +12,48 @@
 	var message;
 	var time;
 	var userID  = ${action.displayedUser.id} ;
+	var user;
+	new Ajax.Request(restPath + '/users/'+ userID,
+			  {
+			    method:'get',
+				requestHeaders : {
+					Accept : 'application/json'
+				},
+				evalJSON : true,
+				onSuccess : function(transport) {
+					user = transport.responseJSON.result;
+				},
+			    onFailure: function(){ 
+				    alert(" UserID không chính xác");}
+			  });
 
 	function confirmLock()
 	{
 		if(confirm("Bạn có muốn khóa user này không ? ")){
-			time = prompt("Thời hạn khóa user",0);
+			time = prompt("Thời hạn khóa user",'2010-10-25T00:47:13+07:00');
 			lockUser(time);
 		}
 		else
-			return confirmLock();
+			return ;
 	}
 	
 	function confirmWarning()
 	{
 		if(confirm("Bạn có muốn cảnh cáo user này không ?")){
 			message=prompt("Lí do cảnh cáo","Không hiển thị lí do");
-			time=prompt("Thời hạn cảnh cáo user",0);
+			time=prompt("Thời hạn cảnh cáo user",'2010-10-25T00:47:13+07:00');
 			warningUser(message,time);
 		}
 		else
-			return confirmWarning();
+			return ;
 	}
 	
 	function lockUser(time)
 	{
-		var user;
-		
-		new Ajax.Request(restPath + '/users',
-				  {
-				    method:'get',
-				    parameters: {
-						"userID": userID 
-					},
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) {
-						user = transport.responseJSON;
-					},
-				    onFailure: function(){ 
-					    alert(" UserID không chính xác");}
-				  });
 		user.blocked = true;
 		user.blockExpiredDate = time;
 		
-		new Ajax.Request(restPath + '/users',
+		new Ajax.Request(restPath + '/users/'+ userID,
 		  {
 		    method:'post',
 		    postBody: Object.toJSON(user),
@@ -75,29 +71,10 @@
 	}
 
 	function warningUser(message,time)
-	{
-		var user;
-		
-		new Ajax.Request(restPath + '/users',
-				  {
-				    method:'get',
-				    parameters: {
-						"userID": userID 
-					},
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) {
-						user = transport.responseJSON;
-					},
-				    onFailure: function(){ 
-					    alert(" UserID không chính xác");}
-				  });
+	{	
 		user.warningMessage = message;
-		user.warningExpiredDate = time ;
-		
-		new Ajax.Request(restPath + '/users',
+		user.warningExpiredDate = time
+		new Ajax.Request(restPath + '/users/'+ userID,
 		  {
 		    method:'post',
 		    postBody: Object.toJSON(user),
