@@ -43,9 +43,10 @@ trên một trang :</strong> <select id="selectItemsPerPage" name="Items per pag
 		          </c:otherwise>
 		     </c:choose>
 		    )
+		    <input type="checkbox" name="revid" value="${revision.id}">
 	        <ocw:articleLink resource="${revision}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink>
 			<ocw:userLink user="${revision.author}">${revision.author.fullname}</ocw:userLink>
-			${revision.summary}
+			(${revision.summary})
 		</li>
 	    <c:set var="i" value="${i+1}"></c:set>
 	</c:forEach>

@@ -92,5 +92,8 @@ function checkanswer() {
 	<button onclick="checkanswer()">Trả lời</button>
 </p>
 
-<a href="${scriptPath}?action=article.changelog&article=${action.resource.id}">change log</a>
+<ocw:actionLink name="revision.list">
+    <ocw:param name="resourceID" value="${action.resource.id}"></ocw:param>
+    revision list
+</ocw:actionLink>
 
