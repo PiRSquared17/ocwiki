@@ -11,7 +11,7 @@
 <script language="javascript">
 	var message;
 	var time;
-	var userID  = ${action.displayedUser.id ;
+	var userID  = ${action.displayedUser.id} ;
 
 	function confirmLock()
 	{
@@ -20,7 +20,7 @@
 			lockUser(time);
 		}
 		else
-			return;
+			return confirmLock();
 	}
 	
 	function confirmWarning()
@@ -31,14 +31,14 @@
 			warningUser(message,time);
 		}
 		else
-			return;
+			return confirmWarning();
 	}
 	
 	function lockUser(time)
 	{
 		var user;
 		
-		new Ajax.Request(restPath + '/users/',
+		new Ajax.Request(restPath + '/users',
 				  {
 				    method:'get',
 				    parameters: {
@@ -57,7 +57,7 @@
 		user.blocked = true;
 		user.blockExpiredDate = time;
 		
-		new Ajax.Request(restPath + '/lockUser',
+		new Ajax.Request(restPath + '/users',
 		  {
 		    method:'post',
 		    postBody: Object.toJSON(user),
@@ -78,7 +78,7 @@
 	{
 		var user;
 		
-		new Ajax.Request(restPath + '/users/',
+		new Ajax.Request(restPath + '/users',
 				  {
 				    method:'get',
 				    parameters: {
@@ -97,7 +97,7 @@
 		user.warningMessage = message;
 		user.warningExpiredDate = time ;
 		
-		new Ajax.Request(restPath + '/warningUser',
+		new Ajax.Request(restPath + '/users',
 		  {
 		    method:'post',
 		    postBody: Object.toJSON(user),
