@@ -29,15 +29,15 @@
     <!-- Article actions -->
     <action>
       <name>article.view</name>
-      <class>oop.controller.action.article.View</class>
+      <class>oop.controller.action.article.ViewAction</class>
     </action>
     <action>
       <name>article.viewold</name>
-      <class>oop.controller.action.article.ViewOldRevision</class>
+      <class>oop.controller.action.article.ViewOldRevisionAction</class>
     </action>
     <action>
       <name>article.diff</name>
-      <class>oop.controller.action.article.Differentiate</class>
+      <class>oop.controller.action.article.DifferentiateAction</class>
     </action>
     <action>
       <name>revision.list</name>
