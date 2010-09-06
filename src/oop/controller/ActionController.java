@@ -25,6 +25,7 @@ import oop.persistence.HibernateUtil;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -123,7 +124,7 @@ public class ActionController extends HttpServlet {
 			} else if (action.getRedirect() != null) {
 				response.sendRedirect(action.getRedirect());
 			} else {
-				request.setAttribute("modules", getModules(request));
+				request.setAttribute("modules", getModules(request, actionStr));
 				request.setAttribute("action", action);
 				request.getRequestDispatcher(templateEntry).forward(request,
 						response);
@@ -144,7 +145,7 @@ public class ActionController extends HttpServlet {
 		request.getRequestDispatcher(uri).forward(request, response);
 	}
 
-	private Map<String, List<Module>> getModules(HttpServletRequest request) {
+	private Map<String, List<Module>> getModules(HttpServletRequest request, String action) {
 		Map<String, List<Module>> moduleMap = new HashMap<String, List<Module>>();
 		User user = SessionUtils.getUser(request.getSession());
 		boolean loggedIn = (user != null);
@@ -152,7 +153,11 @@ public class ActionController extends HttpServlet {
 			if (descriptor.isLoginRequired() && !loggedIn) {
 				continue;
 			}
-			if (!Utils.isEmpty(descriptor.getRequiredGroups())
+			if (CollectionUtils.size(descriptor.getInActions()) > 0 &&
+					!descriptor.getInActions().contains(action)) {
+				continue;
+			}
+			if (CollectionUtils.size(descriptor.getRequiredGroups()) > 0
 					&& !(loggedIn && descriptor.getRequiredGroups().contains(
 							user.getGroup()))) {
 				continue;
