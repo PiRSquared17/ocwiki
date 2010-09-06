@@ -68,5 +68,27 @@ public class RevisionDAO {
 		query.setMaxResults(size);
 		return query.list();
 	}
+	
+	public static Revision<? extends Article> fetchPreviousRevision(long id) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Revision where id = (" +
+				"select max(id) from Revision " +
+				"where resource=(select resource from Revision where id=:revId) " +
+					"and id < :revId)";
+		Query query = session.createQuery(hql);
+		query.setLong("revId", id);
+		return (Revision<? extends Article>) query.uniqueResult();
+	}
+
+	public static Revision<? extends Article> fetchNextRevision(long id) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Revision where id = (" +
+				"select min(id) from Revision " +
+				"where resource=(select resource from Revision where id=:revId) " +
+					"and id>:revId)";
+		Query query = session.createQuery(hql);
+		query.setLong("revId", id);
+		return (Revision<? extends Article>) query.uniqueResult();
+	}
 
 }
