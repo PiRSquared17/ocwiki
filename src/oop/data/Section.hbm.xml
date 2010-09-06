@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 22:00:03 19-07-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="oop.data.Section" table="Section" mutable="false">
+		<id name="id" type="long" access="field">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="content" class="oop.data.Text" fetch="join"
+			cascade="all">
+			<column name="content" not-null="true" />
+		</many-to-one>
+		<list name="questions" inverse="false" table="SectionQuestion"
+			lazy="true" cascade="all">
+			<key>
+				<column name="section_id" />
+			</key>
+			<index column="question_index"></index>
+			<many-to-many column="question_id" class="oop.data.Question" />
+		</list>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 19:07:23 18-07-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<subclass name="oop.data.CategorizableArticle" extends="oop.data.Article"
+		abstract="true">
+        <set name="topics" table="ArticleTopic">
+            <key column="article_id" />
+            <many-to-many column="topic_id" class="oop.data.Resource" />
+        </set>
+	</subclass>
+</hibernate-mapping>
