@@ -4,12 +4,12 @@
 <c:set var="resource" value="${empty resource ? action.resource : resource}"></c:set>
 <c:set var="test" value="${empty article ? action.article : article}"></c:set>
 
+<p><b>Thời gian làm bài:</b> ${test.time} phút</p>
+
 <div class="test-description mouse-out"
             onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
             onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
-    <h3>${test.name}</h3>
-    <p><b>Mô tả:</b> ${test.content}</p>
-    <p><b>Thời gian:</b> ${test.time} phút</p>
+    ${test.content}
 </div>
 
 <c:set var="type" value="${test.type=='radio' ? 'radio' : 'checkbox'}"></c:set>
