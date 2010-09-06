@@ -2,18 +2,45 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp"%>
 
+<h3>Đối với các phiên bản dưới đây, click vào ngày tạo để xem.</h3>
+<strong>Chọn số phiên bản hiển thị trên một trang :</strong><br/>
+	<ocw:actionLink name="revision.list">
+		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+		<ocw:param name="page" value="1"></ocw:param>
+		<ocw:param name="size" value="10"></ocw:param>
+		10
+	</ocw:actionLink>
+		<ocw:actionLink name="revision.list">
+		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+		<ocw:param name="page" value="1"></ocw:param>
+		<ocw:param name="size" value="20"></ocw:param>
+		20
+	</ocw:actionLink>
+		<ocw:actionLink name="revision.list">
+		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+		<ocw:param name="page" value="1"></ocw:param>
+		<ocw:param name="size" value="30"></ocw:param>
+		30
+	</ocw:actionLink>
+		<ocw:actionLink name="revision.list">
+		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+		<ocw:param name="page" value="1"></ocw:param>
+		<ocw:param name="size" value="40"></ocw:param>
+		40
+	</ocw:actionLink>
+		<ocw:actionLink name="revision.list">
+		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+		<ocw:param name="page" value="1"></ocw:param>
+		<ocw:param name="size" value="50"></ocw:param>
+		50
+	</ocw:actionLink>
+		<ocw:actionLink name="revision.list">
+		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
+		<ocw:param name="page" value="1"></ocw:param>
+		<ocw:param name="size" value="100"></ocw:param>
+		100
+	</ocw:actionLink>
 
-Đối với các phiên bản dưới đây, click vào ngày tạo để xem.
-
-<div><label><strong>Chọn số phiên bản hiển thị
-trên một trang :</strong> <select id="selectItemsPerPage" name="Items per page">
-	<option value='10' selected="selected">10</option>
-	<option value='20'>20</option>
-	<option value='30'>30</option>
-	<option value='40'>40</option>
-	<option value='50'>50</option>
-	<option value='100'>100</option>
-</select> </label></div>
 <form action="${scriptPath}" id="listForm"><input type="hidden"
 	name="action" value="revision.list" /> <jsp:include
 	page="revision.list-toolbar.jsp"></jsp:include> <jsp:include
