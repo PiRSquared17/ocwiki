@@ -33,6 +33,8 @@ public final class XMLUtils {
 				"requiredGroup", String.class);
 		xstream.addImplicitCollection(ModuleDescriptor.class, "requiredGroups",
 				"requiredGroup", String.class);
+		xstream.addImplicitCollection(ModuleDescriptor.class, "inActions",
+				"inAction", String.class);
 		xstream.aliasField("dbname", Config.class, "databaseName");
 		xstream.aliasField("dbport", Config.class, "databasePort");
 		xstream.aliasField("dbhost", Config.class, "databaseHost");

@@ -15,6 +15,7 @@ public class ModuleDescriptor {
 	private String view;
 	private boolean loginRequired = false;
 	private Set<String> requiredGroups = new HashSet<String>();
+	private Set<String> inActions = new HashSet<String>();
 	private int order;
 	private String page;
 	private Class<? extends Module> clazz;
@@ -93,6 +94,14 @@ public class ModuleDescriptor {
 
 	public String getView() {
 		return view;
+	}
+
+	public void setInActions(Set<String> inActions) {
+		this.inActions = inActions;
+	}
+
+	public Set<String> getInActions() {
+		return inActions;
 	}
 	
 }
