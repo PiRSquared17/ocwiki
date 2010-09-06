@@ -25,7 +25,6 @@ import oop.persistence.HibernateUtil;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -153,11 +152,11 @@ public class ActionController extends HttpServlet {
 			if (descriptor.isLoginRequired() && !loggedIn) {
 				continue;
 			}
-			if (CollectionUtils.size(descriptor.getInActions()) > 0 &&
-					!descriptor.getInActions().contains(action)) {
+			if (!Utils.isEmpty(descriptor.getInActions())
+					&& !descriptor.getInActions().contains(action)) {
 				continue;
 			}
-			if (CollectionUtils.size(descriptor.getRequiredGroups()) > 0
+			if (!Utils.isEmpty(descriptor.getRequiredGroups())
 					&& !(loggedIn && descriptor.getRequiredGroups().contains(
 							user.getGroup()))) {
 				continue;
