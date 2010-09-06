@@ -39,6 +39,16 @@ public class RevisionDAO {
 		return (Revision<? extends Article>) query.uniqueResult();
 	}
 	
+	public static Revision<? extends Article> fetchLatestByResource(long resourceId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Revision where id = " +
+					"(select max(id) from Revision " +
+					"where resource.id=:resId)";
+		Query query = session.createQuery(hql);
+		query.setLong("resId", resourceId);
+		return (Revision<? extends Article>) query.uniqueResult();
+	}
+	
 	public static long countByResource(long resourceId) {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from Revision where resource.id = :resId";

@@ -60,5 +60,9 @@ public abstract class Article implements Entity {
 	public Namespace getNamespace() {
 		return namespace;
 	}
+	
+	public String getQualifiedName() {
+		return getNamespace().getName() + ":" + getName();
+	}
 
 }

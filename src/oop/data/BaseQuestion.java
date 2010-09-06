@@ -87,4 +87,9 @@ public class BaseQuestion extends BaseArticle {
 		return copyTo(new BaseQuestion());
 	}
 
+	@Override
+	public String getName() {
+		return "#" + getId();
+	}
+	
 }

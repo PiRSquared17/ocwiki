@@ -15,7 +15,8 @@ public class ListAction extends AbstractAction {
 	private long pageCount;
 	private int pageLength;
 	private int page;
-	private Revision<? extends Article> earliestRev;
+	private Revision<? extends Article> earliestRevision;
+	private Revision<? extends Article> latestRevision;
 
 	@Override
 	protected void performImpl() throws Exception {
@@ -28,7 +29,8 @@ public class ListAction extends AbstractAction {
 		Resource<Article> res = ResourceDAO.fetchById(resourceID);
 		revList = RevisionDAO.fetchByResource(resourceID, (page - 1)
 				* pageLength, pageLength);
-		earliestRev = RevisionDAO.fetchEarliestByResource(resourceID);
+		earliestRevision = RevisionDAO.fetchEarliestByResource(resourceID);
+		latestRevision = RevisionDAO.fetchLatestByResource(resourceID);
 		title("Danh sách phiên bản của bài viết: " + res.getName());
 	}
 
@@ -37,7 +39,11 @@ public class ListAction extends AbstractAction {
 	}
 	
 	public Revision<? extends Article> getEarliestRevision() {
-		return earliestRev;
+		return earliestRevision;
+	}
+	
+	public Revision<? extends Article> getLatestRevision() {
+		return latestRevision;
 	}
 	
 	public long getResourceID(){
