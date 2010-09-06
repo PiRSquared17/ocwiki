@@ -119,4 +119,8 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		return linkedResources;
 	}
 
+	public String getQualifiedName() {
+		return article.getQualifiedName();
+	}
+
 }

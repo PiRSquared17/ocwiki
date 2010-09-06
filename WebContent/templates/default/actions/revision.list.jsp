@@ -47,15 +47,21 @@
 	page="revision.list-nav.jsp"></jsp:include>
 </form>
 <ul>
-    <c:set var="i" value="0"></c:set>
     <c:forEach items="${action.revisions}" var="revision">
 		<li>
 		    (
-		    <ocw:actionLink name="article.diff">
-			    <ocw:param name="from" value="${revision.id}"></ocw:param>
-			    <ocw:param name="to" value="curr"></ocw:param>
-			    h.tại
-			</ocw:actionLink> 
+		    <c:choose>
+		      <c:when test="${revision.id==action.latestRevision.id}">
+		          h.tại
+		      </c:when>
+		      <c:otherwise>
+			    <ocw:actionLink name="article.diff">
+				    <ocw:param name="from" value="${revision.id}"></ocw:param>
+				    <ocw:param name="to" value="curr"></ocw:param>
+				    h.tại
+				</ocw:actionLink> 
+		      </c:otherwise>
+		    </c:choose>
 		     | 
 		     <c:choose>
 		          <c:when test="${revision.id == action.earliestRevision.id}">
@@ -71,11 +77,10 @@
 		     </c:choose>
 		    )
 		    <input type="checkbox" name="revid" value="${revision.id}">
-	        <ocw:articleLink resource="${revision}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink>
-			<ocw:userLink user="${revision.author}">${revision.author.fullname}</ocw:userLink>
+	        <ocw:articleLink revision="${revision}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink>
+			<ocw:userLink user="${revision.author}" />
 			(${revision.summary})
 		</li>
-	    <c:set var="i" value="${i+1}"></c:set>
 	</c:forEach>
 </ul>
 <jsp:include page="revision.list-nav.jsp"></jsp:include>

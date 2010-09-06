@@ -125,13 +125,15 @@ public abstract class AbstractResource {
 
 	protected void assertVersion(HasVersion user, HasVersion data) {
 		if (user.getVersion() != data.getVersion()) {
-			throw new WebApplicationException();
+			throw new WebApplicationException(Response.status(
+					Status.BAD_REQUEST).entity(new ErrorResult("old version"))
+					.build());
 		}
 	}
 
 	protected void assertBaseVersion(HasVersion entity) {
 		if (entity.getVersion() != getBaseVersion()) {
-			throw invalidParam("basever", "old version");			
+			throw invalidParam("basever", "old version");	
 		}
 	}
 

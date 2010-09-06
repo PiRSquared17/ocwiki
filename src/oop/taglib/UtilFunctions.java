@@ -103,5 +103,15 @@ public final class UtilFunctions {
 		}
 		return total / count;
 	}
+	
+	public static boolean isAssignableFrom(String a, String b) {
+		try {
+			Class<?> classA = Class.forName(a);
+			Class<?> classB = Class.forName(b);
+			return classA.isAssignableFrom(classB);
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+	}
 
 }

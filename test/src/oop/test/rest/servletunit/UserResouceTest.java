@@ -31,7 +31,7 @@ public class UserResouceTest extends ResourceTest {
 		Assert.assertEquals(false, result.get("blocked").getBooleanValue());
 		getServletRunner().shutDown();
 	}
-	
+
 	@Test
 	public void testUpdate() throws IOException, SAXException {
 		String blockExpiredDate = "2010-10-25T00:47:13+07:00";
@@ -49,6 +49,23 @@ public class UserResouceTest extends ResourceTest {
 		root = (ObjectNode) parseJSON(response).get("result");
 		Assert.assertEquals("true", root.get("blocked").getValueAsText());
 		Assert.assertEquals(blockExpiredDate, root.get("blockExpiredDate").getValueAsText());
+	}
+
+	@Test
+	public void testUpdateOldVersion() throws IOException, SAXException {
+		ServletUnitClient sc = getServletRunner().newClient();
+		sc.setExceptionsThrownOnErrorStatus(false);
+		String url = Config.get().getRestPath() + "/users/1";
+		WebResponse response = sc.getResponse(url);
+		ObjectNode root = (ObjectNode) parseJSON(response).get("result");
+
+		int version = Integer.parseInt(root.get("version").getValueAsText());
+		root.put("version", version-1);
+		JsonBodyPostWebRequest request = new JsonBodyPostWebRequest(url, root.toString());
+		response = sc.getResponse(request);
+		
+		root = (ObjectNode) parseJSON(response);
+		Assert.assertEquals("old version", root.get("code").getTextValue());
 	}
 
 }

@@ -2,13 +2,16 @@ package oop.data;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 public class Revision<T extends Article> implements ArticleContainer<T> {
+
+	public String getQualifiedName() {
+		return article.getQualifiedName();
+	}
 
 	private long id;
 	private Resource<T> resource;
