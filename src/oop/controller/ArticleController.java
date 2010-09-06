@@ -8,12 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import oop.conf.Config;
-import oop.data.Article;
-import oop.data.BaseQuestion;
-import oop.data.Resource;
-import oop.data.Test;
-import oop.data.TestStructure;
-import oop.db.dao.ArticleDAO;
 import oop.util.Utils;
 
 /**
@@ -51,19 +45,14 @@ public class ArticleController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String url = Config.get().getActionPath();
 		try {
-			Long id = Long.parseLong(request.getPathInfo().substring(1));
-			Resource<? extends Article> resource = ArticleDAO.fetchById(id);
-			Article article = resource.getArticle();
-			if (article == null) {
-				url += "/error?message=" + Utils.urlEncode("Không tìm thấy bài viết.");
-			} else if (article instanceof BaseQuestion) {
-				url += "/question.view?id=" + resource.getId();
-			} else if (article instanceof Test) {
-				url += "/test.view?id=" + resource.getId();
-			} else if (article instanceof TestStructure) {
-				url += "/teststruct.view?id=" + resource.getId();
+			long id;
+			String pathInfo = request.getPathInfo();
+			if (pathInfo.startsWith("/revision")) {
+				id = Long.parseLong(pathInfo.substring(10));
+				url += "/article.viewold?id=" + id;
 			} else {
-				url += "/error?message=" + Utils.urlEncode("Lỗi nội bộ.");
+				id = Long.parseLong(pathInfo.substring(1));
+				url += "/article.view?id=" + id;
 			}
 		} catch (NumberFormatException e) {
 			url += "/error?message=" + Utils.urlEncode("Id không hợp lệ");
