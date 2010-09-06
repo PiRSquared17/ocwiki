@@ -16,11 +16,12 @@ import oop.taglib.UtilFunctions;
 public class SolveAction extends AbstractAction {
 
 	private Test test;
+	private Resource<Test> resource;
 
 	@Override
 	public void performImpl() throws Exception {
 		String submit = getParams().getString("submit", "");
-		Resource<Test> resource = ResourceDAO.fetchById(getParams()
+		resource = ResourceDAO.fetchById(getParams()
 				.getLong("testId"));
 		test = resource.getArticle();
 		if ("done".equals(submit)) {
@@ -65,4 +66,8 @@ public class SolveAction extends AbstractAction {
 		return test;
 	}
 	
+	public Resource<Test> getResource() {
+		return resource;
+	}
+
 }

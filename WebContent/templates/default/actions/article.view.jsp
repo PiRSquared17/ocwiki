@@ -12,9 +12,17 @@
 	    <ocw:param name="id" value="${action.resource.id}"></ocw:param>
 	    sửa
 	</ocw:actionLink>]
-    <c:if test="${ocw:assignableFrom('oop.data.BaseQuestion', type.name)}">
-        [<a href="#">bài giải</a>]
-    </c:if>
+	<c:choose>
+	    <c:when test="${ocw:assignableFrom('oop.data.BaseQuestion', type.name)}">
+	        [<a href="#">bài giải</a>]
+	    </c:when>
+	    <c:when test="${ocw:assignableFrom('oop.data.Test', type.name)}">
+	        [<ocw:actionLink name="test.solve">
+			    <ocw:param name="testId" value="${action.resource.id}"></ocw:param>
+			    làm
+			</ocw:actionLink>]
+	    </c:when>
+    </c:choose>
 </div>
 
 <h1>${action.resource.qualifiedName}</h1>
@@ -24,8 +32,3 @@ ${u:formatDateTime(action.resource.createDate)}
 
 <jsp:include page="/includes/${type.simpleName}.view.jsp"></jsp:include>
 
-<c:choose>
-    <c:when test="${ocw:assignableFrom('oop.data.Test', type.name)}">
-        <!-- include bài liên quan -->
-    </c:when>
-</c:choose>

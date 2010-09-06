@@ -62,7 +62,6 @@ function updateCount() {
 
 	<input type="hidden" name="action" value="test.solve">
 	<input type="hidden" name="testId" value="${action.test.id}">
-	<input type="hidden" name="versionId" value="${action.version.id}">
 	<input type="hidden" name="time" value="0" id="txtTime">
 	
 	<c:set var="i" value="0"></c:set>
@@ -71,11 +70,7 @@ function updateCount() {
 	<c:forEach items="${action.test.sections}" var="section">
 	   ${section.content.text}
 	   
-	   <c:set var="questionIds" value="${action.version.data.questionsOrder[section.id]}"></c:set>
-	   
-	   <c:forEach items="${questionIds}" var="questionId">
-            
-            <c:set var="question" value="${section.questionById[questionId]}"></c:set>
+	   <c:forEach items="${section.questions}" var="question">
 		    <div>
 		        <div class="question-number-wrapper">
 		          <b>Câu ${i+1}</b>:
@@ -84,17 +79,15 @@ function updateCount() {
 		        <div class="question-content-wrapper">${question.content}</div>
 		        
 		        <div class="answer-list-wrapper">
-			        <c:set var="answerIds" value="${action.version.data.answersOrder[section.id][questionId]}"></c:set>
 			        <c:set var="j" value="0"></c:set>
-			        <c:forEach items="${answerIds}" var="answerId">
-			            <c:set var="answer" value="${question.answerById[answerId]}"></c:set>
+			        <c:forEach items="${question.answers}" var="answer">
 			            <div class="answer-wrapper">
 			                <div class="check-wrapper">
 			                    <input type="${type}" onchange="updateCount()"
 			                            name="q${question.id}" value="${answer.id}"
 			                            id="q${question.id}-a${answer.id}">
 			                </div>
-			                <div class="answer-number-wrapper">
+			                <div class="number-wrapper">
 			                    <label for="q${question.id}-a${answer.id}"><b>${u:alpha(j)}</b>.</label>
 			                </div>
 			                <label for="q${question.id}-a${answer.id}">${answer.content}</label>
@@ -109,9 +102,12 @@ function updateCount() {
 	
 	</c:forEach>
 	
-	<label><input type="checkbox" id="chkDone">Xong</label>
-	<button id="btnSubmit" name="submit" value="done" 
-			onclick="return validateDone();">Gửi</button>
+	<div style="text-align: center;">
+		<label><input type="checkbox" id="chkDone">Xong</label>
+		<button id="btnSubmit" name="submit" value="done" 
+				onclick="return validateDone();">Gửi</button>
+	    <ocw:articleButton resource="${action.resource}">Thôi</ocw:articleButton>
+	</div>
 </form>
 
 <div class="solve-status">
