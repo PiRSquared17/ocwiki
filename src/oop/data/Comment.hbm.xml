@@ -19,11 +19,5 @@
 			class="oop.data.Resource" />
 		<many-to-one name="revision" access="field" column="revision"
 			class="oop.data.Revision" />
-		<property name="status" length="10" column="status" not-null="true">
-			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">oop.data.CommentStatus</param>
-				<param name="type">12</param> <!-- VARCHAR -->
-			</type>
-		</property>
 	</class>
 </hibernate-mapping>

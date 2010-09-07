@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Comment;
-import oop.data.CommentStatus;
 import oop.data.Resource;
 import oop.data.Revision;
 import oop.db.dao.CommentDAO;
@@ -77,20 +76,7 @@ public class CommentResource extends AbstractResource {
 		Revision<?> revision = RevisionDAO.fetch(revisionId);
 		assertParamValid(revision != null, "", "revision not found");
 		Comment comment = new Comment(getUser(), new Date(), message, resource,
-				revision, CommentStatus.NORMAL);
-		CommentDAO.persist(comment);
-		return new ObjectResult<Comment>(comment);
-	}
-
-	@POST
-	@Path("/{id: \\d+}")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public ObjectResult<Comment> update(@PathParam("id") long id,
-			@FormParam("message") String message,
-			@FormParam("status") CommentStatus status) {
-		Comment comment = CommentDAO.fetch(id);
-		comment.setMessage(message);
-		comment.setStatus(status);
+				revision);
 		CommentDAO.persist(comment);
 		return new ObjectResult<Comment>(comment);
 	}

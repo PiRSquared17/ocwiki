@@ -65,6 +65,7 @@ public class UserResouceTest extends ResourceTest {
 		response = sc.getResponse(request);
 		
 		root = (ObjectNode) parseJSON(response);
+		response.getResponseCode();
 		Assert.assertEquals("old version", root.get("code").getTextValue());
 	}
 

@@ -68,6 +68,7 @@ public class HibernateUtil {
 		hconf.addClass(oop.data.LevelConstraint.class);
 		hconf.addClass(oop.data.History.class);
 		hconf.addClass(oop.data.Comment.class);
+		hconf.addClass(oop.data.CommentCustomization.class);
 		hconf.addClass(oop.data.log.Log.class);
 		hconf.addClass(oop.data.log.ResourceLog.class);
 		hconf.addClass(oop.data.log.CommentLog.class);

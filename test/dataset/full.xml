@@ -12582,19 +12582,23 @@
     <column>message</column>
     <column>resource</column>
     <column>revision</column>
-    <column>status</column>
     <row>
       <value>1</value>
       <value>0</value>
       <value>1</value>
       <value><![CDATA[2010-09-03 21:58:04.0]]></value>
-      <value><![CDATA[kjl;jkj
-
-jkj
-]]></value>
+      <value><![CDATA[comment 1234]]></value>
       <value>88</value>
       <null/>
-      <value>NORMAL</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>0</value>
+      <value>2</value>
+      <value><![CDATA[2010-09-04 21:58:04.0]]></value>
+      <value><![CDATA[comment 4567]]></value>
+      <value>88</value>
+      <null/>
     </row>
   </table>
   <table name="ocwConstraint">

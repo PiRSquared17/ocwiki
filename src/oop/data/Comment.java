@@ -22,21 +22,19 @@ public class Comment implements HasVersion {
 	private Resource<? extends Article> resource;
 	@XmlTransient
 	private Revision<? extends Article> revision;
-	private CommentStatus status;
 
 	public Comment() {
 	}
 	
 	public Comment(User user, Date timestamp, String message,
 			Resource<? extends Article> resource,
-			Revision<? extends Article> revision, CommentStatus status) {
+			Revision<? extends Article> revision) {
 		super();
 		this.user = user;
 		this.timestamp = timestamp;
 		this.message = message;
 		this.resource = resource;
 		this.revision = revision;
-		this.status = status;
 	}
 
 	public String getMessage() {
@@ -64,14 +62,6 @@ public class Comment implements HasVersion {
 		return revision == null ? resource : revision;
 	}
 	
-	public void setStatus(CommentStatus status) {
-		this.status = status;
-	}
-
-	public CommentStatus getStatus() {
-		return status;
-	}
-
 	@Override
 	public int getVersion() {
 		return version;

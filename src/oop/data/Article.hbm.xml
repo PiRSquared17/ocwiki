@@ -6,7 +6,7 @@
 	<class name="oop.data.Article" table="Article" abstract="true"
 		mutable="false">
 		<id name="id" type="long" access="field">
-			<generator class="increment" />
+			<generator class="identity" />
 		</id>
 		<discriminator type="string" length="20">
 			<column name="discriminator"></column>
