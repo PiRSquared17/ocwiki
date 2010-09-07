@@ -32,3 +32,5 @@ ${u:formatDateTime(action.resource.createDate)}
 
 <jsp:include page="/includes/${type.simpleName}.view.jsp"></jsp:include>
 
+
+<p><jsp:include page="article.view-comments.jsp"></jsp:include></p>
