@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `ocwAnswer` (
   `correct` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK81F532C1EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1282 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1282 ;
 
 --
 -- Dumping data for table `ocwAnswer`
@@ -1020,7 +1020,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticle` (
   KEY `FKC38C3A537D807870` (`namespace`),
   KEY `FKC38C3A5348AB9093` (`parent`),
   KEY `FKC38C3A53EA647FAC` (`content`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwArticle`
@@ -1285,7 +1285,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticleAttachment` (
   PRIMARY KEY (`article_id`,`file_id`),
   KEY `FKDCFAE3D628588123` (`article_id`),
   KEY `FKDCFAE3D62B8E11D2` (`file_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwArticleAttachment`
@@ -1304,7 +1304,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticleEmbed` (
   PRIMARY KEY (`article_id`,`file_id`),
   KEY `FK1EA9A04628588123` (`article_id`),
   KEY `FK1EA9A0462B8E11D2` (`file_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwArticleEmbed`
@@ -1323,7 +1323,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticleTopic` (
   PRIMARY KEY (`article_id`,`topic_id`),
   KEY `FK1F7E1E9CACC8C07A` (`article_id`),
   KEY `FK1F7E1E9C2575393F` (`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwArticleTopic`
@@ -1343,7 +1343,7 @@ CREATE TABLE IF NOT EXISTS `ocwBaseQuestionAnswer` (
   PRIMARY KEY (`question_id`,`answer_index`),
   KEY `FKCB25FAF840890D80` (`answer_id`),
   KEY `FKCB25FAF8EF28C9F1` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwBaseQuestionAnswer`
@@ -2330,7 +2330,7 @@ CREATE TABLE IF NOT EXISTS `ocwComment` (
   KEY `FK27D95BBC53C202BC` (`revision`),
   KEY `FK27D95BBC4A301B22` (`resource`),
   KEY `FK27D95BBCB1E4DD9C` (`user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `ocwComment`
@@ -2351,7 +2351,7 @@ CREATE TABLE IF NOT EXISTS `ocwConstraint` (
   `count` int(11) NOT NULL,
   `level` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ocwConstraint`
@@ -2374,7 +2374,7 @@ CREATE TABLE IF NOT EXISTS `ocwHistory` (
   PRIMARY KEY (`id`),
   KEY `FK267351F1B1E38F2A` (`test`),
   KEY `FK267351F1B1E4DD9C` (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ocwHistory`
@@ -2402,7 +2402,7 @@ CREATE TABLE IF NOT EXISTS `ocwLog` (
   KEY `FKC31447214A301B22` (`resource`),
   KEY `FKC31447213B31D0F8` (`comment`),
   KEY `FKC3144721B1E4DD9C` (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ocwLog`
@@ -2419,20 +2419,20 @@ CREATE TABLE IF NOT EXISTS `ocwNamespace` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwNamespace`
 --
 
 INSERT INTO `ocwNamespace` (`id`, `name`) VALUES
-(0, 'ChÃ­nh'),
+(0, 'Chính'),
 (1, 'OCWIKI'),
-(2, 'Ch? ??'),
-(3, 'CÃ¢u h?i'),
-(4, '?? thi'),
-(5, 'C?u trÃºc ??'),
-(6, 'T?p tin');
+(2, 'Chủ đề'),
+(3, 'Câu hỏi'),
+(4, 'Đề thi'),
+(5, 'Cấu trúc đề'),
+(6, 'Tập tin');
 
 -- --------------------------------------------------------
 
@@ -2448,7 +2448,7 @@ CREATE TABLE IF NOT EXISTS `ocwQuestion` (
   PRIMARY KEY (`id`),
   KEY `FKB1BC7A29CBC360D0` (`base_resource`),
   KEY `FKB1BC7A29D555486A` (`base_revision`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=419 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=419 ;
 
 --
 -- Dumping data for table `ocwQuestion`
@@ -2715,7 +2715,7 @@ CREATE TABLE IF NOT EXISTS `ocwResource` (
   KEY `FKE2E602515DDB135C` (`author`),
   KEY `FKE2E602515EB7070E` (`link`),
   KEY `FKE2E6025172978E26` (`article`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=419 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=419 ;
 
 --
 -- Dumping data for table `ocwResource`
@@ -2986,7 +2986,7 @@ CREATE TABLE IF NOT EXISTS `ocwRevision` (
   KEY `FKE7AEF61E5DDB135C` (`author`),
   KEY `FKE7AEF61E72978E26` (`article`),
   KEY `FKE7AEF61E4A301B22` (`resource`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=419 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=419 ;
 
 --
 -- Dumping data for table `ocwRevision`
@@ -3250,7 +3250,7 @@ CREATE TABLE IF NOT EXISTS `ocwSection` (
   `content` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK64A2EC42EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=334 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=334 ;
 
 --
 -- Dumping data for table `ocwSection`
@@ -3312,7 +3312,7 @@ CREATE TABLE IF NOT EXISTS `ocwSectionQuestion` (
   PRIMARY KEY (`section_id`,`question_index`),
   KEY `FKB0F82A485936BFD4` (`section_id`),
   KEY `FKB0F82A4866D4B300` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwSectionQuestion`
@@ -3711,7 +3711,7 @@ CREATE TABLE IF NOT EXISTS `ocwSectionStructure` (
   `content` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKE0E50B51EA647FAC` (`content`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ocwSectionStructure`
@@ -3731,7 +3731,7 @@ CREATE TABLE IF NOT EXISTS `ocwSectionStructureConstraint` (
   PRIMARY KEY (`section_id`,`constraint_index`),
   KEY `FK2228CC0E9391B220` (`constraint_id`),
   KEY `FK2228CC0E5CF139C9` (`section_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwSectionStructureConstraint`
@@ -3751,7 +3751,7 @@ CREATE TABLE IF NOT EXISTS `ocwTestSection` (
   PRIMARY KEY (`test_id`,`section_index`),
   KEY `FK80DC60D05CE45680` (`test_id`),
   KEY `FK80DC60D05936BFD4` (`section_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwTestSection`
@@ -3813,7 +3813,7 @@ CREATE TABLE IF NOT EXISTS `ocwTestSectionStructure` (
   PRIMARY KEY (`id`,`section_index`),
   KEY `FK3CCAD683A7507AD6` (`id`),
   KEY `FK3CCAD6835CF139C9` (`section_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwTestSectionStructure`
@@ -3830,7 +3830,7 @@ CREATE TABLE IF NOT EXISTS `ocwText` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1649 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1649 ;
 
 --
 -- Dumping data for table `ocwText`
@@ -5503,7 +5503,7 @@ CREATE TABLE IF NOT EXISTS `ocwTopicConstraintTopic` (
   PRIMARY KEY (`constraint_id`,`topic_id`),
   KEY `FK7F38E1E68DCE1D63` (`constraint_id`),
   KEY `FK7F38E1E62575393F` (`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwTopicConstraintTopic`
@@ -5534,7 +5534,7 @@ CREATE TABLE IF NOT EXISTS `ocwUser` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `ocwUser`

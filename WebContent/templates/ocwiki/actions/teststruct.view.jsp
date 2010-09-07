@@ -22,8 +22,7 @@
 </div>
 
 <c:set var="sectionIndex" value="0"></c:set>
-<c:forEach items="${teststruct.sectionStructures}" var="resource">
-<c:set value="${resource.sectstruct}" var="sectstruct"></c:set>
+<c:forEach items="${teststruct.sectionStructures}" var="sectstruct">
 <div class="section">
     <div class="section-text-wrapper mouse-out"
         onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
@@ -49,12 +48,12 @@
 				</ocw:actionButton>
             </div>
             <div class="section-text">
-                ${(empty sectstruct.text) ? "&lt;Mục mặc định&gt;" : sectstruct.text}
+                ${(empty sectstruct.content.text) ? "&lt;Mục mặc định&gt;" : sectstruct.content.text}
             </div>
         </c:when>
         <c:otherwise>
             <div class="section-text">
-                ${sectstruct.text}
+                ${sectstruct.content.text}
             </div>
         </c:otherwise>
     </c:choose>
