@@ -2,8 +2,6 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
-import javax.ws.rs.core.MediaType;
-
 import oop.conf.Config;
 
 import org.codehaus.jackson.JsonNode;
@@ -11,18 +9,19 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.meterware.httpunit.PostMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
 public class BaseQuestionServiceTest extends ResourceTest {
 
+	private static final String PATH = Config.get().getRestPath()
+			+ "/questions";
+
 	@Test
 	public void testRetrieve() throws IOException, SAXException {
 		ServletUnitClient client = getServletRunner().newClient();
-		WebResponse response = client.getResponse(Config.get().getRestPath()
-				+ "/basequestion/88");
+		WebResponse response = client.getResponse(PATH + "/88");
 		
 		JsonNode root = parseJSON(response);
 		Assert.assertEquals("88", root.get("id").getValueAsText());
@@ -38,9 +37,8 @@ public class BaseQuestionServiceTest extends ResourceTest {
 	
 	@Test
 	public void testUpdate() throws IOException, SAXException {
-		login("teacher", "1234");
-		
 		ServletUnitClient client = getServletRunner().newClient();
+		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"id\":\"88\"," +
 				"\"content\":{\"id\":\"1044\",\"text\":\"content\"}," +
@@ -51,8 +49,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 					"{\"id\":\"323\",\"content\":{\"id\":\"58\",\"text\":\"answer3\"},\"correct\":\"false\"}" +
 				"]," +
 				"\"level\":\"3\"}";
-		WebRequest request = new JsonBodyPostWebRequest(Config.get()
-				.getRestPath() + "/basequestion/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
 		WebResponse response = client.getResponse(request);
 		
 		JsonNode root = parseJSON(response);

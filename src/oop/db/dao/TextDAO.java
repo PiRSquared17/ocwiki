@@ -27,8 +27,10 @@ public class TextDAO {
 			tx.commit();
 			return text;
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}

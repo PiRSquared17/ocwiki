@@ -42,23 +42,15 @@ public abstract class AbstractResource {
 
 	protected <T extends Article> Revision<T> saveNewRevision(
 			Resource<T> resource, T article) {
-		try {
-			if (resource.getVersion() != getBaseVersion()) {
-				throw invalidParam("basever", "old version");
-			}
-			
-			User user = SessionUtils.getUser(getSession());
-			String editToken = SessionUtils.getEditToken(getSession());
-			if (!editToken.equals(getParams().getString("editToken"))) {
-				throw invalidParam("editToken", "wrong edit token");
-			}
-			String summary = getParams().getString("summary", null);
-			boolean minor = getParams().getBoolean("minor", false);
-
-			return ResourceDAO.update(resource, article, user, summary, minor);
-		} catch (ParameterNotFoundException e) {
-			throw invalidParam(e.getName(), "param not found");
+		if (resource.getArticle().getId() != article.getId()) {
+			throw invalidParam("basever", "old version");
 		}
+
+		User user = SessionUtils.getUser(getSession());
+		String summary = getParams().getString("summary", null);
+		boolean minor = getParams().getBoolean("minor", false);
+
+		return ResourceDAO.update(resource, (T)article.copy(), user, summary, minor);
 	}
 
 	protected int getBaseVersion() {

@@ -45,7 +45,7 @@ public class CommentServiceTest extends AbstractServiceTest {
 		Assert.assertEquals("xyz2", obj.getResult().getMessage());
 	}
 	
-	@Test
+//	@Test
 	public void testBaseQuestionUpdate() {
 		WebResource resource = createResource("/basequestion/88");
 		String json = "{" +

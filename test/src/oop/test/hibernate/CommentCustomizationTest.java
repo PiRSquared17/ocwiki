@@ -16,14 +16,34 @@ import org.junit.Test;
 public class CommentCustomizationTest extends HibernateTest {
 
 	@Test
-	public void testFetchByResourceNoUser() {
+	public void testFetchWithDefault() {
 		List<CommentCustomization> customizations = CommentCustomizationDAO
 				.fetchByResourceAndUserWithDefault(88, 1, 0, 10);
-		Assert.assertEquals(1, customizations.size());
+		Assert.assertEquals(2, customizations.size());
 		Assert.assertEquals("comment 1234", customizations.get(0).getComment()
 				.getMessage());
 	}
 
+	@Test
+	public void testFetch() {
+		List<CommentCustomization> customizations = CommentCustomizationDAO
+				.fetchByResourceAndUser(88, 2, 0, 10);
+		System.out.println(customizations);
+		Assert.assertEquals(1, customizations.size());
+	}
+
+	@Test
+	public void testCountByResourceAndUser() {
+		Assert.assertEquals(1, CommentCustomizationDAO.countByResourceAndUser(
+				88, 1));
+	}
+	
+	@Test
+	public void countByCommentAuthorAndStatus() {
+		Assert.assertEquals(1, CommentCustomizationDAO
+				.countByCommentAuthorAndStatus(1, CommentStatus.HIDDEN));
+	}
+	
 	@Test
 	public void testPersist() {
 		Comment comment = CommentDAO.fetch(2);
@@ -34,7 +54,7 @@ public class CommentCustomizationTest extends HibernateTest {
 
 		List<CommentCustomization> customizations = CommentCustomizationDAO
 				.fetchByResourceAndUser(88, 1, 0, 10);
-		Assert.assertEquals(1, customizations.size());
+		Assert.assertEquals(2, customizations.size());
 	}
 
 }

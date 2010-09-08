@@ -3,7 +3,8 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 	<!-- Generated 12:42:13 07-09-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<class name="oop.data.CommentCustomization" table="CommentCustomization">
+	<class name="oop.data.CommentCustomization" table="CommentCustomization"
+	    entity-name="UserDefinedCommentCustomization">
 		<composite-id>
 			<key-many-to-one name="user" class="oop.data.User"
 				access="field">

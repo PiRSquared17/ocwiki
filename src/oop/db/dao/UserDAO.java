@@ -26,8 +26,10 @@ public class UserDAO {
 			tx.commit();
 			return user;
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}
@@ -40,8 +42,10 @@ public class UserDAO {
 			session.merge(user);
 			tx.commit();
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}

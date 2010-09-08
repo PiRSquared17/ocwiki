@@ -1,6 +1,7 @@
 package oop.controller.action.user;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
 import oop.data.User;
 import oop.db.dao.UserDAO;
 import oop.util.SessionUtils;
@@ -29,6 +30,9 @@ public class LogInAction extends AbstractAction {
 			} else {
 				User user = UserDAO.fetchByUsername(getParams().getString("userName"));
 				if (user != null) {
+					if (user.isBlocked()) {
+						throw new ActionException("Tài khoản của bạn đã bị khoá.");
+					}
 					String password = getParams().getString("password");
 					if (user.matchPassword(password)) {
 						SessionUtils.setUser(getSession(), user);

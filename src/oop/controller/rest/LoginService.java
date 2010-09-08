@@ -28,6 +28,10 @@ public class LoginService extends AbstractResource {
 			throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
 					.entity(new ErrorResult("invalid name")).build());
 		}
+		if (user.isBlocked()) {
+			throw new WebApplicationException(Response.status(Status.FORBIDDEN)
+					.entity(new ErrorResult("account blocked")).build());
+		}
 		if (user.matchPassword(password)) {
 			SessionUtils.setUser(getSession(), user);
 			return new ObjectResult<User>(user);
