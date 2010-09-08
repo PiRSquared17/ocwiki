@@ -38,6 +38,8 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     		oop.data.Topic.class,
     		oop.data.TopicConstraint.class,
     		oop.data.Comment.class,
+    		oop.data.CommentCustomization.class,
+    		oop.data.CommentReport.class,
     		ListResult.class,
     		ObjectResult.class,
     };
