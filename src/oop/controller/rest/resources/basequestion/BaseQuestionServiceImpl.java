@@ -1,128 +1,44 @@
 package oop.controller.rest.resources.basequestion;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
 
 import oop.controller.rest.AbstractResource;
-import oop.controller.rest.util.ListResult;
-import oop.data.Answer;
+import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
+import oop.data.Revision;
 import oop.data.User;
 import oop.db.dao.ResourceDAO;
 import oop.util.SessionUtils;
-import oop.util.Utils;
 
 @Path("/questions")
-public class BaseQuestionServiceImpl extends AbstractResource implements BaseQuestionService {
-	
+public class BaseQuestionServiceImpl extends AbstractResource implements
+		BaseQuestionService {
+
 	@Override
-	public BaseQuestion add(BaseQuestion question) throws Exception {
+	public ObjectResult<BaseQuestion> add(BaseQuestion question)
+			throws Exception {
 		User user = SessionUtils.getUser(getSession());
 		ResourceDAO.create(user, BaseQuestion.class, question);
-		return question;
+		return new ObjectResult<BaseQuestion>(question);
 	}
 
 	@Override
-	public BaseQuestion get(String qid) throws Exception {			
-		long lqid = getSafeQuestionId(qid);
-		Resource<BaseQuestion> resource = getSafeQuestionResource(lqid);
-		BaseQuestion question = resource.getArticle();	
-		return question;
+	public ObjectResult<BaseQuestion> get(long resourceId) throws Exception {
+		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
+				BaseQuestion.class);
+		BaseQuestion question = resource.getArticle();
+		return new ObjectResult<BaseQuestion>(question);
 	}
 
 	@Override
-	@POST
-	@Path("/{basequestionid}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public BaseQuestion update(
-			@PathParam("basequestionid") String qid, 
-			BaseQuestion question) throws Exception {		
-		long lqid = getSafeQuestionId(qid);
-		Resource<BaseQuestion> resource = getSafeQuestionResource(lqid);		
-		saveNewRevision(resource, question);
-		return question;
+	public ObjectResult<BaseQuestion> update(long resourceId,
+			Revision<BaseQuestion> data) throws Exception {
+		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
+				BaseQuestion.class);
+		saveNewRevision(resource, data.getArticle(), data.getSummary(), data
+				.isMinor());
+		return new ObjectResult<BaseQuestion>(resource.getArticle());
 	}
-
-	@Override
-	public Answer addAnswers(String qid, Answer answer) throws Exception {
-		long lqid = getSafeQuestionId(qid);		
-		Resource<BaseQuestion> resource = getSafeQuestionResource(lqid);
-		BaseQuestion question = resource.getArticle().copy();
-		question.getAnswers().add(answer);
-		saveNewRevision(resource, question);
-		return answer;
-	}
-
-	@Override
-	public Answer getAnswer(String qid, String aid) throws Exception {
-		long lqid = getSafeQuestionId(qid);
-		int iaid = getSafeAnswerId(aid);
-		Resource<BaseQuestion> resource = getSafeQuestionResource(lqid);
-		BaseQuestion question = resource.getArticle().copy();					
-		return question.getAnswers().get(iaid);		
-	}
-
-	@Override
-	public ListResult<Answer> getAnswers(String qid) throws Exception {
-		long lqid = getSafeQuestionId(qid);		
-		Resource<BaseQuestion> resource = getSafeQuestionResource(lqid);
-		BaseQuestion question = resource.getArticle().copy();						
-		return new ListResult<Answer>(question.getAnswers());	
-	}
-
-	@Override
-	public Answer removeAnswer(String qid, String aid) throws Exception {
-		long lqid = getSafeQuestionId(qid);
-		int iaid = getSafeAnswerId(aid);
-		Resource<BaseQuestion> resource = getSafeQuestionResource(lqid);
-		BaseQuestion question = resource.getArticle().copy();
-		Answer deleted = question.getAnswers().get(iaid);
-		question.getAnswers().remove(iaid);
-		saveNewRevision(resource, question);
-		return deleted;
-	}
-
-	@Override
-	public Answer updateAnswer(String qid, String aid, Answer answer)
-			throws Exception {
-		long lqid = getSafeQuestionId(qid);
-		int iaid = getSafeAnswerId(aid);		
-		Resource<BaseQuestion> resource = getSafeQuestionResource(lqid);
-		BaseQuestion question = resource.getArticle().copy();
-		
-		// These LoCs are stupid.
-		question.getAnswers().get(iaid).setContent(answer.getContent());
-		question.getAnswers().get(iaid).setCorrect(answer.isCorrect());
-		
-		saveNewRevision(resource, question);
-		return answer;
-	}
-
-	public long getSafeQuestionId(String qid) throws Exception{
-		if(!Utils.isNumberic(qid)){
-			throw new Exception("The question id must be a long number.");
-		}
-		return Long.parseLong(qid);
-	}
-	
-	public int getSafeAnswerId(String aid) throws Exception{
-		if(!Utils.isNumberic(aid)){
-			throw new Exception("The answer id must be a long number.");
-		}
-		return Integer.parseInt(aid);
-	}
-	
-	public Resource<BaseQuestion> getSafeQuestionResource(long lqid){
-		Resource<BaseQuestion> rbq = ResourceDAO.fetchById(lqid);
-		assertResourceFound(rbq);
-		BaseQuestion bq = rbq.getArticle();
-		assertResourceFound(bq);
-		return rbq; 			
-	}
-	
 
 }

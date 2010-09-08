@@ -5,17 +5,7 @@
 
 <script type="text/javascript">
 <!--
-var resourceId = ${action.resource.id};
-var articleId = ${action.article.id};
-
-function getResourceId() {
-	return resourceId;
-}
-
-function getArticleId() {
-	return articleId;
-}
-
+resourceId = ${action.resource.id};
 //-->
 </script>
 
@@ -26,12 +16,12 @@ function getArticleId() {
     <jsp:include page="/includes/${type.simpleName}.edit.jsp"></jsp:include>
 
     <div>
-	    <label>Tóm lược: <input type="text" name="summary" value=""></label>
-	    <label><input type="checkbox" name="minor" value="true"> Sửa đổi nhỏ</label>
+	    <label>Tóm lược: <input id="articleEdit-summary" type="text" name="summary" value=""></label>
+	    <label><input id="articleEdit-minor" type="checkbox" name="minor" value="true"> Sửa đổi nhỏ</label>
     </div>
     <div>
-	    <button name="preview" type="submit" onclick="alert('preview'); return false;">Xem thử</button>
-	    <button name="save" type="submit" onclick="${type.simpleName}.save(); return false;">Lưu</button>
-	    <button name="back" type="submit" onclick="alert('back'); return false;">Quay lại bài viết</button>
+	    <button id="articleEdit-preview" name="preview" type="submit" onclick="alert('preview'); return false;">Xem thử</button>
+	    <button id="articleEdit-save" name="save" type="submit" onclick="EditAction.save(); return false;">Lưu</button>
+	    <button id="articleEdit-back" name="back" type="submit" onclick="alert('back'); return false;">Quay lại bài viết</button>
     </div>
 </form>

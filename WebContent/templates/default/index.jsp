@@ -33,6 +33,7 @@
 	<script type="text/javascript" src="${templatePath}/js/main.js"></script>
 	<script type="text/javascript">
 	<!-- // initialize global variables
+	   articlePath = '${config.articlePath}';
 	   actionPath = '${config.actionPath}';
 	   apiPath = '${config.apiPath}';
 	   uploadPath = '${config.uploadPath}';

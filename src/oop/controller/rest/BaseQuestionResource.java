@@ -35,7 +35,7 @@ public class BaseQuestionResource extends AbstractResource {
 	@GET
 	@Path("/{id: \\d+}")
 	public ObjectResult<Resource<BaseQuestion>> get(@PathParam("id") long id) {
-		Resource<BaseQuestion> resource = safeGetResource(id,
+		Resource<BaseQuestion> resource = getResourceSafe(id,
 				BaseQuestion.class);
 		return new ObjectResult<Resource<BaseQuestion>>(resource);
 	}
