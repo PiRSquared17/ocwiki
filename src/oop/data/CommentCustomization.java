@@ -13,7 +13,6 @@ public class CommentCustomization implements Serializable {
 	private User user;
 	@XmlTransient
 	private Comment comment;
-	@XmlElement
 	private CommentStatus status;
 
 	public CommentCustomization() {
@@ -30,6 +29,7 @@ public class CommentCustomization implements Serializable {
 		this.status = status;
 	}
 
+	@XmlElement
 	public CommentStatus getStatus() {
 		return status;
 	}

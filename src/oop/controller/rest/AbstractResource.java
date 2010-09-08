@@ -2,6 +2,7 @@ package oop.controller.rest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
@@ -23,6 +24,7 @@ import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
 import com.oreilly.servlet.ParameterParser;
 
+@Consumes( { MediaType.APPLICATION_JSON })
 @Produces( { MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 public abstract class AbstractResource {
 

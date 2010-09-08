@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 <hibernate-mapping>
-	<class name="oop.data.Comment" table="Comment" mutable="true">
+	<class name="oop.data.Comment" table="Comment" mutable="false">
 		<id name="id" column="id" access="field">
 			<generator class="identity" />
 		</id>
-		<version name="version" type="integer" access="field"></version>
 		<many-to-one name="user" access="field" column="user" lazy="false"
 			class="oop.data.User" fetch="join" not-null="true" />
 		<property name="timestamp" access="field" type="java.util.Date">
