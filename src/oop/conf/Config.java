@@ -17,6 +17,7 @@ public class Config implements Serializable {
 	private String username = "root";
 	private String password = "root";
 	private String homeDir = "http://localhost:8080";
+	private String articlePath = "${homeDir}/article";
 	private String actionPath = "${homeDir}/action";
 	private String apiPath = "${homeDir}/api";
 	private String restPath = "${homeDir}/rest";
@@ -235,6 +236,14 @@ public class Config implements Serializable {
 
 	public String getDomain() {
 		return domain;
+	}
+
+	public void setArticlePath(String articlePath) {
+		this.articlePath = articlePath;
+	}
+
+	public String getArticlePath() {
+		return replaceMagicWords(articlePath);
 	}
 	
 }

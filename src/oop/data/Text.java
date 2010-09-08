@@ -2,7 +2,6 @@ package oop.data;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -17,6 +16,7 @@ public class Text implements Entity, Serializable {
 
 	@XmlElement
 	private long id;
+	@XmlElement
 	private String text;
 
 	/**
@@ -35,7 +35,6 @@ public class Text implements Entity, Serializable {
 		return id;
 	}
 	
-	@XmlElement
 	public String getText() {
 		return text;
 	}

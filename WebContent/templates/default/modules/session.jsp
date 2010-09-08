@@ -89,6 +89,8 @@
 							$('session_passwordError').innerHTML = 'Sai mật khẩu';
 						} else if (code == 'invalid name') {
 							$('session_nameError').innerHTML = 'Người dùng không tồn tại';
+						} else if (code == 'account blocked') {
+							$('session_nameError').innerHTML = 'Tài khoản đã bị khoá';
 						}
 					}
 				});

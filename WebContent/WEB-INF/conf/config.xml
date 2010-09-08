@@ -38,6 +38,7 @@
     <action>
       <name>article.edit</name>
       <class>oop.controller.action.article.EditAction</class>
+      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>article.diff</name>

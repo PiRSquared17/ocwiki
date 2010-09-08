@@ -42,27 +42,25 @@ function actionUrl(action) {
 	return actionPath + "/" + action;
 }
 
-BaseQuestion = Class.create();
-
-BaseQuestion.preview = function() {
-};
-		
-BaseQuestion.save = function() {
-	alert(tinymce.get('questionEdit-content-textarea').getContent());
-	alert($F('questionEdit-content-textarea'));
-};
-
 /**
  * Editor class
  */
 
 Editor = Class.create();
 
+Editor.active = null;
+
 Editor.edit = function(id) {
+	if (Editor.active != null) {
+		Editor.preview(Editor.active);
+	}
 	var element = $(id);
 	var previewDiv = $(id + '-preview');
-	previewDiv.remove();
+	if (previewDiv != null) {
+		previewDiv.remove();
+	}
 	element.show();
+	Editor.active = id;
 };
 
 Editor.preview = function(id) {
@@ -74,7 +72,7 @@ Editor.preview = function(id) {
 	previewDiv.observe('click', function(event) {
 		var elementId = this.id;
 		elementId = elementId.substring(0, elementId.length-8);
-		alert(elementId);
+//		alert(elementId);
 		Editor.edit(elementId);
 	});
 	element.hide();

@@ -41,15 +41,11 @@ public abstract class AbstractResource {
 	}
 
 	protected <T extends Article> Revision<T> saveNewRevision(
-			Resource<T> resource, T article) {
+			Resource<T> resource, T article, String summary, boolean minor) {
 		if (resource.getArticle().getId() != article.getId()) {
 			throw invalidParam("basever", "old version");
 		}
-
 		User user = SessionUtils.getUser(getSession());
-		String summary = getParams().getString("summary", null);
-		boolean minor = getParams().getBoolean("minor", false);
-
 		return ResourceDAO.update(resource, (T)article.copy(), user, summary, minor);
 	}
 
@@ -104,7 +100,7 @@ public abstract class AbstractResource {
 								.get(name))).build());
 	}
 
-	protected <T extends Article> Resource<T> safeGetResource(long id, Class<T> type) {
+	protected <T extends Article> Resource<T> getResourceSafe(long id, Class<T> type) {
 		Resource<T> resource = ResourceDAO.fetchById(id);
 		assertResourceFound(resource);
 		T article = resource.getArticle();

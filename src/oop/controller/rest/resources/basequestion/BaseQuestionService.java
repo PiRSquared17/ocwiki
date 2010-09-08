@@ -1,54 +1,32 @@
 package oop.controller.rest.resources.basequestion;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
-import oop.controller.rest.util.ListResult;
-import oop.data.Answer;
+import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
+import oop.data.Revision;
 
 public interface BaseQuestionService {
-	
-	@POST
-	@Path("/add")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public BaseQuestion add(BaseQuestion question) throws Exception;
-	
-	@GET
-	@Path("/{basequestionid}")
-	public BaseQuestion get(@PathParam("basequestionid") String qid) throws Exception;
-			
-	public BaseQuestion update(String qid,BaseQuestion question) throws Exception;
-	
-	@GET
-	@Path("/{basequestionid}/answers")
-	public ListResult<Answer> getAnswers(@PathParam("basequestionid") String qid) throws Exception;
-	
-	@POST
-	@Path("/{basequestionid}/answers/add")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Answer addAnswers(@PathParam("basequestionid") String qid, Answer answer) throws Exception;
-	
-	@GET
-	@Path("/{basequestionid}/answers/{answerid}")
-	public Answer getAnswer(@PathParam("basequestionid") String qid, @PathParam("answerid") String aid) throws Exception;
-	
-	@POST
-	@Path("/{basequestionid}/answers/{answerid}")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Answer updateAnswer(@PathParam("basequestionid") String qid, @PathParam("answerid") String aid, Answer answer) throws Exception;
-	
-	@DELETE
-	@Path("/{basequestionid}/answers/{answerid}")	
-	public Answer removeAnswer(@PathParam("basequestionid") String qid, @PathParam("answerid") String aid) throws Exception;
-		
-	
-	
 
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public ObjectResult<BaseQuestion> add(BaseQuestion question)
+			throws Exception;
+
+	@GET
+	@Path("/{id: \\d+}")
+	public ObjectResult<BaseQuestion> get(@PathParam("id") long resourceId)
+			throws Exception;
+
+	@POST
+	@Path("/{id: \\d+}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ObjectResult<BaseQuestion> update(@PathParam("id") long resourceId,
+			Revision<BaseQuestion> question) throws Exception;
 
 }
