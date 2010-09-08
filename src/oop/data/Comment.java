@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import oop.util.Utils;
 
 @XmlRootElement
-public class Comment implements HasVersion, Serializable {
+public class Comment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -18,8 +18,6 @@ public class Comment implements HasVersion, Serializable {
 	private long id;
 	@XmlElement
 	private User user;
-	@XmlElement
-	private int version;
 	@XmlElement
 	private Date timestamp;
 	private String message;
@@ -62,14 +60,12 @@ public class Comment implements HasVersion, Serializable {
 		return timestamp;
 	}
 
-	@XmlTransient
-	public ArticleContainer<? extends Article> getArticleContainer() {
-		return revision == null ? resource : revision;
+	public Resource<? extends Article> getResource() {
+		return resource;
 	}
 	
-	@Override
-	public int getVersion() {
-		return version;
+	public Revision<? extends Article> getRevision() {
+		return revision;
 	}
 	
 	@Override

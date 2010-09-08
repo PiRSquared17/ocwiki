@@ -12,7 +12,7 @@ import oop.controller.rest.util.ListResult;
 import oop.data.CommentReport;
 import oop.db.dao.CommentReportDAO;
 
-@Path("/CommentReports")
+@Path("/comment_reports")
 public class CommentReportResource extends AbstractResource {
 
 	@GET
