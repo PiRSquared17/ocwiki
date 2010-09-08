@@ -78,15 +78,18 @@ public class ResourceTest {
 		return servletRunner;
 	}
 
-	protected void login(String username, String password) throws IOException, SAXException {
-		ServletUnitClient client = getServletRunner().newClient();
-		PostMethodWebRequest request = new PostMethodWebRequest(Config.get().getRestPath() + "/login");
+	protected void login(ServletUnitClient client, String username,
+			String password) throws IOException, SAXException {
+		PostMethodWebRequest request = new PostMethodWebRequest(Config.get()
+				.getRestPath()
+				+ "/login");
 		request.setParameter("name", username);
 		request.setParameter("password", password);
 		WebResponse response = client.getResponse(request);
-		
+
 		JsonNode root = parseJSON(response);
-		Assert.assertEquals(username, root.get("result").get("name").getTextValue());
+		Assert.assertEquals(username, root.get("result").get("name")
+				.getTextValue());
 	}
 	
 }

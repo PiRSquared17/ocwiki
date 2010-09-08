@@ -53,8 +53,10 @@ public final class HistoryDAO {
 			tx.commit();
 			return history;
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}

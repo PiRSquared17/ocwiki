@@ -54,8 +54,10 @@ public final class CommentDAO {
 			session.saveOrUpdate(comment);
 			tx.commit();
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}

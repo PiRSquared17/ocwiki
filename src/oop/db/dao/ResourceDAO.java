@@ -81,8 +81,10 @@ public class ResourceDAO {
 			tx.commit();
 			return resource;
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}
@@ -97,7 +99,7 @@ public class ResourceDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.save(article);
+			article = (T) session.merge(article);
 			Revision<T> revision = new Revision<T>(0, resource, article,
 					author, new Date(), summary, minor);
 			session.save(revision);
@@ -106,8 +108,10 @@ public class ResourceDAO {
 			tx.commit();
 			return revision;
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}

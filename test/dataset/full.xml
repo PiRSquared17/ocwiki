@@ -12601,6 +12601,21 @@
       <null/>
     </row>
   </table>
+  <table name="ocwCommentCustomization">
+    <column>comment</column>
+    <column>user</column>
+    <column>status</column>
+     <row>
+        <value>1</value>
+        <value>1</value>
+        <value>HIDDEN</value>
+     </row>
+     <row>
+        <value>1</value>
+        <value>2</value>
+        <value>LIKE</value>
+     </row>
+  </table>
   <table name="ocwConstraint">
     <column>id</column>
     <column>type</column>

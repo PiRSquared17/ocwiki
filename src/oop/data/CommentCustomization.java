@@ -46,4 +46,10 @@ public class CommentCustomization implements Serializable {
 		return comment;
 	}
 
+	@Override
+	public String toString() {
+		return "customization: {comment: " + getComment().getId() + ", user: "
+				+ getUser().getId() + ", status: " + getStatus().name() + "}";
+	}
+	
 }

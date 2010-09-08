@@ -56,8 +56,10 @@ public final class TopicDAO {
 			tx.commit();
 			return newTopic;
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}

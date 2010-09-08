@@ -42,8 +42,10 @@ public class LogDAO {
 			tx.commit();
 			return change;
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}

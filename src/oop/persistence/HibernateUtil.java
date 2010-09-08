@@ -88,8 +88,10 @@ public class HibernateUtil {
 			tx.commit();
 			return count;
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+				session.close();
+			}
 			throw ex;
 		}
 	}

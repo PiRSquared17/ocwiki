@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="${templatePath}/js/windowjs/themes/default.css" type="text/css" />
 	<link rel="stylesheet" href="${templatePath}/js/windowjs/themes/alphacube.css" type="text/css" />
 	
+	<script type="text/javascript" src="${homeDir}/includes/common.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/main.js"></script>
 	<script type="text/javascript">
 	<!-- // initialize global variables

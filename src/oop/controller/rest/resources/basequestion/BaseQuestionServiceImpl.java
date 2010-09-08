@@ -16,7 +16,7 @@ import oop.db.dao.ResourceDAO;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
-@Path("/basequestion")
+@Path("/questions")
 public class BaseQuestionServiceImpl extends AbstractResource implements BaseQuestionService {
 	
 	@Override

@@ -36,6 +36,10 @@
       <class>oop.controller.action.article.ViewOldRevisionAction</class>
     </action>
     <action>
+      <name>article.edit</name>
+      <class>oop.controller.action.article.EditAction</class>
+    </action>
+    <action>
       <name>article.diff</name>
       <class>oop.controller.action.article.DifferentiateAction</class>
     </action>
