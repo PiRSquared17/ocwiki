@@ -346,6 +346,13 @@
         <position>top_right</position>
         <order>1</order>
     </module>
+    <module>
+       <name>comment</name>
+        <title>Nhận xét</title>
+        <class>oop.module.CommentModule</class>
+        <position>bottom_right</position>
+        <order>1</order>
+    </module>
     <!-- 
     <module>
        <name>login</name>
