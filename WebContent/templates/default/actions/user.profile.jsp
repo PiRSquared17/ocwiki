@@ -5,8 +5,11 @@
 <h3>
 Người dùng: ${action.displayedUser.name}
 </h3> 
-	<jsp:include page="user.profile-admintools.jsp"></jsp:include>
-<br/>
+
+<jsp:include page="user.profile-admintools.jsp"></jsp:include>
+
+<div class="clear"></div>
+
 <fieldset>
 <legend>Thông tin</legend>
 <p>

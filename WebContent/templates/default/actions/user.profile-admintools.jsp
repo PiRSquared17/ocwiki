@@ -3,13 +3,13 @@
 <%@ include file="/includes/common.jsp" %>
 <div class="toolbar">
     <c:if test="${sessionScope.login && sessionScope.user.group == 'admin'}">
-    	<button type="button" name="btWarning" value="warning" onclick="warningUser()">Cảnh Cáo Người Dùng</button>
+    	<button type="button" name="btWarning" value="warning" onclick="warningUser()">Cảnh Cáo</button>
     	<c:choose>
     		<c:when test="${action.displayedUser.blocked == 'true'}">
-    			<button type="button" name="btUnlock" value="unlock" onclick="unlockUser()">Bỏ Khóa Người Dùng</button>
+    			<button type="button" name="btUnlock" value="unlock" onclick="unlockUser()">Bỏ Khóa</button>
     		</c:when>
     		<c:otherwise>
-    			<button type="button" name="btLock" value="lock" onclick="lockUser()">Khóa Người Dùng</button>
+    			<button type="button" name="btLock" value="lock" onclick="lockUser()">Khóa</button>
     		</c:otherwise>
 		</c:choose>		
     </c:if>
@@ -23,7 +23,7 @@
 		</label>
 		</p><br>
 		<p>
-	   	<label>Thời Hạn Cảnh Cáo User:
+	   	<label>Thời Hạn Cảnh Cáo:
 			<select name="warning_time" id="warning_time">
 				<option value="1">1 Ngày</option>
 				<option selected="selected" value="3">3 Ngày</option>
@@ -40,7 +40,7 @@
 <div style="display: none" id="lock_dialog">
     <form>
 		<p>
-	   	<label>Thời Hạn Khóa User:
+	   	<label>Thời Hạn Khóa:
 			<select name="lock_time" id="lock_time">
 				<option value="1">1 Ngày</option>
 				<option selected="selected" value="3">3 Ngày</option>
@@ -170,8 +170,7 @@
 			buttonClass: "session-button",
 			className: "alphacube", 
 			cancel:function(win){}, 
-			ok: function(win) 
-			{
+			ok: function(win) {
 				diffTime = $F('warning_time') * 24 * 3600 * 1000 ; 
 				expiredTime = time + diffTime;
 				expiredDate = new Date(expiredTime);

@@ -5596,8 +5596,9 @@ CREATE TABLE IF NOT EXISTS `ocwUser` (
 --
 
 INSERT INTO `ocwUser` (`id`, `version`, `name`, `fullname`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`) VALUES
-(1, 1, 'admin', 'admin', '1234', 'admin@ocwiki.org', 'admin', b'1', NULL, NULL, '2010-08-25 00:47:13', '2010-10-25 00:47:13', NULL, 'default'),
-(2, 0, 'teacher', 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default');
+(1, 1, 'admin', 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default'),
+(2, 0, 'teacher', 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default'),
+(3, 0, 'cumeo89', 'Lê Ngọc Minh', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default');
 
 -- --------------------------------------------------------
 
