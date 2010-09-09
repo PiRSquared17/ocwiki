@@ -15,7 +15,8 @@ import oop.persistence.HibernateUtil;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
-import com.google.gson.Gson;
+import org.codehaus.jackson.map.ObjectMapper;
+
 import com.google.gson.JsonElement;
 
 /**
@@ -23,6 +24,7 @@ import com.google.gson.JsonElement;
  */
 public class APIController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final ObjectMapper mapper = new ObjectMapper();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -41,7 +43,7 @@ public class APIController extends HttpServlet {
 			APIDescriptor descriptor = Config.get().getAPIDescriptor(actionStr);
 
 			if (descriptor == null) {
-				response.getWriter().write("{status:\"failed\", errorCode:\"no such API\"}");
+				response.getWriter().write("{\"status\":\"failed\", \"errorCode\":\"no such API\"}");
 				return;
 			}
 			
@@ -66,7 +68,7 @@ public class APIController extends HttpServlet {
 			} else if (result instanceof JsonElement) {
 				response.getWriter().write(result.toString());
 			} else {
-				new Gson().toJson(result, response.getWriter());
+				mapper.writeValue(response.getWriter(), result);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
