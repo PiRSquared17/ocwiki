@@ -2,8 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 <div class="toolbar">
-    <c:if test="${sessionScope.login && sessionScope.user.group == 'admin'}">
-    	<button type="button" name="btWarning" value="warning" onclick="warningUser()">Cảnh Cáo</button>
+    <c:if test="${sessionScope.login && sessionScope.user.group == 'admin'&& action.displayedUser.group != 'admin'}">
+    	<c:choose>
+    		<c:when test="${not empty action.displayedUser.warningMessage}">
+    			<button type="button" name="btRemoveWarning" value="removeWarning" onclick="removeWarningUser()">Bỏ Cảnh Cáo</button>
+    		</c:when>
+    		<c:otherwise>
+    			<button type="button" name="btWarning" value="warning" onclick="warningUser()">Cảnh Cáo</button>
+    		</c:otherwise>
+    	</c:choose>
+    	   	
     	<c:choose>
     		<c:when test="${action.displayedUser.blocked == 'true'}">
     			<button type="button" name="btUnlock" value="unlock" onclick="unlockUser()">Bỏ Khóa</button>
@@ -21,7 +29,10 @@
 	   	<label>Lí do cảnh cáo:
        		<input type="text" name="name" id="message"/>
 		</label>
-		</p><br>
+		<br>
+		<span class="error-validating" id="message_error"></span>
+		</p>
+		<br>	
 		<p>
 	   	<label>Thời Hạn Cảnh Cáo:
 			<select name="warning_time" id="warning_time">
@@ -30,7 +41,7 @@
 				<option value="7">1 Tuần</option>
 				<option value="30">1 Tháng</option>
 				<option value="365">1 Năm</option>
-				<option value="0">Vĩnh Viễn</option>
+				<option value="">Vĩnh Viễn</option>
 			</select>
 		</label>
 		</p>
@@ -47,7 +58,7 @@
 				<option value="7">1 Tuần</option>
 				<option value="30">1 Tháng</option>
 				<option value="365">1 Năm</option>
-				<option value="0">Vĩnh Viễn</option>
+				<option value="">Vĩnh Viễn</option>
 			</select>
 		</label>
 		</p>
@@ -60,6 +71,7 @@
 	var lock_dialog = $('lock_dialog').innerHTML;
 	var userID  = ${action.displayedUser.id} ;
 	var user;
+	var timeout;
 	new Ajax.Request(restPath + '/users/'+ userID,
 			  {
 			    method:'get',
@@ -72,14 +84,28 @@
 				},
 			    onFailure: function()
 			    { 
-					Dialog.alert("UserID không chính xác!", 
-						{width:300, height:100, 
-						okLabel: "Close", 
-						ok:function(win){}
-					}); 
+					openInfoDialog("UserID không chính xác!");
 			    }
 			  });
 
+	
+	function openInfoDialog(info) {
+		Dialog.info(info + "<br> Thông báo tự động đóng sau 5 giây ...",
+	               {width:300, height:100, className: "alphacube",showProgress: true});
+	  	timeout=5;
+	  	setTimeout(infoTimeout, 1000);
+	}
+
+	function infoTimeout() {
+	  	timeout--;
+	  	if (timeout >0) {
+	    	Dialog.setInfoMessage(info + "<br> Thông báo tự động đóng sau " + timeout + "giây ...");
+	    	setTimeout(infoTimeout, 1000);
+	 	}
+	 	else
+	  		Dialog.closeInfo();
+	}
+		
 	function unlockUser()
 	{
 		user.blocked = false;
@@ -97,14 +123,15 @@
 					onSuccess : function(transport) 
 					{
 						user = transport.responseJSON.result;
+						openInfoDialog("Thực hiện thành công!");
 						location.reload(true);
 					},
 				    onFailure: function()
 				    {
-					    window.setTimeout("Có lỗi xảy ra trong quá trình xử lý)", 1000);
+						openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
 					}
 				   });
-		return ;
+		return true;
 	}
 	
 	function lockUser()
@@ -142,17 +169,45 @@
 					onSuccess : function(transport) 
 					{
 						user = transport.responseJSON.result;
+						openInfoDialog("Thực hiện thành công!");
 						location.reload(true);
 					},
 				    onFailure: function()
 				    {
-						window.setTimeout("Có lỗi xảy ra trong quá trình xử lý)", 1000);
+						openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
 					}
 				   });
-				return ;				
 			}
 		});		
-		return;
+		return true;
+	}
+
+	function removeWarningUser()
+	{
+		user.warningMessage = "";
+		user.warningExpiredDate = "";
+		
+		new Ajax.Request(restPath + '/users/'+ userID,
+				  {
+				    method:'post',
+				    contentType: 'application/json',
+				    postBody: Object.toJSON(user),
+					requestHeaders : {
+						Accept : 'application/json'
+					},
+					evalJSON : true,
+					onSuccess : function(transport) 
+					{
+						user = transport.responseJSON.result;
+						openInfoDialog("Thực hiện thành công!");
+						location.reload(true);
+					},
+				    onFailure: function()
+				    {
+						openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
+					}
+				   });
+		return true;
 	}
 
 	function warningUser()
@@ -171,33 +226,41 @@
 			className: "alphacube", 
 			cancel:function(win){}, 
 			ok: function(win) {
-				diffTime = $F('warning_time') * 24 * 3600 * 1000 ; 
-				expiredTime = time + diffTime;
-				expiredDate = new Date(expiredTime);
-				user.warningMessage = $F('message');
-				user.warningExpiredDate = expiredDate;
-				new Ajax.Request(restPath + '/users/'+ userID,
-				  {
-				    method:'post',
-				    contentType: 'application/json',
-				    postBody: Object.toJSON(user),
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) 
+				if ($F('message') == '')
+				{	
+					$('message_error').innerHTML = 'Bạn cần nhập lí do cảnh cáo!';				
+					return false;
+				}
+				else
+				{
+					diffTime = $F('warning_time') * 24 * 3600 * 1000 ; 
+					expiredTime = time + diffTime;
+					expiredDate = new Date(expiredTime);
+					user.warningMessage = $F('message');
+					user.warningExpiredDate = expiredDate;
+					new Ajax.Request(restPath + '/users/'+ userID,
 					{
-						user = transport.responseJSON.result;
-						location.reload(true);
-					},
-				    onFailure: function()
-				    {
-						window.setTimeout("Có lỗi xảy ra trong quá trình xử lý)", 1000);
-					}
-				   });
-				return ;
+					    method:'post',
+					    contentType: 'application/json',
+					    postBody: Object.toJSON(user),
+						requestHeaders : {
+							Accept : 'application/json'
+						},
+						evalJSON : true,
+						onSuccess : function(transport) 
+						{
+							user = transport.responseJSON.result;
+							openInfoDialog("Thực hiện thành công!");
+							location.reload(true);
+						},
+					    onFailure: function()
+					    {
+							openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
+						}
+					});
+				}	
 			}
 		});
-		return;
+		return true;
 	}	
 </script>
