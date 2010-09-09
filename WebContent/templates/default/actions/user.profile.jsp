@@ -10,6 +10,21 @@ Người dùng: ${action.displayedUser.name}
 
 <div class="clear"></div>
 
+<c:if test="${not empty action.displayedUser.warningMessage}">
+	<div class="notification">Tài khoản bị cảnh cáo. 
+	   Lí do: ${action.displayedUser.warningMessage}  
+	</div>
+</c:if>
+
+<c:if test="${action.displayedUser.blocked}">
+	<div class="notification">Tài khoản bị khoá
+	   <c:choose>
+	       <c:when test="${empty action.displayedUser.blockExpiredDate}">vĩnh viễn</c:when>
+	       <c:otherwise>đến ${u:formatDateTime(action.displayedUser.blockExpiredDate)}</c:otherwise>
+	   </c:choose> 
+	</div>
+</c:if>
+
 <fieldset>
 <legend>Thông tin</legend>
 <p>
