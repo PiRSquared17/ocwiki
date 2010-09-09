@@ -43,7 +43,7 @@ public class APIController extends HttpServlet {
 			APIDescriptor descriptor = Config.get().getAPIDescriptor(actionStr);
 
 			if (descriptor == null) {
-				response.getWriter().write("{\"status\":\"failed\", \"errorCode\":\"no such API\"}");
+				response.getWriter().write("{\"status\":\"failed\", \"code\":\"no such API\"}");
 				return;
 			}
 			
@@ -56,7 +56,7 @@ public class APIController extends HttpServlet {
 					|| (!Utils.isEmpty(descriptor.getRequiredGroups()) && (!loggedIn || !descriptor
 							.getRequiredGroups().contains(user.getGroup())))) {
 				// TODO real result
-				result = "You don't have permission to perform this task.";
+				result = "{\"status\":\"failed\", \"code\":no permission\"\"}";
 			} else {
 				API api = descriptor.createAPI();
 				api.setRequest(request);

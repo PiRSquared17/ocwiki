@@ -62,7 +62,7 @@ public class EditAction extends AbstractAction {
 		}
 
 		// lưu nếu không có lỗi
-		if (!hasErrors()) {
+		if (hasNoErrors()) {
 			saveNewRevision(resource, topic);
 			setNextAction("topic.list");
 		}

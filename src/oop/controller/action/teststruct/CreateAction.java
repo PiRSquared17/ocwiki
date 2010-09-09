@@ -25,7 +25,7 @@ public class CreateAction extends AbstractAction {
 				addError("description", "Bạn cần nhập mô tả cấu trúc đề");
 			}
 
-			if (!hasErrors()) {
+			if (hasNoErrors()) {
 				Namespace namespace = NamespaceDAO
 						.fetch(Namespace.TEST_STRUCTURE);
 				TestStructure structure = new TestStructure(namespace, name,

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlTransient;
 
+import oop.db.dao.NamespaceDAO;
 import oop.util.Utils;
 
 public class Topic extends Article {
@@ -17,7 +18,8 @@ public class Topic extends Article {
 		// default constructor
 	}
 
-	public Topic(String name, Resource<Topic> parent, User author) {
+	public Topic(String name, Resource<Topic> parent, Text content) {
+		super(NamespaceDAO.fetch(Namespace.TOPIC), content);
 		this.name = name;
 		this.parent = parent;
 	}

@@ -41,6 +41,15 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		this.logs = logs;
 	}
 
+	public Resource(Date createDate, User author, Status status,
+			Class<T> type, T article) {
+		this.createDate = createDate;
+		this.author = author;
+		this.status = status;
+		this.type = type;
+		this.article = article;
+	}
+
 	@XmlElement
 	public long getId() {
 		return id;

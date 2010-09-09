@@ -36,7 +36,7 @@ public class CreateAction extends AbstractAction {
 			addError("level", "Bạn cần chọn độ khó.");
 		}
 
-		if (!hasErrors()) {
+		if (hasNoErrors()) {
 			Namespace namespace = NamespaceDAO.fetch(Namespace.QUESTION);
 			BaseQuestion question = new BaseQuestion(namespace, new Text(
 					content), level);

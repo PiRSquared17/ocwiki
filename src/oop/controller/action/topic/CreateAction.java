@@ -36,9 +36,12 @@ public class CreateAction extends AbstractAction {
 					addError("parent", "Chủ đề không hợp lệ");
 				}
 
-				if (!hasErrors()) {
-					TopicDAO.create(name, parent, getUser());
-					setNextAction("topic.list");
+				String content = getParams().get("content");
+				
+				if (hasNoErrors()) {
+					Resource<Topic> topic = TopicDAO.create(name, content,
+							parent, getUser());
+					setNextAction("article.view?id=" + topic.getId());
 					return;
 				}
 			}

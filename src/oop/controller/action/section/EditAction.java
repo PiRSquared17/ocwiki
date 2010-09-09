@@ -41,7 +41,7 @@ public class EditAction extends AbstractAction {
 					addError("order", "Định dạng không hợp lệ.");
 				}
 
-				if (!hasErrors()) {
+				if (hasNoErrors()) {
 					section.setContent(new Text(text));
 					saveNewRevision(resource, test);
 

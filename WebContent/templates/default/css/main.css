@@ -290,7 +290,9 @@ line-height: 20px;
 
 #righttop{
 	background:url(../images/righttop.gif) no-repeat top right;
-	height: 13px;
+	min-height: 13px;
+    padding-right:25px;
+    padding-left:25px;
 }
 
 #right H4{

@@ -210,4 +210,8 @@ public abstract class AbstractAction implements Action {
 		return errors != null && !errors.isEmpty();
 	}
 	
+	public boolean hasNoErrors() {
+		return errors == null || errors.isEmpty();
+	}
+	
 }

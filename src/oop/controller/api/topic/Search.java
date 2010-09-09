@@ -14,7 +14,7 @@ public class Search extends AbstractAPI {
 
 	@Override
 	public Object performImpl() throws Exception {
-		String query = getParams().get("query");
+		String query = getParams().getString("query").replaceAll("%", "%%");
 		List<Topic> topics = TopicDAO.fetchByNameLike("%" + query + "%");
 		
 		JsonArray suggestions = new JsonArray();

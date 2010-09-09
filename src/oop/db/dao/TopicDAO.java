@@ -1,8 +1,11 @@
 package oop.db.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import oop.data.Resource;
+import oop.data.Status;
+import oop.data.Text;
 import oop.data.Topic;
 import oop.data.User;
 import oop.persistence.HibernateUtil;
@@ -46,15 +49,18 @@ public final class TopicDAO {
 		return query.list();
 	}
 
-	public static Topic create(String name, Resource<Topic> parent, User author) {
+	public static Resource<Topic> create(String name, String contentStr,
+			Resource<Topic> parent, User author) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
+			Topic newTopic = new Topic(name, parent, new Text(contentStr));
+			Resource<Topic> resource = new Resource<Topic>(new Date(), author,
+					Status.NORMAL, Topic.class, newTopic);
 			tx = session.beginTransaction();
-			Topic newTopic = new Topic(name, parent, author);
-			session.save(newTopic);
+			session.save(resource);
 			tx.commit();
-			return newTopic;
+			return resource;
 		} catch (HibernateException ex) {
 			if (tx != null) {
 				tx.rollback();

@@ -206,14 +206,6 @@ public class Config implements Serializable {
 		}
 	}
 
-	public void setActionMap(Map<String, ActionDescriptor> actionMap) {
-		this.actionMap = actionMap;
-	}
-
-	public void setApiMap(Map<String, APIDescriptor> apiMap) {
-		this.apiMap = apiMap;
-	}
-
 	public void setRestPath(String restPath) {
 		this.restPath = restPath;
 	}

@@ -65,7 +65,7 @@ public class CreateAction extends AbstractAction {
 		// }
 		// }
 
-		if (!hasErrors()) {
+		if (hasNoErrors()) {
 			try {
 				Resource<Test> resource = saveNewResource(test);
 				setNextAction("test.view&id=" + resource.getId());

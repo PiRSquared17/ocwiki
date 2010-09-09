@@ -48,7 +48,7 @@ public class EditQuestionAction extends AbstractAction {
 			addError("section", "Phần được chọn không tồn tại.");
 		}
 
-		if (!hasErrors()) {
+		if (hasNoErrors()) {
 			saveNewRevision(resource, test);
 			setNextAction("test.view&id=" + test.getId());
 		}

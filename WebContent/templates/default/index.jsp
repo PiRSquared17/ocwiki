@@ -70,8 +70,15 @@
 				<li id="button6"><a href="http://code.google.com/p/ocwiki/" target="_blank" title="">About Us</a></li>
 			</ul>
 		</div>
-    	<div id="righttop"></div>
+    	<div id="righttop">
+    	</div>
+    	<div class="clear"></div>
 		<div class="rightbg">
+            <c:if test="${not empty sessionScope.user.warningMessage}">
+                <div class="notification">Bạn bị cảnh cáo với lí do: 
+                     ${sessionScope.user.warningMessage}  
+                </div>
+            </c:if>
 
 			<!-- ########################################## -->
 			<!--  nội dung action được đặt ở đây -->

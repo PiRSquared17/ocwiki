@@ -54,7 +54,7 @@ public class EditAction extends AbstractAction {
 			boolean correct = getParams().getBoolean("correct", false);
 			answer.setCorrect(correct);
 
-			if (!hasErrors()) {
+			if (hasNoErrors()) {
 				saveNewRevision(resource, question);
 				setNextAction("question.view&id=" + resource.getId());
 			}

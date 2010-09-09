@@ -63,7 +63,7 @@ public class EditAction extends AbstractAction {
 			addError("type", "Bạn cần chọn kiểu đề thi.");
 		}
 
-		if (!hasErrors()) {
+		if (hasNoErrors()) {
 			saveNewRevision(resource, test);
 			setNextAction("test.view&id=" + resource.getId());
 		}

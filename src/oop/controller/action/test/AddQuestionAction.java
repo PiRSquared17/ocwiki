@@ -53,7 +53,7 @@ public class AddQuestionAction extends AbstractAction {
 				addError("section", "Phần được chọn không tồn tại.");
 			}
 
-			if (!hasErrors()) {
+			if (hasNoErrors()) {
 				String mode = getParams().getString("mode");
 				if ("id".equals(mode)) {
 					addQuestionById(section);

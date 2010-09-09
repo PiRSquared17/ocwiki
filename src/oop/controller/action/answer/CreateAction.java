@@ -39,7 +39,7 @@ public class CreateAction extends AbstractAction {
 			boolean correct = getParams().getBoolean("correct", false);
 			answer.setCorrect(correct);
 
-			if (!hasErrors()) {
+			if (hasNoErrors()) {
 				question.getAnswers().add(answer);
 				saveNewRevision(resource, question);
 

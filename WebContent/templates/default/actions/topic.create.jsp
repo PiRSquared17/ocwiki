@@ -25,6 +25,10 @@ function validate() {
 		      name="cc_name" value="${topic.name}"></label>
 		<ocw:error code="name"></ocw:error>
 	</p>
+    <p>
+        <label>Nội dung:
+        <textarea name="content" rows="20" cols="80">${param.content}</textarea></label>
+    </p>
 	<p><label>Chủ đề cha:
         <input type="text" id="txtParentName" name="cc_parentname" 
                 value="${param.cc_parentname}">

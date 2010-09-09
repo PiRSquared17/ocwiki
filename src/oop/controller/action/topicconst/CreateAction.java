@@ -84,7 +84,7 @@ public class CreateAction extends AbstractAction {
 			addError("topic", "Mã số chủ đề không hợp lệ.");
 		}
 
-		if (!hasErrors()) {
+		if (hasNoErrors()) {
 			sectionStructure.getConstraints().add(constraint);
 			saveNewRevision(resource, testStructure);
 			setNextAction("teststruct.view&tstr=" + resource.getId());

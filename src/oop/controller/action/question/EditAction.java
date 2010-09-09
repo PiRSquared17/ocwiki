@@ -60,7 +60,7 @@ public class EditAction extends AbstractAction {
 			question.setContent(new Text(contentStr));
 		}
 
-		if (!hasErrors()) {
+		if (hasNoErrors()) {
 			saveNewRevision(resource, question);
 			setNextAction("question.view&id=" + resource.getId());
 		}

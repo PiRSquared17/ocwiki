@@ -76,7 +76,7 @@ public class CreateAction extends AbstractAction {
 			addError("level", "Độ khó không hợp lệ.");
 		}
 
-		if (!hasErrors()) {
+		if (hasNoErrors()) {
 			try {
 				LevelConstraint constraint = new LevelConstraint(level, quantity);
 				sectionStructure.getConstraints().add(constraint);

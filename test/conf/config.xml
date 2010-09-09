@@ -64,13 +64,11 @@
       <name>test.create</name>
       <class>oop.controller.action.test.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>test.edit</name>
       <class>oop.controller.action.test.EditAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>test.solve</name>
@@ -81,19 +79,16 @@
       <name>test.addquestion</name>
       <class>oop.controller.action.test.AddQuestionAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>test.editquestion</name>
       <class>oop.controller.action.test.EditQuestionAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>test.deletequestion</name>
       <class>oop.controller.action.test.DeleteQuestionAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>test.savedocx</name>
@@ -103,31 +98,26 @@
       <name>section.create</name>
       <class>oop.controller.action.section.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>section.delete</name>
       <class>oop.controller.action.section.DeleteAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>section.edit</name>
       <class>oop.controller.action.section.EditAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>section.moveup</name>
       <class>oop.controller.action.section.MoveUpAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>section.movedown</name>
       <class>oop.controller.action.section.MoveDownAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>teststruct.list</name>
@@ -141,55 +131,46 @@
       <name>teststruct.create</name>
       <class>oop.controller.action.teststruct.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>teststruct.edit</name>
       <class>oop.controller.action.teststruct.EditAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>levelconst.create</name>
       <class>oop.controller.action.levelconst.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>topicconst.create</name>
       <class>oop.controller.action.topicconst.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>sectstruct.create</name>
       <class>oop.controller.action.sectstruct.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>sectstruct.delete</name>
       <class>oop.controller.action.sectstruct.DeleteAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>sectstruct.edit</name>
       <class>oop.controller.action.sectstruct.EditAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>sectstruct.moveup</name>
       <class>oop.controller.action.sectstruct.MoveUpAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>sectstruct.movedown</name>
       <class>oop.controller.action.sectstruct.MoveDownAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>question.list</name>
@@ -221,25 +202,21 @@
       <name>question.delete</name>
       <class>oop.controller.action.question.DeleteAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>answer.create</name>
       <class>oop.controller.action.answer.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>answer.edit</name>
       <class>oop.controller.action.answer.EditAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>answer.delete</name>
       <class>oop.controller.action.answer.DeleteAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>topic.list</name>
@@ -249,13 +226,11 @@
       <name>topic.create</name>
       <class>oop.controller.action.topic.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
     <action>
       <name>topic.edit</name>
       <class>oop.controller.action.topic.EditAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
-      <loginRequired>true</loginRequired>
     </action>
 
     <!--********************************************************************
