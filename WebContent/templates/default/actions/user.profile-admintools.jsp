@@ -41,7 +41,7 @@
 				<option value="7">1 Tuần</option>
 				<option value="30">1 Tháng</option>
 				<option value="365">1 Năm</option>
-				<option value="">Vĩnh Viễn</option>
+				<option value="0">Vĩnh Viễn</option>
 			</select>
 		</label>
 		</p>
@@ -58,7 +58,7 @@
 				<option value="7">1 Tuần</option>
 				<option value="30">1 Tháng</option>
 				<option value="365">1 Năm</option>
-				<option value="">Vĩnh Viễn</option>
+				<option value="0">Vĩnh Viễn</option>
 			</select>
 		</label>
 		</p>
@@ -90,9 +90,9 @@
 
 	
 	function openInfoDialog(info) {
-		Dialog.info(info + "<br> Thông báo tự động đóng sau 5 giây ...",
+		Dialog.info(info + "<br> Thông báo tự động đóng sau 2 giây ...",
 	               {width:300, height:100, className: "alphacube",showProgress: true});
-	  	timeout=5;
+	  	timeout=2;
 	  	setTimeout(infoTimeout, 1000);
 	}
 
@@ -123,7 +123,6 @@
 					onSuccess : function(transport) 
 					{
 						user = transport.responseJSON.result;
-						openInfoDialog("Thực hiện thành công!");
 						location.reload(true);
 					},
 				    onFailure: function()
@@ -150,13 +149,17 @@
 			className: "alphacube", 
 			cancel:function(win){}, 
 			ok: function(win) 
-			{ 
-				diffTime = $F('lock_time') * 24 * 3600 * 1000 ;
-				expiredTime = time + diffTime
-				expiredDate = new Date(expiredTime);
+			{	
+				if($F('lock_time') != 0)
+				{ 
+					diffTime = $F('lock_time') * 24 * 3600 * 1000 ;
+					expiredTime = time + diffTime
+					expiredDate = new Date(expiredTime);					
+					user.blockExpiredDate = expiredDate;
+				}
+				else
+					user.blockExpiredDate = '';
 				user.blocked = true;
-				user.blockExpiredDate = expiredDate;
-				
 				new Ajax.Request(restPath + '/users/'+ userID,
 				  {
 				    method:'post',
@@ -169,7 +172,6 @@
 					onSuccess : function(transport) 
 					{
 						user = transport.responseJSON.result;
-						openInfoDialog("Thực hiện thành công!");
 						location.reload(true);
 					},
 				    onFailure: function()
@@ -199,7 +201,6 @@
 					onSuccess : function(transport) 
 					{
 						user = transport.responseJSON.result;
-						openInfoDialog("Thực hiện thành công!");
 						location.reload(true);
 					},
 				    onFailure: function()
@@ -232,12 +233,17 @@
 					return false;
 				}
 				else
-				{
-					diffTime = $F('warning_time') * 24 * 3600 * 1000 ; 
-					expiredTime = time + diffTime;
-					expiredDate = new Date(expiredTime);
+				{	
+					if($F('warning_time') != 0)
+					{
+						diffTime = $F('warning_time') * 24 * 3600 * 1000 ; 
+						expiredTime = time + diffTime;
+						expiredDate = new Date(expiredTime);						
+						user.warningExpiredDate = expiredDate;
+					}
+					else
+						user.warningExpiredDate = '';
 					user.warningMessage = $F('message');
-					user.warningExpiredDate = expiredDate;
 					new Ajax.Request(restPath + '/users/'+ userID,
 					{
 					    method:'post',
@@ -250,7 +256,6 @@
 						onSuccess : function(transport) 
 						{
 							user = transport.responseJSON.result;
-							openInfoDialog("Thực hiện thành công!");
 							location.reload(true);
 						},
 					    onFailure: function()
