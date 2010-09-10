@@ -25,7 +25,7 @@ public class Config implements Serializable {
 	private String uploadPath = "${homeDir}/uploads";
 	private String mainEntry = "/index.jsp";
 	private String siteName = "OCWiki";
-	private String tablePrefix = "tbl";
+	private String tablePrefix = "ocw";
 	private String defaultTemplate = "default";
 	private String mysqlCommand = "mysql";
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
