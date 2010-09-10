@@ -64,8 +64,6 @@ public class CommentResource extends AbstractResource {
 
 	@POST
 	public ObjectResult<Comment> create(Comment data) {
-		int x = 0;
-		x++;
 		Resource<?> resource = ResourceDAO
 				.fetchById(data.getResource().getId());
 		assertParamValid(resource != null, "", "resource not found");
