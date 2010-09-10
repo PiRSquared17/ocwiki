@@ -20,13 +20,9 @@
 </div>
 <script language="javascript">
 
-	
-	var newComment = new Comment();
+	var articleID = ${action.resource.id};
 	function postComment(){
-		
-		newComment.resource.id = articleID;
-		newComment.message = 'dung vai chuong';
-		$('cannot-post').innerHTML = newComment.message + newComment.resource.id;
+		var newComment = { resource: { id: articleID }, message: $F('comment-input') };
 		new Ajax.Request(
 				restPath + '/comments',
 				{
@@ -40,7 +36,6 @@
 					onSuccess : function(transport) {
 						$('cannot-post').innerHTML = 'Có thể đăng comment!';
 						$('cannot-post').show();
-						location.reload(true);
 					},
 				    onFailure: function()
 				    { 
@@ -49,6 +44,5 @@
 				    }		
 				}
 			);
-		return false;
 	}
 </script>
