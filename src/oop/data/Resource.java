@@ -20,6 +20,7 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 	private int version = 0;
 	private Class<T> type;
 	private T article;
+	private ResourceAccessibility accessibility = ResourceAccessibility.EVERYONE;
 	private Set<Revision<T>> revisions = new HashSet<Revision<T>>();
 	private Set<ResourceLog> logs = new HashSet<ResourceLog>();
 	private Set<Resource<? extends Article>> linkedResources = new HashSet<Resource<? extends Article>>();
@@ -130,6 +131,14 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 
 	public String getQualifiedName() {
 		return article.getQualifiedName();
+	}
+
+	public void setAccessibility(ResourceAccessibility accessibility) {
+		this.accessibility = accessibility;
+	}
+
+	public ResourceAccessibility getAccessibility() {
+		return accessibility;
 	}
 
 }
