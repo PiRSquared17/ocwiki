@@ -2761,6 +2761,7 @@ CREATE TABLE IF NOT EXISTS `ocwResource` (
   `author` bigint(20) NOT NULL,
   `status` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
   `link` bigint(20) DEFAULT NULL,
+  `accessibility` varchar(12) NOT NULL DEFAULT 'EVERYONE',
   PRIMARY KEY (`id`),
   KEY `FKE2E602515DDB135C` (`author`),
   KEY `FKE2E602515EB7070E` (`link`),
