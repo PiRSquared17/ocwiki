@@ -46,6 +46,8 @@ public abstract class AbstractAction implements Action {
 	private ActionDescriptor descriptor;
 	private Map<String, String> errors = null;
 
+	private String title;
+
 	public AbstractAction() {
 		// default constructor
 	}
@@ -212,6 +214,16 @@ public abstract class AbstractAction implements Action {
 	
 	public boolean hasNoErrors() {
 		return errors == null || errors.isEmpty();
+	}
+	
+	@Override
+	public String getTitle() {
+		return title;
+	}
+	
+	@Override
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 }
