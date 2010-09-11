@@ -50,27 +50,6 @@ public final class TopicDAO {
 		return query.list();
 	}
 
-	public static Resource<Topic> create(String name, String contentStr,
-			Resource<Topic> parent, User author) {
-		Session session = HibernateUtil.getSession();
-		Transaction tx = null;
-		try {
-			Topic newTopic = new Topic(name, parent, new Text(contentStr));
-			Resource<Topic> resource = new Resource<Topic>(new Date(), author,
-					Status.NORMAL, Topic.class, newTopic);
-			tx = session.beginTransaction();
-			session.save(resource);
-			tx.commit();
-			return resource;
-		} catch (HibernateException ex) {
-			if (tx != null) {
-				tx.rollback();
-				session.close();
-			}
-			throw ex;
-		}
-	}
-	
 	public static List<Resource<Topic>> getAncestors(long resourceId) {
 		Resource<Topic> topic = (Resource<Topic>) HibernateUtil.getSession()
 				.load(Resource.class, resourceId);
