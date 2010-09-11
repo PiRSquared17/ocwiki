@@ -66,8 +66,9 @@
 				<li id="button2"><a href="${scriptPath}?action=test.list" title="">Đề thi</a></li>
 				<li id="button3"><a href="${scriptPath}?action=teststruct.list" title="">Cấu trúc đề</a></li>
 				<li id="button4"><a href="${scriptPath}?action=question.list" title="">Câu hỏi</a></li>
+				<li id="button4"><a href="${scriptPath}?action=topic.list" title="">Chủ đề</a></li>
 				<li id="button5"><a href="${scriptPath}?action=user.list" title="Danh sách thành viên" target="_self">Thành viên</a></li>
-				<li id="button6"><a href="http://code.google.com/p/ocwiki/" target="_blank" title="">About Us</a></li>
+				<li id="button6"><a href="http://code.google.com/p/ocwiki/" target="_blank" title="">Giới thiệu</a></li>
 			</ul>
 		</div>
     	<div id="righttop">
@@ -86,9 +87,20 @@
 			<c:catch var="ex">
 				<jsp:include page="actions/${action.descriptor.name}.jsp" />
 			</c:catch>
-			<c:if test="${!(empty ex)}">
-				<h3 style="color:red">${ex}</h3>
-			</c:if>
+			<c:choose>
+                <c:when test="${empty ex}">
+	                <c:forEach items="${modules['action-bottom']}" var="item">
+	                   <c:set var="module" scope="request" value="${item}"></c:set>
+	                    <h3>${module.title}</h3>
+	                    <div class="article-bottom">
+	                        <jsp:include page="modules/${module.page}"></jsp:include>
+	                    </div>
+	                </c:forEach>
+                </c:when>
+                <c:otherwise>
+					<h3 style="color:red">${ex}</h3>
+                </c:otherwise>			
+			</c:choose>
 		</div>			
 				
 	</div>
@@ -96,10 +108,6 @@
 		<div id="header"></div>
 		<div id="lefttop"></div>
  
-        <!-- ########################################## -->
-        <!--  nội dung các modules ở đây                -->
-        <!-- ########################################## -->
-    
 	    <c:forEach items="${modules['left']}" var="item">
 	       <c:set var="module" scope="request" value="${item}"></c:set>
 	        <h3>${module.title}</h3>
@@ -116,7 +124,7 @@
 	</div>
 
 	<div id="footer">
-		<p><a href="https://code.google.com/p/tracnghiem-csforce/">tracnghiem-csforce version 1.0</a>. 
+		<p><a href="https://code.google.com/p/tracnghiem-csforce/">ocwiki v0.1</a>. 
 		Copyright © 2010. Powered by CS Force</p>
 	</div>
 </div>

@@ -4,7 +4,7 @@
 
 <c:choose>
 
-<c:when test="${u:size(topLevels) > 0}">
+<c:when test="${u:size(action.topLevels) > 0}">
 	    
 	<script type="text/javascript">
 	<!--
@@ -33,9 +33,10 @@
 	<div class="clear"></div>
 	<div class="content-wrapper">
         <ul style="list-style: none;">
-		<c:forEach items="${topLevels}" var="topLevel" >
-			<c:set var="topic" value="${topLevel}" scope="request" />
-			<jsp:include page="topic.list-item.jsp"/>
+		<c:forEach items="${action.topLevels}" var="topic" >
+			<li>
+			     <ocw:articleLink resource="${topic}">${topic.name}</ocw:articleLink>
+			</li>
 		</c:forEach>
 		</ul>
 	</div>

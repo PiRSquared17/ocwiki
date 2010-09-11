@@ -50,7 +50,7 @@
 			<one-to-many class="oop.data.Resource" />
 		</set>
 		<property name="accessibility">
-			<column name="accessibility" />
+			<column name="accessibility" default="'EVERYONE'" />
 			<type name="org.hibernate.type.EnumType">
 				<param name="type">12</param>
 				<param name="enumClass">oop.data.ResourceAccessibility</param>

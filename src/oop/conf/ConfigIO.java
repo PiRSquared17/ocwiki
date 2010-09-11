@@ -14,6 +14,7 @@ public class ConfigIO {
 		try {
 			input = new FileInputStream(file);
 			XMLUtils.getXStream().fromXML(input, config);
+			config.doneLoading();
 		} finally {
 			if (input != null) {
 				input.close();
@@ -21,7 +22,8 @@ public class ConfigIO {
 		}
 	}
 
-	public static void loadDirectory(Config config, String dirPath) {
+	public static void loadDirectory(Config config, String dirPath)
+			throws IOException {
 		File dir = new File(dirPath);
 		File[] confFiles = dir.listFiles(new FilenameFilter() {
 
@@ -30,12 +32,24 @@ public class ConfigIO {
 				return name.endsWith(".xml");
 			}
 		});
+		boolean read = false;
 		try {
 			for (File file : confFiles) {
-				load(file, config);
+				FileInputStream input = null;
+				try {
+					input = new FileInputStream(file);
+					XMLUtils.getXStream().fromXML(input, config);
+					read = true;
+				} finally {
+					if (input != null) {
+						input.close();
+					}
+				}
 			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+		} finally {
+			if (read) {
+				config.doneLoading();
+			}
 		}
 	}
 
