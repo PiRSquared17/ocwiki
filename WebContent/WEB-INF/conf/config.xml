@@ -433,10 +433,10 @@
     <module>
         <name>question-test</name>
         <title>Được sử dụng trong đề thi</title>
-        <class>oop.module.question.ContainingTestModule</class>
+        <class>oop.module.question.UsedByTestModule</class>
         <position>action-bottom</position>
         <order>4</order>
-        <page>question/teststruct.jsp</page>
+        <page>question/test.jsp</page>
         <inAction>article.view</inAction>
         <articleType>oop.data.BaseQuestion</articleType>
     </module>

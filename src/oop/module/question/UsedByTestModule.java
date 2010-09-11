@@ -7,7 +7,7 @@ import oop.data.Test;
 import oop.db.dao.TestDAO;
 import oop.module.DefaultModule;
 
-public class ContainingTestModule extends DefaultModule {
+public class UsedByTestModule extends DefaultModule {
 
 	private List<Resource<Test>> tests;
 
