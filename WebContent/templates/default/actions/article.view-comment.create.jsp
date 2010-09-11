@@ -4,7 +4,7 @@
 <div>
 <p>Create comment---</p>
 <form id="creat-comment" name="creat-comment">
-<span id = "cannot-post" style="color: red; visibility: hidden;" ></span>
+<span id = "cannot-post" style="color: red; display:none;" ></span>
 <label>Nhận xét<br />
 <textarea name="comment-input" id="comment-input" cols="45" rows="5"></textarea>
 </label>
@@ -19,12 +19,11 @@
 </form>
 </div>
 <script language="javascript">
-
-	var articleID = ${action.resource.id};
+	$('cannot-post').hide();
 	function postComment(){
-		var newComment = { resource: { id: articleID }, message: $F('comment-input') };
+		var newComment = {message: $F('comment-input')};
 		new Ajax.Request(
-				restPath + '/comments',
+				restPath + '/comments/resource/' + articleID,
 				{
 					method: 'post',
 					contentType: 'application/json',
@@ -34,8 +33,10 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						$('cannot-post').innerHTML = 'Có thể đăng comment!';
-						$('cannot-post').show();
+						newpostcomment = transport.responseJSON.result;
+						$('commentslist').innerHTML+=newpostcomment.message;
+						$('commentslist').innerHTML+=('<br/>------------<br/>');
+						//tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';						
 					},
 				    onFailure: function()
 				    { 
