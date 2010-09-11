@@ -11,7 +11,7 @@
 		<discriminator type="string" length="20">
 			<column name="discriminator"></column>
 		</discriminator>
-		<many-to-one name="namespace" class="oop.data.Namespace">
+		<many-to-one name="namespace" class="oop.data.Namespace" fetch="join">
 			<column name="namespace" not-null="true"></column>
 		</many-to-one>
 		<many-to-one name="content" column="content" class="oop.data.Text"
