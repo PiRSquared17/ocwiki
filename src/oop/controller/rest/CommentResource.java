@@ -66,9 +66,9 @@ public class CommentResource extends AbstractResource {
 	@Path("/resource/{resourceId: \\d+}")
 	public ObjectResult<Comment> create(@PathParam("resourceId") long resourceId, Comment data) {
 		Resource<?> resource = ResourceDAO.fetchById(resourceId);
-		assertParamValid(resource != null, "", "resource not found");
+			assertParamValid(resource != null, "", "resource not found");
 		Revision<? extends Article> revision = RevisionDAO
-				.fetchLatestByResource(resource.getId());
+			.fetchLatestByResource(resource.getId());
 		Comment comment = new Comment(getUser(), new Date(), data.getMessage(),
 				resource, revision);
 		CommentDAO.persist(comment);
