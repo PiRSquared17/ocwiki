@@ -430,6 +430,16 @@
         <inAction>article.view</inAction>
         <articleType>oop.data.Topic</articleType>
     </module>
+    <module>
+        <name>question-test</name>
+        <title>Được sử dụng trong đề thi</title>
+        <class>oop.module.question.ContainingTestModule</class>
+        <position>action-bottom</position>
+        <order>4</order>
+        <page>question/teststruct.jsp</page>
+        <inAction>article.view</inAction>
+        <articleType>oop.data.BaseQuestion</articleType>
+    </module>
     <!-- 
     <module>
        <name>login</name>

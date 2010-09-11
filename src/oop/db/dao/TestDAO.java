@@ -99,4 +99,19 @@ public class TestDAO {
 		return query.list();
 	}
 
+	public static List<Resource<Test>> fetchByContainedQuestion(
+			long baseQuestionResourceId, int start, int length) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in " +
+				"(from Test as test " +
+					"inner join test.sections as section " +
+					"inner join section.questions as question " +
+				"with question.baseResource.id = :qid)";
+		Query query = session.createQuery(hql);
+		query.setLong(":qid", baseQuestionResourceId);
+		query.setFirstResult(start);
+		query.setMaxResults(length);
+		return query.list();
+	}
+
 }
