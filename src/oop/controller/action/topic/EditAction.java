@@ -47,11 +47,11 @@ public class EditAction extends AbstractAction {
 
 		// cập nhật cha nếu không bị nối vòng
 		try {
-			Resource<Topic> parent = TopicDAO.fetchById(getParams().getInt(
-					"ce_parent"));
+			int parentId = getParams().getInt("ce_parent");
+			Resource<Topic> parent = TopicDAO.fetchById(parentId);
 			if (parent == null) { // kiểm tra chủ đề cha tồn tại
 				addError("parent", "Chủ đề cha không tồn tại");
-			} else if (parent.getArticle().getAncestors().contains(topic)) {
+			} else if (TopicDAO.getAncestors(parentId).contains(topic)) {
 				addError("parent", "Không thể liên kết vòng");
 			}
 			topic.setParent(parent);

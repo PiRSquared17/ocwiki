@@ -75,6 +75,10 @@ public class Utils {
 		return coll == null || coll.isEmpty();
 	}
 
+	public static boolean isNotEmpty(Collection<?> coll) {
+		return coll != null && coll.size() > 0;
+	}
+
 	public static <T extends Entity> T findById(Collection<T> coll, long id) {
 		for (T t : coll) {
 			if (t.getId() == id) {

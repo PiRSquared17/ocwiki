@@ -11,7 +11,7 @@ import oop.controller.action.ActionUtil;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-public class ActionButtonTag extends AbstractLinkTag {
+public class ActionButtonTag extends AbstractActionTag {
 
 	@Override
 	public void doTag() throws JspException, IOException {

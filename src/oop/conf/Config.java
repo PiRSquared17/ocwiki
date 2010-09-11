@@ -1,10 +1,15 @@
 package oop.conf;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class Config implements Serializable {
 
@@ -31,6 +36,7 @@ public class Config implements Serializable {
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
 	private Set<ActionDescriptor> actionDescriptors = new HashSet<ActionDescriptor>();
 	private Set<APIDescriptor> apiDescriptors = new HashSet<APIDescriptor>();
+	private transient Map<String, List<ModuleDescriptor>> moduleMap = new HashMap<String, List<ModuleDescriptor>>();
 	private transient Map<String, ActionDescriptor> actionMap = new HashMap<String, ActionDescriptor>();
 	private transient Map<String, APIDescriptor> apiMap = new HashMap<String, APIDescriptor>();
 	
@@ -98,9 +104,17 @@ public class Config implements Serializable {
 	public ActionDescriptor getActionDescriptor(String name) {
 		return actionMap.get(name);
 	}
-	
+
 	public Set<ModuleDescriptor> getModuleDescriptors() {
 		return moduleDescriptors;
+	}
+
+	public List<ModuleDescriptor> getModuleDescriptors(String position) {
+		return moduleMap.get(position);
+	}
+	
+	public Map<String, List<ModuleDescriptor>> getModuleDescriptorsByPosition() {
+		return Collections.unmodifiableMap(moduleMap);
 	}
 
 	public String getApiPath() {
@@ -116,6 +130,14 @@ public class Config implements Serializable {
 	}
 
 	private static Config DEFAULT = null;
+
+	private static final Comparator<ModuleDescriptor> MODULE_POSITION_COMPARATOR = new Comparator<ModuleDescriptor>() {
+		
+		@Override
+		public int compare(ModuleDescriptor o1, ModuleDescriptor o2) {
+			return o1.getOrder() - o2.getOrder();
+		}
+	};
 	
 	public static Config get() {
 		return DEFAULT;
@@ -194,16 +216,10 @@ public class Config implements Serializable {
 
 	public void setActionDescriptors(Set<ActionDescriptor> actionDescriptors) {
 		this.actionDescriptors = actionDescriptors;
-		for (ActionDescriptor desc : actionDescriptors) {
-			actionMap.put(desc.getName(), desc);
-		}
 	}
 
 	public void setApiDescriptors(Set<APIDescriptor> apiDescriptors) {
 		this.apiDescriptors = apiDescriptors;
-		for (APIDescriptor desc : apiDescriptors) {
-			apiMap.put(desc.getName(), desc);
-		}
 	}
 
 	public void setRestPath(String restPath) {
@@ -236,6 +252,32 @@ public class Config implements Serializable {
 
 	public String getArticlePath() {
 		return replaceMagicWords(articlePath);
+	}
+	
+	void doneLoading() {
+		// create action map
+		actionMap = new HashMap<String, ActionDescriptor>();
+		for (ActionDescriptor desc : actionDescriptors) {
+			actionMap.put(desc.getName(), desc);
+		}
+		// create api map
+		apiMap = new HashMap<String, APIDescriptor>();
+		for (APIDescriptor desc : apiDescriptors) {
+			apiMap.put(desc.getName(), desc);
+		}
+		// create module map
+		moduleMap = new HashMap<String, List<ModuleDescriptor>>();
+		for (ModuleDescriptor descriptor : moduleDescriptors) {
+			List<ModuleDescriptor> list = moduleMap.get(descriptor.getPosition());
+			if (list == null) {
+				list = new ArrayList<ModuleDescriptor>();
+				moduleMap.put(descriptor.getPosition(), list);
+			}
+			list.add(descriptor);
+		}
+		for (Entry<String, List<ModuleDescriptor>> entries : moduleMap.entrySet()) {
+			Collections.sort(entries.getValue(), MODULE_POSITION_COMPARATOR);
+		}
 	}
 	
 }
