@@ -13,6 +13,7 @@ public class ActionDescriptor {
 	private Class<? extends Action> actionClass;
 	private String javaScript;
 	private String css;
+	private String title;
 
 	public boolean isLoginRequired() {
 		return loginRequired;
@@ -71,8 +72,17 @@ public class ActionDescriptor {
 	public Action createAction() throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException {
 		Action action = getActionClass().newInstance();
+		action.setTitle(title);
 		action.setDescriptor(this);
 		return action;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getTitle() {
+		return title;
 	}
 	
 }

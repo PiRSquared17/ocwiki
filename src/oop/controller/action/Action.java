@@ -25,4 +25,8 @@ public interface Action {
 	
 	public String getRedirect();
 
+	public String getTitle();
+	
+	public void setTitle(String title);
+
 }
