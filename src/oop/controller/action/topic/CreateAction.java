@@ -3,9 +3,9 @@ package oop.controller.action.topic;
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.Resource;
+import oop.data.Text;
 import oop.data.Topic;
 import oop.db.dao.ResourceDAO;
-import oop.db.dao.TopicDAO;
 
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -39,9 +39,9 @@ public class CreateAction extends AbstractAction {
 				String content = getParams().get("content");
 				
 				if (hasNoErrors()) {
-					Resource<Topic> topic = TopicDAO.create(name, content,
-							parent, getUser());
-					setNextAction("article.view?id=" + topic.getId());
+					Topic newTopic = new Topic(name,parent, new Text(content));
+					Resource<Topic> resource = ResourceDAO.create(getUser(), Topic.class, newTopic);
+					setNextAction("article.view?id=" + resource.getId());
 					return;
 				}
 			}
