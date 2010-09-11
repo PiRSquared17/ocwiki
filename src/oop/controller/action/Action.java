@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import oop.conf.ActionDescriptor;
 import oop.controller.ActionController;
+import oop.data.Article;
+import oop.data.Resource;
 
 public interface Action {
 	
@@ -24,5 +26,9 @@ public interface Action {
 	public String getNextAction();
 	
 	public String getRedirect();
+	
+	public Resource<? extends Article> getResource();
+	
+	public Article getArticle();
 
 }

@@ -14,7 +14,7 @@
 
 <!-- recursive display items -->
 <c:set var="curr" value="${topic}" scope="page"></c:set>
-<c:forEach items="${curr.children}" var="child">
+<c:forEach items="${curr.article.children}" var="child">
 	<ul style="list-style: none;">
 		<c:set var="topic" value="${child}" scope="request"></c:set>
 		<jsp:include page="topic.list-item.jsp"/>

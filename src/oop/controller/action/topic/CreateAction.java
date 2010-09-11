@@ -17,11 +17,11 @@ public class CreateAction extends AbstractAction {
 	public void performImpl() throws Exception {
 		title("Tạo chủ đề mới");
 		try {
-			String submitted = getParams().get("cc_submit");
+			String submitted = getParams().get("submit");
 			if ("create".equals(submitted)) {
 				String name = "";
 				try {
-					name = getParams().getString("cc_name");
+					name = getParams().getString("name");
 				} catch (ParameterNotFoundException ex) {
 					addError("name", "Bạn cần nhập tên chủ đề.");
 				}
@@ -29,7 +29,7 @@ public class CreateAction extends AbstractAction {
 				Resource<Topic> parent = null;
 				try {
 					parent = ResourceDAO.fetchById(getParams().getLong(
-							"cc_parent"), Topic.class);
+							"parent"), Topic.class);
 				} catch (ParameterNotFoundException e) {
 					parent = null;
 				} catch (NumberFormatException ex) {

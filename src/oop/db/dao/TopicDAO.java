@@ -1,5 +1,6 @@
 package oop.db.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +69,29 @@ public final class TopicDAO {
 			}
 			throw ex;
 		}
+	}
+	
+	public static List<Resource<Topic>> getAncestors(long resourceId) {
+		Resource<Topic> topic = (Resource<Topic>) HibernateUtil.getSession()
+				.load(Resource.class, resourceId);
+		ArrayList<Resource<Topic>> ancestorList = new ArrayList<Resource<Topic>>();
+		addAncestors(ancestorList, topic);
+		return ancestorList;
+	}
+	
+	private static void addAncestors(List<Resource<Topic>> ancestorList,
+			Resource<Topic> topic) {
+		ancestorList.add(topic);
+		addAncestors(ancestorList, topic.getArticle().getParent());
+	}
+
+	public static List<Resource<Topic>> fetchChildren(long resourceId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in " +
+				"(from Topic where parent.id=:resId)";
+		Query query = session.createQuery(hql);
+		query.setLong("resId", resourceId);
+		return query.list();
 	}
 
 	public static long count() {

@@ -1,10 +1,7 @@
 package oop.controller;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,6 +22,8 @@ import oop.persistence.HibernateUtil;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.collections.map.LazyMap;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -89,7 +88,7 @@ public class ActionController extends HttpServlet {
 				return;
 			}
 			Set<String> requiredGroups = actionDesc.getRequiredGroups();
-			if (!Utils.isEmpty(requiredGroups)
+			if (Utils.isNotEmpty(requiredGroups)
 					&& (!loggedIn || !requiredGroups.contains(user.getGroup()))) {
 				error(request, response, "Bạn cần phải thuộc nhóm "
 						+ requiredGroups + " để thực hiện chức năng này.");
@@ -123,7 +122,7 @@ public class ActionController extends HttpServlet {
 			} else if (action.getRedirect() != null) {
 				response.sendRedirect(action.getRedirect());
 			} else {
-				request.setAttribute("modules", getModules(request, actionStr));
+				request.setAttribute("modules", getModules(request, action));
 				request.setAttribute("action", action);
 				request.getRequestDispatcher(templateEntry).forward(request,
 						response);
@@ -144,41 +143,49 @@ public class ActionController extends HttpServlet {
 		request.getRequestDispatcher(uri).forward(request, response);
 	}
 
-	private Map<String, List<Module>> getModules(HttpServletRequest request, String action) {
-		Map<String, List<Module>> moduleMap = new HashMap<String, List<Module>>();
-		User user = SessionUtils.getUser(request.getSession());
-		boolean loggedIn = (user != null);
-		for (ModuleDescriptor descriptor : Config.get().getModuleDescriptors()) {
-			if (descriptor.isLoginRequired() && !loggedIn) {
-				continue;
-			}
-			if (!Utils.isEmpty(descriptor.getInActions())
-					&& !descriptor.getInActions().contains(action)) {
-				continue;
-			}
-			if (!Utils.isEmpty(descriptor.getRequiredGroups())
-					&& !(loggedIn && descriptor.getRequiredGroups().contains(
-							user.getGroup()))) {
-				continue;
-			}
-			try {
-				Module module = descriptor.createModule();
-				module.init();
-				if (moduleMap.get(descriptor.getPosition()) == null) {
-					moduleMap.put(descriptor.getPosition(),
-							new LinkedList<Module>());
+	@SuppressWarnings("unchecked")
+	private Map<String, List<Module>> getModules(HttpServletRequest request,
+			final Action action) {
+		final User user = SessionUtils.getUser(request.getSession());
+		final boolean loggedIn = (user != null);
+		return LazyMap.decorate(Config.get()
+				.getModuleDescriptorsByPosition(), new Transformer() {
+
+			@Override
+			public Object transform(Object obj) {
+				List<ModuleDescriptor> descriptors = (List<ModuleDescriptor>) obj;
+				List<Module> modules = new ArrayList<Module>();
+				for (ModuleDescriptor descriptor : descriptors) {
+					if (descriptor.isLoginRequired() && !loggedIn) {
+						continue;
+					}
+					if (Utils.isNotEmpty(descriptor.getInActions())
+							&& !descriptor.getInActions().contains(
+									action.getDescriptor().getName())) {
+						continue;
+					}
+					if (Utils.isNotEmpty(descriptor.getRequiredGroups())
+							&& !(loggedIn && descriptor.getRequiredGroups().contains(
+									user.getGroup()))) {
+						continue;
+					}
+					if (descriptor.getArticleType() != null
+							&& !descriptor.getArticleType().isAssignableFrom(
+									action.getResource().getType())) {
+						continue;
+					}
+					try {
+						Module module = descriptor.createModule();
+						module.setResource(action.getResource());
+						module.init();
+						modules.add(module);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-				moduleMap.get(descriptor.getPosition()).add(module);
-			} catch (Exception e) {
-				e.printStackTrace();
+				return modules;
 			}
-		}
-		
-		// sắp xếp theo thứ tự
-		for (List<Module> modules : moduleMap.values()) {
-			Collections.sort(modules, moduleComparator);
-		}
-		return moduleMap;
+		});
 	}
 	
 	public String getMainEntry() {
@@ -189,12 +196,4 @@ public class ActionController extends HttpServlet {
 		return Config.get().getHomeDir() + getMainEntry();
 	}
 
-	private static Comparator<Module> moduleComparator = new Comparator<Module>() {
-		
-		@Override
-		public int compare(Module o1, Module o2) {
-			return o1.getOrder() - o2.getOrder();
-		}
-	};
-	
 }

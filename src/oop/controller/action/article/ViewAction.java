@@ -1,28 +1,24 @@
 package oop.controller.action.article;
 
+import com.oreilly.servlet.ParameterNotFoundException;
+
 import oop.controller.action.AbstractAction;
-import oop.data.Article;
-import oop.data.Resource;
+import oop.controller.action.ActionException;
 import oop.db.dao.ResourceDAO;
 
 public class ViewAction extends AbstractAction {
 
-	private Resource<? extends Article> resource;
-	private Article article;
-
 	@Override
-	protected void performImpl() throws Exception {
-		long id = getParams().getLong("id");
-		resource = ResourceDAO.fetchById(id);
-		article = resource.getArticle();
-	}
-	
-	public Resource<? extends Article> getResource() {
-		return resource;
-	}
-
-	public Article getArticle() {
-		return article;
+	protected void performImpl() {
+		long id;
+		try {
+			id = getParams().getLong("id");
+			setResource(ResourceDAO.fetchById(id));
+		} catch (NumberFormatException e) {
+			throw new ActionException("Mã bài viết không hợp lệ.");
+		} catch (ParameterNotFoundException e) {
+			throw new ActionException("Bạn cần chọn bài viết.");
+		}
 	}
 
 }

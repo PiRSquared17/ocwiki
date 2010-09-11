@@ -14,7 +14,7 @@ public class ParamTag extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		AbstractLinkTag link = (AbstractLinkTag) getParent();
+		AbstractActionTag link = (AbstractActionTag) getParent();
 		if (getValue() == null
 				|| (getValue() instanceof String && ((String) getValue())
 						.isEmpty())) {

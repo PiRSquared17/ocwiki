@@ -32,6 +32,18 @@
       <class>oop.controller.action.article.ViewAction</class>
     </action>
     <action>
+      <name>article.view.BaseQuestion</name>
+      <class>oop.controller.action.article.ViewAction</class>
+    </action>
+    <action>
+      <name>article.view.Test</name>
+      <class>oop.controller.action.article.ViewAction</class>
+    </action>
+    <action>
+      <name>article.view.TestStructure</name>
+      <class>oop.controller.action.article.ViewAction</class>
+    </action>
+    <action>
       <name>article.viewold</name>
       <class>oop.controller.action.article.ViewOldRevisionAction</class>
     </action>
@@ -377,6 +389,16 @@
         <class>oop.module.CommentModule</class>
         <position>bottom_right</position>
         <order>1</order>
+    </module>
+    <module>
+        <name>topic-children</name>
+        <title>Chủ đề con</title>
+        <class>oop.module.topic.ChildrenModule</class>
+        <position>action-bottom</position>
+        <order>1</order>
+        <page>topic/children.jsp</page>
+        <inAction>article.view</inAction>
+        <articleType>oop.data.Topic</articleType>
     </module>
     <!-- 
     <module>

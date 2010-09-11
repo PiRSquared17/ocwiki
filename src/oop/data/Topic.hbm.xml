@@ -5,7 +5,7 @@
 <hibernate-mapping>
 	<subclass name="oop.data.Topic" discriminator-value="Topic"
 		extends="oop.data.Article">
-		<many-to-one name="parent" class="oop.data.Topic" fetch="select">
+		<many-to-one name="parent" class="oop.data.Resource" fetch="select">
 			<column name="parent" not-null="false" />
 		</many-to-one>
 	</subclass>

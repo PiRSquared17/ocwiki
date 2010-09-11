@@ -45,6 +45,7 @@ public abstract class AbstractAction implements Action {
 	private ParameterList params;
 	private ActionDescriptor descriptor;
 	private Map<String, String> errors = null;
+	private Resource<? extends Article> resource;
 
 	public AbstractAction() {
 		// default constructor
@@ -212,6 +213,20 @@ public abstract class AbstractAction implements Action {
 	
 	public boolean hasNoErrors() {
 		return errors == null || errors.isEmpty();
+	}
+
+	@Override
+	public Resource<? extends Article> getResource() {
+		return resource;
+	}
+	
+	protected <T extends Article> void setResource(Resource<T> resource) {
+		this.resource = resource;
+	}
+	
+	@Override
+	public Article getArticle() {
+		return resource == null ? null : resource.getArticle();
 	}
 	
 }

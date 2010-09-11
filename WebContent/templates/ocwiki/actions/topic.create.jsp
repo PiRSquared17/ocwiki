@@ -22,19 +22,19 @@ function validate() {
 <ocw:form action="topic.create"> 
 	<p>
 		<label>Tên: <input type="text" id="txtName"
-		      name="cc_name" value="${topic.name}"></label>
+		      name="name" value="${topic.name}"></label>
 		<ocw:error code="name"></ocw:error>
 	</p>
 	<p><label>Chủ đề cha:
-        <input type="text" id="txtParentName" name="cc_parentname" 
-                value="${param.cc_parentname}">
+        <input type="text" id="txtParentName" name="parentname" 
+                value="${param.parentname}">
         </label>
-        <input type="hidden" id="txtParentId" name="cc_parent" 
-                 value="${param.cc_parent}">
+        <input type="hidden" id="txtParentId" name="parent" 
+                 value="${param.parent}">
         <a href="javascript:clearParent();"><img src="${templatePath}/images/wrong.png" alt="remove" title="remove" width="12" height="12" /></a>
         <ocw:error code="parent"></ocw:error>
 	</p>
-	<button type="submit" name="cc_submit" value="create">Tạo</button>
+	<button type="submit" name="submit" value="create">Tạo</button>
 	<button type="button" onclick="location.href='${scriptPath}?action=topic.list'">Quay về danh sách</button>
 </ocw:form>
 

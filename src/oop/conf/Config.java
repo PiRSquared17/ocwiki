@@ -1,10 +1,15 @@
 package oop.conf;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class Config implements Serializable {
 
@@ -31,6 +36,7 @@ public class Config implements Serializable {
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
 	private Set<ActionDescriptor> actionDescriptors = new HashSet<ActionDescriptor>();
 	private Set<APIDescriptor> apiDescriptors = new HashSet<APIDescriptor>();
+	private transient Map<String, List<ModuleDescriptor>> moduleMap = new HashMap<String, List<ModuleDescriptor>>();
 	private transient Map<String, ActionDescriptor> actionMap = new HashMap<String, ActionDescriptor>();
 	private transient Map<String, APIDescriptor> apiMap = new HashMap<String, APIDescriptor>();
 	
@@ -98,9 +104,17 @@ public class Config implements Serializable {
 	public ActionDescriptor getActionDescriptor(String name) {
 		return actionMap.get(name);
 	}
-	
+
 	public Set<ModuleDescriptor> getModuleDescriptors() {
 		return moduleDescriptors;
+	}
+
+	public List<ModuleDescriptor> getModuleDescriptors(String position) {
+		return moduleMap.get(position);
+	}
+	
+	public Map<String, List<ModuleDescriptor>> getModuleDescriptorsByPosition() {
+		return Collections.unmodifiableMap(moduleMap);
 	}
 
 	public String getApiPath() {
@@ -190,6 +204,24 @@ public class Config implements Serializable {
 
 	public void setModuleDescriptors(Set<ModuleDescriptor> moduleDescriptors) {
 		this.moduleDescriptors = moduleDescriptors;
+		for (ModuleDescriptor descriptor : moduleDescriptors) {
+			List<ModuleDescriptor> list = moduleMap.get(descriptor.getPosition());
+			if (list == null) {
+				list = new ArrayList<ModuleDescriptor>();
+				moduleMap.put(descriptor.getPosition(), list);
+			}
+			list.add(descriptor);
+		}
+		Comparator<ModuleDescriptor> comparator = new Comparator<ModuleDescriptor>() {
+			
+			@Override
+			public int compare(ModuleDescriptor o1, ModuleDescriptor o2) {
+				return o1.getOrder() - o2.getOrder();
+			}
+		};
+		for (Entry<String, List<ModuleDescriptor>> entries : moduleMap.entrySet()) {
+			Collections.sort(entries.getValue(), comparator);
+		}
 	}
 
 	public void setActionDescriptors(Set<ActionDescriptor> actionDescriptors) {

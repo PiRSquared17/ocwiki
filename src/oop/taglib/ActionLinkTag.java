@@ -11,7 +11,7 @@ import oop.controller.action.ActionUtil;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-public class ActionLinkTag extends AbstractLinkTag {
+public class ActionLinkTag extends AbstractActionTag {
 
 	private String title;
 	

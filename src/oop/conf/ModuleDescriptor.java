@@ -3,6 +3,7 @@ package oop.conf;
 import java.util.HashSet;
 import java.util.Set;
 
+import oop.data.Article;
 import oop.module.Module;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,7 @@ public class ModuleDescriptor {
 	private boolean loginRequired = false;
 	private Set<String> requiredGroups = new HashSet<String>();
 	private Set<String> inActions = new HashSet<String>();
+	private Class<? extends Article> articleType = null;
 	private int order;
 	private String page;
 	private Class<? extends Module> clazz;
@@ -102,6 +104,14 @@ public class ModuleDescriptor {
 
 	public Set<String> getInActions() {
 		return inActions;
+	}
+
+	public void setArticleType(Class<? extends Article> articleType) {
+		this.articleType = articleType;
+	}
+
+	public Class<? extends Article> getArticleType() {
+		return articleType;
 	}
 	
 }
