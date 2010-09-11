@@ -130,6 +130,14 @@ public class Config implements Serializable {
 	}
 
 	private static Config DEFAULT = null;
+
+	private static final Comparator<ModuleDescriptor> MODULE_POSITION_COMPARATOR = new Comparator<ModuleDescriptor>() {
+		
+		@Override
+		public int compare(ModuleDescriptor o1, ModuleDescriptor o2) {
+			return o1.getOrder() - o2.getOrder();
+		}
+	};
 	
 	public static Config get() {
 		return DEFAULT;
@@ -204,38 +212,14 @@ public class Config implements Serializable {
 
 	public void setModuleDescriptors(Set<ModuleDescriptor> moduleDescriptors) {
 		this.moduleDescriptors = moduleDescriptors;
-		for (ModuleDescriptor descriptor : moduleDescriptors) {
-			List<ModuleDescriptor> list = moduleMap.get(descriptor.getPosition());
-			if (list == null) {
-				list = new ArrayList<ModuleDescriptor>();
-				moduleMap.put(descriptor.getPosition(), list);
-			}
-			list.add(descriptor);
-		}
-		Comparator<ModuleDescriptor> comparator = new Comparator<ModuleDescriptor>() {
-			
-			@Override
-			public int compare(ModuleDescriptor o1, ModuleDescriptor o2) {
-				return o1.getOrder() - o2.getOrder();
-			}
-		};
-		for (Entry<String, List<ModuleDescriptor>> entries : moduleMap.entrySet()) {
-			Collections.sort(entries.getValue(), comparator);
-		}
 	}
 
 	public void setActionDescriptors(Set<ActionDescriptor> actionDescriptors) {
 		this.actionDescriptors = actionDescriptors;
-		for (ActionDescriptor desc : actionDescriptors) {
-			actionMap.put(desc.getName(), desc);
-		}
 	}
 
 	public void setApiDescriptors(Set<APIDescriptor> apiDescriptors) {
 		this.apiDescriptors = apiDescriptors;
-		for (APIDescriptor desc : apiDescriptors) {
-			apiMap.put(desc.getName(), desc);
-		}
 	}
 
 	public void setRestPath(String restPath) {
@@ -268,6 +252,32 @@ public class Config implements Serializable {
 
 	public String getArticlePath() {
 		return replaceMagicWords(articlePath);
+	}
+	
+	void doneLoading() {
+		// create action map
+		actionMap = new HashMap<String, ActionDescriptor>();
+		for (ActionDescriptor desc : actionDescriptors) {
+			actionMap.put(desc.getName(), desc);
+		}
+		// create api map
+		apiMap = new HashMap<String, APIDescriptor>();
+		for (APIDescriptor desc : apiDescriptors) {
+			apiMap.put(desc.getName(), desc);
+		}
+		// create module map
+		moduleMap = new HashMap<String, List<ModuleDescriptor>>();
+		for (ModuleDescriptor descriptor : moduleDescriptors) {
+			List<ModuleDescriptor> list = moduleMap.get(descriptor.getPosition());
+			if (list == null) {
+				list = new ArrayList<ModuleDescriptor>();
+				moduleMap.put(descriptor.getPosition(), list);
+			}
+			list.add(descriptor);
+		}
+		for (Entry<String, List<ModuleDescriptor>> entries : moduleMap.entrySet()) {
+			Collections.sort(entries.getValue(), MODULE_POSITION_COMPARATOR);
+		}
 	}
 	
 }
