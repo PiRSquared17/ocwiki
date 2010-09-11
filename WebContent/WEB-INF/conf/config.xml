@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<siteName>OCWiki beta</siteName>
+	<mainEntry>/index.jsp</mainEntry>
+	<actionPath>${homeDir}/action</actionPath>
+	<apiPath>${homeDir}/api</apiPath>
+	<restPath>${homeDir}/rest</restPath>
+	<templatePath>${homeDir}/templates/${template}</templatePath>
+	<uploadPath>${homeDir}/uploads</uploadPath>
+	<defaultTemplate>default</defaultTemplate>
+
+    <!--********************************************************************
+                                 Actions 
+     ********************************************************************-->
+
+    <action>
+      <name>homepage</name>
+      <class>oop.controller.action.HomepageAction</class>
+    </action>
+    <action>
+      <name>error</name>
+      <class>oop.controller.action.ErrorAction</class>
+    </action>
+    <action>
+      <name>aboutus</name>
+      <class>oop.controller.action.AboutUsAction</class>
+    </action>
+    
+    <!-- Article actions -->
+    <action>
+      <name>article.view</name>
+      <class>oop.controller.action.article.ViewAction</class>
+    </action>
+    <action>
+      <name>article.view.BaseQuestion</name>
+      <class>oop.controller.action.article.ViewAction</class>
+    </action>
+    <action>
+      <name>article.view.Test</name>
+      <class>oop.controller.action.article.ViewAction</class>
+    </action>
+    <action>
+      <name>article.view.TestStructure</name>
+      <class>oop.controller.action.article.ViewAction</class>
+    </action>
+    <action>
+      <name>article.viewold</name>
+      <class>oop.controller.action.article.ViewOldRevisionAction</class>
+    </action>
+    <action>
+      <name>article.edit</name>
+      <class>oop.controller.action.article.EditAction</class>
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>article.diff</name>
+      <class>oop.controller.action.article.DifferentiateAction</class>
+    </action>
+    <action>
+      <name>revision.list</name>
+      <class>oop.controller.action.revision.ListAction</class>
+    </action>
+    
+    
+    
+    
+    <action>
+      <name>test.list</name>
+      <class>oop.controller.action.test.ListAction</class>
+    </action>
+    <action>
+      <name>test.view</name>
+      <class>oop.controller.action.test.ViewAction</class>
+    </action>
+    <action>
+      <name>test.create</name>
+      <class>oop.controller.action.test.CreateAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>test.edit</name>
+      <class>oop.controller.action.test.EditAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>test.solve</name>
+      <class>oop.controller.action.test.SolveAction</class>
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>test.addquestion</name>
+      <class>oop.controller.action.test.AddQuestionAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>test.editquestion</name>
+      <class>oop.controller.action.test.EditQuestionAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>test.deletequestion</name>
+      <class>oop.controller.action.test.DeleteQuestionAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>test.savedocx</name>
+      <class>oop.controller.action.test.SaveDocxAction</class>
+    </action>
+    <action>
+      <name>section.create</name>
+      <class>oop.controller.action.section.CreateAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>section.delete</name>
+      <class>oop.controller.action.section.DeleteAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>section.edit</name>
+      <class>oop.controller.action.section.EditAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>section.moveup</name>
+      <class>oop.controller.action.section.MoveUpAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>section.movedown</name>
+      <class>oop.controller.action.section.MoveDownAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>teststruct.list</name>
+      <class>oop.controller.action.teststruct.ListAction</class>
+    </action>
+    <action>
+      <name>teststruct.view</name>
+      <class>oop.controller.action.teststruct.ViewAction</class>
+    </action>
+    <action>
+      <name>teststruct.create</name>
+      <class>oop.controller.action.teststruct.CreateAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>teststruct.edit</name>
+      <class>oop.controller.action.teststruct.EditAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>levelconst.create</name>
+      <class>oop.controller.action.levelconst.CreateAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>topicconst.create</name>
+      <class>oop.controller.action.topicconst.CreateAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>sectstruct.create</name>
+      <class>oop.controller.action.sectstruct.CreateAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>sectstruct.delete</name>
+      <class>oop.controller.action.sectstruct.DeleteAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>sectstruct.edit</name>
+      <class>oop.controller.action.sectstruct.EditAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>sectstruct.moveup</name>
+      <class>oop.controller.action.sectstruct.MoveUpAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>sectstruct.movedown</name>
+      <class>oop.controller.action.sectstruct.MoveDownAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>question.list</name>
+      <class>oop.controller.action.question.ListAction</class>
+    </action>
+    <action>
+      <name>question.view</name>
+      <class>oop.controller.action.question.ViewAction</class>
+    </action>
+    <action>
+      <name>question.eview</name>
+      <class>oop.controller.action.question.EnhancedViewAction</class>
+      <javaScript></javaScript>
+    </action>
+    <action>
+      <name>question.create</name>
+      <class>oop.controller.action.question.CreateAction</class>
+      <loginRequired>true</loginRequired>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+    </action>
+    <action>
+      <name>question.edit</name>
+      <class>oop.controller.action.question.EditAction</class>
+      <loginRequired>true</loginRequired>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <requiredGroup>admin</requiredGroup>
+    </action>
+    <action>
+      <name>question.delete</name>
+      <class>oop.controller.action.question.DeleteAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>answer.create</name>
+      <class>oop.controller.action.answer.CreateAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>answer.edit</name>
+      <class>oop.controller.action.answer.EditAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>answer.delete</name>
+      <class>oop.controller.action.answer.DeleteAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>topic.list</name>
+      <class>oop.controller.action.topic.ListAction</class>
+    </action>
+    <action>
+      <name>topic.create</name>
+      <class>oop.controller.action.topic.CreateAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>topic.edit</name>
+      <class>oop.controller.action.topic.EditAction</class>
+      <!-- <requiredGroup>teacher</requiredGroup> -->
+      <loginRequired>true</loginRequired>
+    </action>
+
+    <!--********************************************************************
+                           User Actions 
+     ********************************************************************-->
+    
+    <action>
+      <name>user.list</name>
+      <class>oop.controller.action.user.ListAction</class>
+    </action>
+    <action>
+      <name>user.login</name>
+      <class>oop.controller.action.user.LogInAction</class>
+    </action>
+    <action>
+      <name>user.logout</name>
+      <class>oop.controller.action.user.LogOutAction</class>
+    </action>
+    <action>
+      <name>user.signup</name>
+      <class>oop.controller.action.user.SignUpAction</class>
+    </action>
+    
+    <action>
+      <name>user.forgetpass</name>
+      <class>oop.controller.action.user.ForgetPassAction</class>
+    </action>
+    
+    <action>
+      <name>user.preference</name>
+      <class>oop.controller.action.user.PreferenceAction</class>
+      <loginRequired>true</loginRequired>
+    </action>
+    
+    <action>
+      <name>user.edituser</name>
+      <class>oop.controller.action.user.EditUserAction</class>
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>user.editrequiredGroup</name>
+      <class>oop.controller.action.user.EditGroupAction</class>
+      <requiredGroup>admin</requiredGroup>
+    </action>
+    <action>
+      <name>user.profile</name>
+      <class>oop.controller.action.user.ProfileAction</class>
+    </action>
+    <action>
+      <name>admin.home</name>
+      <class>oop.controller.action.admin.HomeAction</class>
+    </action>
+
+
+    <!--********************************************************************
+                                  API  
+     ********************************************************************-->
+    <api>
+      <name>topic.search</name>
+      <class>oop.controller.api.topic.Search</class>
+    </api>
+    <api>
+      <name>test.search</name>
+      <class>oop.controller.api.test.Search</class>
+    </api>
+    <api>
+      <name>teststruct.search</name>
+      <class>oop.controller.api.teststruct.Search</class>
+    </api>
+    <api>
+      <name>question.search</name>
+      <class>oop.controller.api.question.Search</class>
+    </api>
+    
+    <!--********************************************************************
+                                Modules 
+     ********************************************************************-->
+
+    <!-- 
+    <module>
+       <name>qtopics</name>
+        <title>Câu hỏi</title>
+        <class>oop.module.QuestionTopicsModule</class>
+        <position>left</position>
+        <order>4</order>
+    </module>
+    <module>
+       <name>ttopics</name>
+        <title>Đề thi</title>
+        <class>oop.module.TestTopicsModule</class>
+        <position>left</position>
+        <order>5</order>
+    </module>
+    <module>
+       <name>stopics</name>
+        <title>Cấu trúc đề</title>
+        <class>oop.module.TestStructureTopicsModule</class>
+        <position>left</position>
+        <order>6</order>
+    </module>
+     -->
+    <module>
+       <name>user</name>
+        <title>Công cụ</title>
+        <class>oop.module.UserToolbarModule</class>
+        <position>left</position>
+        <order>2</order>
+    </module>
+    <module>
+       <name>session</name>
+        <title>Đăng nhập</title>
+        <class>oop.module.SessionModule</class>
+        <position>top_right</position>
+        <order>1</order>
+    </module>
+    <module>
+       <name>comment</name>
+        <title>Nhận xét</title>
+        <class>oop.module.CommentModule</class>
+        <position>bottom_right</position>
+        <order>1</order>
+    </module>
+    <module>
+        <name>topic-children</name>
+        <title>Chủ đề con</title>
+        <class>oop.module.topic.ChildrenModule</class>
+        <position>action-bottom</position>
+        <order>1</order>
+        <page>topic/children.jsp</page>
+        <inAction>article.view</inAction>
+        <articleType>oop.data.Topic</articleType>
+    </module>
+    <!-- 
+    <module>
+       <name>login</name>
+        <title>Đăng nhập</title>
+        <class>oop.module.LoginModule</class>
+        <position>left</position>
+        <order>1</order>
+    </module>
+    -->
+</config>
