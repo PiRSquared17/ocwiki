@@ -26,6 +26,7 @@
       <class>oop.controller.action.AboutUsAction</class>
     </action>
     
+    
     <!-- Article actions -->
     <action>
       <name>article.view</name>
@@ -62,6 +63,13 @@
     </action>
     
     
+
+    <action>
+        <name>textart.create</name>
+        <loginRequired>true</loginRequired>
+        <class>oop.controller.action.textart.CreateAction</class>
+        <title>Tạo bài viết</title>
+    </action>
     
     
     <action>

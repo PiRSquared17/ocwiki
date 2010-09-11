@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<div>
-<p>Create comment---</p>
+<div id="creat-comment">
 <form id="creat-comment" name="creat-comment">
 <span id = "cannot-post" style="color: red; display:none;" ></span>
-<label>Nhận xét<br />
+<label>Đăng nhận xét của bạn<br />
 <textarea name="comment-input" id="comment-input" cols="45" rows="5"></textarea>
 </label>
 <p>
@@ -33,10 +32,9 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						newpostcomment = transport.responseJSON.result;
-						$('commentslist').innerHTML+=newpostcomment.message;
-						$('commentslist').innerHTML+=('<br/>------------<br/>');
-						//tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';						
+						var newpostcomment = transport.responseJSON.result;
+						$('commentslist').innerHTML+=showComments(newpostcomment);
+						tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';						
 					},
 				    onFailure: function()
 				    { 
