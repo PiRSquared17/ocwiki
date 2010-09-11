@@ -2,6 +2,7 @@ package oop.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -143,19 +144,17 @@ public class ActionController extends HttpServlet {
 		request.getRequestDispatcher(uri).forward(request, response);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private Map<String, List<Module>> getModules(HttpServletRequest request,
 			final Action action) {
 		final User user = SessionUtils.getUser(request.getSession());
 		final boolean loggedIn = (user != null);
-		return LazyMap.decorate(Config.get()
-				.getModuleDescriptorsByPosition(), new Transformer() {
+		return LazyMap.decorate(new HashMap(), new Transformer() {
 
 			@Override
-			public Object transform(Object obj) {
-				List<ModuleDescriptor> descriptors = (List<ModuleDescriptor>) obj;
+			public Object transform(Object position) {
 				List<Module> modules = new ArrayList<Module>();
-				for (ModuleDescriptor descriptor : descriptors) {
+				for (ModuleDescriptor descriptor : Config.get().getModuleDescriptors((String)position)) {
 					if (descriptor.isLoginRequired() && !loggedIn) {
 						continue;
 					}

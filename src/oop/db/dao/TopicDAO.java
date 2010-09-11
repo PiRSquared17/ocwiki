@@ -50,25 +50,27 @@ public final class TopicDAO {
 		return query.list();
 	}
 
-	public static Resource<Topic> create(String name, String contentStr,
-			Resource<Topic> parent, User author) {
+	public static List<Resource<Topic>> getAncestors(long resourceId) {
+		Resource<Topic> topic = (Resource<Topic>) HibernateUtil.getSession()
+				.load(Resource.class, resourceId);
+		ArrayList<Resource<Topic>> ancestorList = new ArrayList<Resource<Topic>>();
+		addAncestors(ancestorList, topic);
+		return ancestorList;
+	}
+	
+	private static void addAncestors(List<Resource<Topic>> ancestorList,
+			Resource<Topic> topic) {
+		ancestorList.add(topic);
+		addAncestors(ancestorList, topic.getArticle().getParent());
+	}
+
+	public static List<Resource<Topic>> fetchChildren(long resourceId) {
 		Session session = HibernateUtil.getSession();
-		Transaction tx = null;
-		try {
-			Topic newTopic = new Topic(name, parent, new Text(contentStr));
-			Resource<Topic> resource = new Resource<Topic>(new Date(), author,
-					Status.NORMAL, Topic.class, newTopic);
-			tx = session.beginTransaction();
-			session.save(resource);
-			tx.commit();
-			return resource;
-		} catch (HibernateException ex) {
-			if (tx != null) {
-				tx.rollback();
-				session.close();
-			}
-			throw ex;
-		}
+		String hql = "from Resource where article in " +
+				"(from Topic where parent.id=:resId)";
+		Query query = session.createQuery(hql);
+		query.setLong("resId", resourceId);
+		return query.list();
 	}
 	
 	public static List<Resource<Topic>> getAncestors(long resourceId) {
