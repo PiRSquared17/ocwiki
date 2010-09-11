@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 19:07:23 18-07-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="oop.data.Article" table="Article" abstract="true"
+		mutable="false">
+		<id name="id" type="long" access="field">
+			<generator class="identity" />
+		</id>
+		<discriminator type="string" length="20">
+			<column name="discriminator"></column>
+		</discriminator>
+		<many-to-one name="namespace" class="oop.data.Namespace">
+			<column name="namespace" not-null="true"></column>
+		</many-to-one>
+		<many-to-one name="content" column="content" class="oop.data.Text"
+			fetch="join" cascade="all" not-null="true" />
+		<property name="name" type="java.lang.String" access="field"></property>
+	</class>
+</hibernate-mapping>
