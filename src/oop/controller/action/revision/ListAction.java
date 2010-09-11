@@ -10,7 +10,7 @@ import oop.db.dao.RevisionDAO;
 import oop.taglib.UtilFunctions;
 
 public class ListAction extends AbstractAction {
-	private List<Revision<? extends Article>> revList;
+	private List<Revision<Article>> revList;
 	private long resourceID;
 	private long pageCount;
 	private int pageLength;
@@ -34,7 +34,7 @@ public class ListAction extends AbstractAction {
 		title("Danh sách phiên bản của bài viết: " + res.getName());
 	}
 
-	public List<Revision<? extends Article>> getRevisions() {
+	public List<Revision<Article>> getRevisions() {
 		return revList;
 	}
 	

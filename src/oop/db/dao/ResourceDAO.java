@@ -32,7 +32,7 @@ public class ResourceDAO {
 		Query query = session.createQuery("from Resource where id=:id");
 		query.setLong("id", id);
 		Resource<T> resource = (Resource<T>) query.uniqueResult();
-		if (resource != null && resource.getType() != type) {
+		if (resource != null && type.isAssignableFrom(resource.getType())) {
 			return null;
 		}
 		return resource;
