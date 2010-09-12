@@ -15,7 +15,7 @@
 	var commentslisthtml = '';
 	var commentslist;
 	new Ajax.Request(
-			restPath + '/comments/resource/' + articleID + '/latest',
+			restPath + '/comment_reports/resource/' + articleID + '/latest',
 			{
 				method: 'get',
 				requestHeaders : {
@@ -24,10 +24,14 @@
 				evalJSON : true,
 				onSuccess : function(transport) {
 					commentslist = transport.responseJSON.result;
-					for (var i=0;i<commentslist.size();i++){
-						commentslisthtml+=showComments(commentslist[i]);					
+					if (commentslist != null){
+						for (var i=0;i<commentslist.size();i++){
+							commentslisthtml+=showComments(commentslist[i].comment);					
+						}
+						$('commentslist').innerHTML = commentslisthtml;
+					} else {
+						$('commentslist').innerHTML = 'Chưa có nhận xét';
 					}
-					$('commentslist').innerHTML = commentslisthtml;
 				},
 			    onFailure: function()
 			    { 
