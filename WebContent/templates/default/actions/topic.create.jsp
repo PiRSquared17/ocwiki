@@ -25,11 +25,7 @@ function validate() {
 		      name="name" value="${topic.name}"></label>
 		<ocw:error code="name"></ocw:error>
 	</p>
-    <p>
-        <label>Nội dung:
-        <textarea name="content" rows="20" cols="80">${param.content}</textarea></label>
-    </p>
-	<p><label>Chủ đề cha:
+    <p><label>Chủ đề cha:
         <input type="text" id="txtParentName" name="parentname" 
                 value="${param.parentname}">
         </label>
@@ -37,7 +33,11 @@ function validate() {
                  value="${param.parent}">
         <a href="javascript:clearParent();"><img src="${templatePath}/images/wrong.png" alt="remove" title="remove" width="12" height="12" /></a>
         <ocw:error code="parent"></ocw:error>
-	</p>
+    </p>
+    <p>
+        <label>Nội dung:
+        <textarea name="content" rows="20" cols="80">${param.content}</textarea></label>
+    </p>
 	<button type="submit" name="submit" value="create">Tạo</button>
 	<button type="button" onclick="location.href='${scriptPath}?action=topic.list'">Quay về danh sách</button>
 </ocw:form>
