@@ -20,7 +20,7 @@
 <script language="javascript">
 	$('cannot-post').hide();
 	function postComment(){
-		var newComment = {message: $F('comment-input')};
+		var newComment = {message: tinyMCE.getInstanceById('comment-input').getContent()};
 		new Ajax.Request(
 				restPath + '/comments/resource/' + articleID,
 				{
