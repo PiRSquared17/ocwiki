@@ -23,11 +23,9 @@
 				},
 				evalJSON : true,
 				onSuccess : function(transport) {
-					alert(transport.responseText);
 					commentslist = transport.responseJSON.result;
 					if (commentslist.length>0){
 						for (i=0;i<commentslist.length;i++){
-							alert(i);
 							commentslisthtml+=showComments(commentslist[i].comment);					
 						}
 						$('commentslist').innerHTML = commentslisthtml;

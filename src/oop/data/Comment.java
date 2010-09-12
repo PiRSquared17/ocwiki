@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 import oop.util.Utils;
 
@@ -14,16 +13,11 @@ public class Comment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@XmlElement
 	private long id;
-	@XmlElement
 	private User user;
-	@XmlElement
 	private Date timestamp;
 	private String message;
-	@XmlTransient
 	private Resource<? extends Article> resource;
-	@XmlTransient
 	private Revision<? extends Article> revision;
 
 	public Comment() {
@@ -40,6 +34,7 @@ public class Comment implements Serializable {
 		this.revision = revision;
 	}
 
+	@XmlElement
 	public String getMessage() {
 		return message;
 	}
@@ -48,16 +43,31 @@ public class Comment implements Serializable {
 		this.message = message;
 	}
 
+	@XmlElement
 	public long getId() {
 		return id;
 	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
 
+	@XmlElement
 	public User getUser() {
 		return user;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	@XmlElement
 	public Date getTimestamp() {
 		return timestamp;
+	}
+	
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public Resource<? extends Article> getResource() {
