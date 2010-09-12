@@ -277,7 +277,13 @@
       <!-- <requiredGroup>teacher</requiredGroup> -->
       <loginRequired>true</loginRequired>
     </action>
-
+    <!--********************************************************************
+                           TextArticle Action
+     ********************************************************************-->
+	<action>
+      <name>textarticle.view</name>
+      <class>oop.controller.action.TextArticle.ViewAction</class>
+    </action>
     <!--********************************************************************
                            User Actions 
      ********************************************************************-->
