@@ -7,7 +7,7 @@
 <ocw:form action="textarticle.edit">
 	<table>
 		<tr>
-			<td>Namespace:</td>
+			<td>Không gian tên:</td>
 			<td>	
 				<select id="namespace_edit">
 					<option value="0" ${textedit.namespace.id==0 ? 'selected="selected"':''} >Chinh</option>
@@ -21,17 +21,19 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Name:</td>
+			<td>Tên:</td>
 			<td>
 				<input id="edit_name" type="text" value="${textedit.name}">
 			</td>
 		</tr>
 		<tr>
-			<td>Contenxt:</td>
-			<td>	
+			<td>Nội dung:</td>
+			<td >
+			<font size="2">
 				<textarea rows="" cols="" id="edit_context">
 					${textedit.content.text}
 				</textarea>
+			</font>
 			</td>
 		</tr>
 	</table>
@@ -53,14 +55,11 @@
 	  onSuccess : function(transport) {
 		  textarticle = transport.responseJSON.result;
 	  },
-	  onFailure: function(){ }
+	  onFailure: function(){
+		  alert('Fail'); }
 	});
 
 	function saveEdit(){
-		var isconfirm=confirm('Bạn có muốn save text:'+"${textedit.name}");
-		if(isconfirm!=true){
-			return;
-		}
 		textarticle.content={text : tinymce.get('edit_context').getContent()};
 		textarticle.namespace={id : $F('namespace_edit')};
 		new Ajax.Request(restPath + '/TextArticle/'+ resourceId,
@@ -78,8 +77,8 @@
 			     evalJSON: true,
 			     onSuccess: function(transport) {
 			      },
-			      onFailure: function(){
-				      alert('Khong the cap nhat du lieu!'); }
+			      onFailure: function(error){
+				      alert('Loi:'+error.status); }
 			});
 	};
 //-->
