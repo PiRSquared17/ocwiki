@@ -12,7 +12,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
-public abstract class AbstractLinkTag extends SimpleTagSupport {
+public abstract class AbstractActionTag extends SimpleTagSupport {
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private String name;
@@ -21,7 +21,7 @@ public abstract class AbstractLinkTag extends SimpleTagSupport {
 	protected JspFragment jspBody;
 	private String onclick;
 
-	public AbstractLinkTag() {
+	public AbstractActionTag() {
 		super();
 	}
 
@@ -67,7 +67,8 @@ public abstract class AbstractLinkTag extends SimpleTagSupport {
 		}
 	}
 
-	protected abstract void appendHref() throws IOException, JspException;
+	protected void appendHref() throws IOException, JspException {
+	}
 
 	protected JspWriter out() {
 		return getJspContext().getOut();

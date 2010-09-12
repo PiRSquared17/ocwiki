@@ -30,7 +30,10 @@
 <ocw:userLink user="${action.resource.author}" /> tạo lúc 
 ${u:formatDateTime(action.resource.createDate)}
 
+<div class="clear"></div>
+
 <jsp:include page="/includes/${type.simpleName}.view.jsp"></jsp:include>
 
+<div class="clear"></div>
 
 <p><jsp:include page="article.view-comments.jsp"></jsp:include></p>

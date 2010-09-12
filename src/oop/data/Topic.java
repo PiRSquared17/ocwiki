@@ -1,11 +1,5 @@
 package oop.data;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
-import javax.xml.bind.annotation.XmlTransient;
-
 import oop.db.dao.NamespaceDAO;
 import oop.util.Utils;
 
@@ -30,19 +24,6 @@ public class Topic extends Article {
 
 	public void setParent(Resource<Topic> parent) {
 		this.parent = parent;
-	}
-
-	@XmlTransient
-	public Set<Topic> getChildren() {
-		return Collections.emptySet();
-	}
-
-	public List<Topic> getAncestors() {
-		return Collections.emptyList();
-	}
-	
-	public Set<Topic> getDescendants() {
-		return Collections.emptySet();
 	}
 
 	public String getName() {

@@ -1,6 +1,8 @@
 package oop.controller;
 
 
+import java.io.IOException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -24,14 +26,19 @@ public class Initializer implements ServletContextListener {
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
-    public void contextInitialized(ServletContextEvent evt) {
-    	ServletContext context = evt.getServletContext();
-		Config config = new Config();
-		ConfigIO.loadDirectory(config, context.getRealPath(context
-				.getInitParameter("configDir")));
-		config.setHomeDir(config.getDomain() + context.getContextPath());
-		Config.setDefaultInstance(config);
-		HibernateUtil.init(config);
+	public void contextInitialized(ServletContextEvent evt) {
+		try {
+			ServletContext context = evt.getServletContext();
+			Config config = new Config();
+			ConfigIO.loadDirectory(config,
+					context.getRealPath(context.getInitParameter("configDir")));
+			config.setHomeDir(config.getDomain() + context.getContextPath());
+			Config.setDefaultInstance(config);
+			HibernateUtil.init(config);
+		} catch (IOException e) {
+			System.out.println("Có lỗi khi đọc tệp cấu hình, hệ thống không thể khởi động.");
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**

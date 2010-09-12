@@ -53,7 +53,7 @@ public class APIController extends HttpServlet {
 			User user = SessionUtils.getUser(request.getSession());
 			boolean loggedIn = SessionUtils.isLoggedIn(request.getSession());
 			if ((descriptor.isLoginRequired() && !loggedIn)
-					|| (!Utils.isEmpty(descriptor.getRequiredGroups()) && (!loggedIn || !descriptor
+					|| (Utils.isNotEmpty(descriptor.getRequiredGroups()) && (!loggedIn || !descriptor
 							.getRequiredGroups().contains(user.getGroup())))) {
 				// TODO real result
 				result = "{\"status\":\"failed\", \"code\":no permission\"\"}";

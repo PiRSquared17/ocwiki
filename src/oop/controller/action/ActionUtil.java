@@ -26,7 +26,7 @@ public class ActionUtil {
 				actionName);
 		Set<String> groups = actionDescriptor.getRequiredGroups();
 		boolean loginRequired = actionDescriptor.isLoginRequired()
-				|| !Utils.isEmpty(groups);
+				|| Utils.isNotEmpty(groups);
 		return !(loginRequired && user == null) && (Utils.isEmpty(groups)
 				|| groups.contains(user.getGroup()));
 	}
