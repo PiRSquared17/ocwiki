@@ -62,8 +62,6 @@
 			cancel:function(win){}, 
 			ok: function(win) 
 			{	
-				resource.article = null;			
-				resource.status = 'DISABLED';
 				resource.accessibility = $F('lock_value');
 				new Ajax.Request(restPath + '/resource/'+ resourceID,
 					{
