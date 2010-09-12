@@ -56,6 +56,10 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 	public long getId() {
 		return id;
 	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	@XmlElement
 	public Status getStatus() {
@@ -70,12 +74,20 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 	public Date getCreateDate() {
 		return createDate;
 	}
+	
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
 	@XmlElement
 	public User getAuthor() {
 		return author;
 	}
 
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+	
 	@XmlTransient
 	public Set<Revision<T>> getRevisions() {
 		return revisions;
@@ -85,6 +97,10 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		return version;
 	}
 
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -138,6 +154,7 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		this.accessibility = accessibility;
 	}
 
+	@XmlElement
 	public ResourceAccessibility getAccessibility() {
 		return accessibility;
 	}
