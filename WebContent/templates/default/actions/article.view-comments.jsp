@@ -10,10 +10,10 @@
 
 <p><jsp:include page="article.view-comment.create.jsp"></jsp:include></p>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--
 	var articleID = ${action.resource.id};
 	var commentslisthtml = '';
-	var comment_reportslist;
+	var commentslist;
 	new Ajax.Request(
 			restPath + '/comment_reports/resource/' + articleID + '/latest',
 			{
@@ -23,13 +23,15 @@
 				},
 				evalJSON : true,
 				onSuccess : function(transport) {
-					comment_reportslist = transport.responseJSON.result;
-					if (comment_reportslist.size()>=1){
-						for (var i=0;i<comment_reportslist.size();i++){
-							commentslisthtml+=showComments(comment_reportslist[0].comment);					
+					alert(transport.responseText);
+					commentslist = transport.responseJSON.result;
+					if (commentslist.length>0){
+						for (i=0;i<commentslist.length;i++){
+							alert(i);
+							commentslisthtml+=showComments(commentslist[i].comment);					
 						}
 						$('commentslist').innerHTML = commentslisthtml;
-					} else {						
+					} else {
 						$('commentslist').innerHTML = 'Chưa có nhận xét';
 					}
 				},
@@ -65,6 +67,7 @@
 		commenthtml+='del</a>';
 		commenthtml+=('<br/>------------<br/>');
 		commenthtml+='</div>';
+		
 		return commenthtml;
 	}
 	
@@ -77,4 +80,4 @@
 
 
 
-</script>
+--></script>
