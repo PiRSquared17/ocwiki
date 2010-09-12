@@ -10,7 +10,7 @@
 
 <p><jsp:include page="article.view-comment.create.jsp"></jsp:include></p>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--
 	var articleID = ${action.resource.id};
 	var commentslisthtml = '';
 	var commentslist;
@@ -23,9 +23,11 @@
 				},
 				evalJSON : true,
 				onSuccess : function(transport) {
+					alert(transport.responseText);
 					commentslist = transport.responseJSON.result;
 					if (commentslist.length>0){
-						for (var i=0;i<commentslist.length;i++){
+						for (i=0;i<commentslist.length;i++){
+							alert(i);
 							commentslisthtml+=showComments(commentslist[i].comment);					
 						}
 						$('commentslist').innerHTML = commentslisthtml;
@@ -65,6 +67,7 @@
 		commenthtml+='del</a>';
 		commenthtml+=('<br/>------------<br/>');
 		commenthtml+='</div>';
+		
 		return commenthtml;
 	}
 	
@@ -77,4 +80,4 @@
 
 
 
-</script>
+--></script>
