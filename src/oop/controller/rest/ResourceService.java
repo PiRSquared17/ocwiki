@@ -36,7 +36,7 @@ public class ResourceService extends AbstractResource{
 		Resource<Article> resource = ResourceDAO.fetchById(id);
 		this.assertResourceFound(resource);
 		resource.setAccessibility(data.getAccessibility());
-		// ResourceDAO.persist(resource); cai nay` ko co a` ?
+		ResourceDAO.persist(resource); 
 		return new ObjectResult<Resource<Article>>(resource);
 	}
 }

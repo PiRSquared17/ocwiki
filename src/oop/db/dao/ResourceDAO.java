@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import oop.data.Article;
+import oop.data.Comment;
 import oop.data.Resource;
 import oop.data.Revision;
 import oop.data.Status;
@@ -107,6 +108,22 @@ public class ResourceDAO {
 			session.update(resource);
 			tx.commit();
 			return revision;
+		} catch (HibernateException ex) {
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+			throw ex;
+		}
+	}
+	
+	public static void persist(Resource<? extends Article> resource) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(resource);
+			tx.commit();
 		} catch (HibernateException ex) {
 			if (tx != null) {
 				tx.rollback();
