@@ -10,12 +10,12 @@
 
 <p><jsp:include page="article.view-comment.create.jsp"></jsp:include></p>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--
 	var articleID = ${action.resource.id};
 	var commentslisthtml = '';
 	var commentslist;
 	new Ajax.Request(
-			restPath + '/comments/resource/' + articleID + '/latest',
+			restPath + '/comment_reports/resource/' + articleID + '/latest',
 			{
 				method: 'get',
 				requestHeaders : {
@@ -23,11 +23,17 @@
 				},
 				evalJSON : true,
 				onSuccess : function(transport) {
+					alert(transport.responseText);
 					commentslist = transport.responseJSON.result;
-					for (var i=0;i<commentslist.size();i++){
-						commentslisthtml+=showComments(commentslist[i]);					
+					if (commentslist.length>0){
+						for (i=0;i<commentslist.length;i++){
+							alert(i);
+							commentslisthtml+=showComments(commentslist[i].comment);					
+						}
+						$('commentslist').innerHTML = commentslisthtml;
+					} else {
+						$('commentslist').innerHTML = 'Chưa có nhận xét';
 					}
-					$('commentslist').innerHTML = commentslisthtml;
 				},
 			    onFailure: function()
 			    { 
@@ -41,13 +47,15 @@
 		commenthtml+='<div id=comment';
 		commenthtml+=comment.id;
 		commenthtml+='>';
-		commenthtml+=comment.message;
-		commenthtml+='<a href="${scriptPath}?action=user.profile&user=';
+		commenthtml+='vào ngày: ';
+		commenthtml+=comment.timestamp.toString();
+		commenthtml+=' <a href="${scriptPath}?action=user.profile&user=';
 		commenthtml+=comment.user.id;
 		commenthtml+='">';
 		commenthtml+=comment.user.name;
-		commenthtml+='</a>';
-		commenthtml+='.<a id=commentlike';
+		commenthtml+='</a> cho rằng:';
+		commenthtml+=comment.message;
+		commenthtml+='<a id=commentlike';
 		commenthtml+=comment.id;
 		commenthtml+=' href="#" onclick = "like(';
 		commenthtml+=comment.id;
@@ -59,6 +67,7 @@
 		commenthtml+='del</a>';
 		commenthtml+=('<br/>------------<br/>');
 		commenthtml+='</div>';
+		
 		return commenthtml;
 	}
 	
@@ -71,4 +80,4 @@
 
 
 
-</script>
+--></script>

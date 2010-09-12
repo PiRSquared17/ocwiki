@@ -48,6 +48,7 @@ public final class TopicDAO {
 		return query.list();
 	}
 
+
 	public static List<Resource<Topic>> getAncestors(long resourceId) {
 		Resource<Topic> topic = (Resource<Topic>) HibernateUtil.getSession()
 				.load(Resource.class, resourceId);
@@ -55,7 +56,7 @@ public final class TopicDAO {
 		addAncestors(ancestorList, topic);
 		return ancestorList;
 	}
-	
+
 	private static void addAncestors(List<Resource<Topic>> ancestorList,
 			Resource<Topic> topic) {
 		ancestorList.add(topic);
@@ -70,7 +71,7 @@ public final class TopicDAO {
 		query.setLong("resId", resourceId);
 		return query.list();
 	}
-	
+
 	public static long count() {
 		String hql = "SELECT COUNT(*) FROM Topic";
 		return HibernateUtil.count(hql);
