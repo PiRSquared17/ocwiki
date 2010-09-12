@@ -16,7 +16,7 @@ public class TextResource extends AbstractResource {
 	@GET
 	@Path("/{id: \\d+}")
 	public ObjectResult<TextArticle> get(@PathParam("id") long id){
-		Resource<TextArticle> resource = ResourceDAO.fetchById(id, TextArticle.class);
+		Resource<TextArticle> resource = ResourceDAO.fetchById(id);
 		assertResourceFound(resource);
 		return new ObjectResult<TextArticle>(resource.getArticle());		
 	}
