@@ -27,6 +27,7 @@
 
 <h1>${action.resource.qualifiedName}</h1>
 <hr />
+<br><p><jsp:include page="article.view-edittool.jsp"></jsp:include></p><br>
 <ocw:userLink user="${action.resource.author}" /> tạo lúc 
 ${u:formatDateTime(action.resource.createDate)}
 

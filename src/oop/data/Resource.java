@@ -24,6 +24,7 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 	private Set<Revision<T>> revisions = new HashSet<Revision<T>>();
 	private Set<ResourceLog> logs = new HashSet<ResourceLog>();
 	private Set<Resource<? extends Article>> linkedResources = new HashSet<Resource<? extends Article>>();
+	private Resource<? extends Article> link = null;
 
 	Resource() {
 	}
@@ -139,6 +140,14 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 
 	public ResourceAccessibility getAccessibility() {
 		return accessibility;
+	}
+
+	public void setLink(Resource<? extends Article> link) {
+		this.link = link;
+	}
+
+	public Resource<? extends Article> getLink() {
+		return link;
 	}
 
 }
