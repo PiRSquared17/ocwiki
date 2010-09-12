@@ -24,8 +24,8 @@
 				evalJSON : true,
 				onSuccess : function(transport) {
 					commentslist = transport.responseJSON.result;
-					if (commentslist != null){
-						for (var i=0;i<commentslist.size();i++){
+					if (commentslist.length>0){
+						for (var i=0;i<commentslist.length;i++){
 							commentslisthtml+=showComments(commentslist[i].comment);					
 						}
 						$('commentslist').innerHTML = commentslisthtml;
