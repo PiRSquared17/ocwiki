@@ -116,4 +116,20 @@ public class ResourceDAO {
 		}
 	}
 	
+	public static void persist(Resource<? extends Article> resource) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(resource);
+			tx.commit();
+		} catch (HibernateException ex) {
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+			throw ex;
+		}
+	}
+	
 }
