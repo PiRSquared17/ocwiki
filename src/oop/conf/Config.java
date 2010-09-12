@@ -212,6 +212,24 @@ public class Config implements Serializable {
 
 	public void setModuleDescriptors(Set<ModuleDescriptor> moduleDescriptors) {
 		this.moduleDescriptors = moduleDescriptors;
+		for (ModuleDescriptor descriptor : moduleDescriptors) {
+			List<ModuleDescriptor> list = moduleMap.get(descriptor.getPosition());
+			if (list == null) {
+				list = new ArrayList<ModuleDescriptor>();
+				moduleMap.put(descriptor.getPosition(), list);
+			}
+			list.add(descriptor);
+		}
+		Comparator<ModuleDescriptor> comparator = new Comparator<ModuleDescriptor>() {
+			
+			@Override
+			public int compare(ModuleDescriptor o1, ModuleDescriptor o2) {
+				return o1.getOrder() - o2.getOrder();
+			}
+		};
+		for (Entry<String, List<ModuleDescriptor>> entries : moduleMap.entrySet()) {
+			Collections.sort(entries.getValue(), comparator);
+		}
 	}
 
 	public void setActionDescriptors(Set<ActionDescriptor> actionDescriptors) {
