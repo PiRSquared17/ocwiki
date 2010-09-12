@@ -43,7 +43,11 @@
 			</key>
 			<one-to-many class="oop.data.Revision" />
 		</set>
-		<set name="linkedResources" table="Resource" inverse="false">
+		<many-to-one name="link" class="oop.data.Resource" access="property"
+			fetch="select">
+			<column name="link" not-null="false" />
+		</many-to-one>
+		<set name="linkedResources" table="Resource" inverse="true">
 			<key>
 				<column name="link"></column>
 			</key>
