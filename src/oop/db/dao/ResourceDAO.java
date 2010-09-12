@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import oop.data.Article;
-import oop.data.Comment;
 import oop.data.Resource;
 import oop.data.Revision;
 import oop.data.Status;
