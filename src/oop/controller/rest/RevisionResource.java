@@ -30,7 +30,7 @@ public class RevisionResource extends AbstractResource{
 	public ListResult<Revision<Article>> listByResource(
 			@PathParam("resourceID") long resourceID, 
 			@DefaultValue("1") @QueryParam("page") int page,
-			@DefaultValue("50") @QueryParam("size") int size){
+			@DefaultValue("30") @QueryParam("size") int size){
 		assertParamValid(size <= MAX_PAGE_SIZE, "size", "too large");
 		List<Revision<Article>> revList = RevisionDAO.fetchByResource(resourceID,(page-1)*size,size);
 		String nextUrl = null;
