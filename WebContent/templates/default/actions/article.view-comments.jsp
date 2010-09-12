@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
+<br/><br/>
+<p>--Các nhận xét--</p>
 <p><jsp:include page="article.view-commentstoolbar.jsp"></jsp:include></p>
 <br/>
 <br/>
-<p>--start comments list here--</p>
-<p><jsp:include page="article.view-comment.view.jsp"></jsp:include></p>
-<br/>
-<br/>
+<p>------------</p>
 <div id="commentslist"> ... đang tải... </div>
-<p>--end comments list here--</p>
 
 <p><jsp:include page="article.view-comment.create.jsp"></jsp:include></p>
 
@@ -27,8 +25,7 @@
 				onSuccess : function(transport) {
 					commentslist = transport.responseJSON.result;
 					for (var i=0;i<commentslist.size();i++){
-						commentslisthtml+=commentslist[i].message;
-						commentslisthtml+=('<br/>------------<br/>');
+						commentslisthtml+=showComments(commentslist[i]);					
 					}
 					$('commentslist').innerHTML = commentslisthtml;
 				},
@@ -38,6 +35,40 @@
 			    }		
 			}
 		);
+
+	function showComments(comment){
+		var commenthtml='';
+		commenthtml+='<div id=comment';
+		commenthtml+=comment.id;
+		commenthtml+='>';
+		commenthtml+=comment.message;
+		commenthtml+='<a href="${scriptPath}?action=user.profile&user=';
+		commenthtml+=comment.user.id;
+		commenthtml+='">';
+		commenthtml+=comment.user.name;
+		commenthtml+='</a>';
+		commenthtml+='.<a id=commentlike';
+		commenthtml+=comment.id;
+		commenthtml+=' href="#" onclick = "like(';
+		commenthtml+=comment.id;
+		commenthtml+='); return false;" >';
+		commenthtml+='like</a>';
+		commenthtml+='.<a href="#" onclick = "del(';
+		commenthtml+=comment.id;
+		commenthtml+='); return false;" >';
+		commenthtml+='del</a>';
+		commenthtml+=('<br/>------------<br/>');
+		commenthtml+='</div>';
+		return commenthtml;
+	}
 	
+	function like(id){
+		$('commentlike'+id).innerHTML='unlike';
+	}
+
+	function del(id){
+	}
+
+
 
 </script>
