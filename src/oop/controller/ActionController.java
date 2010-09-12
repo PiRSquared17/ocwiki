@@ -50,6 +50,9 @@ public class ActionController extends HttpServlet {
 
 	protected void process(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		
 		// set variables
 		String template = StringUtils.defaultIfEmpty((String) request
 				.getSession().getAttribute("template"), "default");

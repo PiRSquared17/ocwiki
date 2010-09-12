@@ -33,7 +33,7 @@
 <script type="text/javascript">
 <!--
 new Autocomplete('txtTopicName', {
-    serviceUrl : '${scriptPath}?action=testtopic.ajaxsearch',
+    serviceUrl : apiPath + '/testtopic.search',
     minChars : 2,
     maxHeight : 400,
     width : 300,

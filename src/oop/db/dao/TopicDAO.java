@@ -3,6 +3,7 @@ package oop.db.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import oop.data.Namespace;
 import oop.data.Resource;
 import oop.data.Topic;
 import oop.persistence.HibernateUtil;
@@ -15,12 +16,8 @@ import org.hibernate.Session;
 public final class TopicDAO {
 
 	public static Resource<Topic> fetchByName(String name) {
-		Session session = HibernateUtil.getSession();
-		String hql = "from Resource where article in " +
-				"(from Topic where name=:name)";
-		Query query = session.createQuery(hql);
-		query.setString("name", name);
-		return (Resource<Topic>) query.uniqueResult();
+		return ResourceDAO.fetchByQualifiedName(NamespaceDAO
+				.fetch(Namespace.TOPIC), name, Topic.class);
 	}
 
 	public static List<Resource<Topic>> fetchByNameLike(String name) {
@@ -58,6 +55,9 @@ public final class TopicDAO {
 	
 	private static void addAncestors(List<Resource<Topic>> ancestorList,
 			Resource<Topic> topic) {
+		if (topic == null) {
+			return;
+		}
 		ancestorList.add(topic);
 		addAncestors(ancestorList, topic.getArticle().getParent());
 	}
