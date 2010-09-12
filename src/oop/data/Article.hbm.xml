@@ -15,7 +15,7 @@
 			<column name="namespace" not-null="true"></column>
 		</many-to-one>
 		<many-to-one name="content" column="content" class="oop.data.Text"
-			fetch="join" cascade="all" not-null="true" />
+			fetch="join" cascade="all" not-null="false" />
 		<property name="name" type="java.lang.String" access="field"></property>
 	</class>
 </hibernate-mapping>

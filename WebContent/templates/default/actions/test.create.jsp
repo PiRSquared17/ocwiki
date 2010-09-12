@@ -61,7 +61,7 @@
 filterNumericKey('txtTime');
 
 new Autocomplete('txtTestStructName', {
-    serviceUrl : '${scriptPath}?action=teststruct.ajaxsearch',
+    serviceUrl : apiPath + '/teststruct.search',
     minChars : 2,
     maxHeight : 400,
     width : 300,

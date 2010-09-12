@@ -421,6 +421,13 @@ table {
     color: red;
 }
 
+.ocw-input .error-validating {
+	display: block;
+    color: red;
+    float: none;
+    clear: inherit;
+}
+
 .solve-status {
     position: fixed; 
     bottom: 10px; 
@@ -724,4 +731,12 @@ legend {
 
 #session-loginDialog .session-button {
 	width: auto;
+}
+
+.ocw-label {
+    text-align: right;
+}
+
+.ocw-input {
+    text-align: left;
 }
