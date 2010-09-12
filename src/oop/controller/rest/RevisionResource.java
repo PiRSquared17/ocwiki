@@ -21,6 +21,7 @@ public class RevisionResource extends AbstractResource{
 	public ObjectResult<Revision<Article>> get(
 			@PathParam("revID") long revID){		
 		Revision<Article> revision = (Revision<Article>) RevisionDAO.fetch(revID);
+		this.assertResourceFound(revision);
 		return new ObjectResult<Revision<Article>>(revision);
 	}
 
