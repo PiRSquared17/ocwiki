@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 <div class="toolbar">
-	<c:if test="${sessionScope.login && sessionScope.user.group == 'admin' && ${action.resource.status != 'DELETED'}">
+	<c:if test="${sessionScope.login && sessionScope.user.group == 'admin' && action.resource.status != 'DELETED'}">
 		<c:choose>
     		<c:when test="${action.resource.status == 'DISABLED'}">
     			<button type="button" name="btUnlock" value="unlock" onclick="unlockArticle()">Mở Khóa Bài Viết</button>
@@ -29,9 +29,10 @@
 </div>
 
 <script language="javascript">
-
+	var lock_dialog = $('lock_dialog').innerHTML;
 	var resource;
 	var resourceID = ${action.resource.id};
+	var timeout;
 	new Ajax.Request(restPath + '/resource/'+ resourceID,
 		{
 			method:'get',
@@ -52,7 +53,6 @@
 
 	function lockArticle()
 	{
-		var value;
 		Dialog.confirm(lock_dialog, {
 			width:300, 
 			okLabel: "Ok",
@@ -61,10 +61,10 @@
 			className: "alphacube", 
 			cancel:function(win){}, 
 			ok: function(win) 
-			{
-				value = $F('lock_value');
+			{	
+				resource.article = null;			
 				resource.status = 'DISABLED';
-				resource.accessibility = value;
+				resource.accessibility = $F('lock_value');
 				new Ajax.Request(restPath + '/resource/'+ resourceID,
 					{
 					method:'post',
@@ -86,6 +86,7 @@
 				});
 			}
 		});
+		return;
 	}
 
 	function unlockArticle()
@@ -111,7 +112,7 @@
 					openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
 				}
 			});
-		return true;
+		return ;
 	}
 
 	function openInfoDialog(info) {
@@ -124,7 +125,7 @@
 	function infoTimeout() {
 	  	timeout--;
 	  	if (timeout >0) {
-	    	Dialog.setInfoMessage(info + "<br> Thông báo tự động đóng sau " + timeout + "giây ...");
+	    	Dialog.setInfoMessage("Thông báo tự động đóng sau " + timeout + "giây ...");
 	    	setTimeout(infoTimeout, 1000);
 	 	}
 	 	else

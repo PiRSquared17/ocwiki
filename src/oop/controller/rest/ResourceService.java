@@ -32,7 +32,7 @@ public class ResourceService extends AbstractResource{
 	}
 	
 	@GET
-	@Path("/{namespaceID: \\d+}")
+	@Path("/namespace/{namespaceID: \\d+}")
 	public ListResult<Resource<Article>> resourceList(
 			@PathParam("namespaceID") long namespaceID, 
 			@DefaultValue("1") @QueryParam("page") int page,

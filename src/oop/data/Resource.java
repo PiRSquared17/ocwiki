@@ -108,7 +108,7 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		this.article = article;
 	}
 
-	@XmlElement
+	@XmlElement(name="articleType")
 	public Class<T> getType() {
 		return type;
 	}
