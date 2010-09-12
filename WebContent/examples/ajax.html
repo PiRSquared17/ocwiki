@@ -21,13 +21,14 @@
 <form>
 <p>
 <input type="text" id="qid2" value="Mã câu hỏi">
-<button type="submit" onclick="listAnswers($F('qid2')); return false;">Danh sách câu trả lời</button>
+<input type="button" onclick="listAnswers($F('qid2')); return false;">Danh sách câu trả lời/*</button>*/
 </p>
 </form>
 
 <form>
 <p>
-<input type="text" id="aid" value="Mã câu trả lời">
+<input type="text" id="aid" value="Mã câu trả lời" readonly="readonly">
+<textarea style="width:100%"></textarea>
 <button type="submit" onclick="viewAnswer($F('aid')); return false;">Xem câu trả lời</button>
 </p>
 </form>
@@ -46,23 +47,24 @@
 var restPath = 'http://localhost:8080/ocwiki/rest';
 
 function viewQuestion(id) {
-	new Ajax.Request(restPath + '/TextArtical/' + id, {
+	/*new Ajax.Request(restPath + '/bquestions/' + id, {
 		method: 'get',
 		requestHeaders: {Accept: 'application/json'},
 		evalJSON: true,
 		onSuccess: function(transport) {
 		    var question = transport.responseJSON.result;
 			alert('- ID: ' + question.id + '\n' +
-			        '- Nội dung câu hỏi: ' + question.content.text);
+			        '- Nội dung câu hỏi: ' + question.getArticle().content.text);
 		},
 		onFailure: function(transport) {
 			alert('Câu hỏi không tồn tại\n' + response.text);
 		}
-	});
+	});*/
+	alert('Thu xem em the nao');
 }
 
 function listQuestions() {
-    new Ajax.Request(restPath + '/TextArtical', {
+    new Ajax.Request(restPath + '/bquestions', {
         method: 'get',
         requestHeaders: {Accept: 'application/json'},
         evalJSON: true,
@@ -99,7 +101,7 @@ function listAnswers(qid) {
 }
 
 function viewAnswer(aid) {
-    new Ajax.Request(restPath + '/answers/' + aid, {
+    /*new Ajax.Request(restPath + '/answers/' + aid, {
         method: 'get',
         requestHeaders: {Accept: 'application/json'},
         evalJSON: true,
@@ -112,7 +114,8 @@ function viewAnswer(aid) {
         onFailure: function(transport) {
             alert('Câu trả lời không tồn tại\n' + response.text);
         }
-    });
+    });*/
+    $('aid').enable();
 }
 
 function updateAnswer2(form, id) {
