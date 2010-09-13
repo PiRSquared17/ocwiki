@@ -22,10 +22,10 @@ public class HibernateTestUtil {
 	public static void cleanInsertDataset(String filename) throws ClassNotFoundException,
 			SQLException, DatabaseUnitException, DataSetException, IOException {
 		IDatabaseConnection dbconn = HibernateTestUtil.createDbconn();
-		HibernateTestUtil.setForeignKeyCheck(dbconn, false);
+		HibernateTestUtil.setConstraintCheck(dbconn, false);
 		IDataSet all = HibernateTestUtil.readDataSet(filename);
 		DatabaseOperation.CLEAN_INSERT.execute(dbconn, all);
-		HibernateTestUtil.setForeignKeyCheck(dbconn, true);
+		HibernateTestUtil.setConstraintCheck(dbconn, true);
 		dbconn.getConnection().commit();
 	}
 
@@ -37,9 +37,10 @@ public class HibernateTestUtil {
 		return dbconn;
 	}
 
-	private static void setForeignKeyCheck(IDatabaseConnection dbconn, boolean on) throws SQLException {
+	private static void setConstraintCheck(IDatabaseConnection dbconn, boolean on) throws SQLException {
 		Connection connection = dbconn.getConnection();
 		Statement stmt = connection.createStatement();
+		stmt.executeUpdate("SET @OCW_TRIGGER_DISABLED = " + (on ? "0" : "1") + ";");
 		stmt.executeUpdate("SET FOREIGN_KEY_CHECKS = " + (on ? "1" : "0") + ";");
 	}
 
