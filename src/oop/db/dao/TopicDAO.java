@@ -11,7 +11,6 @@ import oop.persistence.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-//XXX
 @SuppressWarnings("unchecked")
 public final class TopicDAO {
 
@@ -46,6 +45,22 @@ public final class TopicDAO {
 	}
 
 	public static List<Resource<Topic>> getAncestors(long resourceId) {
+		return fetchAncestorsNestedSetImpl(resourceId);
+	}
+
+	private static List<Resource<Topic>> fetchAncestorsNestedSetImpl(long resourceId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "select s.resource from TopicSet s where " +
+				"s.leftIndex <= (select leftIndex from TopicSet where resource.id=:resId) and " +
+				"s.rightIndex >= (select rightIndex from TopicSet where resource.id=:resId) " +
+				"order by s.rightIndex asc";
+		Query query = session.createQuery(hql);
+		query.setLong("resId", resourceId);
+		return query.list();
+	}
+	
+	private static List<Resource<Topic>> fetchAncestorsRecursiveImpl(
+			long resourceId) {
 		Resource<Topic> topic = (Resource<Topic>) HibernateUtil.getSession()
 				.load(Resource.class, resourceId);
 		ArrayList<Resource<Topic>> ancestorList = new ArrayList<Resource<Topic>>();
