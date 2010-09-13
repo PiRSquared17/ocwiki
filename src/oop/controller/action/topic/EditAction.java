@@ -82,7 +82,7 @@ public class EditAction extends AbstractAction<Topic> {
 		// lưu nếu không có lỗi
 		if (hasNoErrors()) {
 			saveNewRevision(resource, topic);
-			setNextAction("topic.list");
+			setNextAction("article.view?id=" + resource.getId());
 		}
 	}
 
