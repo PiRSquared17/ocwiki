@@ -1,5 +1,7 @@
 package oop.data;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 import oop.db.dao.NamespaceDAO;
 import oop.util.Utils;
 
@@ -17,7 +19,8 @@ public class Topic extends Article {
 		this.name = name;
 		this.parent = parent;
 	}
-
+	
+	@XmlTransient
 	public Resource<Topic> getParent() {
 		return parent;
 	}

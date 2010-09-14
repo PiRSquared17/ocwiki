@@ -6,7 +6,7 @@
 
 <div>
     <div id="questionEdit-content">
-        <textarea id="questionEdit-content-textarea">${question.content}</textarea>
+        <textarea id="questionEdit-content-textarea" rows="20" cols="80" style="width: 100%">${question.content}</textarea>
         <script type="text/javascript">
 		<!--
 		Editor.edit('questionEdit-content');
@@ -27,7 +27,7 @@
             <div style="margin-right: 60px">
                 <c:set var="contentId" value="questionEdit-answer${answerIndex}-content"></c:set>
                 <div id="${contentId}">
-	                <textarea rows="" cols="">${fn:escapeXml(answer.content)}</textarea>
+	                <textarea id="questionEdit-answer${answerIndex}-textarea" rows="10" cols="80" style="width: 100%">${fn:escapeXml(answer.content)}</textarea>
                 </div>
 			    <script type="text/javascript">
 			    <!--
@@ -67,6 +67,18 @@ EditAction.preview = function() {
         
 EditAction.save = function() {
 	question.content = { text: tinymce.get('questionEdit-content-textarea').getContent() };
+	for (i = 0; i < question.answers.length; i++) {
+		correct = $('questionEdit-answer' + i + '-correct').checked; 
+		contentStr = tinymce.get('questionEdit-answer' + i + '-textarea').getContent();
+		if (question.answers[i].correct != correct ||
+				question.answers[i].content.text != contentStr) {
+			question.answers[i] = { 
+				"content": { "text": contentStr }, 
+				"correct": correct 
+			};
+		}
+	}
+	//alert(question.content);
     new Ajax.Request(restPath + '/questions/' + resourceId,
     {
       method:'post',
@@ -77,7 +89,7 @@ EditAction.save = function() {
       postBody: Object.toJSON({
           article: question,
           summary: $F('articleEdit-summary'),
-          checked: $F('articleEdit-minor')
+          minor: $('articleEdit-minor').checked
       }),
       evalJSON: true,
       onSuccess: function(transport) {
@@ -85,6 +97,7 @@ EditAction.save = function() {
       },
       onFailure: function(){ }
     });
+    //alert('!');
 };
 
 //-->
