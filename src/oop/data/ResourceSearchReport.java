@@ -1,17 +1,15 @@
-package oop.db.dao;
+package oop.data;
 
-import oop.data.Article;
-import oop.data.Resource;
 
 public class ResourceSearchReport<T extends Article> {
 
 	private Resource<T> resource;
 	private int score;
 
-	public ResourceSearchReport(Resource<T> resource, int score) {
+	public ResourceSearchReport(Resource<T> resource, long score) {
 		super();
 		this.resource = resource;
-		this.score = score;
+		this.score = (int) score;
 	}
 
 	public Resource<T> getResource() {

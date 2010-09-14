@@ -104,7 +104,6 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		return getArticle().getNamespace();
 	}
 
-	@Deprecated
 	public void setArticle(T article) {
 		this.article = article;
 	}
@@ -153,8 +152,8 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Resource) {
-			return id == ((Resource)obj).id;
+		if (obj instanceof Resource<?>) {
+			return id == ((Resource<?>)obj).id;
 		}
 		return super.equals(obj);
 	}
