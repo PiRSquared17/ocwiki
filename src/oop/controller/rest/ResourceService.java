@@ -51,7 +51,7 @@ public class ResourceService extends AbstractResource{
 	@Consumes(MediaType.APPLICATION_JSON)
 	public <T extends Article> ObjectResult<Resource<T>> update(@PathParam("id") long id, Resource<T> data){
 		Resource<T> resource = ResourceDAO.fetchById(id);
-		this.assertResourceFound(resource);
+		assertResourceFound(resource);
 		assertVersion(resource, data);
 		resource.setAccessibility(data.getAccessibility());
 		resource.setStatus(data.getStatus());
