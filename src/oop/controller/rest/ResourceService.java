@@ -52,6 +52,7 @@ public class ResourceService extends AbstractResource{
 	public ObjectResult<Resource<Article>> update(@PathParam("id") long id, Resource<Article> data){
 		Resource<Article> resource = ResourceDAO.fetchById(id);
 		this.assertResourceFound(resource);
+		this.assertVersion(resource, data);
 		resource.setAccessibility(data.getAccessibility());
 		resource.setStatus(data.getStatus());
 		ResourceDAO.persist(resource); 

@@ -12,7 +12,7 @@ import oop.data.log.ResourceLog;
 import oop.util.Utils;
 
 @XmlRootElement
-public class Resource<T extends Article> implements ArticleContainer<T> {
+public class Resource<T extends Article> implements ArticleContainer<T>, HasVersion {
 
 	private long id;
 	private Date createDate;
