@@ -65,4 +65,8 @@ public abstract class Article implements Entity {
 		return getNamespace().getName() + ":" + getName();
 	}
 
+	public void setContent(String contentStr) {
+		content = (contentStr == null ? null : new Text(contentStr));
+	}
+
 }

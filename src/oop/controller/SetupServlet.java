@@ -66,6 +66,7 @@ public class SetupServlet extends HttpServlet {
 			} else {
 				response.getWriter().println("Lỗi: " + status);
 			}
+			response.getWriter().println("<a name=\"end\">&nbsp;</a><script>location.href+='#end';</script>");
 		} else {
 			response.sendRedirect(config.getHomeDir());
 		}

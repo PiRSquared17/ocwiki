@@ -42,7 +42,7 @@ function validate() {
     $('txtName').focus();
 
     new Autocomplete('txtParentName', {
-        serviceUrl : '${scriptPath}?action=topic.ajaxsearch',
+        serviceUrl : apiPath + '/topic.search',
         minChars : 2,
         maxHeight : 400,
         width : 300,
