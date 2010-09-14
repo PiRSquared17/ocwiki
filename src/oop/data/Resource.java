@@ -33,6 +33,9 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 			int revision, Class<T> type, T article, Set<Revision<T>> revisions,
 			Set<ResourceLog> logs) {
 		super();
+		if (!type.isInstance(article)) {
+			throw new ClassCastException();
+		}
 		this.id = id;
 		this.createDate = createDate;
 		this.author = author;
@@ -105,6 +108,9 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 
 	@Deprecated
 	public void setArticle(T article) {
+		if (!type.isInstance(article)) {
+			throw new ClassCastException();
+		}
 		this.article = article;
 	}
 
