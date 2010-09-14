@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import oop.data.log.ResourceLog;
+import oop.util.Utils;
 
 @XmlRootElement
 public class Resource<T extends Article> implements ArticleContainer<T> {
@@ -119,7 +120,6 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		return getArticle().getNamespace();
 	}
 
-	@Deprecated
 	public void setArticle(T article) {
 		this.article = article;
 	}
@@ -165,6 +165,19 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 
 	public Resource<? extends Article> getLink() {
 		return link;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Resource<?>) {
+			return id == ((Resource<?>)obj).id;
+		}
+		return super.equals(obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Utils.hashCode(id);
 	}
 
 }

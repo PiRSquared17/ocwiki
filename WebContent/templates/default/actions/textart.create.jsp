@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<ocw:form action="textart.create">
+<ocw:form action="textart.create" method="post">
 <table>
   <tr>
     <td>Tên:</td>
@@ -19,7 +19,7 @@
   </tr>
   <tr>
     <td>Nội dung:</td>
-    <td><textarea name="content">${param.content}</textarea></td>
+    <td><textarea style="width:100%;" rows="20" cols="60" name="content">${param.content}</textarea></td>
   </tr>
   <tr>
     <td colspan="2"><button name="submit" type="submit" value="create">Tạo</button></td>

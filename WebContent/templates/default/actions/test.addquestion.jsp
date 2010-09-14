@@ -89,7 +89,7 @@
 	filterNumericKey('txtQuantity');
 
     new Autocomplete('txtTopicName', {
-        serviceUrl : '${scriptPath}?action=topic.ajaxsearch&format=qcount',
+        serviceUrl : apiPath + '/topic.search?format=qcount',
         minChars : 2,
         maxHeight : 400,
         width : 300,
@@ -101,7 +101,7 @@
     });
 
     new Autocomplete('txtQuestionName', {
-        serviceUrl : '${scriptPath}?action=question.ajaxsearch&format=qcount',
+        serviceUrl : apiPath + '/question.search?format=qcount',
         minChars : 2,
         maxHeight : 400,
         width : 300,

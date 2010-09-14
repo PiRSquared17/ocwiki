@@ -8,17 +8,11 @@
 
 <c:if test="${u:size(article.topics) > 0}">
 	<div class="topic-list">
-	<div class="topic-list-title">Chủ đề</div>
+	<span class="topic-list-title">Chủ đề</span>
 	<c:forEach items="${article.topics}" var="topic">
-	    <div class="topic-list-item">
-	        <ocw:articleLink resource="topic" />
-	        <c:if test="${editable}">
-		        <div class="topic-list-delete-button" onclick="alert('add')">&nbsp;</div>
-	        </c:if>
-	    </div>
-	    <c:if test="${editable}">
-	        <div class="topic-list-add-button" onclick="alert('add')">&nbsp;</div>
-	    </c:if>
+	    <span class="topic-list-item">
+	        <ocw:articleLink resource="${topic}" />
+	    </span>
 	</c:forEach>
 	</div>
 </c:if>
