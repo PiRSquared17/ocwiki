@@ -2,12 +2,15 @@ package oop.db.dao;
 
 import java.util.List;
 
+import oop.data.Article;
 import oop.data.CategorizableArticle;
 import oop.data.ResourceSearchReport;
 import oop.persistence.HibernateUtil;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 @SuppressWarnings("unchecked")
 public class ArticleDAO {
@@ -55,6 +58,27 @@ public class ArticleDAO {
 		query.setFirstResult(start);
 		query.setMaxResults(size);
 		return query.list();
+	}
+	
+	public static <T extends Article> T fetchById(long id) {
+		Session session = HibernateUtil.getSession();
+		return (T) session.get(Article.class, id);
+	}
+	
+	public static void persist(Article article) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(article);
+			tx.commit();
+		} catch (HibernateException ex) {
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+			throw ex;
+		}
 	}
 
 }

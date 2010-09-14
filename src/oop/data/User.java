@@ -12,9 +12,7 @@ public class User implements Serializable, Entity, HasVersion {
 
 	private static final long serialVersionUID = -8984541011161716639L;
 
-	@XmlElement
 	private long id;
-	@XmlElement
 	private int version;
 	private String fullname;
 	private String password;
@@ -25,9 +23,7 @@ public class User implements Serializable, Entity, HasVersion {
 	private String warningMessage;
 	private Date warningExpiredDate;
 	private String avatar;
-	@XmlElement
 	private Date registerDate;
-	@XmlElement
 	private String name;
 	private Preferences preferences = new Preferences();
 
@@ -49,9 +45,19 @@ public class User implements Serializable, Entity, HasVersion {
 	public String getName() {
 		return name;
 	}
+	
+	@XmlElement
+	public void setName(String name) {
+		this.name = name;
+	}
 
+	@XmlElement
 	public long getId() {
 		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public String getFullname() {
@@ -114,8 +120,13 @@ public class User implements Serializable, Entity, HasVersion {
 		this.avatar = avatar;
 	}
 
+	@XmlElement
 	public Date getRegisterDate() {
 		return registerDate;
+	}
+	
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
 	}
 
 	/**
@@ -156,6 +167,11 @@ public class User implements Serializable, Entity, HasVersion {
 	 */
 	public int getVersion() {
 		return version;
+	}
+	
+	@XmlElement
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public boolean matchPassword(String password) {
