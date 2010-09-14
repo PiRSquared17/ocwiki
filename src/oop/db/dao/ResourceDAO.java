@@ -93,10 +93,6 @@ public class ResourceDAO {
 	
 	public static <T extends Article> Revision<T> update(Resource<T> resource,
 			T article, User author, String summary, boolean minor) {
-		if (!resource.getType().isInstance(article)) {
-			throw new ClassCastException();
-		}
-
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {

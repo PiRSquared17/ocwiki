@@ -12,7 +12,7 @@ import oop.data.log.ResourceLog;
 import oop.util.Utils;
 
 @XmlRootElement
-public class Resource<T extends Article> implements ArticleContainer<T> {
+public class Resource<T extends Article> implements ArticleContainer<T>, HasVersion {
 
 	private long id;
 	private Date createDate;
@@ -112,6 +112,10 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		return article;
 	}
 
+	public void setArticle(T article) {
+		this.article = article;
+	}
+
 	public String getName() {
 		return getArticle().getName();
 	}
@@ -120,13 +124,13 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		return getArticle().getNamespace();
 	}
 
-	public void setArticle(T article) {
-		this.article = article;
-	}
-
 	@XmlElement(name="articleType")
 	public Class<T> getType() {
 		return type;
+	}
+	
+	public void setType(Class<T> type) {
+		this.type = type;
 	}
 
 	@XmlTransient
@@ -150,21 +154,21 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		return article.getQualifiedName();
 	}
 
-	public void setAccessibility(ResourceAccessibility accessibility) {
-		this.accessibility = accessibility;
-	}
-
 	@XmlElement
 	public ResourceAccessibility getAccessibility() {
 		return accessibility;
 	}
 
-	public void setLink(Resource<? extends Article> link) {
-		this.link = link;
+	public void setAccessibility(ResourceAccessibility accessibility) {
+		this.accessibility = accessibility;
 	}
 
 	public Resource<? extends Article> getLink() {
 		return link;
+	}
+
+	public void setLink(Resource<? extends Article> link) {
+		this.link = link;
 	}
 	
 	@Override
