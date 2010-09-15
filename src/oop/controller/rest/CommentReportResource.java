@@ -10,6 +10,7 @@ import javax.ws.rs.QueryParam;
 
 import oop.controller.rest.util.ListResult;
 import oop.data.CommentReport;
+import oop.db.dao.CommentDAO;
 import oop.db.dao.CommentReportDAO;
 
 @Path("/comment_reports")
@@ -30,7 +31,8 @@ public class CommentReportResource extends AbstractResource {
 			nextUrl = "/CommentReports/resource/" + resourceId
 					+ "/latest?start=" + (start + size) + "&size=" + size;
 		}
-		return new ListResult<CommentReport>(list, nextUrl);
+		long count = CommentDAO.countByResource(resourceId);
+		return new ListResult<CommentReport>(list, nextUrl, count);
 	}
 
 	@GET
