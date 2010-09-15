@@ -7,9 +7,14 @@ import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.data.Revision;
+import oop.data.Topic;
 import oop.data.User;
+import oop.db.dao.ArticleDAO;
 import oop.db.dao.ResourceDAO;
+import oop.db.dao.TopicDAO;
 import oop.util.SessionUtils;
+
+import org.apache.commons.lang.StringUtils;
 
 @Path("/questions")
 public class BaseQuestionServiceImpl extends AbstractResource implements
@@ -36,8 +41,24 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 			Revision<BaseQuestion> data) throws Exception {
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
-		saveNewRevision(resource, data.getArticle(), data.getSummary(), data
-				.isMinor());
+		assertParamValid(data.getArticle() != null, "article", "null");
+		assertParamValid(!StringUtils.isEmpty(data.getSummary()), "summary",
+				"empty");
+		if (resource.getArticle().getId() != data.getArticle().getId()) {
+			throw invalidParam("basever", "old version");
+		}
+		
+		BaseQuestion question = data.getArticle().copy();
+		question.getTopics().clear();
+		for (Resource<Topic> topic : data.getArticle().getTopics()) {
+			assertParamValid(topic != null, "topic", "null");
+			topic = TopicDAO.fetchById(topic.getId());
+			assertParamValid(topic != null, "topic", "not found");
+			question.getTopics().add(topic);
+		}
+		ArticleDAO.persist(question);
+
+		saveNewRevision(resource, question, data.getSummary(), data.isMinor());
 		return new ObjectResult<BaseQuestion>(resource.getArticle());
 	}
 

@@ -97,12 +97,11 @@ public class ResourceDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			article = (T) session.merge(article);
+			resource.setArticle(article);
+			session.update(resource);
 			Revision<T> revision = new Revision<T>(0, resource, article,
 					author, new Date(), summary, minor);
 			session.save(revision);
-			resource.setArticle(article);
-			session.update(resource);
 			tx.commit();
 			return revision;
 		} catch (HibernateException ex) {

@@ -44,11 +44,8 @@ public abstract class AbstractResource {
 
 	protected <T extends Article> Revision<T> saveNewRevision(
 			Resource<T> resource, T article, String summary, boolean minor) {
-		if (resource.getArticle().getId() != article.getId()) {
-			throw invalidParam("basever", "old version");
-		}
 		User user = SessionUtils.getUser(getSession());
-		return ResourceDAO.update(resource, (T)article.copy(), user, summary, minor);
+		return ResourceDAO.update(resource, article, user, summary, minor);
 	}
 
 	protected int getBaseVersion() {
@@ -95,7 +92,7 @@ public abstract class AbstractResource {
 				.entity(new ErrorResult("not found")).build());
 	}
 
-	private WebApplicationException invalidParam(String name, String errorCode) {
+	protected WebApplicationException invalidParam(String name, String errorCode) {
 		return new WebApplicationException(Response.status(Status.BAD_REQUEST)
 				.entity(
 						new InvalidParamResult(errorCode, name, getParams()

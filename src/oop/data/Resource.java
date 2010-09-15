@@ -84,20 +84,15 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	public User getAuthor() {
 		return author;
 	}
-
+	
 	public void setAuthor(User author) {
 		this.author = author;
-	}
-	
-	@XmlTransient
-	public Set<Revision<T>> getRevisions() {
-		return revisions;
 	}
 
 	public int getVersion() {
 		return version;
 	}
-
+	
 	public void setVersion(int version) {
 		this.version = version;
 	}
@@ -111,56 +106,14 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	public T getArticle() {
 		return article;
 	}
-
+	
 	public void setArticle(T article) {
 		this.article = article;
 	}
-
-	public String getName() {
-		return getArticle().getName();
-	}
-
-	public Namespace getNamespace() {
-		return getArticle().getNamespace();
-	}
-
-	@XmlElement(name="articleType")
+	
+	@XmlElement
 	public Class<T> getType() {
 		return type;
-	}
-	
-	public void setType(Class<T> type) {
-		this.type = type;
-	}
-
-	@XmlTransient
-	public Set<ResourceLog> getLogs() {
-		return logs;
-	}
-
-	public Revision<T> getLatestRevision() {
-		return getRevisions().iterator().next();
-	}
-
-	public void setLinkedResources(Set<Resource<? extends Article>> linkedResources) {
-		this.linkedResources = linkedResources;
-	}
-
-	public Set<Resource<? extends Article>> getLinkedResources() {
-		return linkedResources;
-	}
-
-	public String getQualifiedName() {
-		return article.getQualifiedName();
-	}
-
-	@XmlElement
-	public ResourceAccessibility getAccessibility() {
-		return accessibility;
-	}
-
-	public void setAccessibility(ResourceAccessibility accessibility) {
-		this.accessibility = accessibility;
 	}
 
 	public Resource<? extends Article> getLink() {
@@ -169,6 +122,48 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 
 	public void setLink(Resource<? extends Article> link) {
 		this.link = link;
+	}
+
+	public String getName() {
+		return getArticle().getName();
+	}
+	
+	public void setType(Class<T> type) {
+		this.type = type;
+	}
+
+	public Namespace getNamespace() {
+		return getArticle().getNamespace();
+	}
+	
+	@XmlTransient
+	public Set<ResourceLog> getLogs() {
+		return logs;
+	}
+
+	public Set<Resource<? extends Article>> getLinkedResources() {
+		return linkedResources;
+	}
+
+	public void setLinkedResources(Set<Resource<? extends Article>> linkedResources) {
+		this.linkedResources = linkedResources;
+	}
+
+	public ResourceAccessibility getAccessibility() {
+		return accessibility;
+	}
+
+	public void setAccessibility(ResourceAccessibility accessibility) {
+		this.accessibility = accessibility;
+	}
+
+	public String getQualifiedName() {
+		return article.getQualifiedName();
+	}
+
+	@XmlTransient
+	public Set<Revision<T>> getRevisions() {
+		return revisions;
 	}
 	
 	@Override
@@ -183,5 +178,5 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	public int hashCode() {
 		return Utils.hashCode(id);
 	}
-
+	
 }

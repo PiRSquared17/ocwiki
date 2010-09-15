@@ -51,13 +51,25 @@ Editor = Class.create();
 Editor.active = null;
 
 Editor.edit = function(id) {
-	if (Editor.active != null) {
+	var element = $(id);
+	if (!element) {
+		return;
+	}
+	if (Editor.active) {
 		Editor.preview(Editor.active);
 	}
-	var element = $(id);
 	var previewDiv = $(id + '-preview');
-	if (previewDiv != null) {
+	if (previewDiv) {
 		previewDiv.remove();
+	}
+	var textareas = element.getElementsByTagName('textarea');
+	if (textareas.length > 0) {
+		var textarea = textareas[0];
+		var tinymceEditor = tinymce.get(textarea.id);
+		if (!tinymceEditor) {
+			tinymceEditor = new tinymce.Editor(textarea.id, {});
+			tinymceEditor.render();
+		}
 	}
 	element.show();
 	Editor.active = id;

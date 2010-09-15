@@ -77,7 +77,7 @@ public class EditAction extends AbstractAction<Topic> {
 		}
 
 		String contentStr = getParams().get("content");
-		topic.setContent(contentStr);
+		topic.setContentString(contentStr);
 		
 		// lưu nếu không có lỗi
 		if (hasNoErrors()) {
