@@ -49,7 +49,8 @@ public class CommentReportResource extends AbstractResource {
 			nextUrl = "/CommentReports/resource/" + resourceId + "?start="
 					+ (start + size) + "&size=" + size;
 		}
-		return new ListResult<CommentReport>(list, nextUrl);
+		long count = CommentDAO.countByResource(resourceId);
+		return new ListResult<CommentReport>(list, nextUrl, count);
 	}
 
 }
