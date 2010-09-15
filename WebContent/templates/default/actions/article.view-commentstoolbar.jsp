@@ -2,7 +2,8 @@
 <%@ include file="/includes/common.jsp" %>
 
 
-<div class="toolbar">
-		<button type="button" name="btn-oldfirst" value="oldfirst" onclick="">Cũ nhất</button>
-		<button type="button" name="btn-newfirsr" value="newfirsr" onclick="">Mới nhất</button>
+<div id="comments-tool">
+		<button type="button" name="btn-oldfirst" value="oldfirst" onclick="loadOldest();">Cũ nhất</button>
+<!--		<div id="comment-pages"></div>-->
+		<button type="button" name="btn-newfirsr" value="newfirst" onclick="loadLatest();">Mới nhất</button>
 </div>
