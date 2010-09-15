@@ -49,13 +49,13 @@ public class ResourceService extends AbstractResource{
 	@POST
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public <T extends Article> ObjectResult<Resource<T>> update(@PathParam("id") long id, Resource<T> data){
-		Resource<T> resource = ResourceDAO.fetchById(id);
+	public <T extends Article> ObjectResult<Resource<Article>> update(@PathParam("id") long id, Resource<Article> data){
+		Resource<Article> resource = ResourceDAO.fetchById(id);
 		assertResourceFound(resource);
 		assertVersion(resource, data);
 		resource.setAccessibility(data.getAccessibility());
 		resource.setStatus(data.getStatus());
 		ResourceDAO.persist(resource); 
-		return new ObjectResult<Resource<T>>(resource);
+		return new ObjectResult<Resource<Article>>(resource);
 	}
 }

@@ -2,8 +2,6 @@ package oop.controller.rest.resources.basequestion;
 
 import javax.ws.rs.Path;
 
-import org.apache.commons.lang.StringUtils;
-
 import oop.controller.rest.AbstractResource;
 import oop.controller.rest.WebServiceUtils;
 import oop.controller.rest.util.ObjectResult;
@@ -11,12 +9,15 @@ import oop.data.Answer;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.data.Revision;
+import oop.data.Text;
 import oop.data.Topic;
 import oop.data.User;
 import oop.db.dao.ArticleDAO;
 import oop.db.dao.ResourceDAO;
 import oop.db.dao.TopicDAO;
 import oop.util.SessionUtils;
+
+import org.apache.commons.collections.CollectionUtils;
 
 @Path("/questions")
 public class BaseQuestionServiceImpl extends AbstractResource implements
@@ -64,15 +65,18 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 
 	private void validate(BaseQuestion question) {
 		WebServiceUtils.assertValid(question != null, "question is empty");
-		WebServiceUtils.assertValid(question.getContent().getId() <= 0
-				|| StringUtils.isNotBlank(question.getContent().getText()),
+		WebServiceUtils.assertValid(Text.isNotBlank(question.getContent()),
 				"question content is blank");
-		WebServiceUtils.assertValid(question.getAnswers().size() >= 2, "too litte answers");
-		WebServiceUtils.assertValid(question.getAnswers().size() < 10, "too many answers");
+		WebServiceUtils.assertValid(
+				CollectionUtils.size(question.getAnswers()) >= 2,
+				"too little answers");
+		WebServiceUtils.assertValid(
+				CollectionUtils.size(question.getAnswers()) < 10,
+				"too many answers");
 		boolean hasCorrect = false;
 		for (Answer answer : question.getAnswers()) {
-			WebServiceUtils.assertValid(answer.getContent().getId() <= 0
-					|| StringUtils.isNotBlank(answer.getContent().getText()),
+			WebServiceUtils.assertValid(answer != null, "answer is empty");
+			WebServiceUtils.assertValid(Text.isNotBlank(answer.getContent()),
 					"answer content is blank");
 			if (answer.isCorrect()) {
 				hasCorrect = true;
