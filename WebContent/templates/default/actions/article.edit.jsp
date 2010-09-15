@@ -23,5 +23,6 @@ resourceId = ${action.resource.id};
 	    <button id="articleEdit-preview" name="preview" type="submit" onclick="alert('preview'); return false;">Xem thử</button>
 	    <button id="articleEdit-save" name="save" type="submit" onclick="EditAction.save(); return false;">Lưu</button>
 	    <button id="articleEdit-back" name="back" type="submit" onclick="alert('back'); return false;">Quay lại bài viết</button>
+	    <span class="error-validating" id="articleEdit-error"></span>
     </div>
 </form>

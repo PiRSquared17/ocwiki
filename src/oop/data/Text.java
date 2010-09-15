@@ -14,9 +14,7 @@ public class Text implements Entity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@XmlElement
 	private long id;
-	@XmlElement
 	private String text;
 
 	/**
@@ -31,12 +29,22 @@ public class Text implements Entity, Serializable {
 		this.text = content;
 	}
 
+	@XmlElement
 	public long getId() {
 		return id;
 	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	
+	@XmlElement
 	public String getText() {
 		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 	@Override

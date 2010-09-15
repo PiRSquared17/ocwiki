@@ -5,9 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 
 import oop.data.Article;
+import oop.data.Namespace;
 import oop.data.Resource;
 import oop.data.Revision;
 import oop.data.Status;
+import oop.data.Topic;
 import oop.data.User;
 import oop.data.log.ResourceLog;
 import oop.persistence.HibernateUtil;
@@ -119,14 +121,50 @@ public class ResourceDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			article = (T) session.merge(article);
+			resource.setArticle(article);
+			session.update(resource);
 			Revision<T> revision = new Revision<T>(0, resource, article,
 					author, new Date(), summary, minor);
 			session.save(revision);
-			resource.setArticle(article);
-			session.update(resource);
 			tx.commit();
 			return revision;
+		} catch (HibernateException ex) {
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+			throw ex;
+		}
+	}
+	
+	public static Resource<? extends Article> fetchByQualifiedName(
+			Namespace namespace, String name) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in "
+				+ "(from Article where namespace=:ns and name=:name)";
+		Query query = session.createQuery(hql);
+		query.setEntity("ns", namespace);
+		query.setString("name", name);
+		return (Resource<? extends Article>) query.uniqueResult();
+	}
+
+	public static <T extends Article> Resource<T> fetchByQualifiedName(
+			Namespace namespace, String name, Class<Topic> type) {
+		Resource<? extends Article> resource = fetchByQualifiedName(namespace,
+				name);
+		if (resource != null && !type.isAssignableFrom(resource.getType())) {
+			return null;
+		}
+		return (Resource<T>) resource;
+	}
+	
+	public static void persist(Resource<? extends Article> resource) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(resource);
+			tx.commit();
 		} catch (HibernateException ex) {
 			if (tx != null) {
 				tx.rollback();

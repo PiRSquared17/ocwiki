@@ -3,6 +3,7 @@ package oop.controller.api.topic;
 import java.util.List;
 
 import oop.controller.api.AbstractAPI;
+import oop.data.Resource;
 import oop.data.Topic;
 import oop.db.dao.TopicDAO;
 
@@ -15,11 +16,11 @@ public class Search extends AbstractAPI {
 	@Override
 	public Object performImpl() throws Exception {
 		String query = getParams().getString("query").replaceAll("%", "%%");
-		List<Topic> topics = TopicDAO.fetchByNameLike("%" + query + "%");
+		List<Resource<Topic>> topics = TopicDAO.fetchByNameLike("%" + query + "%");
 		
 		JsonArray suggestions = new JsonArray();
 		JsonArray data = new JsonArray();
-		for (Topic topic : topics) {
+		for (Resource<Topic> topic : topics) {
 			suggestions.add(new JsonPrimitive(topic.getName()));
 			data.add(new JsonPrimitive(topic.getId()));
 		}

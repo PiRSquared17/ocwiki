@@ -3,11 +3,13 @@
 
 <div id="creat-comment">
 <form id="creat-comment" name="creat-comment">
-<span id = "cannot-post" style="color: red; display:none;" ></span>
+
 <label>Đăng nhận xét của bạn<br />
 <textarea name="comment-input" id="comment-input" cols="45" rows="5"></textarea>
 </label>
+<p><span id = "cannot-post" style="color: red; display:none;" ></span></p>
 <p>
+
   <label>
   <input type="button" name="btn-post" id="btn-post" value="Đăng nhận xét" onclick="postComment()"/>
   </label>
@@ -20,7 +22,7 @@
 <script language="javascript">
 	$('cannot-post').hide();
 	function postComment(){
-		var newComment = {message: $F('comment-input')};
+		var newComment = {message: tinyMCE.getInstanceById('comment-input').getContent()};
 		new Ajax.Request(
 				restPath + '/comments/resource/' + articleID,
 				{

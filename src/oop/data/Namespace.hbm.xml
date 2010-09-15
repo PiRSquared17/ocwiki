@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 21:02:11 17-08-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-    <class name="oop.data.Namespace" table="Namespace">
+    <class name="oop.data.Namespace" table="Namespace" mutable="false">
         <id name="id" type="long" access="field">
             <column name="id" />
             <generator class="assigned" />
