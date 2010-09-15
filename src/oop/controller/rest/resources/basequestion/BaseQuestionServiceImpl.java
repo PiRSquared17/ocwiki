@@ -45,8 +45,8 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
 		validate(data.getArticle());
-		WebServiceUtils.assertValid(resource.getArticle().getId() == data.getArticle().getId(),
-				"old version");
+		WebServiceUtils.assertValid(resource.getArticle().getId() == data
+				.getArticle().getId(), "old version");
 
 		BaseQuestion question = data.getArticle().copy();
 		question.getTopics().clear();
@@ -66,14 +66,14 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 		WebServiceUtils.assertValid(question != null, "question is empty");
 		WebServiceUtils.assertValid(question.getContent().getId() <= 0
 				|| StringUtils.isNotBlank(question.getContent().getText()),
-				"question content is empty");
+				"question content is blank");
 		WebServiceUtils.assertValid(question.getAnswers().size() >= 2, "too litte answers");
 		WebServiceUtils.assertValid(question.getAnswers().size() < 10, "too many answers");
 		boolean hasCorrect = false;
 		for (Answer answer : question.getAnswers()) {
 			WebServiceUtils.assertValid(answer.getContent().getId() <= 0
 					|| StringUtils.isNotBlank(answer.getContent().getText()),
-					"answer content is empty");
+					"answer content is blank");
 			if (answer.isCorrect()) {
 				hasCorrect = true;
 			}
