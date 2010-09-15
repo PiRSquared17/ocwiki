@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 13, 2010 at 10:14 PM
+-- Generation Time: Sep 16, 2010 at 12:54 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.2-1ubuntu4.2
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `ocwAnswer` (
   `correct` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK81F532C1EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1282 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1289 ;
 
 --
 -- Dumping data for table `ocwAnswer`
@@ -997,7 +997,14 @@ INSERT INTO `ocwAnswer` (`id`, `content`, `correct`) VALUES
 (1278, 1012, b'0'),
 (1279, 1013, b'0'),
 (1280, 1014, b'0'),
-(1281, 1015, b'0');
+(1281, 1015, b'0'),
+(1282, 1770, b'0'),
+(1283, 1771, b'0'),
+(1284, 1772, b'0'),
+(1285, 1773, b'0'),
+(1286, 1774, b'1'),
+(1287, 1779, b'1'),
+(1288, 1782, b'1');
 
 -- --------------------------------------------------------
 
@@ -1020,7 +1027,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticle` (
   KEY `FKC38C3A537D807870` (`namespace`),
   KEY `FKC38C3A5348AB9093` (`parent`),
   KEY `FKC38C3A53EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=569 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=584 ;
 
 --
 -- Dumping data for table `ocwArticle`
@@ -1365,7 +1372,18 @@ INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`,
 (565, 'Topic', 2, 1757, 'Thi vào 10', 512, NULL, NULL, NULL, NULL),
 (566, 'Topic', 2, 1758, 'Đề chính thức', NULL, NULL, NULL, NULL, NULL),
 (567, 'Topic', 2, 1759, 'Đề dự bị', NULL, NULL, NULL, NULL, NULL),
-(568, 'Topic', 2, 1760, 'Đề thi thử', NULL, NULL, NULL, NULL, NULL);
+(568, 'Topic', 2, 1760, 'Đề thi thử', NULL, NULL, NULL, NULL, NULL),
+(573, 'BaseQuestion', 3, 1765, '#92', NULL, 4, NULL, NULL, NULL),
+(574, 'BaseQuestion', 3, 1766, '#92', NULL, 4, NULL, NULL, NULL),
+(575, 'BaseQuestion', 3, 1767, '#92', NULL, 4, NULL, NULL, NULL),
+(576, 'BaseQuestion', 3, 1768, '#92', NULL, 4, NULL, NULL, NULL),
+(577, 'BaseQuestion', 3, 1769, '#88', NULL, 5, NULL, NULL, NULL),
+(578, 'BaseQuestion', 3, 1775, '#577', NULL, 5, NULL, NULL, NULL),
+(579, 'BaseQuestion', 3, 1776, '#578', NULL, 5, NULL, NULL, NULL),
+(580, 'BaseQuestion', 3, 1777, '#579', NULL, 5, NULL, NULL, NULL),
+(581, 'BaseQuestion', 3, 1778, '#580', NULL, 5, NULL, NULL, NULL),
+(582, 'BaseQuestion', 3, 1780, '#581', NULL, 5, NULL, NULL, NULL),
+(583, 'BaseQuestion', 3, 1781, '#582', NULL, 5, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1680,7 +1698,18 @@ INSERT INTO `ocwArticleTopic` (`article_id`, `topic_id`) VALUES
 (417, 504),
 (418, 504),
 (419, 504),
-(420, 504);
+(420, 504),
+(573, 504),
+(574, 504),
+(575, 504),
+(576, 504),
+(577, 504),
+(578, 504),
+(579, 504),
+(580, 504),
+(581, 504),
+(582, 504),
+(583, 504);
 
 -- --------------------------------------------------------
 
@@ -1719,9 +1748,25 @@ INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`)
 (91, 335, 2),
 (91, 336, 3),
 (92, 337, 0),
+(573, 337, 0),
+(574, 337, 0),
+(575, 337, 0),
+(576, 337, 0),
 (92, 338, 1),
+(573, 338, 1),
+(574, 338, 1),
+(575, 338, 1),
+(576, 338, 1),
 (92, 339, 2),
+(573, 339, 2),
+(574, 339, 2),
+(575, 339, 2),
+(576, 339, 2),
 (92, 340, 3),
+(573, 340, 3),
+(574, 340, 3),
+(575, 340, 3),
+(576, 340, 3),
 (93, 341, 0),
 (419, 341, 0),
 (420, 341, 0),
@@ -2669,7 +2714,28 @@ INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`)
 (418, 1278, 0),
 (418, 1279, 1),
 (418, 1280, 2),
-(418, 1281, 3);
+(418, 1281, 3),
+(577, 1282, 0),
+(578, 1282, 0),
+(579, 1282, 0),
+(577, 1283, 1),
+(578, 1283, 1),
+(579, 1283, 1),
+(577, 1284, 2),
+(578, 1284, 2),
+(579, 1284, 2),
+(580, 1284, 0),
+(581, 1284, 0),
+(582, 1284, 0),
+(583, 1284, 0),
+(577, 1285, 3),
+(578, 1285, 3),
+(579, 1285, 3),
+(577, 1286, 4),
+(578, 1286, 4),
+(579, 1286, 4),
+(581, 1287, 1),
+(583, 1288, 1);
 
 -- --------------------------------------------------------
 
@@ -3126,15 +3192,15 @@ CREATE TABLE IF NOT EXISTS `ocwResource` (
 
 INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `author`, `status`, `link`, `accessibility`) VALUES
 (62, 0, '2010-08-25 01:15:32', 'oop.data.Test', 62, 1, 'NORMAL', NULL, 'EVERYONE'),
-(63, 0, '2010-08-25 01:15:32', 'oop.data.Test', 63, 1, 'NORMAL', NULL, 'EVERYONE'),
+(63, 2, '2010-08-25 01:15:32', 'oop.data.Test', 63, 1, 'NORMAL', NULL, 'EVERYONE'),
 (64, 0, '2010-08-25 01:15:32', 'oop.data.Test', 64, 1, 'NORMAL', NULL, 'EVERYONE'),
 (65, 0, '2010-08-25 01:15:32', 'oop.data.Test', 65, 1, 'NORMAL', NULL, 'EVERYONE'),
 (66, 0, '2010-08-25 01:15:32', 'oop.data.Test', 66, 1, 'NORMAL', NULL, 'EVERYONE'),
-(88, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 88, 1, 'NORMAL', NULL, 'EVERYONE'),
+(88, 7, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 583, 1, 'NORMAL', NULL, 'EVERYONE'),
 (89, 11, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 89, 1, 'NORMAL', NULL, 'AUTHOR_ONLY'),
 (90, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 90, 1, 'NORMAL', NULL, 'AUTHOR_ONLY'),
 (91, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 91, 1, 'NORMAL', NULL, 'EVERYONE'),
-(92, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 92, 1, 'NORMAL', NULL, 'EVERYONE'),
+(92, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 576, 1, 'NORMAL', NULL, 'EVERYONE'),
 (93, 2, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 420, 1, 'NORMAL', NULL, 'EVERYONE'),
 (94, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 94, 1, 'NORMAL', NULL, 'EVERYONE'),
 (95, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 95, 1, 'NORMAL', NULL, 'EVERYONE'),
@@ -3528,7 +3594,7 @@ CREATE TABLE IF NOT EXISTS `ocwRevision` (
   KEY `FKE7AEF61E5DDB135C` (`author`),
   KEY `FKE7AEF61E72978E26` (`article`),
   KEY `FKE7AEF61E4A301B22` (`resource`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=553 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=561 ;
 
 --
 -- Dumping data for table `ocwRevision`
@@ -3873,7 +3939,15 @@ INSERT INTO `ocwRevision` (`id`, `resource`, `article`, `author`, `timestamp`, `
 (549, 517, 565, 1, '2010-09-13 21:49:01', 'Khởi tạo đối tượng', b'0'),
 (550, 518, 566, 1, '2010-09-13 21:50:09', 'Khởi tạo đối tượng', b'0'),
 (551, 519, 567, 1, '2010-09-13 21:50:18', 'Khởi tạo đối tượng', b'0'),
-(552, 520, 568, 1, '2010-09-13 21:51:20', 'Khởi tạo đối tượng', b'0');
+(552, 520, 568, 1, '2010-09-13 21:51:20', 'Khởi tạo đối tượng', b'0'),
+(553, 92, 576, 1, '2010-09-15 00:13:57', 'sdfs', b'1'),
+(554, 88, 577, 1, '2010-09-15 18:26:10', 'jjklj', b'0'),
+(555, 88, 578, 1, '2010-09-15 19:45:23', 'asdf', b'0'),
+(556, 88, 579, 1, '2010-09-15 19:45:59', 'sfsd', b'0'),
+(557, 88, 580, 1, '2010-09-15 20:04:34', '', b'0'),
+(558, 88, 581, 1, '2010-09-15 20:05:59', '', b'0'),
+(559, 88, 582, 1, '2010-09-15 20:06:13', '', b'0'),
+(560, 88, 583, 1, '2010-09-15 20:52:26', '', b'0');
 
 -- --------------------------------------------------------
 
@@ -4466,7 +4540,7 @@ CREATE TABLE IF NOT EXISTS `ocwText` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` mediumtext COLLATE utf8_vietnamese1_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1761 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1783 ;
 
 --
 -- Dumping data for table `ocwText`
@@ -6223,7 +6297,25 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1757, NULL),
 (1758, NULL),
 (1759, NULL),
-(1760, NULL);
+(1760, NULL),
+(1765, '<p>Be ______ with what you have got, Mary.</p>\n<p>xyz</p>'),
+(1766, '<p>Be ______ with what you have got, Mary.</p>\n<p>xyz</p>'),
+(1767, '<p>Be ______ with what you have got, Mary.</p>\n<p>xyzsfsf</p>'),
+(1768, '<p>Be ______ with what you have got, Mary.</p>\n<p>xyz</p>'),
+(1769, '<p>I ______ this letter around for days without looking at it.</p>'),
+(1770, '<p>carry</p>'),
+(1771, '<p>will be carrying</p>'),
+(1772, '<p>have been carrying</p>'),
+(1773, '<p>am carrying</p>'),
+(1774, '<p>Lựa chọn mới</p>'),
+(1775, '<p>I ______ this letter around for days without looking at it.</p>'),
+(1776, '<p>I ______ this letter around for days without looking at it.</p>'),
+(1777, '<p>I ______ this letter around for days without looking at it.</p>'),
+(1778, '<p>I ______ this letter around for days without looking at it.</p>'),
+(1779, '<p>linh tinh carrying</p>'),
+(1780, '<p>I ______ this letter around for days without looking at it.</p>'),
+(1781, '<p>I ______ this letter around for days without looking at it.</p>'),
+(1782, '<p>kfjsklfjslkfj</p>');
 
 -- --------------------------------------------------------
 
