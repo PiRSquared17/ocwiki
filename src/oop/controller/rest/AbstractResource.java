@@ -69,6 +69,13 @@ public abstract class AbstractResource {
 		}
 		return params;
 	}
+	
+	protected void assertValid(boolean valid, String errorCode) {
+		if (!valid) {
+			throw new WebApplicationException(Response.status(Status.NOT_FOUND)
+					.entity(new ErrorResult(errorCode)).build());
+		}
+	}
 
 	protected void assertParamValid(boolean valid, String name, String errorCode) {
 		if (!valid) {

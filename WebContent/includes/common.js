@@ -80,7 +80,12 @@ Editor.preview = function(id) {
 	var textarea = element.getElementsByTagName('textarea')[0]; 
 	var previewDiv = document.createElement('div');
 	previewDiv.setAttribute('id', id + '-preview');
-	previewDiv.innerHTML = textarea.value;
+	tinymceEditor = tinymce.get(textarea.id);
+	if (tinymceEditor) {
+		previewDiv.innerHTML = tinymceEditor.getContent();
+	} else {
+		previewDiv.innerHTML = textarea.value;
+	}
 	previewDiv.observe('click', function(event) {
 		var elementId = this.id;
 		elementId = elementId.substring(0, elementId.length-8);
