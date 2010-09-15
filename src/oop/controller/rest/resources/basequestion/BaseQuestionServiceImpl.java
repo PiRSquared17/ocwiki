@@ -5,6 +5,7 @@ import javax.ws.rs.Path;
 import org.apache.commons.lang.StringUtils;
 
 import oop.controller.rest.AbstractResource;
+import oop.controller.rest.WebServiceUtils;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Answer;
 import oop.data.BaseQuestion;
@@ -44,15 +45,15 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
 		validate(data.getArticle());
-		assertValid(resource.getArticle().getId() == data.getArticle().getId(),
-				"old version");
+		WebServiceUtils.assertValid(resource.getArticle().getId() == data
+				.getArticle().getId(), "old version");
 
 		BaseQuestion question = data.getArticle().copy();
 		question.getTopics().clear();
 		for (Resource<Topic> topic : data.getArticle().getTopics()) {
-			assertValid(topic != null, "topic is empty");
+			WebServiceUtils.assertValid(topic != null, "topic is empty");
 			topic = TopicDAO.fetchById(topic.getId());
-			assertValid(topic != null, "topic not found");
+			WebServiceUtils.assertValid(topic != null, "topic not found");
 			question.getTopics().add(topic);
 		}
 		ArticleDAO.persist(question);
@@ -62,22 +63,22 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 	}
 
 	private void validate(BaseQuestion question) {
-		assertValid(question != null, "question is empty");
-		assertValid(question.getContent().getId() <= 0
+		WebServiceUtils.assertValid(question != null, "question is empty");
+		WebServiceUtils.assertValid(question.getContent().getId() <= 0
 				|| StringUtils.isNotBlank(question.getContent().getText()),
-				"question content is empty");
-		assertValid(question.getAnswers().size() >= 2, "too litte answers");
-		assertValid(question.getAnswers().size() < 10, "too many answers");
+				"question content is blank");
+		WebServiceUtils.assertValid(question.getAnswers().size() >= 2, "too litte answers");
+		WebServiceUtils.assertValid(question.getAnswers().size() < 10, "too many answers");
 		boolean hasCorrect = false;
 		for (Answer answer : question.getAnswers()) {
-			assertValid(answer.getContent().getId() <= 0
+			WebServiceUtils.assertValid(answer.getContent().getId() <= 0
 					|| StringUtils.isNotBlank(answer.getContent().getText()),
-					"answer content is empty");
+					"answer content is blank");
 			if (answer.isCorrect()) {
 				hasCorrect = true;
 			}
 		}
-		assertValid(hasCorrect, "no correct answer");
+		WebServiceUtils.assertValid(hasCorrect, "no correct answer");
 	}
 
 }

@@ -63,10 +63,6 @@ public class ResourceDAO {
 
 	public static <T extends Article> Resource<T> create(User author,
 			Class<T> type, T article) {
-		if (!type.isInstance(article)) {
-			throw new ClassCastException();
-		}
-
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
@@ -91,6 +87,34 @@ public class ResourceDAO {
 		}
 	}
 	
+
+	public static <T extends Article> Resource<T> create(User author,
+			Class<T> type, T article, Resource<? extends Article> link) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			Date date = new Date();
+			Resource<T> resource = new Resource<T>(0, date, author,
+					Status.NORMAL, 0, type, article,
+					new HashSet<Revision<T>>(), new HashSet<ResourceLog>());
+			resource.setLink(link);
+			Revision<T> revision = new Revision<T>(0, resource, article,
+					author, date, "Khởi tạo đối tượng", false);
+			tx = session.beginTransaction();
+			session.save(article);
+			session.save(resource);
+			session.save(revision);
+			tx.commit();
+			return resource;
+		} catch (HibernateException ex) {
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+			throw ex;
+		}
+	}
+
 	public static <T extends Article> Revision<T> update(Resource<T> resource,
 			T article, User author, String summary, boolean minor) {
 		Session session = HibernateUtil.getSession();

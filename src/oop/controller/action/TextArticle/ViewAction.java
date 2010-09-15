@@ -4,7 +4,7 @@ import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.Resource;
 import oop.data.TextArticle;
-import oop.db.dao.TextArticalDAO;
+import oop.db.dao.TextArticleDAO;
 
 public class ViewAction extends AbstractAction {
 	private Resource<TextArticle> resource;
@@ -13,7 +13,7 @@ public class ViewAction extends AbstractAction {
 	@Override
 	protected void performImpl() throws Exception {
 		try{
-			resource = TextArticalDAO.fetchById(getParams().getLong("id"));
+			resource = TextArticleDAO.fetchById(getParams().getLong("id"));
 			if (resource == null){
 				throw new ActionException("Không tìm thấy văn bản nào hợp lệ!!");
 			}

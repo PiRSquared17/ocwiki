@@ -34,6 +34,9 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 			int revision, Class<T> type, T article, Set<Revision<T>> revisions,
 			Set<ResourceLog> logs) {
 		super();
+		if (!type.isInstance(article)) {
+			throw new ClassCastException();
+		}
 		this.id = id;
 		this.createDate = createDate;
 		this.author = author;
@@ -111,7 +114,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 		this.article = article;
 	}
 	
-	@XmlElement
+	@XmlElement(name="articleType")
 	public Class<T> getType() {
 		return type;
 	}
@@ -135,7 +138,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	public Namespace getNamespace() {
 		return getArticle().getNamespace();
 	}
-	
+
 	@XmlTransient
 	public Set<ResourceLog> getLogs() {
 		return logs;

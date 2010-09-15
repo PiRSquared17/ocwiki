@@ -2,15 +2,15 @@ package oop.db.dao;
 
 import java.util.List;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 import oop.data.Resource;
 import oop.data.TextArticle;
 import oop.persistence.HibernateUtil;
 
-@SuppressWarnings("unchecked")
-public class TextArticalDAO {
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+public class TextArticleDAO {
+	@SuppressWarnings("unchecked")
 	public static List<Resource<TextArticle>> fetchByTopicId(long Topicid, int start,
 			int length){
 		Session session = HibernateUtil.getSession();
