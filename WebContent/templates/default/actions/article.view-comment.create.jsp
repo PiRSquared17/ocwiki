@@ -22,6 +22,13 @@
 <script language="javascript">
 	$('cannot-post').hide();
 	function postComment(){
+		
+		var newMessage = tinyMCE.getInstanceById('comment-input').getContent();
+		if (newMessage.empty()==true){
+			$('cannot-post').innerHTML = 'Bạn chưa nhận xét gì!';
+			$('cannot-post').show();
+			return;
+		}
 		var newComment = {message: tinyMCE.getInstanceById('comment-input').getContent()};
 		new Ajax.Request(
 				restPath + '/comments/resource/' + articleID,
@@ -36,7 +43,8 @@
 					onSuccess : function(transport) {
 						var newpostcomment = transport.responseJSON.result;
 						$('commentslist').innerHTML+=showComments(newpostcomment);
-						tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';						
+						tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';	
+						$('cannot-post').hide();					
 					},
 				    onFailure: function()
 				    { 
