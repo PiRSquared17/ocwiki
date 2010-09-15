@@ -2,8 +2,11 @@ package oop.controller.rest.resources.basequestion;
 
 import javax.ws.rs.Path;
 
+import org.apache.commons.lang.StringUtils;
+
 import oop.controller.rest.AbstractResource;
 import oop.controller.rest.util.ObjectResult;
+import oop.data.Answer;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.data.Revision;
@@ -14,8 +17,6 @@ import oop.db.dao.ResourceDAO;
 import oop.db.dao.TopicDAO;
 import oop.util.SessionUtils;
 
-import org.apache.commons.lang.StringUtils;
-
 @Path("/questions")
 public class BaseQuestionServiceImpl extends AbstractResource implements
 		BaseQuestionService {
@@ -23,6 +24,7 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 	@Override
 	public ObjectResult<BaseQuestion> add(BaseQuestion question)
 			throws Exception {
+		validate(question);
 		User user = SessionUtils.getUser(getSession());
 		ResourceDAO.create(user, BaseQuestion.class, question);
 		return new ObjectResult<BaseQuestion>(question);
@@ -41,25 +43,41 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 			Revision<BaseQuestion> data) throws Exception {
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
-		assertParamValid(data.getArticle() != null, "article", "null");
-		assertParamValid(!StringUtils.isEmpty(data.getSummary()), "summary",
-				"empty");
-		if (resource.getArticle().getId() != data.getArticle().getId()) {
-			throw invalidParam("basever", "old version");
-		}
-		
+		validate(data.getArticle());
+		assertValid(resource.getArticle().getId() == data.getArticle().getId(),
+				"old version");
+
 		BaseQuestion question = data.getArticle().copy();
 		question.getTopics().clear();
 		for (Resource<Topic> topic : data.getArticle().getTopics()) {
-			assertParamValid(topic != null, "topic", "null");
+			assertValid(topic != null, "topic is empty");
 			topic = TopicDAO.fetchById(topic.getId());
-			assertParamValid(topic != null, "topic", "not found");
+			assertValid(topic != null, "topic not found");
 			question.getTopics().add(topic);
 		}
 		ArticleDAO.persist(question);
 
 		saveNewRevision(resource, question, data.getSummary(), data.isMinor());
 		return new ObjectResult<BaseQuestion>(resource.getArticle());
+	}
+
+	private void validate(BaseQuestion question) {
+		assertValid(question != null, "question is empty");
+		assertValid(question.getContent().getId() <= 0
+				|| StringUtils.isNotBlank(question.getContent().getText()),
+				"question content is empty");
+		assertValid(question.getAnswers().size() >= 2, "too litte answers");
+		assertValid(question.getAnswers().size() < 10, "too many answers");
+		boolean hasCorrect = false;
+		for (Answer answer : question.getAnswers()) {
+			assertValid(answer.getContent().getId() <= 0
+					|| StringUtils.isNotBlank(answer.getContent().getText()),
+					"answer content is empty");
+			if (answer.isCorrect()) {
+				hasCorrect = true;
+			}
+		}
+		assertValid(hasCorrect, "no correct answer");
 	}
 
 }
