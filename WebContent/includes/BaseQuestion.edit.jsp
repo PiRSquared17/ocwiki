@@ -144,7 +144,7 @@ EditAction.save = function() {
               alert('old version');
           } else if (code == 'question content is blank') {
               $('articleEdit-error').innerHTML = 'Hãy điền nội dung câu hỏi';
-          } else if (code == 'too litte answers') {
+          } else if (code == 'too little answers') {
               $('articleEdit-error').innerHTML = 'Quá ít lựa chọn, tối thiểu là 2.';
           } else if (code == 'too many answers') {
               $('articleEdit-error').innerHTML = 'Quá nhiều lựa chọn, tối đa là 9.';

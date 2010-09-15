@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Lớp đóng gói dữ liệu văn bản (không thay đổi được). 
  * @author cumeo89
@@ -50,6 +52,16 @@ public class Text implements Entity, Serializable {
 	@Override
 	public String toString() {
 		return text;
+	}
+	
+	public static boolean isBlank(Text t) {
+		return t == null
+				|| (t.getId() <= 0 && StringUtils.isBlank(t.getText()));
+	}
+	
+	public static boolean isNotBlank(Text t) {
+		return t != null
+				&& (t.getId() > 0 || StringUtils.isNotBlank(t.getText()));
 	}
 
 }
