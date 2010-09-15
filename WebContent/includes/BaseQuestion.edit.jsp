@@ -142,13 +142,13 @@ EditAction.save = function() {
     	  var code = transport.responseJSON.code;
           if (code == 'old version') {
               alert('old version');
-          } else if (code == 'question content is empty') {
+          } else if (code == 'question content is blank') {
               $('articleEdit-error').innerHTML = 'Hãy điền nội dung câu hỏi';
           } else if (code == 'too litte answers') {
               $('articleEdit-error').innerHTML = 'Quá ít lựa chọn, tối thiểu là 2.';
           } else if (code == 'too many answers') {
               $('articleEdit-error').innerHTML = 'Quá nhiều lựa chọn, tối đa là 9.';
-          } else if (code == 'answer content is empty') {
+          } else if (code == 'answer content is blank') {
               $('articleEdit-error').innerHTML = 'Hãy điền nội dung tất cả các lựa chọn.';
           } else if (code == 'no correct answer') {
               $('articleEdit-error').innerHTML = 'Hãy chọn ít nhất một lựa chọn đúng.';
