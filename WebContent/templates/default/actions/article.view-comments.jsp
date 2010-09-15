@@ -10,13 +10,15 @@
 
 <script type="text/javascript">
 	var articleID = ${action.resource.id};
+	var curPage = 0;
+	var pageCount = 0;
 	loadLatest();
 
 	function loadLatest(){
 		var comments;
 		var commentslisthtml = '';
 		new Ajax.Request(
-				restPath + '/comments/resource/' + articleID + '/latest',
+				restPath + '/comment_reports/resource/' + articleID + '/latest',
 				{
 					method: 'get',
 					requestHeaders : {
@@ -25,10 +27,13 @@
 					evalJSON : true,
 					onSuccess : function(transport) {
 						//alert(transport.responseText);
-						comments = transport.responseJSON.result;
+						var listResult = transport.responseJSON;
+						pageCount = getPageCount(listResult.count);
+						curPage = pageCount;
+						comments = listResult.result;
 						if (comments.length>0){
 							for (i=0;i<comments.length;i++){
-								commentslisthtml+=showComments(comments[i]);					
+								commentslisthtml+=showComments(comments[i].comment);					
 							}
 							$('commentslist').innerHTML = commentslisthtml;
 						} else {
@@ -78,27 +83,26 @@
 		$('commenthide'+id).innerHTML='unhide';
 	}
 
-	function pagination(count){
-		var pageCount = getPageCount(count);
+	function pagination(){
 		
 	}
 
 	function getPageCount(count){
 		var MAX_COMMENTS_ON_PAGE = 10;
-		var pageCount;
-		if (count%MAX_COMMENT_ON_PAGE>0)
-			pageCount=count/MAX_COMMENT_ON_PAGE+1;
-		else pageCount=count/MAX_COMMENT_ON_PAGE;
-		return pageCount;
+		var pCount = 0;
+		if (count%MAX_COMMENTS_ON_PAGE>0)
+			pCount=((count-(count%MAX_COMMENTS_ON_PAGE))/MAX_COMMENTS_ON_PAGE)+1;
+		else pCount=count/MAX_COMMENTS_ON_PAGE;
+		return pCount;
 	}
 
 
 	
-	function loadOldest(){
+	function loadPage(start){
 		var comments;
 		var commentslisthtml = '';
 		new Ajax.Request(
-				restPath + '/comments/resource/' + articleID + '?start=0',
+				restPath + '/comment_reports/resource/' + articleID + '?start='+start,
 				{
 					method: 'get',
 					requestHeaders : {
@@ -110,7 +114,7 @@
 						comments = transport.responseJSON.result;
 						if (comments.length>0){
 							for (i=0;i<comments.length;i++){
-								commentslisthtml+=showComments(comments[i]);					
+								commentslisthtml+=showComments(comments[i].comment);					
 							}
 							$('commentslist').innerHTML = commentslisthtml;
 						} else {
@@ -123,9 +127,6 @@
 				    }		
 				}
 			);
-	}
-
-	function loadPage(start){
 	}
 
 	function buttonHTML(text,value,onClickFunction){
