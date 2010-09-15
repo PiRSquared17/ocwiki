@@ -99,7 +99,7 @@
 	function infoTimeout() {
 	  	timeout--;
 	  	if (timeout >0) {
-	    	Dialog.setInfoMessage(info + "<br> Thông báo tự động đóng sau " + timeout + "giây ...");
+	    	Dialog.setInfoMessage("Thông báo tự động đóng sau " + timeout + "giây ...");
 	    	setTimeout(infoTimeout, 1000);
 	 	}
 	 	else
@@ -130,7 +130,7 @@
 						openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
 					}
 				   });
-		return true;
+		return ;
 	}
 	
 	function lockUser()
@@ -181,7 +181,7 @@
 				   });
 			}
 		});		
-		return true;
+		return ;
 	}
 
 	function removeWarningUser()
@@ -208,7 +208,7 @@
 						openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
 					}
 				   });
-		return true;
+		return ;
 	}
 
 	function warningUser()
@@ -266,6 +266,6 @@
 				}	
 			}
 		});
-		return true;
+		return ;
 	}	
 </script>

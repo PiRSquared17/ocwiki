@@ -23,7 +23,7 @@ import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
 import com.oreilly.servlet.ParameterParser;
 
-public abstract class AbstractAction implements Action {
+public abstract class AbstractAction<T extends Article> implements Action {
 
 	private ActionController controller;
 
@@ -45,7 +45,7 @@ public abstract class AbstractAction implements Action {
 	private ParameterList params;
 	private ActionDescriptor descriptor;
 	private Map<String, String> errors = null;
-	private Resource<? extends Article> resource;
+	protected Resource<T> resource;
 
 	private String title;
 
@@ -218,11 +218,11 @@ public abstract class AbstractAction implements Action {
 	}
 
 	@Override
-	public Resource<? extends Article> getResource() {
+	public Resource<T> getResource() {
 		return resource;
 	}
 	
-	protected <T extends Article> void setResource(Resource<T> resource) {
+	protected void setResource(Resource<T> resource) {
 		this.resource = resource;
 	}
 	

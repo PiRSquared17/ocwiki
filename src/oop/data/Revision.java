@@ -13,19 +13,12 @@ public class Revision<T extends Article> implements ArticleContainer<T> {
 		return article.getQualifiedName();
 	}
 
-	@XmlElement
 	private long id;
-	@XmlTransient
 	private Resource<T> resource;
-	@XmlElement
 	private T article;
-	@XmlElement
 	private User author;
-	@XmlElement
 	private Date timestamp;
-	@XmlElement
 	private String summary;
-	@XmlElement
 	private boolean minor;
 
 	Revision() {
@@ -43,30 +36,61 @@ public class Revision<T extends Article> implements ArticleContainer<T> {
 		this.minor = minor;
 	}
 
+	@XmlElement
 	public long getId() {
 		return id;
 	}
 	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	@XmlElement
 	public T getArticle() {
 		return article;
 	}
 
+	public void setArticle(T article) {
+		this.article = article;
+	}
+	
+	@XmlElement
 	public User getAuthor() {
 		return author;
 	}
+	
+	public void setAuthor(User author) {
+		this.author = author;
+	}
 
+	@XmlElement
 	public Date getTimestamp() {
 		return timestamp;
 	}
+	
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
 
+	@XmlElement
 	public String getSummary() {
 		return summary;
 	}
+	
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
 
+	@XmlElement
 	public boolean isMinor() {
 		return minor;
 	}
+	
+	public void setMinor(boolean minor) {
+		this.minor = minor;
+	}
 
+	@XmlTransient
 	public Resource<T> getResource() {
 		return resource;
 	}

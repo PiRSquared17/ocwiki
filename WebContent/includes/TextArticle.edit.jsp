@@ -9,7 +9,7 @@
 		<tr>
 			<td>Không gian tên:</td>
 			<td>	
-				<select id="namespace_edit">
+				<select id="namespaedit">
 					<option value="0" ${textedit.namespace.id==0 ? 'selected="selected"':''} >Chinh</option>
 					<option value="1" ${textedit.namespace.id==1 ? 'selected="selected"':''} >OCWIKI</option>
 					<option value="2" ${textedit.namespace.id==2 ? 'selected="selected"':''} >Chủ đề</option>
@@ -61,7 +61,7 @@
 
 	function saveEdit(){
 		textarticle.content={text : tinymce.get('edit_context').getContent()};
-		textarticle.namespace={id : $F('namespace_edit')};
+		textarticle.namespace={id : $F('namespaedit')};
 		new Ajax.Request(restPath + '/TextArticle/'+ resourceId,
 			{
 				method: 'post',
