@@ -27,6 +27,6 @@ public interface BaseQuestionService {
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ObjectResult<BaseQuestion> update(@PathParam("id") long resourceId,
-			Revision<BaseQuestion> question) throws Exception;
+			Revision<BaseQuestion> data) throws Exception;
 
 }

@@ -12,7 +12,7 @@ public class JsonBodyPostWebRequest extends PostMethodWebRequest {
 
 	public JsonBodyPostWebRequest(String url, String body) {
 		super(url, new ReaderInputStream(new StringReader(body)),
-				MediaType.APPLICATION_JSON);
+				MediaType.APPLICATION_JSON + "; charset=UTF-8");
 	}
 	
 }

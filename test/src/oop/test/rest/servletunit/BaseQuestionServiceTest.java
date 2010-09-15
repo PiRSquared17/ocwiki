@@ -2,7 +2,10 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
+import javax.ws.rs.core.MediaType;
+
 import oop.conf.Config;
+import oop.data.Namespace;
 
 import org.codehaus.jackson.JsonNode;
 import org.junit.Assert;
@@ -23,16 +26,19 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		ServletUnitClient client = getServletRunner().newClient();
 		WebResponse response = client.getResponse(PATH + "/88");
 		
+		System.out.println(response.getText());
 		JsonNode root = parseJSON(response);
-		Assert.assertEquals("88", root.get("id").getValueAsText());
-		Assert.assertEquals("1044", root.get("content").get("id").getValueAsText());
-		Assert.assertEquals("0", root.get("namespace").get("id").getValueAsText());
-		Assert.assertEquals("5", root.get("level").getValueAsText());
-		Assert.assertEquals(4, root.get("answers").size());
-		Assert.assertEquals("321", root.get("answers").get(0).get("id").getValueAsText());
-		Assert.assertEquals("322", root.get("answers").get(1).get("id").getValueAsText());
-		Assert.assertEquals("323", root.get("answers").get(2).get("id").getValueAsText());
-		Assert.assertEquals("324", root.get("answers").get(3).get("id").getValueAsText());
+		JsonNode question = root.get("result");
+		Assert.assertEquals("88", question.get("id").getValueAsText());
+		Assert.assertEquals("1044", question.get("content").get("id").getValueAsText());
+		Assert.assertEquals(String.valueOf(Namespace.QUESTION), 
+				question.get("namespace").get("id").getValueAsText());
+		Assert.assertEquals("5", question.get("level").getValueAsText());
+		Assert.assertEquals(4, question.get("answers").size());
+		Assert.assertEquals("321", question.get("answers").get(0).get("id").getValueAsText());
+		Assert.assertEquals("322", question.get("answers").get(1).get("id").getValueAsText());
+		Assert.assertEquals("323", question.get("answers").get(2).get("id").getValueAsText());
+		Assert.assertEquals("324", question.get("answers").get(3).get("id").getValueAsText());
 	}
 	
 	@Test
@@ -40,32 +46,42 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		ServletUnitClient client = getServletRunner().newClient();
 		login(client, "teacher", "1234");
 		String json = "{" +
-				"\"id\":\"88\"," +
-				"\"content\":{\"id\":\"1044\",\"text\":\"content\"}," +
-				"\"namespace\":{\"id\":\"0\"}," +
-				"\"answers\":[" +
-					"{\"id\":\"321\",\"content\":{\"id\":\"56\",\"text\":\"answer1\"},\"correct\":\"false\"}," +
-					"{\"id\":\"322\",\"content\":{\"id\":\"57\",\"text\":\"answer2\"},\"correct\":\"false\"}," +
-					"{\"id\":\"323\",\"content\":{\"id\":\"58\",\"text\":\"answer3\"},\"correct\":\"false\"}" +
-				"]," +
-				"\"level\":\"3\"}";
+				"\"article\": {" +
+					"\"type\":\"baseQuestion\"," +
+					"\"id\":\"88\"," +
+					"\"content\":{\"text\":\"content\"}," +
+					"\"namespace\":{\"id\":\"0\"}," +
+					"\"answers\":[" +
+						"{\"content\":{\"id\":\"56\",\"text\":\"answer1\"},\"correct\":\"false\"}," +
+						"{\"content\":{\"id\":\"57\",\"text\":\"answer2\"},\"correct\":\"false\"}," +
+						"{\"content\":{\"id\":\"58\",\"text\":\"answer3\"},\"correct\":\"false\"}" +
+					"]," +
+					"\"level\":\"3\"}," +
+				"\"summary\": \"sửa bằng unit test\"," +
+				"\"minor\": true}";
+//		String json = "{}";
+//		JsonUtils.fromJson(json, new TypeReference<Revision<BaseQuestion>>() {});
 		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		request.setHeaderField("Accept", MediaType.APPLICATION_JSON);
 		WebResponse response = client.getResponse(request);
+		System.out.println(response.getText());
 		
 		JsonNode root = parseJSON(response);
-		Assert.assertTrue(!"88".equals(root.get("id").getValueAsText()));
-		Assert.assertTrue(!"1044".equals(root.get("content").get("id").getValueAsText()));
-//		Assert.assertEquals("0", root.get("namespace").get("id").getValueAsText());
-		Assert.assertEquals("3", root.get("level").getValueAsText());
-		Assert.assertEquals(3, root.get("answers").size());
+		JsonNode question = root.get("result");
+		Assert.assertTrue(!"88".equals(question.get("id").getValueAsText()));
+		Assert.assertTrue("content".equals(question.get("content").get("text").getValueAsText()));
+		Assert.assertTrue(!"1044".equals(question.get("content").get("id").getValueAsText()));
+		Assert.assertEquals("0", question.get("namespace").get("id").getValueAsText());
+		Assert.assertEquals("3", question.get("level").getValueAsText());
+		Assert.assertEquals(3, question.get("answers").size());
 		
-		Assert.assertTrue(!"321".equals(root.get("answers").get(0).get("id").getValueAsText()));
-		Assert.assertTrue(!"322".equals(root.get("answers").get(1).get("id").getValueAsText()));
-		Assert.assertTrue(!"323".equals(root.get("answers").get(2).get("id").getValueAsText()));
+		Assert.assertTrue(!"321".equals(question.get("answers").get(0).get("id").getValueAsText()));
+		Assert.assertTrue(!"322".equals(question.get("answers").get(1).get("id").getValueAsText()));
+		Assert.assertTrue(!"323".equals(question.get("answers").get(2).get("id").getValueAsText()));
 
-		Assert.assertEquals("answer1", root.get("answers").get(0).get("content").getValueAsText());
-		Assert.assertEquals("answer2", root.get("answers").get(1).get("content").getValueAsText());
-		Assert.assertEquals("answer3", root.get("answers").get(2).get("content").getValueAsText());
+		Assert.assertEquals("answer1", question.get("answers").get(0).get("content").get("text").getTextValue());
+		Assert.assertEquals("answer2", question.get("answers").get(1).get("content").get("text").getTextValue());
+		Assert.assertEquals("answer3", question.get("answers").get(2).get("content").get("text").getTextValue());
 	}
 
 }
