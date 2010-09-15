@@ -284,6 +284,10 @@
       <name>textarticle.view</name>
       <class>oop.controller.action.TextArticle.ViewAction</class>
     </action>
+    <action>
+      <name>solution.create</name>
+      <class>oop.controller.action.solution.CreateSolution</class>
+    </action>
     <!--********************************************************************
                            User Actions 
      ********************************************************************-->
