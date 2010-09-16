@@ -2,12 +2,11 @@ package oop.controller.action.TextArticle;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
-import oop.data.Resource;
 import oop.data.TextArticle;
 import oop.db.dao.TextArticleDAO;
 
-public class ViewAction extends AbstractAction {
-	private Resource<TextArticle> resource;
+public class ViewAction extends AbstractAction<TextArticle> {
+
 	private TextArticle textcontext;
 	
 	@Override
@@ -28,7 +27,4 @@ public class ViewAction extends AbstractAction {
 		return textcontext;
 	}
 	
-	public Resource<TextArticle> getResource(){
-		return resource;
-	}
 }

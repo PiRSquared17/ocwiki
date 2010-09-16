@@ -2,7 +2,6 @@ package oop.controller.action.test;
 
 import oop.controller.action.AbstractAction;
 import oop.data.Question;
-import oop.data.Resource;
 import oop.data.Section;
 import oop.data.Test;
 import oop.db.dao.ResourceDAO;
@@ -10,12 +9,11 @@ import oop.util.Utils;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditQuestionAction extends AbstractAction {
+public class EditQuestionAction extends AbstractAction<Test> {
 
 	private Section section;
 	private Test test;
 	private Question question;
-	private Resource<Test> resource;
 
 	@Override
 	public void performImpl() throws Exception {

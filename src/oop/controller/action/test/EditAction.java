@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
-import oop.data.Resource;
 import oop.data.Test;
 import oop.data.Text;
 import oop.db.dao.TestDAO;
@@ -12,7 +11,7 @@ import oop.db.dao.TestDAO;
 import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditAction extends AbstractAction {
+public class EditAction extends AbstractAction<Test> {
 
 	@Override
 	public void performImpl() throws Exception {
@@ -68,12 +67,8 @@ public class EditAction extends AbstractAction {
 			setNextAction("test.view&id=" + resource.getId());
 		}
 	}
-	private Resource<Test> resource;
-	private Test test;
 
-	public Resource<Test> getResource() {
-		return resource;
-	}
+	private Test test;
 
 	public Test getTest() {
 		return test;

@@ -69,7 +69,7 @@ public class RevisionDAO {
 		return query.list();
 	}
 	
-	public static Revision<? extends Article> fetchPreviousRevision(long id) {
+	public static <T extends Article> Revision<T> fetchPreviousRevision(long id) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Revision where id = (" +
 				"select max(id) from Revision " +
@@ -77,10 +77,10 @@ public class RevisionDAO {
 					"and id < :revId)";
 		Query query = session.createQuery(hql);
 		query.setLong("revId", id);
-		return (Revision<? extends Article>) query.uniqueResult();
+		return (Revision<T>) query.uniqueResult();
 	}
 
-	public static Revision<? extends Article> fetchNextRevision(long id) {
+	public static <T extends Article> Revision<T> fetchNextRevision(long id) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Revision where id = (" +
 				"select min(id) from Revision " +
@@ -88,7 +88,7 @@ public class RevisionDAO {
 					"and id>:revId)";
 		Query query = session.createQuery(hql);
 		query.setLong("revId", id);
-		return (Revision<? extends Article>) query.uniqueResult();
+		return (Revision<T>) query.uniqueResult();
 	}
 
 	public static <T extends Article> Revision<T> fetch(long id,

@@ -2,16 +2,14 @@ package oop.controller.action.article;
 
 import oop.controller.action.AbstractAction;
 import oop.data.Article;
-import oop.data.Resource;
 import oop.data.Revision;
 import oop.db.dao.RevisionDAO;
 
-public class ViewOldRevisionAction extends AbstractAction {
+public class ViewOldRevisionAction extends AbstractAction<Article> {
 
-	private Resource<? extends Article> resource;
-	private Revision<? extends Article> revision;
-	private Revision<? extends Article> previousRevision;
-	private Revision<? extends Article> nextRevision;
+	private Revision<Article> revision;
+	private Revision<Article> previousRevision;
+	private Revision<Article> nextRevision;
 	private Article article;
 
 	@Override
@@ -32,11 +30,7 @@ public class ViewOldRevisionAction extends AbstractAction {
 		return nextRevision;
 	}
 
-	public Resource<? extends Article> getResource() {
-		return resource;
-	}
-
-	public Revision<? extends Article> getRevision() {
+	public Revision<Article> getRevision() {
 		return revision;
 	}
 
