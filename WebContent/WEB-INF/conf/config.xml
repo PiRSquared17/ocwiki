@@ -454,6 +454,17 @@
         <inAction>article.view</inAction>
         <articleType>oop.data.BaseQuestion</articleType>
     </module>
+    <module>
+        <name>related-test</name>
+        <title>Các bài thi có liên quan</title>
+        <class>oop.module.test.RelatedTest</class>
+        <position>action-bottom</position>
+        <order>4</order>
+        <page></page>
+        <inAction>article.view</inAction>
+        <articleType>oop.data.TextArticle</articleType>
+        <articleType>oop.data.BaseQuestion</articleType>
+    </module>
     <!-- 
     <module>
        <name>login</name>
