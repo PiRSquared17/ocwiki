@@ -15,7 +15,12 @@ public abstract class Article implements Entity {
 	}
 
 	public Article(Namespace namespace, Text content) {
+		this(namespace, "", content);
+	}
+
+	public Article(Namespace namespace, String name, Text content) {
 		super();
+		this.name = name;
 		this.namespace = namespace;
 		this.content = content;
 	}

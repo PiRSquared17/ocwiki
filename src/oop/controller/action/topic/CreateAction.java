@@ -2,9 +2,11 @@ package oop.controller.action.topic;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
+import oop.data.Namespace;
 import oop.data.Resource;
 import oop.data.Text;
 import oop.data.Topic;
+import oop.db.dao.NamespaceDAO;
 import oop.db.dao.ResourceDAO;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -39,7 +41,9 @@ public class CreateAction extends AbstractAction {
 				String content = getParams().get("content");
 				
 				if (hasNoErrors()) {
-					Topic newTopic = new Topic(name,parent, new Text(content));
+					Topic newTopic = new Topic(NamespaceDAO
+							.fetch(Namespace.TOPIC), name, parent, new Text(
+							content));
 					Resource<Topic> resource = ResourceDAO.create(getUser(), Topic.class, newTopic);
 					setNextAction("article.view?id=" + resource.getId());
 					return;
