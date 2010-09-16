@@ -17,7 +17,7 @@ public class ModuleDescriptor {
 	private boolean loginRequired = false;
 	private Set<String> requiredGroups = new HashSet<String>();
 	private Set<String> inActions = new HashSet<String>();
-	private Class<? extends Article> articleType = null;
+	private Set<Class<? extends Article>> articleTypes = new HashSet<Class<? extends Article>>();
 	private int order;
 	private String page;
 	private Class<? extends Module> clazz;
@@ -106,12 +106,12 @@ public class ModuleDescriptor {
 		return inActions;
 	}
 
-	public void setArticleType(Class<? extends Article> articleType) {
-		this.articleType = articleType;
+	public void setArticleType(Set<Class<? extends Article>> articleType) {
+		this.articleTypes = articleType;
 	}
 
-	public Class<? extends Article> getArticleType() {
-		return articleType;
+	public Set<Class<? extends Article>> getArticleType() {
+		return articleTypes;
 	}
 	
 }
