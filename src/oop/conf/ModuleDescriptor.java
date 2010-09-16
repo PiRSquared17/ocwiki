@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import oop.data.Article;
+import oop.module.DefaultModule;
 import oop.module.Module;
 
 import org.apache.commons.lang.StringUtils;
@@ -83,7 +84,7 @@ public class ModuleDescriptor {
 	}
 	
 	public Module createModule() throws InstantiationException, IllegalAccessException {
-		Module module = clazz.newInstance();
+		Module module = (clazz == null ? new DefaultModule() : clazz.newInstance());
 		module.setTitle(title);
 		module.setPage(StringUtils.defaultIfEmpty(page, name + ".jsp"));
 		module.setOrder(order);
