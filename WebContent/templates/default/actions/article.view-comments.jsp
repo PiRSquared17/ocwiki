@@ -12,6 +12,7 @@
 	var articleID = ${action.resource.id};
 	var curPage = 0;
 	var pageCount = 0;
+	var commentCount = 0;
 	loadLatest();
 	
 
@@ -28,20 +29,26 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						//alert(transport.responseText);
+						alert(transport.responseText);
 						var listResult = transport.responseJSON;
+						commentCount = listResult.count;
 						pageCount = getPageCount(listResult.count);
-						curPage = pageCount;
+						curPage = pageCount-1;
 						
 						comments = listResult.result;
-						if (comments.length>0){
-							for (i=0;i<comments.length;i++){
-								commentslisthtml+=showComments(comments[i].comment);					
-							}
-							$('commentslist').innerHTML = commentslisthtml;
-							pagination();
-						} else {
+						if (comments==null){
 							$('commentslist').innerHTML = 'Chưa có nhận xét';
+						} else {
+							if (comments.length>0){
+								for (i=0;i<comments.length;i++){
+									commentslisthtml+=showComments(comments[i].comment);					
+								}
+								$('commentslist').innerHTML = commentslisthtml;
+								pagination();
+								disableButton();
+							} else {
+								$('commentslist').innerHTML = 'Chưa có nhận xét';
+							}
 						}
 					},
 				    onFailure: function()
@@ -52,7 +59,8 @@
 			);
 	}
 
-	function loadPage(start){
+	function loadPage(page){
+		var start = page*10;
 		var comments;
 		var commentslisthtml = '';
 		new Ajax.Request(
@@ -65,14 +73,21 @@
 					evalJSON : true,
 					onSuccess : function(transport) {
 						//alert(transport.responseText);
-						comments = transport.responseJSON.result;
-						if (comments.length>0){
-							for (i=0;i<comments.length;i++){
-								commentslisthtml+=showComments(comments[i].comment);					
-							}
-							$('commentslist').innerHTML = commentslisthtml;
-						} else {
+						var listResult = transport.responseJSON;
+						comments = listResult.result;
+						if (comments==null){
 							$('commentslist').innerHTML = 'Chưa có nhận xét';
+						} else {
+							if (comments.length>0){
+								for (i=0;i<comments.length;i++){
+									commentslisthtml+=showComments(comments[i].comment);					
+								}
+								$('commentslist').innerHTML = commentslisthtml;
+								curPage = page;
+								disableButton();
+							} else {
+								$('commentslist').innerHTML = 'Chưa có nhận xét';
+							}
 						}
 					},
 				    onFailure: function()
@@ -116,9 +131,8 @@
 		} else if (pageCount>0){
 			var pageButtons = '';
 			for (var i=0; i<pageCount; i++){
-				pageButtons+=buttonHTML(i+1,i+1,('loadPage('+(i*10)+')'));				
+				pageButtons+=buttonHTML(i+1,i,('loadPage('+i+')'));				
 			}
-			alert(pageButtons);
 			$('comment-pages').innerHTML = pageButtons;
 		} else {
 			alert('else');
@@ -126,21 +140,21 @@
 		
 	}
 
+	function disableButton(){
+		$('btn-'+(curPage)).disable();
+	}
 	function getPageCount(count){
 		var MAX_COMMENTS_ON_PAGE = 10;
 		var pCount = 0;
 		if (count%MAX_COMMENTS_ON_PAGE>0){
-			alert(count);
-			alert(count%MAX_COMMENTS_ON_PAGE);
 			pCount=((count-(count%MAX_COMMENTS_ON_PAGE))/MAX_COMMENTS_ON_PAGE)+1;
-			alert(pCount);
 		}
 		else pCount=count/MAX_COMMENTS_ON_PAGE;
 		return pCount;
 	}
 
 	function buttonHTML(text,value,onClickFunction){
-		return '<button type="button" name="btn-'+value+'" value="'+value+'" onclick="'+onClickFunction+'">'+text+'</button>';
+		return '<button type="button" id="btn-'+value+'" name="btn-'+value+'" value="'+value+'" onclick="'+onClickFunction+'">'+text+'</button>';
 	}
 
 

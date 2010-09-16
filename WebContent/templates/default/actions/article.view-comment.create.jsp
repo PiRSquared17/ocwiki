@@ -42,9 +42,17 @@
 					evalJSON : true,
 					onSuccess : function(transport) {
 						var newpostcomment = transport.responseJSON.result;
-						$('commentslist').innerHTML+=showComments(newpostcomment);
+						if (commentCount == 0){
+							$('commentslist').innerHTML=showComments(newpostcomment);
+						} else {
+							$('commentslist').innerHTML+=showComments(newpostcomment);
+						}
 						tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';	
-						$('cannot-post').hide();					
+						$('cannot-post').hide();
+						commentCount++;
+						pageCount = getPageCount(commentCount);
+						//can có curPage?
+						pagination();				
 					},
 				    onFailure: function()
 				    { 
