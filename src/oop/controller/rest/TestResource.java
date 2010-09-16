@@ -19,7 +19,7 @@ public class TestResource extends AbstractResource {
 	public ListResult<ResourceSearchReport<Test>> listByRelatedResource(
 			@PathParam("resourceID") long resourceID) {
 		List<ResourceSearchReport<Test>> listRelatedTest = ArticleDAO
-				.fetchRelated(Test.class, resourceID, 1, 5);
+				.fetchRelated(Test.class, resourceID, 0, 5);
 		return new ListResult<ResourceSearchReport<Test>>(listRelatedTest);
 	}
 
