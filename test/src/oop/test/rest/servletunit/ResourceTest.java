@@ -13,6 +13,7 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -54,6 +55,11 @@ public class ResourceTest {
 	@After
 	public void tearDown() {
 		HibernateUtil.closeSession();
+	}
+	
+	@AfterClass
+	public void tearDownClass() {
+		servletRunner.shutDown();
 	}
 
 	protected JsonNode parseJSON(WebResponse response) throws IOException,

@@ -85,7 +85,7 @@ function validateName() {
 filterNumericKey('txtTime');
 
 new Autocomplete('txtTopicName', {
-    serviceUrl : apiPath + '/testtopic.search',
+    serviceUrl : apiPath + '/topic.search',
     minChars : 2,
     maxHeight : 400,
     width : 300,

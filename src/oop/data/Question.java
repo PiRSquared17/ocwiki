@@ -78,13 +78,21 @@ public class Question implements Entity, Copiable<Question> {
 	public ArticleContainer<? extends BaseQuestion> getBaseContainer() {
 		return baseRevision == null ? baseResource : baseRevision;
 	}
+	
+	public Resource<? extends BaseQuestion> getBaseResource() {
+		return baseResource;
+	}
+	
+	public Revision<? extends BaseQuestion> getBaseRevision() {
+		return baseRevision;
+	}
 
 	public void setBaseContainer(ArticleContainer<? extends BaseQuestion> baseContainer) {
 		if (baseContainer instanceof Resource<?>) {
 			baseResource = (Resource<? extends BaseQuestion>) baseContainer;
 			baseRevision = null;
 		} else if (baseContainer instanceof Revision<?>) {
-			baseResource = null;
+			baseResource = ((Revision<? extends BaseQuestion>) baseContainer).getResource();
 			baseRevision = (Revision<? extends BaseQuestion>) baseContainer;
 		}
 	}

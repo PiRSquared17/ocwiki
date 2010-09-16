@@ -91,4 +91,15 @@ public class RevisionDAO {
 		return (Revision<? extends Article>) query.uniqueResult();
 	}
 
+	public static <T extends Article> Revision<T> fetch(long id,
+			Class<T> articleType) {
+		Revision<T> revision = fetch(id);
+		if (revision == null
+				|| !articleType.isAssignableFrom(revision.getResource()
+						.getType())) {
+			return null;
+		}
+		return revision;
+	}
+
 }

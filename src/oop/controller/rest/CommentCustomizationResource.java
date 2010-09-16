@@ -11,7 +11,7 @@ import oop.data.CommentCustomization;
 import oop.db.dao.CommentCustomizationDAO;
 import oop.db.dao.CommentDAO;
 
-@Path("/CommentCustomization_customizations")
+@Path("/comment_customizations")
 public class CommentCustomizationResource extends AbstractResource {
 
 	@POST
