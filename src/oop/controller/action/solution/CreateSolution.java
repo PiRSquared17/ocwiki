@@ -3,13 +3,11 @@ package oop.controller.action.solution;
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.BaseQuestion;
-import oop.data.Resource;
 import oop.db.dao.BaseQuestionDAO;
 
-public class CreateSolution extends AbstractAction {
+public class CreateSolution extends AbstractAction<BaseQuestion> {
 
-	Resource<BaseQuestion> resource;
-	BaseQuestion basequestion;
+	private BaseQuestion basequestion;
 	
 	@Override
 	protected void performImpl() throws Exception {
@@ -19,10 +17,6 @@ public class CreateSolution extends AbstractAction {
 			throw new ActionException("Không tìm thấy câu hỏi!");
 		}
 		basequestion = resource.getArticle();		
-	}
-	
-	public Resource<BaseQuestion> getResource(){
-		return resource;
 	}
 	
 	public BaseQuestion getQuestion(){

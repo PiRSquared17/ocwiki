@@ -1,17 +1,15 @@
 package oop.controller.action.teststruct;
 
 import oop.controller.action.AbstractAction;
-import oop.data.Resource;
 import oop.data.TestStructure;
 import oop.db.dao.TestStructureDAO;
 import oop.db.dao.TextDAO;
 
 import org.hibernate.exception.ConstraintViolationException;
 
-public class EditAction extends AbstractAction {
+public class EditAction extends AbstractAction<TestStructure> {
 
 	protected TestStructure testStructure;
-	private Resource<TestStructure> resource;
 
 	@Override
 	public void performImpl() throws Exception {
@@ -35,10 +33,6 @@ public class EditAction extends AbstractAction {
 		}
 	}
 
-	public Resource<TestStructure> getResource() {
-		return resource;
-	}
-	
 	public TestStructure getTestStructure() {
 		return testStructure;
 	}

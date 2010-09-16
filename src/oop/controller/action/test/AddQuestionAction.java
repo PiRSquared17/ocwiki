@@ -16,7 +16,7 @@ import oop.db.dao.TestDAO;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class AddQuestionAction extends AbstractAction {
+public class AddQuestionAction extends AbstractAction<Test> {
 
 	private Test test;
 
@@ -121,9 +121,5 @@ public class AddQuestionAction extends AbstractAction {
 			setNextAction("test.view&id=" + test.getId());
 		}
 	}
-	private Resource<Test> resource;
 
-	public Resource<Test> getResource() {
-		return resource;
-	}
 }

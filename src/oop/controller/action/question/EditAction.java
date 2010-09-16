@@ -15,7 +15,7 @@ import oop.db.dao.TopicDAO;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditAction extends AbstractAction {
+public class EditAction extends AbstractAction<BaseQuestion> {
 
 	@Override
 	public void performImpl() throws Exception {
@@ -64,10 +64,6 @@ public class EditAction extends AbstractAction {
 			saveNewRevision(resource, question);
 			setNextAction("question.view&id=" + resource.getId());
 		}
-	}
-	private Resource<BaseQuestion> resource;	
-	public Resource<BaseQuestion> getResource() {
-		return resource;
 	}
 
 	public Article getQuestion() {
