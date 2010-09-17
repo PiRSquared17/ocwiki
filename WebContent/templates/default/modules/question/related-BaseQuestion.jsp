@@ -2,21 +2,21 @@
 <%@ include file="/includes/common.jsp" %>
 
 
-<div id="relatedTestsContainer">
+<div id="relatedBaseQuestionContainer">
 </div>
 
-<ocw:setJs var="testTemplate">
+<ocw:setJs var="baseQuestionTemplate">
 		<li>
 			<a href="${config.articlePath}/\#{resource.id}">\#{resource.article.name}</a>
 		</li>
 </ocw:setJs>
 
 <script language="javascript">
-	var testTemplate = new Template('${testTemplate}');
+	var baseQuestionTemplate = new Template('${baseQuestionTemplate}');
 	var resourceID  = ${action.resource.id} ;
-	var relatedTestList;
+	var relatedBaseQuestionList;
 	var timeout;
-	new Ajax.Request(restPath + '/tests/related/'+ resourceID,
+	new Ajax.Request(restPath + '/BaseQuestion/related/'+ resourceID,
 			  {
 			    method:'get',
 				requestHeaders : {
@@ -24,12 +24,12 @@
 				},
 				evalJSON : true,
 				onSuccess : function(transport) {
-					//alert(transport.responseText);
+					//alert("cai nay la BQ " + transport.responseText);
 					var i;
-					relatedTestList = transport.responseJSON.result;
-					for(i = 0 ; i < relatedTestList.length ; i++){
-						var test = relatedTestList[i];
-						$('relatedTestsContainer').insert(testTemplate.evaluate(test));
+					relatedBaseQuestionList = transport.responseJSON.result;
+					for(i = 0 ; i < relatedBaseQuestionList.length ; i++){
+						var baseQuestion = relatedBaseQuestionList[i];
+						$('relatedBaseQuestionContainer').insert(baseQuestionTemplate.evaluate(baseQuestion));
 					}
 				},
 			    onFailure: function()
