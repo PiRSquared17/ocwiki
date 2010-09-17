@@ -12,9 +12,11 @@ import oop.data.User;
 import oop.db.dao.ResourceDAO;
 import oop.util.SessionUtils;
 
-
-@Path("/Solution")
+@Path(SolutionResource.PATH)
 public class SolutionResource extends AbstractResource {
+
+	public static final String PATH = "/Solution";
+	
 	@GET
 	@Path("/{id: \\d+}")
 	public ObjectResult<TextArticle> get(@PathParam("id") long id){

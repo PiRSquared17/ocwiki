@@ -5,16 +5,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class TopicBean extends ArticleBean {
 
-	private ResourceBean parent;
+	private ResourceReferenceBean parent;
 
 	public TopicBean() {
 	}
 	
-	public ResourceBean getParent() {
+	public ResourceReferenceBean getParent() {
 		return parent;
 	}
 
-	public void setParent(ResourceBean parent) {
+	public void setParent(ResourceReferenceBean parent) {
 		this.parent = parent;
 	} 
 	

@@ -26,9 +26,11 @@ import oop.util.SessionUtils;
 
 import org.apache.commons.collections.CollectionUtils;
 
-@Path("/tests")
+@Path(TestResource.PATH)
 public class TestResource extends AbstractResource {
 
+	public static final String PATH = "/tests";
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ObjectResult<Test> add(Test test) {
