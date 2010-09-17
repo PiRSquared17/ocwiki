@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class CategorizableArticleBean extends ArticleBean {
 
-	private Set<ResourceBean> topics = new HashSet<ResourceBean>();
+	private Set<ResourceReferenceBean> topics = new HashSet<ResourceReferenceBean>();
 
 	public CategorizableArticleBean() {
 	}
 	
-	public Set<ResourceBean> getTopics() {
+	public Set<ResourceReferenceBean> getTopics() {
 		return topics;
 	}
 
-	public void setTopics(Set<ResourceBean> topics) {
+	public void setTopics(Set<ResourceReferenceBean> topics) {
 		this.topics = topics;
 	}
 

@@ -11,7 +11,7 @@ public class CommentBean {
 	private UserBean user;
 	private Date timestamp;
 	private String message;
-	private ResourceBean resource;
+	private ResourceReferenceBean resource;
 	private RevisionBean revision;
 
 	public CommentBean() {
@@ -49,11 +49,11 @@ public class CommentBean {
 		this.message = message;
 	}
 
-	public ResourceBean getResource() {
+	public ResourceReferenceBean getResource() {
 		return resource;
 	}
 
-	public void setResource(ResourceBean resource) {
+	public void setResource(ResourceReferenceBean resource) {
 		this.resource = resource;
 	}
 

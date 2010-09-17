@@ -20,8 +20,10 @@ import oop.db.dao.CommentDAO;
 import oop.db.dao.ResourceDAO;
 import oop.db.dao.RevisionDAO;
 
-@Path("/comments")
+@Path(CommentResource.PATH)
 public class CommentResource extends AbstractResource {
+	
+	public static final String PATH = "/comments";
 
 	@GET
 	@Path("/resource/{resourceId: \\d+}/latest")
@@ -33,7 +35,7 @@ public class CommentResource extends AbstractResource {
 		List<Comment> list = CommentDAO.fetchLatest(resourceId, start, size);
 		String nextUrl = null;
 		if (list.size() >= size) {
-			nextUrl = "/comments/resource/" + resourceId + "/latest?start="
+			nextUrl = PATH + "/resource/" + resourceId + "/latest?start="
 					+ (start + size) + "&size=" + size;
 		}
 		return new ListResult<Comment>(list, nextUrl);
@@ -48,7 +50,7 @@ public class CommentResource extends AbstractResource {
 		List<Comment> list = CommentDAO.fetch(resourceId, start, size);
 		String nextUrl = null;
 		if (list.size() >= size) {
-			nextUrl = "/comments/resource/" + resourceId + "?start="
+			nextUrl = PATH + "/resource/" + resourceId + "?start="
 					+ (start + size) + "&size=" + size;
 		}
 		return new ListResult<Comment>(list, nextUrl);

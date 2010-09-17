@@ -11,8 +11,11 @@ import oop.data.TextArticle;
 import oop.data.Resource;
 import oop.db.dao.ResourceDAO;
 
-@Path("/TextArticle")
+@Path(TextResource.PATH)
 public class TextResource extends AbstractResource {
+	
+	public static final String PATH = "/TextArticle";
+	
 	@GET
 	@Path("/{id: \\d+}")
 	public ObjectResult<TextArticle> get(@PathParam("id") long id){
