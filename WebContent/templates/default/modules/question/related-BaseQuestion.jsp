@@ -16,7 +16,7 @@
 	var resourceID  = ${action.resource.id} ;
 	var relatedBaseQuestionList;
 	var timeout;
-	new Ajax.Request(restPath + '/BaseQuestion/related/'+ resourceID,
+	new Ajax.Request(restPath + '/questions/related/'+ resourceID,
 			  {
 			    method:'get',
 				requestHeaders : {

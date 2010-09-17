@@ -481,7 +481,7 @@
         <articleType>oop.data.BaseQuestion</articleType>
     </module>
     <module>
-            <name>related-BaseQuestion</name>
+        <name>related-BaseQuestion</name>
         <title>Các câu hỏi có liên quan:</title>
         <class>oop.module.question.RelatedBaseQuestion</class>
         <position>action-bottom</position>
