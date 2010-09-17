@@ -3,7 +3,6 @@ package oop.controller.rest.resources.basequestion;
 import java.util.List;
 
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 
 import oop.controller.rest.AbstractResource;
 import oop.controller.rest.WebServiceUtils;
@@ -92,7 +91,7 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 
 	@Override
 	public ListResult<ResourceSearchReport<BaseQuestion>> listByRelatedResource(
-			@PathParam("resourceID") long resourceID) {
+			long resourceID) {
 		List<ResourceSearchReport<BaseQuestion>> listRelatedTest = ArticleDAO
 				.fetchRelated(BaseQuestion.class, resourceID, 0, 5);
 		return new ListResult<ResourceSearchReport<BaseQuestion>>(listRelatedTest);
