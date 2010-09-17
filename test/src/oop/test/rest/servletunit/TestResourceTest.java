@@ -10,7 +10,7 @@ import org.xml.sax.SAXException;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class TestResourceTest extends ResourceTest {
+public class TestResourceTest extends AbstractResourceTest {
 
 	private static final String PATH = Config.get().getRestPath()
 			+ "/tests";
