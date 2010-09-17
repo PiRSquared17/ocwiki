@@ -2,21 +2,21 @@
 <%@ include file="/includes/common.jsp" %>
 
 
-<div id="relatedTestsContainer">
+<div id="relatedTextArticleContainer">
 </div>
 
-<ocw:setJs var="testTemplate">
+<ocw:setJs var="textArticleTemplate">
 		<li>
 			<a href="${config.articlePath}/\#{resource.id}">\#{resource.article.name}</a>
 		</li>
 </ocw:setJs>
 
 <script language="javascript">
-	var testTemplate = new Template('${testTemplate}');
+	var textArticleTemplate = new Template('${textArticleTemplate}');
 	var resourceID  = ${action.resource.id} ;
-	var relatedTestList;
+	var relatedTextArticleList;
 	var timeout;
-	new Ajax.Request(restPath + '/tests/related/'+ resourceID,
+	new Ajax.Request(restPath + '/TextArticle/related/'+ resourceID,
 			  {
 			    method:'get',
 				requestHeaders : {
@@ -24,12 +24,12 @@
 				},
 				evalJSON : true,
 				onSuccess : function(transport) {
-					//alert(transport.responseText);
 					var i;
-					relatedTestList = transport.responseJSON.result;
-					for(i = 0 ; i < relatedTestList.length ; i++){
-						var test = relatedTestList[i];
-						$('relatedTestsContainer').insert(testTemplate.evaluate(test));
+					//alert("Cai nay la TA" + transport.responseText);
+					relatedTextArticleList = transport.responseJSON.result;
+					for(i = 0 ; i < relatedTextArticleList.length ; i++){
+						var textArticle = relatedTextArticleList[i];
+						$('relatedTextArticleContainer').insert(textArticleTemplate.evaluate(textArticle));
 					}
 				},
 			    onFailure: function()
