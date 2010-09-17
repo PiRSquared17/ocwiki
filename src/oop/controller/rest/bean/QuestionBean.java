@@ -1,12 +1,13 @@
 package oop.controller.rest.bean;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class QuestionBean {
 
 	private long id;
 	private double mark;
 	private BaseQuestionBean base;
-	
 	private ResourceReferenceBean baseResource;
 	private RevisionReferenceBean baseRevision;
 

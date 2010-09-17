@@ -2,17 +2,16 @@ package oop.controller.rest.bean;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import oop.data.Namespace;
-
 @XmlRootElement
-public class ResourceReferenceBean {
+public class UserBean {
+
 	private long id;
 	private String name;
-	private Namespace namespace;
-	
-	public ResourceReferenceBean() {
-	}
+	private String fullname;
 
+	public UserBean() {
+	}
+	
 	public long getId() {
 		return id;
 	}
@@ -29,12 +28,12 @@ public class ResourceReferenceBean {
 		this.name = name;
 	}
 
-	public Namespace getNamespace() {
-		return namespace;
+	public String getFullname() {
+		return fullname;
 	}
 
-	public void setNamespace(Namespace namespace) {
-		this.namespace = namespace;
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
 }
