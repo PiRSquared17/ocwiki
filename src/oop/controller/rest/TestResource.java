@@ -10,10 +10,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
+import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
 import oop.data.Question;
 import oop.data.Resource;
+import oop.data.ResourceSearchReport;
 import oop.data.Revision;
 import oop.data.Section;
 import oop.data.Test;
@@ -30,7 +32,16 @@ import org.apache.commons.collections.CollectionUtils;
 public class TestResource extends AbstractResource {
 
 	public static final String PATH = "/tests";
-	
+
+	@GET
+	@Path("/related/{resourceID: \\d+}")
+	public ListResult<ResourceSearchReport<Test>> listByRelatedResource(
+			@PathParam("resourceID") long resourceID) {
+		List<ResourceSearchReport<Test>> listRelatedTest = ArticleDAO
+				.fetchRelated(Test.class, resourceID, 0, 5);
+		return new ListResult<ResourceSearchReport<Test>>(listRelatedTest);
+	}
+
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ObjectResult<Test> add(Test test) {
