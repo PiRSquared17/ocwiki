@@ -1,8 +1,11 @@
 package oop.controller.rest.bean;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import oop.data.Namespace;
 import oop.data.Text;
 
+@XmlRootElement
 public class ArticleBean {
 
 	private long id;

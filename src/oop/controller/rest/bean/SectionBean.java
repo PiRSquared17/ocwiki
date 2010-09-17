@@ -14,6 +14,9 @@ public class SectionBean {
 	private Text content;
 	private List<QuestionBean> questions = new ArrayList<QuestionBean>();
 
+	public SectionBean() {
+	}
+	
 	public long getId() {
 		return id;
 	}
