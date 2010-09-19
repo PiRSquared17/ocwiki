@@ -2,6 +2,7 @@
 <%@ include file="/includes/common.jsp" %>
 <br/><br/>
 <p>--Các nhận xét--</p>
+<button type="button" id="btn-abc" name="btn-abc" value="abc" onclick="alert('eeerrr');">abc</button>
 <p><jsp:include page="article.view-commentstoolbar.jsp"></jsp:include></p>
 <p>------------</p>
 <div id="commentslist"> ... đang tải... </div>
@@ -29,7 +30,7 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						alert(transport.responseText);
+						//alert(transport.responseText);
 						var listResult = transport.responseJSON;
 						commentCount = listResult.count;
 						pageCount = getPageCount(listResult.count);
@@ -84,7 +85,7 @@
 								}
 								$('commentslist').innerHTML = commentslisthtml;
 								curPage = page;
-								disableButton();
+								pagination();
 							} else {
 								$('commentslist').innerHTML = 'Chưa có nhận xét';
 							}
@@ -134,14 +135,30 @@
 				pageButtons+=buttonHTML(i+1,i,('loadPage('+i+')'));				
 			}
 			$('comment-pages').innerHTML = pageButtons;
+			
 		} else {
 			alert('else');
 		}
-		
+		disableButton();
 	}
 
 	function disableButton(){
-		$('btn-'+(curPage)).disable();
+		alert('disbut');
+		$('btn-abc').hide();
+		//$('btn-'+(curPage)).disable();
+		//if (curPage==1) {
+		//	$('btn-prev').disable();
+		//}
+		//if (curPage==pageCount-1){
+		//	$('btn-next').disable();
+		//}
+		$('btn-'+(curPage)).hide();
+		if (curPage==1) {
+			$('btn-prev').hide();
+		}
+		if (curPage==pageCount-1){
+			$('btn-next').hide();
+		}
 	}
 	function getPageCount(count){
 		var MAX_COMMENTS_ON_PAGE = 10;
