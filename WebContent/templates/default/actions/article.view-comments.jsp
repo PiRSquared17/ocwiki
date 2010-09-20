@@ -29,7 +29,7 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						alert(transport.responseText);
+						//alert(transport.responseText);
 						var listResult = transport.responseJSON;
 						commentCount = listResult.count;
 						pageCount = getPageCount(listResult.count);
@@ -45,7 +45,6 @@
 								}
 								$('commentslist').innerHTML = commentslisthtml;
 								pagination();
-								disableButton();
 							} else {
 								$('commentslist').innerHTML = 'Chưa có nhận xét';
 							}
@@ -84,7 +83,7 @@
 								}
 								$('commentslist').innerHTML = commentslisthtml;
 								curPage = page;
-								disableButton();
+								pagination();
 							} else {
 								$('commentslist').innerHTML = 'Chưa có nhận xét';
 							}
@@ -126,23 +125,71 @@
 
 	//Phan trang
 	function pagination(){
+		var pageButtons = '';
 		if (pageCount>12) {
-			alert('>12');
+			if (curPage<=5){
+				for (var i=0; i<=curPage+2; i++){
+					pageButtons+=buttonHTML(i+1,i,('loadPage('+i+')'));				
+				}
+				pageButtons+='...';
+				for (var j=pageCount-3; j<=pageCount-1; j++){
+					pageButtons+=buttonHTML(j+1,j,('loadPage('+j+')'));	
+				}
+			} else if (curPage>=pageCount-6) {
+				for (var i=0; i<=2; i++){
+					pageButtons+=buttonHTML(i+1,i,('loadPage('+i+')'));				
+				}
+				pageButtons+='...';
+				for (var j=curPage-2; j<=pageCount-1; j++){
+					pageButtons+=buttonHTML(j+1,j,('loadPage('+j+')'));	
+				}
+			} else {
+				for (var i=0; i<=2; i++){
+					pageButtons+=buttonHTML(i+1,i,('loadPage('+i+')'));				
+				}
+				pageButtons+='...';
+				for (var k=curPage-2; k<=curPage+2; k++){
+					pageButtons+=buttonHTML(k+1,k,('loadPage('+k+')'));	
+				}
+				pageButtons+='...';
+				for (var j=pageCount-3; j<=pageCount-1; j++){
+					pageButtons+=buttonHTML(j+1,j,('loadPage('+j+')'));	
+				}
+			}
+			$('comment-pages').innerHTML = pageButtons;
 		} else if (pageCount>0){
-			var pageButtons = '';
 			for (var i=0; i<pageCount; i++){
 				pageButtons+=buttonHTML(i+1,i,('loadPage('+i+')'));				
 			}
 			$('comment-pages').innerHTML = pageButtons;
+			
 		} else {
 			alert('else');
 		}
+
 		
+		disableButtons();
 	}
 
-	function disableButton(){
-		$('btn-'+(curPage)).disable();
+	function disableButtons(){
+		//alert('disbut');
+		$('btn-'+(curPage)).innerHTML = ' '+(curPage+1)+' ';
+		if (curPage<=0) {
+			$('btn-prev').hide();
+			$('btn-oldfirst').hide();
+		} else {
+			$('btn-prev').show();
+			$('btn-oldfirst').show();
+		}
+		if (curPage>=pageCount-1){
+			$('btn-next').hide();
+			$('btn-newfirst').hide();
+		} else {
+			$('btn-next').show();
+			$('btn-newfirst').show();
+		}
 	}
+	
 	function getPageCount(count){
 		var MAX_COMMENTS_ON_PAGE = 10;
 		var pCount = 0;
@@ -154,6 +201,10 @@
 	}
 
 	function buttonHTML(text,value,onClickFunction){
+		return '<span id="btn-'+value+'" > <a id="link-'+value+'" href="#" onclick="'+onClickFunction+'; return false;" >'+text+'</a> </span>';
+	}
+	
+	function rawButtonHTML(text,value,onClickFunction){
 		return '<button type="button" id="btn-'+value+'" name="btn-'+value+'" value="'+value+'" onclick="'+onClickFunction+'">'+text+'</button>';
 	}
 

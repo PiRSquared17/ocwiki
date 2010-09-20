@@ -2,10 +2,14 @@
 <%@ include file="/includes/common.jsp" %>
 
 
-<div id="comments-tool">
-		<button type="button" id="btn-oldfirst" name="btn-oldfirst" value="oldfirst" onclick="loadPage(0);">Cũ nhất</button>
-		<button type="button" id="btn-prev" name="btn-prev" value="prev" onclick="loadPage(curPage-1);"><</button>
+<div id="comments-tool" align="center">
+<!--		<button type="button" id="btn-oldfirst" name="btn-oldfirst" value="oldfirst" onclick="loadPage(0);">Cũ nhất</button>-->
+<!--		<button type="button" id="btn-prev" value="prev" onclick="loadPage(curPage-1);">prev</button>-->
+		<span id="btn-oldfirst"> <a id="link-oldfirst" href="#" onclick="loadPage(0); return false;" >Cũ nhất</a> </span>
+		<span id="btn-prev"> <a id="link-prev" href="#" onclick="loadPage(curPage-1); return false;" >Trước</a> </span>
 		<span id="comment-pages"></span>
-		<button type="button" id="btn-next" name="btn-next" value="next" onclick="loadPage(curPage+1);">></button>
-		<button type="button" id="btn-newfirsr" name="btn-newfirsr" value="newfirst" onclick="loadLatest();">Mới nhất</button>
+		<span id="btn-next"> <a id="link-next" href="#" onclick="loadPage(curPage+1); return false;" >Sau</a> </span>
+		<span id="btn-newfirst"> <a id="link-newfirst" href="#" onclick="loadLatest(); return false;" >Mới nhất</a> </span>
+<!--		<button type="button" id="btn-next" value="next" onclick="loadPage(curPage+1);">next</button>-->
+<!--		<button type="button" id="btn-newfirsr" name="btn-newfirsr" value="newfirst" onclick="loadLatest();">Mới nhất</button>-->
 </div>
