@@ -19,6 +19,7 @@ public class CommentReportTest extends HibernateTest {
 		
 		CommentReport report1 = entries.get(0);
 		Assert.assertEquals(CommentStatus.HIDDEN, report1.getStatus());
+		Assert.assertEquals(1, report1.getComment().getId());
 		Assert.assertEquals("comment 1234", report1.getComment()
 				.getMessage());
 

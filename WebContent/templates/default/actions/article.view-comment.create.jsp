@@ -22,6 +22,13 @@
 <script language="javascript">
 	$('cannot-post').hide();
 	function postComment(){
+		
+		var newMessage = tinyMCE.getInstanceById('comment-input').getContent();
+		if (newMessage.empty()==true){
+			$('cannot-post').innerHTML = 'Bạn chưa nhận xét gì!';
+			$('cannot-post').show();
+			return;
+		}
 		var newComment = {message: tinyMCE.getInstanceById('comment-input').getContent()};
 		new Ajax.Request(
 				restPath + '/comments/resource/' + articleID,
@@ -35,8 +42,17 @@
 					evalJSON : true,
 					onSuccess : function(transport) {
 						var newpostcomment = transport.responseJSON.result;
-						$('commentslist').innerHTML+=showComments(newpostcomment);
-						tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';						
+						if (commentCount == 0){
+							$('commentslist').innerHTML=showComments(newpostcomment);
+						} else {
+							$('commentslist').innerHTML+=showComments(newpostcomment);
+						}
+						tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';	
+						$('cannot-post').hide();
+						commentCount++;
+						pageCount = getPageCount(commentCount);
+						//can có curPage?
+						pagination();				
 					},
 				    onFailure: function()
 				    { 

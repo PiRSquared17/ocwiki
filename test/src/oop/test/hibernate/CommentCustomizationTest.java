@@ -16,6 +16,16 @@ import org.junit.Test;
 public class CommentCustomizationTest extends HibernateTest {
 
 	@Test
+	public void testCount() {
+		long count = CommentCustomizationDAO.countAllCustomizationForUser(1,
+				CommentStatus.LIKE);
+		System.out.println(count);
+		count = CommentCustomizationDAO.countAllCustomizationForUser(1,
+				CommentStatus.HIDDEN);
+		System.out.println(count);
+	}
+	
+	@Test
 	public void testFetchWithDefault() {
 		List<CommentCustomization> customizations = CommentCustomizationDAO
 				.fetchByResourceAndUserWithDefault(88, 1, 0, 10);

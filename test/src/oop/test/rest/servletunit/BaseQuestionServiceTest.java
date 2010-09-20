@@ -16,7 +16,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class BaseQuestionServiceTest extends AbstractResourceTest {
+public class BaseQuestionServiceTest extends ResourceTest {
 
 	private static final String PATH = Config.get().getRestPath()
 			+ "/questions";
@@ -63,6 +63,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 //		String json = "{}";
 //		JsonUtils.fromJson(json, new TypeReference<Revision<BaseQuestion>>() {});
 		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		request.setHeaderField("Accept", MediaType.APPLICATION_JSON);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		System.out.println(response.getText());
