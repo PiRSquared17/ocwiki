@@ -29,7 +29,7 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						alert(transport.responseText);
+						//alert(transport.responseText);
 						var listResult = transport.responseJSON;
 						commentCount = listResult.count;
 						pageCount = getPageCount(listResult.count);

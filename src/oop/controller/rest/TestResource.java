@@ -10,6 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
+import oop.controller.rest.bean.MapperUtils;
+import oop.controller.rest.bean.ResourceSearchReportBean;
+import oop.controller.rest.bean.ResourceSearchReportMapper;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
@@ -35,11 +38,13 @@ public class TestResource extends AbstractResource {
 
 	@GET
 	@Path("/related/{resourceID: \\d+}")
-	public ListResult<ResourceSearchReport<Test>> listByRelatedResource(
+	public ListResult<ResourceSearchReportBean> listByRelatedResource(
 			@PathParam("resourceID") long resourceID) {
 		List<ResourceSearchReport<Test>> listRelatedTest = ArticleDAO
 				.fetchRelated(Test.class, resourceID, 0, 5);
-		return new ListResult<ResourceSearchReport<Test>>(listRelatedTest);
+		List<ResourceSearchReportBean> beans = MapperUtils.applyAll(
+				listRelatedTest, ResourceSearchReportMapper.get());
+		return new ListResult<ResourceSearchReportBean>(beans);
 	}
 
 	@POST

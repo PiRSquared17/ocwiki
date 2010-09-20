@@ -7,7 +7,7 @@
 
 <ocw:setJs var="testTemplate">
 		<li>
-			<a href="${config.articlePath}/\#{resource.id}">\#{resource.article.name}</a>
+			<a href="${config.articlePath}/\#{resource.id}">\#{resource.name}</a>
 		</li>
 </ocw:setJs>
 

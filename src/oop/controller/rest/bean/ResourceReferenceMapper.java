@@ -20,7 +20,7 @@ public class ResourceReferenceMapper implements
 	}
 
 	@Override
-	public Resource<? extends Article> get(ResourceReferenceBean value) {
+	public Resource<Article> get(ResourceReferenceBean value) {
 		if (value == null) {
 			return null;
 		}

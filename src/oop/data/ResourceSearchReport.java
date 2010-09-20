@@ -8,7 +8,7 @@ public class ResourceSearchReport<T extends Article> {
 	private Resource<T> resource;
 	private int score;
 	
-	ResourceSearchReport() {
+	public ResourceSearchReport() {
 	}
 
 	public ResourceSearchReport(Resource<T> resource, long score) {

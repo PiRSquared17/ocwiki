@@ -48,8 +48,9 @@ public class ResourceService extends AbstractResource{
 			nextUrl = PATH + "/namespace/" + namespaceID + "?start="
 					+ (start + size) + "&size=" + size;
 		}
-		return new ListResult<ResourceBean>(
-				MapperUtils.applyAll(resList, ResourceMapper.get()), nextUrl);
+		List<ResourceBean> beans = MapperUtils.applyAll(resList, ResourceMapper
+				.get());
+		return new ListResult<ResourceBean>(beans, nextUrl);
 	}
 	
 	@POST
