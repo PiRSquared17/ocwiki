@@ -16,14 +16,16 @@ import org.junit.Test;
 public class CommentCustomizationTest extends HibernateTest {
 
 	@Test
-	public void testFetchWithDefault() {
-		List<CommentCustomization> customizations = CommentCustomizationDAO
-				.fetchByResourceAndUserWithDefault(88, 1, 0, 10);
-		Assert.assertEquals(2, customizations.size());
-		Assert.assertEquals("comment 1234", customizations.get(0).getComment()
-				.getMessage());
+	public void testCountByCommentAuthorAndStatus() {
+		long count = CommentCustomizationDAO.countByCommentAuthorAndStatus(1,
+				CommentStatus.LIKE);
+		Assert.assertEquals(1, count);
+		
+		count = CommentCustomizationDAO.countByCommentAuthorAndStatus(1,
+				CommentStatus.HIDDEN);
+		Assert.assertEquals(1, count);
 	}
-
+	
 	@Test
 	public void testFetch() {
 		List<CommentCustomization> customizations = CommentCustomizationDAO

@@ -12576,7 +12576,6 @@
   </table>
   <table name="ocwComment">
     <column>id</column>
-    <column>version</column>
     <column>user</column>
     <column>timestamp</column>
     <column>message</column>
@@ -12584,7 +12583,6 @@
     <column>revision</column>
     <row>
       <value>1</value>
-      <value>0</value>
       <value>1</value>
       <value><![CDATA[2010-09-03 21:58:04.0]]></value>
       <value><![CDATA[comment 1234]]></value>
@@ -12593,7 +12591,6 @@
     </row>
     <row>
       <value>2</value>
-      <value>0</value>
       <value>2</value>
       <value><![CDATA[2010-09-04 21:58:04.0]]></value>
       <value><![CDATA[comment 4567]]></value>

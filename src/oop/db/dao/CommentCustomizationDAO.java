@@ -13,10 +13,10 @@ import org.hibernate.Transaction;
 
 @SuppressWarnings("unchecked")
 public final class CommentCustomizationDAO {
-
+	
 	public static List<CommentCustomization> fetchByUser(long userId) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from UserDefinedCommentCustomization where user.id=:userId";
+		String hql = "from CommentCustomization where user.id=:userId";
 		Query query = session.createQuery(hql);
 		query.setLong("userId", userId);
 		return query.list();
@@ -25,7 +25,7 @@ public final class CommentCustomizationDAO {
 	public static List<CommentCustomization> fetchByResourceAndUser(
 			long resourceId, long userId, int start, int size) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from UserDefinedCommentCustomization " +
+		String hql = "from CommentCustomization " +
 				"where comment.resource.id = :resId " +
 				"and user.id = :userId " +
 				"order by comment.id asc";
@@ -39,48 +39,13 @@ public final class CommentCustomizationDAO {
 	
 	public static long countByResourceAndUser(long resourceId, long userId) {
 		Session session = HibernateUtil.getSession();
-		String hql = "select count(*) from UserDefinedCommentCustomization " +
+		String hql = "select count(*) from CommentCustomization " +
 				"where comment.resource.id = :resId " +
 				"and user.id = :userId";
 		Query query = session.createQuery(hql);
 		query.setLong("resId", resourceId);
 		query.setLong("userId", userId);
 		return (Long)query.uniqueResult();
-	}
-
-	/**
-	 * Lấy về các tuỳ biến thảo luận của người dùng trên một bài viết, sử dụng
-	 * giá trị mặc định nếu người dùng chưa lựa chọn gì cho thảo luận.
-	 * @param resourceId Mã số bài viết
-	 * @param userId Mã số người dùng
-	 * @return Danh sách các tuỳ biến thảo luận
-	 */
-	public static List<CommentCustomization> fetchByResourceAndUserWithDefault(
-			long resourceId, long userId, int start, int size) {
-		Session session = HibernateUtil.getSession();
-		String hql = "from CommentCustomizationWithDefault " +
-				"where comment.resource.id = :resId " +
-				"and user.id = :userId " +
-				"order by comment.id asc";
-		Query query = session.createQuery(hql);
-		query.setLong("resId", resourceId);
-		query.setLong("userId", userId);
-		query.setFirstResult(start);
-		query.setMaxResults(size);
-		return query.list();
-	}
-
-	/**
-	 * Đếm các tuỳ biến thảo luận kể cả các giá trị mặc định, chính bằng số
-	 * thảo luận về bài viết cho trước.
-	 * @param resourceId
-	 * @param userId
-	 * @return
-	 * @see CommentDAO#countByResource(long)
-	 */
-	public static long countByResourceAndUserWithDefault(long resourceId,
-			long userId) {
-		return CommentDAO.countByResource(resourceId);
 	}
 
 	/**
@@ -92,7 +57,7 @@ public final class CommentCustomizationDAO {
 	 */
 	public static long countByCommentAuthorAndStatus(long authorId, CommentStatus status) {
 		Session session = HibernateUtil.getSession();
-		String hql = "select count(*) from UserDefinedCommentCustomization "
+		String hql = "select count(*) from CommentCustomization "
 				+ "where comment.user.id=:authorId and status=:status";
 		Query query = session.createQuery(hql);
 		query.setLong("authorId", authorId);
@@ -106,7 +71,7 @@ public final class CommentCustomizationDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.saveOrUpdate("UserDefinedCommentCustomization", customization);
+			session.saveOrUpdate("CommentCustomization", customization);
 			tx.commit();
 			return customization;
 		} catch (HibernateException ex) {
