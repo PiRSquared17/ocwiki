@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <table name="ocwUser">
+    <column>id</column>
+    <column>version</column>
+    <column>name</column>
+    <column>fullname</column>
+    <column>pass</column>
+    <column>email</column>
+    <column>ugroup</column>
+    <column>blocked</column>
+    <column>warning</column>
+    <column>avatar</column>
+    <column>register_date</column>
+    <column>block_expired_date</column>
+    <column>warning_expired_date</column>
+    <column>pref_template</column>
+    <row>
+      <value>1</value>
+      <value>0</value>
+      <value>admin</value>
+      <value>admin</value>
+      <value>1234</value>
+      <value>admin@ocwiki.org</value>
+      <value>admin</value>
+      <value>false</value>
+      <null/>
+      <null/>
+      <value><![CDATA[2010-01-01 00:00:01.0]]></value>
+      <null/>
+      <null/>
+      <value>advanded</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>0</value>
+      <value>teacher</value>
+      <value>teacher</value>
+      <value>1234</value>
+      <value>teacher@ocwiki.org</value>
+      <value>teacher</value>
+      <value>false</value>
+      <null/>
+      <null/>
+      <value><![CDATA[2010-08-25 00:47:13.0]]></value>
+      <null/>
+      <null/>
+      <value>default</value>
+    </row>
+  </table>
+</dataset>
