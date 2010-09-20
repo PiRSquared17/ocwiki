@@ -30,6 +30,10 @@
 			return;
 		}
 		var newComment = {message: tinyMCE.getInstanceById('comment-input').getContent()};
+
+		//for (i=68;i<200;i++){ //batch add comments
+		//var newComment = {message: i};
+		
 		new Ajax.Request(
 				restPath + '/comments/resource/' + articleID,
 				{
@@ -59,7 +63,8 @@
 						$('cannot-post').innerHTML = 'Không thể đăng comment!';
 						$('cannot-post').show();
 				    }		
-				}
+				}				
 			);
+		//}
 	}
 </script>
