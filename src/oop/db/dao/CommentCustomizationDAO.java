@@ -14,6 +14,17 @@ import org.hibernate.Transaction;
 @SuppressWarnings("unchecked")
 public final class CommentCustomizationDAO {
 
+	public static long countAllCustomizationForUser(long userId,
+			CommentStatus status) {
+		String hql = "select count(*) from UserDefinedCommentCustomization " +
+				"where comment.user.id = :userId and status = :status";
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery(hql);
+		query.setLong("userId", userId);
+		query.setString("status", status.name());
+		return (Long)query.uniqueResult();
+	}
+
 	public static List<CommentCustomization> fetchByUser(long userId) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from UserDefinedCommentCustomization where user.id=:userId";

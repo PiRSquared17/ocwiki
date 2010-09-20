@@ -1,13 +1,17 @@
 package oop.controller.rest.resources.basequestion;
 
+import java.util.List;
+
 import javax.ws.rs.Path;
 
 import oop.controller.rest.AbstractResource;
 import oop.controller.rest.WebServiceUtils;
+import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Answer;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
+import oop.data.ResourceSearchReport;
 import oop.data.Revision;
 import oop.data.Text;
 import oop.data.Topic;
@@ -83,6 +87,14 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 			}
 		}
 		WebServiceUtils.assertValid(hasCorrect, "no correct answer");
+	}
+
+	@Override
+	public ListResult<ResourceSearchReport<BaseQuestion>> listByRelatedResource(
+			long resourceID) {
+		List<ResourceSearchReport<BaseQuestion>> listRelatedTest = ArticleDAO
+				.fetchRelated(BaseQuestion.class, resourceID, 0, 5);
+		return new ListResult<ResourceSearchReport<BaseQuestion>>(listRelatedTest);
 	}
 
 }

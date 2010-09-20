@@ -34,7 +34,7 @@ import com.meterware.servletunit.ServletUnitClient;
  * </ul> 
  * @author cumeo89
  */
-public abstract class AbstractResourceTest {
+public class ResourceTest {
 
 	private static ServletRunner servletRunner;
 
@@ -58,7 +58,7 @@ public abstract class AbstractResourceTest {
 	}
 	
 	@AfterClass
-	public static void tearDownClass() {
+	public void tearDownClass() {
 		servletRunner.shutDown();
 	}
 
@@ -71,7 +71,7 @@ public abstract class AbstractResourceTest {
 		return tree;
 	}
 
-	public AbstractResourceTest() {
+	public ResourceTest() {
 		super();
 	}
 

@@ -16,7 +16,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class UserResouceTest extends AbstractResourceTest {
+public class UserResouceTest extends ResourceTest {
 
 	@Test
 	public void testRetrieve() throws IOException, SAXException {
