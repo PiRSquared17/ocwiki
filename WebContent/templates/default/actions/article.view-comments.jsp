@@ -38,6 +38,7 @@
 						comments = listResult.result;
 						if (comments==null){
 							$('commentslist').innerHTML = 'Chưa có nhận xét';
+							pagination();
 						} else {
 							if (comments.length>0){
 								for (i=0;i<comments.length;i++){
@@ -47,6 +48,7 @@
 								pagination();
 							} else {
 								$('commentslist').innerHTML = 'Chưa có nhận xét';
+								pagination();
 							}
 						}
 					},
@@ -100,9 +102,9 @@
 	function showComments(comment){
 		var commenthtml='';
 		commenthtml+=('<div id=comment'+comment.id+'>');
-		commenthtml+=('vào ngày: '+comment.timestamp.toString());
+		commenthtml+=('vào ngày: '+comment.timestamp);
 		commenthtml+=(' <a href="${scriptPath}?action=user.profile&user='+comment.user.id+'">'+comment.user.name+'</a> cho rằng:');
-		commenthtml+=comment.message;
+		commenthtml+=('<div id=commentmessage'+comment.id+'>'+comment.message+'</div>');
 		commenthtml+=('<a id="commentlike'+comment.id+'" href="#" onclick = "like('+comment.id+'); return false;" >'+'like</a>');
 		commenthtml+=('.<a id="commenthide'+comment.id+'" href="#" onclick = "hideC('+comment.id+'); return false;" >'+'hide</a>');
 		commenthtml+=('.<a id="commentdel'+comment.id+'" href="#" onclick = "del('+comment.id+'); return false;" >'+'del</a>');

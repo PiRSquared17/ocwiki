@@ -65,6 +65,15 @@ public final class CommentCustomizationDAO {
 		return (Long) query.uniqueResult();
 	}
 	
+	public static long countByCommentAuthor(long authorId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "select count(*) from CommentCustomization "
+				+ "where comment.user.id=:authorId";
+		Query query = session.createQuery(hql);
+		query.setLong("authorId", authorId);
+		return (Long) query.uniqueResult();
+	}
+	
 	public static CommentCustomization persist(
 			CommentCustomization customization) {
 		Session session = HibernateUtil.getSession();
