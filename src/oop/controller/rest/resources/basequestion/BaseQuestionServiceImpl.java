@@ -4,6 +4,7 @@ import javax.ws.rs.Path;
 
 import oop.controller.rest.AbstractResource;
 import oop.controller.rest.WebServiceUtils;
+import oop.controller.rest.bean.BaseQuestionBean;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Answer;
 import oop.data.BaseQuestion;
@@ -24,7 +25,7 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 		BaseQuestionService {
 
 	@Override
-	public ObjectResult<BaseQuestion> add(BaseQuestion question)
+	public ObjectResult<BaseQuestionBean> add(BaseQuestionBean question)
 			throws Exception {
 		validate(question);
 		User user = SessionUtils.getUser(getSession());
@@ -33,15 +34,16 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 	}
 
 	@Override
-	public ObjectResult<BaseQuestion> get(long resourceId) throws Exception {
+	public ObjectResult<BaseQuestionBean> get(long resourceId) throws Exception {
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
 		BaseQuestion question = resource.getArticle();
+		basequestionma
 		return new ObjectResult<BaseQuestion>(question);
 	}
 
 	@Override
-	public ObjectResult<BaseQuestion> update(long resourceId,
+	public ObjectResult<BaseQuestionBean> update(long resourceId,
 			Revision<BaseQuestion> data) throws Exception {
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
@@ -63,7 +65,7 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 		return new ObjectResult<BaseQuestion>(resource.getArticle());
 	}
 
-	private void validate(BaseQuestion question) {
+	private void validate(BaseQuestionBean question) {
 		WebServiceUtils.assertValid(question != null, "question is empty");
 		WebServiceUtils.assertValid(Text.isNotBlank(question.getContent()),
 				"question content is blank");
