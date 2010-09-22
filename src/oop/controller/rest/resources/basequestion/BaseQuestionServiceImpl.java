@@ -6,6 +6,11 @@ import javax.ws.rs.Path;
 
 import oop.controller.rest.AbstractResource;
 import oop.controller.rest.WebServiceUtils;
+import oop.controller.rest.bean.BaseQuestionBean;
+import oop.controller.rest.bean.BaseQuestionMapper;
+import oop.controller.rest.bean.MapperUtils;
+import oop.controller.rest.bean.ResourceSearchReportBean;
+import oop.controller.rest.bean.ResourceSearchReportMapper;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Answer;
@@ -28,28 +33,31 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 		BaseQuestionService {
 
 	@Override
-	public ObjectResult<BaseQuestion> add(BaseQuestion question)
+	public ObjectResult<BaseQuestionBean> add(BaseQuestionBean bean)
 			throws Exception {
-		validate(question);
+		validate(bean); 
+		BaseQuestion question = BaseQuestionMapper.get().get(bean);
 		User user = SessionUtils.getUser(getSession());
 		ResourceDAO.create(user, BaseQuestion.class, question);
-		return new ObjectResult<BaseQuestion>(question);
+		bean = BaseQuestionMapper.get().apply(question);
+		return new ObjectResult<BaseQuestionBean>(bean);
 	}
 
 	@Override
-	public ObjectResult<BaseQuestion> get(long resourceId) throws Exception {
+	public ObjectResult<BaseQuestionBean> get(long resourceId) throws Exception {
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
 		BaseQuestion question = resource.getArticle();
-		return new ObjectResult<BaseQuestion>(question);
+		BaseQuestionBean bean = BaseQuestionMapper.get().apply(question);
+		return new ObjectResult<BaseQuestionBean>(bean);
 	}
 
 	@Override
-	public ObjectResult<BaseQuestion> update(long resourceId,
+	public ObjectResult<BaseQuestionBean> update(long resourceId,
 			Revision<BaseQuestion> data) throws Exception {
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
-		validate(data.getArticle());
+//XXX		validate(data.getArticle());
 		WebServiceUtils.assertValid(resource.getArticle().getId() == data
 				.getArticle().getId(), "old version");
 
@@ -64,10 +72,11 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 		ArticleDAO.persist(question);
 
 		saveNewRevision(resource, question, data.getSummary(), data.isMinor());
-		return new ObjectResult<BaseQuestion>(resource.getArticle());
+		BaseQuestionBean bean = BaseQuestionMapper.get().apply(resource.getArticle());
+		return new ObjectResult<BaseQuestionBean>(bean);
 	}
 
-	private void validate(BaseQuestion question) {
+	private void validate(BaseQuestionBean question) {
 		WebServiceUtils.assertValid(question != null, "question is empty");
 		WebServiceUtils.assertValid(Text.isNotBlank(question.getContent()),
 				"question content is blank");
@@ -90,11 +99,13 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 	}
 
 	@Override
-	public ListResult<ResourceSearchReport<BaseQuestion>> listByRelatedResource(
+	public ListResult<ResourceSearchReportBean> listByRelatedResource(
 			long resourceID) {
-		List<ResourceSearchReport<BaseQuestion>> listRelatedTest = ArticleDAO
+		List<ResourceSearchReport<BaseQuestion>> questions = ArticleDAO
 				.fetchRelated(BaseQuestion.class, resourceID, 0, 5);
-		return new ListResult<ResourceSearchReport<BaseQuestion>>(listRelatedTest);
+		List<ResourceSearchReportBean> beans = MapperUtils.applyAll(questions,
+				ResourceSearchReportMapper.get());
+		return new ListResult<ResourceSearchReportBean>(beans);
 	}
 
 }
