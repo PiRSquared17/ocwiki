@@ -42,7 +42,7 @@
 						} else {
 							if (comments.length>0){
 								for (i=0;i<comments.length;i++){
-									commentslisthtml+=showComments(comments[i].comment);					
+									commentslisthtml+=showComments(comments[i]);					
 								}
 								$('commentslist').innerHTML = commentslisthtml;
 								pagination();
@@ -58,6 +58,7 @@
 				    }		
 				}
 			);
+
 	}
 
 	function loadPage(page){
@@ -81,7 +82,7 @@
 						} else {
 							if (comments.length>0){
 								for (i=0;i<comments.length;i++){
-									commentslisthtml+=showComments(comments[i].comment);					
+									commentslisthtml+=showComments(comments[i]);					
 								}
 								$('commentslist').innerHTML = commentslisthtml;
 								curPage = page;
@@ -99,32 +100,135 @@
 			);
 	}
 
-	function showComments(comment){
+	function showComments(commentPreview){
 		var commenthtml='';
-		commenthtml+=('<div id=comment'+comment.id+'>');
-		commenthtml+=('vào ngày: '+comment.timestamp);
-		commenthtml+=(' <a href="${scriptPath}?action=user.profile&user='+comment.user.id+'">'+comment.user.name+'</a> cho rằng:');
-		commenthtml+=('<div id=commentmessage'+comment.id+'>'+comment.message+'</div>');
-		commenthtml+=('<a id="commentlike'+comment.id+'" href="#" onclick = "like('+comment.id+'); return false;" >'+'like</a>');
-		commenthtml+=('.<a id="commenthide'+comment.id+'" href="#" onclick = "hideC('+comment.id+'); return false;" >'+'hide</a>');
-		commenthtml+=('.<a id="commentdel'+comment.id+'" href="#" onclick = "del('+comment.id+'); return false;" >'+'del</a>');
+		commenthtml+=('<div id=comment'+commentPreview.comment.id+'>');
+		commenthtml+=('vào ngày: '+commentPreview.comment.timestamp);
+		commenthtml+=(' <a href="${scriptPath}?action=user.profile&user='+commentPreview.comment.user.id+'">'+commentPreview.comment.user.name+'</a> cho rằng:');
+		commenthtml+=('<div style="display:' + (commentPreview.status == 'HIDDEN' ? 'none' : 'block') + '" id=commentmessage'+commentPreview.comment.id+'>'+commentPreview.comment.message+'</div>');
+		commenthtml+=('<div>'+commentPreview.likeCount+' người thích nhận xét này');
+		//if (login){
+			commenthtml+=('.<a style="display:' + (commentPreview.status == 'LIKE' ? 'none' : 'inline') + '" id="commentlike'+commentPreview.comment.id+'" href="#" onclick = "likeComment('+commentPreview.comment.id+'); return false;" >'+'thích</a>');
+			commenthtml+=('<a style="display:' + (commentPreview.status == 'LIKE' ? 'inline' : 'none') + '" id="commentunlike'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'bỏ thích</a>');
+			commenthtml+=('.<a style="display:' + (commentPreview.status == 'HIDDEN' ? 'none' : 'inline') + '" id="commenthide'+commentPreview.comment.id+'" href="#" onclick = "hideComment('+commentPreview.comment.id+'); return false;" >'+'ẩn</a>');
+			commenthtml+=('<a style="display:' + (commentPreview.status == 'HIDDEN' ? 'inline' : 'none') + '" id="commentunhide'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'bỏ ẩn</a>');
+			//commenthtml+=('.<a id="commentdel'+comment.id+'" href="#" onclick = "del('+comment.id+'); return false;" >'+'del</a>');
+		//}
+
+			/*if (commentPreview.status == 'LIKE') {
+				alert('like');
+				$('commentlike'+commentPreview.comment.id).hide();
+				$('commentunhide'+commentPreview.comment.id).hide();
+			} else if (commentPreview.status == 'HIDDEN'){
+				alert('hide');
+				$('commenthide'+commentPreview.comment.id).hide();
+				$('commentunlike'+commentPreview.comment.id).hide();
+			} else {
+				alert('normal');
+				$('commentunhide'+commentPreview.comment.id).hide();
+				$('commentunlike'+commentPreview.comment.id).hide();
+			}*/
+		commenthtml+=('</div>');
 		commenthtml+=('<br/>------------<br/>');
 		commenthtml+='</div>';
 		
 		return commenthtml;
 	}
-	
-	function like(id){
-		$('commentlike'+id).innerHTML='unlike';
+
+	function likeComment(lid){
+		
+		var newCommentCustomization = {comment:{id: lid}, status:'LIKE'};
+		new Ajax.Request(				
+				restPath + '/comment_customizations',
+				{
+					method: 'post',
+					contentType: 'application/json',
+				    postBody: Object.toJSON(newCommentCustomization),
+					requestHeaders : {
+						Accept : 'application/json'
+					},
+					evalJSON : true,
+					onSuccess : function(transport) {
+						newCommentCustomization = transport.responseJSON.result;
+						$('commentmessage'+lid).show();
+						
+						$('commentlike'+lid).hide();
+						$('commentunlike'+lid).show();
+						$('commenthide'+lid).show();
+						$('commentunhide'+lid).hide();
+					},
+				    onFailure: function(transport){ 
+					    if (transport.responseJSON.code == '') {
+						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
+					    }
+				    }		
+				}				
+			);
 	}
 
+	function unlihiComment(lhid){
+		
+		var newCommentCustomization = {comment:{id: lhid}, status:'NORMAL'};
+		new Ajax.Request(				
+				restPath + '/comment_customizations',
+				{
+					method: 'post',
+					contentType: 'application/json',
+				    postBody: Object.toJSON(newCommentCustomization),
+					requestHeaders : {
+						Accept : 'application/json'
+					},
+					evalJSON : true,
+					onSuccess : function(transport) {
+						newCommentCustomization = transport.responseJSON.result;
+						$('commentmessage'+lhid).show();
+						$('commentlike'+lhid).show();
+						$('commentunlike'+lhid).hide();
+						$('commenthide'+lhid).show();
+						$('commentunhide'+lhid).hide();
+					},
+				    onFailure: function(transport){ 
+					    if (transport.responseJSON.code == '') {
+						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
+					    }
+				    }		
+				}				
+			);
+	}
+	
+	function hideComment(hid){
+		
+		var newCommentCustomization = {comment:{id: hid}, status:'HIDDEN'};
+		new Ajax.Request(				
+				restPath + '/comment_customizations',
+				{
+					method: 'post',
+					contentType: 'application/json',
+				    postBody: Object.toJSON(newCommentCustomization),
+					requestHeaders : {
+						Accept : 'application/json'
+					},
+					evalJSON : true,
+					onSuccess : function(transport) {
+						newCommentCustomization = transport.responseJSON.result;
+						$('commentmessage'+hid).hide();
+						$('commenthide'+hid).hide();
+						$('commentunhide'+hid).show();
+						$('commentlike'+hid).show();
+						$('commentunlike'+hid).hide();
+					},
+				    onFailure: function(transport){ 
+					    if (transport.responseJSON.code == '') {
+						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
+					    }
+				    }		
+				}				
+			);
+	}
+	
 	function del(id){
 	}
-
-	function hideC(id){
-		$('commenthide'+id).innerHTML='unhide';
-	}
-
+	
 	//Phan trang
 	function pagination(){
 		var pageButtons = '';
