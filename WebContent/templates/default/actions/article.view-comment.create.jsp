@@ -45,11 +45,12 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						var newpostcomment = transport.responseJSON.result;
+						var newPostComment = transport.responseJSON.result;
+						var newPostCommentReport = {comment:newPostComment, user:getUser(), status:'NORMAL' , likeCount: 0};
 						if (commentCount == 0){
-							$('commentslist').innerHTML=showComments(newpostcomment);
+							$('commentslist').innerHTML=showComments(newPostCommentReport);
 						} else {
-							$('commentslist').innerHTML+=showComments(newpostcomment);
+							$('commentslist').innerHTML+=showComments(newPostCommentReport);
 						}
 						tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';	
 						$('cannot-post').hide();

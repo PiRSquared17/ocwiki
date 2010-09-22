@@ -39,6 +39,8 @@
 	   uploadPath = '${config.uploadPath}';
 	   restPath = '${config.restPath}';
 	   templatePath = '${templatePath}';
+	   //login = false;
+	   //login = ${sessionScope.login};
 	//-->
 	</script>
 </head>

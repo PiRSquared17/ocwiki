@@ -83,6 +83,6 @@ Nhóm: <b>${action.displayedUser.group}</b>
 <fieldset>
 <legend>Thống kê thảo luận</legend>
 	<div>Số lượng nhận xét đã đăng: <b>${action.postedComments}</b></div>
-	<div>Số lượng nhận xét được thích: <b>${action.likedComments}</b></div>
-	<div>Số lượng nhận xét bị ẩn: <b>${action.hiddenComments}</b></div>
+	<div>Số lượt nhận xét được thích: <b>${action.likedComments}</b></div>
+	<div>Số lượt nhận xét bị ẩn: <b>${action.hiddenComments}</b></div>
 </fieldset>
