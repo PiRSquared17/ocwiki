@@ -48,21 +48,23 @@ public class ResourceService extends AbstractResource{
 			nextUrl = PATH + "/namespace/" + namespaceID + "?start="
 					+ (start + size) + "&size=" + size;
 		}
-		return new ListResult<ResourceBean>(
-				MapperUtils.applyAll(resList, ResourceMapper.get()), nextUrl);
+		List<ResourceBean> beans = MapperUtils.applyAll(resList, ResourceMapper
+				.get());
+		return new ListResult<ResourceBean>(beans, nextUrl);
 	}
 	
 	@POST
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public <T extends Article> ObjectResult<Resource<Article>> update(
+	public <T extends Article> ObjectResult<ResourceBean> update(
 			@PathParam("id") long id, ResourceBean data) {
 		Resource<Article> resource = ResourceDAO.fetchById(id);
 		assertResourceFound(resource);
 		assertVersion(resource, data);
 		resource.setAccessibility(data.getAccessibility());
 		resource.setStatus(data.getStatus());
-		ResourceDAO.persist(resource); 
-		return new ObjectResult<Resource<Article>>(resource);
+		ResourceDAO.persist(resource);
+		return new ObjectResult<ResourceBean>(ResourceMapper.get().apply(
+				resource));
 	}
 }

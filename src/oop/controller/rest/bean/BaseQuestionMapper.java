@@ -12,8 +12,9 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 		bean.setNamespace(value.getNamespace());
 		bean.setLevel(value.getLevel());
 		bean.setAnswers(value.getAnswers());
-		bean.setTopics(MapperUtils.applyAll(value.getTopics(), ResourceReferenceMapper.get()));
-		return null;
+		MapperUtils.applyAll(value.getTopics(), bean.getTopics(),
+				ResourceReferenceMapper.get());
+		return bean;
 	}
 
 	@Override
@@ -22,4 +23,10 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 		return null;
 	}
 
+	private static BaseQuestionMapper DEFAULT_INSTANCE = new BaseQuestionMapper();
+
+	public static BaseQuestionMapper get() {
+		return DEFAULT_INSTANCE;
+	}
+	
 }

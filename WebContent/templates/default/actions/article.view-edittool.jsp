@@ -62,7 +62,7 @@
 			cancel:function(win){}, 
 			ok: function(win) 
 			{	
-				resource = {accessibility : $F('lock_value')};
+				resource.accessibility = $F('lock_value');
 				new Ajax.Request(restPath + '/resource/'+ resourceID,
 					{
 					method:'post',

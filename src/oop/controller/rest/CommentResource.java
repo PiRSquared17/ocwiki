@@ -38,7 +38,8 @@ public class CommentResource extends AbstractResource {
 			nextUrl = PATH + "/resource/" + resourceId + "/latest?start="
 					+ (start + size) + "&size=" + size;
 		}
-		return new ListResult<Comment>(list, nextUrl);
+		long count = CommentDAO.countByResource(resourceId);
+		return new ListResult<Comment>(list, nextUrl, count);
 	}
 
 	@GET
@@ -53,7 +54,8 @@ public class CommentResource extends AbstractResource {
 			nextUrl = PATH + "/resource/" + resourceId + "?start="
 					+ (start + size) + "&size=" + size;
 		}
-		return new ListResult<Comment>(list, nextUrl);
+		long count = CommentDAO.countByResource(resourceId);
+		return new ListResult<Comment>(list, nextUrl, count);
 	}
 
 	@GET

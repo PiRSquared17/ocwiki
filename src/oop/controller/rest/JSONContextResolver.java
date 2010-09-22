@@ -22,6 +22,7 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     private JAXBContext context;
 	private Class[] types = {
 			oop.data.Resource.class,
+			oop.data.ResourceSearchReport.class,
 			oop.data.Revision.class,
     		oop.data.Answer.class,
     		oop.data.BaseQuestion.class,
@@ -41,8 +42,10 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     		oop.data.CommentCustomization.class,
     		oop.data.CommentReport.class,
     		oop.controller.rest.bean.ResourceBean.class,
-			oop.controller.rest.bean.ResourceReferenceBean.class,
+    		oop.controller.rest.bean.ResourceReferenceBean.class,
+			oop.controller.rest.bean.ResourceSearchReportBean.class,
 			oop.controller.rest.bean.RevisionBean.class,
+			oop.controller.rest.bean.ArticleReferenceBean.class,
 //    		oop.controller.rest.bean.AnswerBean.class,
     		oop.controller.rest.bean.BaseQuestionBean.class,
 //    		oop.controller.rest.bean.History.class,
