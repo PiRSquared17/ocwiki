@@ -47,6 +47,7 @@
 </div>
 
 <ocw:setJs var="newTemplate">
+    <h3>\#{index}</h3>
     <div id="answer\#{index}" class="answer-wrapper mouse-out"
                 onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
                 onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">

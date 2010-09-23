@@ -18,7 +18,8 @@ public class ResourceMapper implements
 		bean.setStatus(value.getStatus());
 		bean.setAccessibility(value.getAccessibility());
 		bean.setVersion(value.getVersion());
-		bean.setLink(ResourceReferenceMapper.get().apply(value.getLink()));
+		bean.setLink(ResourceReferenceMapper.get().apply(
+				(Resource<Article>) value.getLink()));
 		return bean;
 	}
 
