@@ -11,9 +11,11 @@ import oop.data.CommentCustomization;
 import oop.db.dao.CommentCustomizationDAO;
 import oop.db.dao.CommentDAO;
 
-@Path("/CommentCustomization_customizations")
+@Path(CommentCustomizationResource.PATH)
 public class CommentCustomizationResource extends AbstractResource {
 
+	public static final String PATH = "/comment_customizations";
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ObjectResult<CommentCustomization> create(CommentCustomization data) {

@@ -6,10 +6,9 @@ import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.db.dao.BaseQuestionDAO;
 
-public class EnhancedViewAction extends AbstractAction {
+public class EnhancedViewAction extends AbstractAction<BaseQuestion> {
 	
 	private BaseQuestion question;
-	private Resource<BaseQuestion> resource;
 
 	@Override
 	public void performImpl() throws Exception {
@@ -29,10 +28,6 @@ public class EnhancedViewAction extends AbstractAction {
 	
 	public BaseQuestion getQuestion() {
 		return question;
-	}
-	
-	public Resource<BaseQuestion> getResource() {
-		return resource;
 	}
 	
 }

@@ -10,11 +10,14 @@ import javax.ws.rs.QueryParam;
 
 import oop.controller.rest.util.ListResult;
 import oop.data.CommentReport;
+import oop.db.dao.CommentDAO;
 import oop.db.dao.CommentReportDAO;
 
-@Path("/comment_reports")
+@Path(CommentReportResource.PATH)
 public class CommentReportResource extends AbstractResource {
 
+	public static final String PATH = "/comment_reports";
+	
 	@GET
 	@Path("/resource/{resourceId: \\d+}/latest")
 	public ListResult<CommentReport> latestList(
@@ -27,10 +30,11 @@ public class CommentReportResource extends AbstractResource {
 						size);
 		String nextUrl = null;
 		if (list.size() >= size) {
-			nextUrl = "/CommentReports/resource/" + resourceId
+			nextUrl = PATH + "/resource/" + resourceId
 					+ "/latest?start=" + (start + size) + "&size=" + size;
 		}
-		return new ListResult<CommentReport>(list, nextUrl);
+		long count = CommentDAO.countByResource(resourceId);
+		return new ListResult<CommentReport>(list, nextUrl, count);
 	}
 
 	@GET
@@ -44,10 +48,11 @@ public class CommentReportResource extends AbstractResource {
 				resourceId, getUser(), start, size);
 		String nextUrl = null;
 		if (list.size() >= size) {
-			nextUrl = "/CommentReports/resource/" + resourceId + "?start="
+			nextUrl = PATH + "/resource/" + resourceId + "?start="
 					+ (start + size) + "&size=" + size;
 		}
-		return new ListResult<CommentReport>(list, nextUrl);
+		long count = CommentDAO.countByResource(resourceId);
+		return new ListResult<CommentReport>(list, nextUrl, count);
 	}
 
 }

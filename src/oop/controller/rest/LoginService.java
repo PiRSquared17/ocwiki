@@ -15,9 +15,11 @@ import oop.data.User;
 import oop.db.dao.UserDAO;
 import oop.util.SessionUtils;
 
-@Path("/login")
+@Path(LoginService.PATH)
 public class LoginService extends AbstractResource {
 
+	public static final String PATH = "/login";
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ObjectResult<User> login(

@@ -1,13 +1,12 @@
 package oop.controller.action.sectstruct;
 
 import oop.controller.action.AbstractAction;
-import oop.data.Resource;
 import oop.data.SectionStructure;
 import oop.data.TestStructure;
 import oop.db.dao.ResourceDAO;
 
-public class MoveUpAction extends AbstractAction {
-	private Resource<TestStructure> resource;
+public class MoveUpAction extends AbstractAction<TestStructure> {
+
 	private TestStructure test;
 
 	@Override

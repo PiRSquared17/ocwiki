@@ -2,16 +2,13 @@ package oop.controller.action.sectstruct;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
-import oop.data.Resource;
 import oop.data.SectionStructure;
 import oop.data.TestStructure;
 import oop.db.dao.TestStructureDAO;
 import oop.db.dao.TextDAO;
 import oop.util.Utils;
 
-public class EditAction extends AbstractAction {
-
-	private Resource<TestStructure> resource;
+public class EditAction extends AbstractAction<TestStructure> {
 
 	@Override
 	public void performImpl() throws Exception {
@@ -49,8 +46,4 @@ public class EditAction extends AbstractAction {
 		}
 	}
 
-	public Resource<TestStructure> getResource() {
-		return resource;
-	}
-	
 }

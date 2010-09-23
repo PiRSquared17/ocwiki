@@ -22,4 +22,8 @@ public class TestResourceTest extends ResourceTest {
 		System.out.println(response.getText());
 	}
 	
+	@Test
+	public void testUpdate() {
+	}
+	
 }

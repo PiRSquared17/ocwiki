@@ -108,6 +108,19 @@ public class HibernateUtil {
 		}
 		return sessionLocal.get();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T load(Class<T> clazz, long id) {
+		if (id <= 0) {
+			try {
+				return clazz.newInstance();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		Session session = HibernateUtil.getSession();
+		return (T) session.load(clazz, id);
+	}
 
 	public static void closeSession() {
 		if (sessionLocal.get() != null) {

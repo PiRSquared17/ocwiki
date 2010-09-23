@@ -27,7 +27,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	private Set<Resource<? extends Article>> linkedResources = new HashSet<Resource<? extends Article>>();
 	private Resource<? extends Article> link = null;
 
-	Resource() {
+	public Resource() {
 	}
 
 	public Resource(long id, Date createDate, User author, Status status,

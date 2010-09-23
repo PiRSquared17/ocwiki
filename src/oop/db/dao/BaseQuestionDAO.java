@@ -82,10 +82,11 @@ public class BaseQuestionDAO {
 		return (Long) query.uniqueResult();
 	}
 
-	public static List<BaseQuestion> fetchByContent(String content, int limit) {
+	public static List<Resource<BaseQuestion>> fetchByContent(String content,
+			int limit) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Resource where article in " +
-				"(from BaseQuestion where content.text like :content)";
+		String hql = "from Resource where article in "
+				+ "(from BaseQuestion where content.text like :content)";
 		Query query = session.createQuery(hql);
 		query.setString("content", content);
 		query.setMaxResults(limit);
