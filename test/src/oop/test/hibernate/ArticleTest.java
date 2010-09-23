@@ -21,7 +21,9 @@ public class ArticleTest extends HibernateTest {
 		BaseQuestion newQuestion = question.copy();
 		ArticleDAO.persist(newQuestion);
 		
-		Assert.assertEquals(580, newQuestion.getId());
+		Assert.assertTrue("Chưa lưu được câu hỏi", newQuestion.getId() > 0);
+		Assert.assertTrue("Ghi đè vào câu hỏi cũ",
+				newQuestion.getId() != question.getId());
 	}
 
 	@Test

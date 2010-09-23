@@ -14814,10 +14814,15 @@ jkj
     <column>comment</column>
     <column>status</column>
     <row>
-      <value>2</value>
+      <value>1</value>
       <value>1</value>
       <value>LIKE</value>
     </row>
+     <row>
+        <value>1</value>
+        <value>2</value>
+        <value>LIKE</value>
+     </row>
   </table>
   <table name="ocwConstraint">
     <column>id</column>
@@ -30655,6 +30660,7 @@ The divers in both &ldquo;houses&rdquo; spent most of their time (37)______ the 
       <value><![CDATA[<p><strong>Đọc kĩ đoạn văn sau và chọn phương án đúng (A hoặc B, C, D) cho mỗi câu: từ 26 đến 35 .</strong></p></p>
 <p>Traditionally in America, helping the poor was a matter for private charities or local governments. Arriving immigrants depended mainly on predecessors from their homeland to help them start a new life. In the late 19th and early 20th centuries, several European nations<strong> instituted</strong> public-welfare programs. But such a movement was slow to take hold in the United States because the rapid pace of industrialization and the ready availability of farmland seemed to confirm the belief that anyone who was willing to work could find a job.</p>
 <p>Most of the programs started during the Depression era were temporary relief measures, but one of the programs - Social Security - has become an American institution. Paid for by deductions from the paychecks of working people, Social Security ensures that retired persons receive a modest monthly income and also provides unemployment insurance, disability insurance, and other assistance to those who need it. Social Security payments to retired persons can start at age 62, but many wait until age 65, when the payments are slightly higher. Recently, there has been oncern that the Social</p>
+
 <p>Security fund may not have enough money to fulfill its obligations in the 21st century, when the population of elderly Americans is expected to increase dramatically. Policy makers have proposed various ways to make up the anticipated deficit, but a long-term solution is still being debated.</p>
 <p>In the years since Roosevelt, other American presidents have established assistance programs. These include Medicaid and Medicare; food stamps, certificates that people can use to purchase food; and public housing which is built at federal expense and made available to persons on low incomes.</p>
 <p>Needy Americans can also turn to sources other than the government for help. A broad spectrum of private charities and voluntary organizations is available. Volunteerism is on the rise in the United States, especially among retired persons.</p>

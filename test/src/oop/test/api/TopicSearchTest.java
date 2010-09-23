@@ -20,7 +20,11 @@ public class TopicSearchTest extends AbstractApiTest {
 		WebResponse response = client.getResponse(PATH + "?query=Anh");
 		System.out.println(response.getText());
 		JsonNode root = parseJSON(response);
-		Assert.assertEquals(1, root.size());
+		JsonNode suggestions = root.get("suggestions");
+		JsonNode data = root.get("data");
+		System.out.println(root);
+		Assert.assertEquals(2, suggestions.size());
+		Assert.assertEquals(2, data.size());
 	}
 	
 }

@@ -55,8 +55,9 @@ public class CommentCustomizationTest extends HibernateTest {
 		CommentCustomizationDAO.persist(customization);
 
 		List<CommentCustomization> customizations = CommentCustomizationDAO
-				.fetchByResourceAndUser(88, 1, 0, 10);
-		Assert.assertEquals(2, customizations.size());
+				.fetchByResourceAndUser(comment.getResource().getId(), user
+						.getId(), 0, 10);
+		Assert.assertEquals(1, customizations.size());
 	}
 
 }
