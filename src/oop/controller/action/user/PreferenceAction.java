@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import oop.conf.Config;
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.db.dao.UserDAO;
@@ -21,50 +22,51 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class PreferenceAction extends AbstractAction {
 	private static final String TEMP_DIR = System.getProperty("java.io.tmpdir");
 	private File tempDir;
-	private static final String DEST_DIR = "/images/avatar";
+	private static final String DEST_DIR = "/avatar";
 	private static final int SIZE = 100;
 	private File destDir;
 
 	@Override
 	protected void performImpl() throws Exception {
-			tempDir = new File(TEMP_DIR);
-			if (!tempDir.isDirectory()) {
-				throw new ActionException(TEMP_DIR + "khong ton tai");
-			}
+		tempDir = new File(TEMP_DIR);
+		if (!tempDir.isDirectory()) {
+			throw new ActionException(TEMP_DIR + "khong ton tai");
+		}
 
-			String realPath = super.getController().getServletContext()
-					.getRealPath(DEST_DIR);
-			
-			destDir = new File(realPath);
-			if (!destDir.isDirectory()) {
-				throw new ActionException(DEST_DIR + " khong ton tai");
-			}
+		String realPath = super.getController().getServletContext()
+				.getRealPath(Config.get().getUploadDir() + DEST_DIR);
 
-			DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-			diskFileItemFactory.setSizeThreshold(2 * 1024 * 1024); // 2 MB
-			diskFileItemFactory.setRepository(tempDir);
-			ServletFileUpload uploadHandler = new ServletFileUpload(
-					diskFileItemFactory);
-			uploadHandler.setSizeMax(2 * 1024 * 1024);
+		destDir = new File(realPath);
+		if (!destDir.isDirectory()) {
+			throw new ActionException(Config.get().getUploadDir() + DEST_DIR
+					+ " khong ton tai");
+		}
 
-			try {
-				List itemsList = uploadHandler.parseRequest(request);
-				Iterator itr = itemsList.iterator();
+		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+		diskFileItemFactory.setSizeThreshold(2 * 1024 * 1024); // 2 MB
+		diskFileItemFactory.setRepository(tempDir);
+		ServletFileUpload uploadHandler = new ServletFileUpload(
+				diskFileItemFactory);
+		uploadHandler.setSizeMax(2 * 1024 * 1024);
 
-				while (itr.hasNext()) {
-					FileItem item = (FileItem) itr.next();
-					
-					if (!item.isFormField()) {
-						File uploadedFile = new File(destDir, item.getName());
-						uploadedFile = resizeAndRenameImage(item);
-						
-						getUser().setAvatar(uploadedFile.getName());
-						UserDAO.persist(getUser());
-					}
+		try {
+			List itemsList = uploadHandler.parseRequest(request);
+			Iterator itr = itemsList.iterator();
+
+			while (itr.hasNext()) {
+				FileItem item = (FileItem) itr.next();
+
+				if (!item.isFormField()) {
+					File uploadedFile = new File(destDir, item.getName());
+					uploadedFile = resizeAndRenameImage(item);
+
+					getUser().setAvatar(uploadedFile.getName());
+					UserDAO.persist(getUser());
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 /*
 	public File rename(File file) {
