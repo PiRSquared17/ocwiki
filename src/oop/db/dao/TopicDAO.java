@@ -3,6 +3,7 @@ package oop.db.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import oop.data.Namespace;
 import oop.data.Resource;
 import oop.data.Topic;
 import oop.persistence.HibernateUtil;
@@ -10,17 +11,12 @@ import oop.persistence.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-//XXX
 @SuppressWarnings("unchecked")
 public final class TopicDAO {
 
 	public static Resource<Topic> fetchByName(String name) {
-		Session session = HibernateUtil.getSession();
-		String hql = "from Resource where article in " +
-				"(from Topic where name=:name)";
-		Query query = session.createQuery(hql);
-		query.setString("name", name);
-		return (Resource<Topic>) query.uniqueResult();
+		return ResourceDAO.fetchByQualifiedName(NamespaceDAO
+				.fetch(Namespace.TOPIC), name, Topic.class);
 	}
 
 	public static List<Resource<Topic>> fetchByNameLike(String name) {
@@ -50,6 +46,22 @@ public final class TopicDAO {
 
 
 	public static List<Resource<Topic>> getAncestors(long resourceId) {
+		return fetchAncestorsNestedSetImpl(resourceId);
+	}
+
+	private static List<Resource<Topic>> fetchAncestorsNestedSetImpl(long resourceId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "select s.resource from TopicSet s where " +
+				"s.leftIndex <= (select leftIndex from TopicSet where resource.id=:resId) and " +
+				"s.rightIndex >= (select rightIndex from TopicSet where resource.id=:resId) " +
+				"order by s.rightIndex asc";
+		Query query = session.createQuery(hql);
+		query.setLong("resId", resourceId);
+		return query.list();
+	}
+	
+	private static List<Resource<Topic>> fetchAncestorsRecursiveImpl(
+			long resourceId) {
 		Resource<Topic> topic = (Resource<Topic>) HibernateUtil.getSession()
 				.load(Resource.class, resourceId);
 		ArrayList<Resource<Topic>> ancestorList = new ArrayList<Resource<Topic>>();
@@ -59,6 +71,9 @@ public final class TopicDAO {
 
 	private static void addAncestors(List<Resource<Topic>> ancestorList,
 			Resource<Topic> topic) {
+		if (topic == null) {
+			return;
+		}
 		ancestorList.add(topic);
 		addAncestors(ancestorList, topic.getArticle().getParent());
 	}

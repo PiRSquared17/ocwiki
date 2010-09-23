@@ -49,7 +49,7 @@
 	filterNumericKey('txtQuantity');
 
     new Autocomplete('txtTopicName', {
-        serviceUrl : '${scriptPath}?action=topic.ajaxsearch&format=qcount',
+        serviceUrl : apiPath + '/topic.search?format=qcount',
         minChars : 2,
         maxHeight : 400,
         width : 300,

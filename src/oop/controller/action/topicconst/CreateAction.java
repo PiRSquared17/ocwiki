@@ -17,7 +17,7 @@ import oop.util.Utils;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class CreateAction extends AbstractAction {
+public class CreateAction extends AbstractAction<TestStructure> {
 
 	public CreateAction() {
 	}
@@ -91,13 +91,8 @@ public class CreateAction extends AbstractAction {
 		}
 	}
 
-	private Resource<TestStructure> resource;
 	private TestStructure testStructure;
 
-	public Resource<TestStructure> getResource() {
-		return resource;
-	}
-	
 	public TestStructure getTestStructure() {
 		return testStructure;
 	}

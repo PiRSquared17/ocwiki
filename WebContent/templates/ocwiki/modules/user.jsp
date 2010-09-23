@@ -11,7 +11,7 @@
 	    <li><a href="${scriptPath}?action=test.create">Tạo đề mới</a></li>
 	    <li><a href="${scriptPath}?action=question.create">Tạo câu hỏi mới</a></li>
 	    <li><a href="${scriptPath}?action=teststruct.create">Tạo cấu trúc đề mới</a></li>
-	    <li><a href="${scriptPath}?action=testtopic.list">Chủ đề đề thi</a></li>
+	    <li><a href="${scriptPath}?action=topic.list">Chủ đề đề thi</a></li>
 	    <li><a href="${scriptPath}?action=topic.list">Chủ đề câu hỏi</a></li>
 	</c:if>
 </ul>

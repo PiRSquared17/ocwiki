@@ -36,8 +36,8 @@
 			</key>
 			<one-to-many class="oop.data.log.ResourceLog" />
 		</set>
-		<set name="revisions" table="Revision" access="field" inverse="true"
-			lazy="true" order-by="id desc">
+		<set name="revisions" table="Revision" access="field"
+			lazy="true" order-by="id asc">
 			<key>
 				<column name="resource" />
 			</key>

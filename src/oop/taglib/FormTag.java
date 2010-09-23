@@ -24,7 +24,7 @@ public class FormTag extends SimpleTagSupport {
 		String actionURL = ActionUtil.getActionURL(getAction());
 		// open form
 		out.append("<form action=\"").append(actionURL).append("\"");
-		out.append(" enctype=\"multipart/form-data\"");
+		out.append(" enctype=\"application/x-www-form-urlencoded\"");
 		if (!StringUtils.isEmpty(id)) {
 			out.append(" id=\"").append(id).append("\"");
 		}

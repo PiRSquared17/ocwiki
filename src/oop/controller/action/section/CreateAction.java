@@ -2,15 +2,13 @@ package oop.controller.action.section;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
-import oop.data.Resource;
 import oop.data.Section;
 import oop.data.Test;
 import oop.data.Text;
 import oop.db.dao.ResourceDAO;
 
-public class CreateAction extends AbstractAction {
+public class CreateAction extends AbstractAction<Test> {
 
-	private Resource<Test> resource;
 	private Test test;
 
 	@Override
@@ -45,10 +43,6 @@ public class CreateAction extends AbstractAction {
 
 	public Test getTest() {
 		return test;
-	}
-	
-	public Resource<Test> getResource() {
-		return resource;
 	}
 	
 }

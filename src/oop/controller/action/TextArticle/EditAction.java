@@ -6,16 +6,14 @@ import oop.data.Article;
 import oop.data.Resource;
 import oop.data.Text;
 import oop.data.TextArticle;
-import oop.db.dao.TextArticalDAO;
+import oop.db.dao.TextArticleDAO;
 
-public class EditAction extends AbstractAction {
+public class EditAction extends AbstractAction<TextArticle> {
 
-	private Resource<TextArticle> resource;
-	
 	@Override
 	protected void performImpl() throws Exception {
 		// TODO Auto-generated method stub
-		resource = TextArticalDAO.fetchById(getParams().getLong("id"));
+		resource = TextArticleDAO.fetchById(getParams().getLong("id"));
 		if(resource == null){
 			throw new ActionException("Khong tim thay Text" + getParams().getLong("id"));
 		}

@@ -7,8 +7,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
+import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
+import oop.data.ResourceSearchReport;
 import oop.data.Revision;
 
 public interface BaseQuestionService {
@@ -27,6 +29,11 @@ public interface BaseQuestionService {
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ObjectResult<BaseQuestion> update(@PathParam("id") long resourceId,
-			Revision<BaseQuestion> question) throws Exception;
+			Revision<BaseQuestion> data) throws Exception;
+	
+	@GET
+	@Path("/related/{resourceID: \\d+}")
+	public ListResult<ResourceSearchReport<BaseQuestion>> listByRelatedResource(
+			@PathParam("resourceID") long resourceID) throws Exception ;
 
 }

@@ -16,9 +16,11 @@ import oop.controller.rest.util.ObjectResult;
 import oop.data.User;
 import oop.db.dao.UserDAO;
 
-@Path("/users")
+@Path(UserResource.PATH)
 public class UserResource extends AbstractResource {
 
+	public static final String PATH = "/users";
+	
 	@GET
 	public ListResult<User> list(
 			@DefaultValue("0") @QueryParam("start") int start,
@@ -27,7 +29,7 @@ public class UserResource extends AbstractResource {
 		List<User> list = UserDAO.fetch(start, size);
 		String nextUrl = null;
 		if (list.size() >= size) {
-			nextUrl = "/users?start=" + (start + size) + "&size=" + size;
+			nextUrl = PATH + "?start=" + (start + size) + "&size=" + size;
 		}
 		return new ListResult<User>(list, nextUrl);
 	}

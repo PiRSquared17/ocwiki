@@ -9,9 +9,11 @@ import oop.data.CommentCustomization;
 import oop.db.dao.CommentCustomizationDAO;
 import oop.db.dao.CommentDAO;
 
-@Path("/comment_customizations")
+@Path(CommentCustomizationResource.PATH)
 public class CommentCustomizationResource extends AbstractResource {
 
+	public static final String PATH = "/comment_customizations";
+	
 	@POST
 	public ObjectResult<CommentCustomization> create(CommentCustomization data) {
 		Comment comment = CommentDAO.fetch(data.getComment().getId());
