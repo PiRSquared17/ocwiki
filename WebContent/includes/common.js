@@ -83,5 +83,5 @@ Editor.preview = function(id) {
  * Date and time
  */
 function dateToString(){
-}
+
 }
