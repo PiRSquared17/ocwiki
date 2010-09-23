@@ -78,3 +78,10 @@ Editor.preview = function(id) {
 	element.hide();
 	$(id).insert({after: previewDiv});
 };
+
+/**
+ * Date and time
+ */
+function dateToString(){
+}
+}

@@ -106,14 +106,14 @@
 		commenthtml+=('vào ngày: '+commentPreview.comment.timestamp);
 		commenthtml+=(' <a href="${scriptPath}?action=user.profile&user='+commentPreview.comment.user.id+'">'+commentPreview.comment.user.name+'</a> cho rằng:');
 		commenthtml+=('<div style="display:' + (commentPreview.status == 'HIDDEN' ? 'none' : 'block') + '" id=commentmessage'+commentPreview.comment.id+'>'+commentPreview.comment.message+'</div>');
-		commenthtml+=('<div>'+commentPreview.likeCount+' người thích nhận xét này');
-		//if (login){
-			commenthtml+=('.<a style="display:' + (commentPreview.status == 'LIKE' ? 'none' : 'inline') + '" id="commentlike'+commentPreview.comment.id+'" href="#" onclick = "likeComment('+commentPreview.comment.id+'); return false;" >'+'thích</a>');
+		commenthtml+=('<div><span style="display:' + (commentPreview.likeCount == 0 ? 'none' : 'inline') + '" id="commentlikecountpreview'+commentPreview.comment.id+'"><span id="commentlikecount'+commentPreview.comment.id+'">'+commentPreview.likeCount+'</span> người thích.</span>');
+		if (login){
+			commenthtml+=('<a style="display:' + (commentPreview.status == 'LIKE' ? 'none' : 'inline') + '" id="commentlike'+commentPreview.comment.id+'" href="#" onclick = "likeComment('+commentPreview.comment.id+'); return false;" >'+'thích</a>');
 			commenthtml+=('<a style="display:' + (commentPreview.status == 'LIKE' ? 'inline' : 'none') + '" id="commentunlike'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'bỏ thích</a>');
 			commenthtml+=('.<a style="display:' + (commentPreview.status == 'HIDDEN' ? 'none' : 'inline') + '" id="commenthide'+commentPreview.comment.id+'" href="#" onclick = "hideComment('+commentPreview.comment.id+'); return false;" >'+'ẩn</a>');
-			commenthtml+=('<a style="display:' + (commentPreview.status == 'HIDDEN' ? 'inline' : 'none') + '" id="commentunhide'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'bỏ ẩn</a>');
+			commenthtml+=('<a style="display:' + (commentPreview.status == 'HIDDEN' ? 'inline' : 'none') + '" id="commentunhide'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'hiện</a>');
 			//commenthtml+=('.<a id="commentdel'+comment.id+'" href="#" onclick = "del('+comment.id+'); return false;" >'+'del</a>');
-		//}
+		}
 
 			/*if (commentPreview.status == 'LIKE') {
 				alert('like');
@@ -149,7 +149,13 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						newCommentCustomization = transport.responseJSON.result;
+						var newCommentReport = transport.responseJSON.result;
+						$('commentlikecount'+lid).innerHTML=newCommentReport.likeCount;
+						if (newCommentReport.likeCount<=0) {
+							$('commentlikecountpreview'+lid).hide();
+						} else {
+							$('commentlikecountpreview'+lid).show();
+						}
 						$('commentmessage'+lid).show();
 						
 						$('commentlike'+lid).hide();
@@ -180,8 +186,15 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						newCommentCustomization = transport.responseJSON.result;
+						var newCommentReport = transport.responseJSON.result;
+						$('commentlikecount'+lhid).innerHTML=newCommentReport.likeCount;
+						if (newCommentReport.likeCount<=0) {
+							$('commentlikecountpreview'+lhid).hide();
+						} else {
+							$('commentlikecountpreview'+lhid).show();
+						}
 						$('commentmessage'+lhid).show();
+						
 						$('commentlike'+lhid).show();
 						$('commentunlike'+lhid).hide();
 						$('commenthide'+lhid).show();
@@ -210,8 +223,15 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						newCommentCustomization = transport.responseJSON.result;
+						var newCommentReport = transport.responseJSON.result;
+						$('commentlikecount'+hid).innerHTML=newCommentReport.likeCount;
+						if (newCommentReport.likeCount<=0) {
+							$('commentlikecountpreview'+hid).hide();
+						} else {
+							$('commentlikecountpreview'+hid).show();
+						}
 						$('commentmessage'+hid).hide();
+						
 						$('commenthide'+hid).hide();
 						$('commentunhide'+hid).show();
 						$('commentlike'+hid).show();
