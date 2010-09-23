@@ -13,8 +13,10 @@ import oop.data.Article;
 import oop.data.Revision;
 import oop.db.dao.RevisionDAO;
 
-@Path("/revisions")
+@Path(RevisionResource.PATH)
 public class RevisionResource extends AbstractResource{
+	
+	public static final String PATH = "/revisions";
 	
 	@GET
 	@Path("/{revID: \\d+}")
@@ -35,7 +37,7 @@ public class RevisionResource extends AbstractResource{
 		List<Revision<Article>> revList = RevisionDAO.fetchByResource(resourceID,(page-1)*size,size);
 		String nextUrl = null;
 		if (revList.size() >= size) {
-			nextUrl = "/revisions?page=" + page + "&size=" + size;
+			nextUrl = PATH + "?page=" + page + "&size=" + size;
 		}		
 		return new ListResult<Revision<Article>>(revList, nextUrl);
 	}	

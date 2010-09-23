@@ -12,7 +12,7 @@
 			<column name="resource" not-null="true" />
 		</many-to-one>
 		<many-to-one name="article" class="oop.data.Article"
-			fetch="join" access="field">
+			fetch="join" access="field" cascade="all">
 			<column name="article" not-null="true" />
 		</many-to-one>
 		<many-to-one name="author" class="oop.data.User" fetch="join"

@@ -7,7 +7,7 @@
 	   <input type="checkbox" name="cl_topics" value="${topic.id}">
 	</c:if>
 	<c:if test="${sessionScope.login && sessionScope.user.group == 'teacher'}">
-	   <i><a href="${scriptPath}?action=topic.edit&ce_id=${topic.id}"><img src="${templatePath}/images/edit.png" alt="edit" title="edit" width="12" height="12" /></a></i>
+	   <i><a href="${scriptPath}?action=topic.edit&id=${topic.id}"><img src="${templatePath}/images/edit.png" alt="edit" title="edit" width="12" height="12" /></a></i>
 	</c:if>
     <a href="${scriptPath}?action=question.list&topic=${topic.id}">${topic.name}</a>
 </li>

@@ -11,50 +11,60 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import oop.controller.rest.bean.MapperUtils;
+import oop.controller.rest.bean.ResourceBean;
+import oop.controller.rest.bean.ResourceMapper;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Article;
 import oop.data.Resource;
 import oop.db.dao.ResourceDAO;
 
-
-
-@Path("/resource")
+@Path(ResourceService.PATH)
 public class ResourceService extends AbstractResource{
-
+	
+	public static final String PATH = "/resource";
 	
 	@GET
 	@Path("/{id: \\d+}")
-	public ObjectResult<Resource<Article>> get(@PathParam("id") long id) {
+	public ObjectResult<ResourceBean> get(@PathParam("id") long id) {
 		Resource<Article> resource = ResourceDAO.fetchById(id);
 		assertResourceFound(resource);
-		return new ObjectResult<Resource<Article>>(resource);
+		return new ObjectResult<ResourceBean>(ResourceMapper.get().apply(
+				resource));
 	}
 	
 	@GET
-	@Path("/namespace/{namespaceID: \\d+}")
-	public ListResult<Resource<Article>> resourceList(
-			@PathParam("namespaceID") long namespaceID, 
-			@DefaultValue("1") @QueryParam("page") int page,
-			@DefaultValue("30") @QueryParam("size") int size){
+	@Path("/namespace/{namespaceId: \\d+}")
+	public ListResult<ResourceBean> resourceList(
+			@PathParam("namespaceId") long namespaceID, 
+			@DefaultValue("0") @QueryParam("start") int start,
+			@DefaultValue("10") @QueryParam("size") int size){
 		assertParamValid(size <= MAX_PAGE_SIZE, "size", "too large");
-		List<Resource<Article>> resList = ResourceDAO.fetchByNamespace(namespaceID,(page-1)*size, size);
+		List<Resource<Article>> resList = ResourceDAO.fetchByNamespace(
+				namespaceID, start, size);
 		String nextUrl = null;
 		if (resList.size() >= size) {
-			nextUrl = "/page=" + page + "&size=" + size;
-		}		
-		return new ListResult<Resource<Article>>(resList, nextUrl);
+			nextUrl = PATH + "/namespace/" + namespaceID + "?start="
+					+ (start + size) + "&size=" + size;
+		}
+		List<ResourceBean> beans = MapperUtils.applyAll(resList, ResourceMapper
+				.get());
+		return new ListResult<ResourceBean>(beans, nextUrl);
 	}
 	
 	@POST
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ObjectResult<Resource<Article>> update(@PathParam("id") long id, Resource<Article> data){
+	public <T extends Article> ObjectResult<ResourceBean> update(
+			@PathParam("id") long id, ResourceBean data) {
 		Resource<Article> resource = ResourceDAO.fetchById(id);
-		this.assertResourceFound(resource);
+		assertResourceFound(resource);
+		assertVersion(resource, data);
 		resource.setAccessibility(data.getAccessibility());
 		resource.setStatus(data.getStatus());
-		ResourceDAO.persist(resource); 
-		return new ObjectResult<Resource<Article>>(resource);
+		ResourceDAO.persist(resource);
+		return new ObjectResult<ResourceBean>(ResourceMapper.get().apply(
+				resource));
 	}
 }

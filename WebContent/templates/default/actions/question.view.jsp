@@ -90,6 +90,7 @@ function checkanswer() {
 
 <p>
 	<button onclick="checkanswer()">Trả lời</button>
+	<button onclick="location.href='${scriptPath}?action=solution.create&id=${action.resource.id}'">Tạo bài giải</button>
 </p>
 
 <ocw:actionLink name="revision.list">

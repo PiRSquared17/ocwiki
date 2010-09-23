@@ -8,7 +8,6 @@ import oop.util.Copiable;
 @XmlRootElement
 public class Answer implements Entity, Copiable<Answer> {
 
-	@XmlElement
 	private long id;
 	private Text content;
 	private boolean correct;
@@ -22,10 +21,15 @@ public class Answer implements Entity, Copiable<Answer> {
 		this.content = content;
 	}
 
+	@XmlElement
 	public long getId() {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public Text getContent() {
 		return content;
 	}

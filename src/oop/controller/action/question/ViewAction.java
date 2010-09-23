@@ -3,13 +3,11 @@ package oop.controller.action.question;
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.BaseQuestion;
-import oop.data.Resource;
 import oop.db.dao.BaseQuestionDAO;
 
-public class ViewAction extends AbstractAction {
+public class ViewAction extends AbstractAction<BaseQuestion> {
 	
 	private BaseQuestion question;
-	private Resource<BaseQuestion> resource;
 
 	@Override
 	public void performImpl() throws Exception {
@@ -28,10 +26,6 @@ public class ViewAction extends AbstractAction {
 	
 	public BaseQuestion getQuestion() {
 		return question;
-	}
-	
-	public Resource<BaseQuestion> getResource() {
-		return resource;
 	}
 	
 }

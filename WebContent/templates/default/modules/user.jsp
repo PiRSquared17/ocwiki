@@ -10,7 +10,7 @@
     <li><ocw:actionLink name="question.create">Tạo câu hỏi mới</ocw:actionLink></li>
     <li><ocw:actionLink name="test.create">Tạo đề mới</ocw:actionLink></li>
     <li><ocw:actionLink name="teststruct.create">Tạo cấu trúc đề mới</ocw:actionLink></li>
-    <li><ocw:actionLink name="testtopic.list">Chủ đề đề thi</ocw:actionLink></li>
+    <li><ocw:actionLink name="topic.list">Chủ đề đề thi</ocw:actionLink></li>
     <li><ocw:actionLink name="topic.list">Chủ đề câu hỏi</ocw:actionLink></li>
 </ul>
     

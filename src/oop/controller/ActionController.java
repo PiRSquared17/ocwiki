@@ -50,6 +50,9 @@ public class ActionController extends HttpServlet {
 
 	protected void process(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		
 		// set variables
 		String template = StringUtils.defaultIfEmpty((String) request
 				.getSession().getAttribute("template"), "default");
@@ -144,7 +147,7 @@ public class ActionController extends HttpServlet {
 		request.getRequestDispatcher(uri).forward(request, response);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked" })
 	private Map<String, List<Module>> getModules(HttpServletRequest request,
 			final Action action) {
 		final User user = SessionUtils.getUser(request.getSession());
@@ -168,10 +171,18 @@ public class ActionController extends HttpServlet {
 									user.getGroup()))) {
 						continue;
 					}
-					if (descriptor.getArticleType() != null
-							&& !descriptor.getArticleType().isAssignableFrom(
+					if (descriptor.getArticleType() != null) {
+						boolean found = false;
+						for (Class<?> type : descriptor.getArticleType()) {
+							if (type.isAssignableFrom(
 									action.getResource().getType())) {
-						continue;
+								found = true;
+								break;
+							}
+						}
+						if (!found) {
+							continue;
+						}
 					}
 					try {
 						Module module = descriptor.createModule();
