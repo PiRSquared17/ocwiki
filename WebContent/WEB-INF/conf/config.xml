@@ -491,6 +491,12 @@
         <articleType>oop.data.TextArticle</articleType>
         <articleType>oop.data.Test</articleType>
     </module>
+    <module>
+        <name>create-article</name>
+        <title>Tạo bài viết</title>
+        <position>top_right</position>
+        <order>2</order>
+    </module>
     <!-- 
     <module>
        <name>login</name>

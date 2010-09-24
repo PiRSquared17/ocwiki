@@ -18,11 +18,10 @@ import oop.data.Answer;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.data.ResourceSearchReport;
+import oop.data.Status;
 import oop.data.Text;
-import oop.data.User;
 import oop.db.dao.ArticleDAO;
 import oop.db.dao.ResourceDAO;
-import oop.util.SessionUtils;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -35,8 +34,7 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 			throws Exception {
 		validate(bean); 
 		BaseQuestion question = BaseQuestionMapper.get().get(bean);
-		User user = SessionUtils.getUser(getSession());
-		ResourceDAO.create(user, BaseQuestion.class, question);
+		ResourceDAO.create(getUserNullSafe(), BaseQuestion.class, question);
 		bean = BaseQuestionMapper.get().apply(question);
 		return new ObjectResult<BaseQuestionBean>(bean);
 	}
@@ -55,7 +53,9 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 			RevisionBean<BaseQuestionBean> data) throws Exception {
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
-		validate(data.getArticle());
+		if (resource.getStatus() != Status.NEW) {
+			validate(data.getArticle());
+		}
 		WebServiceUtils.assertValid(resource.getArticle().getId() == data
 				.getArticle().getId(), "old version");
 
