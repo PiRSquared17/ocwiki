@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 24, 2010 9:04:39 AM by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="oop.data.ResourceReport" table="ResourceReportWithUser" 
+           entity-name="ResourceReportWithUser" mutable="false">
+        <composite-id>
+            <key-many-to-one  name="resource" class="oop.data.Resource">
+                <column name="RESOURCE" />
+            </key-many-to-one>
+            <key-many-to-one name="user" class="oop.data.User">
+                <column name="USER" />
+            </key-many-to-one>
+        </composite-id>
+        <property name="likeCount" type="int">
+            <column name="LIKECOUNT" />
+        </property>
+        <property name="averageLevel" type="double">
+            <column name="LEVEL" />
+        </property>
+        <property name="level" type="int">
+            <column name="LEVEL" />
+        </property>
+        <property name="like">
+            <column name="LIKE" />
+            <type name="org.hibernate.type.EnumType">
+                <param name="type">12</param>
+                <param name="enumClass">oop.data.ResourceLike</param>
+            </type>
+        </property>
+        <property name="todo">
+            <column name="TODO" />
+            <type name="org.hibernate.type.EnumType">
+                <param name="type">12</param>
+                <param name="enumClass">oop.data.ResourceTodo</param>
+            </type>
+        </property>
+    </class>
+    <class name="oop.data.ResourceReport" table="ResourceReportWithoutUser" 
+            entity-name="ResourceReportWithoutUser" mutable="false">
+        <composite-id>
+            <key-many-to-one  name="resource" class="oop.data.Resource">
+                <column name="RESOURCE" />
+            </key-many-to-one>
+        </composite-id>
+        <many-to-one name="user" class="oop.data.User">
+            <formula>NULL</formula>
+        </many-to-one>
+        <property name="likeCount" type="int">
+            <column name="LIKECOUNT" />
+        </property>
+        <property name="averageLevel" type="double">
+            <column name="LEVEL" />
+        </property>
+        <property name="level" type="int">
+            <formula>0</formula>
+        </property>
+        <property name="like">
+            <formula>'NORMAL'</formula>
+            <type name="org.hibernate.type.EnumType">
+                <param name="type">12</param>
+                <param name="enumClass">oop.data.ResourceLike</param>
+            </type>
+        </property>
+        <property name="todo">
+            <formula>'NORMAL'</formula>
+            <type name="org.hibernate.type.EnumType">
+                <param name="type">12</param>
+                <param name="enumClass">oop.data.ResourceTodo</param>
+            </type>
+        </property>
+    </class>
+</hibernate-mapping>
