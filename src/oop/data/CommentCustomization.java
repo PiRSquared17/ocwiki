@@ -3,15 +3,15 @@ package oop.data;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class CommentCustomization implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@XmlElement
 	private User user;
-	@XmlTransient
 	private Comment comment;
 	private CommentStatus status;
 
@@ -42,8 +42,13 @@ public class CommentCustomization implements Serializable {
 		return user;
 	}
 
+	@XmlElement
 	public Comment getComment() {
 		return comment;
+	}
+	
+	public void setComment(Comment comment) {
+		this.comment = comment;
 	}
 
 	@Override
