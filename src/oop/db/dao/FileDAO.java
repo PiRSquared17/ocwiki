@@ -13,12 +13,12 @@ public class FileDAO {
 		return (File) session.get(File.class, id);
 	}
 	
-	public static void persist(File file) {
+	public static void persist(File uploadedFile) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.saveOrUpdate(file);
+			session.saveOrUpdate(uploadedFile);
 			tx.commit();
 		} catch (HibernateException ex) {
 			if (tx != null) {
