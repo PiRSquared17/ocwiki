@@ -2,6 +2,10 @@ package oop.test.rest;
 
 import java.io.IOException;
 
+import oop.conf.Config;
+import oop.test.rest.servletunit.AbstractResourceTest;
+import oop.test.rest.servletunit.JsonBodyPostWebRequest;
+
 import org.codehaus.jackson.JsonNode;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,11 +15,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-import oop.conf.Config;
-import oop.test.rest.servletunit.JsonBodyPostWebRequest;
-import oop.test.rest.servletunit.ResourceTest;
-
-public class CommentCustomizationResourceTest extends ResourceTest {
+public class CommentCustomizationResourceTest extends AbstractResourceTest {
 
 	@Test
 	public void testCreate() throws IOException, SAXException {
