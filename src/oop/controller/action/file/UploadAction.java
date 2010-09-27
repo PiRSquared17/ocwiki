@@ -18,7 +18,7 @@ public class UploadAction extends AbstractAction {
 
 	private static final String TEMP_DIR = System.getProperty("java.io.tmpdir");
 	private File tempDir;
-	private static final String DEST_DIR = "/uploads";
+	private static final String DEST_DIR = "/file";
 	private File destDir;
 
 	@Override
