@@ -2,8 +2,8 @@ package oop.module.topic;
 
 import java.util.List;
 
-import oop.data.Test;
 import oop.data.Resource;
+import oop.data.Test;
 import oop.db.dao.TestDAO;
 import oop.module.DefaultModule;
 

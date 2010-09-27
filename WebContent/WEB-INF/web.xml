@@ -37,18 +37,8 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ArticleController</display-name>
-    <servlet-name>ArticleController</servlet-name>
-    <servlet-class>oop.controller.ArticleController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ArticleController</servlet-name>
-    <url-pattern>/article/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <servlet-name>REST Service</servlet-name>
-    <servlet-class>oop.controller.RestController</servlet-class>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
     <init-param>
       <param-name>com.sun.jersey.config.property.packages</param-name>
       <param-value>oop.controller.rest</param-value>
@@ -60,12 +50,12 @@
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
   <filter>
-    <display-name>PrototypeMethodFilter</display-name>
-    <filter-name>PrototypeMethodFilter</filter-name>
-    <filter-class>oop.controller.PrototypeMethodFilter</filter-class>
+    <display-name>rest-filter</display-name>
+    <filter-name>rest-filter</filter-name>
+    <filter-class>oop.filter.RestFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>PrototypeMethodFilter</filter-name>
+    <filter-name>rest-filter</filter-name>
     <url-pattern>/rest/*</url-pattern>
   </filter-mapping>
   <servlet>
@@ -78,4 +68,13 @@
     <servlet-name>SetupServlet</servlet-name>
     <url-pattern>/setup</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>url-rewrite</display-name>
+    <filter-name>url-rewrite</filter-name>
+    <filter-class>oop.filter.UrlRewritingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>url-rewrite</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

@@ -1,13 +1,13 @@
 package oop.controller.action.teststruct;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.data.TestStructure;
 import oop.db.dao.TestStructureDAO;
 import oop.db.dao.TextDAO;
 
 import org.hibernate.exception.ConstraintViolationException;
 
-public class EditAction extends AbstractAction<TestStructure> {
+public class EditAction extends AbstractResourceAction<TestStructure> {
 
 	protected TestStructure testStructure;
 

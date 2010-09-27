@@ -9,7 +9,7 @@
 		<br>
 	</c:when>
 	<c:otherwise>
-		<img src="${homeDir}/images/avatar/${user.avatar}" width="100"
+		<img src="${config.uploadPath}/avatar/${user.avatar}" width="100"
 			height="100" />
 		<br>
 	</c:otherwise>

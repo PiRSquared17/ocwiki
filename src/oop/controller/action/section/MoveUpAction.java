@@ -1,11 +1,11 @@
 package oop.controller.action.section;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.data.Section;
 import oop.data.Test;
 import oop.db.dao.ResourceDAO;
 
-public class MoveUpAction extends AbstractAction<Test> {
+public class MoveUpAction extends AbstractResourceAction<Test> {
 	
 	private Test test;
 	

@@ -9,11 +9,10 @@ import javax.ws.rs.PathParam;
 
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
+import oop.data.Resource;
 import oop.data.ResourceSearchReport;
 import oop.data.Revision;
-import oop.data.Test;
 import oop.data.TextArticle;
-import oop.data.Resource;
 import oop.db.dao.ArticleDAO;
 import oop.db.dao.ResourceDAO;
 

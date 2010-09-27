@@ -1,12 +1,11 @@
 package oop.controller.action.teststruct;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
-import oop.data.Resource;
 import oop.data.TestStructure;
 import oop.db.dao.TestStructureDAO;
 
-public class ViewAction extends AbstractAction<TestStructure> {
+public class ViewAction extends AbstractResourceAction<TestStructure> {
 
 	private TestStructure testStruct;
 
