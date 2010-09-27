@@ -10,11 +10,10 @@ import oop.data.Revision;
 import oop.data.Resource;
 import oop.db.dao.ResourceDAO;
 
-@Path(TextResource.PATH)
-
+@Path(FileResource.PATH)
 public class FileResource extends AbstractResource{
 	
-	public static final String PATH = "/File";
+	public static final String PATH = "/file";
 	
 	@GET
 	@Path("/{id: \\d+}")
