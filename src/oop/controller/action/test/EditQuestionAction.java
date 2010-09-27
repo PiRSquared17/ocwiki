@@ -1,6 +1,6 @@
 package oop.controller.action.test;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.data.Question;
 import oop.data.Section;
 import oop.data.Test;
@@ -9,7 +9,7 @@ import oop.util.Utils;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditQuestionAction extends AbstractAction<Test> {
+public class EditQuestionAction extends AbstractResourceAction<Test> {
 
 	private Section section;
 	private Test test;

@@ -1,13 +1,13 @@
 package oop.controller.action.section;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Section;
 import oop.data.Test;
 import oop.data.Text;
 import oop.db.dao.ResourceDAO;
 
-public class CreateAction extends AbstractAction<Test> {
+public class CreateAction extends AbstractResourceAction<Test> {
 
 	private Test test;
 

@@ -1,11 +1,11 @@
 package oop.controller.action.TextArticle;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.TextArticle;
 import oop.db.dao.TextArticleDAO;
 
-public class ViewAction extends AbstractAction<TextArticle> {
+public class ViewAction extends AbstractResourceAction<TextArticle> {
 
 	private TextArticle textcontext;
 	
