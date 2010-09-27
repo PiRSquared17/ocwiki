@@ -51,6 +51,8 @@ public class HibernateUtil {
 		hconf.addClass(oop.data.Namespace.class);
 		hconf.addClass(oop.data.Revision.class);
 		hconf.addClass(oop.data.Resource.class);
+		hconf.addClass(oop.data.ResourceReport.class);
+		hconf.addClass(oop.data.ResourceCustomization.class);
 		hconf.addClass(oop.data.CategorizableArticle.class);
 		hconf.addClass(oop.data.TextArticle.class);
 		hconf.addClass(oop.data.BaseArticle.class);

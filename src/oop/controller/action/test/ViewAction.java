@@ -1,11 +1,11 @@
 package oop.controller.action.test;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Test;
 import oop.db.dao.ResourceDAO;
 
-public class ViewAction extends AbstractAction<Test> {
+public class ViewAction extends AbstractResourceAction<Test> {
 
 	private Test test;
 

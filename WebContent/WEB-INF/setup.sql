@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 16, 2010 at 12:54 AM
+-- Generation Time: Sep 24, 2010 at 10:11 AM
 -- Server version: 5.1.41
--- PHP Version: 5.3.2-1ubuntu4.2
+-- PHP Version: 5.3.2-1ubuntu4.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `ocwAnswer` (
   `correct` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK81F532C1EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1289 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1290 ;
 
 --
 -- Dumping data for table `ocwAnswer`
@@ -1004,7 +1004,8 @@ INSERT INTO `ocwAnswer` (`id`, `content`, `correct`) VALUES
 (1285, 1773, b'0'),
 (1286, 1774, b'1'),
 (1287, 1779, b'1'),
-(1288, 1782, b'1');
+(1288, 1782, b'1'),
+(1289, 1784, b'1');
 
 -- --------------------------------------------------------
 
@@ -1026,8 +1027,9 @@ CREATE TABLE IF NOT EXISTS `ocwArticle` (
   PRIMARY KEY (`id`),
   KEY `FKC38C3A537D807870` (`namespace`),
   KEY `FKC38C3A5348AB9093` (`parent`),
-  KEY `FKC38C3A53EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=584 ;
+  KEY `FKC38C3A53EA647FAC` (`content`),
+  KEY `FKC38C3A53232F5FBE` (`parent`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=585 ;
 
 --
 -- Dumping data for table `ocwArticle`
@@ -1383,7 +1385,8 @@ INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`,
 (580, 'BaseQuestion', 3, 1777, '#579', NULL, 5, NULL, NULL, NULL),
 (581, 'BaseQuestion', 3, 1778, '#580', NULL, 5, NULL, NULL, NULL),
 (582, 'BaseQuestion', 3, 1780, '#581', NULL, 5, NULL, NULL, NULL),
-(583, 'BaseQuestion', 3, 1781, '#582', NULL, 5, NULL, NULL, NULL);
+(583, 'BaseQuestion', 3, 1781, NULL, NULL, 5, NULL, NULL, NULL),
+(584, 'BaseQuestion', 3, 1783, NULL, NULL, 5, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2728,6 +2731,7 @@ INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`)
 (581, 1284, 0),
 (582, 1284, 0),
 (583, 1284, 0),
+(584, 1284, 0),
 (577, 1285, 3),
 (578, 1285, 3),
 (579, 1285, 3),
@@ -2735,7 +2739,8 @@ INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`)
 (578, 1286, 4),
 (579, 1286, 4),
 (581, 1287, 1),
-(583, 1288, 1);
+(583, 1288, 1),
+(584, 1289, 1);
 
 -- --------------------------------------------------------
 
@@ -3180,6 +3185,7 @@ CREATE TABLE IF NOT EXISTS `ocwResource` (
   `status` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
   `link` bigint(20) DEFAULT NULL,
   `accessibility` varchar(12) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT 'EVERYONE',
+  `average_level` decimal(10,2) NOT NULL DEFAULT '0.50',
   PRIMARY KEY (`id`),
   KEY `FKE2E602515DDB135C` (`author`),
   KEY `FKE2E602515EB7070E` (`link`),
@@ -3190,313 +3196,313 @@ CREATE TABLE IF NOT EXISTS `ocwResource` (
 -- Dumping data for table `ocwResource`
 --
 
-INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `author`, `status`, `link`, `accessibility`) VALUES
-(62, 0, '2010-08-25 01:15:32', 'oop.data.Test', 62, 1, 'NORMAL', NULL, 'EVERYONE'),
-(63, 2, '2010-08-25 01:15:32', 'oop.data.Test', 63, 1, 'NORMAL', NULL, 'EVERYONE'),
-(64, 0, '2010-08-25 01:15:32', 'oop.data.Test', 64, 1, 'NORMAL', NULL, 'EVERYONE'),
-(65, 0, '2010-08-25 01:15:32', 'oop.data.Test', 65, 1, 'NORMAL', NULL, 'EVERYONE'),
-(66, 0, '2010-08-25 01:15:32', 'oop.data.Test', 66, 1, 'NORMAL', NULL, 'EVERYONE'),
-(88, 7, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 583, 1, 'NORMAL', NULL, 'EVERYONE'),
-(89, 11, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 89, 1, 'NORMAL', NULL, 'AUTHOR_ONLY'),
-(90, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 90, 1, 'NORMAL', NULL, 'AUTHOR_ONLY'),
-(91, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 91, 1, 'NORMAL', NULL, 'EVERYONE'),
-(92, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 576, 1, 'NORMAL', NULL, 'EVERYONE'),
-(93, 2, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 420, 1, 'NORMAL', NULL, 'EVERYONE'),
-(94, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 94, 1, 'NORMAL', NULL, 'EVERYONE'),
-(95, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 95, 1, 'NORMAL', NULL, 'EVERYONE'),
-(96, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 96, 1, 'NORMAL', NULL, 'EVERYONE'),
-(97, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 97, 1, 'NORMAL', NULL, 'EVERYONE'),
-(98, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 98, 1, 'NORMAL', NULL, 'EVERYONE'),
-(99, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 99, 1, 'NORMAL', NULL, 'EVERYONE'),
-(100, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 100, 1, 'NORMAL', NULL, 'EVERYONE'),
-(101, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 101, 1, 'NORMAL', NULL, 'EVERYONE'),
-(102, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 102, 1, 'NORMAL', NULL, 'EVERYONE'),
-(103, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 103, 1, 'NORMAL', NULL, 'EVERYONE'),
-(104, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 104, 1, 'NORMAL', NULL, 'EVERYONE'),
-(105, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 105, 1, 'NORMAL', NULL, 'EVERYONE'),
-(106, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 106, 1, 'NORMAL', NULL, 'EVERYONE'),
-(107, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 107, 1, 'NORMAL', NULL, 'EVERYONE'),
-(108, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 108, 1, 'NORMAL', NULL, 'EVERYONE'),
-(109, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 109, 1, 'NORMAL', NULL, 'EVERYONE'),
-(110, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 110, 1, 'NORMAL', NULL, 'EVERYONE'),
-(111, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 111, 1, 'NORMAL', NULL, 'EVERYONE'),
-(112, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 112, 1, 'NORMAL', NULL, 'EVERYONE'),
-(113, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 113, 1, 'NORMAL', NULL, 'EVERYONE'),
-(114, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 114, 1, 'NORMAL', NULL, 'EVERYONE'),
-(115, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 115, 1, 'NORMAL', NULL, 'EVERYONE'),
-(116, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 116, 1, 'NORMAL', NULL, 'EVERYONE'),
-(117, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 117, 1, 'NORMAL', NULL, 'EVERYONE'),
-(118, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 118, 1, 'NORMAL', NULL, 'EVERYONE'),
-(119, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 119, 1, 'NORMAL', NULL, 'EVERYONE'),
-(120, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 120, 1, 'NORMAL', NULL, 'EVERYONE'),
-(121, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 121, 1, 'NORMAL', NULL, 'EVERYONE'),
-(122, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 122, 1, 'NORMAL', NULL, 'EVERYONE'),
-(123, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 123, 1, 'NORMAL', NULL, 'EVERYONE'),
-(124, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 124, 1, 'NORMAL', NULL, 'EVERYONE'),
-(125, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 125, 1, 'NORMAL', NULL, 'EVERYONE'),
-(126, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 126, 1, 'NORMAL', NULL, 'EVERYONE'),
-(127, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 127, 1, 'NORMAL', NULL, 'EVERYONE'),
-(128, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 128, 1, 'NORMAL', NULL, 'EVERYONE'),
-(129, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 129, 1, 'NORMAL', NULL, 'EVERYONE'),
-(130, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 130, 1, 'NORMAL', NULL, 'EVERYONE'),
-(131, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 131, 1, 'NORMAL', NULL, 'EVERYONE'),
-(132, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 132, 1, 'NORMAL', NULL, 'EVERYONE'),
-(133, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 133, 1, 'NORMAL', NULL, 'EVERYONE'),
-(134, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 134, 1, 'NORMAL', NULL, 'EVERYONE'),
-(135, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 135, 1, 'NORMAL', NULL, 'EVERYONE'),
-(136, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 136, 1, 'NORMAL', NULL, 'EVERYONE'),
-(137, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 137, 1, 'NORMAL', NULL, 'EVERYONE'),
-(138, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 138, 1, 'NORMAL', NULL, 'EVERYONE'),
-(139, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 139, 1, 'NORMAL', NULL, 'EVERYONE'),
-(140, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 140, 1, 'NORMAL', NULL, 'EVERYONE'),
-(141, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 141, 1, 'NORMAL', NULL, 'EVERYONE'),
-(142, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 142, 1, 'NORMAL', NULL, 'EVERYONE'),
-(143, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 143, 1, 'NORMAL', NULL, 'EVERYONE'),
-(144, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 144, 1, 'NORMAL', NULL, 'EVERYONE'),
-(145, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 145, 1, 'NORMAL', NULL, 'EVERYONE'),
-(146, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 146, 1, 'NORMAL', NULL, 'EVERYONE'),
-(147, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 147, 1, 'NORMAL', NULL, 'EVERYONE'),
-(148, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 148, 1, 'NORMAL', NULL, 'EVERYONE'),
-(149, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 149, 1, 'NORMAL', NULL, 'EVERYONE'),
-(150, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 150, 1, 'NORMAL', NULL, 'EVERYONE'),
-(151, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 151, 1, 'NORMAL', NULL, 'EVERYONE'),
-(152, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 152, 1, 'NORMAL', NULL, 'EVERYONE'),
-(153, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 153, 1, 'NORMAL', NULL, 'EVERYONE'),
-(154, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 154, 1, 'NORMAL', NULL, 'EVERYONE'),
-(155, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 155, 1, 'NORMAL', NULL, 'EVERYONE'),
-(156, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 156, 1, 'NORMAL', NULL, 'EVERYONE'),
-(157, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 157, 1, 'NORMAL', NULL, 'EVERYONE'),
-(158, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 158, 1, 'NORMAL', NULL, 'EVERYONE'),
-(159, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 159, 1, 'NORMAL', NULL, 'EVERYONE'),
-(160, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 160, 1, 'NORMAL', NULL, 'EVERYONE'),
-(161, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 161, 1, 'NORMAL', NULL, 'EVERYONE'),
-(162, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 162, 1, 'NORMAL', NULL, 'EVERYONE'),
-(163, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 163, 1, 'NORMAL', NULL, 'EVERYONE'),
-(164, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 164, 1, 'NORMAL', NULL, 'EVERYONE'),
-(165, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 165, 1, 'NORMAL', NULL, 'EVERYONE'),
-(166, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 166, 1, 'NORMAL', NULL, 'EVERYONE'),
-(167, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 167, 1, 'NORMAL', NULL, 'EVERYONE'),
-(168, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 168, 1, 'NORMAL', NULL, 'EVERYONE'),
-(169, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 169, 1, 'NORMAL', NULL, 'EVERYONE'),
-(170, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 170, 1, 'NORMAL', NULL, 'EVERYONE'),
-(171, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 171, 1, 'NORMAL', NULL, 'EVERYONE'),
-(172, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 172, 1, 'NORMAL', NULL, 'EVERYONE'),
-(173, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 173, 1, 'NORMAL', NULL, 'EVERYONE'),
-(174, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 174, 1, 'NORMAL', NULL, 'EVERYONE'),
-(175, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 175, 1, 'NORMAL', NULL, 'EVERYONE'),
-(176, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 176, 1, 'NORMAL', NULL, 'EVERYONE'),
-(177, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 177, 1, 'NORMAL', NULL, 'EVERYONE'),
-(178, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 178, 1, 'NORMAL', NULL, 'EVERYONE'),
-(179, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 179, 1, 'NORMAL', NULL, 'EVERYONE'),
-(180, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 180, 1, 'NORMAL', NULL, 'EVERYONE'),
-(181, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 181, 1, 'NORMAL', NULL, 'EVERYONE'),
-(182, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 182, 1, 'NORMAL', NULL, 'EVERYONE'),
-(183, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 183, 1, 'NORMAL', NULL, 'EVERYONE'),
-(184, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 184, 1, 'NORMAL', NULL, 'EVERYONE'),
-(185, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 185, 1, 'NORMAL', NULL, 'EVERYONE'),
-(186, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 186, 1, 'NORMAL', NULL, 'EVERYONE'),
-(187, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 187, 1, 'NORMAL', NULL, 'EVERYONE'),
-(188, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 188, 1, 'NORMAL', NULL, 'EVERYONE'),
-(189, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 189, 1, 'NORMAL', NULL, 'EVERYONE'),
-(190, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 190, 1, 'NORMAL', NULL, 'EVERYONE'),
-(191, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 191, 1, 'NORMAL', NULL, 'EVERYONE'),
-(192, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 192, 1, 'NORMAL', NULL, 'EVERYONE'),
-(193, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 193, 1, 'NORMAL', NULL, 'EVERYONE'),
-(194, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 194, 1, 'NORMAL', NULL, 'EVERYONE'),
-(195, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 195, 1, 'NORMAL', NULL, 'EVERYONE'),
-(196, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 196, 1, 'NORMAL', NULL, 'EVERYONE'),
-(197, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 197, 1, 'NORMAL', NULL, 'EVERYONE'),
-(198, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 198, 1, 'NORMAL', NULL, 'EVERYONE'),
-(199, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 199, 1, 'NORMAL', NULL, 'EVERYONE'),
-(200, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 200, 1, 'NORMAL', NULL, 'EVERYONE'),
-(201, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 201, 1, 'NORMAL', NULL, 'EVERYONE'),
-(202, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 202, 1, 'NORMAL', NULL, 'EVERYONE'),
-(203, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 203, 1, 'NORMAL', NULL, 'EVERYONE'),
-(204, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 204, 1, 'NORMAL', NULL, 'EVERYONE'),
-(205, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 205, 1, 'NORMAL', NULL, 'EVERYONE'),
-(206, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 206, 1, 'NORMAL', NULL, 'EVERYONE'),
-(207, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 207, 1, 'NORMAL', NULL, 'EVERYONE'),
-(208, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 208, 1, 'NORMAL', NULL, 'EVERYONE'),
-(209, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 209, 1, 'NORMAL', NULL, 'EVERYONE'),
-(210, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 210, 1, 'NORMAL', NULL, 'EVERYONE'),
-(211, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 211, 1, 'NORMAL', NULL, 'EVERYONE'),
-(212, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 212, 1, 'NORMAL', NULL, 'EVERYONE'),
-(213, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 213, 1, 'NORMAL', NULL, 'EVERYONE'),
-(214, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 214, 1, 'NORMAL', NULL, 'EVERYONE'),
-(215, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 215, 1, 'NORMAL', NULL, 'EVERYONE'),
-(216, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 216, 1, 'NORMAL', NULL, 'EVERYONE'),
-(217, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 217, 1, 'NORMAL', NULL, 'EVERYONE'),
-(218, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 218, 1, 'NORMAL', NULL, 'EVERYONE'),
-(219, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 219, 1, 'NORMAL', NULL, 'EVERYONE'),
-(220, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 220, 1, 'NORMAL', NULL, 'EVERYONE'),
-(221, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 221, 1, 'NORMAL', NULL, 'EVERYONE'),
-(222, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 222, 1, 'NORMAL', NULL, 'EVERYONE'),
-(223, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 223, 1, 'NORMAL', NULL, 'EVERYONE'),
-(224, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 224, 1, 'NORMAL', NULL, 'EVERYONE'),
-(225, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 225, 1, 'NORMAL', NULL, 'EVERYONE'),
-(226, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 226, 1, 'NORMAL', NULL, 'EVERYONE'),
-(227, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 227, 1, 'NORMAL', NULL, 'EVERYONE'),
-(228, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 228, 1, 'NORMAL', NULL, 'EVERYONE'),
-(229, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 229, 1, 'NORMAL', NULL, 'EVERYONE'),
-(230, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 230, 1, 'NORMAL', NULL, 'EVERYONE'),
-(231, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 231, 1, 'NORMAL', NULL, 'EVERYONE'),
-(232, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 232, 1, 'NORMAL', NULL, 'EVERYONE'),
-(233, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 233, 1, 'NORMAL', NULL, 'EVERYONE'),
-(234, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 234, 1, 'NORMAL', NULL, 'EVERYONE'),
-(235, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 235, 1, 'NORMAL', NULL, 'EVERYONE'),
-(236, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 236, 1, 'NORMAL', NULL, 'EVERYONE'),
-(237, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 237, 1, 'NORMAL', NULL, 'EVERYONE'),
-(238, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 238, 1, 'NORMAL', NULL, 'EVERYONE'),
-(239, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 239, 1, 'NORMAL', NULL, 'EVERYONE'),
-(240, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 240, 1, 'NORMAL', NULL, 'EVERYONE'),
-(241, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 241, 1, 'NORMAL', NULL, 'EVERYONE'),
-(242, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 242, 1, 'NORMAL', NULL, 'EVERYONE'),
-(243, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 243, 1, 'NORMAL', NULL, 'EVERYONE'),
-(244, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 244, 1, 'NORMAL', NULL, 'EVERYONE'),
-(245, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 245, 1, 'NORMAL', NULL, 'EVERYONE'),
-(246, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 246, 1, 'NORMAL', NULL, 'EVERYONE'),
-(247, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 247, 1, 'NORMAL', NULL, 'EVERYONE'),
-(339, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 339, 1, 'NORMAL', NULL, 'EVERYONE'),
-(340, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 340, 1, 'NORMAL', NULL, 'EVERYONE'),
-(341, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 341, 1, 'NORMAL', NULL, 'EVERYONE'),
-(342, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 342, 1, 'NORMAL', NULL, 'EVERYONE'),
-(343, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 343, 1, 'NORMAL', NULL, 'EVERYONE'),
-(344, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 344, 1, 'NORMAL', NULL, 'EVERYONE'),
-(345, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 345, 1, 'NORMAL', NULL, 'EVERYONE'),
-(346, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 346, 1, 'NORMAL', NULL, 'EVERYONE'),
-(347, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 347, 1, 'NORMAL', NULL, 'EVERYONE'),
-(348, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 348, 1, 'NORMAL', NULL, 'EVERYONE'),
-(349, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 349, 1, 'NORMAL', NULL, 'EVERYONE'),
-(350, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 350, 1, 'NORMAL', NULL, 'EVERYONE'),
-(351, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 351, 1, 'NORMAL', NULL, 'EVERYONE'),
-(352, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 352, 1, 'NORMAL', NULL, 'EVERYONE'),
-(353, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 353, 1, 'NORMAL', NULL, 'EVERYONE'),
-(354, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 354, 1, 'NORMAL', NULL, 'EVERYONE'),
-(355, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 355, 1, 'NORMAL', NULL, 'EVERYONE'),
-(356, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 356, 1, 'NORMAL', NULL, 'EVERYONE'),
-(357, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 357, 1, 'NORMAL', NULL, 'EVERYONE'),
-(358, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 358, 1, 'NORMAL', NULL, 'EVERYONE'),
-(359, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 359, 1, 'NORMAL', NULL, 'EVERYONE'),
-(360, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 360, 1, 'NORMAL', NULL, 'EVERYONE'),
-(361, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 361, 1, 'NORMAL', NULL, 'EVERYONE'),
-(362, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 362, 1, 'NORMAL', NULL, 'EVERYONE'),
-(363, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 363, 1, 'NORMAL', NULL, 'EVERYONE'),
-(364, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 364, 1, 'NORMAL', NULL, 'EVERYONE'),
-(365, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 365, 1, 'NORMAL', NULL, 'EVERYONE'),
-(366, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 366, 1, 'NORMAL', NULL, 'EVERYONE'),
-(367, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 367, 1, 'NORMAL', NULL, 'EVERYONE'),
-(368, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 368, 1, 'NORMAL', NULL, 'EVERYONE'),
-(369, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 369, 1, 'NORMAL', NULL, 'EVERYONE'),
-(370, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 370, 1, 'NORMAL', NULL, 'EVERYONE'),
-(371, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 371, 1, 'NORMAL', NULL, 'EVERYONE'),
-(372, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 372, 1, 'NORMAL', NULL, 'EVERYONE'),
-(373, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 373, 1, 'NORMAL', NULL, 'EVERYONE'),
-(374, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 374, 1, 'NORMAL', NULL, 'EVERYONE'),
-(375, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 375, 1, 'NORMAL', NULL, 'EVERYONE'),
-(376, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 376, 1, 'NORMAL', NULL, 'EVERYONE'),
-(377, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 377, 1, 'NORMAL', NULL, 'EVERYONE'),
-(378, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 378, 1, 'NORMAL', NULL, 'EVERYONE'),
-(379, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 379, 1, 'NORMAL', NULL, 'EVERYONE'),
-(380, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 380, 1, 'NORMAL', NULL, 'EVERYONE'),
-(381, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 381, 1, 'NORMAL', NULL, 'EVERYONE'),
-(382, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 382, 1, 'NORMAL', NULL, 'EVERYONE'),
-(383, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 383, 1, 'NORMAL', NULL, 'EVERYONE'),
-(384, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 384, 1, 'NORMAL', NULL, 'EVERYONE'),
-(385, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 385, 1, 'NORMAL', NULL, 'EVERYONE'),
-(386, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 386, 1, 'NORMAL', NULL, 'EVERYONE'),
-(387, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 387, 1, 'NORMAL', NULL, 'EVERYONE'),
-(388, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 388, 1, 'NORMAL', NULL, 'EVERYONE'),
-(389, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 389, 1, 'NORMAL', NULL, 'EVERYONE'),
-(390, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 390, 1, 'NORMAL', NULL, 'EVERYONE'),
-(391, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 391, 1, 'NORMAL', NULL, 'EVERYONE'),
-(392, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 392, 1, 'NORMAL', NULL, 'EVERYONE'),
-(393, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 393, 1, 'NORMAL', NULL, 'EVERYONE'),
-(394, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 394, 1, 'NORMAL', NULL, 'EVERYONE'),
-(395, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 395, 1, 'NORMAL', NULL, 'EVERYONE'),
-(396, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 396, 1, 'NORMAL', NULL, 'EVERYONE'),
-(397, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 397, 1, 'NORMAL', NULL, 'EVERYONE'),
-(398, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 398, 1, 'NORMAL', NULL, 'EVERYONE'),
-(399, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 399, 1, 'NORMAL', NULL, 'EVERYONE'),
-(400, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 400, 1, 'NORMAL', NULL, 'EVERYONE'),
-(401, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 401, 1, 'NORMAL', NULL, 'EVERYONE'),
-(402, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 402, 1, 'NORMAL', NULL, 'EVERYONE'),
-(403, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 403, 1, 'NORMAL', NULL, 'EVERYONE'),
-(404, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 404, 1, 'NORMAL', NULL, 'EVERYONE'),
-(405, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 405, 1, 'NORMAL', NULL, 'EVERYONE'),
-(406, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 406, 1, 'NORMAL', NULL, 'EVERYONE'),
-(407, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 407, 1, 'NORMAL', NULL, 'EVERYONE'),
-(408, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 408, 1, 'NORMAL', NULL, 'EVERYONE'),
-(409, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 409, 1, 'NORMAL', NULL, 'EVERYONE'),
-(410, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 410, 1, 'NORMAL', NULL, 'EVERYONE'),
-(411, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 411, 1, 'NORMAL', NULL, 'EVERYONE'),
-(412, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 412, 1, 'NORMAL', NULL, 'EVERYONE'),
-(413, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 413, 1, 'NORMAL', NULL, 'EVERYONE'),
-(414, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 414, 1, 'NORMAL', NULL, 'EVERYONE'),
-(415, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 415, 1, 'NORMAL', NULL, 'EVERYONE'),
-(416, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 416, 1, 'NORMAL', NULL, 'EVERYONE'),
-(417, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 417, 1, 'NORMAL', NULL, 'EVERYONE'),
-(418, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 418, 1, 'NORMAL', NULL, 'EVERYONE'),
-(458, 0, '2010-09-12 12:51:57', 'oop.data.TextArticle', 466, 1, 'NORMAL', NULL, 'EVERYONE'),
-(461, 1, '2010-09-12 18:57:47', 'oop.data.Topic', 512, 1, 'NORMAL', NULL, 'EVERYONE'),
-(462, 4, '2010-09-12 18:57:58', 'oop.data.Topic', 524, 1, 'NORMAL', NULL, 'EVERYONE'),
-(463, 0, '2010-09-12 18:58:29', 'oop.data.Topic', 477, 1, 'NORMAL', NULL, 'EVERYONE'),
-(464, 1, '2010-09-12 18:58:53', 'oop.data.Topic', 480, 1, 'NORMAL', NULL, 'EVERYONE'),
-(465, 4, '2010-09-12 18:59:08', 'oop.data.Topic', 523, 1, 'NORMAL', NULL, 'EVERYONE'),
-(466, 0, '2010-09-12 19:02:18', 'oop.data.Topic', 481, 1, 'NORMAL', NULL, 'EVERYONE'),
-(467, 0, '2010-09-12 19:02:32', 'oop.data.Topic', 482, 1, 'NORMAL', NULL, 'EVERYONE'),
-(468, 0, '2010-09-12 19:02:41', 'oop.data.Topic', 483, 1, 'NORMAL', NULL, 'EVERYONE'),
-(469, 0, '2010-09-12 19:02:50', 'oop.data.Topic', 484, 1, 'NORMAL', NULL, 'EVERYONE'),
-(470, 0, '2010-09-12 19:03:02', 'oop.data.Topic', 485, 1, 'NORMAL', NULL, 'EVERYONE'),
-(471, 2, '2010-09-12 19:03:14', 'oop.data.Topic', 518, 1, 'NORMAL', NULL, 'EVERYONE'),
-(472, 1, '2010-09-12 19:03:26', 'oop.data.Topic', 513, 1, 'NORMAL', NULL, 'EVERYONE'),
-(473, 0, '2010-09-12 19:03:38', 'oop.data.Topic', 488, 1, 'NORMAL', NULL, 'EVERYONE'),
-(474, 0, '2010-09-12 19:03:56', 'oop.data.Topic', 489, 1, 'NORMAL', NULL, 'EVERYONE'),
-(475, 0, '2010-09-12 19:04:08', 'oop.data.Topic', 490, 1, 'NORMAL', NULL, 'EVERYONE'),
-(476, 0, '2010-09-12 19:04:15', 'oop.data.Topic', 491, 1, 'NORMAL', NULL, 'EVERYONE'),
-(477, 1, '2010-09-12 19:04:23', 'oop.data.Topic', 500, 1, 'NORMAL', NULL, 'EVERYONE'),
-(478, 0, '2010-09-12 19:04:35', 'oop.data.Topic', 493, 1, 'NORMAL', NULL, 'EVERYONE'),
-(479, 14, '2010-09-12 19:04:44', 'oop.data.Topic', 517, 1, 'NORMAL', NULL, 'EVERYONE'),
-(480, 0, '2010-09-13 21:21:44', 'oop.data.Topic', 525, 1, 'NORMAL', NULL, 'EVERYONE'),
-(481, 0, '2010-09-13 21:22:04', 'oop.data.Topic', 526, 1, 'NORMAL', NULL, 'EVERYONE'),
-(482, 0, '2010-09-13 21:26:57', 'oop.data.Topic', 527, 1, 'NORMAL', NULL, 'EVERYONE'),
-(483, 0, '2010-09-13 21:27:25', 'oop.data.Topic', 528, 1, 'NORMAL', NULL, 'EVERYONE'),
-(484, 0, '2010-09-13 21:27:38', 'oop.data.Topic', 529, 1, 'NORMAL', NULL, 'EVERYONE'),
-(485, 0, '2010-09-13 21:28:43', 'oop.data.Topic', 530, 1, 'NORMAL', NULL, 'EVERYONE'),
-(486, 0, '2010-09-13 21:28:57', 'oop.data.Topic', 531, 1, 'NORMAL', NULL, 'EVERYONE'),
-(487, 0, '2010-09-13 21:29:07', 'oop.data.Topic', 532, 1, 'NORMAL', NULL, 'EVERYONE'),
-(488, 0, '2010-09-13 21:29:19', 'oop.data.Topic', 533, 1, 'NORMAL', NULL, 'EVERYONE'),
-(489, 0, '2010-09-13 21:29:29', 'oop.data.Topic', 534, 1, 'NORMAL', NULL, 'EVERYONE'),
-(490, 0, '2010-09-13 21:29:45', 'oop.data.Topic', 535, 1, 'NORMAL', NULL, 'EVERYONE'),
-(491, 0, '2010-09-13 21:29:55', 'oop.data.Topic', 536, 1, 'NORMAL', NULL, 'EVERYONE'),
-(492, 0, '2010-09-13 21:30:05', 'oop.data.Topic', 537, 1, 'NORMAL', NULL, 'EVERYONE'),
-(493, 0, '2010-09-13 21:30:14', 'oop.data.Topic', 538, 1, 'NORMAL', NULL, 'EVERYONE'),
-(494, 0, '2010-09-13 21:30:53', 'oop.data.Topic', 539, 1, 'NORMAL', NULL, 'EVERYONE'),
-(495, 0, '2010-09-13 21:31:03', 'oop.data.Topic', 540, 1, 'NORMAL', NULL, 'EVERYONE'),
-(496, 0, '2010-09-13 21:31:12', 'oop.data.Topic', 541, 1, 'NORMAL', NULL, 'EVERYONE'),
-(497, 0, '2010-09-13 21:31:20', 'oop.data.Topic', 542, 1, 'NORMAL', NULL, 'EVERYONE'),
-(498, 0, '2010-09-13 21:31:27', 'oop.data.Topic', 543, 1, 'NORMAL', NULL, 'EVERYONE'),
-(499, 0, '2010-09-13 21:31:34', 'oop.data.Topic', 544, 1, 'NORMAL', NULL, 'EVERYONE'),
-(500, 1, '2010-09-13 21:31:42', 'oop.data.Topic', 548, 1, 'NORMAL', NULL, 'EVERYONE'),
-(501, 0, '2010-09-13 21:31:51', 'oop.data.Topic', 546, 1, 'NORMAL', NULL, 'EVERYONE'),
-(502, 0, '2010-09-13 21:32:00', 'oop.data.Topic', 547, 1, 'NORMAL', NULL, 'EVERYONE'),
-(503, 0, '2010-09-13 21:42:00', 'oop.data.Topic', 549, 1, 'NORMAL', NULL, 'EVERYONE'),
-(504, 0, '2010-09-13 21:42:14', 'oop.data.Topic', 550, 1, 'NORMAL', NULL, 'EVERYONE'),
-(505, 0, '2010-09-13 21:42:23', 'oop.data.Topic', 551, 1, 'NORMAL', NULL, 'EVERYONE'),
-(506, 0, '2010-09-13 21:42:31', 'oop.data.Topic', 552, 1, 'NORMAL', NULL, 'EVERYONE'),
-(507, 0, '2010-09-13 21:42:42', 'oop.data.Topic', 553, 1, 'NORMAL', NULL, 'EVERYONE'),
-(508, 0, '2010-09-13 21:42:50', 'oop.data.Topic', 554, 1, 'NORMAL', NULL, 'EVERYONE'),
-(509, 0, '2010-09-13 21:42:59', 'oop.data.Topic', 555, 1, 'NORMAL', NULL, 'EVERYONE'),
-(510, 0, '2010-09-13 21:43:07', 'oop.data.Topic', 556, 1, 'NORMAL', NULL, 'EVERYONE'),
-(511, 0, '2010-09-13 21:43:16', 'oop.data.Topic', 557, 1, 'NORMAL', NULL, 'EVERYONE'),
-(512, 1, '2010-09-13 21:43:50', 'oop.data.Topic', 563, 1, 'NORMAL', NULL, 'EVERYONE'),
-(513, 1, '2010-09-13 21:44:01', 'oop.data.Topic', 562, 1, 'NORMAL', NULL, 'EVERYONE'),
-(514, 0, '2010-09-13 21:44:23', 'oop.data.Topic', 560, 1, 'NORMAL', NULL, 'EVERYONE'),
-(515, 0, '2010-09-13 21:44:31', 'oop.data.Topic', 561, 1, 'NORMAL', NULL, 'EVERYONE'),
-(516, 0, '2010-09-13 21:48:48', 'oop.data.Topic', 564, 1, 'NORMAL', NULL, 'EVERYONE'),
-(517, 0, '2010-09-13 21:49:01', 'oop.data.Topic', 565, 1, 'NORMAL', NULL, 'EVERYONE'),
-(518, 0, '2010-09-13 21:50:09', 'oop.data.Topic', 566, 1, 'NORMAL', NULL, 'EVERYONE'),
-(519, 0, '2010-09-13 21:50:18', 'oop.data.Topic', 567, 1, 'NORMAL', NULL, 'EVERYONE'),
-(520, 0, '2010-09-13 21:51:20', 'oop.data.Topic', 568, 1, 'NORMAL', NULL, 'EVERYONE');
+INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `author`, `status`, `link`, `accessibility`, `average_level`) VALUES
+(62, 0, '2010-08-25 01:15:32', 'oop.data.Test', 62, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(63, 2, '2010-08-25 01:15:32', 'oop.data.Test', 63, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(64, 0, '2010-08-25 01:15:32', 'oop.data.Test', 64, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(65, 0, '2010-08-25 01:15:32', 'oop.data.Test', 65, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(66, 0, '2010-08-25 01:15:32', 'oop.data.Test', 66, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(88, 9, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 584, 1, 'NORMAL', NULL, 'NO_ONE', '0.50'),
+(89, 11, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 89, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
+(90, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 90, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
+(91, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 91, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(92, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 576, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(93, 2, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 420, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(94, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 94, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(95, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 95, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(96, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 96, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(97, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 97, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(98, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 98, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(99, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 99, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(100, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 100, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(101, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 101, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(102, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 102, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(103, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 103, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(104, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 104, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(105, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 105, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(106, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 106, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(107, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 107, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(108, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 108, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(109, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 109, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(110, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 110, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(111, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 111, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(112, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 112, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(113, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 113, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(114, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 114, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(115, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 115, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(116, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 116, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(117, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 117, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(118, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 118, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(119, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 119, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(120, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 120, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(121, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 121, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(122, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 122, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(123, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 123, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(124, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 124, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(125, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 125, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(126, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 126, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(127, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 127, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(128, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 128, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(129, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 129, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(130, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 130, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(131, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 131, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(132, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 132, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(133, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 133, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(134, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 134, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(135, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 135, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(136, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 136, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(137, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 137, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(138, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 138, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(139, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 139, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(140, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 140, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(141, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 141, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(142, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 142, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(143, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 143, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(144, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 144, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(145, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 145, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(146, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 146, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(147, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 147, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(148, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 148, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(149, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 149, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(150, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 150, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(151, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 151, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(152, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 152, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(153, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 153, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(154, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 154, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(155, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 155, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(156, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 156, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(157, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 157, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(158, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 158, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(159, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 159, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(160, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 160, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(161, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 161, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(162, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 162, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(163, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 163, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(164, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 164, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(165, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 165, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(166, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 166, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(167, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 167, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(168, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 168, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(169, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 169, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(170, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 170, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(171, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 171, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(172, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 172, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(173, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 173, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(174, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 174, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(175, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 175, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(176, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 176, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(177, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 177, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(178, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 178, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(179, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 179, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(180, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 180, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(181, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 181, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(182, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 182, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(183, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 183, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(184, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 184, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(185, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 185, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(186, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 186, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(187, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 187, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(188, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 188, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(189, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 189, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(190, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 190, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(191, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 191, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(192, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 192, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(193, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 193, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(194, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 194, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(195, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 195, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(196, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 196, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(197, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 197, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(198, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 198, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(199, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 199, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(200, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 200, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(201, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 201, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(202, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 202, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(203, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 203, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(204, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 204, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(205, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 205, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(206, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 206, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(207, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 207, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(208, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 208, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(209, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 209, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(210, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 210, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(211, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 211, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(212, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 212, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(213, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 213, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(214, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 214, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(215, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 215, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(216, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 216, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(217, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 217, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(218, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 218, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(219, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 219, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(220, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 220, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(221, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 221, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(222, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 222, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(223, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 223, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(224, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 224, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(225, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 225, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(226, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 226, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(227, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 227, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(228, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 228, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(229, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 229, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(230, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 230, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(231, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 231, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(232, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 232, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(233, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 233, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(234, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 234, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(235, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 235, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(236, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 236, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(237, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 237, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(238, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 238, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(239, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 239, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(240, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 240, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(241, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 241, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(242, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 242, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(243, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 243, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(244, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 244, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(245, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 245, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(246, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 246, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(247, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 247, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(339, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 339, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(340, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 340, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(341, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 341, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(342, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 342, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(343, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 343, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(344, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 344, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(345, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 345, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(346, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 346, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(347, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 347, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(348, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 348, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(349, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 349, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(350, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 350, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(351, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 351, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(352, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 352, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(353, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 353, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(354, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 354, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(355, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 355, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(356, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 356, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(357, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 357, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(358, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 358, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(359, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 359, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(360, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 360, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(361, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 361, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(362, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 362, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(363, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 363, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(364, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 364, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(365, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 365, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(366, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 366, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(367, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 367, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(368, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 368, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(369, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 369, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(370, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 370, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(371, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 371, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(372, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 372, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(373, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 373, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(374, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 374, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(375, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 375, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(376, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 376, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(377, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 377, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(378, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 378, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(379, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 379, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(380, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 380, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(381, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 381, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(382, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 382, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(383, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 383, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(384, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 384, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(385, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 385, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(386, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 386, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(387, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 387, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(388, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 388, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(389, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 389, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(390, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 390, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(391, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 391, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(392, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 392, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(393, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 393, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(394, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 394, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(395, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 395, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(396, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 396, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(397, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 397, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(398, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 398, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(399, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 399, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(400, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 400, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(401, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 401, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(402, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 402, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(403, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 403, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(404, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 404, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(405, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 405, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(406, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 406, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(407, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 407, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(408, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 408, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(409, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 409, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(410, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 410, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(411, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 411, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(412, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 412, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(413, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 413, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(414, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 414, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(415, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 415, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(416, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 416, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(417, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 417, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(418, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 418, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(458, 0, '2010-09-12 12:51:57', 'oop.data.TextArticle', 466, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(461, 1, '2010-09-12 18:57:47', 'oop.data.Topic', 512, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(462, 4, '2010-09-12 18:57:58', 'oop.data.Topic', 524, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(463, 0, '2010-09-12 18:58:29', 'oop.data.Topic', 477, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(464, 1, '2010-09-12 18:58:53', 'oop.data.Topic', 480, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(465, 4, '2010-09-12 18:59:08', 'oop.data.Topic', 523, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(466, 0, '2010-09-12 19:02:18', 'oop.data.Topic', 481, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(467, 0, '2010-09-12 19:02:32', 'oop.data.Topic', 482, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(468, 0, '2010-09-12 19:02:41', 'oop.data.Topic', 483, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(469, 0, '2010-09-12 19:02:50', 'oop.data.Topic', 484, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(470, 0, '2010-09-12 19:03:02', 'oop.data.Topic', 485, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(471, 2, '2010-09-12 19:03:14', 'oop.data.Topic', 518, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(472, 1, '2010-09-12 19:03:26', 'oop.data.Topic', 513, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(473, 0, '2010-09-12 19:03:38', 'oop.data.Topic', 488, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(474, 0, '2010-09-12 19:03:56', 'oop.data.Topic', 489, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(475, 0, '2010-09-12 19:04:08', 'oop.data.Topic', 490, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(476, 0, '2010-09-12 19:04:15', 'oop.data.Topic', 491, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(477, 1, '2010-09-12 19:04:23', 'oop.data.Topic', 500, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(478, 0, '2010-09-12 19:04:35', 'oop.data.Topic', 493, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(479, 14, '2010-09-12 19:04:44', 'oop.data.Topic', 517, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(480, 0, '2010-09-13 21:21:44', 'oop.data.Topic', 525, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(481, 0, '2010-09-13 21:22:04', 'oop.data.Topic', 526, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(482, 0, '2010-09-13 21:26:57', 'oop.data.Topic', 527, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(483, 0, '2010-09-13 21:27:25', 'oop.data.Topic', 528, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(484, 0, '2010-09-13 21:27:38', 'oop.data.Topic', 529, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(485, 0, '2010-09-13 21:28:43', 'oop.data.Topic', 530, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(486, 0, '2010-09-13 21:28:57', 'oop.data.Topic', 531, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(487, 0, '2010-09-13 21:29:07', 'oop.data.Topic', 532, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(488, 0, '2010-09-13 21:29:19', 'oop.data.Topic', 533, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(489, 0, '2010-09-13 21:29:29', 'oop.data.Topic', 534, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(490, 0, '2010-09-13 21:29:45', 'oop.data.Topic', 535, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(491, 0, '2010-09-13 21:29:55', 'oop.data.Topic', 536, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(492, 0, '2010-09-13 21:30:05', 'oop.data.Topic', 537, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(493, 0, '2010-09-13 21:30:14', 'oop.data.Topic', 538, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(494, 0, '2010-09-13 21:30:53', 'oop.data.Topic', 539, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(495, 0, '2010-09-13 21:31:03', 'oop.data.Topic', 540, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(496, 0, '2010-09-13 21:31:12', 'oop.data.Topic', 541, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(497, 0, '2010-09-13 21:31:20', 'oop.data.Topic', 542, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(498, 0, '2010-09-13 21:31:27', 'oop.data.Topic', 543, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(499, 0, '2010-09-13 21:31:34', 'oop.data.Topic', 544, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(500, 1, '2010-09-13 21:31:42', 'oop.data.Topic', 548, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(501, 0, '2010-09-13 21:31:51', 'oop.data.Topic', 546, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(502, 0, '2010-09-13 21:32:00', 'oop.data.Topic', 547, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(503, 0, '2010-09-13 21:42:00', 'oop.data.Topic', 549, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(504, 0, '2010-09-13 21:42:14', 'oop.data.Topic', 550, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(505, 0, '2010-09-13 21:42:23', 'oop.data.Topic', 551, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(506, 0, '2010-09-13 21:42:31', 'oop.data.Topic', 552, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(507, 0, '2010-09-13 21:42:42', 'oop.data.Topic', 553, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(508, 0, '2010-09-13 21:42:50', 'oop.data.Topic', 554, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(509, 0, '2010-09-13 21:42:59', 'oop.data.Topic', 555, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(510, 0, '2010-09-13 21:43:07', 'oop.data.Topic', 556, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(511, 0, '2010-09-13 21:43:16', 'oop.data.Topic', 557, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(512, 1, '2010-09-13 21:43:50', 'oop.data.Topic', 563, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(513, 1, '2010-09-13 21:44:01', 'oop.data.Topic', 562, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(514, 0, '2010-09-13 21:44:23', 'oop.data.Topic', 560, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(515, 0, '2010-09-13 21:44:31', 'oop.data.Topic', 561, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(516, 0, '2010-09-13 21:48:48', 'oop.data.Topic', 564, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(517, 0, '2010-09-13 21:49:01', 'oop.data.Topic', 565, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(518, 0, '2010-09-13 21:50:09', 'oop.data.Topic', 566, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(519, 0, '2010-09-13 21:50:18', 'oop.data.Topic', 567, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(520, 0, '2010-09-13 21:51:20', 'oop.data.Topic', 568, 1, 'NORMAL', NULL, 'EVERYONE', '0.50');
 
 --
 -- Triggers `ocwResource`
@@ -3579,6 +3585,52 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ocwResourceCustomization`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwResourceCustomization` (
+  `RESOURCE` bigint(20) NOT NULL,
+  `USER` bigint(20) NOT NULL,
+  `LEVEL` int(11) DEFAULT NULL,
+  `LIKE` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `TODO` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  PRIMARY KEY (`RESOURCE`,`USER`),
+  KEY `FK46CFE1024A301B22` (`RESOURCE`),
+  KEY `FK46CFE102B1E4DD9C` (`USER`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
+
+--
+-- Dumping data for table `ocwResourceCustomization`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `ocwResourceReportWithoutUser`
+--
+CREATE TABLE IF NOT EXISTS `ocwResourceReportWithoutUser` (
+`resource` bigint(20)
+,`like_count` bigint(21)
+,`average_level` decimal(10,2)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `ocwResourceReportWithUser`
+--
+CREATE TABLE IF NOT EXISTS `ocwResourceReportWithUser` (
+`resource` bigint(20)
+,`user` bigint(20)
+,`level` bigint(11)
+,`like` varchar(255)
+,`todo` varchar(255)
+,`like_count` bigint(21)
+,`average_level` decimal(10,2)
+);
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ocwRevision`
 --
 
@@ -3594,7 +3646,7 @@ CREATE TABLE IF NOT EXISTS `ocwRevision` (
   KEY `FKE7AEF61E5DDB135C` (`author`),
   KEY `FKE7AEF61E72978E26` (`article`),
   KEY `FKE7AEF61E4A301B22` (`resource`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=561 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=562 ;
 
 --
 -- Dumping data for table `ocwRevision`
@@ -3947,7 +3999,8 @@ INSERT INTO `ocwRevision` (`id`, `resource`, `article`, `author`, `timestamp`, `
 (557, 88, 580, 1, '2010-09-15 20:04:34', '', b'0'),
 (558, 88, 581, 1, '2010-09-15 20:05:59', '', b'0'),
 (559, 88, 582, 1, '2010-09-15 20:06:13', '', b'0'),
-(560, 88, 583, 1, '2010-09-15 20:52:26', '', b'0');
+(560, 88, 583, 1, '2010-09-15 20:52:26', '', b'0'),
+(561, 88, 584, 1, '2010-09-23 13:27:03', '', b'0');
 
 -- --------------------------------------------------------
 
@@ -4540,7 +4593,7 @@ CREATE TABLE IF NOT EXISTS `ocwText` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` mediumtext COLLATE utf8_vietnamese1_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1783 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1785 ;
 
 --
 -- Dumping data for table `ocwText`
@@ -6315,7 +6368,9 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1779, '<p>linh tinh carrying</p>'),
 (1780, '<p>I ______ this letter around for days without looking at it.</p>'),
 (1781, '<p>I ______ this letter around for days without looking at it.</p>'),
-(1782, '<p>kfjsklfjslkfj</p>');
+(1782, '<p>kfjsklfjslkfj</p>'),
+(1783, '<p>I ______ this letter around for days without looking at it.</p>'),
+(1784, '<p>has been carrying</p>');
 
 -- --------------------------------------------------------
 
@@ -6484,6 +6539,24 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Structure for view `ocwResourceReportWithoutUser`
+--
+DROP TABLE IF EXISTS `ocwResourceReportWithoutUser`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ocwResourceReportWithoutUser` AS select `r`.`id` AS `resource`,(select count(0) AS `count(*)` from `ocwResourceCustomization` `c2` where ((`c2`.`RESOURCE` = `r`.`id`) and (`c2`.`LIKE` = 'LIKE'))) AS `like_count`,`r`.`average_level` AS `average_level` from `ocwResource` `r`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `ocwResourceReportWithUser`
+--
+DROP TABLE IF EXISTS `ocwResourceReportWithUser`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ocwResourceReportWithUser` AS select `r`.`id` AS `resource`,`u`.`id` AS `user`,(case when isnull(`c`.`LEVEL`) then 0 else `c`.`LEVEL` end) AS `level`,(case when isnull(`c`.`LIKE`) then 'NORMAL' else `c`.`LIKE` end) AS `like`,(case when isnull(`c`.`TODO`) then 'NORMAL' else `c`.`TODO` end) AS `todo`,(select count(0) AS `count(*)` from `ocwResourceCustomization` `c2` where ((`c2`.`RESOURCE` = `r`.`id`) and (`c2`.`LIKE` = 'LIKE'))) AS `like_count`,`r`.`average_level` AS `average_level` from ((`ocwResource` `r` join `ocwUser` `u`) left join `ocwResourceCustomization` `c` on(((`c`.`RESOURCE` = `r`.`id`) and (`c`.`USER` = `u`.`id`))));
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `ocwTopicSetInfo`
 --
 DROP TABLE IF EXISTS `ocwTopicSetInfo`;
@@ -6504,6 +6577,7 @@ ALTER TABLE `ocwAnswer`
 -- Constraints for table `ocwArticle`
 --
 ALTER TABLE `ocwArticle`
+  ADD CONSTRAINT `FKC38C3A53232F5FBE` FOREIGN KEY (`parent`) REFERENCES `ocwResource` (`id`),
   ADD CONSTRAINT `FKC38C3A537D807870` FOREIGN KEY (`namespace`) REFERENCES `ocwNamespace` (`id`),
   ADD CONSTRAINT `FKC38C3A53EA647FAC` FOREIGN KEY (`content`) REFERENCES `ocwText` (`id`),
   ADD CONSTRAINT `ocwArticle_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `ocwResource` (`id`) ON DELETE CASCADE;
@@ -6582,6 +6656,13 @@ ALTER TABLE `ocwResource`
   ADD CONSTRAINT `FKE2E602515DDB135C` FOREIGN KEY (`author`) REFERENCES `ocwUser` (`id`),
   ADD CONSTRAINT `FKE2E602515EB7070E` FOREIGN KEY (`link`) REFERENCES `ocwResource` (`id`),
   ADD CONSTRAINT `ocwResource_ibfk_1` FOREIGN KEY (`article`) REFERENCES `ocwArticle` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `ocwResourceCustomization`
+--
+ALTER TABLE `ocwResourceCustomization`
+  ADD CONSTRAINT `FK46CFE102B1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `ocwUser` (`id`),
+  ADD CONSTRAINT `FK46CFE1024A301B22` FOREIGN KEY (`RESOURCE`) REFERENCES `ocwResource` (`id`);
 
 --
 -- Constraints for table `ocwRevision`

@@ -1,12 +1,12 @@
 package oop.controller.api.test;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
 import oop.data.Test;
 import oop.db.dao.ResourceDAO;
 
-public class Edit extends AbstractAction<Test>  {
+public class Edit extends AbstractResourceAction<Test>  {
 
 	private Article test;
 

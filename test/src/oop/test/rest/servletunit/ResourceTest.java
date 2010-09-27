@@ -58,7 +58,7 @@ public class ResourceTest {
 	}
 	
 	@AfterClass
-	public void tearDownClass() {
+	public static void tearDownClass() {
 		servletRunner.shutDown();
 	}
 
