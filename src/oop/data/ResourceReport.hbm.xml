@@ -14,16 +14,16 @@
             </key-many-to-one>
         </composite-id>
         <property name="likeCount" type="int">
-            <column name="LIKECOUNT" />
+            <column name="LIKE_COUNT" />
         </property>
         <property name="averageLevel" type="double">
-            <column name="LEVEL" />
+            <column name="average_level" />
         </property>
         <property name="level" type="int">
             <column name="LEVEL" />
         </property>
         <property name="like">
-            <column name="LIKE" />
+            <column name="`LIKE`" />
             <type name="org.hibernate.type.EnumType">
                 <param name="type">12</param>
                 <param name="enumClass">oop.data.ResourceLike</param>
@@ -48,10 +48,10 @@
             <formula>NULL</formula>
         </many-to-one>
         <property name="likeCount" type="int">
-            <column name="LIKECOUNT" />
+            <column name="LIKE_COUNT" />
         </property>
         <property name="averageLevel" type="double">
-            <column name="LEVEL" />
+            <column name="average_level" />
         </property>
         <property name="level" type="int">
             <formula>0</formula>

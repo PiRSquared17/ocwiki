@@ -11,12 +11,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+import oop.persistence.HibernateUtil;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
  * Servlet Filter implementation class PrototypeMethodFilter
  */
-public class PrototypeMethodFilter implements Filter {
+public class RestFilter implements Filter {
 
 	static class AlterMethodWrapper extends HttpServletRequestWrapper {
 
@@ -36,7 +38,7 @@ public class PrototypeMethodFilter implements Filter {
 	/**
 	 * Default constructor.
 	 */
-	public PrototypeMethodFilter() {
+	public RestFilter() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -52,14 +54,18 @@ public class PrototypeMethodFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		if (request instanceof HttpServletRequest) {
-			String _method = request.getParameter("_method");
-			if (!StringUtils.isEmpty(_method)) {
-				request = new PrototypeMethodFilter.AlterMethodWrapper(
-						(HttpServletRequest) request, _method.toUpperCase());
+		try {
+			if (request instanceof HttpServletRequest) {
+				String _method = request.getParameter("_method");
+				if (!StringUtils.isEmpty(_method)) {
+					request = new RestFilter.AlterMethodWrapper(
+							(HttpServletRequest) request, _method.toUpperCase());
+				}
 			}
+			chain.doFilter(request, response);
+		} finally {
+			HibernateUtil.closeSession();
 		}
-		chain.doFilter(request, response);
 	}
 
 	/**
