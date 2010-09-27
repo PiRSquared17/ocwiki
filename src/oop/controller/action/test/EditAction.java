@@ -2,7 +2,7 @@ package oop.controller.action.test;
 
 import java.sql.SQLException;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Test;
 import oop.data.Text;
@@ -11,7 +11,7 @@ import oop.db.dao.TestDAO;
 import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditAction extends AbstractAction<Test> {
+public class EditAction extends AbstractResourceAction<Test> {
 
 	@Override
 	public void performImpl() throws Exception {

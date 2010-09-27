@@ -1,6 +1,6 @@
 package oop.controller.action.TextArticle;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
 import oop.data.Resource;
@@ -8,7 +8,7 @@ import oop.data.Text;
 import oop.data.TextArticle;
 import oop.db.dao.TextArticleDAO;
 
-public class EditAction extends AbstractAction<TextArticle> {
+public class EditAction extends AbstractResourceAction<TextArticle> {
 
 	@Override
 	protected void performImpl() throws Exception {
