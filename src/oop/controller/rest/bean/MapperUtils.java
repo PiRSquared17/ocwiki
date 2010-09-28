@@ -25,12 +25,19 @@ public final class MapperUtils {
 		}
 		return beans;
 	}
+	
+	public static <U, V> void applyAll(Collection<U> beans,
+			Collection<V> entities, Mapper<U, V> mapper) {
+		for (V entity : entities) {
+			beans.add(mapper.apply(entity));
+		}
+	}
 
-	public static <U, V> void getAll(Collection<U> beans, Collection<V> entities,
-			Mapper<U,V> mapper) {
+	public static <U, V> void getAll(Collection<U> beans,
+			Collection<V> entities, Mapper<U, V> mapper) {
 		for (U bean : beans) {
 			entities.add(mapper.get(bean));
 		}
 	}
-	
+
 }

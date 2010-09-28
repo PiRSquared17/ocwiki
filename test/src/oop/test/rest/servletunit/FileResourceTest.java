@@ -12,7 +12,7 @@ import org.xml.sax.SAXException;
 import com.meterware.httpunit.PostMethodWebRequest;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class FileResourceTest extends ResourceTest {
+public class FileResourceTest extends AbstractResourceTest {
 
 	private final String path = Config.get().getRestPath() + FileResource.PATH;
 	

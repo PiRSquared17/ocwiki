@@ -18,7 +18,7 @@ public class ResourceBean implements HasVersion {
 	private UserReferenceBean author;
 	private Status status = Status.NORMAL;
 	private int version = 0;
-	private ArticleReferenceBean article;
+	private ArticleBean article;
 	private ResourceAccessibility accessibility = ResourceAccessibility.EVERYONE;
 	private ResourceReferenceBean link = null;
 	private Class type;
@@ -66,11 +66,11 @@ public class ResourceBean implements HasVersion {
 		this.version = version;
 	}
 
-	public ArticleReferenceBean getArticle() {
+	public ArticleBean getArticle() {
 		return article;
 	}
 
-	public void setArticle(ArticleReferenceBean article) {
+	public void setArticle(ArticleBean article) {
 		this.article = article;
 	}
 
