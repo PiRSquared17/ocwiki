@@ -56,6 +56,8 @@ public class UploadAction extends AbstractAction {
 					file.setName(uploadedFile.getName());
 					FileDAO.persist(file);
 				}
+				else
+					this.addError("File Error!", "File không hợp lệ");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -73,10 +75,10 @@ public class UploadAction extends AbstractAction {
 			fileName = fileName.substring(0, i);
 		}
 		long fileSize = file.getSize();
-		if ((fileExt.equals(".pnj") || fileExt.equals(".PNJ")
-				|| fileExt.equals(".jpg") || fileExt.equals(".JPG")
-				|| fileExt.equals(".gif") || fileExt.equals(".GIF")
-				|| fileExt.equals(".svg") || fileExt.equals(".SVG"))
+		if ((fileExt.equalsIgnoreCase(".pnj")
+				|| fileExt.equalsIgnoreCase(".jpg")
+				|| fileExt.equalsIgnoreCase(".gif")
+				|| fileExt.equalsIgnoreCase(".svg"))
 				&& fileSize <= 10 * 1024 * 1024)
 			return true;
 		else
