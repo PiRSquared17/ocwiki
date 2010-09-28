@@ -1,6 +1,7 @@
 package oop.controller.rest.bean;
 
 import oop.data.BaseQuestion;
+import oop.data.File;
 import oop.data.Topic;
 
 public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion> {
@@ -15,7 +16,10 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 		bean.setLevel(value.getLevel());
 		bean.setAnswers(value.getAnswers());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
-		MapperUtils.getAll(bean.getTopics(), value.getTopics(), topicMapper);
+		MapperUtils.applyAll(bean.getTopics(), value.getTopics(), topicMapper);
+		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
+		MapperUtils.applyAll(bean.getAttachments(), value.getAttachments(), fileMapper);
+		MapperUtils.applyAll(bean.getEmbeds(), value.getEmbeds(), fileMapper);
 		return bean;
 	}
 

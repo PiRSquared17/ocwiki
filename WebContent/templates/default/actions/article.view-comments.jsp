@@ -268,12 +268,9 @@
 				pageButtons+=buttonHTML(i+1,i,('loadPage('+i+')'));				
 			}
 			$('comment-pages').innerHTML = pageButtons;
-			
 		} else {
-			alert('else');
+			//alert('else');
 		}
-
-		
 		disableButtons();
 	}
 

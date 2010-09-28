@@ -11,7 +11,7 @@ public class ResourceMapper implements
 	public ResourceBean apply(Resource<Article> value) {
 		ResourceBean bean = new ResourceBean();
 		bean.setId(value.getId());
-		bean.setArticle(ArticleReferenceMapper.get().apply(value.getArticle()));
+		bean.setArticle(ArticleMapper.get().apply(value.getArticle()));
 		bean.setType(value.getType());
 		bean.setAuthor(UserReferenceMapper.get().apply(value.getAuthor()));
 		bean.setCreateDate(value.getCreateDate());
@@ -27,7 +27,7 @@ public class ResourceMapper implements
 	public Resource<Article> get(ResourceBean value) {
 		Resource<Article> entity = new Resource<Article>();
 		entity.setId(value.getId());
-		entity.setArticle(ArticleReferenceMapper.get().get(value.getArticle()));
+		entity.setArticle(ArticleMapper.get().get(value.getArticle()));
 		entity.setType(value.getType());
 		entity.setAuthor(UserReferenceMapper.get().get(value.getAuthor()));
 		entity.setCreateDate(value.getCreateDate());

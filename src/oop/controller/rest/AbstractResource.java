@@ -131,4 +131,11 @@ public abstract class AbstractResource {
 		}
 	}
 
+	protected void assertParamValid(String message, boolean valid) {
+		if (!valid) {
+			throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+					.entity(new ErrorResult(message)).build());
+		}
+	}
+
 }

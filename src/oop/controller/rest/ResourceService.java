@@ -1,5 +1,6 @@
 package oop.controller.rest;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -18,16 +19,27 @@ import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Article;
 import oop.data.Resource;
+import oop.data.Status;
 import oop.db.dao.ResourceDAO;
 
 @Path(ResourceService.PATH)
-public class ResourceService extends AbstractResource{
+public class ResourceService extends AbstractResource {
 	
 	public static final String PATH = "/resource";
 	
 	@POST
 	public ObjectResult<ResourceBean> create(ResourceBean bean) {
-		return null;
+		assertParamValid("data must not be null", bean != null);
+		assertParamValid("article must not be null", bean.getArticle() != null);
+		Resource<Article> resource = ResourceMapper.get().get(bean);
+		resource.setId(0);
+		resource.setVersion(0);
+		resource.setStatus(Status.NEW);
+		resource.setAuthor(getUserNullSafe());
+		resource.setCreateDate(new Date());
+		ResourceDAO.persist(resource);
+		bean = ResourceMapper.get().apply(resource);
+		return new ObjectResult<ResourceBean>(bean);
 	}
 	
 	@GET
