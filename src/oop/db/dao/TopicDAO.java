@@ -44,6 +44,32 @@ public final class TopicDAO {
 		return query.list();
 	}
 
+	/**
+	 * Lấy các chủ đề chưa được phân loại
+	 * @return
+	 */
+	public static List<Resource<Topic>> fetchUncategorized() {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("from Resource where article in (" +
+				"from Topic where parent is null) and id <> " + Topic.ROOT_ID + 
+				" and status <> 'DELETED'");
+		return query.list();
+	}
+	
+	/**
+	 * Lấy các chủ đề chưa dùng đến
+	 * @return
+	 */
+	public static List<Resource<Topic>> fetchUnused() {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("from Resource r where r not in (" +
+				"select elements(topics) from CategorizableArticle a " +
+					"where a in (select article from Resource where status <> 'DELETED') ) " +
+				"and r not in (select parent from Topic t " +
+					"where t in (select article from Resource where status <> 'DELETED') ) " +
+				"and status <> 'DELETED'");
+		return query.list();
+	}
 
 	public static List<Resource<Topic>> getAncestors(long resourceId) {
 		return fetchAncestorsNestedSetImpl(resourceId);
