@@ -9,7 +9,7 @@ public class ResourceReferenceMapper<T extends Article> implements
 		Mapper<ResourceReferenceBean, Resource<T>> {
 
 	@Override
-	public ResourceReferenceBean apply(Resource<T> value) {
+	public ResourceReferenceBean apply(Resource value) {
 		if (value == null) {
 			return null;
 		}

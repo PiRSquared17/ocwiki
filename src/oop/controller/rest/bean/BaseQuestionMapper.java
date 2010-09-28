@@ -32,7 +32,11 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 		entity.setContent(value.getContent());
 		entity.setLevel(value.getLevel());
 		entity.setAnswers(value.getAnswers());
-		
+		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
+		MapperUtils.getAll(value.getTopics(), entity.getTopics(), topicMapper);
+		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
+		MapperUtils.getAll(value.getAttachments(), entity.getAttachments(), fileMapper);
+		MapperUtils.getAll(value.getEmbeds(), entity.getEmbeds(), fileMapper);
 		return entity;
 	}
 

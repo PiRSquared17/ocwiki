@@ -1,22 +1,23 @@
 package oop.controller.rest.bean;
 
 import oop.data.File;
-import oop.data.Test;
+import oop.data.TestStructure;
 import oop.data.Topic;
 
-public class TestMapper implements Mapper<TestBean, Test> {
+public class TestStructureMapper implements
+		Mapper<TestStructureBean, TestStructure> {
 
 	@Override
-	public TestBean apply(Test value) {
-		TestBean bean = new TestBean();
+	public TestStructureBean apply(TestStructure value) {
+		TestStructureBean bean = new TestStructureBean();
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setNamespace(value.getNamespace());
 		bean.setContent(value.getContent());
-		bean.setType(value.getType());
 		bean.setTime(value.getTime());
+		bean.setType(value.getType());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
-		MapperUtils.getAll(bean.getTopics(), value.getTopics(), topicMapper);
+		MapperUtils.applyAll(bean.getTopics(), value.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
 		MapperUtils.applyAll(bean.getAttachments(), value.getAttachments(), fileMapper);
 		MapperUtils.applyAll(bean.getEmbeds(), value.getEmbeds(), fileMapper);
@@ -24,8 +25,8 @@ public class TestMapper implements Mapper<TestBean, Test> {
 	}
 
 	@Override
-	public Test get(TestBean value) {
-		Test entity = new Test();
+	public TestStructure get(TestStructureBean value) {
+		TestStructure entity = new TestStructure();
 		entity.setId(value.getId());
 		entity.setName(value.getName());
 		entity.setNamespace(value.getNamespace());
@@ -40,10 +41,12 @@ public class TestMapper implements Mapper<TestBean, Test> {
 		return entity;
 	}
 
-	private static TestMapper DEFAULT_INSTANCE = new TestMapper();
+	private static TestStructureMapper DEFAULT_INSTANCE = new TestStructureMapper();
 
-	public static TestMapper get() {
+	public static TestStructureMapper get() {
 		return DEFAULT_INSTANCE;
 	}
+	
+
 	
 }
