@@ -12,8 +12,6 @@ import oop.data.File;
 import oop.data.Resource;
 import oop.db.dao.ResourceDAO;
 
-import com.sun.jersey.multipart.FormDataMultiPart;
-
 @Path(FileResource.PATH)
 public class FileResource extends AbstractResource{
 	
@@ -30,9 +28,7 @@ public class FileResource extends AbstractResource{
 	@POST
 	@Path("/{id: \\d+}/file")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public ObjectResult<File> upload(@PathParam("id") long id,
-			FormDataMultiPart form){
-		System.out.println(form.getField("file").getMediaType());
+	public ObjectResult<File> upload(@PathParam("id") long id){
 		return null;
 	}
 }

@@ -25,6 +25,11 @@ public class ResourceService extends AbstractResource{
 	
 	public static final String PATH = "/resource";
 	
+	@POST
+	public ObjectResult<ResourceBean> create(ResourceBean bean) {
+//		ResourceDAO.create(getUser, type, article)
+	}
+	
 	@GET
 	@Path("/{id: \\d+}")
 	public ObjectResult<ResourceBean> get(@PathParam("id") long id) {
