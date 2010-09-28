@@ -1,22 +1,20 @@
 package oop.controller.rest.bean;
 
 import oop.data.File;
-import oop.data.Test;
+import oop.data.TextArticle;
 import oop.data.Topic;
 
-public class TestMapper implements Mapper<TestBean, Test> {
+public class TextArticleMapper implements Mapper<TextArticleBean, TextArticle> {
 
 	@Override
-	public TestBean apply(Test value) {
-		TestBean bean = new TestBean();
+	public TextArticleBean apply(TextArticle value) {
+		TextArticleBean bean = new TextArticleBean();
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setNamespace(value.getNamespace());
 		bean.setContent(value.getContent());
-		bean.setType(value.getType());
-		bean.setTime(value.getTime());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
-		MapperUtils.getAll(bean.getTopics(), value.getTopics(), topicMapper);
+		MapperUtils.applyAll(bean.getTopics(), value.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
 		MapperUtils.applyAll(bean.getAttachments(), value.getAttachments(), fileMapper);
 		MapperUtils.applyAll(bean.getEmbeds(), value.getEmbeds(), fileMapper);
@@ -24,14 +22,12 @@ public class TestMapper implements Mapper<TestBean, Test> {
 	}
 
 	@Override
-	public Test get(TestBean value) {
-		Test entity = new Test();
+	public TextArticle get(TextArticleBean value) {
+		TextArticle entity = new TextArticle();
 		entity.setId(value.getId());
 		entity.setName(value.getName());
 		entity.setNamespace(value.getNamespace());
 		entity.setContent(value.getContent());
-		entity.setType(value.getType());
-		entity.setTime(value.getTime());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.getAll(value.getTopics(), entity.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
@@ -40,10 +36,12 @@ public class TestMapper implements Mapper<TestBean, Test> {
 		return entity;
 	}
 
-	private static TestMapper DEFAULT_INSTANCE = new TestMapper();
+	private static TextArticleMapper DEFAULT_INSTANCE = new TextArticleMapper();
 
-	public static TestMapper get() {
+	public static TextArticleMapper get() {
 		return DEFAULT_INSTANCE;
 	}
+	
+
 	
 }

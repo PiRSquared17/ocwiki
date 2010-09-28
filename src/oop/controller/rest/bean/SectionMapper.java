@@ -9,13 +9,19 @@ public class SectionMapper implements Mapper<SectionBean, Section> {
 		SectionBean bean = new SectionBean();
 		bean.setId(value.getId());
 		bean.setContent(value.getContent());
-		return null;
+		MapperUtils.applyAll(bean.getQuestions(), value.getQuestions(),
+				QuestionMapper.get());
+		return bean;
 	}
 
 	@Override
 	public Section get(SectionBean value) {
-		// TODO Auto-generated method stub
-		return null;
+		Section entity = new Section();
+		entity.setId(value.getId());
+		entity.setContent(value.getContent());
+		MapperUtils.getAll(value.getQuestions(), entity.getQuestions(),
+				QuestionMapper.get());
+		return entity;
 	}
 
 	private static SectionMapper DEFAULT_INSTANCE = new SectionMapper();

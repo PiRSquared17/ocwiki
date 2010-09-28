@@ -8,7 +8,7 @@ public class Topic extends Article {
 
 	private Resource<Topic> parent;
 
-	Topic() {
+	public Topic() {
 		// default constructor
 	}
 
