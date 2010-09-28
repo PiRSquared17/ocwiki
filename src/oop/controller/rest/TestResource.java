@@ -23,11 +23,9 @@ import oop.data.Revision;
 import oop.data.Section;
 import oop.data.Test;
 import oop.data.Text;
-import oop.data.User;
 import oop.db.dao.ArticleDAO;
 import oop.db.dao.ResourceDAO;
 import oop.db.dao.RevisionDAO;
-import oop.util.SessionUtils;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -51,8 +49,7 @@ public class TestResource extends AbstractResource {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ObjectResult<Test> add(Test test) {
 		validate(test);
-		User user = SessionUtils.getUser(getSession());
-		ResourceDAO.create(user, Test.class, test);
+		ResourceDAO.create(getUserNullSafe(), Test.class, test);
 		return new ObjectResult<Test>(test);
 	}
 

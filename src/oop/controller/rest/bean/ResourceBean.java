@@ -2,6 +2,7 @@ package oop.controller.rest.bean;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import oop.data.HasVersion;
@@ -93,6 +94,7 @@ public class ResourceBean implements HasVersion {
 		this.type = type;
 	}
 
+	@XmlElement(name="articleType")
 	public Class getType() {
 		return type;
 	}
