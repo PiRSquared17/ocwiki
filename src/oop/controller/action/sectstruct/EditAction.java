@@ -1,6 +1,6 @@
 package oop.controller.action.sectstruct;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.SectionStructure;
 import oop.data.TestStructure;
@@ -8,7 +8,7 @@ import oop.db.dao.TestStructureDAO;
 import oop.db.dao.TextDAO;
 import oop.util.Utils;
 
-public class EditAction extends AbstractAction<TestStructure> {
+public class EditAction extends AbstractResourceAction<TestStructure> {
 
 	@Override
 	public void performImpl() throws Exception {

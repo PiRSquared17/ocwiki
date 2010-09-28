@@ -16,16 +16,12 @@
 		<table>
 		<tr>
 			<th>Tài khoản</th>
-			<th>Tên đầy đủ</th>
 			<th>Nhóm</th>
 			<th>Ngày gia nhập</th>
 		</tr>
 		<c:forEach items="${users}" var="user">
 		<tr>
-			<td><a href="${scriptPath}?action=user.profile&user=${user.id}">
-			     ${user.name}
-			</a></td>
-			<td>${user.fullname}</td>
+			<td><ocw:userLink user="${user}"></ocw:userLink></td>
 			<td>${user.group}</td>
 			<td>${u:formatDateTime(user.registerDate)}</td>
 		</tr>

@@ -1,10 +1,10 @@
 package oop.controller.action.article;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.data.Article;
 import oop.db.dao.ResourceDAO;
 
-public class EditAction<T extends Article> extends AbstractAction<T> {
+public class EditAction<T extends Article> extends AbstractResourceAction<T> {
 
 	@Override
 	protected void performImpl() throws Exception {

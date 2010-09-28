@@ -23,7 +23,7 @@ import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
 import com.oreilly.servlet.ParameterParser;
 
-public abstract class AbstractAction<T extends Article> implements Action {
+public abstract class AbstractAction implements Action {
 
 	private ActionController controller;
 
@@ -45,7 +45,6 @@ public abstract class AbstractAction<T extends Article> implements Action {
 	private ParameterList params;
 	private ActionDescriptor descriptor;
 	private Map<String, String> errors = null;
-	protected Resource<T> resource;
 
 	private String title;
 
@@ -216,20 +215,6 @@ public abstract class AbstractAction<T extends Article> implements Action {
 	public boolean hasNoErrors() {
 		return errors == null || errors.isEmpty();
 	}
-
-	@Override
-	public Resource<T> getResource() {
-		return resource;
-	}
-	
-	protected void setResource(Resource<T> resource) {
-		this.resource = resource;
-	}
-	
-	@Override
-	public Article getArticle() {
-		return resource == null ? null : resource.getArticle();
-	}
 	
 	@Override
 	public String getTitle() {
@@ -239,6 +224,16 @@ public abstract class AbstractAction<T extends Article> implements Action {
 	@Override
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	@Override
+	public Resource<? extends Article> getResource() {
+		return null;
+	}
+	
+	@Override
+	public Article getArticle() {
+		return null;
 	}
 	
 }

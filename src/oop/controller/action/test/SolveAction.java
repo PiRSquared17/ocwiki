@@ -3,7 +3,7 @@ package oop.controller.action.test;
 import java.util.HashMap;
 import java.util.Map;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
 import oop.data.History;
@@ -12,7 +12,7 @@ import oop.db.dao.HistoryDAO;
 import oop.db.dao.ResourceDAO;
 import oop.taglib.UtilFunctions;
 
-public class SolveAction extends AbstractAction<Test> {
+public class SolveAction extends AbstractResourceAction<Test> {
 
 	private Test test;
 

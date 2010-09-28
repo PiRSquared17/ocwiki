@@ -2,7 +2,6 @@ package oop.data.log;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import oop.data.User;
