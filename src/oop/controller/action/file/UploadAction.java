@@ -50,8 +50,7 @@ public class UploadAction extends AbstractAction {
 
 			while (itr.hasNext()) {
 				FileItem item = (FileItem) itr.next();
-
-				if (!item.isFormField()) {
+				if (!item.isFormField() && check(item)) {
 					File uploadedFile = new File(destDir, item.getName());
 					oop.data.File file = new oop.data.File();
 					file.setName(uploadedFile.getName());
@@ -61,5 +60,26 @@ public class UploadAction extends AbstractAction {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	public boolean check(FileItem file) {
+		// Get filename
+		String fileName = file.getName();
+		// Get the extension if the file has one
+		String fileExt = "";
+		int i = -1;
+		if ((i = fileName.indexOf(".")) != -1) {
+			fileExt = fileName.substring(i);
+			fileName = fileName.substring(0, i);
+		}
+		long fileSize = file.getSize();
+		if ((fileExt.equals(".pnj") || fileExt.equals(".PNJ")
+				|| fileExt.equals(".jpg") || fileExt.equals(".JPG")
+				|| fileExt.equals(".gif") || fileExt.equals(".GIF")
+				|| fileExt.equals(".svg") || fileExt.equals(".SVG"))
+				&& fileSize <= 10 * 1024 * 1024)
+			return true;
+		else
+			return false;
 	}
 }
