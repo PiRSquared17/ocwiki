@@ -27,7 +27,7 @@ public class ResourceService extends AbstractResource{
 	
 	@POST
 	public ObjectResult<ResourceBean> create(ResourceBean bean) {
-//		ResourceDAO.create(getUser, type, article)
+		return null;
 	}
 	
 	@GET
