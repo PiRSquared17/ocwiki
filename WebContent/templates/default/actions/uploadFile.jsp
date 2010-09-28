@@ -8,5 +8,7 @@
     Choose Your File:<br>
 	<input type="file" name="file1" size="10*1024*1024"> <br>
 	<input type="submit" name="submit" value="Upload">
+	<ocw:error code="File Error"></ocw:error>
 </ocw:form>
+
 

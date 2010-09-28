@@ -21,6 +21,7 @@ public class UploadAction extends AbstractAction {
 	private static final String DEST_DIR = "/file";
 	private File destDir;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void performImpl() throws Exception {
 		tempDir = new File(TEMP_DIR);
@@ -57,7 +58,7 @@ public class UploadAction extends AbstractAction {
 					FileDAO.persist(file);
 				}
 				else
-					this.addError("File Error!", "File không hợp lệ");
+					this.addError("File Error", "File không hợp lệ");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -75,7 +76,7 @@ public class UploadAction extends AbstractAction {
 			fileName = fileName.substring(0, i);
 		}
 		long fileSize = file.getSize();
-		if ((fileExt.equalsIgnoreCase(".pnj")
+		if ((fileExt.equalsIgnoreCase(".png")
 				|| fileExt.equalsIgnoreCase(".jpg")
 				|| fileExt.equalsIgnoreCase(".gif")
 				|| fileExt.equalsIgnoreCase(".svg"))
