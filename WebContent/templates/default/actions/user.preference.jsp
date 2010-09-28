@@ -21,4 +21,5 @@
     Choose Your Avatar:<br>
 	<input type="file" name="file1"> <br>
 	<input type="submit" name="submit" value="Upload">
+	<ocw:error code="File Error"></ocw:error>
 </ocw:form>
