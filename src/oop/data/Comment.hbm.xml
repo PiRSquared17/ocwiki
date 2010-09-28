@@ -5,7 +5,7 @@
 		<id name="id" column="id" access="field">
 			<generator class="identity" />
 		</id>
-		<many-to-one name="user" access="field" column="user" lazy="false"
+		<many-to-one name="user" access="field" column="user" lazy="proxy"
 			class="oop.data.User" fetch="join" not-null="true" />
 		<property name="timestamp" access="field" type="java.util.Date">
 			<column name="timestamp" not-null="true"
