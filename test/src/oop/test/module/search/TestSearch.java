@@ -12,8 +12,6 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
 
-import com.mchange.util.AssertException;
-
 public class TestSearch {
 	
 	private Search searchInstance = null;
@@ -30,10 +28,10 @@ public class TestSearch {
 	
 	@Test
 	public void testBuildSearchQueryForClass(){
-		SearchElement se = new SearchElement(null, new ContentSearch());
+		SearchElement se = new SearchElement(null, new ContentSearch("test"));
 		searchInstance.addSearchElement(se);
 		searchInstance.addSearchElement( SearchOperator.AND, new MockSearch() );
 		System.out.println(searchInstance.buildSearchQueryForClass(BaseQuestion.class));
-		Assert.assertEquals("from oop.data.BaseQuestion as basequestion where  ( basequestion.content like '%null%' ) and (  true  ) ", searchInstance.buildSearchQueryForClass(BaseQuestion.class));
+		Assert.assertEquals("from oop.data.BaseQuestion as basequestion where  ( basequestion.content like '%test%' ) and (  true  ) ", searchInstance.buildSearchQueryForClass(BaseQuestion.class));
 	}
 }
