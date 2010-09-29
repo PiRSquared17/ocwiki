@@ -4,6 +4,8 @@
 <c:set var="resource" value="${empty resource ? action.resource : resource}"></c:set>
 <c:set var="question" value="${empty article ? action.article : article}"></c:set>
 
+<h3>Sửa ${question.namespace.name}:<jsp:include page="/includes/article.edit.name.jsp"></jsp:include></h3>
+
 <div>
     <div id="question-content">
         <textarea id="question-content-textarea" rows="10" cols="40" style="width: 100%">${question.content}</textarea>

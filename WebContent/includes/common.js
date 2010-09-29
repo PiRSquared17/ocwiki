@@ -58,13 +58,12 @@ Editor.edit = function(id) {
 	if (Editor.active) {
 		Editor.preview(Editor.active);
 	}
-	var previewDiv = $(id + '-preview');
-	if (previewDiv) {
-		previewDiv.remove();
+	var preview = $(id + '-preview');
+	if (preview) {
+		preview.remove();
 	}
-	var textareas = element.getElementsByTagName('textarea');
-	if (textareas.length > 0) {
-		var textarea = textareas[0];
+	if (element.getElementsByTagName('textarea').length > 0) {
+		var textarea = element.getElementsByTagName('textarea')[0];
 		var tinymceEditor = tinymce.get(textarea.id);
 		if (!tinymceEditor) {
 			tinymceEditor = new tinymce.Editor(textarea.id, {});
@@ -77,21 +76,36 @@ Editor.edit = function(id) {
 
 Editor.preview = function(id) {
 	var element = $(id);
-	var textarea = element.getElementsByTagName('textarea')[0]; 
-	var previewDiv = document.createElement('div');
-	previewDiv.setAttribute('id', id + '-preview');
-	tinymceEditor = tinymce.get(textarea.id);
-	if (tinymceEditor) {
-		previewDiv.innerHTML = tinymceEditor.getContent();
-	} else {
-		previewDiv.innerHTML = textarea.value;
+	if (!element) {
+		return;
 	}
-	previewDiv.observe('click', function(event) {
+	var preview = null;
+	if (element.getElementsByTagName('textarea').length > 0) {
+		var textarea = element.getElementsByTagName('textarea')[0];
+		var preview = document.createElement('div');
+		preview.setAttribute('id', id + '-preview');
+		tinymceEditor = tinymce.get(textarea.id);
+		if (tinymceEditor) {
+			preview.innerHTML = tinymceEditor.getContent();
+		} else {
+			preview.innerHTML = textarea.value;
+		}
+	} else {
+		var textbox = element.getElementsByTagName('input')[0];
+		preview = document.createElement('span');
+		preview.setAttribute('id', id + '-preview');
+		alert(textbox.value);
+		if (textbox.value.length > 0) {
+			preview.innerHTML = textbox.value.trim();
+		} else {
+			preview.innerHTML = 'không tên';
+		}
+	}
+	preview.observe('click', function(event) {
 		var elementId = this.id;
 		elementId = elementId.substring(0, elementId.length-8);
-//		alert(elementId);
 		Editor.edit(elementId);
 	});
 	element.hide();
-	$(id).insert({after: previewDiv});
+	$(id).insert({after: preview});
 };
