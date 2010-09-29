@@ -5,11 +5,11 @@
 <ul class="level1 horizontal" id="create-article-menu-root">
     <li class="level1">Tạo mới
     <ul class="level2 dropdown">
-        <li><a href="#" onclick="createQuestion()">Câu hỏi</a></li>
-        <li><a href="#" onclick="createSolution()">Bài giải</a></li>
-        <li><a href="#" onclick="createTest()">Đề thi</a></li>
-        <li><a href="#" onclick="createTextArticle()">Bài giảng</a></li>
-        <li><a href="#" onclick="createTestStructure()">Cấu trúc đề</a></li>
+        <li><a href="#" onclick="createQuestion(); return false">Câu hỏi</a></li>
+        <li><a href="#" onclick="createSolution(); return false">Bài giải</a></li>
+        <li><a href="#" onclick="createTest(); return false">Đề thi</a></li>
+        <li><a href="#" onclick="createTextArticle(); return false">Bài giảng</a></li>
+        <li><a href="#" onclick="createTestStructure(); return false">Cấu trúc đề</a></li>
     </ul>
     </li>
 </ul>
@@ -33,19 +33,61 @@ function createQuestion() {
 }
 
 function createSolution() {
-	
+	/*
+    resource = {
+            articleType: 'oop.data.BaseQuestion',
+            article: {
+                type: 'baseQuestionBean',
+                name: 'Câu hỏi mới',
+                namespace: {
+                    id: 3
+                }
+            } 
+        };
+        sendCreateRequest(resource);
+    */
 }
 
 function createTest() {
-	
+    resource = {
+        articleType: 'oop.data.Test',
+        article: {
+            type: 'testBean',
+            name: 'Đề thi mới',
+            namespace: {
+                id: 3
+            }
+        } 
+    };
+    sendCreateRequest(resource);
 }
 
 function createTextArticle() {
-	
+    resource = {
+        articleType: 'oop.data.TextArticle',
+        article: {
+            type: 'textArticleBean',
+            name: 'Bài viết mới',
+            namespace: {
+                id: 3
+            }
+        } 
+    };
+    sendCreateRequest(resource);
 }
 
 function createTestStructure() {
-	
+    resource = {
+        articleType: 'oop.data.TestStructure',
+        article: {
+            type: 'testStructureBean',
+            name: 'Cấu trúc đề mới',
+            namespace: {
+                id: 3
+            }
+        } 
+    };
+    sendCreateRequest(resource);
 }
 
 function sendCreateRequest(resource) {
