@@ -44,4 +44,11 @@ public class ContentSearch implements ISearchElement {
 		this.parameter = parameter;
 	}
 
+	public ContentSearch(String parameter) {
+		super();
+		this.parameter = parameter;
+	}
+	
+	
+
 }
