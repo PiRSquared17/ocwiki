@@ -4,7 +4,7 @@
 
 <p><strong>Upload Your File</strong></p>
 
-<ocw:form action="uploadFile">
+<ocw:form action="uploadFile" enctype="multipart/form-data" method="post">
     Choose Your File:<br>
 	<input type="file" name="file1" size="10*1024*1024"> <br>
 	<input type="submit" name="submit" value="Upload">
