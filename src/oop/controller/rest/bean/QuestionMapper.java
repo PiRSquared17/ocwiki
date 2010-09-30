@@ -6,26 +6,26 @@ import oop.data.Question;
 public class QuestionMapper implements Mapper<QuestionBean, Question> {
 
 	@Override
-	public QuestionBean apply(Question value) {
+	public QuestionBean toBean(Question value) {
 		QuestionBean bean = new QuestionBean();
 		bean.setId(value.getId());
 		bean.setMark(value.getMark());
 		ResourceReferenceMapper<BaseQuestion> resourceMapper = ResourceReferenceMapper.get();
-		bean.setBaseResource(resourceMapper.apply(value.getBaseResource()));
+		bean.setBaseResource(resourceMapper.toBean(value.getBaseResource()));
 		RevisionReferenceMapper<BaseQuestion> revisionMapper = RevisionReferenceMapper.get();
-		bean.setBaseRevision(revisionMapper.apply(value.getBaseRevision()));
+		bean.setBaseRevision(revisionMapper.toBean(value.getBaseRevision()));
 		return bean;
 	}
 
 	@Override
-	public Question get(QuestionBean value) {
+	public Question toEntity(QuestionBean value) {
 		Question entity = new Question(); 
 		entity.setId(value.getId());
 		entity.setMark(value.getMark());
 		ResourceReferenceMapper<BaseQuestion> resourceMapper = ResourceReferenceMapper.get();
-		entity.setBaseResource(resourceMapper.get(value.getBaseResource()));
+		entity.setBaseResource(resourceMapper.toEntity(value.getBaseResource()));
 		RevisionReferenceMapper<BaseQuestion> revisionMapper = RevisionReferenceMapper.get();
-		entity.setBaseRevision(revisionMapper.get(value.getBaseRevision()));
+		entity.setBaseRevision(revisionMapper.toEntity(value.getBaseRevision()));
 		return entity;
 	}
 
