@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:27:20 13-09-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="oop.data.TopicSet" table="TopicSet">
+        <composite-id>
+	        <key-many-to-one name="resource" class="oop.data.Resource" access="field">
+	            <column name="topic" />
+	        </key-many-to-one>
+        </composite-id>
+        <property name="leftIndex" type="int" access="field">
+            <column name="left_index" />
+        </property>
+        <property name="rightIndex" type="int" access="field">
+            <column name="right_index" />
+        </property>
+    </class>
+</hibernate-mapping>
