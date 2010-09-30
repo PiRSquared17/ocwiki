@@ -31,14 +31,14 @@ public class ResourceService extends AbstractResource {
 	public ObjectResult<ResourceBean> create(ResourceBean bean) {
 		assertParamValid("data must not be null", bean != null);
 		assertParamValid("article must not be null", bean.getArticle() != null);
-		Resource<Article> resource = ResourceMapper.get().get(bean);
+		Resource<Article> resource = ResourceMapper.get().toEntity(bean);
 		resource.setId(0);
 		resource.setVersion(0);
 		resource.setStatus(Status.NEW);
 		resource.setAuthor(getUserNullSafe());
 		resource.setCreateDate(new Date());
 		ResourceDAO.persist(resource);
-		bean = ResourceMapper.get().apply(resource);
+		bean = ResourceMapper.get().toBean(resource);
 		return new ObjectResult<ResourceBean>(bean);
 	}
 	
@@ -47,7 +47,7 @@ public class ResourceService extends AbstractResource {
 	public ObjectResult<ResourceBean> get(@PathParam("id") long id) {
 		Resource<Article> resource = ResourceDAO.fetchById(id);
 		assertResourceFound(resource);
-		return new ObjectResult<ResourceBean>(ResourceMapper.get().apply(
+		return new ObjectResult<ResourceBean>(ResourceMapper.get().toBean(
 				resource));
 	}
 	
@@ -65,7 +65,7 @@ public class ResourceService extends AbstractResource {
 			nextUrl = PATH + "/namespace/" + namespaceID + "?start="
 					+ (start + size) + "&size=" + size;
 		}
-		List<ResourceBean> beans = MapperUtils.applyAll(resList, ResourceMapper
+		List<ResourceBean> beans = MapperUtils.toBeans(resList, ResourceMapper
 				.get());
 		return new ListResult<ResourceBean>(beans, nextUrl);
 	}
@@ -81,7 +81,7 @@ public class ResourceService extends AbstractResource {
 		resource.setAccessibility(data.getAccessibility());
 		resource.setStatus(data.getStatus());
 		ResourceDAO.persist(resource);
-		return new ObjectResult<ResourceBean>(ResourceMapper.get().apply(
+		return new ObjectResult<ResourceBean>(ResourceMapper.get().toBean(
 				resource));
 	}
 }

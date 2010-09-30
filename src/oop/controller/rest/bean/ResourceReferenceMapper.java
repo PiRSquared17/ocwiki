@@ -9,7 +9,7 @@ public class ResourceReferenceMapper<T extends Article> implements
 		Mapper<ResourceReferenceBean, Resource<T>> {
 
 	@Override
-	public ResourceReferenceBean apply(Resource value) {
+	public ResourceReferenceBean toBean(Resource value) {
 		if (value == null) {
 			return null;
 		}
@@ -21,7 +21,7 @@ public class ResourceReferenceMapper<T extends Article> implements
 	}
 
 	@Override
-	public Resource<T> get(ResourceReferenceBean value) {
+	public Resource<T> toEntity(ResourceReferenceBean value) {
 		if (value == null) {
 			return null;
 		}

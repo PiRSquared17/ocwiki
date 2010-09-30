@@ -40,7 +40,7 @@ public class TestResource extends AbstractResource {
 			@PathParam("resourceID") long resourceID) {
 		List<ResourceSearchReport<Test>> listRelatedTest = ArticleDAO
 				.fetchRelated(Test.class, resourceID, 0, 5);
-		List<ResourceSearchReportBean> beans = MapperUtils.applyAll(
+		List<ResourceSearchReportBean> beans = MapperUtils.toBeans(
 				listRelatedTest, ResourceSearchReportMapper.get());
 		return new ListResult<ResourceSearchReportBean>(beans);
 	}

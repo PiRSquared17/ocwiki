@@ -7,7 +7,7 @@ import oop.data.Topic;
 public class TestMapper implements Mapper<TestBean, Test> {
 
 	@Override
-	public TestBean apply(Test value) {
+	public TestBean toBean(Test value) {
 		TestBean bean = new TestBean();
 		bean.setId(value.getId());
 		bean.setName(value.getName());
@@ -16,15 +16,15 @@ public class TestMapper implements Mapper<TestBean, Test> {
 		bean.setType(value.getType());
 		bean.setTime(value.getTime());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
-		MapperUtils.getAll(bean.getTopics(), value.getTopics(), topicMapper);
+		MapperUtils.toEntities(bean.getTopics(), value.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
-		MapperUtils.applyAll(bean.getAttachments(), value.getAttachments(), fileMapper);
-		MapperUtils.applyAll(bean.getEmbeds(), value.getEmbeds(), fileMapper);
+		MapperUtils.toBeans(bean.getAttachments(), value.getAttachments(), fileMapper);
+		MapperUtils.toBeans(bean.getEmbeds(), value.getEmbeds(), fileMapper);
 		return bean;
 	}
 
 	@Override
-	public Test get(TestBean value) {
+	public Test toEntity(TestBean value) {
 		Test entity = new Test();
 		entity.setId(value.getId());
 		entity.setName(value.getName());
@@ -33,10 +33,10 @@ public class TestMapper implements Mapper<TestBean, Test> {
 		entity.setType(value.getType());
 		entity.setTime(value.getTime());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
-		MapperUtils.getAll(value.getTopics(), entity.getTopics(), topicMapper);
+		MapperUtils.toEntities(value.getTopics(), entity.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
-		MapperUtils.getAll(value.getAttachments(), entity.getAttachments(), fileMapper);
-		MapperUtils.getAll(value.getEmbeds(), entity.getEmbeds(), fileMapper);
+		MapperUtils.toEntities(value.getAttachments(), entity.getAttachments(), fileMapper);
+		MapperUtils.toEntities(value.getEmbeds(), entity.getEmbeds(), fileMapper);
 		return entity;
 	}
 

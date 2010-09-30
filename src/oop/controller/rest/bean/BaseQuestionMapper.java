@@ -7,7 +7,7 @@ import oop.data.Topic;
 public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion> {
 
 	@Override
-	public BaseQuestionBean apply(BaseQuestion value) {
+	public BaseQuestionBean toBean(BaseQuestion value) {
 		BaseQuestionBean bean = new BaseQuestionBean();
 		bean.setId(value.getId());
 		bean.setName(value.getName());
@@ -16,15 +16,15 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 		bean.setLevel(value.getLevel());
 		bean.setAnswers(value.getAnswers());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
-		MapperUtils.applyAll(bean.getTopics(), value.getTopics(), topicMapper);
+		MapperUtils.toBeans(bean.getTopics(), value.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
-		MapperUtils.applyAll(bean.getAttachments(), value.getAttachments(), fileMapper);
-		MapperUtils.applyAll(bean.getEmbeds(), value.getEmbeds(), fileMapper);
+		MapperUtils.toBeans(bean.getAttachments(), value.getAttachments(), fileMapper);
+		MapperUtils.toBeans(bean.getEmbeds(), value.getEmbeds(), fileMapper);
 		return bean;
 	}
 
 	@Override
-	public BaseQuestion get(BaseQuestionBean value) {
+	public BaseQuestion toEntity(BaseQuestionBean value) {
 		BaseQuestion entity = new BaseQuestion();
 		entity.setId(value.getId());
 		entity.setName(value.getName());
@@ -33,10 +33,10 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 		entity.setLevel(value.getLevel());
 		entity.setAnswers(value.getAnswers());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
-		MapperUtils.getAll(value.getTopics(), entity.getTopics(), topicMapper);
+		MapperUtils.toEntities(value.getTopics(), entity.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
-		MapperUtils.getAll(value.getAttachments(), entity.getAttachments(), fileMapper);
-		MapperUtils.getAll(value.getEmbeds(), entity.getEmbeds(), fileMapper);
+		MapperUtils.toEntities(value.getAttachments(), entity.getAttachments(), fileMapper);
+		MapperUtils.toEntities(value.getEmbeds(), entity.getEmbeds(), fileMapper);
 		return entity;
 	}
 

@@ -33,9 +33,9 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 	public ObjectResult<BaseQuestionBean> add(BaseQuestionBean bean)
 			throws Exception {
 		validate(bean); 
-		BaseQuestion question = BaseQuestionMapper.get().get(bean);
+		BaseQuestion question = BaseQuestionMapper.get().toEntity(bean);
 		ResourceDAO.create(getUserNullSafe(), BaseQuestion.class, question);
-		bean = BaseQuestionMapper.get().apply(question);
+		bean = BaseQuestionMapper.get().toBean(question);
 		return new ObjectResult<BaseQuestionBean>(bean);
 	}
 
@@ -44,7 +44,7 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
 		BaseQuestion question = resource.getArticle();
-		BaseQuestionBean bean = BaseQuestionMapper.get().apply(question);
+		BaseQuestionBean bean = BaseQuestionMapper.get().toBean(question);
 		return new ObjectResult<BaseQuestionBean>(bean);
 	}
 
@@ -59,12 +59,12 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 		WebServiceUtils.assertValid(resource.getArticle().getId() == data
 				.getArticle().getId(), "old version");
 
-		BaseQuestion question = BaseQuestionMapper.get().get(data.getArticle());
+		BaseQuestion question = BaseQuestionMapper.get().toEntity(data.getArticle());
 		question.setId(0); // coi nó như đối tượng mới
 		ArticleDAO.persist(question);
 
 		saveNewRevision(resource, question, data.getSummary(), data.isMinor());
-		BaseQuestionBean bean = BaseQuestionMapper.get().apply(resource.getArticle());
+		BaseQuestionBean bean = BaseQuestionMapper.get().toBean(resource.getArticle());
 		return new ObjectResult<BaseQuestionBean>(bean);
 	}
 
@@ -95,7 +95,7 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 			long resourceID) {
 		List<ResourceSearchReport<BaseQuestion>> questions = ArticleDAO
 				.fetchRelated(BaseQuestion.class, resourceID, 0, 5);
-		List<ResourceSearchReportBean> beans = MapperUtils.applyAll(questions,
+		List<ResourceSearchReportBean> beans = MapperUtils.toBeans(questions,
 				ResourceSearchReportMapper.get());
 		return new ListResult<ResourceSearchReportBean>(beans);
 	}

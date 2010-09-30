@@ -5,21 +5,21 @@ import oop.data.Section;
 public class SectionMapper implements Mapper<SectionBean, Section> {
 
 	@Override
-	public SectionBean apply(Section value) {
+	public SectionBean toBean(Section value) {
 		SectionBean bean = new SectionBean();
 		bean.setId(value.getId());
 		bean.setContent(value.getContent());
-		MapperUtils.applyAll(bean.getQuestions(), value.getQuestions(),
+		MapperUtils.toBeans(bean.getQuestions(), value.getQuestions(),
 				QuestionMapper.get());
 		return bean;
 	}
 
 	@Override
-	public Section get(SectionBean value) {
+	public Section toEntity(SectionBean value) {
 		Section entity = new Section();
 		entity.setId(value.getId());
 		entity.setContent(value.getContent());
-		MapperUtils.getAll(value.getQuestions(), entity.getQuestions(),
+		MapperUtils.toEntities(value.getQuestions(), entity.getQuestions(),
 				QuestionMapper.get());
 		return entity;
 	}

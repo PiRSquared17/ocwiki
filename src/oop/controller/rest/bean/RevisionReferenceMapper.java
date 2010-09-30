@@ -9,14 +9,14 @@ public class RevisionReferenceMapper<T extends Article> implements
 		Mapper<RevisionReferenceBean, Revision<T>> {
 
 	@Override
-	public RevisionReferenceBean apply(Revision value) {
+	public RevisionReferenceBean toBean(Revision value) {
 		RevisionReferenceBean bean = new RevisionReferenceBean();
 		bean.setId(value.getId());
 		return bean;
 	}
 
 	@Override
-	public Revision<T> get(RevisionReferenceBean value) {
+	public Revision<T> toEntity(RevisionReferenceBean value) {
 		return HibernateUtil.load(Revision.class, value.getId());
 	}
 
