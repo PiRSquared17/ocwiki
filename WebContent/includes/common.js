@@ -62,6 +62,7 @@ Editor.edit = function(id) {
 	if (preview) {
 		preview.remove();
 	}
+	element.show();
 	if (element.getElementsByTagName('textarea').length > 0) {
 		var textarea = element.getElementsByTagName('textarea')[0];
 		var tinymceEditor = tinymce.get(textarea.id);
@@ -69,8 +70,11 @@ Editor.edit = function(id) {
 			tinymceEditor = new tinymce.Editor(textarea.id, {});
 			tinymceEditor.render();
 		}
+		tinymceEditor.focus(true);
+	} else {
+		var textbox = element.getElementsByTagName('input')[0];
+		textbox.focus();
 	}
-	element.show();
 	Editor.active = id;
 };
 
@@ -94,11 +98,13 @@ Editor.preview = function(id) {
 		var textbox = element.getElementsByTagName('input')[0];
 		preview = document.createElement('span');
 		preview.setAttribute('id', id + '-preview');
-		alert(textbox.value);
 		if (textbox.value.length > 0) {
-			preview.innerHTML = textbox.value.trim();
+			name = textbox.value.trim();
+			name = name.replace(/</g, '');
+			name = name.replace(/>/g, '');
+			preview.innerHTML = name;
 		} else {
-			preview.innerHTML = 'không tên';
+			preview.innerHTML = '&lt;không tên&gt;';
 		}
 	}
 	preview.observe('click', function(event) {
