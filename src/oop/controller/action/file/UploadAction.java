@@ -7,7 +7,9 @@ import java.util.List;
 import oop.conf.Config;
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
+import oop.data.Namespace;
 import oop.db.dao.FileDAO;
+import oop.db.dao.NamespaceDAO;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -54,8 +56,10 @@ public class UploadAction extends AbstractAction {
 					FileItem item = (FileItem) itr.next();
 					if (!item.isFormField() && check(item)) {
 						File uploadedFile = new File(destDir, item.getName());
+						item.write(uploadedFile);
 						oop.data.File file = new oop.data.File();
 						file.setName(uploadedFile.getName());
+						file.setNamespace(NamespaceDAO.fetch(Namespace.FILE));
 						FileDAO.persist(file);
 					}
 					else
