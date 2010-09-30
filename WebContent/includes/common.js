@@ -81,7 +81,9 @@ Editor.preview = function(id) {
 
 /**
  * Date and time
- */
-function dateToString(){
-
-}
+ 
+function dateToString(date){
+	var dateString = '';
+	dateString += (''+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+' '+date.getDay()+'-'+date.getMonth()+'-'+date.getYear());
+	return dateString;
+}*/
