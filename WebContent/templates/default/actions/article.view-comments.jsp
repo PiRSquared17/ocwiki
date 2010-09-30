@@ -13,8 +13,6 @@
 	var curPage = 0;
 	var pageCount = 0;
 	var commentCount = 0;
-	loadLatest();
-	
 
 	//load comments
 	function loadLatest(){
@@ -311,5 +309,6 @@
 		return '<button type="button" id="btn-'+value+'" name="btn-'+value+'" value="'+value+'" onclick="'+onClickFunction+'">'+text+'</button>';
 	}
 
+	Event.observe(window, 'load', loadLatest); 
 
 </script>
