@@ -13,6 +13,8 @@ import javax.ws.rs.core.MediaType;
 import oop.controller.rest.bean.MapperUtils;
 import oop.controller.rest.bean.ResourceSearchReportBean;
 import oop.controller.rest.bean.ResourceSearchReportMapper;
+import oop.controller.rest.bean.TestBean;
+import oop.controller.rest.bean.TestMapper;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
@@ -47,24 +49,26 @@ public class TestResource extends AbstractResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public ObjectResult<Test> add(Test test) {
+	public ObjectResult<TestBean> add(Test test) {
 		validate(test);
 		ResourceDAO.create(getUserNullSafe(), Test.class, test);
-		return new ObjectResult<Test>(test);
+		TestBean bean = TestMapper.get().toBean(test);
+		return new ObjectResult<TestBean>(bean);
 	}
 
 	@GET
 	@Path("/{id: \\d+}")
-	public ObjectResult<Test> get(@PathParam("id") long resourceId) {
+	public ObjectResult<TestBean> get(@PathParam("id") long resourceId) {
 		Resource<Test> resource = getResourceSafe(resourceId, Test.class);
 		Test test = resource.getArticle();
-		return new ObjectResult<Test>(test);
+		TestBean bean = TestMapper.get().toBean(test);
+		return new ObjectResult<TestBean>(bean);
 	}
 
 	@POST
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ObjectResult<Test> update(@PathParam("id") long resourceId, Revision<Test> data)
+	public ObjectResult<TestBean> update(@PathParam("id") long resourceId, Revision<Test> data)
 			throws Exception {
 		Resource<Test> resource = getResourceSafe(resourceId, Test.class);
 		validate(data.getArticle());
@@ -78,7 +82,8 @@ public class TestResource extends AbstractResource {
 
 		saveNewRevision(resource, data.getArticle(), data.getSummary(), data
 				.isMinor());
-		return new ObjectResult<Test>(resource.getArticle());
+		TestBean bean = TestMapper.get().toBean(test);
+		return new ObjectResult<TestBean>(bean);
 	}
 
 	private void copySections(Test src, Test dest) {
