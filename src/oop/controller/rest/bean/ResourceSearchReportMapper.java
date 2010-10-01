@@ -7,18 +7,18 @@ public class ResourceSearchReportMapper implements
 		Mapper<ResourceSearchReportBean, ResourceSearchReport<? extends Article>> {
 
 	@Override
-	public ResourceSearchReportBean apply(ResourceSearchReport<? extends Article> value) {
+	public ResourceSearchReportBean toBean(ResourceSearchReport<? extends Article> value) {
 		ResourceSearchReportBean bean = new ResourceSearchReportBean();
-		bean.setResource(ResourceReferenceMapper.get().apply(
+		bean.setResource(ResourceReferenceMapper.get().toBean(
 				value.getResource()));
 		bean.setScore(value.getScore());
 		return bean;
 	}
 
 	@Override
-	public ResourceSearchReport<Article> get(ResourceSearchReportBean value) {
+	public ResourceSearchReport<Article> toEntity(ResourceSearchReportBean value) {
 		ResourceSearchReport<Article> entity = new ResourceSearchReport<Article>();
-		entity.setResource(ResourceReferenceMapper.get().get(
+		entity.setResource(ResourceReferenceMapper.get().toEntity(
 				value.getResource()));
 		entity.setScore(value.getScore());
 		return entity;

@@ -13,7 +13,7 @@ import com.meterware.httpunit.PostMethodWebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class LoginServiceTest extends ResourceTest {
+public class LoginServiceTest extends AbstractResourceTest {
 
 	@Test
 	public void testLogin() throws IOException, SAXException {

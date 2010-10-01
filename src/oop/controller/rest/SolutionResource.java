@@ -27,8 +27,7 @@ public class SolutionResource extends AbstractResource {
 	
 	@POST
 	public ObjectResult<TextArticle> create(TextArticle text){
-		User user = SessionUtils.getUser(getSession());
-		ResourceDAO.create(user, TextArticle.class, text);
+		ResourceDAO.create(getUserNullSafe(), TextArticle.class, text);
 		return new ObjectResult<TextArticle>(text);
 	}
 

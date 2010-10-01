@@ -13,8 +13,6 @@
 	var curPage = 0;
 	var pageCount = 0;
 	var commentCount = 0;
-	loadLatest();
-	
 
 	//load comments
 	function loadLatest(){
@@ -268,12 +266,9 @@
 				pageButtons+=buttonHTML(i+1,i,('loadPage('+i+')'));				
 			}
 			$('comment-pages').innerHTML = pageButtons;
-			
 		} else {
-			alert('else');
+			//alert('else');
 		}
-
-		
 		disableButtons();
 	}
 
@@ -314,5 +309,6 @@
 		return '<button type="button" id="btn-'+value+'" name="btn-'+value+'" value="'+value+'" onclick="'+onClickFunction+'">'+text+'</button>';
 	}
 
+	Event.observe(window, 'load', loadLatest); 
 
 </script>
