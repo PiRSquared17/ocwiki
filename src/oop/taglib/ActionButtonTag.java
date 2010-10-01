@@ -24,7 +24,7 @@ public class ActionButtonTag extends AbstractActionTag {
 		appendClass();
 		appendOnclick();
 		out().print("\">");
-		out().print(sw);
+		out().print(sw.toString().trim());
 		out().print("</button>");
 	}
 

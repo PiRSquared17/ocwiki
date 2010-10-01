@@ -10,7 +10,7 @@ public class Topic extends Article {
 	
 	private Resource<Topic> parent;
 
-	Topic() {
+	public Topic() {
 	}
 
 	public Topic(Namespace namespace, String name, Resource<Topic> parent, Text content) {

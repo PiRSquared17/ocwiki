@@ -31,7 +31,6 @@ public class APIController extends HttpServlet {
 	 */
 	public APIController() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private void process(HttpServletRequest request,
