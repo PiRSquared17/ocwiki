@@ -62,6 +62,11 @@
       <name>revision.list</name>
       <class>oop.controller.action.revision.ListAction</class>
     </action>
+    <action>
+      <name>article.print</name>
+      <class>oop.controller.action.article.PrintAction</class>
+      <container>print.jsp</container>
+    </action>
     
     
 
@@ -496,6 +501,12 @@
         <inAction>article.view</inAction>
         <articleType>oop.data.TextArticle</articleType>
         <articleType>oop.data.Test</articleType>
+    </module>
+    <module>
+        <name>create-article</name>
+        <title>Tạo bài viết</title>
+        <position>top_right</position>
+        <order>2</order>
     </module>
     <module>
         <name>fbconnect</name>

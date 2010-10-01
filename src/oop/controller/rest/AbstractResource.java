@@ -44,8 +44,7 @@ public abstract class AbstractResource {
 
 	protected <T extends Article> Revision<T> saveNewRevision(
 			Resource<T> resource, T article, String summary, boolean minor) {
-		User user = SessionUtils.getUser(getSession());
-		return ResourceDAO.update(resource, article, user, summary, minor);
+		return ResourceDAO.update(resource, article, getUserNullSafe(), summary, minor);
 	}
 
 	protected int getBaseVersion() {
@@ -60,7 +59,15 @@ public abstract class AbstractResource {
 	
 	protected User getUser() {
 		return SessionUtils.getUser(getSession());
-		
+	}
+	
+	protected User getUserNullSafe() {
+		User user = SessionUtils.getUser(getSession());
+		if (user == null) {
+			throw new WebApplicationException(Response.status(Status.NOT_FOUND)
+					.entity(new ErrorResult("login required")).build());
+		}
+		return user;
 	}
 
 	protected ParameterList getParams() {
@@ -121,6 +128,13 @@ public abstract class AbstractResource {
 	protected void assertBaseVersion(HasVersion entity) {
 		if (entity.getVersion() != getBaseVersion()) {
 			throw invalidParam("basever", "old version");	
+		}
+	}
+
+	protected void assertParamValid(String message, boolean valid) {
+		if (!valid) {
+			throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+					.entity(new ErrorResult(message)).build());
 		}
 	}
 

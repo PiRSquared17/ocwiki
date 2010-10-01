@@ -56,7 +56,6 @@ public class ActionController extends HttpServlet {
 		// set variables
 		String template = StringUtils.defaultIfEmpty((String) request
 				.getSession().getAttribute("template"), "default");
-		String templateEntry = "/templates/" + template + "/index.jsp";
 
 		request.setAttribute("config", Config.get());
 		request.setAttribute("homeDir", Config.get().getHomeDir());
@@ -128,8 +127,9 @@ public class ActionController extends HttpServlet {
 			} else {
 				request.setAttribute("modules", getModules(request, action));
 				request.setAttribute("action", action);
-				request.getRequestDispatcher(templateEntry).forward(request,
-						response);
+				String entry = "/templates/" + template + "/"
+						+ actionDesc.getContainer();
+				request.getRequestDispatcher(entry).forward(request, response);
 			}
 		} catch (ActionException e) {
 			error(request, response, e.getMessage());

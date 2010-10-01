@@ -11,7 +11,6 @@ public class CreateSolution extends AbstractResourceAction<BaseQuestion> {
 	
 	@Override
 	protected void performImpl() throws Exception {
-		// TODO Auto-generated method stub
 		resource = BaseQuestionDAO.fetchById(getParams().getLong("id"));
 		if(resource==null){
 			throw new ActionException("Không tìm thấy câu hỏi!");
