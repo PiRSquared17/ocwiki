@@ -1,5 +1,6 @@
 package oop.controller.rest;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
@@ -32,12 +33,18 @@ public abstract class AbstractResource {
 	
 	@Context
 	private HttpServletRequest request;
+	@Context
+	private ServletContext servletContext;
 	private ParameterList params;
 
 	public HttpServletRequest getRequest() {
 		return request;
 	}
 
+	public ServletContext getServletContext() {
+		return servletContext;
+	}
+	
 	public HttpSession getSession() {
 		return request.getSession();
 	}

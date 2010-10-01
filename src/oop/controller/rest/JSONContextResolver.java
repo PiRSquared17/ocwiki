@@ -16,11 +16,10 @@ import com.sun.jersey.api.json.JSONJAXBContext;
 @Provider
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@SuppressWarnings("unchecked")
 public class JSONContextResolver implements ContextResolver<JAXBContext> {
 
     private JAXBContext context;
-	private Class[] types = {
+	private Class<?>[] types = {
 			oop.data.Resource.class,
 			oop.data.ResourceCustomization.class,
 			oop.data.ResourceReport.class,
@@ -37,6 +36,7 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     		oop.data.Test.class,
     		oop.data.TestStructure.class,
     		oop.data.Text.class,
+    		oop.data.File.class,
     		oop.data.TextArticle.class,
     		oop.data.Topic.class,
     		oop.data.TopicConstraint.class,
@@ -77,7 +77,7 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     }
 
 	public JAXBContext getContext(Class<?> objectType) {
-		for (Class type : types) {
+		for (Class<?> type : types) {
 			if (type.isAssignableFrom(objectType)) {
 				return context;
 			}
