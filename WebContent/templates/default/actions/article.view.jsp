@@ -23,6 +23,10 @@
 			</ocw:actionLink>]
 	    </c:when>
     </c:choose>
+    [<ocw:actionLink name="article.print" target="_blank">
+	    <ocw:param name="id" value="${action.resource.id}"></ocw:param>
+	    in
+	</ocw:actionLink>]
 </div>
 
 <h1>${action.resource.qualifiedName}</h1>
