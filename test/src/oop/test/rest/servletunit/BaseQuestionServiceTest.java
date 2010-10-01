@@ -2,8 +2,6 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
-import javax.ws.rs.core.MediaType;
-
 import oop.conf.Config;
 import oop.data.Namespace;
 
@@ -47,7 +45,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," +
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -105,7 +103,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," +
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -128,7 +126,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," +
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -152,7 +150,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," + 
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -177,7 +175,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"\"}," + // blank
 					"\"namespace\":{\"id\":\"0\"}," +
