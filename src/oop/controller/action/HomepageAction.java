@@ -29,7 +29,7 @@ public class HomepageAction extends AbstractAction {
 	public void performImpl() throws Exception {
 		title("Trang chủ");
 		tests = TestDAO.fetch(0, 10);
-		textArticles = TextArticleDAO.fetch(0, 10);
+		textArticles = TextArticleDAO.fetchNewest(0, 10);
 		testStructures = TestStructureDAO.fetch(0, 10);
 		questions = BaseQuestionDAO.fetch(0, 10);
 		testCount = TestDAO.count();
