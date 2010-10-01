@@ -30,10 +30,11 @@ public class TextArticleDAO {
 		return ResourceDAO.fetchById(id, TextArticle.class);
 	}
 	
-	public static List<Resource<TextArticle>> fetch(int start, int size) {
+	public static List<Resource<TextArticle>> fetchNewest(int start, int size) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Resource where article in (from TextArticle) " +
-				"and status <> 'DELETED'";
+		String hql = "from Resource " +
+				"where article in (from TextArticle) and status <> 'DELETED' " +
+				"order by id desc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(start);
 		query.setMaxResults(size);
