@@ -30,7 +30,7 @@ public class ActionLinkTag extends AbstractActionTag {
 		appendTarget();
 		out().print("\">");
 		out().append(sb);
-		out().append(sw.toString());
+		out().append(sw.toString().trim());
 		out().append("</a>");
 	}
 
