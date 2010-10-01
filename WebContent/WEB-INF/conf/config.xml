@@ -497,6 +497,13 @@
         <articleType>oop.data.TextArticle</articleType>
         <articleType>oop.data.Test</articleType>
     </module>
+    <module>
+        <name>fbconnect</name>
+        <title>Đăng nhập bằng tài khoản FaceBook</title>
+        <position>top_right</position>
+        <order>3</order>
+        <page>auth/fbconnect.jsp</page>
+    </module>
     <!-- 
     <module>
        <name>login</name>
