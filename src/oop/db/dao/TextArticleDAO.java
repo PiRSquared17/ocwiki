@@ -9,8 +9,9 @@ import oop.persistence.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+@SuppressWarnings("unchecked")
 public class TextArticleDAO {
-	@SuppressWarnings("unchecked")
+
 	public static List<Resource<TextArticle>> fetchByTopicId(long Topicid, int start,
 			int length){
 		Session session = HibernateUtil.getSession();
@@ -24,7 +25,25 @@ public class TextArticleDAO {
 		query.setMaxResults(length);
 		return query.list();			
 	}
+
 	public static Resource<TextArticle> fetchById(long id){
 		return ResourceDAO.fetchById(id, TextArticle.class);
 	}
+	
+	public static List<Resource<TextArticle>> fetch(int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in (from TextArticle) " +
+				"and status <> 'DELETED'";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return query.list();
+	}
+	
+	public static long count() {
+		String hql = "select count(*) from Resource " + 
+				"where article in (from TextArticle) and status <> 'DELETED'";
+		return HibernateUtil.count(hql);
+	}
+
 }
