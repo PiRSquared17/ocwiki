@@ -1,7 +1,6 @@
 package oop.controller.rest.bean;
 
 import oop.data.Article;
-import oop.data.Resource;
 import oop.data.ResourceSearchReport;
 
 public class ResourceSearchReportMapper implements
@@ -11,7 +10,7 @@ public class ResourceSearchReportMapper implements
 	public ResourceSearchReportBean toBean(ResourceSearchReport<? extends Article> value) {
 		ResourceSearchReportBean bean = new ResourceSearchReportBean();
 		bean.setResource(ResourceReferenceMapper.get().toBean(
-				(Resource<Article>) value.getResource()));
+				value.getResource()));
 		bean.setScore(value.getScore());
 		return bean;
 	}
