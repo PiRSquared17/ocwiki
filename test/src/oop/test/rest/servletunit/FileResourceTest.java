@@ -10,18 +10,19 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import com.meterware.httpunit.PostMethodWebRequest;
+import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
 public class FileResourceTest extends AbstractResourceTest {
 
-	private final String path = Config.get().getRestPath() + FileResource.PATH;
+	private String path = Config.get().getRestPath() + FileResource.PATH;
 	
 	@Test
-	public void testUpload() throws IOException, SAXException {
+	public void testUpdate() throws IOException, SAXException {
 		ServletUnitClient client = getServletRunner().newClient();
-		PostMethodWebRequest request = new PostMethodWebRequest(path + "/123/file", true);
+		PostMethodWebRequest request = new PostMethodWebRequest(path + "/123", true);
 		request.selectFile("file", new File("test/files/flag_of_Vietnam.gif"));
-		client.getResponse(request);
+		WebResponse response = client.getResponse(request);
 	}
 	
 }
