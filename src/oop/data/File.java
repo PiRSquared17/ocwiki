@@ -1,9 +1,17 @@
 package oop.data;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlRootElement
 public class File extends CategorizableArticle {
 
 	private String filename;
 
+	public File() {
+	}
+	
+	@XmlTransient
 	public String getFileName() {
 		return filename;
 	}
