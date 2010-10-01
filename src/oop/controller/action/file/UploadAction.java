@@ -12,6 +12,7 @@ import oop.db.dao.FileDAO;
 import oop.db.dao.NamespaceDAO;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -63,15 +64,17 @@ public class UploadAction extends AbstractAction {
 						FileDAO.persist(file);
 					}
 					else
-						this.addError("File Error", "File không hợp lệ");
+						this.addError("file", "File không hợp lệ");
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
+			} catch (FileUploadBase.SizeLimitExceededException ex) {
+				addError("file", "File to quá!");
+				// ex.printStackTrace(); dung bao h bat loi r de do'
 			}
 		}
 		else
-			this.addError("File Error", "Not Multipart");
-
+			if (getParams().hasParameter("submit")) {
+				this.addError("file", "Not Multipart");
+			}
 	}
 
 	public boolean check(FileItem file) {
@@ -91,7 +94,9 @@ public class UploadAction extends AbstractAction {
 				|| fileExt.equalsIgnoreCase(".svg"))
 				&& fileSize <= 10 * 1024 * 1024)
 			return true;
-		else
+		else {
+			addError("file", "Định dạng không hợp lệ!");
 			return false;
+		}
 	}
 }
