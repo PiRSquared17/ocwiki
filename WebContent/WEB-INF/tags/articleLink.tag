@@ -24,4 +24,5 @@
         </c:if>
     </c:otherwise>
 </c:choose>
-<a href="${url}" onclick="${onclick}">${body}</a>
+
+<a href="${url}" onclick="${onclick}">${fn:trim(body)}</a>

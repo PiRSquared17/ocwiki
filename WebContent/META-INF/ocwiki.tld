@@ -84,6 +84,9 @@
     <attribute>
         <name>onclick</name>
     </attribute>    
+    <attribute>
+        <name>target</name>
+    </attribute>    
   </tag>
 
   <tag>

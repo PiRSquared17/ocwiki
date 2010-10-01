@@ -62,7 +62,11 @@
       <name>revision.list</name>
       <class>oop.controller.action.revision.ListAction</class>
     </action>
-    
+    <action>
+      <name>article.print</name>
+      <class>oop.controller.action.article.PrintAction</class>
+      <container>print.jsp</container>
+    </action>
     
 
     <action>
