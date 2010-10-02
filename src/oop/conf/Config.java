@@ -6,9 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.List;
 import java.util.Map.Entry;
 
 public class Config implements Serializable {
@@ -28,11 +28,15 @@ public class Config implements Serializable {
 	private String restPath = "${homeDir}/rest";
 	private String templatePath = "${homeDir}/templates";
 	private String uploadPath = "${homeDir}/uploads";
+	private String userPath = "${homeDir}/user";
 	private String mainEntry = "/index.jsp";
 	private String siteName = "OCWiki";
 	private String tablePrefix = "ocw";
 	private String defaultTemplate = "default";
 	private String mysqlCommand = "mysql";
+	private String uploadDir = "/uploads";
+	private String facebookAppId = "";
+	private String facebookSecret = "";
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
 	private Set<ActionDescriptor> actionDescriptors = new HashSet<ActionDescriptor>();
 	private Set<APIDescriptor> apiDescriptors = new HashSet<APIDescriptor>();
@@ -271,6 +275,22 @@ public class Config implements Serializable {
 	public String getArticlePath() {
 		return replaceMagicWords(articlePath);
 	}
+
+	public String getUploadDir() {
+		return uploadDir;
+	}
+	
+	public void setUploadDir(String uploadDir) {
+		this.uploadDir = uploadDir;
+	}
+
+	public String getUserPath() {
+		return replaceMagicWords(userPath);
+	}
+	
+	public void setUserPath(String userPath) {
+		this.userPath = userPath;
+	}
 	
 	void doneLoading() {
 		// create action map
@@ -296,6 +316,22 @@ public class Config implements Serializable {
 		for (Entry<String, List<ModuleDescriptor>> entries : moduleMap.entrySet()) {
 			Collections.sort(entries.getValue(), MODULE_POSITION_COMPARATOR);
 		}
+	}
+
+	public void setFacebookAppId(String facebookAppId) {
+		this.facebookAppId = facebookAppId;
+	}
+
+	public String getFacebookAppId() {
+		return facebookAppId;
+	}
+
+	public void setFacebookSecret(String facebookSecret) {
+		this.facebookSecret = facebookSecret;
+	}
+
+	public String getFacebookSecret() {
+		return facebookSecret;
 	}
 	
 }

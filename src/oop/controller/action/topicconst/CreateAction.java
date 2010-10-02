@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.data.Resource;
 import oop.data.SectionStructure;
 import oop.data.TestStructure;
@@ -17,7 +17,7 @@ import oop.util.Utils;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class CreateAction extends AbstractAction {
+public class CreateAction extends AbstractResourceAction<TestStructure> {
 
 	public CreateAction() {
 	}
@@ -91,13 +91,8 @@ public class CreateAction extends AbstractAction {
 		}
 	}
 
-	private Resource<TestStructure> resource;
 	private TestStructure testStructure;
 
-	public Resource<TestStructure> getResource() {
-		return resource;
-	}
-	
 	public TestStructure getTestStructure() {
 		return testStructure;
 	}

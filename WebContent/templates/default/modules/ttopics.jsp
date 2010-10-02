@@ -6,6 +6,6 @@
     <c:forEach items="${module.topics}" var="topic">
        <li><a href="${scriptPath}?action=test.list&topic=${topic.id}">${topic.name}</a></li>
     </c:forEach>
-	<li><a href="${scriptPath}?action=testtopic.list">Danh sách chủ đề</a></li>
+	<li><a href="${scriptPath}?action=topic.list">Danh sách chủ đề</a></li>
 	<li><a href="${scriptPath}?action=test.list">Tất cả</a></li>
 </ul>

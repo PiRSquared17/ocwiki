@@ -1,13 +1,10 @@
 package oop.controller.action.answer;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.data.BaseQuestion;
-import oop.data.Resource;
 import oop.db.dao.BaseQuestionDAO;
 
-public class DeleteAction extends AbstractAction {
-
-	private Resource<BaseQuestion> resource;
+public class DeleteAction extends AbstractResourceAction<BaseQuestion> {
 
 	@Override
 	public void performImpl() throws Exception {

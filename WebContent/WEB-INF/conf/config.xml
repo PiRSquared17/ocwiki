@@ -7,6 +7,7 @@
 	<restPath>${homeDir}/rest</restPath>
 	<templatePath>${homeDir}/templates/${template}</templatePath>
 	<uploadPath>${homeDir}/uploads</uploadPath>
+	<uploadDir>/uploads</uploadDir>
 	<defaultTemplate>default</defaultTemplate>
 
     <!--********************************************************************
@@ -60,6 +61,11 @@
     <action>
       <name>revision.list</name>
       <class>oop.controller.action.revision.ListAction</class>
+    </action>
+    <action>
+      <name>article.print</name>
+      <class>oop.controller.action.article.PrintAction</class>
+      <container>print.jsp</container>
     </action>
     
     
@@ -284,6 +290,10 @@
       <name>textarticle.view</name>
       <class>oop.controller.action.TextArticle.ViewAction</class>
     </action>
+    <action>
+      <name>solution.create</name>
+      <class>oop.controller.action.solution.CreateSolution</class>
+    </action>
     <!--********************************************************************
                            User Actions 
      ********************************************************************-->
@@ -313,6 +323,11 @@
     <action>
       <name>user.preference</name>
       <class>oop.controller.action.user.PreferenceAction</class>
+      <loginRequired>true</loginRequired>
+    </action>
+    <action>
+      <name>uploadFile</name>
+      <class>oop.controller.action.file.UploadAction</class>
       <loginRequired>true</loginRequired>
     </action>
     
@@ -453,6 +468,52 @@
         <page>question/test.jsp</page>
         <inAction>article.view</inAction>
         <articleType>oop.data.BaseQuestion</articleType>
+    </module>
+    <module>
+        <name>related-test</name>
+        <title>Các bài thi có liên quan:</title>
+        <class>oop.module.test.RelatedTest</class>
+        <position>action-bottom</position>
+        <order>4</order>
+        <page>test/related-test.jsp</page>
+        <inAction>article.view</inAction>
+        <articleType>oop.data.TextArticle</articleType>
+        <articleType>oop.data.BaseQuestion</articleType>
+    </module>
+    <module>
+        <name>related-TextArticle</name>
+        <title>Các bài viết có liên quan:</title>
+        <class>oop.module.TextArticle.RelatedTextArticle</class>
+        <position>action-bottom</position>
+        <order>4</order>
+        <page>TextArticle/related-TextArticle.jsp</page>
+        <inAction>article.view</inAction>
+        <articleType>oop.data.Test</articleType>
+        <articleType>oop.data.BaseQuestion</articleType>
+    </module>
+    <module>
+        <name>related-BaseQuestion</name>
+        <title>Các câu hỏi có liên quan:</title>
+        <class>oop.module.question.RelatedBaseQuestion</class>
+        <position>action-bottom</position>
+        <order>4</order>
+        <page>question/related-BaseQuestion.jsp</page>
+        <inAction>article.view</inAction>
+        <articleType>oop.data.TextArticle</articleType>
+        <articleType>oop.data.Test</articleType>
+    </module>
+    <module>
+        <name>create-article</name>
+        <title>Tạo bài viết</title>
+        <position>top_right</position>
+        <order>2</order>
+    </module>
+    <module>
+        <name>fbconnect</name>
+        <title>Đăng nhập bằng tài khoản FaceBook</title>
+        <position>top_right</position>
+        <order>3</order>
+        <page>auth/fbconnect.jsp</page>
     </module>
     <!-- 
     <module>

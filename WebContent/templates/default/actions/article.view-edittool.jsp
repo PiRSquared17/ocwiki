@@ -4,7 +4,7 @@
 <div class="toolbar">
 	<c:if test="${sessionScope.login && sessionScope.user.group == 'admin' && action.resource.status != 'DELETED'}">
 		<c:choose>
-    		<c:when test="${action.resource.status == 'DISABLED'}">
+    		<c:when test="${action.resource.accessibility != 'EVERYONE'}">
     			<button type="button" name="btUnlock" value="unlock" onclick="unlockArticle()">Mở Khóa Bài Viết</button>
     		</c:when>
     		<c:otherwise>
@@ -19,9 +19,9 @@
 		<p>
 	   	<label>Đối tượng cho phép truy cập:<br>
 			<select name="lock_value" id="lock_value">
-				<option selected="selected" value="EVERYONE">Tất cả</option>
-				<option                  value="AUTHOR_ONLY">Chỉ Có Tác Giả</option>
-				<option                       value="NO_ONE">Chỉ có Admin</option>
+				<option value="EVERYONE">Tất cả</option>
+				<option value="AUTHOR_ONLY">Chỉ Có Tác Giả</option>
+				<option value="NO_ONE">Chỉ có Admin</option>
 			</select>
 		</label>
 		</p>
@@ -33,8 +33,9 @@
 	var resource;
 	var resourceID = ${action.resource.id};
 	var timeout;
-	new Ajax.Request(restPath + '/resource/'+ resourceID,
-		{
+
+	function initEditTools() {
+		new Ajax.Request(restPath + '/resource/'+ resourceID, {
 			method:'get',
 			requestHeaders : 
 			{
@@ -50,6 +51,7 @@
 				openInfoDialog("resourceID không chính xác!");
 			}
 		});
+	}
 
 	function lockArticle()
 	{
@@ -62,8 +64,6 @@
 			cancel:function(win){}, 
 			ok: function(win) 
 			{	
-				resource.article = null;			
-				resource.status = 'DISABLED';
 				resource.accessibility = $F('lock_value');
 				new Ajax.Request(restPath + '/resource/'+ resourceID,
 					{
@@ -91,8 +91,7 @@
 
 	function unlockArticle()
 	{
-		resource.status = 'NORMAL';
-		resource.accessibility = 'EVERYONE';
+		resource = {accessibility : 'EVERYONE', status : 'NORMAL'};
 		new Ajax.Request(restPath + '/resource/'+ resourceID,
 			{
 				method:'post',
@@ -131,4 +130,6 @@
 	 	else
 	  		Dialog.closeInfo();
 	}
+
+	Event.observe(window, 'load', initEditTools);
 </script>

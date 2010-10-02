@@ -16,9 +16,9 @@
 
 package com.google.gson;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.lang.reflect.Field;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * A {@link FieldNamingStrategy} that acts as a chain of responsibility.  If the

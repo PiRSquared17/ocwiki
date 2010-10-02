@@ -1,23 +1,24 @@
 package oop.data;
 
-import oop.db.dao.NamespaceDAO;
+import javax.xml.bind.annotation.XmlTransient;
+
 import oop.util.Utils;
 
 public class Topic extends Article {
 
-	protected String name;
+	public static final int ROOT_ID = 1;
+	
 	private Resource<Topic> parent;
 
-	Topic() {
-		// default constructor
+	public Topic() {
 	}
 
-	public Topic(String name, Resource<Topic> parent, Text content) {
-		super(NamespaceDAO.fetch(Namespace.TOPIC), content);
-		this.name = name;
+	public Topic(Namespace namespace, String name, Resource<Topic> parent, Text content) {
+		super(namespace, name, content);
 		this.parent = parent;
 	}
-
+	
+	@XmlTransient
 	public Resource<Topic> getParent() {
 		return parent;
 	}
@@ -26,14 +27,6 @@ public class Topic extends Article {
 		this.parent = parent;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Topic) {

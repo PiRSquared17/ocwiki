@@ -45,7 +45,6 @@ public abstract class AbstractAction implements Action {
 	private ParameterList params;
 	private ActionDescriptor descriptor;
 	private Map<String, String> errors = null;
-	private Resource<? extends Article> resource;
 
 	private String title;
 
@@ -202,7 +201,7 @@ public abstract class AbstractAction implements Action {
 		return errors;
 	}
 
-	public void addError(String name, String message) {
+	protected void addError(String name, String message) {
 		if (errors == null) {
 			errors = new HashMap<String, String>();
 		}
@@ -216,20 +215,6 @@ public abstract class AbstractAction implements Action {
 	public boolean hasNoErrors() {
 		return errors == null || errors.isEmpty();
 	}
-
-	@Override
-	public Resource<? extends Article> getResource() {
-		return resource;
-	}
-	
-	protected <T extends Article> void setResource(Resource<T> resource) {
-		this.resource = resource;
-	}
-	
-	@Override
-	public Article getArticle() {
-		return resource == null ? null : resource.getArticle();
-	}
 	
 	@Override
 	public String getTitle() {
@@ -239,6 +224,16 @@ public abstract class AbstractAction implements Action {
 	@Override
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	@Override
+	public Resource<? extends Article> getResource() {
+		return null;
+	}
+	
+	@Override
+	public Article getArticle() {
+		return null;
 	}
 	
 }

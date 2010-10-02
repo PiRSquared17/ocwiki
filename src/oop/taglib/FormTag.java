@@ -17,6 +17,7 @@ public class FormTag extends SimpleTagSupport {
 	private String className;
 	private String action;
 	private String method;
+	private String enctype;
 
 	@Override
 	public void doTag() throws JspException, IOException {
@@ -24,7 +25,10 @@ public class FormTag extends SimpleTagSupport {
 		String actionURL = ActionUtil.getActionURL(getAction());
 		// open form
 		out.append("<form action=\"").append(actionURL).append("\"");
-		out.append(" enctype=\"multipart/form-data\"");
+		if (StringUtils.isEmpty(enctype)) {
+			enctype = "application/x-www-form-urlencoded";
+		}
+		out.append(" enctype=\"" + enctype + "\"");
 		if (!StringUtils.isEmpty(id)) {
 			out.append(" id=\"").append(id).append("\"");
 		}
@@ -72,6 +76,14 @@ public class FormTag extends SimpleTagSupport {
 
 	public String getMethod() {
 		return method;
+	}
+
+	public void setEnctype(String enctype) {
+		this.enctype = enctype;
+	}
+
+	public String getEnctype() {
+		return enctype;
 	}
 
 }

@@ -16,12 +16,14 @@ import com.sun.jersey.api.json.JSONJAXBContext;
 @Provider
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@SuppressWarnings("unchecked")
 public class JSONContextResolver implements ContextResolver<JAXBContext> {
 
     private JAXBContext context;
-	private Class[] types = {
+	private Class<?>[] types = {
 			oop.data.Resource.class,
+			oop.data.ResourceCustomization.class,
+			oop.data.ResourceReport.class,
+			oop.data.ResourceSearchReport.class,
 			oop.data.Revision.class,
     		oop.data.Answer.class,
     		oop.data.BaseQuestion.class,
@@ -34,12 +36,36 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     		oop.data.Test.class,
     		oop.data.TestStructure.class,
     		oop.data.Text.class,
+    		oop.data.File.class,
     		oop.data.TextArticle.class,
     		oop.data.Topic.class,
     		oop.data.TopicConstraint.class,
     		oop.data.Comment.class,
     		oop.data.CommentCustomization.class,
     		oop.data.CommentReport.class,
+    		oop.controller.rest.bean.ResourceBean.class,
+    		oop.controller.rest.bean.ResourceReferenceBean.class,
+			oop.controller.rest.bean.ResourceSearchReportBean.class,
+			oop.controller.rest.bean.RevisionBean.class,
+			oop.controller.rest.bean.ArticleReferenceBean.class,
+//    		oop.controller.rest.bean.AnswerBean.class,
+    		oop.controller.rest.bean.BaseQuestionBean.class,
+//    		oop.controller.rest.bean.History.class,
+//    		oop.controller.rest.bean.LevelConstraint.class,
+//    		oop.controller.rest.bean.Preferences.class,
+    		oop.controller.rest.bean.QuestionBean.class,
+    		oop.controller.rest.bean.SectionBean.class,
+//    		oop.controller.rest.bean.SectionStructure.class,
+    		oop.controller.rest.bean.TestBean.class,
+//    		oop.controller.rest.bean.TestStructure.class,
+    		oop.controller.rest.bean.TextArticleBean.class,
+    		oop.controller.rest.bean.TopicBean.class,
+    		oop.controller.rest.bean.ConstraintBean.class,
+    		oop.controller.rest.bean.LevelConstraintBean.class,
+    		oop.controller.rest.bean.TopicConstraintBean.class,
+    		oop.controller.rest.bean.CommentBean.class,
+//    		oop.controller.rest.bean.CommentCustomization.class,
+    		oop.controller.rest.bean.CommentReportBean.class,
     		ListResult.class,
     		ObjectResult.class,
     };
@@ -51,7 +77,7 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     }
 
 	public JAXBContext getContext(Class<?> objectType) {
-		for (Class type : types) {
+		for (Class<?> type : types) {
 			if (type.isAssignableFrom(objectType)) {
 				return context;
 			}

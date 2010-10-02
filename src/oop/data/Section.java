@@ -13,7 +13,7 @@ public class Section implements Entity, Copiable<Section> {
 	private Text content;
 	private List<Question> questions = new ArrayList<Question>();
 
-	Section() {
+	public Section() {
 	}
 
 	public Section(Text content) {
@@ -53,6 +53,10 @@ public class Section implements Entity, Copiable<Section> {
 		section.setContent(getContent());
 		section.setQuestions(new ArrayList<Question>(getQuestions()));
 		return section;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

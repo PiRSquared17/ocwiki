@@ -7,14 +7,17 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Article;
 import oop.data.Revision;
 import oop.db.dao.RevisionDAO;
 
-@Path("/revisions")
+@Path(RevisionResource.PATH)
 public class RevisionResource extends AbstractResource{
+	
+	public static final String PATH = "/revisions";
 	
 	@GET
 	@Path("/{revID: \\d+}")
@@ -35,7 +38,7 @@ public class RevisionResource extends AbstractResource{
 		List<Revision<Article>> revList = RevisionDAO.fetchByResource(resourceID,(page-1)*size,size);
 		String nextUrl = null;
 		if (revList.size() >= size) {
-			nextUrl = "/revisions?page=" + page + "&size=" + size;
+			nextUrl = PATH + "?page=" + page + "&size=" + size;
 		}		
 		return new ListResult<Revision<Article>>(revList, nextUrl);
 	}	

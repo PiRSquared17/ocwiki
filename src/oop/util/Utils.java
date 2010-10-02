@@ -1,7 +1,10 @@
 package oop.util;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.List;
 
@@ -53,8 +56,15 @@ public class Utils {
 		try {
 			return URLEncoder.encode(url, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			return "";
+			throw new RuntimeException("never!!!", e);
+		}
+	}
+
+	public static String urlDecode(String url) {
+		try {
+			return URLDecoder.decode(url, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException("never!!!", e);
 		}
 	}
 
@@ -95,4 +105,13 @@ public class Utils {
 		return newCopy;
 	}
 
+	public static String md5(String x) {
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			return new String(md5.digest(x.getBytes()));
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("never!", e);
+		}
+	}
+	
 }
