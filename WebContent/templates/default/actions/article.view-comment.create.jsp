@@ -46,7 +46,7 @@
 					evalJSON : true,
 					onSuccess : function(transport) {
 						var newPostComment = transport.responseJSON.result;
-						var newPostCommentReport = {comment:newPostComment, user:getUser(), status:'NORMAL' , likeCount: 0};
+						var newPostCommentReport = {comment:newPostComment, /*user:getUser(),*/ status:'NORMAL' , likeCount: 0};
 						if (commentCount == 0){
 							$('commentslist').innerHTML=showComments(newPostCommentReport);
 						} else {
@@ -57,7 +57,7 @@
 						commentCount++;
 						pageCount = getPageCount(commentCount);
 						//can có curPage?
-						pagination();				
+						pagination();			
 					},
 				    onFailure: function()
 				    { 
