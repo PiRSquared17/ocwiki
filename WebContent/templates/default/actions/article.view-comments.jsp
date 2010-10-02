@@ -8,6 +8,7 @@
 
 <p><jsp:include page="article.view-comment.create.jsp"></jsp:include></p>
 
+<script type="text/javascript" src="${templatePath}/js/datetime.js"></script>
 <script type="text/javascript">
 	var articleID = ${action.resource.id};
 	var curPage = 0;
@@ -103,7 +104,7 @@
 	function showComments(commentPreview){
 		var commenthtml='';
 		commenthtml+=('<div id=comment'+commentPreview.comment.id+'>');
-		commenthtml+=('vào lúc: '+/*dateToString(*/commentPreview.comment.timestamp);
+		commenthtml+=('vào lúc: '+dateToString(commentPreview.comment.timestamp));
 		commenthtml+=(' <a href="${scriptPath}?action=user.profile&user='+commentPreview.comment.user.id+'">'+commentPreview.comment.user.name+'</a> cho rằng:');
 		commenthtml+=('<div style="display:' + (commentPreview.status == 'HIDDEN' ? 'none' : 'block') + '" id=commentmessage'+commentPreview.comment.id+'>'+commentPreview.comment.message+'</div>');
 		commenthtml+=('<div><span style="display:' + (commentPreview.likeCount == 0 ? 'none' : 'inline') + '" id="commentlikecountpreview'+commentPreview.comment.id+'"><span id="commentlikecount'+commentPreview.comment.id+'">'+commentPreview.likeCount+'</span> người thích.</span>');
@@ -114,20 +115,6 @@
 			commenthtml+=('<a style="display:' + (commentPreview.status == 'HIDDEN' ? 'inline' : 'none') + '" id="commentunhide'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'hiện</a>');
 			//commenthtml+=('.<a id="commentdel'+comment.id+'" href="#" onclick = "del('+comment.id+'); return false;" >'+'del</a>');
 		}
-
-			/*if (commentPreview.status == 'LIKE') {
-				alert('like');
-				$('commentlike'+commentPreview.comment.id).hide();
-				$('commentunhide'+commentPreview.comment.id).hide();
-			} else if (commentPreview.status == 'HIDDEN'){
-				alert('hide');
-				$('commenthide'+commentPreview.comment.id).hide();
-				$('commentunlike'+commentPreview.comment.id).hide();
-			} else {
-				alert('normal');
-				$('commentunhide'+commentPreview.comment.id).hide();
-				$('commentunlike'+commentPreview.comment.id).hide();
-			}*/
 		commenthtml+=('</div>');
 		commenthtml+=('<br/>------------<br/>');
 		commenthtml+='</div>';
@@ -290,15 +277,15 @@
 			$('comment-pages').innerHTML = pageButtons;
 			
 		} else {
-			alert('else');
-		}
-
-		
+			$('btn-prev').hide();
+			$('btn-oldfirst').hide();
+			$('btn-next').hide();
+			$('btn-newfirst').hide();						
+		}		
 		disableButtons();
 	}
 
 	function disableButtons(){
-		//alert('disbut');
 		$('btn-'+(curPage)).innerHTML = ' '+(curPage+1)+' ';
 		if (curPage<=0) {
 			$('btn-prev').hide();
@@ -332,11 +319,5 @@
 	
 	function rawButtonHTML(text,value,onClickFunction){
 		return '<button type="button" id="btn-'+value+'" name="btn-'+value+'" value="'+value+'" onclick="'+onClickFunction+'">'+text+'</button>';
-	}
-
-	function dateToString(date){
-		var dateString = '';
-		dateString += (''+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+' '+date.getDay()+'-'+date.getMonth()+'-'+date.getYear());
-		return dateString;
 	}
 </script>

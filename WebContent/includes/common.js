@@ -79,11 +79,3 @@ Editor.preview = function(id) {
 	$(id).insert({after: previewDiv});
 };
 
-/**
- * Date and time
- 
-function dateToString(date){
-	var dateString = '';
-	dateString += (''+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+' '+date.getDay()+'-'+date.getMonth()+'-'+date.getYear());
-	return dateString;
-}*/
