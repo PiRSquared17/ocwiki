@@ -15,6 +15,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import oop.conf.Config;
+import oop.data.FacebookAccount;
+import oop.db.dao.FacebookAccountDAO;
+import oop.util.SessionUtils;
 import oop.util.Utils;
 
 /**
@@ -37,14 +40,25 @@ public class FacebookFilter implements Filter {
 						"fbs_" + Config.get().getFacebookAppId())) {
 					SortedMap<String, String> facebook = readFacebookCookie(cookie);
 					if (facebook != null) {
-						facebook.get("uid");
-						//TODO log user in or create account
+						String uid = facebook.get("uid");
+						FacebookAccount facebookAccount = FacebookAccountDAO
+								.fetchByUid(uid);
+						if (facebookAccount == null) {
+							createAccount(uid);
+						} else {
+							SessionUtils.setUser(httpRequest.getSession(),
+									facebookAccount.getUser());
+						}
 					}
 					break;
 				}
 			}
 		}
 		chain.doFilter(request, response);
+	}
+
+	private void createAccount(String uid) {
+		// TODO Auto-generated method stub
 	}
 
 	private SortedMap<String,String> readFacebookCookie(Cookie cookie) {

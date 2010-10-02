@@ -2,17 +2,17 @@ package oop.data;
 
 public class FacebookAccount {
 
-	private long uid;
+	private String uid;
 	private User user;
 
 	public FacebookAccount() {
 	}
 
-	public long getUid() {
+	public String getUid() {
 		return uid;
 	}
 
-	public void setUid(long uid) {
+	public void setUid(String uid) {
 		this.uid = uid;
 	}
 
