@@ -12,5 +12,6 @@
     <li><ocw:actionLink name="teststruct.create">Tạo cấu trúc đề mới</ocw:actionLink></li>
     <li><ocw:actionLink name="topic.list">Chủ đề đề thi</ocw:actionLink></li>
     <li><ocw:actionLink name="topic.list">Chủ đề câu hỏi</ocw:actionLink></li>
+    <li><ocw:actionLink name="statistics.list">Thống kê</ocw:actionLink></li>
 </ul>
     
