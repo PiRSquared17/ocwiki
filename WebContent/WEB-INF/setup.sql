@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 24, 2010 at 10:11 AM
+-- Generation Time: Oct 02, 2010 at 10:50 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.2-1ubuntu4.5
 
@@ -25,13 +25,14 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `ocwAnswer`
 --
 
+DROP TABLE IF EXISTS `ocwAnswer`;
 CREATE TABLE IF NOT EXISTS `ocwAnswer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) NOT NULL,
   `correct` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK81F532C1EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1290 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1294 ;
 
 --
 -- Dumping data for table `ocwAnswer`
@@ -1005,7 +1006,11 @@ INSERT INTO `ocwAnswer` (`id`, `content`, `correct`) VALUES
 (1286, 1774, b'1'),
 (1287, 1779, b'1'),
 (1288, 1782, b'1'),
-(1289, 1784, b'1');
+(1289, 1784, b'1'),
+(1290, 1786, b'0'),
+(1291, 1787, b'0'),
+(1292, 1788, b'1'),
+(1293, 1789, b'0');
 
 -- --------------------------------------------------------
 
@@ -1013,6 +1018,7 @@ INSERT INTO `ocwAnswer` (`id`, `content`, `correct`) VALUES
 -- Table structure for table `ocwArticle`
 --
 
+DROP TABLE IF EXISTS `ocwArticle`;
 CREATE TABLE IF NOT EXISTS `ocwArticle` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `discriminator` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -1029,7 +1035,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticle` (
   KEY `FKC38C3A5348AB9093` (`parent`),
   KEY `FKC38C3A53EA647FAC` (`content`),
   KEY `FKC38C3A53232F5FBE` (`parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=585 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=596 ;
 
 --
 -- Dumping data for table `ocwArticle`
@@ -1386,7 +1392,18 @@ INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`,
 (581, 'BaseQuestion', 3, 1778, '#580', NULL, 5, NULL, NULL, NULL),
 (582, 'BaseQuestion', 3, 1780, '#581', NULL, 5, NULL, NULL, NULL),
 (583, 'BaseQuestion', 3, 1781, NULL, NULL, 5, NULL, NULL, NULL),
-(584, 'BaseQuestion', 3, 1783, NULL, NULL, 5, NULL, NULL, NULL);
+(584, 'BaseQuestion', 3, 1783, NULL, NULL, 5, NULL, NULL, NULL),
+(585, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
+(586, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
+(587, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
+(588, 'Test', 3, NULL, 'Đề thi mới', NULL, NULL, NULL, 0, NULL),
+(589, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
+(590, 'Text', 3, NULL, 'Bài viết mới', NULL, NULL, NULL, NULL, NULL),
+(591, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
+(592, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
+(593, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
+(594, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
+(595, 'BaseQuestion', 3, 1785, NULL, NULL, 4, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1394,6 +1411,7 @@ INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`,
 -- Table structure for table `ocwArticleAttachment`
 --
 
+DROP TABLE IF EXISTS `ocwArticleAttachment`;
 CREATE TABLE IF NOT EXISTS `ocwArticleAttachment` (
   `article_id` bigint(20) NOT NULL,
   `file_id` bigint(20) NOT NULL,
@@ -1413,6 +1431,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticleAttachment` (
 -- Table structure for table `ocwArticleEmbed`
 --
 
+DROP TABLE IF EXISTS `ocwArticleEmbed`;
 CREATE TABLE IF NOT EXISTS `ocwArticleEmbed` (
   `article_id` bigint(20) NOT NULL,
   `file_id` bigint(20) NOT NULL,
@@ -1432,6 +1451,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticleEmbed` (
 -- Table structure for table `ocwArticleTopic`
 --
 
+DROP TABLE IF EXISTS `ocwArticleTopic`;
 CREATE TABLE IF NOT EXISTS `ocwArticleTopic` (
   `article_id` bigint(20) NOT NULL,
   `topic_id` bigint(20) NOT NULL,
@@ -1712,7 +1732,8 @@ INSERT INTO `ocwArticleTopic` (`article_id`, `topic_id`) VALUES
 (580, 504),
 (581, 504),
 (582, 504),
-(583, 504);
+(583, 504),
+(595, 504);
 
 -- --------------------------------------------------------
 
@@ -1720,6 +1741,7 @@ INSERT INTO `ocwArticleTopic` (`article_id`, `topic_id`) VALUES
 -- Table structure for table `ocwBaseQuestionAnswer`
 --
 
+DROP TABLE IF EXISTS `ocwBaseQuestionAnswer`;
 CREATE TABLE IF NOT EXISTS `ocwBaseQuestionAnswer` (
   `question_id` bigint(20) NOT NULL,
   `answer_id` bigint(20) NOT NULL,
@@ -2740,7 +2762,11 @@ INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`)
 (579, 1286, 4),
 (581, 1287, 1),
 (583, 1288, 1),
-(584, 1289, 1);
+(584, 1289, 1),
+(595, 1290, 0),
+(595, 1291, 1),
+(595, 1292, 2),
+(595, 1293, 3);
 
 -- --------------------------------------------------------
 
@@ -2748,6 +2774,7 @@ INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`)
 -- Table structure for table `ocwComment`
 --
 
+DROP TABLE IF EXISTS `ocwComment`;
 CREATE TABLE IF NOT EXISTS `ocwComment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user` bigint(20) NOT NULL,
@@ -2776,6 +2803,7 @@ INSERT INTO `ocwComment` (`id`, `user`, `timestamp`, `message`, `resource`, `rev
 -- Table structure for table `ocwCommentCustomization`
 --
 
+DROP TABLE IF EXISTS `ocwCommentCustomization`;
 CREATE TABLE IF NOT EXISTS `ocwCommentCustomization` (
   `user` bigint(20) NOT NULL,
   `comment` bigint(20) NOT NULL,
@@ -2797,6 +2825,7 @@ INSERT INTO `ocwCommentCustomization` (`user`, `comment`, `status`) VALUES
 --
 -- Stand-in structure for view `ocwCommentReportWithoutUser`
 --
+DROP VIEW IF EXISTS `ocwCommentReportWithoutUser`;
 CREATE TABLE IF NOT EXISTS `ocwCommentReportWithoutUser` (
 `comment` bigint(20)
 ,`like_count` bigint(21)
@@ -2806,6 +2835,7 @@ CREATE TABLE IF NOT EXISTS `ocwCommentReportWithoutUser` (
 --
 -- Stand-in structure for view `ocwCommentReportWithUser`
 --
+DROP VIEW IF EXISTS `ocwCommentReportWithUser`;
 CREATE TABLE IF NOT EXISTS `ocwCommentReportWithUser` (
 `comment` bigint(20)
 ,`user` bigint(20)
@@ -2818,6 +2848,7 @@ CREATE TABLE IF NOT EXISTS `ocwCommentReportWithUser` (
 -- Table structure for table `ocwConstraint`
 --
 
+DROP TABLE IF EXISTS `ocwConstraint`;
 CREATE TABLE IF NOT EXISTS `ocwConstraint` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -2834,9 +2865,29 @@ CREATE TABLE IF NOT EXISTS `ocwConstraint` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ocwFacebookAccount`
+--
+
+DROP TABLE IF EXISTS `ocwFacebookAccount`;
+CREATE TABLE IF NOT EXISTS `ocwFacebookAccount` (
+  `uid` bigint(11) NOT NULL AUTO_INCREMENT,
+  `user` bigint(11) NOT NULL,
+  PRIMARY KEY (`uid`),
+  KEY `user` (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `ocwFacebookAccount`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ocwHistory`
 --
 
+DROP TABLE IF EXISTS `ocwHistory`;
 CREATE TABLE IF NOT EXISTS `ocwHistory` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user` bigint(20) DEFAULT NULL,
@@ -2860,6 +2911,7 @@ CREATE TABLE IF NOT EXISTS `ocwHistory` (
 -- Table structure for table `ocwLog`
 --
 
+DROP TABLE IF EXISTS `ocwLog`;
 CREATE TABLE IF NOT EXISTS `ocwLog` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -2888,6 +2940,7 @@ CREATE TABLE IF NOT EXISTS `ocwLog` (
 -- Table structure for table `ocwNamespace`
 --
 
+DROP TABLE IF EXISTS `ocwNamespace`;
 CREATE TABLE IF NOT EXISTS `ocwNamespace` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -2913,6 +2966,7 @@ INSERT INTO `ocwNamespace` (`id`, `name`) VALUES
 -- Table structure for table `ocwQuestion`
 --
 
+DROP TABLE IF EXISTS `ocwQuestion`;
 CREATE TABLE IF NOT EXISTS `ocwQuestion` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `base_resource` bigint(20) DEFAULT NULL,
@@ -3175,6 +3229,7 @@ INSERT INTO `ocwQuestion` (`id`, `base_resource`, `base_revision`, `mark`) VALUE
 -- Table structure for table `ocwResource`
 --
 
+DROP TABLE IF EXISTS `ocwResource`;
 CREATE TABLE IF NOT EXISTS `ocwResource` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
@@ -3190,7 +3245,7 @@ CREATE TABLE IF NOT EXISTS `ocwResource` (
   KEY `FKE2E602515DDB135C` (`author`),
   KEY `FKE2E602515EB7070E` (`link`),
   KEY `FKE2E6025172978E26` (`article`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=521 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=531 ;
 
 --
 -- Dumping data for table `ocwResource`
@@ -3203,7 +3258,7 @@ INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `a
 (65, 0, '2010-08-25 01:15:32', 'oop.data.Test', 65, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (66, 0, '2010-08-25 01:15:32', 'oop.data.Test', 66, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (88, 9, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 584, 1, 'NORMAL', NULL, 'NO_ONE', '0.50'),
-(89, 11, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 89, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
+(89, 12, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 595, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
 (90, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 90, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
 (91, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 91, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (92, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 576, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
@@ -3502,7 +3557,17 @@ INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `a
 (517, 0, '2010-09-13 21:49:01', 'oop.data.Topic', 565, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (518, 0, '2010-09-13 21:50:09', 'oop.data.Topic', 566, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (519, 0, '2010-09-13 21:50:18', 'oop.data.Topic', 567, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
-(520, 0, '2010-09-13 21:51:20', 'oop.data.Topic', 568, 1, 'NORMAL', NULL, 'EVERYONE', '0.50');
+(520, 0, '2010-09-13 21:51:20', 'oop.data.Topic', 568, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(521, 0, '2010-09-28 16:08:53', 'oop.data.BaseQuestion', 585, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(522, 0, '2010-09-28 16:10:24', 'oop.data.BaseQuestion', 586, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(523, 0, '2010-09-28 16:10:49', 'oop.data.BaseQuestion', 587, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(524, 0, '2010-09-29 08:31:59', 'oop.data.Test', 588, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(525, 0, '2010-09-29 08:32:07', 'oop.data.BaseQuestion', 589, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(526, 0, '2010-09-29 08:32:58', 'oop.data.TextArticle', 590, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(527, 0, '2010-09-29 08:56:20', 'oop.data.BaseQuestion', 591, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(528, 0, '2010-09-29 08:56:27', 'oop.data.BaseQuestion', 592, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(529, 0, '2010-09-29 08:56:35', 'oop.data.BaseQuestion', 593, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(530, 0, '2010-09-29 08:56:40', 'oop.data.BaseQuestion', 594, 1, 'NEW', NULL, 'EVERYONE', '0.50');
 
 --
 -- Triggers `ocwResource`
@@ -3588,6 +3653,7 @@ DELIMITER ;
 -- Table structure for table `ocwResourceCustomization`
 --
 
+DROP TABLE IF EXISTS `ocwResourceCustomization`;
 CREATE TABLE IF NOT EXISTS `ocwResourceCustomization` (
   `RESOURCE` bigint(20) NOT NULL,
   `USER` bigint(20) NOT NULL,
@@ -3609,6 +3675,7 @@ CREATE TABLE IF NOT EXISTS `ocwResourceCustomization` (
 --
 -- Stand-in structure for view `ocwResourceReportWithoutUser`
 --
+DROP VIEW IF EXISTS `ocwResourceReportWithoutUser`;
 CREATE TABLE IF NOT EXISTS `ocwResourceReportWithoutUser` (
 `resource` bigint(20)
 ,`like_count` bigint(21)
@@ -3619,6 +3686,7 @@ CREATE TABLE IF NOT EXISTS `ocwResourceReportWithoutUser` (
 --
 -- Stand-in structure for view `ocwResourceReportWithUser`
 --
+DROP VIEW IF EXISTS `ocwResourceReportWithUser`;
 CREATE TABLE IF NOT EXISTS `ocwResourceReportWithUser` (
 `resource` bigint(20)
 ,`user` bigint(20)
@@ -3634,6 +3702,7 @@ CREATE TABLE IF NOT EXISTS `ocwResourceReportWithUser` (
 -- Table structure for table `ocwRevision`
 --
 
+DROP TABLE IF EXISTS `ocwRevision`;
 CREATE TABLE IF NOT EXISTS `ocwRevision` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource` bigint(20) NOT NULL,
@@ -3646,7 +3715,7 @@ CREATE TABLE IF NOT EXISTS `ocwRevision` (
   KEY `FKE7AEF61E5DDB135C` (`author`),
   KEY `FKE7AEF61E72978E26` (`article`),
   KEY `FKE7AEF61E4A301B22` (`resource`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=562 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=563 ;
 
 --
 -- Dumping data for table `ocwRevision`
@@ -4000,7 +4069,8 @@ INSERT INTO `ocwRevision` (`id`, `resource`, `article`, `author`, `timestamp`, `
 (558, 88, 581, 1, '2010-09-15 20:05:59', '', b'0'),
 (559, 88, 582, 1, '2010-09-15 20:06:13', '', b'0'),
 (560, 88, 583, 1, '2010-09-15 20:52:26', '', b'0'),
-(561, 88, 584, 1, '2010-09-23 13:27:03', '', b'0');
+(561, 88, 584, 1, '2010-09-23 13:27:03', '', b'0'),
+(562, 89, 595, 1, '2010-10-01 15:48:31', 'test', b'0');
 
 -- --------------------------------------------------------
 
@@ -4008,6 +4078,7 @@ INSERT INTO `ocwRevision` (`id`, `resource`, `article`, `author`, `timestamp`, `
 -- Table structure for table `ocwSection`
 --
 
+DROP TABLE IF EXISTS `ocwSection`;
 CREATE TABLE IF NOT EXISTS `ocwSection` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) NOT NULL,
@@ -4068,6 +4139,7 @@ INSERT INTO `ocwSection` (`id`, `content`) VALUES
 -- Table structure for table `ocwSectionQuestion`
 --
 
+DROP TABLE IF EXISTS `ocwSectionQuestion`;
 CREATE TABLE IF NOT EXISTS `ocwSectionQuestion` (
   `section_id` bigint(20) NOT NULL,
   `question_id` bigint(20) NOT NULL,
@@ -4469,6 +4541,7 @@ INSERT INTO `ocwSectionQuestion` (`section_id`, `question_id`, `question_index`)
 -- Table structure for table `ocwSectionStructure`
 --
 
+DROP TABLE IF EXISTS `ocwSectionStructure`;
 CREATE TABLE IF NOT EXISTS `ocwSectionStructure` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) DEFAULT NULL,
@@ -4487,6 +4560,7 @@ CREATE TABLE IF NOT EXISTS `ocwSectionStructure` (
 -- Table structure for table `ocwSectionStructureConstraint`
 --
 
+DROP TABLE IF EXISTS `ocwSectionStructureConstraint`;
 CREATE TABLE IF NOT EXISTS `ocwSectionStructureConstraint` (
   `section_id` bigint(20) NOT NULL,
   `constraint_id` bigint(20) NOT NULL,
@@ -4507,6 +4581,7 @@ CREATE TABLE IF NOT EXISTS `ocwSectionStructureConstraint` (
 -- Table structure for table `ocwTestSection`
 --
 
+DROP TABLE IF EXISTS `ocwTestSection`;
 CREATE TABLE IF NOT EXISTS `ocwTestSection` (
   `test_id` bigint(20) NOT NULL,
   `section_id` bigint(20) NOT NULL,
@@ -4569,6 +4644,7 @@ INSERT INTO `ocwTestSection` (`test_id`, `section_id`, `section_index`) VALUES
 -- Table structure for table `ocwTestSectionStructure`
 --
 
+DROP TABLE IF EXISTS `ocwTestSectionStructure`;
 CREATE TABLE IF NOT EXISTS `ocwTestSectionStructure` (
   `id` bigint(20) NOT NULL,
   `section_id` bigint(20) NOT NULL,
@@ -4589,11 +4665,12 @@ CREATE TABLE IF NOT EXISTS `ocwTestSectionStructure` (
 -- Table structure for table `ocwText`
 --
 
+DROP TABLE IF EXISTS `ocwText`;
 CREATE TABLE IF NOT EXISTS `ocwText` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` mediumtext COLLATE utf8_vietnamese1_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1785 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1790 ;
 
 --
 -- Dumping data for table `ocwText`
@@ -6370,7 +6447,12 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1781, '<p>I ______ this letter around for days without looking at it.</p>'),
 (1782, '<p>kfjsklfjslkfj</p>'),
 (1783, '<p>I ______ this letter around for days without looking at it.</p>'),
-(1784, '<p>has been carrying</p>');
+(1784, '<p>has been carrying</p>'),
+(1785, '<p>If you are not Japanese, so what _______ are you?</p>'),
+(1786, '<p>national</p>'),
+(1787, '<p>nationality fasdfsf</p>'),
+(1788, '<p>nationalized</p>'),
+(1789, '<p>nation</p>');
 
 -- --------------------------------------------------------
 
@@ -6378,6 +6460,7 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 -- Table structure for table `ocwTopicConstraintTopic`
 --
 
+DROP TABLE IF EXISTS `ocwTopicConstraintTopic`;
 CREATE TABLE IF NOT EXISTS `ocwTopicConstraintTopic` (
   `constraint_id` bigint(20) NOT NULL,
   `topic_id` bigint(20) NOT NULL,
@@ -6397,6 +6480,7 @@ CREATE TABLE IF NOT EXISTS `ocwTopicConstraintTopic` (
 -- Table structure for table `ocwTopicSet`
 --
 
+DROP TABLE IF EXISTS `ocwTopicSet`;
 CREATE TABLE IF NOT EXISTS `ocwTopicSet` (
   `topic` bigint(20) NOT NULL,
   `left_index` int(11) NOT NULL,
@@ -6475,6 +6559,7 @@ INSERT INTO `ocwTopicSet` (`topic`, `left_index`, `right_index`) VALUES
 --
 -- Stand-in structure for view `ocwTopicSetInfo`
 --
+DROP VIEW IF EXISTS `ocwTopicSetInfo`;
 CREATE TABLE IF NOT EXISTS `ocwTopicSetInfo` (
 `name` varchar(255)
 ,`id` bigint(20)
@@ -6489,6 +6574,7 @@ CREATE TABLE IF NOT EXISTS `ocwTopicSetInfo` (
 -- Table structure for table `ocwUser`
 --
 
+DROP TABLE IF EXISTS `ocwUser`;
 CREATE TABLE IF NOT EXISTS `ocwUser` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
@@ -6504,6 +6590,16 @@ CREATE TABLE IF NOT EXISTS `ocwUser` (
   `block_expired_date` timestamp NULL DEFAULT NULL,
   `warning_expired_date` timestamp NULL DEFAULT NULL,
   `pref_template` varchar(50) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT 'default',
+  `first_name` varchar(50) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `last_name` varchar(50) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `about` varchar(1000) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `website` mediumtext COLLATE utf8_vietnamese1_ci,
+  `hometown` varchar(1000) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `location` varchar(1000) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `bio` mediumtext COLLATE utf8_vietnamese1_ci,
+  `gender` varchar(10) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'UNKNOWN',
+  `timezone` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT '+7',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
@@ -6513,10 +6609,10 @@ CREATE TABLE IF NOT EXISTS `ocwUser` (
 -- Dumping data for table `ocwUser`
 --
 
-INSERT INTO `ocwUser` (`id`, `version`, `name`, `fullname`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`) VALUES
-(1, 1, 'admin', 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default'),
-(2, 0, 'teacher', 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default'),
-(3, 0, 'cumeo89', 'Lê Ngọc Minh', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default');
+INSERT INTO `ocwUser` (`id`, `version`, `name`, `fullname`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `last_name`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`) VALUES
+(1, 2, 'admin', 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
+(2, 0, 'teacher', 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
+(3, 0, 'cumeo89', 'Lê Ngọc Minh', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7');
 
 -- --------------------------------------------------------
 
@@ -6626,6 +6722,12 @@ ALTER TABLE `ocwCommentCustomization`
   ADD CONSTRAINT `FK67886D77B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`);
 
 --
+-- Constraints for table `ocwFacebookAccount`
+--
+ALTER TABLE `ocwFacebookAccount`
+  ADD CONSTRAINT `ocwFacebookAccount_ibfk_1` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`);
+
+--
 -- Constraints for table `ocwHistory`
 --
 ALTER TABLE `ocwHistory`
@@ -6661,8 +6763,8 @@ ALTER TABLE `ocwResource`
 -- Constraints for table `ocwResourceCustomization`
 --
 ALTER TABLE `ocwResourceCustomization`
-  ADD CONSTRAINT `FK46CFE102B1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `ocwUser` (`id`),
-  ADD CONSTRAINT `FK46CFE1024A301B22` FOREIGN KEY (`RESOURCE`) REFERENCES `ocwResource` (`id`);
+  ADD CONSTRAINT `FK46CFE1024A301B22` FOREIGN KEY (`RESOURCE`) REFERENCES `ocwResource` (`id`),
+  ADD CONSTRAINT `FK46CFE102B1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `ocwUser` (`id`);
 
 --
 -- Constraints for table `ocwRevision`
