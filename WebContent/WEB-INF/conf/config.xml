@@ -283,6 +283,18 @@
       <!-- <requiredGroup>teacher</requiredGroup> -->
       <loginRequired>true</loginRequired>
     </action>
+    <action>
+      <name>statistics.list</name>
+      <class>oop.controller.action.statistics.ListAction</class>
+    </action>
+    <action>
+      <name>statistics.topic.uncategorized</name>
+      <class>oop.controller.action.topic.ListUncategorizedAction</class>
+    </action>
+    <action>
+      <name>statistics.topic.unused</name>
+      <class>oop.controller.action.topic.ListUnusedAction</class>
+    </action>
     <!--********************************************************************
                            TextArticle Action
      ********************************************************************-->
