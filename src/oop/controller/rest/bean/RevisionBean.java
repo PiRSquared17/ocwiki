@@ -10,7 +10,7 @@ public class RevisionBean<T extends ArticleBean> {
 	private long id;
 	private ResourceReferenceBean resource;
 	private T article;
-	private UserBean author;
+	private UserReferenceBean author;
 	private Date timestamp;
 	private String summary;
 	private boolean minor;
@@ -34,11 +34,11 @@ public class RevisionBean<T extends ArticleBean> {
 		this.article = article;
 	}
 
-	public UserBean getAuthor() {
+	public UserReferenceBean getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(UserBean author) {
+	public void setAuthor(UserReferenceBean author) {
 		this.author = author;
 	}
 
