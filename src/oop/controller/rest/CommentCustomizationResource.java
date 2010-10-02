@@ -11,14 +11,16 @@ import oop.db.dao.CommentCustomizationDAO;
 import oop.db.dao.CommentDAO;
 import oop.db.dao.CommentReportDAO;
 
-@Path("/comment_customizations")
+@Path(CommentCustomizationResource.PATH)
 public class CommentCustomizationResource extends AbstractResource {
 
+	public static final String PATH = "/comment_customizations";
+	
 	@POST
 	public ObjectResult<CommentReport> create(CommentCustomization data) {
 		Comment comment = CommentDAO.fetch(data.getComment().getId());
 		CommentCustomization customization = new CommentCustomization(comment,
-				getUser(), data.getStatus());
+				getUserNullSafe(), data.getStatus());
 		CommentCustomizationDAO.persist(customization);
 		
 		//Hacon

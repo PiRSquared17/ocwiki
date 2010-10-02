@@ -28,7 +28,7 @@
 </div>
 </div>
 
-<div style="display: none" id="session-loginDialog-content">
+<ocw:setJs var="dialogContent">
 <form>
 <p><label>Tên: <input type="text" name="name"
 	id="session_name" /> </label> <span class="error-validating"
@@ -38,15 +38,13 @@
 	id="session_passwordError"></span> </label></p>
 </form>
 <ocw:actionLink name="user.signup">Đăng kí</ocw:actionLink> <ocw:actionLink
-	name="user.forgetpass">Quên mật khẩu?</ocw:actionLink></div>
+	name="user.forgetpass">Quên mật khẩu?</ocw:actionLink>
+</ocw:setJs>
 
 <script type="text/javascript">
 
-	var sessionLoginDialogContent = $('session-loginDialog-content').innerHTML;
-	$('session-loginDialog-content').remove();
-
 	function openLoginDialog() {
-		Dialog.confirm(sessionLoginDialogContent, {
+		Dialog.confirm('${dialogContent}', {
 			width : 300,
 			okLabel : "Đăng nhập",
 			cancelLabel : "Thôi",

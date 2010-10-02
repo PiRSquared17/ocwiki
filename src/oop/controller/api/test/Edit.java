@@ -1,16 +1,14 @@
 package oop.controller.api.test;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
-import oop.data.Resource;
 import oop.data.Test;
 import oop.db.dao.ResourceDAO;
 
-public class Edit extends AbstractAction {
+public class Edit extends AbstractResourceAction<Test>  {
 
 	private Article test;
-	private Resource<Test> resource;
 
 	@Override
 	public void performImpl() throws Exception {
@@ -27,10 +25,6 @@ public class Edit extends AbstractAction {
 	
 	public Article getTest() {
 		return test;
-	}
-	
-	public Resource<Test> getResource() {
-		return resource;
 	}
 
 }

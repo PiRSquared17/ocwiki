@@ -12,9 +12,7 @@ public class User implements Serializable, Entity, HasVersion {
 
 	private static final long serialVersionUID = -8984541011161716639L;
 
-	@XmlElement
 	private long id;
-	@XmlElement
 	private int version;
 	private String fullname;
 	private String password;
@@ -25,11 +23,22 @@ public class User implements Serializable, Entity, HasVersion {
 	private String warningMessage;
 	private Date warningExpiredDate;
 	private String avatar;
-	@XmlElement
 	private Date registerDate;
-	@XmlElement
 	private String name;
 	private Preferences preferences = new Preferences();
+	private String firstName;
+	private String lastName;
+	private String about;
+	private Date birthday;
+	private String website;
+	private String hometown;
+	private String location;
+	private String bio;
+	private Gender gender = Gender.UNKNOWN;
+	private String timezone;
+
+	public User() {
+	}
 
 	public User(String name, String fullname, String password,
 			String email, String group, String avatar, String warning,
@@ -49,9 +58,19 @@ public class User implements Serializable, Entity, HasVersion {
 	public String getName() {
 		return name;
 	}
+	
+	@XmlElement
+	public void setName(String name) {
+		this.name = name;
+	}
 
+	@XmlElement
 	public long getId() {
 		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public String getFullname() {
@@ -114,14 +133,13 @@ public class User implements Serializable, Entity, HasVersion {
 		this.avatar = avatar;
 	}
 
+	@XmlElement
 	public Date getRegisterDate() {
 		return registerDate;
 	}
-
-	/**
-	 * For hibernate
-	 */
-	User() {
+	
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
 	}
 
 	public void setPreferences(Preferences preferences) {
@@ -157,9 +175,94 @@ public class User implements Serializable, Entity, HasVersion {
 	public int getVersion() {
 		return version;
 	}
+	
+	@XmlElement
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
 	public boolean matchPassword(String password) {
 		return this.password.equals(password);
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public String getHometown() {
+		return hometown;
+	}
+
+	public void setHometown(String hometown) {
+		this.hometown = hometown;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public String getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(String timezone) {
+		this.timezone = timezone;
 	}
 	
 }

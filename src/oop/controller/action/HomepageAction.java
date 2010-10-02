@@ -6,9 +6,11 @@ import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.data.Test;
 import oop.data.TestStructure;
+import oop.data.TextArticle;
 import oop.db.dao.BaseQuestionDAO;
 import oop.db.dao.TestDAO;
 import oop.db.dao.TestStructureDAO;
+import oop.db.dao.TextArticleDAO;
 import oop.db.dao.UserDAO;
 
 public class HomepageAction extends AbstractAction {
@@ -16,15 +18,18 @@ public class HomepageAction extends AbstractAction {
 	private List<Resource<Test>> tests;
 	private List<Resource<TestStructure>> testStructures;
 	private List<Resource<BaseQuestion>> questions;
+	private List<Resource<TextArticle>> textArticles;
 	private long testCount;
 	private long questionCount;
 	private long structCount;
+	private long textArticleCount;
 	private long userCount;
 
 	@Override
 	public void performImpl() throws Exception {
 		title("Trang chủ");
 		tests = TestDAO.fetch(0, 10);
+		textArticles = TextArticleDAO.fetchNewest(0, 10);
 		testStructures = TestStructureDAO.fetch(0, 10);
 		questions = BaseQuestionDAO.fetch(0, 10);
 		testCount = TestDAO.count();
@@ -59,6 +64,14 @@ public class HomepageAction extends AbstractAction {
 	
 	public long getUserCount() {
 		return userCount;
+	}
+
+	public List<Resource<TextArticle>> getTextArticles() {
+		return textArticles;
+	}
+
+	public long getTextArticleCount() {
+		return textArticleCount;
 	}
 
 }

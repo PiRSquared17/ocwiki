@@ -1,19 +1,16 @@
 package oop.controller.action.answer;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Answer;
 import oop.data.BaseQuestion;
-import oop.data.Resource;
 import oop.data.Text;
 import oop.db.dao.ResourceDAO;
 import oop.util.Utils;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditAction extends AbstractAction {
-
-	private Resource<BaseQuestion> resource;
+public class EditAction extends AbstractResourceAction<BaseQuestion> {
 
 	@Override
 	public void performImpl() throws Exception {
@@ -60,8 +57,5 @@ public class EditAction extends AbstractAction {
 			}
 		}
 	}	
-	public Resource<BaseQuestion> getResource() {
-		return resource;
-	}
 
 }

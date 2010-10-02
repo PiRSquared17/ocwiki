@@ -3,6 +3,8 @@ package oop.conf;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+
 import oop.controller.action.Action;
 
 public class ActionDescriptor {
@@ -14,6 +16,7 @@ public class ActionDescriptor {
 	private String javaScript;
 	private String css;
 	private String title;
+	private String container;
 
 	public boolean isLoginRequired() {
 		return loginRequired;
@@ -83,6 +86,17 @@ public class ActionDescriptor {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public void setContainer(String container) {
+		this.container = container;
+	}
+
+	public String getContainer() {
+		if (StringUtils.isEmpty(container)) {
+			return "index.jsp";
+		}
+		return container;
 	}
 	
 }

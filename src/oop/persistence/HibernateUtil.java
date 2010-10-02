@@ -47,9 +47,12 @@ public class HibernateUtil {
 		// add classes
 		hconf.addClass(oop.data.User.class);
 		hconf.addClass(oop.data.Topic.class);
+		hconf.addClass(oop.data.TopicSet.class);
 		hconf.addClass(oop.data.Namespace.class);
 		hconf.addClass(oop.data.Revision.class);
 		hconf.addClass(oop.data.Resource.class);
+		hconf.addClass(oop.data.ResourceReport.class);
+		hconf.addClass(oop.data.ResourceCustomization.class);
 		hconf.addClass(oop.data.CategorizableArticle.class);
 		hconf.addClass(oop.data.TextArticle.class);
 		hconf.addClass(oop.data.BaseArticle.class);
@@ -106,6 +109,19 @@ public class HibernateUtil {
 			sessionLocal.set(getSessionFactory().openSession());
 		}
 		return sessionLocal.get();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T load(Class<T> clazz, long id) {
+		if (id <= 0) {
+			try {
+				return clazz.newInstance();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		Session session = HibernateUtil.getSession();
+		return (T) session.load(clazz, id);
 	}
 
 	public static void closeSession() {

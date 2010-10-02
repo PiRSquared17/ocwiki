@@ -1,5 +1,6 @@
 package oop.controller.rest;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
@@ -32,23 +33,25 @@ public abstract class AbstractResource {
 	
 	@Context
 	private HttpServletRequest request;
+	@Context
+	private ServletContext servletContext;
 	private ParameterList params;
 
 	public HttpServletRequest getRequest() {
 		return request;
 	}
 
+	public ServletContext getServletContext() {
+		return servletContext;
+	}
+	
 	public HttpSession getSession() {
 		return request.getSession();
 	}
 
 	protected <T extends Article> Revision<T> saveNewRevision(
 			Resource<T> resource, T article, String summary, boolean minor) {
-		if (resource.getArticle().getId() != article.getId()) {
-			throw invalidParam("basever", "old version");
-		}
-		User user = SessionUtils.getUser(getSession());
-		return ResourceDAO.update(resource, (T)article.copy(), user, summary, minor);
+		return ResourceDAO.update(resource, article, getUserNullSafe(), summary, minor);
 	}
 
 	protected int getBaseVersion() {
@@ -63,7 +66,15 @@ public abstract class AbstractResource {
 	
 	protected User getUser() {
 		return SessionUtils.getUser(getSession());
-		
+	}
+	
+	protected User getUserNullSafe() {
+		User user = SessionUtils.getUser(getSession());
+		if (user == null) {
+			throw new WebApplicationException(Response.status(Status.NOT_FOUND)
+					.entity(new ErrorResult("login required")).build());
+		}
+		return user;
 	}
 
 	protected ParameterList getParams() {
@@ -72,7 +83,7 @@ public abstract class AbstractResource {
 		}
 		return params;
 	}
-
+	
 	protected void assertParamValid(boolean valid, String name, String errorCode) {
 		if (!valid) {
 			throw invalidParam(name, errorCode);
@@ -95,7 +106,7 @@ public abstract class AbstractResource {
 				.entity(new ErrorResult("not found")).build());
 	}
 
-	private WebApplicationException invalidParam(String name, String errorCode) {
+	protected WebApplicationException invalidParam(String name, String errorCode) {
 		return new WebApplicationException(Response.status(Status.BAD_REQUEST)
 				.entity(
 						new InvalidParamResult(errorCode, name, getParams()
@@ -124,6 +135,13 @@ public abstract class AbstractResource {
 	protected void assertBaseVersion(HasVersion entity) {
 		if (entity.getVersion() != getBaseVersion()) {
 			throw invalidParam("basever", "old version");	
+		}
+	}
+
+	protected void assertParamValid(String message, boolean valid) {
+		if (!valid) {
+			throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+					.entity(new ErrorResult(message)).build());
 		}
 	}
 

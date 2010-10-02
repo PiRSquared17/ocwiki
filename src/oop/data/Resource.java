@@ -9,9 +9,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import oop.data.log.ResourceLog;
+import oop.util.Utils;
 
 @XmlRootElement
-public class Resource<T extends Article> implements ArticleContainer<T> {
+public class Resource<T extends Article> implements ArticleContainer<T>, HasVersion {
 
 	private long id;
 	private Date createDate;
@@ -26,13 +27,16 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 	private Set<Resource<? extends Article>> linkedResources = new HashSet<Resource<? extends Article>>();
 	private Resource<? extends Article> link = null;
 
-	Resource() {
+	public Resource() {
 	}
 
 	public Resource(long id, Date createDate, User author, Status status,
 			int revision, Class<T> type, T article, Set<Revision<T>> revisions,
 			Set<ResourceLog> logs) {
 		super();
+		if (!type.isInstance(article)) {
+			throw new ClassCastException();
+		}
 		this.id = id;
 		this.createDate = createDate;
 		this.author = author;
@@ -56,6 +60,10 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 	public long getId() {
 		return id;
 	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	@XmlElement
 	public Status getStatus() {
@@ -70,21 +78,28 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 	public Date getCreateDate() {
 		return createDate;
 	}
+	
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
 	@XmlElement
 	public User getAuthor() {
 		return author;
 	}
-
-	@XmlTransient
-	public Set<Revision<T>> getRevisions() {
-		return revisions;
+	
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	public int getVersion() {
 		return version;
 	}
-
+	
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -94,23 +109,37 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 	public T getArticle() {
 		return article;
 	}
+	
+	public void setArticle(T article) {
+		this.article = article;
+	}
+	
+	@XmlElement(name="articleType")
+	public Class<T> getType() {
+		return type;
+	}
+
+	public Resource<? extends Article> getLink() {
+		return link;
+	}
+
+	public void setLink(Resource<? extends Article> link) {
+		this.link = link;
+	}
 
 	public String getName() {
+		if (getArticle().getName() == null) {
+			return "#" + getArticle().getId();
+		}
 		return getArticle().getName();
+	}
+	
+	public void setType(Class<T> type) {
+		this.type = type;
 	}
 
 	public Namespace getNamespace() {
 		return getArticle().getNamespace();
-	}
-
-	@Deprecated
-	public void setArticle(T article) {
-		this.article = article;
-	}
-
-	@XmlElement(name="articleType")
-	public Class<T> getType() {
-		return type;
 	}
 
 	@XmlTransient
@@ -118,36 +147,42 @@ public class Resource<T extends Article> implements ArticleContainer<T> {
 		return logs;
 	}
 
-	public Revision<T> getLatestRevision() {
-		return getRevisions().iterator().next();
+	public Set<Resource<? extends Article>> getLinkedResources() {
+		return linkedResources;
 	}
 
 	public void setLinkedResources(Set<Resource<? extends Article>> linkedResources) {
 		this.linkedResources = linkedResources;
 	}
 
-	public Set<Resource<? extends Article>> getLinkedResources() {
-		return linkedResources;
-	}
-
-	public String getQualifiedName() {
-		return article.getQualifiedName();
+	public ResourceAccessibility getAccessibility() {
+		return accessibility;
 	}
 
 	public void setAccessibility(ResourceAccessibility accessibility) {
 		this.accessibility = accessibility;
 	}
 
-	public ResourceAccessibility getAccessibility() {
-		return accessibility;
+	public String getQualifiedName() {
+		return article.getQualifiedName();
 	}
 
-	public void setLink(Resource<? extends Article> link) {
-		this.link = link;
+	@XmlTransient
+	public Set<Revision<T>> getRevisions() {
+		return revisions;
 	}
-
-	public Resource<? extends Article> getLink() {
-		return link;
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Resource<?>) {
+			return id == ((Resource<?>)obj).id;
+		}
+		return super.equals(obj);
 	}
-
+	
+	@Override
+	public int hashCode() {
+		return Utils.hashCode(id);
+	}
+	
 }

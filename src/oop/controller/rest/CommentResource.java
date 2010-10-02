@@ -20,8 +20,10 @@ import oop.db.dao.CommentDAO;
 import oop.db.dao.ResourceDAO;
 import oop.db.dao.RevisionDAO;
 
-@Path("/comments")
+@Path(CommentResource.PATH)
 public class CommentResource extends AbstractResource {
+	
+	public static final String PATH = "/comments";
 
 	@GET
 	@Path("/resource/{resourceId: \\d+}/latest")
@@ -33,7 +35,7 @@ public class CommentResource extends AbstractResource {
 		List<Comment> list = CommentDAO.fetchLatest(resourceId, start, size);
 		String nextUrl = null;
 		if (list.size() >= size) {
-			nextUrl = "/comments/resource/" + resourceId + "/latest?start="
+			nextUrl = PATH + "/resource/" + resourceId + "/latest?start="
 					+ (start + size) + "&size=" + size;
 		}
 		long count = CommentDAO.countByResource(resourceId);
@@ -49,7 +51,7 @@ public class CommentResource extends AbstractResource {
 		List<Comment> list = CommentDAO.fetch(resourceId, start, size);
 		String nextUrl = null;
 		if (list.size() >= size) {
-			nextUrl = "/comments/resource/" + resourceId + "?start="
+			nextUrl = PATH + "/resource/" + resourceId + "?start="
 					+ (start + size) + "&size=" + size;
 		}
 		long count = CommentDAO.countByResource(resourceId);
@@ -71,8 +73,8 @@ public class CommentResource extends AbstractResource {
 			assertParamValid(resource != null, "", "resource not found");
 		Revision<? extends Article> revision = RevisionDAO
 			.fetchLatestByResource(resource.getId());
-		Comment comment = new Comment(getUser(), new Date(), data.getMessage(),
-				resource, revision);
+		Comment comment = new Comment(getUserNullSafe(), new Date(), data
+				.getMessage(), resource, revision);
 		CommentDAO.persist(comment);
 		return new ObjectResult<Comment>(comment);
 	}

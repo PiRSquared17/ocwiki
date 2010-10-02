@@ -2,7 +2,7 @@ package oop.controller.action.test;
 
 import java.util.List;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.BaseQuestion;
 import oop.data.Question;
@@ -16,7 +16,7 @@ import oop.db.dao.TestDAO;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class AddQuestionAction extends AbstractAction {
+public class AddQuestionAction extends AbstractResourceAction<Test> {
 
 	private Test test;
 
@@ -121,9 +121,5 @@ public class AddQuestionAction extends AbstractAction {
 			setNextAction("test.view&id=" + test.getId());
 		}
 	}
-	private Resource<Test> resource;
 
-	public Resource<Test> getResource() {
-		return resource;
-	}
 }

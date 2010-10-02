@@ -5,7 +5,7 @@
 <hibernate-mapping>
 	<subclass name="oop.data.CategorizableArticle" extends="oop.data.Article"
 		abstract="true">
-        <set name="topics" table="ArticleTopic">
+        <set name="topics" table="ArticleTopic" cascade="all">
             <key column="article_id" />
             <many-to-many column="topic_id" class="oop.data.Resource" />
         </set>
