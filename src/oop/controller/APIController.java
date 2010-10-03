@@ -15,9 +15,8 @@ import oop.persistence.HibernateUtil;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
-
-import com.google.gson.JsonElement;
 
 /**
  * Servlet implementation class APIController
@@ -64,7 +63,7 @@ public class APIController extends HttpServlet {
 			}
 			if (result instanceof String) {
 				response.getWriter().write((String) result);
-			} else if (result instanceof JsonElement) {
+			} else if (result instanceof JsonNode) {
 				response.getWriter().write(result.toString());
 			} else {
 				mapper.writeValue(response.getWriter(), result);

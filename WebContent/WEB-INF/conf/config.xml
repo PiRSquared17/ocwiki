@@ -350,6 +350,10 @@
       <class>oop.controller.action.admin.HomeAction</class>
     </action>
 
+    <action>
+        <name>user.fblogin</name>
+        <class>oop.controller.action.user.FacebookLoginAction</class>
+    </action>
 
     <!--********************************************************************
                                   API  
