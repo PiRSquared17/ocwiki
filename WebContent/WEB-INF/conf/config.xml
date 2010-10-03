@@ -324,6 +324,11 @@
       <class>oop.controller.action.user.PreferenceAction</class>
       <loginRequired>true</loginRequired>
     </action>
+    <action>
+      <name>uploadFile</name>
+      <class>oop.controller.action.file.UploadAction</class>
+      <loginRequired>true</loginRequired>
+    </action>
     
     <action>
       <name>user.edituser</name>

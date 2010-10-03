@@ -26,6 +26,7 @@ public class PreferenceAction extends AbstractAction {
 	private static final int SIZE = 100;
 	private File destDir;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void performImpl() throws Exception {
 		tempDir = new File(TEMP_DIR);
@@ -56,22 +57,20 @@ public class PreferenceAction extends AbstractAction {
 			while (itr.hasNext()) {
 				FileItem item = (FileItem) itr.next();
 
-				if (!item.isFormField()) {
+				if (!item.isFormField() && check(item)) {
 					File uploadedFile = new File(destDir, item.getName());
 					uploadedFile = resizeAndRenameImage(item);
-
 					getUser().setAvatar(uploadedFile.getName());
 					UserDAO.persist(getUser());
 				}
+				else
+					this.addError("File Error", "File không hợp lệ");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
-/*
-	public File rename(File file) {
-		// Get the parent directory path
-		String parentDir = file.getParent();
+	public boolean check(FileItem file) {
 		// Get filename
 		String fileName = file.getName();
 		// Get the extension if the file has one
@@ -81,12 +80,15 @@ public class PreferenceAction extends AbstractAction {
 			fileExt = fileName.substring(i);
 			fileName = fileName.substring(0, i);
 		}
-		// make fileName unique
-		fileName = String.valueOf(getUser().getId()) + fileExt;
-		File temp = new File(parentDir + "/" + fileName);
-		return temp;
-	}
-*/	
+		long fileSize = file.getSize();
+		if ((fileExt.equalsIgnoreCase(".png")
+				|| fileExt.equalsIgnoreCase(".jpg")
+				|| fileExt.equalsIgnoreCase(".gif"))
+				&& fileSize <= 2 * 1024 * 1024)
+			return true;
+		else
+			return false;
+	}	
 	public File resizeAndRenameImage(FileItem originalFileItem){
 		try{
 		InputStream inputStream = originalFileItem.getInputStream();

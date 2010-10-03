@@ -18,9 +18,10 @@ public class UploadAction extends AbstractAction {
 
 	private static final String TEMP_DIR = System.getProperty("java.io.tmpdir");
 	private File tempDir;
-	private static final String DEST_DIR = "/uploads";
+	private static final String DEST_DIR = "/file";
 	private File destDir;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void performImpl() throws Exception {
 		tempDir = new File(TEMP_DIR);
@@ -43,23 +44,50 @@ public class UploadAction extends AbstractAction {
 		ServletFileUpload uploadHandler = new ServletFileUpload(
 				diskFileItemFactory);
 		uploadHandler.setSizeMax(10 * 1024 * 1024);
+		if (ServletFileUpload.isMultipartContent(request)){
+			  // Parse the HTTP request...
+			try {
+				List itemsList = uploadHandler.parseRequest(request);
+				Iterator itr = itemsList.iterator();
 
-		try {
-			List itemsList = uploadHandler.parseRequest(request);
-			Iterator itr = itemsList.iterator();
-
-			while (itr.hasNext()) {
-				FileItem item = (FileItem) itr.next();
-
-				if (!item.isFormField()) {
-					File uploadedFile = new File(destDir, item.getName());
-					oop.data.File file = new oop.data.File();
-					file.setName(uploadedFile.getName());
-					FileDAO.persist(file);
+				while (itr.hasNext()) {
+					FileItem item = (FileItem) itr.next();
+					if (!item.isFormField() && check(item)) {
+						File uploadedFile = new File(destDir, item.getName());
+						oop.data.File file = new oop.data.File();
+						file.setName(uploadedFile.getName());
+						FileDAO.persist(file);
+					}
+					else
+						this.addError("File Error", "File không hợp lệ");
 				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
+		else
+			this.addError("File Error", "Not Multipart");
+
+	}
+
+	public boolean check(FileItem file) {
+		// Get filename
+		String fileName = file.getName();
+		// Get the extension if the file has one
+		String fileExt = "";
+		int i = -1;
+		if ((i = fileName.indexOf(".")) != -1) {
+			fileExt = fileName.substring(i);
+			fileName = fileName.substring(0, i);
+		}
+		long fileSize = file.getSize();
+		if ((fileExt.equalsIgnoreCase(".png")
+				|| fileExt.equalsIgnoreCase(".jpg")
+				|| fileExt.equalsIgnoreCase(".gif")
+				|| fileExt.equalsIgnoreCase(".svg"))
+				&& fileSize <= 10 * 1024 * 1024)
+			return true;
+		else
+			return false;
 	}
 }
