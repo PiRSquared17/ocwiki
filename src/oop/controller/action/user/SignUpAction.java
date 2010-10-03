@@ -54,7 +54,7 @@ public class SignUpAction extends AbstractAction {
 				request.setAttribute("error", "true");
 			} else {
 				User user = UserDAO.create(userName, fullname, "user", password, email);
-				SessionUtils.setUser(getSession(), user);
+				SessionUtils.login(getSession(), user);
 				setNextAction("homepage");
 			}
 		}
