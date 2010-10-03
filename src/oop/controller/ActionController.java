@@ -123,9 +123,10 @@ public class ActionController extends HttpServlet {
 					url = url.substring(0, i) + "?" + url.substring(i+1);
 				}
 				url = Config.get().getActionPath() + "/" + url;
-				response.sendRedirect(url);
+				response.sendRedirect(response.encodeRedirectURL(url));
 			} else if (action.getRedirect() != null) {
-				response.sendRedirect(action.getRedirect());
+				response.sendRedirect(response.encodeRedirectURL(action
+						.getRedirect()));
 			} else {
 				request.setAttribute("modules", getModules(request, action));
 				request.setAttribute("action", action);

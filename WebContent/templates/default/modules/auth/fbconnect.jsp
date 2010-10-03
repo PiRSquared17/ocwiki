@@ -10,7 +10,7 @@
 	    if (response.session) {
 		  alert('login!');
 	      returnUrl = encodeURI(location.href);
-	      location.href = actionPath + '/user.fblogin&returnUrl=' + returnUrl;
+	      location.href = actionPath + '/user.fblogin?returnUrl=' + returnUrl;
 	    }
 	  });
 	</script>
