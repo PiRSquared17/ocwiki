@@ -8,6 +8,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import oop.conf.Config;
+import oop.data.FacebookAccount;
+import oop.data.User;
 
 public final class FacebookUtils {
 
@@ -40,13 +42,19 @@ public final class FacebookUtils {
 					}
 				}
 				payload.append(Config.get().getFacebookSecret());
-				if (Utils.md5(payload.toString()).equals(map.get("sig"))) {
+				String signature = Utils.md5(payload.toString());
+				if (signature.equalsIgnoreCase(map.get("sig"))) {
 					return map; 
 				}
 				return null;
 			}
 		}
 		return null;
+	}
+
+	public static FacebookAccount register(String uid) {
+		User user = new User(); //XXX
+		return new FacebookAccount(uid, user);
 	}
 	
 }

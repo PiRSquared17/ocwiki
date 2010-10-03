@@ -20,7 +20,7 @@ public class FacebookLoginAction extends AbstractAction {
 			if (account == null) {
 				createAccount(facebook.get("uid"));
 			} else {
-				SessionUtils.setUser(getRequest().getSession(), account
+				SessionUtils.login(getRequest().getSession(), account
 						.getUser());
 			}
 		}

@@ -512,6 +512,7 @@
         <position>top_right</position>
         <order>2</order>
     </module>
+    <!-- 
     <module>
         <name>fbconnect</name>
         <title>Đăng nhập bằng tài khoản FaceBook</title>
@@ -519,7 +520,6 @@
         <order>3</order>
         <page>auth/fbconnect.jsp</page>
     </module>
-    <!-- 
     <module>
        <name>login</name>
         <title>Đăng nhập</title>

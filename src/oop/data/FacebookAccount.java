@@ -8,6 +8,12 @@ public class FacebookAccount {
 	public FacebookAccount() {
 	}
 
+	public FacebookAccount(String uid, User user) {
+		super();
+		this.uid = uid;
+		this.user = user;
+	}
+
 	public String getUid() {
 		return uid;
 	}
