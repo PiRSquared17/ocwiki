@@ -33,6 +33,9 @@
     <attribute>
         <name>method</name>
     </attribute>
+    <attribute>
+        <name>enctype</name>
+    </attribute>
   </tag>
   
   <tag>

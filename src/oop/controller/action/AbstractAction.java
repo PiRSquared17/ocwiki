@@ -201,7 +201,7 @@ public abstract class AbstractAction implements Action {
 		return errors;
 	}
 
-	public void addError(String name, String message) {
+	protected void addError(String name, String message) {
 		if (errors == null) {
 			errors = new HashMap<String, String>();
 		}

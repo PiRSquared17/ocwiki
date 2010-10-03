@@ -28,5 +28,17 @@ public class TopicTest extends HibernateTest {
 		Assert.assertEquals("Lịch sử", ancestors.get(0).getName());
 		Assert.assertEquals(465, ancestors.get(1).getId());
 	}
+
+	@Test
+	public void testUncategorized() {
+		List<Resource<Topic>> topics = TopicDAO.fetchUncategorized();
+		System.out.println(topics.size());
+	}
+	
+	@Test
+	public void testUnused() {
+		List<Resource<Topic>> topics = TopicDAO.fetchUnused();
+		System.out.println(topics.size());
+	}
 	
 }
