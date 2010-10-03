@@ -57,6 +57,8 @@ public class ActionController extends HttpServlet {
 		String template = StringUtils.defaultIfEmpty((String) request
 				.getSession().getAttribute("template"), "default");
 
+		request.getSession().setAttribute("login",
+				SessionUtils.isLoggedIn(request.getSession()));
 		request.setAttribute("config", Config.get());
 		request.setAttribute("homeDir", Config.get().getHomeDir());
 		request.setAttribute("scriptPath", getScriptPath());

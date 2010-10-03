@@ -7,9 +7,12 @@ import org.codehaus.jackson.map.AnnotationIntrospector;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
+import org.codehaus.jackson.map.TreeMapper;
+import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.type.TypeReference;
 import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
 
+@SuppressWarnings("deprecation")
 public final class JsonUtils {
 
 	private JsonUtils() {
@@ -30,10 +33,21 @@ public final class JsonUtils {
 	public static String toJson(Object obj) throws Exception {
 		return mapper.writeValueAsString(obj);
 	}
-	
+
+	public static <T> T fromJson(String json, Class<T> type)
+			throws JsonParseException, JsonMappingException, IOException {
+		return mapper.readValue(json, type);
+	}
+
 	public static <T> T fromJson(String json, TypeReference<T> type)
 			throws JsonParseException, JsonMappingException, IOException {
 		return mapper.readValue(json, type);
+	}
+	
+	private static JsonNodeFactory factory = new TreeMapper();
+	
+	public static JsonNodeFactory getFactory() {
+		return factory;
 	}
 	
 }
