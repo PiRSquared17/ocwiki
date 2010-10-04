@@ -48,11 +48,13 @@ public final class TopicDAO {
 	 * Lấy các chủ đề chưa được phân loại
 	 * @return
 	 */
-	public static List<Resource<Topic>> fetchUncategorized() {
+	public static List<Resource<Topic>> fetchUncategorized(int start, int size) {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("from Resource where article in (" +
 				"from Topic where parent is null) and id <> " + Topic.ROOT_ID + 
 				" and status <> 'DELETED'");
+		query.setFirstResult(start);
+		query.setMaxResults(size);
 		return query.list();
 	}
 	
@@ -60,7 +62,7 @@ public final class TopicDAO {
 	 * Lấy các chủ đề chưa dùng đến
 	 * @return
 	 */
-	public static List<Resource<Topic>> fetchUnused() {
+	public static List<Resource<Topic>> fetchUnused(int start, int size) {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("from Resource r where r not in (" +
 				"select elements(topics) from CategorizableArticle a " +
@@ -68,6 +70,8 @@ public final class TopicDAO {
 				"and r not in (select parent from Topic t " +
 					"where t in (select article from Resource where status <> 'DELETED') ) " +
 				"and status <> 'DELETED'");
+		query.setFirstResult(start);
+		query.setMaxResults(size);
 		return query.list();
 	}
 

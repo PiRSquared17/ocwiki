@@ -15,7 +15,9 @@ public class ListUnusedAction extends AbstractAction {
 
 		@Override
 		public void performImpl() throws Exception {
-			unusedTopics = TopicDAO.fetchUnused();
+			int start = getParams().getInt("start", 0);
+			int size = 20;
+			unusedTopics = TopicDAO.fetchUnused(start,size);
 		}
 
 		public List<Resource<Topic>> getUnusedTopics() {

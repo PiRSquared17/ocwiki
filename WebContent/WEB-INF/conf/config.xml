@@ -295,6 +295,14 @@
       <name>statistics.topic.unused</name>
       <class>oop.controller.action.topic.ListUnusedAction</class>
     </action>
+    <action>
+      <name>statistics.article.uncategorized</name>
+      <class>oop.controller.action.article.ListUncategorizedAction</class>
+    </action>
+        <action>
+      <name>statistics.article.locked</name>
+      <class>oop.controller.action.article.ListLockedAction</class>
+    </action>
     <!--********************************************************************
                            TextArticle Action
      ********************************************************************-->
