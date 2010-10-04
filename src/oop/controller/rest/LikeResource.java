@@ -10,12 +10,10 @@ import oop.data.Article;
 import oop.data.Resource;
 import oop.data.ResourceCustomization;
 import oop.data.ResourceLike;
-import oop.data.ResourceReport;
 import oop.data.ResourceTodo;
 import oop.data.User;
 import oop.db.dao.ResourceCustomizationDAO;
 import oop.db.dao.ResourceDAO;
-import oop.db.dao.ResourceReportDAO;
 
 
 @Path(LikeResource.PATH)
@@ -24,9 +22,9 @@ public class LikeResource extends AbstractResource {
 	
 	@GET
 	@Path("/{id: \\d+}")
-	public ObjectResult<ResourceReport> get(@PathParam("id") long id){
-		ResourceReport resourcereport = ResourceReportDAO.fetchByResourceAndUser(id, getUser());
-		return new ObjectResult<ResourceReport>(resourcereport);
+	public ObjectResult<ResourceCustomization> get(@PathParam("id") long id){
+		ResourceCustomization resourcereport = ResourceCustomizationDAO.fetchByResourceAndUser(id, getUser().getId());
+		return new ObjectResult<ResourceCustomization>(resourcereport);
 	}
 	
 	@POST
