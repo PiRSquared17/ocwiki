@@ -7,8 +7,6 @@
 <c:choose>
 
 <c:when test="${u:size(action.uncategorizedTopics) > 0}">
-	<form action="${scriptPath}" id="listForm">
-	<input type="hidden" name="action" value="statistics.topic.uncategorized" />
 	<div class="clear"></div>
 	<div class="content-wrapper">
         <ul style="list-style: none;">
@@ -19,7 +17,6 @@
 		</c:forEach>
 		</ul>
 	</div>
-	</form>
 </c:when>
 
 <c:otherwise>
