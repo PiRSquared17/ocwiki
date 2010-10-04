@@ -510,6 +510,7 @@
         <inAction>article.view</inAction>
         <articleType>oop.data.TextArticle</articleType>
         <articleType>oop.data.Test</articleType>
+        <loginRequired>true</loginRequired>
     </module>
     <!-- 
     <module>

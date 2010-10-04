@@ -1,21 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/includes/common.jsp" %>
 
-<c:if test="${sessionScope.login}">
-	<div>Đánh dấu bài cần làm:
-	<button onclick="Li_To_Le(0)" id="todo">Bài cần làm</button>
-	</div>
-	<div>Độ khó:
-		<select onchange="Li_To_Le(1)" id="Level">
-			<option label="Khó" value="0">Khó</option>
-			<option label="Dễ" value="1">Dễ</option>
-		</select>
-	</div>
-	<div>Số người thích:
-		<span id="LikeCount"></span>
-		<button onclick="Li_To_Le(2)" id="Like_button">Thích</button>
-	</div>
-</c:if>
+<div>Đánh dấu bài cần làm:
+<button onclick="Li_To_Le(0)" id="todo">Bài cần làm</button>
+</div>
+<div>Độ khó:
+	<select onchange="Li_To_Le(1)" id="Level">
+		<option label="Khó" value="0">Khó</option>
+		<option label="Dễ" value="1">Dễ</option>
+	</select>
+</div>
+<div>Số người thích:
+	<span id="LikeCount"></span>
+	<button onclick="Li_To_Le(2)" id="Like_button">Thích</button>
+</div>
+
+
 <script type="text/javascript">
 	var resourceID  = ${action.resource.id};
 	var resource = {id: resourceID};
@@ -32,6 +32,7 @@
 			  resourcereport = transport.responseJSON.result;
 			  var userId = resourcereport.user;
 			  $('LikeCount').innerHTML = resourcereport.likeCount;
+			  $('LikeCount').value = resourcereport.likeCount;
 		},
 		onFailure: function(){
 		  alert('Fail'); }
@@ -45,20 +46,32 @@
 				},
 				evalJSON : true,
 				onSuccess : function(transport) {
-					  resourcereport = transport.responseJSON.result;
-					  var like = resourcereport.like;
-					  var todo = resourcereport.todo;
-					  if (like != null){
-						  $('Like_button').hide();
+					  try{
+						  resourcereport = transport.responseJSON.result;
+						  var like = resourcereport.like;
+						  var todo = resourcereport.todo;
+						  if ((like != null)&&(like != 'NORMAL')){
+							  $('Like_button').innerHTML = 'Không thích';
+							  $('Like_button').value = 'Unlike';
+						  }
+						  else{
+							  $('Like_button').innerHTML = 'Thích';
+							  $('Like_button').value = 'Like';
+						  }
+						  if ((todo != null)&&(todo != 'NORMAL')){
+							  $('todo').innerHTML = 'Không cần làm';
+							  $('todo').value = 'untodo';
+						  }
+						  else{
+							  $('todo').innerHTML = 'Bài cần làm';
+							  $('todo').value = 'todo';
+						  }
 					  }
-					  else{
-						  $('Like_button').show();
-					  }
-					  if (todo == null){
+					  catch(ex){
+						  $('Like_button').innerHTML = 'Thích';
+						  $('Like_button').value = 'Like';
 						  $('todo').innerHTML = 'Bài cần làm';
-					  }
-					  else{
-						  $('todo').innerHTML = 'Đã làm xong';
+						  $('todo').value = 'todo';
 					  }
 				},
 				onFailure: function(transport){
@@ -71,8 +84,12 @@
 		var userId = resourcereport.user;
 		//var user = {id: userId};
 		var level = $('Level').value;
-		var like = 'LIKE';
-		var todo = 'TODO';
+		var like;
+		var todo;
+		if ($('Like_button').value == 'Like') like = 'LIKE';
+		else like = 'NORMAL'; 
+		if ($('todo').value == 'todo') todo = 'TODO';
+		else todo = 'NORMAL';
 		//var resourcecustomization={'user':{id: userId},'resource':{id: resourceID},'level':level,'like':like,'todo': todo};
 		var resourcecustomization;
 		switch(type){
@@ -89,20 +106,49 @@
 			default:
 		}
 		new Ajax.Request(restPath + '/LikeArticle/' + resourceID,
-				{
-			method: 'post',
-			requestHeader:{
-				Accept: 'application/json'
-			},
-			contentType: 'application/json',
-		    postBody: Object.toJSON(resourcecustomization),
-			evalJSON : true,
-			onSuccess : function(transport) {
-				  aler('Ok!');
-			},
-			onFailure: function(){
-			  alert('Fail'); }
-		});
+			{
+				method: 'post',
+				requestHeader:{
+					Accept: 'application/json'
+				},
+				contentType: 'application/json',
+			    postBody: Object.toJSON(resourcecustomization),
+				evalJSON : true,
+				onSuccess : function(transport) {
+					var count = $('LikeCount').value;
+					switch(type){
+					case 0: 
+							if(todo == 'TODO'){
+								$('todo').innerHTML = 'Không cần làm';
+								$('todo').value = 'untodo';
+							}
+							else{
+								$('todo').innerHTML = 'Bài cần làm';
+								$('todo').value = 'todo';
+							}
+							break;
+					case 1: 
+							break;
+					case 2: 
+							if(like == 'LIKE'){
+								count++;
+								$('Like_button').innerHTML = 'Không thích';
+								$('Like_button').value = 'Unlike';
+							}
+							else{
+								if (count > 0) count--;
+								$('Like_button').innerHTML = 'Thích';
+								$('Like_button').value = 'Like';
+							}
+							$('LikeCount').innerHTML = count;
+							$('LikeCount').value = count;
+							break;
+					default:
+					}
+				},
+				onFailure: function(){
+				  alert('Fail'); }
+			});
 	}
 	function Level(){
 		alert($('Level').value);
