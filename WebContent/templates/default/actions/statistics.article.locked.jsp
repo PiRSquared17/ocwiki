@@ -3,16 +3,16 @@
 <%@ include file="/includes/common.jsp" %>
 
 <div>
-<h3>Chủ đề chưa được phân loại:</h3>
+<h3>Bài viết bị khóa:</h3>
 <c:choose>
 
-<c:when test="${u:size(action.uncategorizedTopics) > 0}">
+<c:when test="${u:size(action.lockedArticles) > 0}">
 	<div class="clear"></div>
 	<div class="content-wrapper">
         <ul style="list-style: none;">
-		<c:forEach items="${action.uncategorizedTopics}" var="topic" >
+		<c:forEach items="${action.lockedArticles}" var="article" >
 			<li>
-			     <ocw:articleLink resource="${topic}">${topic.name}</ocw:articleLink>
+			     <ocw:articleLink resource="${article}">${article.name}</ocw:articleLink>
 			</li>
 		</c:forEach>
 		</ul>
