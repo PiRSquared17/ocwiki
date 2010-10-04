@@ -38,8 +38,13 @@ public class LikeResource extends AbstractResource {
 		ResourceTodo resourcetodo;
 		//ResourceCustomization resourcecustomization = new ResourceCustomization(
 		//			resource,user,level,resourcelike,resourcetodo);
-		if (resourcecustomization == null) resourcecustomization = new ResourceCustomization(
-				resource,user,data.getLevel(),data.getLike(),data.getTodo());
+		if (resourcecustomization == null) {
+			level = data.getLevel() == -1 ? 0 : data.getLevel();
+			resourcelike = data.getLike() == null ? ResourceLike.NORMAL : data.getLike();
+			resourcetodo = data.getTodo() == null ? ResourceTodo.NORMAL : data.getTodo();
+			resourcecustomization = new ResourceCustomization(
+				resource,user,level,resourcelike,resourcetodo);
+		}
 		else{
 			level = data.getLevel() == -1 ? resourcecustomization.getLevel() : data.getLevel();
 			resourcelike = data.getLike() == null ? resourcecustomization.getLike() : data.getLike();
