@@ -56,7 +56,7 @@ function createTest() {
             type: 'testBean',
             name: 'Đề thi mới',
             namespace: {
-                id: 3
+                id: 4
             }
         } 
     };
@@ -70,7 +70,7 @@ function createTextArticle() {
             type: 'textArticleBean',
             name: 'Bài viết mới',
             namespace: {
-                id: 3
+                id: 0
             }
         } 
     };
@@ -84,7 +84,7 @@ function createTestStructure() {
             type: 'testStructureBean',
             name: 'Cấu trúc đề mới',
             namespace: {
-                id: 3
+                id: 5
             }
         } 
     };
