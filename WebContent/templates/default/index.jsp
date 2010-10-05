@@ -23,10 +23,25 @@
 	<script type="text/javascript" src="${templatePath}/js/scriptaculous.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/ddmenu.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/windowjs/javascripts/window.js"></script>
+	<script type="text/javascript" src="${templatePath}/js/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js"></script>
+	<script type="text/javascript">
+	var AMTcgiloc = '${config.texCgi}';
+	</script>
 	<script type="text/javascript">
 		tinyMCE.init({
 		    mode : "textareas",
-		    theme : "simple"
+		    //skin : "o2k7",
+		    theme : "advanced",
+		    theme_advanced_buttons1 : 'bold,italic,underline,strikethrough,link,unlink,separator,image,asciimath,asciimathcharmap,separator,numlist,bullist,separator,emotions,separator,cleanup,code',
+		    theme_advanced_buttons2 : "tablecontrols",
+		    theme_advanced_buttons3 : "",
+		    theme_advanced_resizing : true,
+		    plugins : "inlinepopups,asciimath,emotions,table",
+		    table_styles : "Header 1=header1;Header 2=header2;Header 3=header3",
+		    table_cell_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Cell=tableCel1",
+		    table_row_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
+		    //TODO: change!		    	   
+	        content_css : "${templatePath}/css/editor-content.css"
 		});
 	</script>
 	
@@ -126,7 +141,7 @@
 	</div>
 
 	<div id="footer">
-		<p><a href="https://code.google.com/p/tracnghiem-csforce/">ocwiki v0.1</a>. 
+		<p><a href="https://code.google.com/p/ocwiki/">ocwiki v0.1</a>. 
 		Copyright © 2010. Powered by CS Force</p>
 	</div>
 </div>

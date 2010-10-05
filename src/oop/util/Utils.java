@@ -105,10 +105,28 @@ public class Utils {
 		return newCopy;
 	}
 
+	private static final char[] HEXES = { '0', '1', '2', '3', '4', '5', '6',
+			'7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
+    public static String getHex( byte [] raw ) {
+        if (raw == null) {
+            return null;
+        }
+        final char[] hex = new char[2 * raw.length];
+        for (int i = 0, j = 0; i < raw.length; i++) {
+            byte b = raw[i];
+            hex[j++] = HEXES[(b & 0xF0) >> 4];
+            hex[j++] = HEXES[(b & 0x0F)];
+        }
+        return new String(hex);
+    }
+
 	public static String md5(String x) {
 		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
-			return new String(md5.digest(x.getBytes()));
+			byte[] digest = md5.digest(x.getBytes());
+			String hex = getHex(digest);
+			return hex;
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException("never!", e);
 		}

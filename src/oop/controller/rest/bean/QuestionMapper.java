@@ -10,6 +10,7 @@ public class QuestionMapper implements Mapper<QuestionBean, Question> {
 		QuestionBean bean = new QuestionBean();
 		bean.setId(value.getId());
 		bean.setMark(value.getMark());
+		bean.setBase(BaseQuestionMapper.get().toBean(value.getBase()));
 		ResourceReferenceMapper<BaseQuestion> resourceMapper = ResourceReferenceMapper.get();
 		bean.setBaseResource(resourceMapper.toBean(value.getBaseResource()));
 		RevisionReferenceMapper<BaseQuestion> revisionMapper = RevisionReferenceMapper.get();

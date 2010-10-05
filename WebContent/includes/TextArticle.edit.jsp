@@ -12,11 +12,6 @@
 				<select id="namespaedit">
 					<option value="0" ${textedit.namespace.id==0 ? 'selected="selected"':''} >Chinh</option>
 					<option value="1" ${textedit.namespace.id==1 ? 'selected="selected"':''} >OCWIKI</option>
-					<option value="2" ${textedit.namespace.id==2 ? 'selected="selected"':''} >Chủ đề</option>
-					<option value="3" ${textedit.namespace.id==3 ? 'selected="selected"':''} >Câu hỏi</option>
-					<option value="4" ${textedit.namespace.id==4 ? 'selected="selected"':''} >Đề thi</option>
-					<option value="5" ${textedit.namespace.id==5 ? 'selected="selected"':''} >Cấu trúc đề</option>
-					<option value="6" ${textedit.namespace.id==6 ? 'selected="selected"':''} >Tập tin</option>
 				</select>
 			</td>
 		</tr>
@@ -37,9 +32,7 @@
 			</td>
 		</tr>
 	</table>
-	<div>
-		<input type="button" onclick="saveEdit()" name="Save" value="Save">
-	</div>
+	<br></br>
 </ocw:form>
 <script type="text/javascript">
 <!--
@@ -59,7 +52,12 @@
 		  alert('Fail'); }
 	});
 
-	function saveEdit(){
+	EditAction=Class.create();
+
+	EditAction.preview=function(){
+	}
+	
+	EditAction.save = function(){
 		textarticle.content={text : tinymce.get('edit_context').getContent()};
 		textarticle.namespace={id : $F('namespaedit')};
 		new Ajax.Request(restPath + '/TextArticle/'+ resourceId,
