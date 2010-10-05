@@ -23,11 +23,13 @@
 <ul class="level1 horizontal" id="guest-toolbar-root">
 	<li class="level1">Đăng nhập
         <ul class="level2 dropdown">
-            <li><a href="#" onclick="fblogin(); return false;">FaceBook</a></li>
+            <c:if test="${not empty config.facebookAppId}">
+	            <li><a href="#" onclick="fblogin(); return false;">FaceBook</a></li>
+            </c:if>
             <li><a href="#" onclick="return false;">Google</a></li>
             <li><a href="#" onclick="return false;">Yahoo</a></li>
             <li><a href="#" onclick="return false;">OpenID</a></li>
-            <li><a href="#" onclick="openLoginDialog(); return false;">OCWiki</a></li>
+            <li><a href="#" onclick="openLoginDialog(); return false;">Nội bộ</a></li>
         </ul>
 	</li>
 </ul>
@@ -54,17 +56,18 @@ var userToolbar;
 var guessToolbar;
 
 Element.observe(window, 'load', function() {
-   	FB.init({
-       	appId: '${config.facebookAppId}', 
-       	status: true, 
-       	cookie: true, 
-       	xfbml: true});
-   	new Menu('user-toolbar-root', 'userToolbar', function() {
-           this.closeDelayTime = 300;
-       });
-   	new Menu('guest-toolbar-root', 'guessToolbar', function() {
-           this.closeDelayTime = 300;
-       });
+   	userToolbar = new Menu('user-toolbar-root', 'userToolbar', function() {
+        this.closeDelayTime = 300;
+    });
+   	guessToolbar = new Menu('guest-toolbar-root', 'guessToolbar', function() {
+        this.closeDelayTime = 300;
+    });
+    FB.init({
+        appId: '${config.facebookAppId}', 
+        status: true, 
+        cookie: true, 
+        xfbml: true
+    });
 });
 
 function openLoginDialog() {
