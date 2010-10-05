@@ -4,6 +4,9 @@
 
 <c:set var="resource" value="${empty resource ? action.resource : resource}"></c:set>
 <c:set var="test" value="${empty article ? action.article : article}"></c:set>
+
+<h3>Sửa ${test.namespace.name}:<jsp:include page="/includes/article.edit.name.jsp"></jsp:include></h3>
+
 <c:set var="i" value="1"></c:set>
 
 <div>
@@ -79,7 +82,7 @@
 
 <ocw:setJs var="deletedTemplate">
     <div id="question\#{index}-deleted" style="text-align: center;">
-        Lựa chọn đã bị xoá.
+        Câu hỏi đã bị xoá.
         <a href="#" onclick="undeleteQuestion(\#{indexsection},\#{indexquestion},\#{index}); return false;">Phục hồi</a>
     </div>
 </ocw:setJs>

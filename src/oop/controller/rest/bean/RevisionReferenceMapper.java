@@ -10,6 +10,9 @@ public class RevisionReferenceMapper<T extends Article> implements
 
 	@Override
 	public RevisionReferenceBean toBean(Revision value) {
+		if (value == null) {
+			return null;
+		}
 		RevisionReferenceBean bean = new RevisionReferenceBean();
 		bean.setId(value.getId());
 		return bean;
@@ -17,6 +20,9 @@ public class RevisionReferenceMapper<T extends Article> implements
 
 	@Override
 	public Revision<T> toEntity(RevisionReferenceBean value) {
+		if (value == null) {
+			return null;
+		}
 		return HibernateUtil.load(Revision.class, value.getId());
 	}
 
