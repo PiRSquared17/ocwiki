@@ -1,21 +1,6 @@
 package oop.test.rest;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-
-import oop.conf.Config;
-import oop.controller.rest.util.ObjectResult;
-import oop.data.Answer;
 import oop.test.TestConfig;
-import oop.util.GsonFactory;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.google.gson.reflect.TypeToken;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class AnswerResourceTest {
 
@@ -23,6 +8,7 @@ public class AnswerResourceTest {
 		TestConfig.getConfig();
 	}
 
+	/*
 //	@Test
 	public void update() {
 		Client client = Client.create();
@@ -40,5 +26,6 @@ public class AnswerResourceTest {
 		Assert.assertEquals(false, obj.getResult().isCorrect());
 		System.out.println(obj.getResult());
 	}
-
+	*/
+	
 }

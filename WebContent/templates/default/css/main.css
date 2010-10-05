@@ -724,7 +724,6 @@ legend {
 }
 
 .session ul li {
-	float: left;
 	padding-left: 5px;
 	padding-right: 5px;
 } 
@@ -742,4 +741,9 @@ legend {
 
 .ocw-input {
     text-align: left;
+}
+
+// math editor
+span.AMedit {
+    border: 1px solid #ff0000;
 }
