@@ -32,7 +32,7 @@
 		    mode : "textareas",
 		    //skin : "o2k7",
 		    theme : "advanced",
-		    theme_advanced_buttons1 : 'bold,italic,underline,strikethrough,link,unlink,separator,image,asciimath,asciimathcharmap,separator,numlist,bullist,separator,emotions,separator,undo,redo,separator,source,cleanup,code,help',
+		    theme_advanced_buttons1 : 'bold,italic,underline,strikethrough,link,unlink,separator,image,asciimath,asciimathcharmap,separator,numlist,bullist,separator,emotions,separator,cleanup,code',
 		    theme_advanced_buttons2 : "tablecontrols",
 		    theme_advanced_buttons3 : "",
 		    theme_advanced_resizing : true,
@@ -141,7 +141,7 @@
 	</div>
 
 	<div id="footer">
-		<p><a href="https://code.google.com/p/tracnghiem-csforce/">ocwiki v0.1</a>. 
+		<p><a href="https://code.google.com/p/ocwiki/">ocwiki v0.1</a>. 
 		Copyright © 2010. Powered by CS Force</p>
 	</div>
 </div>

@@ -109,7 +109,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	new Ajax.Request(restPath + '/tests/' + resourceId,{
 			method: 'get',
 			requestHeaders : {
-	      	Accept : 'application/json'
+		       Accept : 'application/json'
 	  		},
 		    evalJSON : true,
 		    onSuccess : function(transport) {
