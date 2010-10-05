@@ -7,7 +7,7 @@ public class LogOutAction extends AbstractAction {
 
 	@Override
 	public void performImpl() throws Exception {
-		SessionUtils.setUser(getSession(), null);
+		SessionUtils.logout(getSession());
 		setNextAction("homepage");
 	}
 

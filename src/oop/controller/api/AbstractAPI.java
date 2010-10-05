@@ -5,8 +5,10 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
 import oop.controller.ActionController;
+import oop.util.JsonUtils;
 
-import com.google.gson.JsonObject;
+import org.codehaus.jackson.node.ObjectNode;
+
 import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterParser;
 
@@ -51,18 +53,20 @@ public abstract class AbstractAPI implements API {
 	 * Create a result object when the action is successful.
 	 * @return JSON result object
 	 */
-	protected JsonObject success() {
-		return new JsonObject().addProperty("status",
-				APIResult.STATUS_SUCCESSFUL);
+	protected ObjectNode success() {
+		ObjectNode result = JsonUtils.getFactory().objectNode();
+		result.put("status", APIResult.STATUS_SUCCESSFUL);
+		return result;
 	}
 	
 	/**
 	 * Create a result object when the action is failed.
 	 * @return JSON result object
 	 */
-	protected JsonObject fail() {
-		return new JsonObject().addProperty("status",
-				APIResult.STATUS_FAILED);
+	protected ObjectNode fail() {
+		ObjectNode result = JsonUtils.getFactory().objectNode();
+		result.put("status", APIResult.STATUS_FAILED);
+		return result;
 	}
 
 }

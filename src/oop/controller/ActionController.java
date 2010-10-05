@@ -57,6 +57,8 @@ public class ActionController extends HttpServlet {
 		String template = StringUtils.defaultIfEmpty((String) request
 				.getSession().getAttribute("template"), "default");
 
+		request.getSession().setAttribute("login",
+				SessionUtils.isLoggedIn(request.getSession()));
 		request.setAttribute("config", Config.get());
 		request.setAttribute("homeDir", Config.get().getHomeDir());
 		request.setAttribute("scriptPath", getScriptPath());
@@ -121,9 +123,10 @@ public class ActionController extends HttpServlet {
 					url = url.substring(0, i) + "?" + url.substring(i+1);
 				}
 				url = Config.get().getActionPath() + "/" + url;
-				response.sendRedirect(url);
+				response.sendRedirect(response.encodeRedirectURL(url));
 			} else if (action.getRedirect() != null) {
-				response.sendRedirect(action.getRedirect());
+				response.sendRedirect(response.encodeRedirectURL(action
+						.getRedirect()));
 			} else {
 				request.setAttribute("modules", getModules(request, action));
 				request.setAttribute("action", action);

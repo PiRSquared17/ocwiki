@@ -12,8 +12,6 @@ import oop.controller.rest.bean.ResourceSearchReportBean;
 import oop.controller.rest.bean.RevisionBean;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
-import oop.data.BaseQuestion;
-import oop.data.Revision;
 
 public interface BaseQuestionService {
 

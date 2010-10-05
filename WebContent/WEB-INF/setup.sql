@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 02, 2010 at 10:50 PM
+-- Generation Time: Oct 03, 2010 at 01:29 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.2-1ubuntu4.5
 
@@ -2870,16 +2870,19 @@ CREATE TABLE IF NOT EXISTS `ocwConstraint` (
 
 DROP TABLE IF EXISTS `ocwFacebookAccount`;
 CREATE TABLE IF NOT EXISTS `ocwFacebookAccount` (
-  `uid` bigint(11) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `user` bigint(11) NOT NULL,
   PRIMARY KEY (`uid`),
   KEY `user` (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
 -- Dumping data for table `ocwFacebookAccount`
 --
 
+INSERT INTO `ocwFacebookAccount` (`uid`, `user`) VALUES
+('1260054681', 3),
+('100000099729209', 4);
 
 -- --------------------------------------------------------
 
@@ -6603,7 +6606,7 @@ CREATE TABLE IF NOT EXISTS `ocwUser` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `ocwUser`
@@ -6612,7 +6615,8 @@ CREATE TABLE IF NOT EXISTS `ocwUser` (
 INSERT INTO `ocwUser` (`id`, `version`, `name`, `fullname`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `last_name`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`) VALUES
 (1, 2, 'admin', 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
 (2, 0, 'teacher', 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
-(3, 0, 'cumeo89', 'Lê Ngọc Minh', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7');
+(3, 0, 'cumeo89', 'Lê Ngọc Minh', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
+(4, 0, 'greenriver', 'Phạm Huy Thắng', '1234', 'greenriver_89@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-03 01:28:13', '2010-10-03 01:28:13', '2010-10-03 01:28:13', 'default', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7');
 
 -- --------------------------------------------------------
 
