@@ -37,6 +37,7 @@ public class Config implements Serializable {
 	private String uploadDir = "/uploads";
 	private String facebookAppId = "";
 	private String facebookSecret = "";
+	private String texCgi = "http://www.imathas.com/cgi-bin/mimetex.cgi";
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
 	private Set<ActionDescriptor> actionDescriptors = new HashSet<ActionDescriptor>();
 	private Set<APIDescriptor> apiDescriptors = new HashSet<APIDescriptor>();
@@ -332,6 +333,14 @@ public class Config implements Serializable {
 
 	public String getFacebookSecret() {
 		return facebookSecret;
+	}
+
+	public void setTexCgi(String texCgi) {
+		this.texCgi = texCgi;
+	}
+
+	public String getTexCgi() {
+		return texCgi;
 	}
 	
 }

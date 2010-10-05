@@ -742,3 +742,8 @@ legend {
 .ocw-input {
     text-align: left;
 }
+
+// math editor
+span.AMedit {
+    border: 1px solid #ff0000;
+}
