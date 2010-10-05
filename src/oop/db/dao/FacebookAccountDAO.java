@@ -12,16 +12,16 @@ import org.hibernate.Transaction;
 
 public class FacebookAccountDAO {
 
-	public FacebookAccount fetchByUid(long uid) {	
+	public static FacebookAccount fetchByUid(String uid) {	
 		Session session = HibernateUtil.getSession();
 		String hql = "from FacebookAccount where uid=:uid";
 		Query query = session.createQuery(hql);
-		query.setLong("uid", uid);
+		query.setString("uid", uid);
 		return (FacebookAccount) query.uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<FacebookAccount> fetchByUser(long userId) {
+	public static List<FacebookAccount> fetchByUser(long userId) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from FacebookAccount where user.id=:userId";
 		Query query = session.createQuery(hql);
@@ -29,7 +29,7 @@ public class FacebookAccountDAO {
 		return query.list();
 	}
 	
-	public void persist(FacebookAccount facebookAccount) {
+	public static void persist(FacebookAccount facebookAccount) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {

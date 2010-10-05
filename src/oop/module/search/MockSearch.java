@@ -3,13 +3,6 @@ package oop.module.search;
 import java.util.ArrayList;
 import java.util.List;
 
-import oop.data.BaseQuestion;
-import oop.data.File;
-import oop.data.Test;
-import oop.data.TestStructure;
-import oop.data.TextArticle;
-import oop.data.Topic;
-
 public class MockSearch implements ISearchElement {
 
 	private String parameter;
