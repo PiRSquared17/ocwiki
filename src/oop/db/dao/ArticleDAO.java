@@ -86,11 +86,11 @@ public class ArticleDAO {
 	/**
 	 * Lấy các bài viết chưa được phân loại
 	 * @return
-	 * chưa kiểm tra việc bài đã xóa!!!
+	 * 
 	 */
 	public static List<Resource<Article>> fetchUncategorized(int start, int size) {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("from CategorizableArticle where topics <> null");
+		Query query = session.createQuery("from Resource where article in (from CategorizableArticle a where a.topics is empty) and status <> 'DELETE'");
 		query.setFirstResult(start);
 		query.setMaxResults(size);
 		return query.list();
