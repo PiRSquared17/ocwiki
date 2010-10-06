@@ -10,16 +10,24 @@
     </style>	
 </head>
 <body>		
-    <p><a href="http://github.com/valums/file-uploader">Back to project page</a></p>
-    
-	<p>To upload a file, click on the button below. Drag-and-drop is supported in FF, Chrome.</p>
-	<p>Progress-bar is supported in FF3.6+, Chrome6+, Safari4+</p>
 	
 	<div id="file-uploader-demo1">		
 		<noscript>			
 			<p>Please enable JavaScript to use file uploader.</p>
 			<!-- or put a simple form for upload here -->
 		</noscript>         
+	</div>
+	
+	<div id="file-uploader-demo1">
+		<div class="qq-uploader">
+			<div class="qq-upload-drop-area" style="display: none;">
+				<span>Drop files here to upload</span>
+			</div>
+			<div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;">Upload a file
+				<input type="file" multiple="multiple" name="file" style="position: absolute; right: 0pt; top: 0pt; font-family: Arial; font-size: 118px; margin: 0pt; padding: 0pt; cursor: pointer; opacity: 0;">
+			</div>
+			<ul class="qq-upload-list"></ul>
+		</div>
 	</div>
     
     <script src="fileuploader.js" type="text/javascript"></script>
