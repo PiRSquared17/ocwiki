@@ -4,6 +4,7 @@
 <c:set var="resource" value="${empty resource ? action.resource : resource}"></c:set>
 <c:set var="question" value="${empty article ? action.article : article}"></c:set>
 
+<form id="question-form">
 <div>
     <ocw:parse resource="${resource}">${question.content}</ocw:parse>
     <div class="answer-list-wrapper">
@@ -30,5 +31,8 @@
     </c:forEach>
     </div>
 </div>
+<button type="button" onclick="">Trả lời</button>
+<span id="question-answer-result"></span>
+</form>
 
 <ocw:topics article="${question}"/>
