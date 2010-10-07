@@ -19,6 +19,7 @@ public class ListUncategorizedAction extends AbstractAction {
 		public void performImpl() throws Exception {
 			int start = getParams().getInt("start", 0);
 			int size = 20;
+			title("Dang sách các chủ đề chưa được phân loại, trang " + ((start/size)+1));
 			uncategorizedTopics = TopicDAO.fetchUncategorized(start,size);
 			count = TopicDAO.countUncategorized();
 			curStart = start;

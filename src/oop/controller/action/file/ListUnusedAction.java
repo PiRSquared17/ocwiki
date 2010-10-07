@@ -15,11 +15,13 @@ public class ListUnusedAction extends AbstractAction {
 
 		private List<Resource<File>> unusedFiles;
 		private long count;
+		private long curStart;
 		
 		@Override
 		public void performImpl() throws Exception {
 			int start = getParams().getInt("start", 0);
 			int size = 20;
+			title("Dang sách các tệp tin chưa được sử dụng, trang " + ((start/size)+1));
 			unusedFiles = FileDAO.fetchUnused(start,size);
 			count = FileDAO.countUnused();
 		}
@@ -32,4 +34,7 @@ public class ListUnusedAction extends AbstractAction {
 			return count;
 		}
 
+		public long getCurStart() {
+			return curStart;
+		}
 }
