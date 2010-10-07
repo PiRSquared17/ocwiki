@@ -58,6 +58,14 @@ public final class TopicDAO {
 		return query.list();
 	}
 	
+	public static long countUncategorized(){
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("Select count (*) from Resource where article in (" +
+				"from Topic where parent is null) and id <> " + Topic.ROOT_ID + 
+				" and status <> 'DELETED'");
+		return (Long)query.uniqueResult();
+	}
+	
 	/**
 	 * Lấy các chủ đề chưa dùng đến
 	 * @return
@@ -73,6 +81,17 @@ public final class TopicDAO {
 		query.setFirstResult(start);
 		query.setMaxResults(size);
 		return query.list();
+	}
+	
+	public static long countUnused(){
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("Select count (*) from Resource r where r not in (" +
+				"select elements(topics) from CategorizableArticle a " +
+					"where a in (select article from Resource where status <> 'DELETED') ) " +
+				"and r not in (select parent from Topic t " +
+					"where t in (select article from Resource where status <> 'DELETED') ) " +
+				"and status <> 'DELETED'");
+		return (Long)query.uniqueResult();		
 	}
 
 	public static List<Resource<Topic>> getAncestors(long resourceId) {

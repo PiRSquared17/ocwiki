@@ -55,4 +55,14 @@ public class FileDAO {
 		query.setMaxResults(size);
 		return query.list();
 	}
+	
+	public static long countUnused(){
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("Select count (*) from File f where f not in (" +
+				"select elements(attachments) from BaseArticle a " +
+					"where a in (select article from Resource where status <> 'DELETED'))" +
+				"and f not in (select elements(embeds) from BaseArticle b " +
+					"where b in (select article from Resource where status <> 'DELETED'))");
+		return (Long)query.uniqueResult();
+	}
 }

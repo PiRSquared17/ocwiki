@@ -14,18 +14,22 @@ import oop.db.dao.TopicDAO;
 public class ListUnusedAction extends AbstractAction {
 
 		private List<Resource<File>> unusedFiles;
-
+		private long count;
+		
 		@Override
 		public void performImpl() throws Exception {
 			int start = getParams().getInt("start", 0);
 			int size = 20;
 			unusedFiles = FileDAO.fetchUnused(start,size);
+			count = FileDAO.countUnused();
 		}
 
 		public List<Resource<File>> getUnusedFiles() {
 			return unusedFiles;
 		}
-		
-		
+
+		public long getCount() {
+			return count;
+		}
 
 }
