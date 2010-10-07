@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 7, 2010 10:06:29 AM by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="oop.data.UserAnswer" table="UserAnswer">
+        <id name="timestamp" type="java.util.Date">
+            <column name="`timestamp`" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="question" class="oop.data.Resource" fetch="select">
+            <column name="question" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="oop.data.User" fetch="join">
+            <column name="USER" not-null="true" />
+        </many-to-one>
+        <property name="correct" type="boolean">
+            <column name="CORRECT" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

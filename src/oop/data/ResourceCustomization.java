@@ -14,9 +14,10 @@ public class ResourceCustomization implements Serializable {
 	
 	private Resource<? extends Article> resource;
 	private User user;
-	private int level;
-	private ResourceLike like;
-	private ResourceTodo todo;
+	private int level = -1;
+	private ResourceLike like = ResourceLike.NORMAL;
+	private ResourceTodo todo = ResourceTodo.NORMAL;
+	private boolean done;
 	
 	public ResourceCustomization() {
 	}
@@ -69,6 +70,14 @@ public class ResourceCustomization implements Serializable {
 
 	public void setTodo(ResourceTodo todo) {
 		this.todo = todo;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
+	}
+
+	public boolean isDone() {
+		return done;
 	}
 
 }
