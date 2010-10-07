@@ -1,15 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/includes/common.jsp" %>
 
-<div>Đánh dấu bài cần làm:
-<button onclick="Li_To_Le(0)" id="todo">Bài cần làm</button>
-</div>
-<div>Độ khó:
-	<select onchange="Li_To_Le(1)" id="Level">
-		<option label="Khó" value="0">Khó</option>
-		<option label="Dễ" value="1">Dễ</option>
-	</select>
-</div>
+<c:if test="">
+	<div>Đánh dấu bài cần làm:
+	   <button onclick="Li_To_Le(0)" id="todo">Bài cần làm</button>
+	</div>
+	<div>Độ khó:
+	    <select onchange="Li_To_Le(1)" id="Level">
+	        <option label="Khó" value="0">Khó</option>
+	        <option label="Dễ" value="1">Dễ</option>
+	    </select>
+	</div>
+</c:if>
 <div>Số người thích:
 	<span id="LikeCount"></span>
 	<button onclick="Li_To_Le(2)" id="Like_button">Thích</button>
@@ -21,7 +23,7 @@
 	var resource = {id: resourceID};
 	var resourcereport = null;
 	var login = ${sessionScope.login};
-	new Ajax.Request(restPath + '/ResourceReport/' + resourceID,
+	new Ajax.Request(restPath + '/resource_reports/' + resourceID,
 	{
 		method: 'get',
 		requestHeader:{
@@ -38,7 +40,7 @@
 		  alert('Fail'); }
 	});
 	if (login)
-	new Ajax.Request(restPath + '/LikeArticle/' + resourceID,
+	new Ajax.Request(restPath + '/resource_customizations/' + resourceID,
 			{
 				method: 'get',
 				requestHeader:{
@@ -90,7 +92,6 @@
 		else like = 'NORMAL'; 
 		if ($('todo').value == 'todo') todo = 'TODO';
 		else todo = 'NORMAL';
-		//var resourcecustomization={'user':{id: userId},'resource':{id: resourceID},'level':level,'like':like,'todo': todo};
 		var resourcecustomization;
 		switch(type){
 			case 0: 
@@ -105,7 +106,7 @@
 					break;
 			default:
 		}
-		new Ajax.Request(restPath + '/LikeArticle/' + resourceID,
+		new Ajax.Request(restPath + '/resource_customizations/' + resourceID,
 			{
 				method: 'post',
 				requestHeader:{

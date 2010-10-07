@@ -15,6 +15,9 @@
         <property name="level" type="int">
             <column name="LEVEL" />
         </property>
+        <property name="done" type="boolean">
+            <column name="done" />
+        </property>
         <property name="like" not-null="true">
             <column name="`LIKE`" default="'NORMAL'" />
             <type name="org.hibernate.type.EnumType">
