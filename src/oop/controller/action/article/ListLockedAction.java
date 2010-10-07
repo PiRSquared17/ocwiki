@@ -14,16 +14,21 @@ import oop.db.dao.TopicDAO;
 public class ListLockedAction extends AbstractAction {
 
 		private List<Resource<Article>> lockedArticles;
+		private long count;
 
 		@Override
 		public void performImpl() throws Exception {
 			int start = getParams().getInt("start", 0);
 			int size = 20;
 			lockedArticles = ArticleDAO.fetchLocked(start,size);
+			count = ArticleDAO.countLocked();
 		}
 
 		public List<Resource<Article>> getLockedArticles() {
 			return lockedArticles;
 		}
 
+		public long getCount() {
+			return count;
+		}
 }

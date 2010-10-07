@@ -14,16 +14,21 @@ import oop.db.dao.TopicDAO;
 public class ListUncategorizedAction extends AbstractAction {
 
 		private List<Resource<Article>> uncategorizedArticles;
-
+		private long count;
+		
 		@Override
 		public void performImpl() throws Exception {
 			int start = getParams().getInt("start", 0);
 			int size = 20;
 			uncategorizedArticles = ArticleDAO.fetchUncategorized(start,size);
+			count = ArticleDAO.countUncategorized();
 		}
 
 		public List<Resource<Article>> getUncategorizedArticles() {
 			return uncategorizedArticles;
 		}
 
+		public long getCount() {
+			return count;
+		}
 }

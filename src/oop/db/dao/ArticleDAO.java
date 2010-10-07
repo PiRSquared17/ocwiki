@@ -96,6 +96,12 @@ public class ArticleDAO {
 		return query.list();
 	}
 	
+	public static long countUncategorized(){
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("Select count (*) from Resource where article in (from CategorizableArticle a where a.topics is empty) and status <> 'DELETE'");
+		return (Long)query.uniqueResult();
+	}
+	
 	/**
 	 * Lấy các bài viết bị khóa
 	 * @return
@@ -106,5 +112,11 @@ public class ArticleDAO {
 		query.setFirstResult(start);
 		query.setMaxResults(size);
 		return query.list();
+	}
+	
+	public static long countLocked(){
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("Select count (*) from Resource where accessibility <> 'EVERYONE'");
+		return (Long)query.uniqueResult();
 	}
 }
