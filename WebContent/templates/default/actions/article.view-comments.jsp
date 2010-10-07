@@ -2,7 +2,7 @@
 <%@ include file="/includes/common.jsp" %>
 <br/><br/>
 <p>--Các nhận xét--</p>
-<p><jsp:include page="article.view-commentstoolbar.jsp"></jsp:include></p>
+<div><jsp:include page="article.view-commentstoolbar.jsp"></jsp:include></div>
 <p>------------</p>
 <div id="commentslist"> ... đang tải... </div>
 

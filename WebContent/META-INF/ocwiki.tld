@@ -72,6 +72,7 @@
         <description>Tên của hành động</description>
         <name>name</name>
         <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
     </attribute>    
     <attribute>
         <description>Lớp CSS dùng để định dạng</description>
@@ -193,6 +194,13 @@
     <path>/WEB-INF/tags/articleButton.tag</path>
   </tag-file>
 
+  <tag-file>
+    <description>Phân trang bài viết</description>
+    <display-name>Phân trang bài viết</display-name>
+    <name>pagination</name>
+    <path>/WEB-INF/tags/pagination.tag</path>
+  </tag-file>
+  
   <function>
     <description>
       Trả về đường dẫn đến hành động (action).
