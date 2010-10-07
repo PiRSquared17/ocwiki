@@ -15,13 +15,16 @@ public class ListLockedAction extends AbstractAction {
 
 		private List<Resource<Article>> lockedArticles;
 		private long count;
+		private long curStart;
 
 		@Override
 		public void performImpl() throws Exception {
 			int start = getParams().getInt("start", 0);
 			int size = 20;
+			title("Dang sách các bài viết bị khóa, trang " + ((start/size)+1));
 			lockedArticles = ArticleDAO.fetchLocked(start,size);
 			count = ArticleDAO.countLocked();
+			curStart = start;
 		}
 
 		public List<Resource<Article>> getLockedArticles() {
@@ -30,5 +33,9 @@ public class ListLockedAction extends AbstractAction {
 
 		public long getCount() {
 			return count;
+		}
+
+		public long getCurStart() {
+			return curStart;
 		}
 }
