@@ -6,18 +6,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>${pageTitle}</title>
 
-    <link rel="stylesheet" href="${templatePath}/css/autocomplete.css" type="text/css" />
-    <link rel="stylesheet" href="${templatePath}/css/calendarview.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/css/main.css" type="text/css" />
-    <link rel="stylesheet" href="${templatePath}/css/ddmenu.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/js/windowjs/themes/default.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/js/windowjs/themes/alphacube.css" type="text/css" />
 
-	<script type="text/javascript" src="${templatePath}/js/prototype.js"></script>
-	<!-- TODO dùng link này để tận dụng CDN của Google
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
-	 -->
-	<script type="text/javascript" src="${templatePath}/js/calendarview.js"></script>
+    <c:choose>
+        <c:when test="${config.useCDN}">
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+        </c:when>
+        <c:otherwise>
+            <script type="text/javascript" src="${templatePath}/js/prototype.js"></script>
+        </c:otherwise>
+    </c:choose>
+	
 	<script type="text/javascript" src="${templatePath}/js/autocomplete.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/tiny_mce/tiny_mce.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/scriptaculous.js"></script>
@@ -28,6 +29,7 @@
 	var AMTcgiloc = '${config.texCgi}';
 	</script>
 	<script type="text/javascript">
+	   Element.observe(window, 'load', function() {
 		tinyMCE.init({
 		    mode : "textareas",
 		    //skin : "o2k7",
@@ -43,6 +45,7 @@
 		    //TODO: change!		    	   
 	        content_css : "${templatePath}/css/editor-content.css"
 		});
+	   });
 	</script>
 	
 	<script type="text/javascript" src="${homeDir}/includes/common.js"></script>

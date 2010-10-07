@@ -8,9 +8,9 @@ import oop.controller.rest.util.ObjectResult;
 import oop.data.ResourceReport;
 import oop.db.dao.ResourceReportDAO;
 
-@Path(ReportResource.PATH)
-public class ReportResource extends AbstractResource {
-	public static final String PATH = "/ResourceReport";
+@Path(ResourceReportResource.PATH)
+public class ResourceReportResource extends AbstractResource {
+	public static final String PATH = "/resource_reports";
 	
 	@GET
 	@Path("/{id: \\d+}")
