@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.ObjectUtils;
+
 @XmlRootElement
 public class ResourceCustomization implements Serializable {
 
@@ -11,14 +13,14 @@ public class ResourceCustomization implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Resource<? extends Article> resource;
 	private User user;
 	private int level = -1;
 	private ResourceLike like = ResourceLike.NORMAL;
 	private ResourceTodo todo = ResourceTodo.NORMAL;
 	private boolean done;
-	
+
 	public ResourceCustomization() {
 	}
 
@@ -30,6 +32,10 @@ public class ResourceCustomization implements Serializable {
 		this.level = level;
 		this.like = like;
 		this.todo = todo;
+	}
+
+	public ResourceCustomization(Resource<? extends Article> resource, User user) {
+		this(resource, user, -1, ResourceLike.NORMAL, ResourceTodo.NORMAL);
 	}
 
 	public Resource<? extends Article> getResource() {
@@ -80,4 +86,19 @@ public class ResourceCustomization implements Serializable {
 		return done;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ResourceCustomization) {
+			ResourceCustomization rc = (ResourceCustomization) obj;
+			return ObjectUtils.equals(resource, rc.resource)
+					&& ObjectUtils.equals(user, rc.user);
+		}
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return ObjectUtils.hashCode(resource) ^ ObjectUtils.hashCode(user);
+	}
+	
 }

@@ -71,6 +71,9 @@ public abstract class Article implements Entity {
 	}
 	
 	public String getQualifiedName() {
+		if (getName() == null) {
+			return null;
+		}
 		return getNamespace().getName() + ":" + getName();
 	}
 

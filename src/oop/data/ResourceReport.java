@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.ObjectUtils;
+
 @XmlRootElement
 public class ResourceReport implements Serializable {
 
@@ -104,4 +106,18 @@ public class ResourceReport implements Serializable {
 		this.averageLevel = averageLevel;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ResourceReport) {
+			ResourceReport rr = (ResourceReport) obj;
+			return ObjectUtils.equals(resource, rr.resource)
+					&& ObjectUtils.equals(user, rr.user);
+		}
+		return super.equals(obj);
+	}
+
+	public int hashCode() {
+		return ObjectUtils.hashCode(resource) ^ ObjectUtils.hashCode(user);
+	}
+	
 }
