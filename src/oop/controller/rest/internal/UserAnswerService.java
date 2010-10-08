@@ -2,10 +2,12 @@ package oop.controller.rest.internal;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.MediaType;
 
 import oop.controller.rest.AbstractResource;
 import oop.controller.rest.util.ListResult;
@@ -38,10 +40,12 @@ public class UserAnswerService extends AbstractResource {
 	}
 
 	@POST
-	public ObjectResult<Boolean> answer() throws NumberFormatException,
-			ParameterNotFoundException {
-		Resource<BaseQuestion> resource = BaseQuestionDAO.fetchById(getParams()
-				.getLong("q"));
+	@Path("/{resourceId: \\d+}")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public ObjectResult<Boolean> answer(
+			@PathParam("resourceId") long resourceId)
+			throws NumberFormatException, ParameterNotFoundException {
+		Resource<BaseQuestion> resource = BaseQuestionDAO.fetchById(resourceId);
 		List<Answer> answers = resource.getArticle().getAnswers();
 		int count = getParams().count("a");
 		boolean choices[] = new boolean[answers.size()];

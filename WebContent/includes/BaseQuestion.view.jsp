@@ -4,7 +4,8 @@
 <c:set var="resource" value="${empty resource ? action.resource : resource}"></c:set>
 <c:set var="question" value="${empty article ? action.article : article}"></c:set>
 
-<form id="question-form">
+<form id="question-form" method="post" 
+        action="${config.restPath}/user_answers/${resource.id}">
 <div>
     <ocw:parse resource="${resource}">${question.content}</ocw:parse>
     <div class="answer-list-wrapper">
@@ -31,8 +32,42 @@
     </c:forEach>
     </div>
 </div>
-<button type="button" onclick="">Trả lời</button>
+<button type="button" onclick="getResult('question-form', 'question-answer-result')">Trả lời</button>
 <span id="question-answer-result"></span>
 </form>
 
 <ocw:topics article="${question}"/>
+
+<script type="text/javascript">
+<!--
+
+function getResult(form, result) {
+    form = $(form);
+    result = $(result);
+    form.request({
+        requestHeaders : 
+        {
+            Accept : 'application/json'
+        },
+        evalJSON : true,
+        onSuccess : function(transport) 
+        {
+            if (transport.result) {
+                result.innerHTML = 'Bạn đã làm chính xác, chúc mừng!!!';
+            } else {
+            	result.innerHTML = 'Sai rồi :-( Hãy thử lại.';
+            }                
+        },
+        onFailure: function(transport)
+        { 
+            if (transport.responseJSON.code == 'login required') {
+                OcwikiDefaultTemplate.promptLogin();
+            } else {
+                alert('Có lỗi xảy ra, xin lỗi vì sự bất tiện!');
+            }  
+        }
+    });
+}
+
+//-->
+</script>

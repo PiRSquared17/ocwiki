@@ -46,8 +46,11 @@
 			{
 				resource = transport.responseJSON.result;
 			},
-			onFailure: function()
+			onFailure: function(transport)
 			{ 
+				if (transport.code == 'login required') {
+					OcwikiDefaultTemplate.promptLogin();
+				}
 				openInfoDialog("resourceID không chính xác!");
 			}
 		});

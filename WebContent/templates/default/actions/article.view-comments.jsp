@@ -152,7 +152,7 @@
 					},
 				    onFailure: function(transport){ 
 					    if (transport.responseJSON.code == '') {
-						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
+						    OcwikiDefaultTemplate.promptLogin();
 					    }
 				    }		
 				}				
@@ -189,7 +189,7 @@
 					},
 				    onFailure: function(transport){ 
 					    if (transport.responseJSON.code == '') {
-						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
+						    OcwikiDefaultTemplate.promptLogin();
 					    }
 				    }		
 				}				
@@ -226,7 +226,7 @@
 					},
 				    onFailure: function(transport){ 
 					    if (transport.responseJSON.code == '') {
-						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
+						    OcwikiDefaultTemplate.promptLogin();
 					    }
 				    }		
 				}				
