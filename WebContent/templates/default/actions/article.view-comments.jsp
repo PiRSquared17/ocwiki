@@ -32,8 +32,8 @@
 					onSuccess : function(transport) {
 						//alert(transport.responseText);
 						var listResult = transport.responseJSON;
-						commentCount = listResult.count;
-						pageCount = getPageCount(listResult.count);
+						commentCount = listResult.totalCount;
+						pageCount = getPageCount(listResult.totalCount);
 						curPage = pageCount-1;
 						
 						comments = listResult.result;

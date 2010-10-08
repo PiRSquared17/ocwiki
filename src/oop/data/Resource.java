@@ -129,7 +129,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 
 	public String getName() {
 		if (getArticle().getName() == null) {
-			return "#" + getArticle().getId();
+			return "#" + getId();
 		}
 		return getArticle().getName();
 	}
@@ -164,7 +164,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	}
 
 	public String getQualifiedName() {
-		return article.getQualifiedName();
+		return getNamespace().getName() + ":" + getName();
 	}
 
 	@XmlTransient

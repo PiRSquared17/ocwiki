@@ -10,6 +10,7 @@ public class CommentMapper implements Mapper<CommentBean, Comment> {
 		bean.setId(value.getId());
 		bean.setUser(UserReferenceMapper.get().toBean(value.getUser()));
 		bean.setTimestamp(value.getTimestamp());
+		bean.setMessage(value.getMessage());
 		bean.setResource(ResourceReferenceMapper.get().toBean(
 				value.getResource()));
 		bean.setRevision(RevisionReferenceMapper.get().toBean(
@@ -19,7 +20,14 @@ public class CommentMapper implements Mapper<CommentBean, Comment> {
 
 	@Override
 	public Comment toEntity(CommentBean value) {
-		return null; //XXX
+		Comment entity = new Comment();
+		entity.setId(value.getId());
+		entity.setUser(UserReferenceMapper.get().toEntity(value.getUser()));
+		entity.setTimestamp(value.getTimestamp());
+		entity.setMessage(value.getMessage());
+		entity.setResource(ResourceReferenceMapper.get().toEntity(value.getResource()));
+		entity.setRevision(RevisionReferenceMapper.get().toEntity(value.getRevision()));
+		return entity;
 	}
 
 	private static CommentMapper DEFAULT_INSTANCE = new CommentMapper();

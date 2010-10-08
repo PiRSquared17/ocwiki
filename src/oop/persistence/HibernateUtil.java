@@ -61,6 +61,7 @@ public class HibernateUtil {
 		hconf.addClass(oop.data.Text.class);
 		hconf.addClass(oop.data.File.class);
 		hconf.addClass(oop.data.BaseQuestion.class);
+		hconf.addClass(oop.data.AnswerAttempt.class);
 		hconf.addClass(oop.data.Answer.class);
 		hconf.addClass(oop.data.Question.class);
 		hconf.addClass(oop.data.Section.class);

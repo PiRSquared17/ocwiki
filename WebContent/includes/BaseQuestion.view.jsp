@@ -5,7 +5,7 @@
 <c:set var="question" value="${empty article ? action.article : article}"></c:set>
 
 <form id="question-form" method="post" 
-        action="${config.restPath}/user_answers/${resource.id}">
+        action="${config.restPath}/answer_attempts/${resource.id}">
 <div>
     <ocw:parse resource="${resource}">${question.content}</ocw:parse>
     <div class="answer-list-wrapper">
@@ -15,7 +15,7 @@
                 onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
                 onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
             <div class="check-wrapper">
-                <input type="radio" name="${question.id}-answers" value="${answer.id}" id="answer-${answer.id}">
+                <input type="radio" name="answers" value="${answer.id}" id="answer-${answer.id}">
             </div>
             <div class="marker-wrapper">
                 <span id="a${answer.id}-rightanswer" style="display:none;"><img src="${templatePath}/images/right.png" alt="right answer" width="16px" height="16px" /></span>
@@ -41,9 +41,9 @@
 <script type="text/javascript">
 <!--
 
-function getResult(form, result) {
+function getResult(form, info) {
     form = $(form);
-    result = $(result);
+    info = $(info);
     form.request({
         requestHeaders : 
         {
@@ -52,11 +52,18 @@ function getResult(form, result) {
         evalJSON : true,
         onSuccess : function(transport) 
         {
-            if (transport.result) {
-                result.innerHTML = 'Bạn đã làm chính xác, chúc mừng!!!';
+            var result = transport.responseJSON.result;
+            if (result.correct) {
+                mess = 'Bạn đã làm chính xác';
+                if (result.count == 1) {
+                    mess += ' ngay lần trả lời đầu tiên.';
+                } else {
+                    mess += ' ở lần trả lời thứ ' + result.count + '.';
+                }
+                info.innerHTML = mess + ' Xin chúc mừng!!!';
             } else {
-            	result.innerHTML = 'Sai rồi :-( Hãy thử lại.';
-            }                
+            	info.innerHTML = 'Sai rồi :-( Hãy thử lại.';
+            }
         },
         onFailure: function(transport)
         { 

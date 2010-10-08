@@ -132,4 +132,22 @@ public class Utils {
 		}
 	}
 	
+	public static int indexOf(List<? extends Entity> entities, long id) {
+		for (int i = 0; i < entities.size(); i++) {
+			if (entities.get(i).getId() == id) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public static <T extends Entity> T findById(List<T> entities, long id) {
+		for (T t : entities) {
+			if (t.getId() == id) {
+				return t;
+			}
+		}
+		return null;
+	}
+	
 }

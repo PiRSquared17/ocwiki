@@ -5,15 +5,16 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class UserAnswer {
+public class AnswerAttempt {
 
 	private Resource<BaseQuestion> question;
 	private User user;
 	private boolean correct;
 	private Date timestamp;
 
-	public UserAnswer(Resource<BaseQuestion> question, User user, boolean correct) {
+	public AnswerAttempt(Resource<BaseQuestion> question, User user, boolean correct) {
 		super();
+		this.timestamp = new Date();
 		this.question = question;
 		this.user = user;
 		this.correct = correct;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 07, 2010 at 10:47 AM
+-- Generation Time: Oct 09, 2010 at 01:43 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.2-1ubuntu4.5
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `ocwAnswer` (
   `correct` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK81F532C1EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1296 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1304 ;
 
 --
 -- Dumping data for table `ocwAnswer`
@@ -1011,7 +1011,45 @@ INSERT INTO `ocwAnswer` (`id`, `content`, `correct`) VALUES
 (1292, 1788, b'1'),
 (1293, 1789, b'0'),
 (1294, 1791, b'1'),
-(1295, 1792, b'0');
+(1295, 1792, b'0'),
+(1296, 1795, b'0'),
+(1297, 1796, b'0'),
+(1298, 1797, b'1'),
+(1299, 1798, b'0'),
+(1300, 1800, b'0'),
+(1301, 1801, b'0'),
+(1302, 1802, b'1'),
+(1303, 1803, b'0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ocwAnswerAttempt`
+--
+
+CREATE TABLE IF NOT EXISTS `ocwAnswerAttempt` (
+  `timestamp` datetime NOT NULL,
+  `question` bigint(20) NOT NULL,
+  `USER` bigint(20) NOT NULL,
+  `CORRECT` bit(1) NOT NULL,
+  PRIMARY KEY (`timestamp`),
+  KEY `FKD6EACCCC190692FA` (`question`),
+  KEY `FKD6EACCCCB1E4DD9C` (`USER`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
+
+--
+-- Dumping data for table `ocwAnswerAttempt`
+--
+
+INSERT INTO `ocwAnswerAttempt` (`timestamp`, `question`, `USER`, `CORRECT`) VALUES
+('2010-10-09 01:35:04', 93, 1, b'1'),
+('2010-10-09 01:35:14', 93, 1, b'1'),
+('2010-10-09 01:36:19', 93, 1, b'1'),
+('2010-10-09 01:36:58', 93, 1, b'1'),
+('2010-10-09 01:38:17', 93, 1, b'1'),
+('2010-10-09 01:42:35', 90, 1, b'1'),
+('2010-10-09 01:42:39', 90, 1, b'0'),
+('2010-10-09 01:42:41', 90, 1, b'1');
 
 -- --------------------------------------------------------
 
@@ -1035,7 +1073,7 @@ CREATE TABLE IF NOT EXISTS `ocwArticle` (
   KEY `FKC38C3A5348AB9093` (`parent`),
   KEY `FKC38C3A53EA647FAC` (`content`),
   KEY `FKC38C3A53232F5FBE` (`parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=600 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=602 ;
 
 --
 -- Dumping data for table `ocwArticle`
@@ -1287,8 +1325,8 @@ INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`,
 (416, 'BaseQuestion', 3, 1281, NULL, NULL, 2, NULL, NULL, NULL),
 (417, 'BaseQuestion', 3, 1282, NULL, NULL, 1, NULL, NULL, NULL),
 (418, 'BaseQuestion', 3, 1283, NULL, NULL, 2, NULL, NULL, NULL),
-(419, 'BaseQuestion', 0, 1649, '#0', NULL, 1, NULL, NULL, NULL),
-(420, 'BaseQuestion', 0, 1650, '#0', NULL, 1, NULL, NULL, NULL),
+(419, 'BaseQuestion', 3, 1649, NULL, NULL, 1, NULL, NULL, NULL),
+(420, 'BaseQuestion', 3, 1650, NULL, NULL, 1, NULL, NULL, NULL),
 (466, 'Text', 0, 1696, 'Đôi điều về hình học phi Ơclit', NULL, NULL, NULL, NULL, NULL),
 (475, 'Topic', 2, 1699, 'Khoa học tự nhiên', NULL, NULL, NULL, NULL, NULL),
 (476, 'Topic', 2, 1700, 'Toán học', 461, NULL, NULL, NULL, NULL),
@@ -1407,7 +1445,9 @@ INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`,
 (596, 'BaseQuestion', 3, 1790, NULL, NULL, 4, NULL, NULL, NULL),
 (597, 'BaseQuestion', 3, 1793, NULL, NULL, 4, NULL, NULL, NULL),
 (598, 'Topic', 2, NULL, 'Chủ đề mới', NULL, NULL, NULL, NULL, NULL),
-(599, 'Test', 3, NULL, 'Đề thi mới', NULL, NULL, NULL, 0, NULL);
+(599, 'Test', 3, NULL, 'Đề thi mới', NULL, NULL, NULL, 0, NULL),
+(600, 'BaseQuestion', 3, 1794, NULL, NULL, 1, NULL, NULL, NULL),
+(601, 'BaseQuestion', 3, 1799, NULL, NULL, 2, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1736,7 +1776,9 @@ INSERT INTO `ocwArticleTopic` (`article_id`, `topic_id`) VALUES
 (583, 504),
 (595, 504),
 (596, 504),
-(597, 504);
+(597, 504),
+(600, 504),
+(601, 504);
 
 -- --------------------------------------------------------
 
@@ -2776,7 +2818,15 @@ INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`)
 (596, 1294, 1),
 (597, 1294, 1),
 (596, 1295, 2),
-(597, 1295, 2);
+(597, 1295, 2),
+(600, 1296, 0),
+(600, 1297, 1),
+(600, 1298, 2),
+(600, 1299, 3),
+(601, 1300, 0),
+(601, 1301, 1),
+(601, 1302, 2),
+(601, 1303, 3);
 
 -- --------------------------------------------------------
 
@@ -2795,7 +2845,7 @@ CREATE TABLE IF NOT EXISTS `ocwComment` (
   KEY `FK27D95BBC53C202BC` (`revision`),
   KEY `FK27D95BBC4A301B22` (`resource`),
   KEY `FK27D95BBCB1E4DD9C` (`user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `ocwComment`
@@ -2806,7 +2856,10 @@ INSERT INTO `ocwComment` (`id`, `user`, `timestamp`, `message`, `resource`, `rev
 (2, 1, '2010-09-13 00:24:29', '<p>hlkj</p>\n<p>jj</p>\n<p>&nbsp;</p>', 90, 90),
 (3, 1, '2010-09-13 00:24:39', '<p>kjkljj</p>\n<p>jkj</p>\n<p>&nbsp;</p>', 90, 90),
 (4, 1, '2010-10-05 17:52:14', '<p>nhận x&eacute;t linh tinh....</p>', 91, 91),
-(5, 1, '2010-10-07 08:52:10', '<p>jkafsjfklsjadlj</p>', 458, 450);
+(5, 1, '2010-10-07 08:52:10', '<p>jkafsjfklsjadlj</p>', 458, 450),
+(6, 1, '2010-10-08 23:47:16', '<p>jsdlfkjafas</p>\n<p>fas</p>\n<p>d</p>', 95, 95),
+(7, 1, '2010-10-08 23:47:30', '<p>jlkjj</p>\n<p>jkjk</p>\n<p>j</p>', 95, 95),
+(8, 1, '2010-10-08 23:48:51', '<p>kjlkj</p>\n<p>jkj</p>\n<p>kj</p>', 95, 95);
 
 -- --------------------------------------------------------
 
@@ -3263,10 +3316,10 @@ INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `a
 (66, 0, '2010-08-25 01:15:32', 'oop.data.Test', 66, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (88, 9, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 584, 1, 'NORMAL', NULL, 'NO_ONE', '0.50'),
 (89, 14, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 597, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
-(90, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 90, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
+(90, 2, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 601, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
 (91, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 91, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (92, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 576, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
-(93, 2, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 420, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(93, 3, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 600, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (94, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 94, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (95, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 95, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (96, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 96, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
@@ -3676,6 +3729,8 @@ CREATE TABLE IF NOT EXISTS `ocwResourceCustomization` (
 --
 
 INSERT INTO `ocwResourceCustomization` (`RESOURCE`, `USER`, `LEVEL`, `LIKE`, `TODO`, `done`) VALUES
+(90, 1, -1, 'NORMAL', 'NORMAL', 1),
+(93, 1, -1, 'NORMAL', 'NORMAL', 1),
 (458, 1, 0, 'LIKE', 'NORMAL', 0);
 
 -- --------------------------------------------------------
@@ -3720,7 +3775,7 @@ CREATE TABLE IF NOT EXISTS `ocwRevision` (
   KEY `FKE7AEF61E5DDB135C` (`author`),
   KEY `FKE7AEF61E72978E26` (`article`),
   KEY `FKE7AEF61E4A301B22` (`resource`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=565 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=567 ;
 
 --
 -- Dumping data for table `ocwRevision`
@@ -4077,7 +4132,9 @@ INSERT INTO `ocwRevision` (`id`, `resource`, `article`, `author`, `timestamp`, `
 (561, 88, 584, 1, '2010-09-23 13:27:03', '', b'0'),
 (562, 89, 595, 1, '2010-10-01 15:48:31', 'test', b'0'),
 (563, 89, 596, 1, '2010-10-05 09:25:26', '', b'0'),
-(564, 89, 597, 1, '2010-10-05 09:59:03', '', b'0');
+(564, 89, 597, 1, '2010-10-05 09:59:03', '', b'0'),
+(565, 93, 600, 1, '2010-10-09 00:24:41', 'linh tinh', b'0'),
+(566, 90, 601, 1, '2010-10-09 01:42:30', '', b'0');
 
 -- --------------------------------------------------------
 
@@ -4670,7 +4727,7 @@ CREATE TABLE IF NOT EXISTS `ocwText` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` mediumtext COLLATE utf8_vietnamese1_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1794 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1804 ;
 
 --
 -- Dumping data for table `ocwText`
@@ -6456,7 +6513,17 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1790, '<p>If you are not Japanese, so what _______ are you?</p>'),
 (1791, '<p>nationality</p>'),
 (1792, '<p>nationalized</p>'),
-(1793, '<p>If you are not Japanese, so what _______ are you?</p>');
+(1793, '<p>If you are not Japanese, so what _______ are you?</p>'),
+(1794, '<p>afasdf</p>\n<p>adsfas</p>\n<p>daf</p>\n<p>fa</p>'),
+(1795, '<p>consequently</p>'),
+(1796, '<p>also</p>'),
+(1797, '<p>practically</p>'),
+(1798, '<p>actually</p>'),
+(1799, '<p>It was not until she had arrived home ______ remembered her appointment with the doctor.</p>'),
+(1800, '<p>and she</p>'),
+(1801, '<p>she</p>'),
+(1802, '<p>when she had</p>'),
+(1803, '<p>that she</p>');
 
 -- --------------------------------------------------------
 
@@ -6619,27 +6686,6 @@ INSERT INTO `ocwUser` (`id`, `version`, `name`, `fullname`, `pass`, `email`, `ug
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwUserAnswer`
---
-
-CREATE TABLE IF NOT EXISTS `ocwUserAnswer` (
-  `timestamp` datetime NOT NULL,
-  `question` bigint(20) NOT NULL,
-  `USER` bigint(20) NOT NULL,
-  `CORRECT` bit(1) NOT NULL,
-  PRIMARY KEY (`timestamp`),
-  KEY `FK517E8CEC190692FA` (`question`),
-  KEY `FK517E8CECB1E4DD9C` (`USER`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
-
---
--- Dumping data for table `ocwUserAnswer`
---
-
-
--- --------------------------------------------------------
-
---
 -- Structure for view `ocwCommentReportWithoutUser`
 --
 DROP TABLE IF EXISTS `ocwCommentReportWithoutUser`;
@@ -6691,6 +6737,13 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 ALTER TABLE `ocwAnswer`
   ADD CONSTRAINT `FK81F532C1EA647FAC` FOREIGN KEY (`content`) REFERENCES `ocwText` (`id`);
+
+--
+-- Constraints for table `ocwAnswerAttempt`
+--
+ALTER TABLE `ocwAnswerAttempt`
+  ADD CONSTRAINT `FKD6EACCCCB1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `ocwUser` (`id`),
+  ADD CONSTRAINT `FKD6EACCCC190692FA` FOREIGN KEY (`question`) REFERENCES `ocwResource` (`id`);
 
 --
 -- Constraints for table `ocwArticle`
@@ -6849,10 +6902,3 @@ ALTER TABLE `ocwTopicConstraintTopic`
 --
 ALTER TABLE `ocwTopicSet`
   ADD CONSTRAINT `ocwTopicSet_ibfk_1` FOREIGN KEY (`topic`) REFERENCES `ocwResource` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `ocwUserAnswer`
---
-ALTER TABLE `ocwUserAnswer`
-  ADD CONSTRAINT `FK517E8CECB1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `ocwUser` (`id`),
-  ADD CONSTRAINT `FK517E8CEC190692FA` FOREIGN KEY (`question`) REFERENCES `ocwResource` (`id`);
