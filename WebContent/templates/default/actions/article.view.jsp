@@ -2,7 +2,6 @@
 <%@ include file="/includes/common.jsp" %>
 
 <c:set var="type" value="${action.resource.type}"></c:set>
-<p><jsp:include page="uploadFile-Ajax.jsp"></jsp:include></p>
 <div style="float: right;">
     [<ocw:actionLink name="revision.list">
 	    <ocw:param name="resourceID" value="${action.resource.id}"></ocw:param>

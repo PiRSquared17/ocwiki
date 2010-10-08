@@ -12,7 +12,7 @@ public class CommentBean {
 	private Date timestamp;
 	private String message;
 	private ResourceReferenceBean resource;
-	private RevisionBean<? extends ArticleBean> revision;
+	private RevisionReferenceBean revision;
 
 	public CommentBean() {
 	}
@@ -57,11 +57,11 @@ public class CommentBean {
 		this.resource = resource;
 	}
 
-	public RevisionBean<? extends ArticleBean> getRevision() {
+	public RevisionReferenceBean getRevision() {
 		return revision;
 	}
 
-	public void setRevision(RevisionBean<? extends ArticleBean> revision) {
+	public void setRevision(RevisionReferenceBean revision) {
 		this.revision = revision;
 	}
 
