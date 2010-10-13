@@ -1,4 +1,4 @@
-var OcwikiDefaultTemplate = {
+var DefaultTemplate = {
 
 	promptLogin : function() {
 		mess = '<p>Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã hết hạn.</p>'
@@ -8,6 +8,14 @@ var OcwikiDefaultTemplate = {
 			height : 100,
 			className : "alphacube"
 		});
+	},
+
+	onFailure: function(transport) {
+        if (transport.responseJSON.code == 'login required') {
+            promptLogin();
+        } else {
+            alert('Có lỗi xảy ra, xin lỗi vì sự bất tiện!');
+        }  
 	}
 
 };

@@ -36,8 +36,9 @@
 			  $('LikeCount').innerHTML = resourcereport.likeCount;
 			  $('LikeCount').value = resourcereport.likeCount;
 		},
-		onFailure: function(){
-		  alert('Fail'); }
+		onFailure: function(transport) {
+            DefaultTemplate.onFailure(transport); 
+        }
 	});
 	if (login)
 	new Ajax.Request(restPath + '/resource_customizations/' + resourceID,
@@ -76,8 +77,9 @@
 						  $('todo').value = 'todo';
 					  }
 				},
-				onFailure: function(transport){
-				  alert('Fail'); }
+				onFailure: function(transport) {
+		            DefaultTemplate.onFailure(transport); 
+		        }
 			});
 	function Todo(){
 		alert(resourceID);
@@ -147,8 +149,9 @@
 					default:
 					}
 				},
-				onFailure: function(){
-				  alert('Fail'); }
+				onFailure: function(transport) {
+		            DefaultTemplate.onFailure(transport); 
+		        }
 			});
 	}
 	function Level(){

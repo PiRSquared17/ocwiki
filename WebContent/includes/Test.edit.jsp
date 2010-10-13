@@ -116,7 +116,9 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		       test = transport.responseJSON.result;
 		       template();
 		    },
-		    onFailure: function(){ }
+		    onFailure: function(transport){ 
+		    	DefaultTemplate.onFailure(transport); 
+			}
 	})
 	function Show(){
 		alert($F('section'));
@@ -172,7 +174,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		      test.sections[Nosection].questions[ques_length].deleted = false;
 		  },
 		  onFailure: function(){ 
-			  alert("Fail!");}
+			  DefaultTemplate.onFailure(transport); 
 		});
 	}
 
