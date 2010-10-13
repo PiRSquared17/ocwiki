@@ -116,6 +116,8 @@ function session_login() {
 					$('session_nameError').innerHTML = 'Người dùng không tồn tại';
 				} else if (code == 'account blocked') {
 					$('session_nameError').innerHTML = 'Tài khoản đã bị khoá';
+				} else {
+				    DefaultTemplate.onFailure(transport); 
 				}
 			}
 		});
@@ -141,6 +143,8 @@ function fblogin() {
                           var code = transport.responseJSON.code;
                           if (code == 'account blocked') {
                               alert('Tài khoản của bạn đã bị khoá.');
+                          } else {
+                              DefaultTemplate.onFailure(transport); 
                           }
                       }
                   });

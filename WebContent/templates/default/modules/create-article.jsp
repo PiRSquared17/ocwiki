@@ -121,10 +121,7 @@ function sendCreateRequest(resource) {
             location.href = actionPath + '/article.edit?id=' + id;
         },
         onFailure: function(transport) {
-            var code = transport.responseJSON.code;
-            if (code == 'login required') {
-            	OcwikiDefaultTemplate.promptLogin();
-            }
+            DefaultTemplate.onFailure(transport); 
         }
     });
 }
