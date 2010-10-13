@@ -105,6 +105,9 @@ public class ActionController extends HttpServlet {
 			action.setController(this);
 			action.setRequest(request);
 			action.perform();
+			
+			// flush current session to avoid late thrown exception
+			HibernateUtil.getSession().flush();
 
 			// forward next action or jsp
 			request.getSession().setAttribute("previousQuery",
