@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class File extends CategorizableArticle {
 
 	private String filename;
+	private String author;
+	private ContentLicense license;
 
 	public File() {
 	}
@@ -29,6 +31,22 @@ public class File extends CategorizableArticle {
 	@Override
 	public Article copy() {
 		return copyTo(new File());
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setLicense(ContentLicense license) {
+		this.license = license;
+	}
+
+	public ContentLicense getLicense() {
+		return license;
 	}
 
 }
