@@ -6902,3 +6902,4 @@ ALTER TABLE `ocwTopicConstraintTopic`
 --
 ALTER TABLE `ocwTopicSet`
   ADD CONSTRAINT `ocwTopicSet_ibfk_1` FOREIGN KEY (`topic`) REFERENCES `ocwResource` (`id`) ON DELETE CASCADE;
+  

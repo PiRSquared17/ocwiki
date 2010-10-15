@@ -1,6 +1,5 @@
 package oop.db.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import oop.data.Namespace;
@@ -22,7 +21,8 @@ public final class TopicDAO {
 	public static List<Resource<Topic>> fetchByNameLike(String name) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
-				"(from Topic where name like :name)";
+				"(from Topic where name like :name) " +
+				"and status <> 'DELETED'";
 		Query query = session.createQuery(hql);
 		query.setString("name", name);
 		return query.list();
@@ -40,7 +40,8 @@ public final class TopicDAO {
 	public static List<Resource<Topic>> fetchTopLevels() {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("from Resource where article in (" +
-				"from Topic where parent is null) and status <> 'DELETED'");
+				"from Topic where parent is null) " +
+				"and status <> 'DELETED'");
 		return query.list();
 	}
 
@@ -84,12 +85,14 @@ public final class TopicDAO {
 		String hql = "select s.resource from TopicSet s where " +
 				"s.leftIndex <= (select leftIndex from TopicSet where resource.id=:resId) and " +
 				"s.rightIndex >= (select rightIndex from TopicSet where resource.id=:resId) " +
+				"and status <> 'DELETED'" +
 				"order by s.rightIndex asc";
 		Query query = session.createQuery(hql);
 		query.setLong("resId", resourceId);
 		return query.list();
 	}
 	
+	/*
 	private static List<Resource<Topic>> fetchAncestorsRecursiveImpl(
 			long resourceId) {
 		Resource<Topic> topic = (Resource<Topic>) HibernateUtil.getSession()
@@ -107,18 +110,21 @@ public final class TopicDAO {
 		ancestorList.add(topic);
 		addAncestors(ancestorList, topic.getArticle().getParent());
 	}
+	 */
 
 	public static List<Resource<Topic>> fetchChildren(long resourceId) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
-				"(from Topic where parent.id=:resId)";
+				"(from Topic where parent.id=:resId) " +
+				"and status <> 'DELETED'";
 		Query query = session.createQuery(hql);
 		query.setLong("resId", resourceId);
 		return query.list();
 	}
 
 	public static long count() {
-		String hql = "SELECT COUNT(*) FROM Topic";
+		String hql = "SELECT COUNT(*) FROM Topic " +
+				"WHERE status <> 'DELETED'";
 		return HibernateUtil.count(hql);
 	}
 

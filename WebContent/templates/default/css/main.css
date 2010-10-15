@@ -419,10 +419,14 @@ table {
 }
 
 .error-validating {
-	display: block;
+	/*display: block;
 	clear: both;
-	float: right;
+	float: right;*/
     color: red;
+}
+
+div.error-validating {
+	clear: both;
 }
 
 .ocw-input .error-validating {
@@ -752,6 +756,12 @@ span.AMedit {
     border: 1px solid #ff0000;
 }
 
+#topicTree-container {
+}
+
+.topicTree-subContainer {
+	margin-left: 20px;
+}
 
 
 .autocomplete-w1 { background:url(shadow.png) no-repeat bottom right; position:absolute; top:4px; left:3px; /* IE6 fix: */ _background:none; _top:1px; }
@@ -760,3 +770,4 @@ span.AMedit {
 .autocomplete .selected { background:#F0F0F0; }
 .autocomplete div { padding:2px 5px; white-space:nowrap; }
 .autocomplete strong { font-weight:normal; color:#3399FF; }
+

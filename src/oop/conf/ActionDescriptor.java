@@ -71,10 +71,15 @@ public class ActionDescriptor {
 	public void setLoginRequired(boolean loginRequired) {
 		this.loginRequired = loginRequired;
 	}
-
+	
 	public Action createAction() throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException {
-		Action action = getActionClass().newInstance();
+		Action action;
+		if (actionClass == null) {
+			action = Action.NULL_ACTION;
+		} else {
+			action = actionClass.newInstance();
+		}
 		action.setTitle(title);
 		action.setDescriptor(this);
 		return action;
