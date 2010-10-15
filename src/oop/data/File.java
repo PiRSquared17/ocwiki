@@ -1,5 +1,7 @@
 package oop.data;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -9,12 +11,16 @@ public class File extends CategorizableArticle {
 	private String filename;
 	private String author;
 	private ContentLicense license;
+	private String originalSource;
+	private Date dateOfWork;
+	private String description;
+	private String additionalInfo;
 
 	public File() {
 	}
-	
+
 	@XmlTransient
-	public String getFileName() {
+	public String getFilename() {
 		return filename;
 	}
 
@@ -22,9 +28,41 @@ public class File extends CategorizableArticle {
 		this.filename = filename;
 	}
 
+	public String getOriginalSource() {
+		return originalSource;
+	}
+
+	public void setOriginalSource(String originalSource) {
+		this.originalSource = originalSource;
+	}
+
+	public Date getDateOfWork() {
+		return dateOfWork;
+	}
+
+	public void setDateOfWork(Date dateOfWork) {
+		this.dateOfWork = dateOfWork;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
+
 	protected <T> T copyTo(T obj) {
 		File media = (File) obj;
-		media.setFilename(getFileName());
+		media.setFilename(getFilename());
 		return super.copyTo(obj);
 	};
 
