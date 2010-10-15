@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 21:35:18 19-08-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<subclass name="oop.data.File" discriminator-value="File"
+		extends="oop.data.CategorizableArticle">
+		<property name="filename" type="java.lang.String" column="filename"
+			access="field"></property>
+		<property name="author" type="java.lang.String" column="author"
+			access="field"></property>
+		<property name="license" length="10" not-null="true">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">oop.data.ContentLicense</param>
+                <param name="type">12</param> <!-- VARCHAR -->
+            </type>
+        </property>
+        <property name="dateOfWork" type="java.util.Date" access="field">
+			<column name="date_of_work" not-null="true"
+				sql-type="timestamp default CURRENT_TIMESTAMP" />
+		</property>
+		<property name="originalSource" type="java.lang.String">
+			<column name="original_source" />
+		</property>
+		<property name="description" type="java.lang.String">
+			<column name="description" />
+		</property>
+		<property name="additionalInfo" type="java.lang.String">
+			<column name="additional_info"  />
+		</property>
+	</subclass>
+</hibernate-mapping>
