@@ -272,6 +272,9 @@
       <class>oop.controller.action.topic.ListAction</class>
     </action>
     <action>
+      <name>topic.tree</name>
+    </action>
+    <action>
       <name>topic.create</name>
       <class>oop.controller.action.topic.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
