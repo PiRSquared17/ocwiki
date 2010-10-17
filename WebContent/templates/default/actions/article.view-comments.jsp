@@ -14,8 +14,8 @@
 	var curPage = 0;
 	var pageCount = 0;
 	var commentCount = 0;
-	loadLatest();
-	
+
+	Event.observe(window, 'load', loadLatest);	
 
 	//load comments
 	function loadLatest(){
@@ -53,9 +53,9 @@
 							}
 						}
 					},
-				    onFailure: function()
+				    onFailure: function(transport)
 				    { 
-						$('commentslist').innerHTML = 'Gặp lỗi khi tải nhận xét!';
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}
 			);
@@ -151,9 +151,7 @@
 						$('commentunhide'+lid).hide();
 					},
 				    onFailure: function(transport){ 
-					    if (transport.responseJSON.code == '') {
-						    OcwikiDefaultTemplate.promptLogin();
-					    }
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);
@@ -188,9 +186,7 @@
 						$('commentunhide'+lhid).hide();
 					},
 				    onFailure: function(transport){ 
-					    if (transport.responseJSON.code == '') {
-						    OcwikiDefaultTemplate.promptLogin();
-					    }
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);
@@ -225,9 +221,7 @@
 						$('commentunlike'+hid).hide();
 					},
 				    onFailure: function(transport){ 
-					    if (transport.responseJSON.code == '') {
-						    OcwikiDefaultTemplate.promptLogin();
-					    }
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);

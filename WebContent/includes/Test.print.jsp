@@ -6,9 +6,7 @@
 
 <p><b>Thời gian làm bài:</b> ${test.time} phút</p>
 
-<div class="test-description mouse-out"
-            onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
-            onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
+<div class="test-description">
     ${test.content}
 </div>
 
@@ -18,18 +16,14 @@
 
 <c:forEach items="${test.sections}" var="section">
 <div class="section">
-    <div class="section-text-wrapper mouse-out"
-            onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
-            onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
+    <div class="section-text-wrapper">
         <c:if test="${not empty section.content.text}">
 		  <div class="section-text">${section.content.text}</div>
 	    </c:if>
     </div>
 
     <c:forEach items="${section.questions}" var="question">
-        <div class="question-wrapper mouse-out" 
-              onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
-              onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
+        <div class="question-wrapper">
 
             <div class="question">
                 <div class="question-number-wrapper">

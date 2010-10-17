@@ -59,10 +59,9 @@
 						//can có curPage?
 						pagination();			
 					},
-				    onFailure: function()
+				    onFailure: function(transport)
 				    { 
-						$('cannot-post').innerHTML = 'Không thể đăng comment!';
-						$('cannot-post').show();
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);

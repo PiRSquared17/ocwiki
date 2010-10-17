@@ -11,17 +11,10 @@
     <div class="answer-list-wrapper">
     <c:set var="answerIndex" value="0"></c:set>
     <c:forEach items="${question.answers}" var="answer">
-        <div class="answer-wrapper mouse-out"
-                onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
-                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
+        <div class="answer-wrapper mouse-highlight">
             <div class="check-wrapper">
                 <input type="radio" name="answers" value="${answer.id}" id="answer-${answer.id}">
             </div>
-            <div class="marker-wrapper">
-                <span id="a${answer.id}-rightanswer" style="display:none;"><img src="${templatePath}/images/right.png" alt="right answer" width="16px" height="16px" /></span>
-                <span id="a${answer.id}-wronganswer" style="display:none;"><img src="${templatePath}/images/wrong.png" alt="wrong answer" width="16px" height="16px" /></span>
-            </div>
-
             <div style="margin-right: 60px">
                  <label for="answer-${answer.id}">
                      <ocw:parse resource="${resource}">${answer.content}</ocw:parse>
@@ -67,11 +60,7 @@ function getResult(form, info) {
         },
         onFailure: function(transport)
         { 
-            if (transport.responseJSON.code == 'login required') {
-                OcwikiDefaultTemplate.promptLogin();
-            } else {
-                alert('Có lỗi xảy ra, xin lỗi vì sự bất tiện!');
-            }  
+            DefaultTemplate.onFailure(transport);
         }
     });
 }
