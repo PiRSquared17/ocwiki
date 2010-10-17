@@ -357,6 +357,10 @@
       <class>oop.controller.action.file.UploadAction</class>
       <loginRequired>true</loginRequired>
     </action>
+
+    <action>
+      <name>uploadFile-Ajax</name>
+    </action>
     
     <action>
       <name>user.edituser</name>
@@ -380,6 +384,12 @@
     <action>
         <name>user.fblogin</name>
         <class>oop.controller.action.user.FacebookLoginAction</class>
+    </action>
+    
+    <action>
+      <name>search</name>
+      <class>oop.controller.action.search.SearchAction</class>
+      <loginRequired>false</loginRequired>
     </action>
 
     <!--********************************************************************
@@ -546,6 +556,12 @@
         <name>create-article</name>
         <title>Tạo bài viết</title>
         <position>top_right</position>
+        <order>2</order>
+    </module>
+    <module>
+        <name>search</name>
+        <title>Tìm kiếm</title>
+        <position>top_left</position>
         <order>2</order>
     </module>
     <!-- 

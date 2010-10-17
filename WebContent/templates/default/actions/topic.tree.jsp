@@ -75,6 +75,9 @@ function renderRoot() {
                     $('topicTree-container').innerHTML = entryTemplate.evaluate(root);
                     if (root.childrenCount > 0) {
                         expand(root.resource.id);
+                    } else {
+                    	$('topic' + root.resource.id + '-expand').hide();
+                        $('topic' + root.resource.id + '-leaf').show();
                     }
                     $('topicTree-message').innerHTML = '';
                 },
@@ -121,6 +124,7 @@ Event.observe(window, 'load', function() {
         // callback function:
         onSelect : function(value, data) {
             $('root-id').value = data;
+            renderRoot();
         }
     });
 
