@@ -312,11 +312,11 @@ qq.FileUploaderBasic.prototype = {
         var self = this,
             handlerClass;        
         
-//        if(qq.UploadHandlerXhr.isSupported()){           
-//            handlerClass = 'UploadHandlerXhr';                        
-//        } else {
+        if(qq.UploadHandlerXhr.isSupported()){           
+            handlerClass = 'UploadHandlerXhr';                        
+        } else {
             handlerClass = 'UploadHandlerForm';
-//        }
+        }
 
         var handler = new qq[handlerClass]({
             action: this._options.action,         

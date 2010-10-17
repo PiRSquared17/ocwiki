@@ -1,5 +1,7 @@
 package oop.controller.rest.internal;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -7,21 +9,19 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+
+import oop.conf.Config;
+import oop.controller.rest.AbstractResource;
+import oop.data.Namespace;
+import oop.db.dao.NamespaceDAO;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.codehaus.jettison.json.JSONException;
+import org.apache.commons.io.IOUtils;
 import org.codehaus.jettison.json.JSONObject;
-
-import oop.conf.Config;
-import oop.controller.action.ActionException;
-import oop.controller.rest.AbstractResource;
-import oop.data.Namespace;
-import oop.db.dao.NamespaceDAO;
 
 @Path("/upload")
 public class UploadService extends AbstractResource {
@@ -29,32 +29,43 @@ public class UploadService extends AbstractResource {
 	@POST
 	@Path("/{id: \\d+}")
 	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_OCTET_STREAM})
-	public JSONObject upload(@PathParam("id") long id) throws JSONException {
-		performImpl();
+	public JSONObject upload(@PathParam("id") long id) throws Exception {
+		if (getRequest().getContentType().equals(MediaType.MULTIPART_FORM_DATA)) {
+			uploadMultipart();
+		} else if (getRequest().getContentType().equals(MediaType.APPLICATION_OCTET_STREAM)) {
+			uploadOctetStream();
+		} else {
+			return new JSONObject().put("error", "unsupported media type");
+		}
 		return new JSONObject().put("success", true);
+	}
+
+	private void uploadOctetStream() throws IOException {
+		String filename = getRequest().getHeader("X-File-Name");
+		String path = getServletContext().getRealPath(
+				Config.get().getUploadDir())
+				+ "/" + filename;
+		FileOutputStream out = null;
+		try {
+			out = new FileOutputStream(path);
+			IOUtils.copy(getRequest().getInputStream(), out);
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+		}
 	}
 
 	//
 	// copy from UploadAction (modified)
 	//
-	private static final String TEMP_DIR = System.getProperty("java.io.tmpdir");
-	private java.io.File tempDir;
-	private java.io.File destDir;
 
-	protected void performImpl() {
-		tempDir = new java.io.File(TEMP_DIR);
-		if (!tempDir.isDirectory()) {
-			throw new ActionException(TEMP_DIR + "không tồn tại");
-		}
-
+	protected void uploadMultipart() throws Exception {
+		java.io.File tempDir = new java.io.File(
+				System.getProperty("java.io.tmpdir"));
 		String realPath = getServletContext().getRealPath(
 				Config.get().getUploadDir());
-
-		destDir = new java.io.File(realPath);
-		if (!destDir.isDirectory()) {
-			throw new ActionException(Config.get().getUploadDir()
-					+ " không tồn tại");
-		}
+		java.io.File destDir = new java.io.File(realPath);
 
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
 		diskFileItemFactory.setSizeThreshold(10 * 1024 * 1024); // 10 MB
@@ -62,38 +73,29 @@ public class UploadService extends AbstractResource {
 		ServletFileUpload uploadHandler = new ServletFileUpload(
 				diskFileItemFactory);
 		uploadHandler.setSizeMax(10 * 1024 * 1024);
-		if (ServletFileUpload.isMultipartContent(getRequest())){
-			  // Parse the HTTP request...
-			try {
-				List itemsList = uploadHandler.parseRequest(getRequest());
-				Iterator itr = itemsList.iterator();
+		// Parse the HTTP request...
+		try {
+			List itemsList = uploadHandler.parseRequest(getRequest());
+			Iterator itr = itemsList.iterator();
 
-				while (itr.hasNext()) {
-					FileItem item = (FileItem) itr.next();
-					if (!item.isFormField() && check(item)) {
-						java.io.File uploadedFile = new java.io.File(destDir, item.getName());
-						item.write(uploadedFile);
-						oop.data.File file = new oop.data.File();
-						file.setName(uploadedFile.getName());
-						file.setNamespace(NamespaceDAO.fetch(Namespace.FILE));
-						//FileDAO.persist(file);
-					}
-					else {
-						throw invalidParam("file", "invalid file");
-					}
+			while (itr.hasNext()) {
+				FileItem item = (FileItem) itr.next();
+				if (!item.isFormField() && check(item)) {
+					java.io.File uploadedFile = new java.io.File(destDir,
+							item.getName());
+					item.write(uploadedFile);
+					oop.data.File file = new oop.data.File();
+					file.setName(uploadedFile.getName());
+					file.setNamespace(NamespaceDAO.fetch(Namespace.FILE));
+					// FileDAO.persist(file);
+				} else {
+					throw invalidParam("file", "invalid file");
 				}
-			} catch (FileUploadBase.SizeLimitExceededException ex) {
-				throw invalidParam("file", "file is too big");
-				// ex.printStackTrace(); dung bao h bat loi r de do'
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new WebApplicationException(e);
 			}
+		} catch (FileUploadBase.SizeLimitExceededException ex) {
+			throw invalidParam("file", "file is too big");
+			// ex.printStackTrace(); dung bao h bat loi r de do'
 		}
-		else
-			if (getParams().hasParameter("submit")) {
-				throw invalidParam("file", "Not Multipart");
-			}
 	}
 
 	public boolean check(FileItem file) {
