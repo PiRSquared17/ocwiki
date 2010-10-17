@@ -223,6 +223,18 @@
 
   <function>
     <description>
+      Trả về đường dẫn đến REST web service.
+    </description>
+    <name>restUrl</name>
+    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-signature>java.lang.String getRestURL(java.lang.String)</function-signature>
+    <example>
+      ${ocw:restUrl('questions/1234')}
+    </example>
+  </function>
+
+  <function>
+    <description>
       Trả về đường dẫn đến API.
     </description>
     <name>apiUrl</name>
