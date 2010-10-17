@@ -16,9 +16,13 @@ public class ActionUtil {
 	public static String getActionURL(String name, String query) {
 		return getActionURL(name) + "?" + query;
 	}
-
+	
 	public static String getAPIURL(String name) {
 		return Config.get().getApiPath() + "/" + name;
+	}
+
+	public static String getRestURL(String name) {
+		return Config.get().getRestPath() + "/" + name;
 	}
 
 	public static boolean checkPermission(User user, String actionName) {

@@ -16,10 +16,10 @@ import oop.data.TextArticle;
 import oop.db.dao.ArticleDAO;
 import oop.db.dao.ResourceDAO;
 
-@Path(TextResource.PATH)
-public class TextResource extends AbstractResource {
+@Path(TextArticleResource.PATH)
+public class TextArticleResource extends AbstractResource {
 	
-	public static final String PATH = "/TextArticle";
+	public static final String PATH = "/texts";
 	
 	@GET
 	@Path("/{id: \\d+}")

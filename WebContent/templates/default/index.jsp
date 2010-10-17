@@ -65,6 +65,11 @@
 <body>
 <div id="content">
 <div class="headNav">
+    <c:forEach items="${modules['top_left']}" var="module">
+    <div class="top_left">
+        <jsp:include page="modules/${module.page}"></jsp:include>
+    </div>
+    </c:forEach>
     &nbsp;
 	<c:forEach items="${modules['top_right']}" var="module">
 	<div class="top_right">

@@ -38,7 +38,7 @@
 <!--
 	var textarticle=null;
 	
-	new Ajax.Request(restPath + '/TextArticle/'+ resourceId,
+	new Ajax.Request(restPath + '/texts/'+ resourceId,
 	{
 	  method:'get',
 	  requestHeaders : {
@@ -48,8 +48,8 @@
 	  onSuccess : function(transport) {
 		  textarticle = transport.responseJSON.result;
 	  },
-	  onFailure: function(){
-		  alert('Fail'); }
+	  onFailure: function(transport){
+		  DefaultTemplate.onFailure(transport); 
 	});
 
 	EditAction=Class.create();
@@ -60,7 +60,7 @@
 	EditAction.save = function(){
 		textarticle.content={text : tinymce.get('edit_context').getContent()};
 		textarticle.namespace={id : $F('namespaedit')};
-		new Ajax.Request(restPath + '/TextArticle/'+ resourceId,
+		new Ajax.Request(restPath + '/texts/'+ resourceId,
 			{
 				method: 'post',
 				requestHeaders:{
@@ -75,8 +75,9 @@
 			     evalJSON: true,
 			     onSuccess: function(transport) {
 			      },
-			      onFailure: function(error){
-				      alert('Loi:'+error.status); }
+			     onFailure: function(transport){
+			    	  DefaultTemplate.onFailure(transport); 
+			     }
 			});
 	};
 //-->
