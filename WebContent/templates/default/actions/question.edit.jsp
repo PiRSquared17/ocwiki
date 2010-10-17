@@ -7,13 +7,12 @@
 <ocw:form action="question.edit">
     <input type="hidden" name="id" value="${action.resource.id}">
     <input type="hidden" name="basever" value="${action.resource.version}">
-    
     <div>
 	    <label>Câu hỏi: 
 	        <textarea style="width:100%" name="content">${u:defaultIfNull(param.content, question.content)}</textarea></label>
 	        <ocw:error code="content"></ocw:error>
     </div>
-    
+     
     <br /><br />
     <p><label>Độ khó: 
         <c:set scope="page" var="level" value="${u:defaultIfNull(param.level, question.level)}"></c:set>
