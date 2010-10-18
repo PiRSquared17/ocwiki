@@ -40,10 +40,13 @@ public class FormTag extends SimpleTagSupport {
 		}
 		out.append(">");
 		// append edit token
-		out.append("<input type=\"hidden\" name=\"editToken\" value=\"");
-		out.append((String) getJspContext().getAttribute("editToken",
-				PageContext.SESSION_SCOPE));
-		out.append("\">");
+		String editToken = (String) getJspContext().getAttribute("editToken",
+				PageContext.SESSION_SCOPE);
+		if (StringUtils.isNotEmpty(editToken)) {
+			out.append("<input type=\"hidden\" name=\"editToken\" value=\"");
+			out.append(editToken);
+			out.append("\">");
+		}
 		// append form body
 		getJspBody().invoke(null);
 		// close form

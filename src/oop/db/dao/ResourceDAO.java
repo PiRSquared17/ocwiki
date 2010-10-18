@@ -7,6 +7,8 @@ import java.util.List;
 import oop.data.Article;
 import oop.data.Namespace;
 import oop.data.Resource;
+import oop.data.ResourceLike;
+import oop.data.ResourceTodo;
 import oop.data.Revision;
 import oop.data.Status;
 import oop.data.Topic;
@@ -172,6 +174,69 @@ public class ResourceDAO {
 			}
 			throw ex;
 		}
+	}
+
+	public static List<Resource<? extends Article>> fetchByTopicLike(String name, int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in " +
+				"(select a from CategorizableArticle a join a.topics t " +
+				"where t.article.name like :name)";
+		Query query = session.createQuery(hql);
+		query.setString("name", name);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return (List<Resource<? extends Article>>) query.list();
+	}
+
+	public static List<Resource<? extends Article>> fetchByNameLike(
+			String name, int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in " +
+				"(from Article where name like :name)";
+		Query query = session.createQuery(hql);
+		query.setString("name", name);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return (List<Resource<? extends Article>>) query.list();
+	}
+
+	public static List<Resource<? extends Article>> fetchLike(long userId,
+			ResourceLike like, int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "select resource from ResourceCustomization c " +
+				"where c.user.id = :userId and c.like = :like";
+		Query query = session.createQuery(hql);
+		query.setLong("userId", userId);
+		query.setString("like", like.name());
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return (List<Resource<? extends Article>>) query.list();
+	}
+
+	public static List<Resource<? extends Article>> fetchTodo(long userId,
+			ResourceTodo todo, int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "select resource from ResourceCustomization c " +
+				"where c.user.id = :userId and todo = :todo";
+		Query query = session.createQuery(hql);
+		query.setLong("userId", userId);
+		query.setString("todo", todo.name());
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return (List<Resource<? extends Article>>) query.list();
+	}
+
+	public static List<Resource<? extends Article>> fetchDone(long userId,
+			boolean done, int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "select resource from ResourceCustomization c " +
+				"where c.user.id = :userId and done = :done";
+		Query query = session.createQuery(hql);
+		query.setLong("userId", userId);
+		query.setBoolean("done", done);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return (List<Resource<? extends Article>>) query.list();
 	}
 	
 }

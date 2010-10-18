@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/includes/common.jsp" %>
 
-<c:if test="">
+<c:if test="${sessionScope.login}">
 	<div>Đánh dấu bài cần làm:
 	   <button onclick="Li_To_Le(0)" id="todo">Bài cần làm</button>
 	</div>
 	<div>Độ khó:
 	    <select onchange="Li_To_Le(1)" id="Level">
+	        <option label="Bình thường" value="-1">Bình thường</option>
 	        <option label="Khó" value="0">Khó</option>
 	        <option label="Dễ" value="1">Dễ</option>
 	    </select>
@@ -92,7 +93,7 @@
 	function Li_To_Le(type){
 		var userId = resourcereport.user;
 		//var user = {id: userId};
-		//var level = $('Level').value;
+		var level = $('Level').value;
 		var like;
 		var todo;
 		if ($('Like_button').value == 'Like') like = 'LIKE';
