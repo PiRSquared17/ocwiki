@@ -447,6 +447,13 @@
         <order>2</order>
     </module>
     <module>
+       <name>user-lib</name>
+        <title>Thư viện cá nhân</title>
+        <position>left</position>
+        <order>3</order>
+        <loginRequired>true</loginRequired>
+    </module>
+    <module>
        <name>session</name>
         <title>Đăng nhập</title>
         <class>oop.module.SessionModule</class>
