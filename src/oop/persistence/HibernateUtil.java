@@ -1,6 +1,7 @@
 package oop.persistence;
 
 import oop.conf.Config;
+import oop.controller.OcwikiApp;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -25,8 +26,11 @@ public class HibernateUtil {
 
 		Configuration hconf = new Configuration();
 
+		hconf.configure("hibernate.cfg.xml");
+		
+		
 		// modify table prefixes
-		hconf.setNamingStrategy(new PrefixNamingStrategy(config));
+		//hconf.setNamingStrategy(new PrefixNamingStrategy(config));
 
 		// init database connection
 		hconf.setProperty("hibernate.dialect",
@@ -37,50 +41,17 @@ public class HibernateUtil {
 				+ config.getDatabasePort() + "/" + config.getDatabaseName()
 				+ "?useUnicode=true&characterEncoding=UTF-8";
 		hconf.setProperty("hibernate.connection.url", url);
-		hconf
-				.setProperty("hibernate.connection.username", config
+		hconf.setProperty("hibernate.connection.username", config
 						.getUserName());
-		hconf
-				.setProperty("hibernate.connection.password", config
+		hconf.setProperty("hibernate.connection.password", config
 						.getPassword());
 
-		// add classes
-		hconf.addClass(oop.data.User.class);
-		hconf.addClass(oop.data.FacebookAccount.class);
-		hconf.addClass(oop.data.Topic.class);
-		hconf.addClass(oop.data.TopicReport.class);
-		hconf.addClass(oop.data.TopicSet.class);
-		hconf.addClass(oop.data.Namespace.class);
-		hconf.addClass(oop.data.Revision.class);
-		hconf.addClass(oop.data.Resource.class);
-		hconf.addClass(oop.data.ResourceReport.class);
-		hconf.addClass(oop.data.ResourceCustomization.class);
-		hconf.addClass(oop.data.CategorizableArticle.class);
-		hconf.addClass(oop.data.TextArticle.class);
-		hconf.addClass(oop.data.BaseArticle.class);
-		hconf.addClass(oop.data.Article.class);
-		hconf.addClass(oop.data.Text.class);
-		hconf.addClass(oop.data.File.class);
-		hconf.addClass(oop.data.BaseQuestion.class);
-		hconf.addClass(oop.data.AnswerAttempt.class);
-		hconf.addClass(oop.data.Answer.class);
-		hconf.addClass(oop.data.Question.class);
-		hconf.addClass(oop.data.Section.class);
-		hconf.addClass(oop.data.Test.class);
-		hconf.addClass(oop.data.SectionStructure.class);
-		hconf.addClass(oop.data.TestStructure.class);
-		hconf.addClass(oop.data.Constraint.class);
-		hconf.addClass(oop.data.TopicConstraint.class);
-		hconf.addClass(oop.data.LevelConstraint.class);
-		hconf.addClass(oop.data.History.class);
-		hconf.addClass(oop.data.Comment.class);
-		hconf.addClass(oop.data.CommentReport.class);
-		hconf.addClass(oop.data.CommentCustomization.class);
-		hconf.addClass(oop.data.log.Log.class);
-		hconf.addClass(oop.data.log.ResourceLog.class);
-		hconf.addClass(oop.data.log.CommentLog.class);
-		hconf.addClass(oop.data.log.RevisionLog.class);
-		hconf.addClass(oop.data.log.NewMemberLog.class);
+		// config Hibernate search
+		hconf.setProperty("hibernate.search.default.directory_provider",
+				"org.hibernate.search.store.FSDirectoryProvider");
+		hconf.setProperty("hibernate.search.default.indexBase",
+				OcwikiApp.get().getServletContext().getRealPath(
+				config.getLuceneIndexDirectory()));
 
 		sessionFactory = hconf.buildSessionFactory();
 	}

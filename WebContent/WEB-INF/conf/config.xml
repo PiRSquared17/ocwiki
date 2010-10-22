@@ -461,6 +461,12 @@
         <order>1</order>
     </module>
     <module>
+       <name>topic-button</name>
+        <title>Chủ đề</title>
+        <position>top_right</position>
+        <order>3</order>
+    </module>
+    <module>
        <name>comment</name>
         <title>Nhận xét</title>
         <class>oop.module.CommentModule</class>

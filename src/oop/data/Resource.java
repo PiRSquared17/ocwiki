@@ -8,18 +8,26 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 import oop.data.log.ResourceLog;
 import oop.util.Utils;
 
+@Indexed
 @XmlRootElement
 public class Resource<T extends Article> implements ArticleContainer<T>, HasVersion {
 
+	@DocumentId
 	private long id;
 	private Date createDate;
+	@IndexedEmbedded
 	private User author;
 	private Status status = Status.NORMAL;
 	private int version = 0;
 	private Class<T> type;
+	@IndexedEmbedded
 	private T article;
 	private ResourceAccessibility accessibility = ResourceAccessibility.EVERYONE;
 	private Set<Revision<T>> revisions = new HashSet<Revision<T>>();
@@ -183,6 +191,11 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	@Override
 	public int hashCode() {
 		return Utils.hashCode(id);
+	}
+
+	@Override
+	public String toString() {
+		return "Resource #" + id + " (" + type + ")";
 	}
 	
 }

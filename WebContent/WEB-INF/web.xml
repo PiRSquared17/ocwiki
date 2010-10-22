@@ -9,7 +9,7 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   <listener>
-    <listener-class>oop.controller.Initializer</listener-class>
+    <listener-class>oop.controller.OcwikiApp</listener-class>
   </listener>
   <servlet>
     <description></description>
