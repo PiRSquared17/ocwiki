@@ -3,6 +3,9 @@
 <%@ include file="/includes/common.jsp" %>
 
 <ul>
+	<li><ocw:actionLink name="history.list"
+		title="Xem lịch sử các bài kiểm tra đã làm">Lịch sử làm bài</ocw:actionLink>
+	</li>
 	<li>
 	<ocw:actionLink name="search">
 	    <ocw:param name="search_query" value="is:todo"></ocw:param>

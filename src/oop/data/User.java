@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
+
 @XmlRootElement
 public class User implements Serializable, Entity, HasVersion {
 
@@ -14,8 +18,10 @@ public class User implements Serializable, Entity, HasVersion {
 
 	private long id;
 	private int version;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String fullname;
 	private String password;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String email;
 	private String group;
 	private boolean blocked;
@@ -24,6 +30,7 @@ public class User implements Serializable, Entity, HasVersion {
 	private Date warningExpiredDate;
 	private String avatar;
 	private Date registerDate;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
 	private Preferences preferences = new Preferences();
 	private String firstName;

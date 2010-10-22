@@ -12,6 +12,9 @@ public class AnswerAttempt {
 	private boolean correct;
 	private Date timestamp;
 
+	public AnswerAttempt() {
+	}
+	
 	public AnswerAttempt(Resource<BaseQuestion> question, User user, boolean correct) {
 		super();
 		this.timestamp = new Date();
