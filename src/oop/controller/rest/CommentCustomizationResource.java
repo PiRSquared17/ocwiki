@@ -18,7 +18,7 @@ public class CommentCustomizationResource extends AbstractResource {
 	public ObjectResult<CommentCustomization> create(CommentCustomization data) {
 		Comment comment = CommentDAO.fetch(data.getComment().getId());
 		CommentCustomization customization = new CommentCustomization(comment,
-				getUser(), data.getStatus());
+				getUserNullSafe(), data.getStatus());
 		CommentCustomizationDAO.persist(customization);
 		return new ObjectResult<CommentCustomization>(customization);
 	}

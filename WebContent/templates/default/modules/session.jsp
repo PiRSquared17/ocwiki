@@ -18,17 +18,23 @@
 	</li>
 </ul>
 </div>
-<div style="display: ${sessionScope.login ? 'none' : 'block'};"
-	id="guest-toolbar">
-<ul>
-	<li><ocw:actionLink name="user.signup">Đăng kí</ocw:actionLink></li>
-	<li><ocw:actionLink name="user.login" title="Đăng nhập"
-		onclick="openLoginDialog(); return false;">Đăng nhập</ocw:actionLink></li>
+<div class="jsmenu" id="guest-toolbar"
+    style="display: ${sessionScope.login ? 'none' : 'block'};">
+<ul class="level1 horizontal" id="guest-toolbar-root">
+	<li class="level1">Đăng nhập
+        <ul class="level2 dropdown">
+            <li><a href="#" onclick="fblogin(); return false;">FaceBook</a></li>
+            <li><a href="#" onclick="return false;">Google</a></li>
+            <li><a href="#" onclick="return false;">Yahoo</a></li>
+            <li><a href="#" onclick="return false;">OpenID</a></li>
+            <li><a href="#" onclick="openLoginDialog(); return false;">OCWiki</a></li>
+        </ul>
+	</li>
 </ul>
 </div>
 </div>
 
-<div style="display: none" id="session-loginDialog-content">
+<ocw:setJs var="dialogContent">
 <form>
 <p><label>Tên: <input type="text" name="name"
 	id="session_name" /> </label> <span class="error-validating"
@@ -37,69 +43,107 @@
 	id="session_password" /> <span class="error-validating"
 	id="session_passwordError"></span> </label></p>
 </form>
-<ocw:actionLink name="user.signup">Đăng kí</ocw:actionLink> <ocw:actionLink
-	name="user.forgetpass">Quên mật khẩu?</ocw:actionLink></div>
+<ocw:actionLink name="user.signup">Đăng kí</ocw:actionLink> 
+<ocw:actionLink name="user.forgetpass">Quên mật khẩu?</ocw:actionLink>
+</ocw:setJs>
 
+<script src="http://connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript">
 
-	var sessionLoginDialogContent = $('session-loginDialog-content').innerHTML;
-	$('session-loginDialog-content').remove();
+var userToolbar;
+var guessToolbar;
 
-	function openLoginDialog() {
-		Dialog.confirm(sessionLoginDialogContent, {
-			width : 300,
-			okLabel : "Đăng nhập",
-			cancelLabel : "Thôi",
-			buttonClass : "session-button",
-			className : "alphacube",
-			id : "session-loginDialog",
-			cancel : function(win) { return true; },
-			ok : session_login
-		});
-		$('session_name').focus();
-	}
+Element.observe(window, 'load', function() {
+   	FB.init({
+       	appId: '${config.facebookAppId}', 
+       	status: true, 
+       	cookie: true, 
+       	xfbml: true});
+   	new Menu('user-toolbar-root', 'userToolbar', function() {
+           this.closeDelayTime = 300;
+       });
+   	new Menu('guest-toolbar-root', 'guessToolbar', function() {
+           this.closeDelayTime = 300;
+       });
+});
 
-	function session_login() {
-		if ($F('session_name') == '') {
-			$('session_nameError').innerHTML = 'Bạn cần nhập tên người dùng';
-			return false;
-		}
-		if ($F('session_password') == '') {
-			$('session_passwordError').innerHTML = 'Bạn cần nhập mật khẩu';
-			return false;
-		}
-		new Ajax.Request(
-				restPath + '/login',
-				{
-					method : 'post',
-					parameters : {
-						name : $F('session_name'),
-						password : $F('session_password')
-					},
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) {
-						location.reload(true);
-					},
-					onFailure : function(transport) {
-						var code = transport.responseJSON.code;
-						if (code == 'invalid password') {
-							$('session_passwordError').innerHTML = 'Sai mật khẩu';
-						} else if (code == 'invalid name') {
-							$('session_nameError').innerHTML = 'Người dùng không tồn tại';
-						} else if (code == 'account blocked') {
-							$('session_nameError').innerHTML = 'Tài khoản đã bị khoá';
-						}
-					}
-				});
+function openLoginDialog() {
+	Dialog.confirm('${dialogContent}', {
+		width : 300,
+		okLabel : "Đăng nhập",
+		cancelLabel : "Thôi",
+		buttonClass : "session-button",
+		className : "alphacube",
+		id : "session-loginDialog",
+		cancel : function(win) { return true; },
+		ok : session_login
+	});
+	$('session_name').focus();
+}
+
+function session_login() {
+	if ($F('session_name') == '') {
+		$('session_nameError').innerHTML = 'Bạn cần nhập tên người dùng';
 		return false;
 	}
+	if ($F('session_password') == '') {
+		$('session_passwordError').innerHTML = 'Bạn cần nhập mật khẩu';
+		return false;
+	}
+	new Ajax.Request(
+		restPath + '/login',
+		{
+			method : 'post',
+			parameters : {
+				name : $F('session_name'),
+				password : $F('session_password')
+			},
+			requestHeaders : {
+				Accept : 'application/json'
+			},
+			evalJSON : true,
+			onSuccess : function(transport) {
+				location.reload(true);
+			},
+			onFailure : function(transport) {
+				var code = transport.responseJSON.code;
+				if (code == 'invalid password') {
+					$('session_passwordError').innerHTML = 'Sai mật khẩu';
+				} else if (code == 'invalid name') {
+					$('session_nameError').innerHTML = 'Người dùng không tồn tại';
+				} else if (code == 'account blocked') {
+					$('session_nameError').innerHTML = 'Tài khoản đã bị khoá';
+				}
+			}
+		});
+	return false;
+}
 
-    var userToolbar = new Menu('user-toolbar-root', 'userToolbar', function() {
-        this.closeDelayTime = 300;
+function fblogin() {
+  FB.login(function(response) {
+      if (response.session) {
+          new Ajax.Request(
+                  restPath + '/login/facebook',
+                  {
+                      method : 'get',
+                      requestHeaders : {
+                          Accept : 'application/json'
+                      },
+                      evalJSON : true,
+                      onSuccess : function(transport) {
+                          location.reload(true);
+                      },
+                      onFailure : function(transport) {
+                          alert(transport.responseText);
+                          var code = transport.responseJSON.code;
+                          if (code == 'account blocked') {
+                              alert('Tài khoản của bạn đã bị khoá.');
+                          }
+                      }
+                  });
+      }
     });
+}
 
 	//-->
 </script>

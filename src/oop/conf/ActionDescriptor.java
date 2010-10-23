@@ -5,6 +5,8 @@ import java.util.Set;
 
 import oop.controller.action.Action;
 
+import org.apache.commons.lang.StringUtils;
+
 public class ActionDescriptor {
 
 	private String name;
@@ -14,6 +16,7 @@ public class ActionDescriptor {
 	private String javaScript;
 	private String css;
 	private String title;
+	private String container;
 
 	public boolean isLoginRequired() {
 		return loginRequired;
@@ -83,6 +86,17 @@ public class ActionDescriptor {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public void setContainer(String container) {
+		this.container = container;
+	}
+
+	public String getContainer() {
+		if (StringUtils.isEmpty(container)) {
+			return "index.jsp";
+		}
+		return container;
 	}
 	
 }

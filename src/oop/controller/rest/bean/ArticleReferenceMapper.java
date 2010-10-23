@@ -6,7 +6,7 @@ import oop.persistence.HibernateUtil;
 public class ArticleReferenceMapper implements Mapper<ArticleReferenceBean, Article> {
 
 	@Override
-	public ArticleReferenceBean apply(Article value) {
+	public ArticleReferenceBean toBean(Article value) {
 		ArticleReferenceBean bean = new ArticleReferenceBean();
 		bean.setId(value.getId());
 		bean.setName(value.getName());
@@ -15,7 +15,7 @@ public class ArticleReferenceMapper implements Mapper<ArticleReferenceBean, Arti
 	}
 
 	@Override
-	public Article get(ArticleReferenceBean value) {
+	public Article toEntity(ArticleReferenceBean value) {
 		if (value == null) {
 			return null;
 		}

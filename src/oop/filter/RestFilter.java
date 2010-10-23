@@ -20,34 +20,9 @@ import org.apache.commons.lang.StringUtils;
  */
 public class RestFilter implements Filter {
 
-	static class AlterMethodWrapper extends HttpServletRequestWrapper {
-
-		private String method;
-
-		public AlterMethodWrapper(HttpServletRequest request, String method) {
-			super(request);
-			this.method = method;
-		}
-
-		public String getMethod() {
-			return method;
-		}
-
-	}
-
-	/**
-	 * Default constructor.
-	 */
-	public RestFilter() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see Filter#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
+	public RestFilter() { }
+	public void init(FilterConfig fConfig) throws ServletException { }
+	public void destroy() { }
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -68,11 +43,19 @@ public class RestFilter implements Filter {
 		}
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+	static class AlterMethodWrapper extends HttpServletRequestWrapper {
+
+		private String method;
+
+		public AlterMethodWrapper(HttpServletRequest request, String method) {
+			super(request);
+			this.method = method;
+		}
+
+		public String getMethod() {
+			return method;
+		}
+
 	}
 
 }

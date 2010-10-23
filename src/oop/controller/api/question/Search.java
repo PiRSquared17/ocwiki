@@ -6,10 +6,10 @@ import oop.controller.api.AbstractAPI;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.db.dao.BaseQuestionDAO;
+import oop.util.JsonUtils;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
 
 public class Search extends AbstractAPI {
 
@@ -19,16 +19,17 @@ public class Search extends AbstractAPI {
 		List<Resource<BaseQuestion>> questions = BaseQuestionDAO
 				.fetchByContent("%" + query + "%", 20);
 
-		JsonObject result = new JsonObject();
-		result.addProperty("query", query);
-		JsonArray suggestions = new JsonArray();
-		result.add("suggestions", suggestions);
-		JsonArray data = new JsonArray();
-		result.add("data", data);
+		ArrayNode suggestions = JsonUtils.getFactory().arrayNode();
+		ArrayNode data = JsonUtils.getFactory().arrayNode();
 		for (Resource<BaseQuestion> question : questions) {
-			suggestions.add(new JsonPrimitive(question.getName()));
-			data.add(new JsonPrimitive(question.getId()));
+			suggestions.add(JsonUtils.getFactory().textNode(question.getName()));
+			data.add(JsonUtils.getFactory().numberNode(question.getId()));
 		}
+
+		ObjectNode result = JsonUtils.getFactory().objectNode();
+		result.put("query", query);
+		result.put("suggestions", suggestions);
+		result.put("data", data);
 		return result;
 	}
 

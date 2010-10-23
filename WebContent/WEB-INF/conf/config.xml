@@ -62,6 +62,11 @@
       <name>revision.list</name>
       <class>oop.controller.action.revision.ListAction</class>
     </action>
+    <action>
+      <name>article.print</name>
+      <class>oop.controller.action.article.PrintAction</class>
+      <container>print.jsp</container>
+    </action>
     
     
 
@@ -286,10 +291,6 @@
       <class>oop.controller.action.TextArticle.ViewAction</class>
     </action>
     <action>
-      <name>solution.view</name>
-      <class>oop.controller.action.solution.ViewAction</class>
-    </action>
-    <action>
       <name>solution.create</name>
       <class>oop.controller.action.solution.CreateSolution</class>
     </action>
@@ -349,6 +350,10 @@
       <class>oop.controller.action.admin.HomeAction</class>
     </action>
 
+    <action>
+        <name>user.fblogin</name>
+        <class>oop.controller.action.user.FacebookLoginAction</class>
+    </action>
 
     <!--********************************************************************
                                   API  
@@ -502,6 +507,13 @@
         <articleType>oop.data.Test</articleType>
     </module>
     <module>
+        <name>create-article</name>
+        <title>Tạo bài viết</title>
+        <position>top_right</position>
+        <order>2</order>
+    </module>
+    
+    <module>
         <name>todo</name>
         <class>oop.module.personal.Todo</class>
         <position>action-bottom</position>
@@ -513,6 +525,13 @@
         <loginRequired>true</loginRequired>
     </module>
     <!-- 
+    <module>
+        <name>fbconnect</name>
+        <title>Đăng nhập bằng tài khoản FaceBook</title>
+        <position>top_right</position>
+        <order>3</order>
+        <page>auth/fbconnect.jsp</page>
+    </module>
     <module>
        <name>login</name>
         <title>Đăng nhập</title>

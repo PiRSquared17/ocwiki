@@ -2,8 +2,6 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
-import javax.ws.rs.core.MediaType;
-
 import oop.conf.Config;
 import oop.data.Namespace;
 
@@ -16,7 +14,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class BaseQuestionServiceTest extends ResourceTest {
+public class BaseQuestionServiceTest extends AbstractResourceTest {
 
 	private static final String PATH = Config.get().getRestPath()
 			+ "/questions";
@@ -47,7 +45,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," +
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -63,7 +61,6 @@ public class BaseQuestionServiceTest extends ResourceTest {
 //		String json = "{}";
 //		JsonUtils.fromJson(json, new TypeReference<Revision<BaseQuestion>>() {});
 		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
-		request.setHeaderField("Accept", MediaType.APPLICATION_JSON);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		System.out.println(response.getText());
@@ -106,7 +103,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," +
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -129,7 +126,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," +
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -153,7 +150,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," + 
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -178,7 +175,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"\"}," + // blank
 					"\"namespace\":{\"id\":\"0\"}," +

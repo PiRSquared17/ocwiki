@@ -9,9 +9,7 @@ import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.data.TextArticle;
-import oop.data.User;
 import oop.db.dao.ResourceDAO;
-import oop.util.SessionUtils;
 
 @Path(SolutionResource.PATH)
 public class SolutionResource extends AbstractResource {

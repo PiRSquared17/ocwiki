@@ -46,6 +46,7 @@ public class HibernateUtil {
 
 		// add classes
 		hconf.addClass(oop.data.User.class);
+		hconf.addClass(oop.data.FacebookAccount.class);
 		hconf.addClass(oop.data.Topic.class);
 		hconf.addClass(oop.data.TopicSet.class);
 		hconf.addClass(oop.data.Namespace.class);

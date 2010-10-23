@@ -128,6 +128,9 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	}
 
 	public String getName() {
+		if (getArticle().getName() == null) {
+			return "#" + getArticle().getId();
+		}
 		return getArticle().getName();
 	}
 	

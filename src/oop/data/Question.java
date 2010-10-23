@@ -18,7 +18,7 @@ public class Question implements Entity, Copiable<Question> {
 	private Revision<? extends BaseQuestion> baseRevision;
 	private double mark;
 
-	Question() {
+	public Question() {
 	}
 
 	public Question(ArticleContainer<? extends BaseQuestion> baseContainer, double d) {
@@ -43,6 +43,10 @@ public class Question implements Entity, Copiable<Question> {
 	@XmlElement
 	public long getId() {
 		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	@XmlTransient
@@ -100,6 +104,14 @@ public class Question implements Entity, Copiable<Question> {
 	@Override
 	public Question copy() {
 		return new Question(getBaseContainer(), getMark());
+	}
+
+	public void setBaseResource(Resource<BaseQuestion> resource) {
+		this.baseResource = resource;
+	}
+
+	public void setBaseRevision(Revision<BaseQuestion> revision) {
+		this.baseRevision = revision;
 	}
 
 }
