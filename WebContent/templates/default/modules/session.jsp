@@ -40,7 +40,7 @@
             </c:if>
             <li><a href="#" onclick="return false;">Google</a></li>
             <li><a href="#" onclick="return false;">Yahoo</a></li>
-            <li><a href="#" onclick="return false;">OpenID</a></li>
+            <li><ocw:actionLink name="user.login.openid">OpenID</ocw:actionLink>
             <li><a href="#" onclick="openLoginDialog(); return false;">Nội bộ</a></li>
         </ul>
 	</li>

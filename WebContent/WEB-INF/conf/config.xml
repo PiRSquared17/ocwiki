@@ -338,6 +338,14 @@
       <class>oop.controller.action.user.LogInAction</class>
     </action>
     <action>
+      <name>user.login.openid</name>
+      <class>oop.controller.action.openid.SendAuthenticationAction</class>
+    </action>
+    <action>
+      <name>user.login.openid.verification</name>
+      <class>oop.controller.action.openid.GetVerificationAction</class>
+    </action>
+    <action>
       <name>user.logout</name>
       <class>oop.controller.action.user.LogOutAction</class>
     </action>
