@@ -73,8 +73,8 @@ public class CommentResource extends AbstractResource {
 			assertParamValid(resource != null, "", "resource not found");
 		Revision<? extends Article> revision = RevisionDAO
 			.fetchLatestByResource(resource.getId());
-		Comment comment = new Comment(getUser(), new Date(), data.getMessage(),
-				resource, revision);
+		Comment comment = new Comment(getUserNullSafe(), new Date(), data
+				.getMessage(), resource, revision);
 		CommentDAO.persist(comment);
 		return new ObjectResult<Comment>(comment);
 	}

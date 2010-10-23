@@ -58,18 +58,22 @@ Editor.edit = function(id) {
 	if (Editor.active) {
 		Editor.preview(Editor.active);
 	}
-	var previewDiv = $(id + '-preview');
-	if (previewDiv) {
-		previewDiv.remove();
+	var preview = $(id + '-preview');
+	if (preview) {
+		preview.remove();
 	}
-	var textareas = element.getElementsByTagName('textarea');
-	if (textareas.length > 0) {
-		var textarea = textareas[0];
+	element.show();
+	if (element.getElementsByTagName('textarea').length > 0) {
+		var textarea = element.getElementsByTagName('textarea')[0];
 		var tinymceEditor = tinymce.get(textarea.id);
 		if (!tinymceEditor) {
 			tinymceEditor = new tinymce.Editor(textarea.id, {});
 			tinymceEditor.render();
 		}
+		tinymceEditor.focus(true);
+	} else {
+		var textbox = element.getElementsByTagName('input')[0];
+		textbox.focus();
 	}
 	element.show();
 	Editor.active = id;
@@ -77,21 +81,88 @@ Editor.edit = function(id) {
 
 Editor.preview = function(id) {
 	var element = $(id);
-	var textarea = element.getElementsByTagName('textarea')[0]; 
-	var previewDiv = document.createElement('div');
-	previewDiv.setAttribute('id', id + '-preview');
-	tinymceEditor = tinymce.get(textarea.id);
-	if (tinymceEditor) {
-		previewDiv.innerHTML = tinymceEditor.getContent();
-	} else {
-		previewDiv.innerHTML = textarea.value;
+	if (!element) {
+		return;
 	}
-	previewDiv.observe('click', function(event) {
+	var preview = null;
+	if (element.getElementsByTagName('textarea').length > 0) {
+		var textarea = element.getElementsByTagName('textarea')[0];
+		var preview = document.createElement('div');
+		preview.setAttribute('id', id + '-preview');
+		tinymceEditor = tinymce.get(textarea.id);
+		if (tinymceEditor) {
+			preview.innerHTML = tinymceEditor.getContent();
+		} else {
+			preview.innerHTML = textarea.value;
+		}
+	} else {
+		var textbox = element.getElementsByTagName('input')[0];
+		preview = document.createElement('span');
+		preview.setAttribute('id', id + '-preview');
+		if (textbox.value.length > 0) {
+			name = textbox.value.trim();
+			name = name.replace(/</g, '');
+			name = name.replace(/>/g, '');
+			preview.innerHTML = name;
+		} else {
+			preview.innerHTML = '&lt;không tên&gt;';
+		}
+	}
+	preview.observe('click', function(event) {
 		var elementId = this.id;
 		elementId = elementId.substring(0, elementId.length-8);
-//		alert(elementId);
 		Editor.edit(elementId);
 	});
 	element.hide();
 	$(id).insert({after: previewDiv});
+};
+// Script cho inputextfield
+Editor.ActiveTextField = null;
+
+Editor.previewTextField = function(id){
+	var element = $(id);
+	var textfield = element.getElementsByTagName('input')[0];
+	var textfieldId = textfield.id;
+	var prevSpan = document.createElement('span');
+	var content = '';
+	prevSpan.setAttribute('id',id + '-preview');
+	tinymceEditor = tinymce.get(textfield.id);
+	if (tinymceEditor) {
+		content = tinymceEditor.getContent();
+	} else {
+		content = textfield.value;
+	}
+	prevSpan.innerHTML = '(' + content + ' điểm): ';
+	prevSpan.observe('click',function(event){
+		var elementId = this.id;
+		elementId = elementId.substring(0,elementId.length-8);
+		Editor.EditTextField(elementId);
+	});
+	$(textfieldId).insert({after: prevSpan});
+	textfield.hide();
+};
+
+
+Editor.EditTextField = function(id){
+	var element = $(id);
+	var content ='';
+	if (!element) {
+		return;
+	}
+	if (Editor.ActiveTextField) {
+		Editor.previewTextField(Editor.ActiveTextField);
+	}
+	var previewSpan = $(id + '-preview');
+	if (previewSpan) {
+		content = previewSpan.textContent;
+		previewSpan.remove();
+	}
+	var textfields = element.getElementsByTagName('input');
+	if (textfields.length > 0) {
+		var textfield = textfields[0];
+		textfield.value = content.substring(1,content.length - 8);
+	}
+	textfield.show();
+	textfield.select();
+	Editor.active = id;
 };

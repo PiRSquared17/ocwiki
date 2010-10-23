@@ -2,6 +2,8 @@ package oop.data;
 
 import java.io.Serializable;
 
+import oop.util.Utils;
+
 public class TopicSet implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,4 +24,17 @@ public class TopicSet implements Serializable {
 		return rightIndex;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof TopicSet) {
+			return getResource().getId() == ((TopicSet) obj).getResource().getId();
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Utils.hashCode(getResource().getId());
+	}
+	
 }

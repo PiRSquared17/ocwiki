@@ -6,6 +6,13 @@
 <c:set var="test" value="${empty article ? action.article : article}"></c:set>
 <c:set var="i" value="1"></c:set>
 
+<div id = "Test-Content">
+	<textarea rows="5" cols="60" id="Test-content-${test.id}" onblur="SaveContent()">${test.content}</textarea>
+	<script type="text/javascript">
+		Editor.edit('Test-Content');
+	</script>	
+</div>
+
 <div>
 <c:set var="indexsection" value="0"></c:set>
 <input type="hidden" id="id-question-add" name="taq_question" 
@@ -14,8 +21,6 @@
 	<div id = "section-${indexsection}">
 		<div>
 		${section.content.text}<br>
-		<button type="button" onclick="Add_question(${indexsection})">Thêm</button>
-		<input type="text" id="id-question-add-${indexsection}"></input>
 		</div>
 		<p></p>
 		<c:set var="indexquestion" value="0"></c:set>
@@ -24,13 +29,13 @@
 	                onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
 		                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
 				<div class="question">			    
-			        <div class="question-number-wrapper" style="padding-bottom: 5px">
-						<b><ocw:articleLink resource="${question.baseContainer}">Câu ${indexquestion + 1}</ocw:articleLink></b>
+			        <div class="question-number-wrapper">
 						<div id = "${question.id}" style="margin-right: 10px">
-						<textarea id="question-${question.id}-textarea" rows="" cols=""> (${question.mark} điểm):</textarea>
-			            	<script type="text/javascript">
-			            		Editor.preview('${question.id}');
-			            	</script>
+							<b><ocw:articleLink resource="${question.baseContainer}">Câu ${indexquestion + 1}</ocw:articleLink></b>
+							<input type="text" id ="Mark-${question.id}" value = "${question.mark}" onblur="SpanOnclick(${indexsection}, ${indexquestion},${question.id})">
+							<script type="text/javascript">
+								Editor.previewTextField('${question.id}');
+							</script>
 			            </div>
 			        </div>
 			        <div class="buttons">
@@ -57,6 +62,11 @@
 			<c:set var="indexquestion" value="${indexquestion+1}"></c:set>
 		</c:forEach>
 		<div id ="add-section-${indexsection}"></div>
+		<form>
+			<button type="submit" onclick="Add_question(${indexsection}); return false;">Thêm</button>
+			<input type="text" id="id-question-add-${indexsection}"></input>
+			<span id = "Message-${indexsection}"></span>
+		</form>
 		<c:set var="indexsection" value="${indexsection+1}"></c:set>
 		<p>
 	</div>
@@ -69,23 +79,22 @@
 </div>
 
 <ocw:setJs var="questionTemplate">
-	<c:set var="question_temp" value="\#{question}"></c:set>
 	<div id="Delete-question-id\#{lastQuestionTest}" class="question-wrapper mouse-out"
                onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
                 onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
 		<div class="question-number-wrapper">
-            <b><ocw:articleLink resource="${question.baseContainer}">Câu \#{lastQuestion}</ocw:articleLink></b>
             <div id = "\#{question.id}" style="margin-right: 10px">
-			<textarea id="question-\#{question.id}-textarea" rows="1" cols="10"> (\#{question.mark} điểm):</textarea>
-           	<script type="text/javascript">
-           		Editor.preview('\#{question.id}');
-           	</script>
+				<b><a href="\#{link}">Câu \#{lastQuestion}</a></b>
+	            <input type="text" id ="Mark-\#{question.id}" value = "\#{question.mark}" onblur="SpanOnclick(\#{indexsection}, \#{indexquestion},\#{question.id})">
+				<script type="text/javascript">
+					Editor.previewTextField('\#{question.id}');
+				</script>
             </div>
         </div>
         <div class="buttons">
 	     	<img alt="" src="\#{templatePath}/images/wrong.png" onclick="del(\#{indexsection},\#{indexquestion},\#{lastQuestionTest})">
 	    </div>
-        <div class="question-content-wrapper">\#{question.content.text}</div>
+        <div class="question-content-wrapper">\#{question.baseResource.article.content.text}</div>
 		<div>
              <c:set var="j" value="0" />
              <div class="answer-list-wrapper" id="add-\#{lasQuestionTest}">
@@ -97,7 +106,7 @@
 
 <ocw:setJs var="deletedTemplate">
     <div id="question\#{index}-deleted" style="text-align: center;">
-        Lựa chọn đã bị xoá.
+        Câu hỏi đã bị xoá.
         <a href="#" onclick="undeleteQuestion(\#{indexsection},\#{indexquestion},\#{index}); return false;">Phục hồi</a>
     </div>
 </ocw:setJs>
@@ -113,15 +122,16 @@
 
 <ocw:setJs var="SectionTemplate">
 	<div id="section-\#{indexsection}">
-		\#{section_content}<br>
-		<button type="button" onclick="Add_question(\#{indexsection})">Thêm</button>
-		<input type="text" id="id-question-add-\#{indexsection}"></input>
+		<b>\#{section_content}</b><br>
 	</div>
-	<p></p>
 	<div id ="add-section-\#{indexsection}"></div>
+	<form>
+		<button type="submit" onclick="Add_question(\#{indexsection}); return false;">Thêm</button>
+		<input type="text" id="id-question-add-\#{indexsection}"></input>
+	</form>
 </ocw:setJs>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--
 DelTemplate = new Template('${deletedTemplate}');
 QuestionTempl = new Template('${questionTemplate}');
 AnswerTempl = new Template('${answerTemplate}');
@@ -178,7 +188,14 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		}
 		var id_question_add = 'id-question-add-' + Nosection;
 		var questionId = $F('id-question-add');
-		var mark = 1;
+		var mark = parseFloat('1.0');
+		if (checkId(questionId)){
+			$('Message-' + Nosection).innerHTML = 'Câu hỏi đã tồn tại trong bài kiểm tra!';
+			return;
+		}
+		else{
+			$('Message-' + Nosection).innerHTML = '';
+		}
 		new Ajax.Request(restPath + '/questions/' + $F('id-question-add'),{
 			method:'get',
 			requestHeaders : {
@@ -192,6 +209,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		      var section = test.sections[Nosection];
 		      var add_question='add-section-'+Nosection;
 		      var answers='';
+		      var lienket = 'http://localhost:8080/tracnghiem/article/' + questionId;
 		      for(index=0;index<answer.length;index++){
 			      var content = answer[index].content.text;
 			      var u_index = st_char.charAt(index);
@@ -201,7 +219,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		      }
 		      var data={"question":question_of_section,"lastQuestion":ques_length,
 				      "indexsection":Nosection,"templatePath":templatePath,"answers":answers,"indexquestion": ques_length - 1,
-				      "lastQuestionTest":lastQuestion};
+				      "lastQuestionTest":lastQuestion,"link":lienket};
 		      $(add_question).insert({before: QuestionTempl.evaluate(data)});
 		      lastQuestion++;
 		      test.sections[Nosection].questions[ques_length - 1] = question;
@@ -217,6 +235,61 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	EditAction.preview = function(){
 	}
 	EditAction.save = function(){
+		// Lay cac cau hoi cua test
+		var i,j;
+		var newtest;
+		var newsection,section;
+		var length_sec = test.sections.length;
+		var question_length;
+		var newquestion;
+		var content;
+		var indexquestion = 0;
+		var indexsection = 0;
+		newsection =  new Array();
+		section = new Object();
+		for (i = 0; i< length_sec; i++){
+			question_length = test.sections[i].questions.length;
+			if (question_length == 0) continue;
+			newquestion = new Array();
+			indexquestion = 0;
+			for (j = 0; j < question_length; j++)
+				if (test.sections[i].questions[j].deleted != true){
+					newquestion[indexquestion] = test.sections[i].questions[j];
+					indexquestion++;
+				}
+			section.questions = newquestion;
+			newsection[indexsection] = section;
+			indexsection++;
+		}
+		test.sections = newsection;
+		// Lay thong tin bai kiem tra
+		content = tinymce.get('Test-content-' + test.id).getContent();
+		test.content = content;
+		new Ajax.Request(restPath + '/tests/' + resourceId,
+			    {
+			      method:'post',
+			      requestHeaders : {
+			          Accept : 'application/json'
+			      },
+			      contentType: 'application/json',
+			      postBody: Object.toJSON({
+			          article: test,
+			          summary: $F('articleEdit-summary'),
+			          minor: $('articleEdit-minor').checked
+			      }),
+			      evalJSON: true,
+			      onSuccess: function(transport) {
+			          location.href = articlePath + '/' + resourceId;
+			      },
+			      onFailure: function(transport) {
+			    	  var code = transport.responseJSON.code;
+			          if (code == 'old version') {
+			              alert('old version');
+			          } else {
+			        	  $('articleEdit-error').innerHTML = 'Lỗi không rõ: ' + code;
+			          }
+			      }
+			    });
 	}
 
 	function template(){
@@ -257,5 +330,33 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 				$('id-question-add').value = data;
 	        }
 	    });	
+	}
+	function SaveContent(){
+		alert("Ngon!");
+	}
+
+	function SpanOnclick(indexsection, indexquestion, questionId){
+		var id = 'Mark-' + questionId;
+		//var DivId = id.substring(0,id.length - 2);
+		if (!isNumber($(id).value)){
+			//$(id).focus();
+			return;
+		}
+		var mark = parseInt($(id).value);
+		test.sections[indexsection].questions[indexquestion].mark = mark;
+		Editor.previewTextField('' + questionId);
+	}
+	function checkId(id){
+		var i,j;
+		for (i = 0; i<test.sections.length; i++)
+			for (j = 0; j<test.sections[i].questions.length; j++){
+				if (test.sections[i].questions[j].id == id ) return true;
+			}
+		return false;
+	}
+	function isNumber(num){
+		var exp = /^[0-9]+(\.[0-9]+)?$/;
+		if (exp.test(num)) return true;
+		else return false;
 	}
 </script>

@@ -5,12 +5,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class RevisionBean {
+public class RevisionBean<T extends ArticleBean> {
 
 	private long id;
 	private ResourceReferenceBean resource;
-	private ArticleReferenceBean article;
-	private UserBean author;
+	private T article;
+	private UserReferenceBean author;
 	private Date timestamp;
 	private String summary;
 	private boolean minor;
@@ -26,19 +26,19 @@ public class RevisionBean {
 		this.id = id;
 	}
 
-	public ArticleReferenceBean getArticle() {
+	public T getArticle() {
 		return article;
 	}
 
-	public void setArticle(ArticleReferenceBean article) {
+	public void setArticle(T article) {
 		this.article = article;
 	}
 
-	public UserBean getAuthor() {
+	public UserReferenceBean getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(UserBean author) {
+	public void setAuthor(UserReferenceBean author) {
 		this.author = author;
 	}
 

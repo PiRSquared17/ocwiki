@@ -6,7 +6,7 @@ import oop.persistence.HibernateUtil;
 public class UserReferenceMapper implements Mapper<UserReferenceBean, User> {
 
 	@Override
-	public UserReferenceBean apply(User value) {
+	public UserReferenceBean toBean(User value) {
 		UserReferenceBean bean = new UserReferenceBean();
 		bean.setId(value.getId());
 		bean.setName(value.getName());
@@ -15,7 +15,7 @@ public class UserReferenceMapper implements Mapper<UserReferenceBean, User> {
 	}
 
 	@Override
-	public User get(UserReferenceBean value) {
+	public User toEntity(UserReferenceBean value) {
 		if (value == null) {
 			return null;
 		}

@@ -33,8 +33,9 @@
 	var resource;
 	var resourceID = ${action.resource.id};
 	var timeout;
-	new Ajax.Request(restPath + '/resource/'+ resourceID,
-		{
+
+	function initEditTools() {
+		new Ajax.Request(restPath + '/resource/'+ resourceID, {
 			method:'get',
 			requestHeaders : 
 			{
@@ -50,6 +51,7 @@
 				openInfoDialog("resourceID không chính xác!");
 			}
 		});
+	}
 
 	function lockArticle()
 	{
@@ -128,4 +130,6 @@
 	 	else
 	  		Dialog.closeInfo();
 	}
+
+	Event.observe(window, 'load', initEditTools);
 </script>

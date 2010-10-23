@@ -9,9 +9,6 @@ resourceId = ${action.resource.id};
 //-->
 </script>
 
-<h1>Sửa ${action.resource.qualifiedName}</h1>
-<hr />
-
 <form>
     <jsp:include page="/includes/${type.simpleName}.edit.jsp"></jsp:include>
 
