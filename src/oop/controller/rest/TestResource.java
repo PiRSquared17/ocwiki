@@ -17,12 +17,12 @@ import oop.controller.rest.bean.RevisionBean;
 import oop.controller.rest.bean.SectionBean;
 import oop.controller.rest.bean.TestBean;
 import oop.controller.rest.bean.TestMapper;
+import oop.controller.rest.bean.TextBean;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Resource;
 import oop.data.ResourceSearchReport;
 import oop.data.Test;
-import oop.data.Text;
 import oop.db.dao.ArticleDAO;
 import oop.db.dao.ResourceDAO;
 
@@ -113,7 +113,7 @@ public class TestResource extends AbstractResource {
 
 	private void validate(TestBean bean) {
 		WebServiceUtils.assertValid(bean != null, "test is empty");
-		WebServiceUtils.assertValid(Text.isNotBlank(bean.getContent()),
+		WebServiceUtils.assertValid(TextBean.isNotBlank(bean.getContent()),
 				"test content is blank");
 		WebServiceUtils.assertValid(
 				CollectionUtils.size(bean.getSections()) > 0,
@@ -121,7 +121,7 @@ public class TestResource extends AbstractResource {
 		for (SectionBean section : bean.getSections()) {
 			WebServiceUtils.assertValid(CollectionUtils.size(section
 					.getQuestions()) > 0, "too little questions");
-			WebServiceUtils.assertValid(Text.isNotBlank(section.getContent()),
+			WebServiceUtils.assertValid(TextBean.isNotBlank(section.getContent()),
 					"section content is blank");
 			for (QuestionBean question : section.getQuestions()) {
 				WebServiceUtils.assertValid(question != null
@@ -131,5 +131,4 @@ public class TestResource extends AbstractResource {
 			}
 		}
 	}
-
 }

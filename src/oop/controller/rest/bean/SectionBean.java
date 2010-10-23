@@ -5,13 +5,11 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import oop.data.Text;
-
 @XmlRootElement
 public class SectionBean {
 
 	private long id;
-	private Text content;
+	private TextBean content;
 	private List<QuestionBean> questions = new ArrayList<QuestionBean>();
 
 	public SectionBean() {
@@ -25,11 +23,11 @@ public class SectionBean {
 		this.id = id;
 	}
 
-	public Text getContent() {
+	public TextBean getContent() {
 		return content;
 	}
 
-	public void setContent(Text content) {
+	public void setContent(TextBean content) {
 		this.content = content;
 	}
 

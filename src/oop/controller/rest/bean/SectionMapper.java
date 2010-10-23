@@ -8,7 +8,7 @@ public class SectionMapper implements Mapper<SectionBean, Section> {
 	public SectionBean toBean(Section value) {
 		SectionBean bean = new SectionBean();
 		bean.setId(value.getId());
-		bean.setContent(value.getContent());
+		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		MapperUtils.toBeans(bean.getQuestions(), value.getQuestions(),
 				QuestionMapper.get());
 		return bean;
@@ -18,7 +18,7 @@ public class SectionMapper implements Mapper<SectionBean, Section> {
 	public Section toEntity(SectionBean value) {
 		Section entity = new Section();
 		entity.setId(value.getId());
-		entity.setContent(value.getContent());
+		entity.setContent(TextMapper.get().toEntity(value.getContent()));
 		MapperUtils.toEntities(value.getQuestions(), entity.getQuestions(),
 				QuestionMapper.get());
 		return entity;

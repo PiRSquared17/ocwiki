@@ -12,7 +12,7 @@ public class TextArticleMapper implements Mapper<TextArticleBean, TextArticle> {
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setNamespace(value.getNamespace());
-		bean.setContent(value.getContent());
+		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toBeans(bean.getTopics(), value.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
@@ -27,7 +27,7 @@ public class TextArticleMapper implements Mapper<TextArticleBean, TextArticle> {
 		entity.setId(value.getId());
 		entity.setName(value.getName());
 		entity.setNamespace(value.getNamespace());
-		entity.setContent(value.getContent());
+		entity.setContent(TextMapper.get().toEntity(value.getContent()));
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toEntities(value.getTopics(), entity.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
