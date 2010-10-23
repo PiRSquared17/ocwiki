@@ -14,8 +14,8 @@
 	var curPage = 0;
 	var pageCount = 0;
 	var commentCount = 0;
-	loadLatest();
-	
+
+	Event.observe(window, 'load', loadLatest);	
 
 	//load comments
 	function loadLatest(){
@@ -32,8 +32,8 @@
 					onSuccess : function(transport) {
 						//alert(transport.responseText);
 						var listResult = transport.responseJSON;
-						commentCount = listResult.count;
-						pageCount = getPageCount(listResult.count);
+						commentCount = listResult.totalCount;
+						pageCount = getPageCount(listResult.totalCount);
 						curPage = pageCount-1;
 						
 						comments = listResult.result;
@@ -53,9 +53,9 @@
 							}
 						}
 					},
-				    onFailure: function()
+				    onFailure: function(transport)
 				    { 
-						$('commentslist').innerHTML = 'Gặp lỗi khi tải nhận xét!';
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}
 			);
@@ -151,9 +151,7 @@
 						$('commentunhide'+lid).hide();
 					},
 				    onFailure: function(transport){ 
-					    if (transport.responseJSON.code == '') {
-						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
-					    }
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);
@@ -188,9 +186,7 @@
 						$('commentunhide'+lhid).hide();
 					},
 				    onFailure: function(transport){ 
-					    if (transport.responseJSON.code == '') {
-						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
-					    }
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);
@@ -225,9 +221,7 @@
 						$('commentunlike'+hid).hide();
 					},
 				    onFailure: function(transport){ 
-					    if (transport.responseJSON.code == '') {
-						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
-					    }
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);

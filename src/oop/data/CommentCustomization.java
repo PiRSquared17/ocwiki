@@ -5,11 +5,13 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.ObjectUtils;
+
 @XmlRootElement
 public class CommentCustomization implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@XmlElement
 	private User user;
 	private Comment comment;
@@ -17,11 +19,11 @@ public class CommentCustomization implements Serializable {
 
 	public CommentCustomization() {
 	}
-	
+
 	public CommentCustomization(Comment comment, User user) {
 		this(comment, user, CommentStatus.NORMAL);
 	}
-	
+
 	public CommentCustomization(Comment comment, User user, CommentStatus status) {
 		super();
 		this.user = user;
@@ -46,7 +48,7 @@ public class CommentCustomization implements Serializable {
 	public Comment getComment() {
 		return comment;
 	}
-	
+
 	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
@@ -55,6 +57,21 @@ public class CommentCustomization implements Serializable {
 	public String toString() {
 		return "customization: {comment: " + getComment().getId() + ", user: "
 				+ getUser().getId() + ", status: " + getStatus().name() + "}";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof CommentCustomization) {
+			CommentCustomization cc = (CommentCustomization) obj;
+			return ObjectUtils.equals(comment, cc.comment)
+					&& ObjectUtils.equals(user, cc.user);
+		}
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return ObjectUtils.hashCode(comment) ^ ObjectUtils.hashCode(user);
 	}
 	
 }

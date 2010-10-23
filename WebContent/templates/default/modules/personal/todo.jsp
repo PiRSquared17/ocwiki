@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/includes/common.jsp" %>
 
-<c:if test="">
+<c:if test="${sessionScope.login}">
 	<div>Đánh dấu bài cần làm:
 	   <button onclick="Li_To_Le(0)" id="todo">Bài cần làm</button>
 	</div>
 	<div>Độ khó:
 	    <select onchange="Li_To_Le(1)" id="Level">
+	        <option label="Bình thường" value="-1">Bình thường</option>
 	        <option label="Khó" value="0">Khó</option>
 	        <option label="Dễ" value="1">Dễ</option>
 	    </select>
@@ -23,65 +24,72 @@
 	var resource = {id: resourceID};
 	var resourcereport = null;
 	var login = ${sessionScope.login};
-	new Ajax.Request(restPath + '/resource_reports/' + resourceID,
-	{
-		method: 'get',
-		requestHeader:{
-			Accept: 'application/json'
-		},
-		evalJSON : true,
-		onSuccess : function(transport) {
-			  resourcereport = transport.responseJSON.result;
-			  var userId = resourcereport.user;
-			  $('LikeCount').innerHTML = resourcereport.likeCount;
-			  $('LikeCount').value = resourcereport.likeCount;
-		},
-		onFailure: function(){
-		  alert('Fail'); }
-	});
-	if (login)
-	new Ajax.Request(restPath + '/resource_customizations/' + resourceID,
-			{
-				method: 'get',
-				requestHeader:{
-					Accept: 'application/json'
-				},
-				evalJSON : true,
-				onSuccess : function(transport) {
-					  try{
-						  resourcereport = transport.responseJSON.result;
-						  var like = resourcereport.like;
-						  var todo = resourcereport.todo;
-						  if ((like != null)&&(like != 'NORMAL')){
-							  $('Like_button').innerHTML = 'Không thích';
-							  $('Like_button').value = 'Unlike';
+
+	Event.observe(window, 'load', function() {
+		new Ajax.Request(restPath + '/resource_reports/' + resourceID,
+		{
+			method: 'get',
+			requestHeader:{
+				Accept: 'application/json'
+			},
+			evalJSON : true,
+			onSuccess : function(transport) {
+				  resourcereport = transport.responseJSON.result;
+				  var userId = resourcereport.user;
+				  $('LikeCount').innerHTML = resourcereport.likeCount;
+				  $('LikeCount').value = resourcereport.likeCount;
+			},
+			onFailure: function(transport) {
+	            DefaultTemplate.onFailure(transport); 
+	        }
+		});
+		if (login)
+		new Ajax.Request(restPath + '/resource_customizations/' + resourceID,
+				{
+					method: 'get',
+					requestHeader:{
+						Accept: 'application/json'
+					},
+					evalJSON : true,
+					onSuccess : function(transport) {
+						  try{
+							  resourcereport = transport.responseJSON.result;
+							  var like = resourcereport.like;
+							  var todo = resourcereport.todo;
+							  if ((like != null)&&(like != 'NORMAL')){
+								  $('Like_button').innerHTML = 'Không thích';
+								  $('Like_button').value = 'Unlike';
+							  }
+							  else{
+								  $('Like_button').innerHTML = 'Thích';
+								  $('Like_button').value = 'Like';
+							  }
+							  if ((todo != null)&&(todo != 'NORMAL')){
+								  $('todo').innerHTML = 'Không cần làm';
+								  $('todo').value = 'untodo';
+							  }
+							  else{
+								  $('todo').innerHTML = 'Bài cần làm';
+								  $('todo').value = 'todo';
+							  }
 						  }
-						  else{
+						  catch(ex){
 							  $('Like_button').innerHTML = 'Thích';
 							  $('Like_button').value = 'Like';
-						  }
-						  if ((todo != null)&&(todo != 'NORMAL')){
-							  $('todo').innerHTML = 'Không cần làm';
-							  $('todo').value = 'untodo';
-						  }
-						  else{
 							  $('todo').innerHTML = 'Bài cần làm';
 							  $('todo').value = 'todo';
 						  }
-					  }
-					  catch(ex){
-						  $('Like_button').innerHTML = 'Thích';
-						  $('Like_button').value = 'Like';
-						  $('todo').innerHTML = 'Bài cần làm';
-						  $('todo').value = 'todo';
-					  }
-				},
-				onFailure: function(transport){
-				  alert('Fail'); }
-			});
+					},
+					onFailure: function(transport) {
+			            DefaultTemplate.onFailure(transport); 
+			        }
+				});
+	});
+	
 	function Todo(){
 		alert(resourceID);
 	}
+	
 	function Li_To_Le(type){
 		var userId = resourcereport.user;
 		//var user = {id: userId};
@@ -147,8 +155,9 @@
 					default:
 					}
 				},
-				onFailure: function(){
-				  alert('Fail'); }
+				onFailure: function(transport) {
+		            DefaultTemplate.onFailure(transport); 
+		        }
 			});
 	}
 	function Level(){

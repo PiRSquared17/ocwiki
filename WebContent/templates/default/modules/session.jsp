@@ -25,6 +25,18 @@
         <ul class="level2 dropdown">
             <c:if test="${not empty config.facebookAppId}">
 	            <li><a href="#" onclick="fblogin(); return false;">FaceBook</a></li>
+	            <script type="text/javascript">
+				<!--
+				Event.observe(window, 'load', function() {
+				    FB.init({
+				        appId: '${config.facebookAppId}', 
+				        status: true, 
+				        cookie: true, 
+				        xfbml: true
+				    });
+				}
+				//-->
+				</script>
             </c:if>
             <li><a href="#" onclick="return false;">Google</a></li>
             <li><a href="#" onclick="return false;">Yahoo</a></li>
@@ -61,12 +73,6 @@ Element.observe(window, 'load', function() {
     });
    	guessToolbar = new Menu('guest-toolbar-root', 'guessToolbar', function() {
         this.closeDelayTime = 300;
-    });
-    FB.init({
-        appId: '${config.facebookAppId}', 
-        status: true, 
-        cookie: true, 
-        xfbml: true
     });
 });
 
@@ -116,6 +122,8 @@ function session_login() {
 					$('session_nameError').innerHTML = 'Người dùng không tồn tại';
 				} else if (code == 'account blocked') {
 					$('session_nameError').innerHTML = 'Tài khoản đã bị khoá';
+				} else {
+				    DefaultTemplate.onFailure(transport); 
 				}
 			}
 		});
@@ -141,6 +149,8 @@ function fblogin() {
                           var code = transport.responseJSON.code;
                           if (code == 'account blocked') {
                               alert('Tài khoản của bạn đã bị khoá.');
+                          } else {
+                              DefaultTemplate.onFailure(transport); 
                           }
                       }
                   });

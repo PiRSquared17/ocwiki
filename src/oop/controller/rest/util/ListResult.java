@@ -14,7 +14,7 @@ public class ListResult<T> {
 	
 	public Collection<T> result;
 	public String next;
-	public long count;
+	public long totalCount;
 	
 	ListResult() {
 	}
@@ -29,11 +29,11 @@ public class ListResult<T> {
 		this.next = (next == null ? null : Config.get().getRestPath() + next);
 	}
 	
-	public ListResult(Collection<T> result, String next, long count) {
+	public ListResult(Collection<T> result, String next, long totalCount) {
 		super();
 		this.result = result;
 		this.next = (next == null ? null : Config.get().getRestPath() + next);
-		this.count = count;
+		this.totalCount = totalCount;
 	}
 	
 }

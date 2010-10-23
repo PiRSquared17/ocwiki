@@ -11,17 +11,20 @@
 
 <jsp:doBody var="body" />
 <c:choose>
-    <c:when test="${empty revision}">
+    <c:when test="${not empty revision}">
+        <c:set var="url" value="${homeDir}/article/revision/${revision.id}"></c:set>
+        <c:if test="${empty fn:trim(body)}">
+            <c:set var="body" value="${revision.resource.name}"></c:set>
+        </c:if>
+    </c:when>
+    <c:when test="${not empty resource}">
         <c:set var="url" value="${homeDir}/article/${resource.id}"></c:set>
 		<c:if test="${empty fn:trim(body)}">
-		    <c:set var="body" value="${resource.article.name}"></c:set>
+		    <c:set var="body" value="${resource.name}"></c:set>
 		</c:if>
     </c:when>
     <c:otherwise>
-        <c:set var="url" value="${homeDir}/article/revision/${revision.id}"></c:set>
-        <c:if test="${empty fn:trim(body)}">
-            <c:set var="body" value="${revision.article.name}"></c:set>
-        </c:if>
+        error! no resource or revision specified.
     </c:otherwise>
 </c:choose>
 

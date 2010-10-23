@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Lớp đóng gói dữ liệu văn bản (không thay đổi được). 
@@ -17,6 +20,7 @@ public class Text implements Entity, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private long id;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String text;
 
 	/**

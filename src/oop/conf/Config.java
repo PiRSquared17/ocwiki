@@ -22,6 +22,7 @@ public class Config implements Serializable {
 	private String username = "root";
 	private String password = "root";
 	private String homeDir = "http://localhost:8080";
+	private String luceneIndexDirectory = "WEB-INF/lucene/indexes";
 	private String articlePath = "${homeDir}/article";
 	private String actionPath = "${homeDir}/action";
 	private String apiPath = "${homeDir}/api";
@@ -350,6 +351,14 @@ public class Config implements Serializable {
 
 	public boolean isUseCDN() {
 		return useCDN;
+	}
+
+	public void setLuceneIndexDirectory(String luceneIndexDirectory) {
+		this.luceneIndexDirectory = luceneIndexDirectory;
+	}
+
+	public String getLuceneIndexDirectory() {
+		return luceneIndexDirectory;
 	}
 	
 }
