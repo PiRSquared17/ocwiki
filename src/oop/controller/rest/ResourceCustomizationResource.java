@@ -16,9 +16,9 @@ import oop.db.dao.ResourceCustomizationDAO;
 import oop.db.dao.ResourceDAO;
 
 
-@Path(LikeResource.PATH)
-public class LikeResource extends AbstractResource {
-	public static final  String PATH="/LikeArticle";
+@Path(ResourceCustomizationResource.PATH)
+public class ResourceCustomizationResource extends AbstractResource {
+	public static final  String PATH="/resource_customizations";
 	
 	@GET
 	@Path("/{id: \\d+}")

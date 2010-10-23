@@ -31,13 +31,13 @@ public class TopicTest extends HibernateTest {
 
 	@Test
 	public void testUncategorized() {
-		List<Resource<Topic>> topics = TopicDAO.fetchUncategorized();
+		List<Resource<Topic>> topics = TopicDAO.fetchUncategorized(0, 3);
 		System.out.println(topics.size());
 	}
 	
 	@Test
 	public void testUnused() {
-		List<Resource<Topic>> topics = TopicDAO.fetchUnused();
+		List<Resource<Topic>> topics = TopicDAO.fetchUnused(0, 3);
 		System.out.println(topics.size());
 	}
 	

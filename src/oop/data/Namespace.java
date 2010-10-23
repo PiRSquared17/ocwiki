@@ -3,6 +3,10 @@ package oop.data;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
+
 @XmlRootElement
 public class Namespace implements Entity {
 
@@ -18,6 +22,7 @@ public class Namespace implements Entity {
 	@XmlElement
 	private long id;
 	@XmlElement
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
 
 	Namespace() {

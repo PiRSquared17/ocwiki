@@ -2,6 +2,7 @@ package oop.db.dao;
 
 import java.util.List;
 
+import oop.data.Comment;
 import oop.data.CommentReport;
 import oop.data.User;
 import oop.persistence.HibernateUtil;
@@ -67,6 +68,18 @@ public class CommentReportDAO {
 		query.setFirstResult((int) (count - start - size));
 		query.setMaxResults(size);
 		return query.list();
+	}
+	
+	//Hacon tu viet
+	public static CommentReport fetch(long commentId, User user) {
+		Session session = HibernateUtil.getSession();
+		Query query;
+		String hql = "from CommentReportWithUser "
+			+ "where comment.id = :crid and user = :user";
+		query = session.createQuery(hql);
+		query.setEntity("user", user);
+		query.setLong("crid", commentId);		
+		return (CommentReport) query.uniqueResult();
 	}
 
 }

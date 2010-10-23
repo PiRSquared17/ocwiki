@@ -7,10 +7,15 @@ import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
+@Indexed
 @XmlRootElement
 public class BaseQuestion extends BaseArticle {
 
 	private int level;
+	@IndexedEmbedded
 	private List<Answer> answers = new ArrayList<Answer>();
 
 	public BaseQuestion() {
@@ -85,6 +90,11 @@ public class BaseQuestion extends BaseArticle {
 	
 	public BaseQuestion copy() {
 		return copyTo(new BaseQuestion());
+	}
+	
+	@Override
+	public String toString() {
+		return "BaseQuestion #" + getId();
 	}
 
 }

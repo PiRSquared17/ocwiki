@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 03, 2010 at 01:29 AM
+-- Generation Time: Oct 09, 2010 at 01:43 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.2-1ubuntu4.5
 
@@ -22,23 +22,22 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwAnswer`
+-- Table structure for table `Answer`
 --
 
-DROP TABLE IF EXISTS `ocwAnswer`;
-CREATE TABLE IF NOT EXISTS `ocwAnswer` (
+CREATE TABLE IF NOT EXISTS `Answer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) NOT NULL,
   `correct` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK81F532C1EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1294 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1304 ;
 
 --
--- Dumping data for table `ocwAnswer`
+-- Dumping data for table `Answer`
 --
 
-INSERT INTO `ocwAnswer` (`id`, `content`, `correct`) VALUES
+INSERT INTO `Answer` (`id`, `content`, `correct`) VALUES
 (321, 56, b'0'),
 (322, 57, b'0'),
 (323, 58, b'0'),
@@ -1010,16 +1009,55 @@ INSERT INTO `ocwAnswer` (`id`, `content`, `correct`) VALUES
 (1290, 1786, b'0'),
 (1291, 1787, b'0'),
 (1292, 1788, b'1'),
-(1293, 1789, b'0');
+(1293, 1789, b'0'),
+(1294, 1791, b'1'),
+(1295, 1792, b'0'),
+(1296, 1795, b'0'),
+(1297, 1796, b'0'),
+(1298, 1797, b'1'),
+(1299, 1798, b'0'),
+(1300, 1800, b'0'),
+(1301, 1801, b'0'),
+(1302, 1802, b'1'),
+(1303, 1803, b'0');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwArticle`
+-- Table structure for table `AnswerAttempt`
 --
 
-DROP TABLE IF EXISTS `ocwArticle`;
-CREATE TABLE IF NOT EXISTS `ocwArticle` (
+CREATE TABLE IF NOT EXISTS `AnswerAttempt` (
+  `timestamp` datetime NOT NULL,
+  `question` bigint(20) NOT NULL,
+  `USER` bigint(20) NOT NULL,
+  `CORRECT` bit(1) NOT NULL,
+  PRIMARY KEY (`timestamp`),
+  KEY `FKD6EACCCC190692FA` (`question`),
+  KEY `FKD6EACCCCB1E4DD9C` (`USER`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
+
+--
+-- Dumping data for table `AnswerAttempt`
+--
+
+INSERT INTO `AnswerAttempt` (`timestamp`, `question`, `USER`, `CORRECT`) VALUES
+('2010-10-09 01:35:04', 93, 1, b'1'),
+('2010-10-09 01:35:14', 93, 1, b'1'),
+('2010-10-09 01:36:19', 93, 1, b'1'),
+('2010-10-09 01:36:58', 93, 1, b'1'),
+('2010-10-09 01:38:17', 93, 1, b'1'),
+('2010-10-09 01:42:35', 90, 1, b'1'),
+('2010-10-09 01:42:39', 90, 1, b'0'),
+('2010-10-09 01:42:41', 90, 1, b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Article`
+--
+
+CREATE TABLE IF NOT EXISTS `Article` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `discriminator` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
   `namespace` bigint(20) NOT NULL,
@@ -1030,18 +1068,24 @@ CREATE TABLE IF NOT EXISTS `ocwArticle` (
   `type` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
   `filename` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `author` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT 'UNKNOWN',
+  `license` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT 'UNKNOWN',
+  `date_of_work` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `original_source` varchar(100) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT 'UNKNOWN',
+  `description` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT 'UNKNOWN',
+  `additional_info` varchar(100) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT 'UNKNOWN',
   PRIMARY KEY (`id`),
   KEY `FKC38C3A537D807870` (`namespace`),
   KEY `FKC38C3A5348AB9093` (`parent`),
   KEY `FKC38C3A53EA647FAC` (`content`),
   KEY `FKC38C3A53232F5FBE` (`parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=596 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=602 ;
 
 --
--- Dumping data for table `ocwArticle`
+-- Dumping data for table `Article`
 --
 
-INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`, `parent`, `level`, `type`, `time`, `filename`) VALUES
+INSERT INTO `Article` (`id`, `discriminator`, `namespace`, `content`, `name`, `parent`, `level`, `type`, `time`, `filename`) VALUES
 (62, 'Test', 4, 1644, 'Tiếng Anh khối D 100504203707', NULL, NULL, 'MUL', 180, NULL),
 (63, 'Test', 4, 1645, 'Tiếng Anh khối D 100504203750', NULL, NULL, 'MUL', 180, NULL),
 (64, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL),
@@ -1287,8 +1331,8 @@ INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`,
 (416, 'BaseQuestion', 3, 1281, NULL, NULL, 2, NULL, NULL, NULL),
 (417, 'BaseQuestion', 3, 1282, NULL, NULL, 1, NULL, NULL, NULL),
 (418, 'BaseQuestion', 3, 1283, NULL, NULL, 2, NULL, NULL, NULL),
-(419, 'BaseQuestion', 0, 1649, '#0', NULL, 1, NULL, NULL, NULL),
-(420, 'BaseQuestion', 0, 1650, '#0', NULL, 1, NULL, NULL, NULL),
+(419, 'BaseQuestion', 3, 1649, NULL, NULL, 1, NULL, NULL, NULL),
+(420, 'BaseQuestion', 3, 1650, NULL, NULL, 1, NULL, NULL, NULL),
 (466, 'Text', 0, 1696, 'Đôi điều về hình học phi Ơclit', NULL, NULL, NULL, NULL, NULL),
 (475, 'Topic', 2, 1699, 'Khoa học tự nhiên', NULL, NULL, NULL, NULL, NULL),
 (476, 'Topic', 2, 1700, 'Toán học', 461, NULL, NULL, NULL, NULL),
@@ -1403,16 +1447,21 @@ INSERT INTO `ocwArticle` (`id`, `discriminator`, `namespace`, `content`, `name`,
 (592, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
 (593, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
 (594, 'BaseQuestion', 3, NULL, 'Câu hỏi mới', NULL, 0, NULL, NULL, NULL),
-(595, 'BaseQuestion', 3, 1785, NULL, NULL, 4, NULL, NULL, NULL);
+(595, 'BaseQuestion', 3, 1785, NULL, NULL, 4, NULL, NULL, NULL),
+(596, 'BaseQuestion', 3, 1790, NULL, NULL, 4, NULL, NULL, NULL),
+(597, 'BaseQuestion', 3, 1793, NULL, NULL, 4, NULL, NULL, NULL),
+(598, 'Topic', 2, NULL, 'Chủ đề mới', NULL, NULL, NULL, NULL, NULL),
+(599, 'Test', 3, NULL, 'Đề thi mới', NULL, NULL, NULL, 0, NULL),
+(600, 'BaseQuestion', 3, 1794, NULL, NULL, 1, NULL, NULL, NULL),
+(601, 'BaseQuestion', 3, 1799, NULL, NULL, 2, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwArticleAttachment`
+-- Table structure for table `ArticleAttachment`
 --
 
-DROP TABLE IF EXISTS `ocwArticleAttachment`;
-CREATE TABLE IF NOT EXISTS `ocwArticleAttachment` (
+CREATE TABLE IF NOT EXISTS `ArticleAttachment` (
   `article_id` bigint(20) NOT NULL,
   `file_id` bigint(20) NOT NULL,
   PRIMARY KEY (`article_id`,`file_id`),
@@ -1421,18 +1470,17 @@ CREATE TABLE IF NOT EXISTS `ocwArticleAttachment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwArticleAttachment`
+-- Dumping data for table `ArticleAttachment`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwArticleEmbed`
+-- Table structure for table `ArticleEmbed`
 --
 
-DROP TABLE IF EXISTS `ocwArticleEmbed`;
-CREATE TABLE IF NOT EXISTS `ocwArticleEmbed` (
+CREATE TABLE IF NOT EXISTS `ArticleEmbed` (
   `article_id` bigint(20) NOT NULL,
   `file_id` bigint(20) NOT NULL,
   PRIMARY KEY (`article_id`,`file_id`),
@@ -1441,18 +1489,17 @@ CREATE TABLE IF NOT EXISTS `ocwArticleEmbed` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwArticleEmbed`
+-- Dumping data for table `ArticleEmbed`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwArticleTopic`
+-- Table structure for table `ArticleTopic`
 --
 
-DROP TABLE IF EXISTS `ocwArticleTopic`;
-CREATE TABLE IF NOT EXISTS `ocwArticleTopic` (
+CREATE TABLE IF NOT EXISTS `ArticleTopic` (
   `article_id` bigint(20) NOT NULL,
   `topic_id` bigint(20) NOT NULL,
   PRIMARY KEY (`article_id`,`topic_id`),
@@ -1461,10 +1508,10 @@ CREATE TABLE IF NOT EXISTS `ocwArticleTopic` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwArticleTopic`
+-- Dumping data for table `ArticleTopic`
 --
 
-INSERT INTO `ocwArticleTopic` (`article_id`, `topic_id`) VALUES
+INSERT INTO `ArticleTopic` (`article_id`, `topic_id`) VALUES
 (62, 504),
 (62, 516),
 (62, 520),
@@ -1733,16 +1780,19 @@ INSERT INTO `ocwArticleTopic` (`article_id`, `topic_id`) VALUES
 (581, 504),
 (582, 504),
 (583, 504),
-(595, 504);
+(595, 504),
+(596, 504),
+(597, 504),
+(600, 504),
+(601, 504);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwBaseQuestionAnswer`
+-- Table structure for table `BaseQuestionAnswer`
 --
 
-DROP TABLE IF EXISTS `ocwBaseQuestionAnswer`;
-CREATE TABLE IF NOT EXISTS `ocwBaseQuestionAnswer` (
+CREATE TABLE IF NOT EXISTS `BaseQuestionAnswer` (
   `question_id` bigint(20) NOT NULL,
   `answer_id` bigint(20) NOT NULL,
   `answer_index` int(11) NOT NULL,
@@ -1752,10 +1802,10 @@ CREATE TABLE IF NOT EXISTS `ocwBaseQuestionAnswer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwBaseQuestionAnswer`
+-- Dumping data for table `BaseQuestionAnswer`
 --
 
-INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`) VALUES
+INSERT INTO `BaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`) VALUES
 (88, 321, 0),
 (88, 322, 1),
 (88, 323, 2),
@@ -2764,18 +2814,33 @@ INSERT INTO `ocwBaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`)
 (583, 1288, 1),
 (584, 1289, 1),
 (595, 1290, 0),
+(596, 1290, 0),
+(597, 1290, 0),
 (595, 1291, 1),
 (595, 1292, 2),
-(595, 1293, 3);
+(595, 1293, 3),
+(596, 1293, 3),
+(597, 1293, 3),
+(596, 1294, 1),
+(597, 1294, 1),
+(596, 1295, 2),
+(597, 1295, 2),
+(600, 1296, 0),
+(600, 1297, 1),
+(600, 1298, 2),
+(600, 1299, 3),
+(601, 1300, 0),
+(601, 1301, 1),
+(601, 1302, 2),
+(601, 1303, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwComment`
+-- Table structure for table `Comment`
 --
 
-DROP TABLE IF EXISTS `ocwComment`;
-CREATE TABLE IF NOT EXISTS `ocwComment` (
+CREATE TABLE IF NOT EXISTS `Comment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user` bigint(20) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -2786,25 +2851,29 @@ CREATE TABLE IF NOT EXISTS `ocwComment` (
   KEY `FK27D95BBC53C202BC` (`revision`),
   KEY `FK27D95BBC4A301B22` (`resource`),
   KEY `FK27D95BBCB1E4DD9C` (`user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `ocwComment`
+-- Dumping data for table `Comment`
 --
 
-INSERT INTO `ocwComment` (`id`, `user`, `timestamp`, `message`, `resource`, `revision`) VALUES
+INSERT INTO `Comment` (`id`, `user`, `timestamp`, `message`, `resource`, `revision`) VALUES
 (1, 1, '2010-09-03 21:58:04', 'kjl;jkj\r\n\r\njkj\r\n', 88, NULL),
 (2, 1, '2010-09-13 00:24:29', '<p>hlkj</p>\n<p>jj</p>\n<p>&nbsp;</p>', 90, 90),
-(3, 1, '2010-09-13 00:24:39', '<p>kjkljj</p>\n<p>jkj</p>\n<p>&nbsp;</p>', 90, 90);
+(3, 1, '2010-09-13 00:24:39', '<p>kjkljj</p>\n<p>jkj</p>\n<p>&nbsp;</p>', 90, 90),
+(4, 1, '2010-10-05 17:52:14', '<p>nhận x&eacute;t linh tinh....</p>', 91, 91),
+(5, 1, '2010-10-07 08:52:10', '<p>jkafsjfklsjadlj</p>', 458, 450),
+(6, 1, '2010-10-08 23:47:16', '<p>jsdlfkjafas</p>\n<p>fas</p>\n<p>d</p>', 95, 95),
+(7, 1, '2010-10-08 23:47:30', '<p>jlkjj</p>\n<p>jkjk</p>\n<p>j</p>', 95, 95),
+(8, 1, '2010-10-08 23:48:51', '<p>kjlkj</p>\n<p>jkj</p>\n<p>kj</p>', 95, 95);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwCommentCustomization`
+-- Table structure for table `CommentCustomization`
 --
 
-DROP TABLE IF EXISTS `ocwCommentCustomization`;
-CREATE TABLE IF NOT EXISTS `ocwCommentCustomization` (
+CREATE TABLE IF NOT EXISTS `CommentCustomization` (
   `user` bigint(20) NOT NULL,
   `comment` bigint(20) NOT NULL,
   `status` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
@@ -2814,29 +2883,27 @@ CREATE TABLE IF NOT EXISTS `ocwCommentCustomization` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwCommentCustomization`
+-- Dumping data for table `CommentCustomization`
 --
 
-INSERT INTO `ocwCommentCustomization` (`user`, `comment`, `status`) VALUES
+INSERT INTO `CommentCustomization` (`user`, `comment`, `status`) VALUES
 (2, 1, 'LIKE');
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `ocwCommentReportWithoutUser`
+-- Stand-in structure for view `CommentReportWithoutUser`
 --
-DROP VIEW IF EXISTS `ocwCommentReportWithoutUser`;
-CREATE TABLE IF NOT EXISTS `ocwCommentReportWithoutUser` (
+CREATE TABLE IF NOT EXISTS `CommentReportWithoutUser` (
 `comment` bigint(20)
 ,`like_count` bigint(21)
 );
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `ocwCommentReportWithUser`
+-- Stand-in structure for view `CommentReportWithUser`
 --
-DROP VIEW IF EXISTS `ocwCommentReportWithUser`;
-CREATE TABLE IF NOT EXISTS `ocwCommentReportWithUser` (
+CREATE TABLE IF NOT EXISTS `CommentReportWithUser` (
 `comment` bigint(20)
 ,`user` bigint(20)
 ,`status` varchar(255)
@@ -2845,11 +2912,10 @@ CREATE TABLE IF NOT EXISTS `ocwCommentReportWithUser` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwConstraint`
+-- Table structure for table `Constraint`
 --
 
-DROP TABLE IF EXISTS `ocwConstraint`;
-CREATE TABLE IF NOT EXISTS `ocwConstraint` (
+CREATE TABLE IF NOT EXISTS `Constraint` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
   `count` int(11) NOT NULL,
@@ -2858,18 +2924,17 @@ CREATE TABLE IF NOT EXISTS `ocwConstraint` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `ocwConstraint`
+-- Dumping data for table `Constraint`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwFacebookAccount`
+-- Table structure for table `FacebookAccount`
 --
 
-DROP TABLE IF EXISTS `ocwFacebookAccount`;
-CREATE TABLE IF NOT EXISTS `ocwFacebookAccount` (
+CREATE TABLE IF NOT EXISTS `FacebookAccount` (
   `uid` varchar(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `user` bigint(11) NOT NULL,
   PRIMARY KEY (`uid`),
@@ -2877,21 +2942,20 @@ CREATE TABLE IF NOT EXISTS `ocwFacebookAccount` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwFacebookAccount`
+-- Dumping data for table `FacebookAccount`
 --
 
-INSERT INTO `ocwFacebookAccount` (`uid`, `user`) VALUES
+INSERT INTO `FacebookAccount` (`uid`, `user`) VALUES
 ('1260054681', 3),
 ('100000099729209', 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwHistory`
+-- Table structure for table `History`
 --
 
-DROP TABLE IF EXISTS `ocwHistory`;
-CREATE TABLE IF NOT EXISTS `ocwHistory` (
+CREATE TABLE IF NOT EXISTS `History` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user` bigint(20) DEFAULT NULL,
   `test` bigint(20) DEFAULT NULL,
@@ -2904,18 +2968,17 @@ CREATE TABLE IF NOT EXISTS `ocwHistory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `ocwHistory`
+-- Dumping data for table `History`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwLog`
+-- Table structure for table `Log`
 --
 
-DROP TABLE IF EXISTS `ocwLog`;
-CREATE TABLE IF NOT EXISTS `ocwLog` (
+CREATE TABLE IF NOT EXISTS `Log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
   `user` bigint(20) NOT NULL,
@@ -2933,28 +2996,27 @@ CREATE TABLE IF NOT EXISTS `ocwLog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `ocwLog`
+-- Dumping data for table `Log`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwNamespace`
+-- Table structure for table `Namespace`
 --
 
-DROP TABLE IF EXISTS `ocwNamespace`;
-CREATE TABLE IF NOT EXISTS `ocwNamespace` (
+CREATE TABLE IF NOT EXISTS `Namespace` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwNamespace`
+-- Dumping data for table `Namespace`
 --
 
-INSERT INTO `ocwNamespace` (`id`, `name`) VALUES
+INSERT INTO `Namespace` (`id`, `name`) VALUES
 (0, 'Chính'),
 (1, 'OCWIKI'),
 (2, 'Chủ đề'),
@@ -2966,11 +3028,10 @@ INSERT INTO `ocwNamespace` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwQuestion`
+-- Table structure for table `Question`
 --
 
-DROP TABLE IF EXISTS `ocwQuestion`;
-CREATE TABLE IF NOT EXISTS `ocwQuestion` (
+CREATE TABLE IF NOT EXISTS `Question` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `base_resource` bigint(20) DEFAULT NULL,
   `base_revision` bigint(20) DEFAULT NULL,
@@ -2981,10 +3042,10 @@ CREATE TABLE IF NOT EXISTS `ocwQuestion` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=419 ;
 
 --
--- Dumping data for table `ocwQuestion`
+-- Dumping data for table `Question`
 --
 
-INSERT INTO `ocwQuestion` (`id`, `base_resource`, `base_revision`, `mark`) VALUES
+INSERT INTO `Question` (`id`, `base_resource`, `base_revision`, `mark`) VALUES
 (88, 88, NULL, 1),
 (89, 89, NULL, 1),
 (90, 90, NULL, 1),
@@ -3229,11 +3290,10 @@ INSERT INTO `ocwQuestion` (`id`, `base_resource`, `base_revision`, `mark`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwResource`
+-- Table structure for table `Resource`
 --
 
-DROP TABLE IF EXISTS `ocwResource`;
-CREATE TABLE IF NOT EXISTS `ocwResource` (
+CREATE TABLE IF NOT EXISTS `Resource` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -3248,24 +3308,24 @@ CREATE TABLE IF NOT EXISTS `ocwResource` (
   KEY `FKE2E602515DDB135C` (`author`),
   KEY `FKE2E602515EB7070E` (`link`),
   KEY `FKE2E6025172978E26` (`article`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=531 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=533 ;
 
 --
--- Dumping data for table `ocwResource`
+-- Dumping data for table `Resource`
 --
 
-INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `author`, `status`, `link`, `accessibility`, `average_level`) VALUES
+INSERT INTO `Resource` (`id`, `version`, `create_date`, `type`, `article`, `author`, `status`, `link`, `accessibility`, `average_level`) VALUES
 (62, 0, '2010-08-25 01:15:32', 'oop.data.Test', 62, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (63, 2, '2010-08-25 01:15:32', 'oop.data.Test', 63, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (64, 0, '2010-08-25 01:15:32', 'oop.data.Test', 64, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (65, 0, '2010-08-25 01:15:32', 'oop.data.Test', 65, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (66, 0, '2010-08-25 01:15:32', 'oop.data.Test', 66, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (88, 9, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 584, 1, 'NORMAL', NULL, 'NO_ONE', '0.50'),
-(89, 12, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 595, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
-(90, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 90, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
+(89, 14, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 597, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
+(90, 2, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 601, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
 (91, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 91, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (92, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 576, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
-(93, 2, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 420, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(93, 3, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 600, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (94, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 94, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (95, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 95, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (96, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 96, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
@@ -3570,63 +3630,65 @@ INSERT INTO `ocwResource` (`id`, `version`, `create_date`, `type`, `article`, `a
 (527, 0, '2010-09-29 08:56:20', 'oop.data.BaseQuestion', 591, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
 (528, 0, '2010-09-29 08:56:27', 'oop.data.BaseQuestion', 592, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
 (529, 0, '2010-09-29 08:56:35', 'oop.data.BaseQuestion', 593, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
-(530, 0, '2010-09-29 08:56:40', 'oop.data.BaseQuestion', 594, 1, 'NEW', NULL, 'EVERYONE', '0.50');
+(530, 0, '2010-09-29 08:56:40', 'oop.data.BaseQuestion', 594, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(531, 0, '2010-10-05 17:56:47', 'oop.data.Topic', 598, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(532, 0, '2010-10-05 18:02:57', 'oop.data.Test', 599, 1, 'NEW', NULL, 'EVERYONE', '0.50');
 
 --
--- Triggers `ocwResource`
+-- Triggers `Resource`
 --
-DROP TRIGGER IF EXISTS `ocwOnInsertTopic`;
+DROP TRIGGER IF EXISTS `OnInsertTopic`;
 DELIMITER //
-CREATE TRIGGER `ocwOnInsertTopic` AFTER INSERT ON `ocwResource`
+CREATE TRIGGER `OnInsertTopic` AFTER INSERT ON `Resource`
  FOR EACH ROW begin
 if (@OCW_TRIGGER_DISABLED is null) or (@OCW_TRIGGER_DISABLED <> 1) then
 if (new.type = 'oop.data.Topic') then
-    set @parent = (select parent from ocwArticle where `id` = new.article);
+    set @parent = (select parent from Article where `id` = new.article);
     if @parent is null then
-        set @max_right = (select max(`right_index`) from ocwTopicSet);
+        set @max_right = (select max(`right_index`) from TopicSet);
         if @max_right is null then
             set @max_right = 0;
         end if;
-        insert into ocwTopicSet (`topic`, `left_index`, `right_index`) values (new.`id`, @max_right+1, @max_right+2);
+        insert into TopicSet (`topic`, `left_index`, `right_index`) values (new.`id`, @max_right+1, @max_right+2);
     else
-        set @parent_right = (select `right_index` from ocwTopicSet where topic = @parent);
-        update ocwTopicSet set `left_index` = `left_index` + 2 where `left_index` > @parent_right;
-        update ocwTopicSet set `right_index` = `right_index` + 2 where `right_index` >= @parent_right;
-        insert into ocwTopicSet (`topic`, `left_index`, `right_index`) values (new.`id`, @parent_right, @parent_right+1);
+        set @parent_right = (select `right_index` from TopicSet where topic = @parent);
+        update TopicSet set `left_index` = `left_index` + 2 where `left_index` > @parent_right;
+        update TopicSet set `right_index` = `right_index` + 2 where `right_index` >= @parent_right;
+        insert into TopicSet (`topic`, `left_index`, `right_index`) values (new.`id`, @parent_right, @parent_right+1);
     end if;
 end if;
 end if;
 end
 //
 DELIMITER ;
-DROP TRIGGER IF EXISTS `ocwOnUpdateTopic`;
+DROP TRIGGER IF EXISTS `OnUpdateTopic`;
 DELIMITER //
-CREATE TRIGGER `ocwOnUpdateTopic` AFTER UPDATE ON `ocwResource`
+CREATE TRIGGER `OnUpdateTopic` AFTER UPDATE ON `Resource`
  FOR EACH ROW begin 
 if (@OCW_TRIGGER_DISABLED is null) or (@OCW_TRIGGER_DISABLED <> 1) then
 if old.type = 'oop.data.Topic' then 
-    set @parent1 = (select parent from ocwArticle where `id` = old.article); 
-    set @parent2 = (select parent from ocwArticle where `id` = new.article); 
+    set @parent1 = (select parent from Article where `id` = old.article); 
+    set @parent2 = (select parent from Article where `id` = new.article); 
     if ( (@parent1 is not null) and (@parent2 is not null) and (@parent1 <> @parent2) ) or
             ( (@parent1 is null) xor (@parent2 is null) ) then 
         if @parent2 is null then 
             
-            set @left = (select `left_index` from ocwTopicSet where topic = new.id);
-            set @right = (select `right_index` from ocwTopicSet where topic = new.id);
-            set @d = (select max(`right_index`) from ocwTopicSet) - @left + 1; 
-            update ocwTopicSet set `left_index` = `left_index` + @d, `right_index` = `right_index` + @d where `left_index` >= @left and `right_index` <= @right; 
+            set @left = (select `left_index` from TopicSet where topic = new.id);
+            set @right = (select `right_index` from TopicSet where topic = new.id);
+            set @d = (select max(`right_index`) from TopicSet) - @left + 1; 
+            update TopicSet set `left_index` = `left_index` + @d, `right_index` = `right_index` + @d where `left_index` >= @left and `right_index` <= @right; 
         else 
             
-            set @parent_right = (select `right_index` from ocwTopicSet where topic = @parent2);
-            set @s = (select `right_index`-`left_index`+1 from ocwTopicSet where topic = new.id); 
-            update ocwTopicSet set `left_index` = `left_index` + @s where `left_index` > @parent_right;
-            update ocwTopicSet set `right_index` = `right_index` + @s where `right_index` >= @parent_right;
+            set @parent_right = (select `right_index` from TopicSet where topic = @parent2);
+            set @s = (select `right_index`-`left_index`+1 from TopicSet where topic = new.id); 
+            update TopicSet set `left_index` = `left_index` + @s where `left_index` > @parent_right;
+            update TopicSet set `right_index` = `right_index` + @s where `right_index` >= @parent_right;
 
             
-            set @left = (select `left_index` from ocwTopicSet where topic = new.id);
-            set @right = (select `right_index` from ocwTopicSet where topic = new.id);
+            set @left = (select `left_index` from TopicSet where topic = new.id);
+            set @right = (select `right_index` from TopicSet where topic = new.id);
             set @d = @parent_right - @left;
-            update ocwTopicSet set `left_index` = `left_index` + @d, `right_index` = `right_index` + @d where `left_index` >= @left and `right_index` <= @right;
+            update TopicSet set `left_index` = `left_index` + @d, `right_index` = `right_index` + @d where `left_index` >= @left and `right_index` <= @right;
         end if;
     end if;
 end if;
@@ -3634,16 +3696,16 @@ end if;
 end
 //
 DELIMITER ;
-DROP TRIGGER IF EXISTS `ocwOnDeleteTopic`;
+DROP TRIGGER IF EXISTS `OnDeleteTopic`;
 DELIMITER //
-CREATE TRIGGER `ocwOnDeleteTopic` AFTER DELETE ON `ocwResource`
+CREATE TRIGGER `OnDeleteTopic` AFTER DELETE ON `Resource`
  FOR EACH ROW begin
 if (@OCW_TRIGGER_DISABLED is null) or (@OCW_TRIGGER_DISABLED <> 1) then
 if old.type = 'oop.data.Topic' then
-    set @left = (select `left_index` from ocwTopicSet where topic = old.id);
-    set @right = (select `right_index` from ocwTopicSet where topic = old.id);
+    set @left = (select `left_index` from TopicSet where topic = old.id);
+    set @right = (select `right_index` from TopicSet where topic = old.id);
     set @d = @right - @left + 1;
-    update ocwTopicSet set `left_index` = `left_index` - @d, `right_index` = `right_index` - @d where `left_index` > @right;
+    update TopicSet set `left_index` = `left_index` - @d, `right_index` = `right_index` - @d where `left_index` > @right;
 end if;
 end if;
 end
@@ -3653,33 +3715,36 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwResourceCustomization`
+-- Table structure for table `ResourceCustomization`
 --
 
-DROP TABLE IF EXISTS `ocwResourceCustomization`;
-CREATE TABLE IF NOT EXISTS `ocwResourceCustomization` (
+CREATE TABLE IF NOT EXISTS `ResourceCustomization` (
   `RESOURCE` bigint(20) NOT NULL,
   `USER` bigint(20) NOT NULL,
-  `LEVEL` int(11) DEFAULT NULL,
-  `LIKE` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
-  `TODO` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `LEVEL` int(11) DEFAULT '-1',
+  `LIKE` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT 'NORMAL',
+  `TODO` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT 'NORMAL',
+  `done` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`RESOURCE`,`USER`),
   KEY `FK46CFE1024A301B22` (`RESOURCE`),
   KEY `FK46CFE102B1E4DD9C` (`USER`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwResourceCustomization`
+-- Dumping data for table `ResourceCustomization`
 --
 
+INSERT INTO `ResourceCustomization` (`RESOURCE`, `USER`, `LEVEL`, `LIKE`, `TODO`, `done`) VALUES
+(90, 1, -1, 'NORMAL', 'NORMAL', 1),
+(93, 1, -1, 'NORMAL', 'NORMAL', 1),
+(458, 1, 0, 'LIKE', 'NORMAL', 0);
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `ocwResourceReportWithoutUser`
+-- Stand-in structure for view `ResourceReportWithoutUser`
 --
-DROP VIEW IF EXISTS `ocwResourceReportWithoutUser`;
-CREATE TABLE IF NOT EXISTS `ocwResourceReportWithoutUser` (
+CREATE TABLE IF NOT EXISTS `ResourceReportWithoutUser` (
 `resource` bigint(20)
 ,`like_count` bigint(21)
 ,`average_level` decimal(10,2)
@@ -3687,10 +3752,9 @@ CREATE TABLE IF NOT EXISTS `ocwResourceReportWithoutUser` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `ocwResourceReportWithUser`
+-- Stand-in structure for view `ResourceReportWithUser`
 --
-DROP VIEW IF EXISTS `ocwResourceReportWithUser`;
-CREATE TABLE IF NOT EXISTS `ocwResourceReportWithUser` (
+CREATE TABLE IF NOT EXISTS `ResourceReportWithUser` (
 `resource` bigint(20)
 ,`user` bigint(20)
 ,`level` bigint(11)
@@ -3702,11 +3766,10 @@ CREATE TABLE IF NOT EXISTS `ocwResourceReportWithUser` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwRevision`
+-- Table structure for table `Revision`
 --
 
-DROP TABLE IF EXISTS `ocwRevision`;
-CREATE TABLE IF NOT EXISTS `ocwRevision` (
+CREATE TABLE IF NOT EXISTS `Revision` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource` bigint(20) NOT NULL,
   `article` bigint(20) NOT NULL,
@@ -3718,13 +3781,13 @@ CREATE TABLE IF NOT EXISTS `ocwRevision` (
   KEY `FKE7AEF61E5DDB135C` (`author`),
   KEY `FKE7AEF61E72978E26` (`article`),
   KEY `FKE7AEF61E4A301B22` (`resource`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=563 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=567 ;
 
 --
--- Dumping data for table `ocwRevision`
+-- Dumping data for table `Revision`
 --
 
-INSERT INTO `ocwRevision` (`id`, `resource`, `article`, `author`, `timestamp`, `summary`, `minor`) VALUES
+INSERT INTO `Revision` (`id`, `resource`, `article`, `author`, `timestamp`, `summary`, `minor`) VALUES
 (62, 62, 62, 1, '2010-08-25 01:15:32', 'Tao bai viet', b'0'),
 (63, 63, 63, 1, '2010-08-25 01:15:32', 'Tao bai viet', b'0'),
 (64, 64, 64, 1, '2010-08-25 01:15:32', 'Tao bai viet', b'0'),
@@ -4073,16 +4136,19 @@ INSERT INTO `ocwRevision` (`id`, `resource`, `article`, `author`, `timestamp`, `
 (559, 88, 582, 1, '2010-09-15 20:06:13', '', b'0'),
 (560, 88, 583, 1, '2010-09-15 20:52:26', '', b'0'),
 (561, 88, 584, 1, '2010-09-23 13:27:03', '', b'0'),
-(562, 89, 595, 1, '2010-10-01 15:48:31', 'test', b'0');
+(562, 89, 595, 1, '2010-10-01 15:48:31', 'test', b'0'),
+(563, 89, 596, 1, '2010-10-05 09:25:26', '', b'0'),
+(564, 89, 597, 1, '2010-10-05 09:59:03', '', b'0'),
+(565, 93, 600, 1, '2010-10-09 00:24:41', 'linh tinh', b'0'),
+(566, 90, 601, 1, '2010-10-09 01:42:30', '', b'0');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwSection`
+-- Table structure for table `Section`
 --
 
-DROP TABLE IF EXISTS `ocwSection`;
-CREATE TABLE IF NOT EXISTS `ocwSection` (
+CREATE TABLE IF NOT EXISTS `Section` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
@@ -4090,10 +4156,10 @@ CREATE TABLE IF NOT EXISTS `ocwSection` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=334 ;
 
 --
--- Dumping data for table `ocwSection`
+-- Dumping data for table `Section`
 --
 
-INSERT INTO `ocwSection` (`id`, `content`) VALUES
+INSERT INTO `Section` (`id`, `content`) VALUES
 (293, 1555),
 (294, 1556),
 (295, 1557),
@@ -4139,11 +4205,10 @@ INSERT INTO `ocwSection` (`id`, `content`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwSectionQuestion`
+-- Table structure for table `SectionQuestion`
 --
 
-DROP TABLE IF EXISTS `ocwSectionQuestion`;
-CREATE TABLE IF NOT EXISTS `ocwSectionQuestion` (
+CREATE TABLE IF NOT EXISTS `SectionQuestion` (
   `section_id` bigint(20) NOT NULL,
   `question_id` bigint(20) NOT NULL,
   `question_index` int(11) NOT NULL,
@@ -4153,10 +4218,10 @@ CREATE TABLE IF NOT EXISTS `ocwSectionQuestion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwSectionQuestion`
+-- Dumping data for table `SectionQuestion`
 --
 
-INSERT INTO `ocwSectionQuestion` (`section_id`, `question_id`, `question_index`) VALUES
+INSERT INTO `SectionQuestion` (`section_id`, `question_id`, `question_index`) VALUES
 (309, 88, 0),
 (309, 89, 1),
 (309, 90, 2),
@@ -4541,11 +4606,10 @@ INSERT INTO `ocwSectionQuestion` (`section_id`, `question_id`, `question_index`)
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwSectionStructure`
+-- Table structure for table `SectionStructure`
 --
 
-DROP TABLE IF EXISTS `ocwSectionStructure`;
-CREATE TABLE IF NOT EXISTS `ocwSectionStructure` (
+CREATE TABLE IF NOT EXISTS `SectionStructure` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -4553,18 +4617,17 @@ CREATE TABLE IF NOT EXISTS `ocwSectionStructure` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `ocwSectionStructure`
+-- Dumping data for table `SectionStructure`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwSectionStructureConstraint`
+-- Table structure for table `SectionStructureConstraint`
 --
 
-DROP TABLE IF EXISTS `ocwSectionStructureConstraint`;
-CREATE TABLE IF NOT EXISTS `ocwSectionStructureConstraint` (
+CREATE TABLE IF NOT EXISTS `SectionStructureConstraint` (
   `section_id` bigint(20) NOT NULL,
   `constraint_id` bigint(20) NOT NULL,
   `constraint_index` int(11) NOT NULL,
@@ -4574,18 +4637,17 @@ CREATE TABLE IF NOT EXISTS `ocwSectionStructureConstraint` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwSectionStructureConstraint`
+-- Dumping data for table `SectionStructureConstraint`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwTestSection`
+-- Table structure for table `TestSection`
 --
 
-DROP TABLE IF EXISTS `ocwTestSection`;
-CREATE TABLE IF NOT EXISTS `ocwTestSection` (
+CREATE TABLE IF NOT EXISTS `TestSection` (
   `test_id` bigint(20) NOT NULL,
   `section_id` bigint(20) NOT NULL,
   `section_index` int(11) NOT NULL,
@@ -4595,10 +4657,10 @@ CREATE TABLE IF NOT EXISTS `ocwTestSection` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwTestSection`
+-- Dumping data for table `TestSection`
 --
 
-INSERT INTO `ocwTestSection` (`test_id`, `section_id`, `section_index`) VALUES
+INSERT INTO `TestSection` (`test_id`, `section_id`, `section_index`) VALUES
 (62, 293, 0),
 (62, 294, 1),
 (62, 295, 2),
@@ -4644,11 +4706,10 @@ INSERT INTO `ocwTestSection` (`test_id`, `section_id`, `section_index`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwTestSectionStructure`
+-- Table structure for table `TestSectionStructure`
 --
 
-DROP TABLE IF EXISTS `ocwTestSectionStructure`;
-CREATE TABLE IF NOT EXISTS `ocwTestSectionStructure` (
+CREATE TABLE IF NOT EXISTS `TestSectionStructure` (
   `id` bigint(20) NOT NULL,
   `section_id` bigint(20) NOT NULL,
   `section_index` int(11) NOT NULL,
@@ -4658,28 +4719,27 @@ CREATE TABLE IF NOT EXISTS `ocwTestSectionStructure` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwTestSectionStructure`
+-- Dumping data for table `TestSectionStructure`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwText`
+-- Table structure for table `Text`
 --
 
-DROP TABLE IF EXISTS `ocwText`;
-CREATE TABLE IF NOT EXISTS `ocwText` (
+CREATE TABLE IF NOT EXISTS `Text` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` mediumtext COLLATE utf8_vietnamese1_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1790 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1804 ;
 
 --
--- Dumping data for table `ocwText`
+-- Dumping data for table `Text`
 --
 
-INSERT INTO `ocwText` (`id`, `text`) VALUES
+INSERT INTO `Text` (`id`, `text`) VALUES
 (1, '2'),
 (2, '3'),
 (3, '5'),
@@ -5964,7 +6024,7 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1282, 'She will be ill ______.<br />\r\n&nbsp;'),
 (1283, '______ as taste is really a composite sense made up of both taste and smell.<br />\r\n&nbsp;'),
 (1284, 'aklfjslkfjadslfkjds');
-INSERT INTO `ocwText` (`id`, `text`) VALUES
+INSERT INTO `Text` (`id`, `text`) VALUES
 (1285, 'sfasfasdf'),
 (1286, 'lkjafkjldskfjslfjslj'),
 (1287, 'M?c abcd'),
@@ -6030,7 +6090,7 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1347, '<p><strong>Đọc kĩ đoạn văn sau và chọn phương án đúng (A hoặc B, C, D) cho mỗi câu: từ 26 đến 35 .</strong></p></p>\r\n<p>Traditionally in America, helping the poor was a matter for private charities or local governments. Arriving immigrants depended mainly on predecessors from their homeland to help them start a new life. In the late 19th and early 20th centuries, several European nations<strong> instituted</strong> public-welfare programs. But such a movement was slow to take hold in the United States because the rapid pace of industrialization and the ready availability of farmland seemed to confirm the belief that anyone who was willing to work could find a job.</p>\r\n<p>Most of the programs started during the Depression era were temporary relief measures, but one of the programs - Social Security - has become an American institution. Paid for by deductions from the paychecks of working people, Social Security ensures that retired persons receive a modest monthly income and also provides unemployment insurance, disability insurance, and other assistance to those who need it. Social Security payments to retired persons can start at age 62, but many wait until age 65, when the payments are slightly higher. Recently, there has been oncern that the Social</p>\r\n<p>Security fund may not have enough money to fulfill its obligations in the 21st century, when the population of elderly Americans is expected to increase dramatically. Policy makers have proposed various ways to make up the anticipated deficit, but a long-term solution is still being debated.</p>\r\n<p>In the years since Roosevelt, other American presidents have established assistance programs. These include Medicaid and Medicare; food stamps, certificates that people can use to purchase food; and public housing which is built at federal expense and made available to persons on low incomes.</p>\r\n<p>Needy Americans can also turn to sources other than the government for help. A broad spectrum of private charities and voluntary organizations is available. Volunteerism is on the rise in the United States, especially among retired persons.</p>\r\n<p>It is estimated that almost 50 percent of Americans over age 18 do volunteer work, and nearly 75 percent of U.S. households contribute money to charity.'),
 (1348, '<p><strong>Đọc kĩ đoạn văn sau và Chọn phương án đúng (A ho?c B, C, D) cho mỗi chỗ trông từ 36 đến 45.</strong></p>\r\nThe wind controls our planet''s weather and climate. But how much do we understand about this complex force\r\n(36)______ can kill and spread fear?\r\nOn the night of October 15, 1987, the south of England was (37)_____ by strong winds. Gusts of over 130 km/h\r\n(38)______ through the region. Nineteen people were killed, &pound;1.5-billion worth of damage was (39) ______ and 19 million\r\ntrees were blown down in just a few hours.\r\nAlthough people thought of this (40)_____ a hurricane, the winds of 1987 were only a (41)______ 7 storm. They remain\r\nfar better known than the much more serious storms of January 25, 1990, (42)______ most of Britain was hit by daytime\r\nwinds of up to 173 km/h. On this occasion, 47 people were killed, even though, (43)______ in 1987, the weather\r\nforecasters issued accurate warnings.\r\nExtreme weather events such as these are dramatic (44)______ of the power of the wind. It is one part of the weather\r\nthat people generally do not give a second (45)______ to, but across the world the wind plays a crucial role in people''s\r\nlives.'),
 (1349, '<p><strong>Đọc kĩ đoạn văn sau và Chọn phương án đúng (A ho?c B, C, D) cho mỗi chỗ trông từ 46 đến 55.</strong></p></p>\r\n<p>Health and fitness are not just for young people. They are for anyone willing to accept the (46)______ for a good diet and (47)______ exercise. With age, there is a tendency to feel that the body is no longer able to (48)______. Aches and pains are (49)______ normal. Instead of pushing the body to do (50)_______, activities become limited. Yet examples after examples have shown us that older people can &ndash; and should &ndash; be (51)______. Men and women in their sixties have run in marathons, races of more than twenty-six miles. Some professional athletes stay (52)______ into their forties and fifties.</p>\r\n<p>For most people, simple activities like walking and swimming are all that is needed to stay in (53)______. It&rsquo;s important to include exercise in your daily routine. In the winter, (54)______ push-ups, sit-ups, and other indoor exercises. Of course, such exercises will be of little use (55)______ you follow them with soda and chips.');
-INSERT INTO `ocwText` (`id`, `text`) VALUES
+INSERT INTO `Text` (`id`, `text`) VALUES
 (1350, '<p><strong>Đọc kĩ đoạn văn sau và chọn phương án đúng (A hoặc B, C, D) cho mỗi câu: từ 56 đến 65 .</strong></p>\r\nMillions of people are using cellphones today. In many places, it is actually considered unusual not to use one. In many\r\ncountries, cellphones are very popular with young people. They find that the phones are more than a means of\r\ncommunication - having a mobile phone shows that they are cool and connected.\r\nThe explosion in mobile phone use around the world has made some health professionals worried. Some doctors are\r\nconcerned that in the future many people may suffer health problems from the use of mobile phones. In England, there has\r\nbeen a serious debate about this issue. Mobile phone companies are worried about the negative publicity of such ideas.\r\nThey say that there is no proof that mobile phones are bad for your health.\r\nOn the other hand, medical studies have shown changes in the brain cells of some people who use mobile phones.\r\nSigns of change in the tissues of the brain and head can be detected with modern scanning equipment. In one case, a\r\ntraveling salesman had to retire at young age because of serious memory loss. He couldn''t remember even simple tasks.\r\nHe would often forget the name of his own son. This man used to talk on his mobile phone for about six hours a day, every\r\nday of his working week, for a couple of years. His family doctor blamed his mobile phone use, but his employer''s doctor\r\ndidn''t agree.\r\nWhat is it that makes mobile phones potentially harmful? The answer is radiation. High-tech machines can detect very\r\nsmall amounts of radiation from mobile phones. Mobile phone companies agree that there is some radiation, but they say\r\nthe amount is too small to worry about.\r\nAs the discussion about their safety continues, it appears that it''s best to use mobile phones less often. Use your\r\nregular phone if you want to talk for a long time. Use your mobile phone only when you really need it. Mobile phones can\r\nbe very useful and convenient, especially in emergencies. In the future, mobile phones may have a warning label that says\r\nthey are bad for your health. So for now, it''s wise not to use your mobile phone too often.'),
 (1351, '<p><strong>Chọn phương án đúng (A ho?c B, C, D) ?ng v?i c&acirc;u c&oacute; ngh?a g?n nh?t v?i m?i c&acirc;u cho s?n sau ?&acirc;y.\r\n</strong></p>'),
 (1352, '<p><strong>Chọn phương án (A ho?c B, C, D) ?ng v?i t?/c?m t? c&oacute; g?ch ch&acirc;n c?n ph?i s?a ?? c&aacute;c c&acirc;u sau tr? th&agrave;nh c&acirc;u ?&uacute;ng.\r\n</strong></p>'),
@@ -6098,7 +6158,7 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1414, '<p><strong>Chọn phương án (A ho?c B, C, D) ?ng v?i t? c&oacute; tr?ng &acirc;m ch&iacute;nh nh?n v&agrave;o &acirc;m ti?t c&oacute; v? tr&iacute; kh&aacute;c v?i ba t? c&ograve;n l?i trong m?i c&acirc;u.</strong></p>'),
 (1415, '<p><strong>Chọn phương án đúng (A ho?c B, C, D) ?? ho&agrave;n th&agrave;nh m?i c&acirc;u sau.\r\n</strong></p>'),
 (1416, '<p><strong>Đọc kĩ đoạn văn sau và chọn phương án đúng (A hoặc B, C, D) cho mỗi câu: từ 26 đến 35 .</strong></p></p>\r\n<p>Traditionally in America, helping the poor was a matter for private charities or local governments. Arriving immigrants depended mainly on predecessors from their homeland to help them start a new life. In the late 19th and early 20th centuries, several European nations<strong> instituted</strong> public-welfare programs. But such a movement was slow to take hold in the United States because the rapid pace of industrialization and the ready availability of farmland seemed to confirm the belief that anyone who was willing to work could find a job.</p>\r\n<p>Most of the programs started during the Depression era were temporary relief measures, but one of the programs - Social Security - has become an American institution. Paid for by deductions from the paychecks of working people, Social Security ensures that retired persons receive a modest monthly income and also provides unemployment insurance, disability insurance, and other assistance to those who need it. Social Security payments to retired persons can start at age 62, but many wait until age 65, when the payments are slightly higher. Recently, there has been oncern that the Social</p>\r\n<p>Security fund may not have enough money to fulfill its obligations in the 21st century, when the population of elderly Americans is expected to increase dramatically. Policy makers have proposed various ways to make up the anticipated deficit, but a long-term solution is still being debated.</p>\r\n<p>In the years since Roosevelt, other American presidents have established assistance programs. These include Medicaid and Medicare; food stamps, certificates that people can use to purchase food; and public housing which is built at federal expense and made available to persons on low incomes.</p>\r\n<p>Needy Americans can also turn to sources other than the government for help. A broad spectrum of private charities and voluntary organizations is available. Volunteerism is on the rise in the United States, especially among retired persons.</p>\r\n<p>It is estimated that almost 50 percent of Americans over age 18 do volunteer work, and nearly 75 percent of U.S. households contribute money to charity.');
-INSERT INTO `ocwText` (`id`, `text`) VALUES
+INSERT INTO `Text` (`id`, `text`) VALUES
 (1417, '<p><strong>Đọc kĩ đoạn văn sau và Chọn phương án đúng (A ho?c B, C, D) cho mỗi chỗ trông từ 36 đến 45.</strong></p>\r\nThe wind controls our planet''s weather and climate. But how much do we understand about this complex force\r\n(36)______ can kill and spread fear?\r\nOn the night of October 15, 1987, the south of England was (37)_____ by strong winds. Gusts of over 130 km/h\r\n(38)______ through the region. Nineteen people were killed, &pound;1.5-billion worth of damage was (39) ______ and 19 million\r\ntrees were blown down in just a few hours.\r\nAlthough people thought of this (40)_____ a hurricane, the winds of 1987 were only a (41)______ 7 storm. They remain\r\nfar better known than the much more serious storms of January 25, 1990, (42)______ most of Britain was hit by daytime\r\nwinds of up to 173 km/h. On this occasion, 47 people were killed, even though, (43)______ in 1987, the weather\r\nforecasters issued accurate warnings.\r\nExtreme weather events such as these are dramatic (44)______ of the power of the wind. It is one part of the weather\r\nthat people generally do not give a second (45)______ to, but across the world the wind plays a crucial role in people''s\r\nlives.'),
 (1418, '<p><strong>Đọc kĩ đoạn văn sau và Chọn phương án đúng (A ho?c B, C, D) cho mỗi chỗ trông từ 46 đến 55.</strong></p></p>\r\n<p>Health and fitness are not just for young people. They are for anyone willing to accept the (46)______ for a good diet and (47)______ exercise. With age, there is a tendency to feel that the body is no longer able to (48)______. Aches and pains are (49)______ normal. Instead of pushing the body to do (50)_______, activities become limited. Yet examples after examples have shown us that older people can &ndash; and should &ndash; be (51)______. Men and women in their sixties have run in marathons, races of more than twenty-six miles. Some professional athletes stay (52)______ into their forties and fifties.</p>\r\n<p>For most people, simple activities like walking and swimming are all that is needed to stay in (53)______. It&rsquo;s important to include exercise in your daily routine. In the winter, (54)______ push-ups, sit-ups, and other indoor exercises. Of course, such exercises will be of little use (55)______ you follow them with soda and chips.'),
 (1419, '<p><strong>Đọc kĩ đoạn văn sau và chọn phương án đúng (A hoặc B, C, D) cho mỗi câu: từ 56 đến 65 .</strong></p>\r\nMillions of people are using cellphones today. In many places, it is actually considered unusual not to use one. In many\r\ncountries, cellphones are very popular with young people. They find that the phones are more than a means of\r\ncommunication - having a mobile phone shows that they are cool and connected.\r\nThe explosion in mobile phone use around the world has made some health professionals worried. Some doctors are\r\nconcerned that in the future many people may suffer health problems from the use of mobile phones. In England, there has\r\nbeen a serious debate about this issue. Mobile phone companies are worried about the negative publicity of such ideas.\r\nThey say that there is no proof that mobile phones are bad for your health.\r\nOn the other hand, medical studies have shown changes in the brain cells of some people who use mobile phones.\r\nSigns of change in the tissues of the brain and head can be detected with modern scanning equipment. In one case, a\r\ntraveling salesman had to retire at young age because of serious memory loss. He couldn''t remember even simple tasks.\r\nHe would often forget the name of his own son. This man used to talk on his mobile phone for about six hours a day, every\r\nday of his working week, for a couple of years. His family doctor blamed his mobile phone use, but his employer''s doctor\r\ndidn''t agree.\r\nWhat is it that makes mobile phones potentially harmful? The answer is radiation. High-tech machines can detect very\r\nsmall amounts of radiation from mobile phones. Mobile phone companies agree that there is some radiation, but they say\r\nthe amount is too small to worry about.\r\nAs the discussion about their safety continues, it appears that it''s best to use mobile phones less often. Use your\r\nregular phone if you want to talk for a long time. Use your mobile phone only when you really need it. Mobile phones can\r\nbe very useful and convenient, especially in emergencies. In the future, mobile phones may have a warning label that says\r\nthey are bad for your health. So for now, it''s wise not to use your mobile phone too often.'),
@@ -6161,7 +6221,7 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1476, '<p><strong>Read the following passage and mark the letter A, B, C, or D on your answer sheet to indicate the correct answer to each of the questions from 1 to 10.</strong></p>\r\nProbably the most famous film commenting on the twentieth-century technology is Modern Times, made in 1936. Charlie Chaplin was motivated to make the film by a reporter who, while interviewing him, happened to describe the working conditions in industrial Detroit. Chaplin was told that healthy young farm boys were lured to the city to work on automotive assembly lines. Within four or five years, these young men&rsquo;s health was destroyed by the stress of work in the factories.\r\nThe film opens with a shot of a mass of sheep making their way down a crowded ramp.\r\nAbruptly, the film shifts to a scene of factory workers jostling one another on their way to a factory. However, the rather bitter note of criticism in the implied comparison is not sustained. It is replaced by a gentle note of satire. Chaplin prefers to entertain rather than lecture.\r\nScenes of factory interiors account for only about one-third of Modern Times, but they contain some of the most pointed social commentary as well as the most comic situations. No one who has seen the film can ever forget Chaplin vainly trying to keep pace with the fast-moving conveyor belt, almost losing his mind in the process. Another popular scene involves an automatic feeding machine brought to the assembly line so that workers need not interrupt their labor to eat. The feeding machine malfunctions, hurling food at Chaplin, who is strapped in his position on the assembly line and cannot escape. This serves to illustrate people&rsquo;s utter helplessness in the face of machines that are meant to serve their basic needs.\r\nClearly, Modern Times has its faults, but it remains the best film treating technology within a social context. It does not offer a radical social message, but it does accurately reflect the sentiment of many who feel they are victims of an over-mechanised world.'),
 (1477, '<p><strong>Read the following passage and mark the letter A, B, C, or D on your answer sheet to indicate the correct answer to each of the questions from 11 to 20.</strong></p>\r\nVery few people in the modern world obtain their food supply by hunting and gathering in the natural environment surrounding their homes. This method of harvesting from nature&rsquo;s provision is the oldest known subsistence strategy and has been practised for at least the last two million years. It was, indeed, the only way to obtain food until rudimentary farming and the domestication of wild animals were introduced about 10,000 years ago.\r\nBecause hunter-gatherers have fared poorly in comparison with their agricultural cousins, their numbers have dwindled, and they have been forced to live in marginal environments, such as deserts and arctic wastelands. In higher latitudes, the shorter growing seasons have restricted the availability of plant life. Such conditions have caused a greater dependence on hunting, and on fishing along the coasts and waterways. The abundance of vegetation in the lower latitudes of the tropics, on the other hand, has provided a greater opportunity for gathering a variety of plants. In short, the environmental differences have restricted the diet and have limited possibilities for the development of subsistence societies.\r\nContemporary hunter-gatherers may help us understand our prehistoric ancestors. We know from the observation of modern hunter-gatherers in both Africa and Alaska that a society based on hunting and gathering must be very mobile. While the entire community camps in a central location, a smaller party harvests the food within a reasonable distance from the camp. When the food in the area has become exhausted, the community moves on to exploit another site. We also notice seasonal migration patterns evolving for most hunter-gatherers, along with a strict division of labor between the sexes. These patterns of behavior may be similar to those practised by mankind during the Paleolithic Period.'),
 (1478, '<p><strong>Mark the letter A, B, C, or D on your answer sheet to show the underlined part that needs correction.\r\n</strong></p>');
-INSERT INTO `ocwText` (`id`, `text`) VALUES
+INSERT INTO `Text` (`id`, `text`) VALUES
 (1479, '<p><strong>Mark the letter A, B, C, or D on your answer sheet to indicate the word that differs from the rest in the position of the main stress in each of the following questions.\r\n</strong></p>'),
 (1480, '<p><strong>Read the following passage and mark the letter A, B, C or D on your answer sheet to indicate the correct word for each of the blanks from 31 to 40.</strong></p>\r\nSome time ago, scientists began experiments to find out (31)______ it would be possible to set up a &ldquo;village&rdquo; under the sea. A special room was built and lowered (32)______ the water of Port Sudan in the Red Sea. For 29 days, five men lived (33)______ a depth of 40 feet. At a (34)______ lower level, another two divers stayed for a week in a smaller &ldquo;house&rdquo;. On returning to the surface, the men said that they had experienced no difficulty in breathing and had (35)______ many interesting scientific observations. The captain of the party, Commander Cousteau, spoke of the possibility of (36)______ the seabed. He said that some permanent stations were to be set up under the sea, and some undersea farms would provide food for the growing population of the world.\r\nThe divers in both &ldquo;houses&rdquo; spent most of their time (37)______ the bottom of the sea. On four occasions, they went down to 360 feet and observed many extraordinary (38)______ of the marine life, some of which had never been seen before. During their stay, Commander Cousteau and his divers reached a depth of 1,000 feet and witnessed a gathering of an immense (39)______ of crabs which numbered, perhaps, hundreds of millions. They also found out that it was (40)______ to move rapidly in the water in a special vessel known as a &ldquo;diving saucer&rdquo;.'),
 (1481, '<p><strong>Mark the letter A, B, C, or D on your answer sheet to indicate the correct answer to each of the following questions.\r\n</strong></p>'),
@@ -6224,7 +6284,7 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1538, '<p><strong>Đọc kĩ đoạn văn sau và chọn phương án đúng (A hoặc B, C, D) cho mỗi câu: từ 26 đến 35 .</strong></p></p>\r\n<p>Traditionally in America, helping the poor was a matter for private charities or local governments. Arriving immigrants depended mainly on predecessors from their homeland to help them start a new life. In the late 19th and early 20th centuries, several European nations<strong> instituted</strong> public-welfare programs. But such a movement was slow to take hold in the United States because the rapid pace of industrialization and the ready availability of farmland seemed to confirm the belief that anyone who was willing to work could find a job.</p>\r\n<p>Most of the programs started during the Depression era were temporary relief measures, but one of the programs - Social Security - has become an American institution. Paid for by deductions from the paychecks of working people, Social Security ensures that retired persons receive a modest monthly income and also provides unemployment insurance, disability insurance, and other assistance to those who need it. Social Security payments to retired persons can start at age 62, but many wait until age 65, when the payments are slightly higher. Recently, there has been oncern that the Social</p>\r\n<p>Security fund may not have enough money to fulfill its obligations in the 21st century, when the population of elderly Americans is expected to increase dramatically. Policy makers have proposed various ways to make up the anticipated deficit, but a long-term solution is still being debated.</p>\r\n<p>In the years since Roosevelt, other American presidents have established assistance programs. These include Medicaid and Medicare; food stamps, certificates that people can use to purchase food; and public housing which is built at federal expense and made available to persons on low incomes.</p>\r\n<p>Needy Americans can also turn to sources other than the government for help. A broad spectrum of private charities and voluntary organizations is available. Volunteerism is on the rise in the United States, especially among retired persons.</p>\r\n<p>It is estimated that almost 50 percent of Americans over age 18 do volunteer work, and nearly 75 percent of U.S. households contribute money to charity.'),
 (1539, '<p><strong>Đọc kĩ đoạn văn sau và Chọn phương án đúng (A ho?c B, C, D) cho mỗi chỗ trông từ 36 đến 45.</strong></p>\r\nThe wind controls our planet''s weather and climate. But how much do we understand about this complex force\r\n(36)______ can kill and spread fear?\r\nOn the night of October 15, 1987, the south of England was (37)_____ by strong winds. Gusts of over 130 km/h\r\n(38)______ through the region. Nineteen people were killed, &pound;1.5-billion worth of damage was (39) ______ and 19 million\r\ntrees were blown down in just a few hours.\r\nAlthough people thought of this (40)_____ a hurricane, the winds of 1987 were only a (41)______ 7 storm. They remain\r\nfar better known than the much more serious storms of January 25, 1990, (42)______ most of Britain was hit by daytime\r\nwinds of up to 173 km/h. On this occasion, 47 people were killed, even though, (43)______ in 1987, the weather\r\nforecasters issued accurate warnings.\r\nExtreme weather events such as these are dramatic (44)______ of the power of the wind. It is one part of the weather\r\nthat people generally do not give a second (45)______ to, but across the world the wind plays a crucial role in people''s\r\nlives.'),
 (1540, '<p><strong>Đọc kĩ đoạn văn sau và Chọn phương án đúng (A ho?c B, C, D) cho mỗi chỗ trông từ 46 đến 55.</strong></p></p>\r\n<p>Health and fitness are not just for young people. They are for anyone willing to accept the (46)______ for a good diet and (47)______ exercise. With age, there is a tendency to feel that the body is no longer able to (48)______. Aches and pains are (49)______ normal. Instead of pushing the body to do (50)_______, activities become limited. Yet examples after examples have shown us that older people can &ndash; and should &ndash; be (51)______. Men and women in their sixties have run in marathons, races of more than twenty-six miles. Some professional athletes stay (52)______ into their forties and fifties.</p>\r\n<p>For most people, simple activities like walking and swimming are all that is needed to stay in (53)______. It&rsquo;s important to include exercise in your daily routine. In the winter, (54)______ push-ups, sit-ups, and other indoor exercises. Of course, such exercises will be of little use (55)______ you follow them with soda and chips.');
-INSERT INTO `ocwText` (`id`, `text`) VALUES
+INSERT INTO `Text` (`id`, `text`) VALUES
 (1541, '<p><strong>Đọc kĩ đoạn văn sau và chọn phương án đúng (A hoặc B, C, D) cho mỗi câu: từ 56 đến 65 .</strong></p>\r\nMillions of people are using cellphones today. In many places, it is actually considered unusual not to use one. In many\r\ncountries, cellphones are very popular with young people. They find that the phones are more than a means of\r\ncommunication - having a mobile phone shows that they are cool and connected.\r\nThe explosion in mobile phone use around the world has made some health professionals worried. Some doctors are\r\nconcerned that in the future many people may suffer health problems from the use of mobile phones. In England, there has\r\nbeen a serious debate about this issue. Mobile phone companies are worried about the negative publicity of such ideas.\r\nThey say that there is no proof that mobile phones are bad for your health.\r\nOn the other hand, medical studies have shown changes in the brain cells of some people who use mobile phones.\r\nSigns of change in the tissues of the brain and head can be detected with modern scanning equipment. In one case, a\r\ntraveling salesman had to retire at young age because of serious memory loss. He couldn''t remember even simple tasks.\r\nHe would often forget the name of his own son. This man used to talk on his mobile phone for about six hours a day, every\r\nday of his working week, for a couple of years. His family doctor blamed his mobile phone use, but his employer''s doctor\r\ndidn''t agree.\r\nWhat is it that makes mobile phones potentially harmful? The answer is radiation. High-tech machines can detect very\r\nsmall amounts of radiation from mobile phones. Mobile phone companies agree that there is some radiation, but they say\r\nthe amount is too small to worry about.\r\nAs the discussion about their safety continues, it appears that it''s best to use mobile phones less often. Use your\r\nregular phone if you want to talk for a long time. Use your mobile phone only when you really need it. Mobile phones can\r\nbe very useful and convenient, especially in emergencies. In the future, mobile phones may have a warning label that says\r\nthey are bad for your health. So for now, it''s wise not to use your mobile phone too often.'),
 (1542, '<p><strong>Chọn phương án đúng (A ho?c B, C, D) ?ng v?i c&acirc;u c&oacute; ngh?a g?n nh?t v?i m?i c&acirc;u cho s?n sau ?&acirc;y.\r\n</strong></p>'),
 (1543, '<p><strong>Chọn phương án (A ho?c B, C, D) ?ng v?i t?/c?m t? c&oacute; g?ch ch&acirc;n c?n ph?i s?a ?? c&aacute;c c&acirc;u sau tr? th&agrave;nh c&acirc;u ?&uacute;ng.\r\n</strong></p>'),
@@ -6330,7 +6390,7 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1643, 'Theo mẫu đề thi tiếng Anh khối D của Bộ Giáo dục và Đào tạo.'),
 (1644, 'Theo mẫu đề thi tiếng Anh khối D của Bộ Giáo dục và Đào tạo.'),
 (1645, 'Theo mẫu đề thi tiếng Anh khối D của Bộ Giáo dục và Đào tạo.');
-INSERT INTO `ocwText` (`id`, `text`) VALUES
+INSERT INTO `Text` (`id`, `text`) VALUES
 (1646, 'Theo mẫu đề thi tiếng Anh khối D của Bộ Giáo dục và Đào tạo.'),
 (1647, 'Theo mẫu đề thi tiếng Anh khối D của Bộ Giáo dục và Đào tạo.'),
 (1648, 'Theo mẫu đề thi tiếng Anh khối D của Bộ Giáo dục và Đào tạo.'),
@@ -6455,16 +6515,29 @@ INSERT INTO `ocwText` (`id`, `text`) VALUES
 (1786, '<p>national</p>'),
 (1787, '<p>nationality fasdfsf</p>'),
 (1788, '<p>nationalized</p>'),
-(1789, '<p>nation</p>');
+(1789, '<p>nation</p>'),
+(1790, '<p>If you are not Japanese, so what _______ are you?</p>'),
+(1791, '<p>nationality</p>'),
+(1792, '<p>nationalized</p>'),
+(1793, '<p>If you are not Japanese, so what _______ are you?</p>'),
+(1794, '<p>afasdf</p>\n<p>adsfas</p>\n<p>daf</p>\n<p>fa</p>'),
+(1795, '<p>consequently</p>'),
+(1796, '<p>also</p>'),
+(1797, '<p>practically</p>'),
+(1798, '<p>actually</p>'),
+(1799, '<p>It was not until she had arrived home ______ remembered her appointment with the doctor.</p>'),
+(1800, '<p>and she</p>'),
+(1801, '<p>she</p>'),
+(1802, '<p>when she had</p>'),
+(1803, '<p>that she</p>');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwTopicConstraintTopic`
+-- Table structure for table `TopicConstraintTopic`
 --
 
-DROP TABLE IF EXISTS `ocwTopicConstraintTopic`;
-CREATE TABLE IF NOT EXISTS `ocwTopicConstraintTopic` (
+CREATE TABLE IF NOT EXISTS `TopicConstraintTopic` (
   `constraint_id` bigint(20) NOT NULL,
   `topic_id` bigint(20) NOT NULL,
   PRIMARY KEY (`constraint_id`,`topic_id`),
@@ -6473,18 +6546,17 @@ CREATE TABLE IF NOT EXISTS `ocwTopicConstraintTopic` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwTopicConstraintTopic`
+-- Dumping data for table `TopicConstraintTopic`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwTopicSet`
+-- Table structure for table `TopicSet`
 --
 
-DROP TABLE IF EXISTS `ocwTopicSet`;
-CREATE TABLE IF NOT EXISTS `ocwTopicSet` (
+CREATE TABLE IF NOT EXISTS `TopicSet` (
   `topic` bigint(20) NOT NULL,
   `left_index` int(11) NOT NULL,
   `right_index` int(11) NOT NULL,
@@ -6492,10 +6564,10 @@ CREATE TABLE IF NOT EXISTS `ocwTopicSet` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
 
 --
--- Dumping data for table `ocwTopicSet`
+-- Dumping data for table `TopicSet`
 --
 
-INSERT INTO `ocwTopicSet` (`topic`, `left_index`, `right_index`) VALUES
+INSERT INTO `TopicSet` (`topic`, `left_index`, `right_index`) VALUES
 (461, 1, 14),
 (462, 103, 114),
 (463, 4, 5),
@@ -6555,15 +6627,15 @@ INSERT INTO `ocwTopicSet` (`topic`, `left_index`, `right_index`) VALUES
 (517, 162, 163),
 (518, 165, 166),
 (519, 167, 168),
-(520, 169, 170);
+(520, 169, 170),
+(531, 171, 172);
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `ocwTopicSetInfo`
+-- Stand-in structure for view `TopicSetInfo`
 --
-DROP VIEW IF EXISTS `ocwTopicSetInfo`;
-CREATE TABLE IF NOT EXISTS `ocwTopicSetInfo` (
+CREATE TABLE IF NOT EXISTS `TopicSetInfo` (
 `name` varchar(255)
 ,`id` bigint(20)
 ,`parent_name` varchar(255)
@@ -6574,11 +6646,10 @@ CREATE TABLE IF NOT EXISTS `ocwTopicSetInfo` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocwUser`
+-- Table structure for table `User`
 --
 
-DROP TABLE IF EXISTS `ocwUser`;
-CREATE TABLE IF NOT EXISTS `ocwUser` (
+CREATE TABLE IF NOT EXISTS `User` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -6609,10 +6680,10 @@ CREATE TABLE IF NOT EXISTS `ocwUser` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `ocwUser`
+-- Dumping data for table `User`
 --
 
-INSERT INTO `ocwUser` (`id`, `version`, `name`, `fullname`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `last_name`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`) VALUES
+INSERT INTO `User` (`id`, `version`, `name`, `fullname`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `last_name`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`) VALUES
 (1, 2, 'admin', 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
 (2, 0, 'teacher', 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
 (3, 0, 'cumeo89', 'Lê Ngọc Minh', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
@@ -6621,212 +6692,220 @@ INSERT INTO `ocwUser` (`id`, `version`, `name`, `fullname`, `pass`, `email`, `ug
 -- --------------------------------------------------------
 
 --
--- Structure for view `ocwCommentReportWithoutUser`
+-- Structure for view `CommentReportWithoutUser`
 --
-DROP TABLE IF EXISTS `ocwCommentReportWithoutUser`;
+DROP TABLE IF EXISTS `CommentReportWithoutUser`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ocwCommentReportWithoutUser` AS select `m`.`id` AS `comment`,(select count(0) AS `count(*)` from `ocwCommentCustomization` `c2` where ((`c2`.`comment` = `m`.`id`) and (`c2`.`status` = 'LIKE'))) AS `like_count` from `ocwComment` `m`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `CommentReportWithoutUser` AS select `m`.`id` AS `comment`,(select count(0) AS `count(*)` from `CommentCustomization` `c2` where ((`c2`.`comment` = `m`.`id`) and (`c2`.`status` = 'LIKE'))) AS `like_count` from `Comment` `m`;
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `ocwCommentReportWithUser`
+-- Structure for view `CommentReportWithUser`
 --
-DROP TABLE IF EXISTS `ocwCommentReportWithUser`;
+DROP TABLE IF EXISTS `CommentReportWithUser`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ocwCommentReportWithUser` AS select `m`.`id` AS `comment`,`u`.`id` AS `user`,(case when isnull(`c`.`status`) then 'NORMAL' else `c`.`status` end) AS `status`,(select count(0) AS `count(*)` from `ocwCommentCustomization` `c2` where ((`c2`.`comment` = `m`.`id`) and (`c2`.`status` = 'LIKE'))) AS `like_count` from ((`ocwComment` `m` join `ocwUser` `u`) left join `ocwCommentCustomization` `c` on(((`c`.`comment` = `m`.`id`) and (`c`.`user` = `u`.`id`))));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `CommentReportWithUser` AS select `m`.`id` AS `comment`,`u`.`id` AS `user`,(case when isnull(`c`.`status`) then 'NORMAL' else `c`.`status` end) AS `status`,(select count(0) AS `count(*)` from `CommentCustomization` `c2` where ((`c2`.`comment` = `m`.`id`) and (`c2`.`status` = 'LIKE'))) AS `like_count` from ((`Comment` `m` join `User` `u`) left join `CommentCustomization` `c` on(((`c`.`comment` = `m`.`id`) and (`c`.`user` = `u`.`id`))));
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `ocwResourceReportWithoutUser`
+-- Structure for view `ResourceReportWithoutUser`
 --
-DROP TABLE IF EXISTS `ocwResourceReportWithoutUser`;
+DROP TABLE IF EXISTS `ResourceReportWithoutUser`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ocwResourceReportWithoutUser` AS select `r`.`id` AS `resource`,(select count(0) AS `count(*)` from `ocwResourceCustomization` `c2` where ((`c2`.`RESOURCE` = `r`.`id`) and (`c2`.`LIKE` = 'LIKE'))) AS `like_count`,`r`.`average_level` AS `average_level` from `ocwResource` `r`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ResourceReportWithoutUser` AS select `r`.`id` AS `resource`,(select count(0) AS `count(*)` from `ResourceCustomization` `c2` where ((`c2`.`RESOURCE` = `r`.`id`) and (`c2`.`LIKE` = 'LIKE'))) AS `like_count`,`r`.`average_level` AS `average_level` from `Resource` `r`;
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `ocwResourceReportWithUser`
+-- Structure for view `ResourceReportWithUser`
 --
-DROP TABLE IF EXISTS `ocwResourceReportWithUser`;
+DROP TABLE IF EXISTS `ResourceReportWithUser`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ocwResourceReportWithUser` AS select `r`.`id` AS `resource`,`u`.`id` AS `user`,(case when isnull(`c`.`LEVEL`) then 0 else `c`.`LEVEL` end) AS `level`,(case when isnull(`c`.`LIKE`) then 'NORMAL' else `c`.`LIKE` end) AS `like`,(case when isnull(`c`.`TODO`) then 'NORMAL' else `c`.`TODO` end) AS `todo`,(select count(0) AS `count(*)` from `ocwResourceCustomization` `c2` where ((`c2`.`RESOURCE` = `r`.`id`) and (`c2`.`LIKE` = 'LIKE'))) AS `like_count`,`r`.`average_level` AS `average_level` from ((`ocwResource` `r` join `ocwUser` `u`) left join `ocwResourceCustomization` `c` on(((`c`.`RESOURCE` = `r`.`id`) and (`c`.`USER` = `u`.`id`))));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ResourceReportWithUser` AS select `r`.`id` AS `resource`,`u`.`id` AS `user`,(case when isnull(`c`.`LEVEL`) then 0 else `c`.`LEVEL` end) AS `level`,(case when isnull(`c`.`LIKE`) then 'NORMAL' else `c`.`LIKE` end) AS `like`,(case when isnull(`c`.`TODO`) then 'NORMAL' else `c`.`TODO` end) AS `todo`,(select count(0) AS `count(*)` from `ResourceCustomization` `c2` where ((`c2`.`RESOURCE` = `r`.`id`) and (`c2`.`LIKE` = 'LIKE'))) AS `like_count`,`r`.`average_level` AS `average_level` from ((`Resource` `r` join `User` `u`) left join `ResourceCustomization` `c` on(((`c`.`RESOURCE` = `r`.`id`) and (`c`.`USER` = `u`.`id`))));
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `ocwTopicSetInfo`
+-- Structure for view `TopicSetInfo`
 --
-DROP TABLE IF EXISTS `ocwTopicSetInfo`;
+DROP TABLE IF EXISTS `TopicSetInfo`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ocwTopicSetInfo` AS select `a`.`name` AS `name`,`r`.`id` AS `id`,`pa`.`name` AS `parent_name`,`pr`.`id` AS `parent_id`,`s`.`left_index` AS `left_index`,`s`.`right_index` AS `right_index` from (((`ocwTopicSet` `s` join `ocwResource` `r`) join `ocwArticle` `a`) left join (`ocwResource` `pr` join `ocwArticle` `pa` on((`pr`.`article` = `pa`.`id`))) on((`a`.`parent` = `pr`.`id`))) where ((`s`.`topic` = `r`.`id`) and (`r`.`article` = `a`.`id`));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `TopicSetInfo` AS select `a`.`name` AS `name`,`r`.`id` AS `id`,`pa`.`name` AS `parent_name`,`pr`.`id` AS `parent_id`,`s`.`left_index` AS `left_index`,`s`.`right_index` AS `right_index` from (((`TopicSet` `s` join `Resource` `r`) join `Article` `a`) left join (`Resource` `pr` join `Article` `pa` on((`pr`.`article` = `pa`.`id`))) on((`a`.`parent` = `pr`.`id`))) where ((`s`.`topic` = `r`.`id`) and (`r`.`article` = `a`.`id`));
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `ocwAnswer`
+-- Constraints for table `Answer`
 --
-ALTER TABLE `ocwAnswer`
-  ADD CONSTRAINT `FK81F532C1EA647FAC` FOREIGN KEY (`content`) REFERENCES `ocwText` (`id`);
+ALTER TABLE `Answer`
+  ADD CONSTRAINT `FK81F532C1EA647FAC` FOREIGN KEY (`content`) REFERENCES `Text` (`id`);
 
 --
--- Constraints for table `ocwArticle`
+-- Constraints for table `AnswerAttempt`
 --
-ALTER TABLE `ocwArticle`
-  ADD CONSTRAINT `FKC38C3A53232F5FBE` FOREIGN KEY (`parent`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FKC38C3A537D807870` FOREIGN KEY (`namespace`) REFERENCES `ocwNamespace` (`id`),
-  ADD CONSTRAINT `FKC38C3A53EA647FAC` FOREIGN KEY (`content`) REFERENCES `ocwText` (`id`),
-  ADD CONSTRAINT `ocwArticle_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `ocwResource` (`id`) ON DELETE CASCADE;
+ALTER TABLE `AnswerAttempt`
+  ADD CONSTRAINT `FKD6EACCCCB1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `FKD6EACCCC190692FA` FOREIGN KEY (`question`) REFERENCES `Resource` (`id`);
 
 --
--- Constraints for table `ocwArticleAttachment`
+-- Constraints for table `Article`
 --
-ALTER TABLE `ocwArticleAttachment`
-  ADD CONSTRAINT `FKDCFAE3D628588123` FOREIGN KEY (`article_id`) REFERENCES `ocwArticle` (`id`),
-  ADD CONSTRAINT `FKDCFAE3D62B8E11D2` FOREIGN KEY (`file_id`) REFERENCES `ocwResource` (`id`);
+ALTER TABLE `Article`
+  ADD CONSTRAINT `FKC38C3A53232F5FBE` FOREIGN KEY (`parent`) REFERENCES `Resource` (`id`),
+  ADD CONSTRAINT `FKC38C3A537D807870` FOREIGN KEY (`namespace`) REFERENCES `Namespace` (`id`),
+  ADD CONSTRAINT `FKC38C3A53EA647FAC` FOREIGN KEY (`content`) REFERENCES `Text` (`id`),
+  ADD CONSTRAINT `Article_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `Resource` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `ocwArticleEmbed`
+-- Constraints for table `ArticleAttachment`
 --
-ALTER TABLE `ocwArticleEmbed`
-  ADD CONSTRAINT `FK1EA9A04628588123` FOREIGN KEY (`article_id`) REFERENCES `ocwArticle` (`id`),
-  ADD CONSTRAINT `FK1EA9A0462B8E11D2` FOREIGN KEY (`file_id`) REFERENCES `ocwResource` (`id`);
+ALTER TABLE `ArticleAttachment`
+  ADD CONSTRAINT `FKDCFAE3D628588123` FOREIGN KEY (`article_id`) REFERENCES `Article` (`id`),
+  ADD CONSTRAINT `FKDCFAE3D62B8E11D2` FOREIGN KEY (`file_id`) REFERENCES `Resource` (`id`);
 
 --
--- Constraints for table `ocwArticleTopic`
+-- Constraints for table `ArticleEmbed`
 --
-ALTER TABLE `ocwArticleTopic`
-  ADD CONSTRAINT `FK1F7E1E9C2575393F` FOREIGN KEY (`topic_id`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FK1F7E1E9CACC8C07A` FOREIGN KEY (`article_id`) REFERENCES `ocwArticle` (`id`);
+ALTER TABLE `ArticleEmbed`
+  ADD CONSTRAINT `FK1EA9A04628588123` FOREIGN KEY (`article_id`) REFERENCES `Article` (`id`),
+  ADD CONSTRAINT `FK1EA9A0462B8E11D2` FOREIGN KEY (`file_id`) REFERENCES `Resource` (`id`);
 
 --
--- Constraints for table `ocwBaseQuestionAnswer`
+-- Constraints for table `ArticleTopic`
 --
-ALTER TABLE `ocwBaseQuestionAnswer`
-  ADD CONSTRAINT `FKCB25FAF840890D80` FOREIGN KEY (`answer_id`) REFERENCES `ocwAnswer` (`id`),
-  ADD CONSTRAINT `FKCB25FAF8EF28C9F1` FOREIGN KEY (`question_id`) REFERENCES `ocwArticle` (`id`);
+ALTER TABLE `ArticleTopic`
+  ADD CONSTRAINT `FK1F7E1E9C2575393F` FOREIGN KEY (`topic_id`) REFERENCES `Resource` (`id`),
+  ADD CONSTRAINT `FK1F7E1E9CACC8C07A` FOREIGN KEY (`article_id`) REFERENCES `Article` (`id`);
 
 --
--- Constraints for table `ocwComment`
+-- Constraints for table `BaseQuestionAnswer`
 --
-ALTER TABLE `ocwComment`
-  ADD CONSTRAINT `FK27D95BBC4A301B22` FOREIGN KEY (`resource`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FK27D95BBC53C202BC` FOREIGN KEY (`revision`) REFERENCES `ocwRevision` (`id`),
-  ADD CONSTRAINT `FK27D95BBCB1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`);
+ALTER TABLE `BaseQuestionAnswer`
+  ADD CONSTRAINT `FKCB25FAF840890D80` FOREIGN KEY (`answer_id`) REFERENCES `Answer` (`id`),
+  ADD CONSTRAINT `FKCB25FAF8EF28C9F1` FOREIGN KEY (`question_id`) REFERENCES `Article` (`id`);
 
 --
--- Constraints for table `ocwCommentCustomization`
+-- Constraints for table `Comment`
 --
-ALTER TABLE `ocwCommentCustomization`
-  ADD CONSTRAINT `FK67886D773B31D0F8` FOREIGN KEY (`comment`) REFERENCES `ocwComment` (`id`),
-  ADD CONSTRAINT `FK67886D77B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`);
+ALTER TABLE `Comment`
+  ADD CONSTRAINT `FK27D95BBC4A301B22` FOREIGN KEY (`resource`) REFERENCES `Resource` (`id`),
+  ADD CONSTRAINT `FK27D95BBC53C202BC` FOREIGN KEY (`revision`) REFERENCES `Revision` (`id`),
+  ADD CONSTRAINT `FK27D95BBCB1E4DD9C` FOREIGN KEY (`user`) REFERENCES `User` (`id`);
 
 --
--- Constraints for table `ocwFacebookAccount`
+-- Constraints for table `CommentCustomization`
 --
-ALTER TABLE `ocwFacebookAccount`
-  ADD CONSTRAINT `ocwFacebookAccount_ibfk_1` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`);
+ALTER TABLE `CommentCustomization`
+  ADD CONSTRAINT `FK67886D773B31D0F8` FOREIGN KEY (`comment`) REFERENCES `Comment` (`id`),
+  ADD CONSTRAINT `FK67886D77B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `User` (`id`);
 
 --
--- Constraints for table `ocwHistory`
+-- Constraints for table `FacebookAccount`
 --
-ALTER TABLE `ocwHistory`
-  ADD CONSTRAINT `FK267351F1B1E38F2A` FOREIGN KEY (`test`) REFERENCES `ocwArticle` (`id`),
-  ADD CONSTRAINT `FK267351F1B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`);
+ALTER TABLE `FacebookAccount`
+  ADD CONSTRAINT `FacebookAccount_ibfk_1` FOREIGN KEY (`user`) REFERENCES `User` (`id`);
 
 --
--- Constraints for table `ocwLog`
+-- Constraints for table `History`
 --
-ALTER TABLE `ocwLog`
-  ADD CONSTRAINT `FKC31447213B31D0F8` FOREIGN KEY (`comment`) REFERENCES `ocwComment` (`id`),
-  ADD CONSTRAINT `FKC31447214A301B22` FOREIGN KEY (`resource`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FKC3144721B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `ocwUser` (`id`),
-  ADD CONSTRAINT `FKC3144721EC5981D4` FOREIGN KEY (`old_revision`) REFERENCES `ocwRevision` (`id`),
-  ADD CONSTRAINT `FKC3144721F3DA5E7B` FOREIGN KEY (`new_revision`) REFERENCES `ocwRevision` (`id`);
+ALTER TABLE `History`
+  ADD CONSTRAINT `FK267351F1B1E38F2A` FOREIGN KEY (`test`) REFERENCES `Article` (`id`),
+  ADD CONSTRAINT `FK267351F1B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `User` (`id`);
 
 --
--- Constraints for table `ocwQuestion`
+-- Constraints for table `Log`
 --
-ALTER TABLE `ocwQuestion`
-  ADD CONSTRAINT `FKB1BC7A29CBC360D0` FOREIGN KEY (`base_resource`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FKB1BC7A29D555486A` FOREIGN KEY (`base_revision`) REFERENCES `ocwRevision` (`id`);
+ALTER TABLE `Log`
+  ADD CONSTRAINT `FKC31447213B31D0F8` FOREIGN KEY (`comment`) REFERENCES `Comment` (`id`),
+  ADD CONSTRAINT `FKC31447214A301B22` FOREIGN KEY (`resource`) REFERENCES `Resource` (`id`),
+  ADD CONSTRAINT `FKC3144721B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `FKC3144721EC5981D4` FOREIGN KEY (`old_revision`) REFERENCES `Revision` (`id`),
+  ADD CONSTRAINT `FKC3144721F3DA5E7B` FOREIGN KEY (`new_revision`) REFERENCES `Revision` (`id`);
 
 --
--- Constraints for table `ocwResource`
+-- Constraints for table `Question`
 --
-ALTER TABLE `ocwResource`
-  ADD CONSTRAINT `FKE2E602515DDB135C` FOREIGN KEY (`author`) REFERENCES `ocwUser` (`id`),
-  ADD CONSTRAINT `FKE2E602515EB7070E` FOREIGN KEY (`link`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `ocwResource_ibfk_1` FOREIGN KEY (`article`) REFERENCES `ocwArticle` (`id`) ON DELETE CASCADE;
+ALTER TABLE `Question`
+  ADD CONSTRAINT `FKB1BC7A29CBC360D0` FOREIGN KEY (`base_resource`) REFERENCES `Resource` (`id`),
+  ADD CONSTRAINT `FKB1BC7A29D555486A` FOREIGN KEY (`base_revision`) REFERENCES `Revision` (`id`);
 
 --
--- Constraints for table `ocwResourceCustomization`
+-- Constraints for table `Resource`
 --
-ALTER TABLE `ocwResourceCustomization`
-  ADD CONSTRAINT `FK46CFE1024A301B22` FOREIGN KEY (`RESOURCE`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FK46CFE102B1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `ocwUser` (`id`);
+ALTER TABLE `Resource`
+  ADD CONSTRAINT `FKE2E602515DDB135C` FOREIGN KEY (`author`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `FKE2E602515EB7070E` FOREIGN KEY (`link`) REFERENCES `Resource` (`id`),
+  ADD CONSTRAINT `Resource_ibfk_1` FOREIGN KEY (`article`) REFERENCES `Article` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `ocwRevision`
+-- Constraints for table `ResourceCustomization`
 --
-ALTER TABLE `ocwRevision`
-  ADD CONSTRAINT `FKE7AEF61E5DDB135C` FOREIGN KEY (`author`) REFERENCES `ocwUser` (`id`),
-  ADD CONSTRAINT `ocwRevision_ibfk_1` FOREIGN KEY (`resource`) REFERENCES `ocwResource` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `ocwRevision_ibfk_2` FOREIGN KEY (`article`) REFERENCES `ocwArticle` (`id`) ON DELETE CASCADE;
+ALTER TABLE `ResourceCustomization`
+  ADD CONSTRAINT `FK46CFE1024A301B22` FOREIGN KEY (`RESOURCE`) REFERENCES `Resource` (`id`),
+  ADD CONSTRAINT `FK46CFE102B1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `User` (`id`);
 
 --
--- Constraints for table `ocwSection`
+-- Constraints for table `Revision`
 --
-ALTER TABLE `ocwSection`
-  ADD CONSTRAINT `FK64A2EC42EA647FAC` FOREIGN KEY (`content`) REFERENCES `ocwText` (`id`);
+ALTER TABLE `Revision`
+  ADD CONSTRAINT `FKE7AEF61E5DDB135C` FOREIGN KEY (`author`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `Revision_ibfk_1` FOREIGN KEY (`resource`) REFERENCES `Resource` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Revision_ibfk_2` FOREIGN KEY (`article`) REFERENCES `Article` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `ocwSectionQuestion`
+-- Constraints for table `Section`
 --
-ALTER TABLE `ocwSectionQuestion`
-  ADD CONSTRAINT `FKB0F82A485936BFD4` FOREIGN KEY (`section_id`) REFERENCES `ocwSection` (`id`),
-  ADD CONSTRAINT `FKB0F82A4866D4B300` FOREIGN KEY (`question_id`) REFERENCES `ocwQuestion` (`id`);
+ALTER TABLE `Section`
+  ADD CONSTRAINT `FK64A2EC42EA647FAC` FOREIGN KEY (`content`) REFERENCES `Text` (`id`);
 
 --
--- Constraints for table `ocwSectionStructure`
+-- Constraints for table `SectionQuestion`
 --
-ALTER TABLE `ocwSectionStructure`
-  ADD CONSTRAINT `FKE0E50B51EA647FAC` FOREIGN KEY (`content`) REFERENCES `ocwText` (`id`);
+ALTER TABLE `SectionQuestion`
+  ADD CONSTRAINT `FKB0F82A485936BFD4` FOREIGN KEY (`section_id`) REFERENCES `Section` (`id`),
+  ADD CONSTRAINT `FKB0F82A4866D4B300` FOREIGN KEY (`question_id`) REFERENCES `Question` (`id`);
 
 --
--- Constraints for table `ocwSectionStructureConstraint`
+-- Constraints for table `SectionStructure`
 --
-ALTER TABLE `ocwSectionStructureConstraint`
-  ADD CONSTRAINT `FK2228CC0E5CF139C9` FOREIGN KEY (`section_id`) REFERENCES `ocwSectionStructure` (`id`),
-  ADD CONSTRAINT `FK2228CC0E9391B220` FOREIGN KEY (`constraint_id`) REFERENCES `ocwConstraint` (`id`);
+ALTER TABLE `SectionStructure`
+  ADD CONSTRAINT `FKE0E50B51EA647FAC` FOREIGN KEY (`content`) REFERENCES `Text` (`id`);
 
 --
--- Constraints for table `ocwTestSection`
+-- Constraints for table `SectionStructureConstraint`
 --
-ALTER TABLE `ocwTestSection`
-  ADD CONSTRAINT `FK80DC60D05936BFD4` FOREIGN KEY (`section_id`) REFERENCES `ocwSection` (`id`),
-  ADD CONSTRAINT `FK80DC60D05CE45680` FOREIGN KEY (`test_id`) REFERENCES `ocwArticle` (`id`);
+ALTER TABLE `SectionStructureConstraint`
+  ADD CONSTRAINT `FK2228CC0E5CF139C9` FOREIGN KEY (`section_id`) REFERENCES `SectionStructure` (`id`),
+  ADD CONSTRAINT `FK2228CC0E9391B220` FOREIGN KEY (`constraint_id`) REFERENCES `Constraint` (`id`);
 
 --
--- Constraints for table `ocwTestSectionStructure`
+-- Constraints for table `TestSection`
 --
-ALTER TABLE `ocwTestSectionStructure`
-  ADD CONSTRAINT `FK3CCAD6835CF139C9` FOREIGN KEY (`section_id`) REFERENCES `ocwSectionStructure` (`id`),
-  ADD CONSTRAINT `FK3CCAD683A7507AD6` FOREIGN KEY (`id`) REFERENCES `ocwArticle` (`id`);
+ALTER TABLE `TestSection`
+  ADD CONSTRAINT `FK80DC60D05936BFD4` FOREIGN KEY (`section_id`) REFERENCES `Section` (`id`),
+  ADD CONSTRAINT `FK80DC60D05CE45680` FOREIGN KEY (`test_id`) REFERENCES `Article` (`id`);
 
 --
--- Constraints for table `ocwTopicConstraintTopic`
+-- Constraints for table `TestSectionStructure`
 --
-ALTER TABLE `ocwTopicConstraintTopic`
-  ADD CONSTRAINT `FK7F38E1E62575393F` FOREIGN KEY (`topic_id`) REFERENCES `ocwResource` (`id`),
-  ADD CONSTRAINT `FK7F38E1E68DCE1D63` FOREIGN KEY (`constraint_id`) REFERENCES `ocwConstraint` (`id`);
+ALTER TABLE `TestSectionStructure`
+  ADD CONSTRAINT `FK3CCAD6835CF139C9` FOREIGN KEY (`section_id`) REFERENCES `SectionStructure` (`id`),
+  ADD CONSTRAINT `FK3CCAD683A7507AD6` FOREIGN KEY (`id`) REFERENCES `Article` (`id`);
 
 --
--- Constraints for table `ocwTopicSet`
+-- Constraints for table `TopicConstraintTopic`
 --
-ALTER TABLE `ocwTopicSet`
-  ADD CONSTRAINT `ocwTopicSet_ibfk_1` FOREIGN KEY (`topic`) REFERENCES `ocwResource` (`id`) ON DELETE CASCADE;
+ALTER TABLE `TopicConstraintTopic`
+  ADD CONSTRAINT `FK7F38E1E62575393F` FOREIGN KEY (`topic_id`) REFERENCES `Resource` (`id`),
+  ADD CONSTRAINT `FK7F38E1E68DCE1D63` FOREIGN KEY (`constraint_id`) REFERENCES `Constraint` (`id`);
+
+--
+-- Constraints for table `TopicSet`
+--
+ALTER TABLE `TopicSet`
+  ADD CONSTRAINT `TopicSet_ibfk_1` FOREIGN KEY (`topic`) REFERENCES `Resource` (`id`) ON DELETE CASCADE;
+  

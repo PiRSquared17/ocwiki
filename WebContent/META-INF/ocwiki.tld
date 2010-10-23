@@ -147,9 +147,18 @@
     <attribute>
         <description>Tên biến chứa kết quả</description>
         <name>var</name>
-        <required>true</required>
         <rtexprvalue>false</rtexprvalue>
     </attribute>    
+    <attribute>
+        <description>Tên biến JavaScript chứa kết quả</description>
+        <name>jsVar</name>
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>  
+    <attribute>
+        <description>Tên biến Template (Prototype) chứa kết quả</description>
+        <name>templateVar</name>
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>  
     <attribute>
         <description>Nội dung văn bản</description>
         <name>value</name>
@@ -180,6 +189,13 @@
   </tag-file>
   
   <tag-file>
+    <description>Tạo liên kết đến bài viết trong Template</description>
+    <display-name>Liên kết bài viết</display-name>
+    <name>articleLinkTemplate</name>
+    <path>/WEB-INF/tags/articleLinkTemplate.tag</path>
+  </tag-file>
+  
+  <tag-file>
     <description>Tạo liên kết đến profile của người dùng</description>
     <display-name>Profile người dùng</display-name>
     <name>userLink</name>
@@ -202,6 +218,18 @@
     <function-signature>java.lang.String getActionURL(java.lang.String)</function-signature>
     <example>
       ${ocw:actionUrl('ques.view')}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Trả về đường dẫn đến REST web service.
+    </description>
+    <name>restUrl</name>
+    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-signature>java.lang.String getRestURL(java.lang.String)</function-signature>
+    <example>
+      ${ocw:restUrl('questions/1234')}
     </example>
   </function>
 

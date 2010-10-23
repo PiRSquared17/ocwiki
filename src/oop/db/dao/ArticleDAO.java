@@ -4,7 +4,9 @@ import java.util.List;
 
 import oop.data.Article;
 import oop.data.CategorizableArticle;
+import oop.data.Resource;
 import oop.data.ResourceSearchReport;
+import oop.data.Topic;
 import oop.persistence.HibernateUtil;
 
 import org.hibernate.HibernateException;
@@ -81,4 +83,28 @@ public class ArticleDAO {
 		}
 	}
 
+	/**
+	 * Lấy các bài viết chưa được phân loại
+	 * @return
+	 * chưa kiểm tra việc bài đã xóa!!!
+	 */
+	public static List<Resource<Article>> fetchUncategorized(int start, int size) {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("from CategorizableArticle where topics <> null");
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return query.list();
+	}
+	
+	/**
+	 * Lấy các bài viết bị khóa
+	 * @return
+	 */
+	public static List<Resource<Article>> fetchLocked(int start, int size) {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("from Resource where accessibility <> 'EVERYONE'");
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return query.list();
+	}
 }

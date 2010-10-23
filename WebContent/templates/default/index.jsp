@@ -6,28 +6,46 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>${pageTitle}</title>
 
-    <link rel="stylesheet" href="${templatePath}/css/autocomplete.css" type="text/css" />
-    <link rel="stylesheet" href="${templatePath}/css/calendarview.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/css/main.css" type="text/css" />
-    <link rel="stylesheet" href="${templatePath}/css/ddmenu.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/js/windowjs/themes/default.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/js/windowjs/themes/alphacube.css" type="text/css" />
 
-	<script type="text/javascript" src="${templatePath}/js/prototype.js"></script>
-	<!-- TODO dùng link này để tận dụng CDN của Google
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
-	 -->
-	<script type="text/javascript" src="${templatePath}/js/calendarview.js"></script>
+    <c:choose>
+        <c:when test="${config.useCDN}">
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+        </c:when>
+        <c:otherwise>
+            <script type="text/javascript" src="${templatePath}/js/prototype.js"></script>
+        </c:otherwise>
+    </c:choose>
+	
 	<script type="text/javascript" src="${templatePath}/js/autocomplete.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/tiny_mce/tiny_mce.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/scriptaculous.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/ddmenu.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/windowjs/javascripts/window.js"></script>
+	<script type="text/javascript" src="${templatePath}/js/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js"></script>
 	<script type="text/javascript">
+	var AMTcgiloc = '${config.texCgi}';
+	</script>
+	<script type="text/javascript">
+	   Element.observe(window, 'load', function() {
 		tinyMCE.init({
 		    mode : "textareas",
-		    theme : "simple"
+		    //skin : "o2k7",
+		    theme : "advanced",
+		    theme_advanced_buttons1 : 'bold,italic,underline,strikethrough,link,unlink,separator,image,asciimath,asciimathcharmap,separator,numlist,bullist,separator,emotions,separator,cleanup,code',
+		    theme_advanced_buttons2 : "tablecontrols",
+		    theme_advanced_buttons3 : "",
+		    theme_advanced_resizing : true,
+		    plugins : "inlinepopups,asciimath,emotions,table",
+		    table_styles : "Header 1=header1;Header 2=header2;Header 3=header3",
+		    table_cell_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Cell=tableCel1",
+		    table_row_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
+		    //TODO: change!		    	   
+	        content_css : "${templatePath}/css/editor-content.css"
 		});
+	   });
 	</script>
 	
 	<script type="text/javascript" src="${homeDir}/includes/common.js"></script>
@@ -40,14 +58,18 @@
 	   uploadPath = '${config.uploadPath}';
 	   restPath = '${config.restPath}';
 	   templatePath = '${templatePath}';
-	   //login = false;
-	   //login = ${sessionScope.login};
+	   login = ${sessionScope.login ? true : false};
 	//-->
 	</script>
 </head>
 <body>
 <div id="content">
 <div class="headNav">
+    <c:forEach items="${modules['top_left']}" var="module">
+    <div class="top_left">
+        <jsp:include page="modules/${module.page}"></jsp:include>
+    </div>
+    </c:forEach>
     &nbsp;
 	<c:forEach items="${modules['top_right']}" var="module">
 	<div class="top_right">
@@ -127,7 +149,7 @@
 	</div>
 
 	<div id="footer">
-		<p><a href="https://code.google.com/p/tracnghiem-csforce/">ocwiki v0.1</a>. 
+		<p><a href="https://code.google.com/p/ocwiki/">ocwiki v0.1</a>. 
 		Copyright © 2010. Powered by CS Force</p>
 	</div>
 </div>

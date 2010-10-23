@@ -10,6 +10,7 @@
         <li><a href="#" onclick="createTest(); return false">Đề thi</a></li>
         <li><a href="#" onclick="createTextArticle(); return false">Bài giảng</a></li>
         <li><a href="#" onclick="createTestStructure(); return false">Cấu trúc đề</a></li>
+        <li><a href="#" onclick="createTopic(); return false">Chủ đề</a></li>
     </ul>
     </li>
 </ul>
@@ -55,7 +56,7 @@ function createTest() {
             type: 'testBean',
             name: 'Đề thi mới',
             namespace: {
-                id: 3
+                id: 4
             }
         } 
     };
@@ -69,7 +70,7 @@ function createTextArticle() {
             type: 'textArticleBean',
             name: 'Bài viết mới',
             namespace: {
-                id: 3
+                id: 0
             }
         } 
     };
@@ -83,7 +84,21 @@ function createTestStructure() {
             type: 'testStructureBean',
             name: 'Cấu trúc đề mới',
             namespace: {
-                id: 3
+                id: 5
+            }
+        } 
+    };
+    sendCreateRequest(resource);
+}
+
+function createTopic() {
+    resource = {
+        articleType: 'oop.data.Topic',
+        article: {
+            type: 'topicBean',
+            name: 'Chủ đề mới',
+            namespace: {
+                id: 2
             }
         } 
     };
@@ -106,16 +121,7 @@ function sendCreateRequest(resource) {
             location.href = actionPath + '/article.edit?id=' + id;
         },
         onFailure: function(transport) {
-            var code = transport.responseJSON.code;
-            if (code == 'login required') {
-                mess = '<p>Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã hết hạn.</p>' + 
-                       '<p>Hãy <a href="' + actionPath + '/user.login' + '">đăng nhập</a>.</p>';
-            	Dialog.info(mess, {
-                	width:300, 
-                	height:100, 
-                	className: "alphacube"
-                });
-            }
+            DefaultTemplate.onFailure(transport); 
         }
     });
 }

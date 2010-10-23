@@ -51,16 +51,13 @@ Editor = Class.create();
 Editor.active = null;
 
 Editor.edit = function(id) {
-	var element = $(id);
-	if (!element) {
-		return;
-	}
-	if (Editor.active) {
+	if (Editor.active != null) {
 		Editor.preview(Editor.active);
 	}
-	var preview = $(id + '-preview');
-	if (preview) {
-		preview.remove();
+	var element = $(id);
+	var previewDiv = $(id + '-preview');
+	if (previewDiv != null) {
+		previewDiv.remove();
 	}
 	element.show();
 	if (element.getElementsByTagName('textarea').length > 0) {
@@ -81,36 +78,14 @@ Editor.edit = function(id) {
 
 Editor.preview = function(id) {
 	var element = $(id);
-	if (!element) {
-		return;
-	}
-	var preview = null;
-	if (element.getElementsByTagName('textarea').length > 0) {
-		var textarea = element.getElementsByTagName('textarea')[0];
-		var preview = document.createElement('div');
-		preview.setAttribute('id', id + '-preview');
-		tinymceEditor = tinymce.get(textarea.id);
-		if (tinymceEditor) {
-			preview.innerHTML = tinymceEditor.getContent();
-		} else {
-			preview.innerHTML = textarea.value;
-		}
-	} else {
-		var textbox = element.getElementsByTagName('input')[0];
-		preview = document.createElement('span');
-		preview.setAttribute('id', id + '-preview');
-		if (textbox.value.length > 0) {
-			name = textbox.value.trim();
-			name = name.replace(/</g, '');
-			name = name.replace(/>/g, '');
-			preview.innerHTML = name;
-		} else {
-			preview.innerHTML = '&lt;không tên&gt;';
-		}
-	}
-	preview.observe('click', function(event) {
+	var textarea = element.getElementsByTagName('textarea')[0]; 
+	var previewDiv = document.createElement('div');
+	previewDiv.setAttribute('id', id + '-preview');
+	previewDiv.innerHTML = textarea.value;
+	previewDiv.observe('click', function(event) {
 		var elementId = this.id;
 		elementId = elementId.substring(0, elementId.length-8);
+//		alert(elementId);
 		Editor.edit(elementId);
 	});
 	element.hide();

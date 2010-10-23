@@ -8,11 +8,14 @@
 
 <p><jsp:include page="article.view-comment.create.jsp"></jsp:include></p>
 
+<script type="text/javascript" src="${templatePath}/js/datetime.js"></script>
 <script type="text/javascript">
 	var articleID = ${action.resource.id};
 	var curPage = 0;
 	var pageCount = 0;
 	var commentCount = 0;
+
+	Event.observe(window, 'load', loadLatest);	
 
 	//load comments
 	function loadLatest(){
@@ -29,8 +32,8 @@
 					onSuccess : function(transport) {
 						//alert(transport.responseText);
 						var listResult = transport.responseJSON;
-						commentCount = listResult.count;
-						pageCount = getPageCount(listResult.count);
+						commentCount = listResult.totalCount;
+						pageCount = getPageCount(listResult.totalCount);
 						curPage = pageCount-1;
 						
 						comments = listResult.result;
@@ -50,9 +53,9 @@
 							}
 						}
 					},
-				    onFailure: function()
+				    onFailure: function(transport)
 				    { 
-						$('commentslist').innerHTML = 'Gặp lỗi khi tải nhận xét!';
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}
 			);
@@ -101,31 +104,17 @@
 	function showComments(commentPreview){
 		var commenthtml='';
 		commenthtml+=('<div id=comment'+commentPreview.comment.id+'>');
-		commenthtml+=('vào ngày: '+commentPreview.comment.timestamp);
+		commenthtml+=('vào lúc: '+dateToString(commentPreview.comment.timestamp));
 		commenthtml+=(' <a href="${scriptPath}?action=user.profile&user='+commentPreview.comment.user.id+'">'+commentPreview.comment.user.name+'</a> cho rằng:');
 		commenthtml+=('<div style="display:' + (commentPreview.status == 'HIDDEN' ? 'none' : 'block') + '" id=commentmessage'+commentPreview.comment.id+'>'+commentPreview.comment.message+'</div>');
-		commenthtml+=('<div>'+commentPreview.likeCount+' người thích nhận xét này');
-		//if (login){
-			commenthtml+=('.<a style="display:' + (commentPreview.status == 'LIKE' ? 'none' : 'inline') + '" id="commentlike'+commentPreview.comment.id+'" href="#" onclick = "likeComment('+commentPreview.comment.id+'); return false;" >'+'thích</a>');
+		commenthtml+=('<div><span style="display:' + (commentPreview.likeCount == 0 ? 'none' : 'inline') + '" id="commentlikecountpreview'+commentPreview.comment.id+'"><span id="commentlikecount'+commentPreview.comment.id+'">'+commentPreview.likeCount+'</span> người thích.</span>');
+		if (login){
+			commenthtml+=('<a style="display:' + (commentPreview.status == 'LIKE' ? 'none' : 'inline') + '" id="commentlike'+commentPreview.comment.id+'" href="#" onclick = "likeComment('+commentPreview.comment.id+'); return false;" >'+'thích</a>');
 			commenthtml+=('<a style="display:' + (commentPreview.status == 'LIKE' ? 'inline' : 'none') + '" id="commentunlike'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'bỏ thích</a>');
 			commenthtml+=('.<a style="display:' + (commentPreview.status == 'HIDDEN' ? 'none' : 'inline') + '" id="commenthide'+commentPreview.comment.id+'" href="#" onclick = "hideComment('+commentPreview.comment.id+'); return false;" >'+'ẩn</a>');
-			commenthtml+=('<a style="display:' + (commentPreview.status == 'HIDDEN' ? 'inline' : 'none') + '" id="commentunhide'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'bỏ ẩn</a>');
+			commenthtml+=('<a style="display:' + (commentPreview.status == 'HIDDEN' ? 'inline' : 'none') + '" id="commentunhide'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'hiện</a>');
 			//commenthtml+=('.<a id="commentdel'+comment.id+'" href="#" onclick = "del('+comment.id+'); return false;" >'+'del</a>');
-		//}
-
-			/*if (commentPreview.status == 'LIKE') {
-				alert('like');
-				$('commentlike'+commentPreview.comment.id).hide();
-				$('commentunhide'+commentPreview.comment.id).hide();
-			} else if (commentPreview.status == 'HIDDEN'){
-				alert('hide');
-				$('commenthide'+commentPreview.comment.id).hide();
-				$('commentunlike'+commentPreview.comment.id).hide();
-			} else {
-				alert('normal');
-				$('commentunhide'+commentPreview.comment.id).hide();
-				$('commentunlike'+commentPreview.comment.id).hide();
-			}*/
+		}
 		commenthtml+=('</div>');
 		commenthtml+=('<br/>------------<br/>');
 		commenthtml+='</div>';
@@ -147,7 +136,13 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						newCommentCustomization = transport.responseJSON.result;
+						var newCommentReport = transport.responseJSON.result;
+						$('commentlikecount'+lid).innerHTML=newCommentReport.likeCount;
+						if (newCommentReport.likeCount<=0) {
+							$('commentlikecountpreview'+lid).hide();
+						} else {
+							$('commentlikecountpreview'+lid).show();
+						}
 						$('commentmessage'+lid).show();
 						
 						$('commentlike'+lid).hide();
@@ -156,9 +151,7 @@
 						$('commentunhide'+lid).hide();
 					},
 				    onFailure: function(transport){ 
-					    if (transport.responseJSON.code == '') {
-						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
-					    }
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);
@@ -178,17 +171,22 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						newCommentCustomization = transport.responseJSON.result;
+						var newCommentReport = transport.responseJSON.result;
+						$('commentlikecount'+lhid).innerHTML=newCommentReport.likeCount;
+						if (newCommentReport.likeCount<=0) {
+							$('commentlikecountpreview'+lhid).hide();
+						} else {
+							$('commentlikecountpreview'+lhid).show();
+						}
 						$('commentmessage'+lhid).show();
+						
 						$('commentlike'+lhid).show();
 						$('commentunlike'+lhid).hide();
 						$('commenthide'+lhid).show();
 						$('commentunhide'+lhid).hide();
 					},
 				    onFailure: function(transport){ 
-					    if (transport.responseJSON.code == '') {
-						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
-					    }
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);
@@ -208,17 +206,22 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						newCommentCustomization = transport.responseJSON.result;
+						var newCommentReport = transport.responseJSON.result;
+						$('commentlikecount'+hid).innerHTML=newCommentReport.likeCount;
+						if (newCommentReport.likeCount<=0) {
+							$('commentlikecountpreview'+hid).hide();
+						} else {
+							$('commentlikecountpreview'+hid).show();
+						}
 						$('commentmessage'+hid).hide();
+						
 						$('commenthide'+hid).hide();
 						$('commentunhide'+hid).show();
 						$('commentlike'+hid).show();
 						$('commentunlike'+hid).hide();
 					},
 				    onFailure: function(transport){ 
-					    if (transport.responseJSON.code == '') {
-						    alert('Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã kết thúc. Hãy đăng nhập!');
-					    }
+						DefaultTemplate.onFailure(transport); 
 				    }		
 				}				
 			);
@@ -266,14 +269,17 @@
 				pageButtons+=buttonHTML(i+1,i,('loadPage('+i+')'));				
 			}
 			$('comment-pages').innerHTML = pageButtons;
+			
 		} else {
-			//alert('else');
-		}
+			$('btn-prev').hide();
+			$('btn-oldfirst').hide();
+			$('btn-next').hide();
+			$('btn-newfirst').hide();						
+		}		
 		disableButtons();
 	}
 
 	function disableButtons(){
-		//alert('disbut');
 		$('btn-'+(curPage)).innerHTML = ' '+(curPage+1)+' ';
 		if (curPage<=0) {
 			$('btn-prev').hide();
@@ -308,7 +314,4 @@
 	function rawButtonHTML(text,value,onClickFunction){
 		return '<button type="button" id="btn-'+value+'" name="btn-'+value+'" value="'+value+'" onclick="'+onClickFunction+'">'+text+'</button>';
 	}
-
-	Event.observe(window, 'load', loadLatest); 
-
 </script>

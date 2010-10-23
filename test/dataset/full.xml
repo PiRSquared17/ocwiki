@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <table name="ocwAnswer">
+  <table name="Answer">
     <column>id</column>
     <column>content</column>
     <column>correct</column>
@@ -4805,7 +4805,7 @@
       <value>false</value>
     </row>
   </table>
-  <table name="ocwArticle">
+  <table name="Article">
     <column>id</column>
     <column>discriminator</column>
     <column>namespace</column>
@@ -8885,15 +8885,15 @@
       <null/>
     </row>
   </table>
-  <table name="ocwArticleAttachment">
+  <table name="ArticleAttachment">
     <column>article_id</column>
     <column>file_id</column>
   </table>
-  <table name="ocwArticleEmbed">
+  <table name="ArticleEmbed">
     <column>article_id</column>
     <column>file_id</column>
   </table>
-  <table name="ocwArticleTopic">
+  <table name="ArticleTopic">
     <column>article_id</column>
     <column>topic_id</column>
     <row>
@@ -9925,7 +9925,7 @@
       <value>504</value>
     </row>
   </table>
-  <table name="ocwBaseQuestionAnswer">
+  <table name="BaseQuestionAnswer">
     <column>question_id</column>
     <column>answer_id</column>
     <column>answer_index</column>
@@ -14770,7 +14770,7 @@
       <value>3</value>
     </row>
   </table>
-  <table name="ocwComment">
+  <table name="Comment">
     <column>id</column>
     <column>user</column>
     <column>timestamp</column>
@@ -14809,7 +14809,7 @@ jkj
       <value>90</value>
     </row>
   </table>
-  <table name="ocwCommentCustomization">
+  <table name="CommentCustomization">
     <column>user</column>
     <column>comment</column>
     <column>status</column>
@@ -14824,13 +14824,13 @@ jkj
         <value>LIKE</value>
      </row>
   </table>
-  <table name="ocwConstraint">
+  <table name="Constraint">
     <column>id</column>
     <column>type</column>
     <column>count</column>
     <column>level</column>
   </table>
-  <table name="ocwHistory">
+  <table name="History">
     <column>id</column>
     <column>user</column>
     <column>test</column>
@@ -14838,7 +14838,7 @@ jkj
     <column>mark</column>
     <column>time</column>
   </table>
-  <table name="ocwLog">
+  <table name="Log">
     <column>id</column>
     <column>type</column>
     <column>user</column>
@@ -14848,7 +14848,7 @@ jkj
     <column>new_revision</column>
     <column>old_revision</column>
   </table>
-  <table name="ocwNamespace">
+  <table name="Namespace">
     <column>id</column>
     <column>name</column>
     <row>
@@ -14880,7 +14880,7 @@ jkj
       <value><![CDATA[Tập tin]]></value>
     </row>
   </table>
-  <table name="ocwQuestion">
+  <table name="Question">
     <column>id</column>
     <column>base_resource</column>
     <column>base_revision</column>
@@ -16326,7 +16326,7 @@ jkj
       <value>1.0</value>
     </row>
   </table>
-  <table name="ocwResource">
+  <table name="Resource">
     <column>id</column>
     <column>version</column>
     <column>create_date</column>
@@ -19703,7 +19703,7 @@ jkj
       <value>EVERYONE</value>
     </row>
   </table>
-  <table name="ocwRevision">
+  <table name="Revision">
     <column>id</column>
     <column>resource</column>
     <column>article</column>
@@ -22763,7 +22763,7 @@ jkj
       <value>false</value>
     </row>
   </table>
-  <table name="ocwSection">
+  <table name="Section">
     <column>id</column>
     <column>content</column>
     <row>
@@ -22931,7 +22931,7 @@ jkj
       <value>1595</value>
     </row>
   </table>
-  <table name="ocwSectionQuestion">
+  <table name="SectionQuestion">
     <column>section_id</column>
     <column>question_id</column>
     <column>question_index</column>
@@ -24836,16 +24836,16 @@ jkj
       <value>19</value>
     </row>
   </table>
-  <table name="ocwSectionStructure">
+  <table name="SectionStructure">
     <column>id</column>
     <column>content</column>
   </table>
-  <table name="ocwSectionStructureConstraint">
+  <table name="SectionStructureConstraint">
     <column>section_id</column>
     <column>constraint_id</column>
     <column>constraint_index</column>
   </table>
-  <table name="ocwTestSection">
+  <table name="TestSection">
     <column>test_id</column>
     <column>section_id</column>
     <column>section_index</column>
@@ -25055,12 +25055,12 @@ jkj
       <value>5</value>
     </row>
   </table>
-  <table name="ocwTestSectionStructure">
+  <table name="TestSectionStructure">
     <column>id</column>
     <column>section_id</column>
     <column>section_index</column>
   </table>
-  <table name="ocwText">
+  <table name="Text">
     <column>id</column>
     <column>text</column>
     <row>
@@ -33451,11 +33451,11 @@ The divers in both &ldquo;houses&rdquo; spent most of their time (37)______ the 
       <null/>
     </row>
   </table>
-  <table name="ocwTopicConstraintTopic">
+  <table name="TopicConstraintTopic">
     <column>constraint_id</column>
     <column>topic_id</column>
   </table>
-  <table name="ocwUser">
+  <table name="User">
     <column>id</column>
     <column>version</column>
     <column>name</column>

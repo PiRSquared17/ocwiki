@@ -3,9 +3,16 @@ package oop.controller.api;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import oop.controller.ActionController;
+import oop.controller.rest.util.ErrorResult;
+import oop.data.User;
 import oop.util.JsonUtils;
+import oop.util.SessionUtils;
 
 import org.codehaus.jackson.node.ObjectNode;
 
@@ -67,6 +74,14 @@ public abstract class AbstractAPI implements API {
 		ObjectNode result = JsonUtils.getFactory().objectNode();
 		result.put("status", APIResult.STATUS_FAILED);
 		return result;
+	}
+	
+	protected HttpSession getSession() {
+		return request.getSession();
+	}
+
+	protected User getUser() {
+		return SessionUtils.getUser(getSession());
 	}
 
 }

@@ -8,6 +8,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
+import oop.controller.rest.bean.CommentReportBean;
+import oop.controller.rest.bean.CommentReportMapper;
+import oop.controller.rest.bean.MapperUtils;
 import oop.controller.rest.util.ListResult;
 import oop.data.CommentReport;
 import oop.db.dao.CommentDAO;
@@ -20,7 +23,7 @@ public class CommentReportResource extends AbstractResource {
 	
 	@GET
 	@Path("/resource/{resourceId: \\d+}/latest")
-	public ListResult<CommentReport> latestList(
+	public ListResult<CommentReportBean> latestList(
 			@PathParam("resourceId") long resourceId,
 			@DefaultValue("0") @QueryParam("start") int start,
 			@DefaultValue("10") @QueryParam("size") int size) {
@@ -34,12 +37,15 @@ public class CommentReportResource extends AbstractResource {
 					+ "/latest?start=" + (start + size) + "&size=" + size;
 		}
 		long count = CommentDAO.countByResource(resourceId);
-		return new ListResult<CommentReport>(list, nextUrl, count);
+		// convert to bean
+		List<CommentReportBean> beans = MapperUtils.toBeans(list,
+				CommentReportMapper.get());
+		return new ListResult<CommentReportBean>(beans, nextUrl, count);
 	}
 
 	@GET
 	@Path("/resource/{resourceId: \\d+}")
-	public ListResult<CommentReport> list(
+	public ListResult<CommentReportBean> list(
 			@PathParam("resourceId") long resourceId,
 			@DefaultValue("0") @QueryParam("start") int start,
 			@DefaultValue("10") @QueryParam("size") int size) {
@@ -52,7 +58,10 @@ public class CommentReportResource extends AbstractResource {
 					+ (start + size) + "&size=" + size;
 		}
 		long count = CommentDAO.countByResource(resourceId);
-		return new ListResult<CommentReport>(list, nextUrl, count);
+		// convert to bean
+		List<CommentReportBean> beans = MapperUtils.toBeans(list,
+				CommentReportMapper.get());
+		return new ListResult<CommentReportBean>(beans, nextUrl, count);
 	}
 
 }

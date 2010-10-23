@@ -10,6 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
+import oop.controller.rest.bean.CommentBean;
+import oop.controller.rest.bean.CommentMapper;
+import oop.controller.rest.bean.MapperUtils;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.Article;
@@ -27,7 +30,7 @@ public class CommentResource extends AbstractResource {
 
 	@GET
 	@Path("/resource/{resourceId: \\d+}/latest")
-	public ListResult<Comment> latestList(
+	public ListResult<CommentBean> latestList(
 			@PathParam("resourceId") long resourceId,
 			@DefaultValue("0") @QueryParam("start") int start,
 			@DefaultValue("10") @QueryParam("size") int size) {
@@ -39,12 +42,15 @@ public class CommentResource extends AbstractResource {
 					+ (start + size) + "&size=" + size;
 		}
 		long count = CommentDAO.countByResource(resourceId);
-		return new ListResult<Comment>(list, nextUrl, count);
+		// convert to beans
+		List<CommentBean> beans = MapperUtils.toBeans(list, CommentMapper.get());
+		return new ListResult<CommentBean>(beans, nextUrl, count);
 	}
 
 	@GET
 	@Path("/resource/{resourceId: \\d+}")
-	public ListResult<Comment> list(@PathParam("resourceId") long resourceId,
+	public ListResult<CommentBean> list(
+			@PathParam("resourceId") long resourceId,
 			@DefaultValue("0") @QueryParam("start") int start,
 			@DefaultValue("10") @QueryParam("size") int size) {
 		assertParamValid(size <= MAX_PAGE_SIZE, "size", "too large");
@@ -55,20 +61,24 @@ public class CommentResource extends AbstractResource {
 					+ (start + size) + "&size=" + size;
 		}
 		long count = CommentDAO.countByResource(resourceId);
-		return new ListResult<Comment>(list, nextUrl, count);
+		// convert to beans
+		List<CommentBean> beans = MapperUtils.toBeans(list, CommentMapper.get());
+		return new ListResult<CommentBean>(beans, nextUrl, count);
 	}
 
 	@GET
 	@Path("/{id: \\d+}")
-	public ObjectResult<Comment> retrieve(@PathParam("id") long id) {
+	public ObjectResult<CommentBean> retrieve(@PathParam("id") long id) {
 		Comment comment = CommentDAO.fetch(id);
 		assertResourceFound(comment);
-		return new ObjectResult<Comment>(comment);
+		CommentBean bean = CommentMapper.get().toBean(comment);
+		return new ObjectResult<CommentBean>(bean);
 	}
 
 	@POST
 	@Path("/resource/{resourceId: \\d+}")
-	public ObjectResult<Comment> create(@PathParam("resourceId") long resourceId, Comment data) {
+	public ObjectResult<CommentBean> create(
+			@PathParam("resourceId") long resourceId, Comment data) {
 		Resource<?> resource = ResourceDAO.fetchById(resourceId);
 			assertParamValid(resource != null, "", "resource not found");
 		Revision<? extends Article> revision = RevisionDAO
@@ -76,7 +86,8 @@ public class CommentResource extends AbstractResource {
 		Comment comment = new Comment(getUserNullSafe(), new Date(), data
 				.getMessage(), resource, revision);
 		CommentDAO.persist(comment);
-		return new ObjectResult<Comment>(comment);
+		CommentBean bean = CommentMapper.get().toBean(comment);
+		return new ObjectResult<CommentBean>(bean);
 	}
 
 }
