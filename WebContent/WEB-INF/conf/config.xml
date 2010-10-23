@@ -306,6 +306,10 @@
       <name>statistics.article.locked</name>
       <class>oop.controller.action.article.ListLockedAction</class>
     </action>
+	<action>
+      <name>statistics.file.unused</name>
+      <class>oop.controller.action.file.ListUnusedAction</class>
+    </action>
     <!--********************************************************************
                            TextArticle Action
      ********************************************************************-->
