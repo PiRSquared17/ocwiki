@@ -264,13 +264,14 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 					indexquestion++;
 				}
 			section.questions = newquestion;
+			section.content = test.sections[i].content;
 			newsection[indexsection] = section;
 			indexsection++;
 		}
 		test.sections = newsection;
 		// Lay thong tin bai kiem tra
 		content = tinymce.get('Test-content-' + test.id).getContent();
-		test.content = content;
+		test.content.text = content;
 		new Ajax.Request(restPath + '/tests/' + resourceId,
 			    {
 			      method:'post',
