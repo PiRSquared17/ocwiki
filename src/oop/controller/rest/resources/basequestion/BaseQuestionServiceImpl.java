@@ -6,20 +6,20 @@ import javax.ws.rs.Path;
 
 import oop.controller.rest.AbstractResource;
 import oop.controller.rest.WebServiceUtils;
+import oop.controller.rest.bean.AnswerBean;
 import oop.controller.rest.bean.BaseQuestionBean;
 import oop.controller.rest.bean.BaseQuestionMapper;
 import oop.controller.rest.bean.MapperUtils;
 import oop.controller.rest.bean.ResourceSearchReportBean;
 import oop.controller.rest.bean.ResourceSearchReportMapper;
 import oop.controller.rest.bean.RevisionBean;
+import oop.controller.rest.bean.TextBean;
 import oop.controller.rest.util.ListResult;
 import oop.controller.rest.util.ObjectResult;
-import oop.data.Answer;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.data.ResourceSearchReport;
 import oop.data.Status;
-import oop.data.Text;
 import oop.db.dao.ArticleDAO;
 import oop.db.dao.ResourceDAO;
 
@@ -70,7 +70,7 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 
 	private void validate(BaseQuestionBean question) {
 		WebServiceUtils.assertValid(question != null, "question is empty");
-		WebServiceUtils.assertValid(Text.isNotBlank(question.getContent()),
+		WebServiceUtils.assertValid(TextBean.isNotBlank(question.getContent()),
 				"question content is blank");
 		WebServiceUtils.assertValid(
 				CollectionUtils.size(question.getAnswers()) >= 2,
@@ -79,9 +79,9 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 				CollectionUtils.size(question.getAnswers()) < 10,
 				"too many answers");
 		boolean hasCorrect = false;
-		for (Answer answer : question.getAnswers()) {
+		for (AnswerBean answer : question.getAnswers()) {
 			WebServiceUtils.assertValid(answer != null, "answer is empty");
-			WebServiceUtils.assertValid(Text.isNotBlank(answer.getContent()),
+			WebServiceUtils.assertValid(TextBean.isNotBlank(answer.getContent()),
 					"answer content is blank");
 			if (answer.isCorrect()) {
 				hasCorrect = true;

@@ -13,7 +13,7 @@ public class TestStructureMapper implements
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setNamespace(value.getNamespace());
-		bean.setContent(value.getContent());
+		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		bean.setTime(value.getTime());
 		bean.setType(value.getType());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
@@ -30,7 +30,7 @@ public class TestStructureMapper implements
 		entity.setId(value.getId());
 		entity.setName(value.getName());
 		entity.setNamespace(value.getNamespace());
-		entity.setContent(value.getContent());
+		entity.setContent(TextMapper.get().toEntity(value.getContent()));
 		entity.setType(value.getType());
 		entity.setTime(value.getTime());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
