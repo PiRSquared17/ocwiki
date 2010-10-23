@@ -35,9 +35,11 @@ public class ActionLinkTag extends AbstractActionTag {
 	}
 
 	private void appendTarget() throws IOException {
-		out().print(" target=\"");
-		out().print(target);
-		out().print("\"");
+		if (StringUtils.isNotEmpty(target)) {
+			out().print(" target=\"");
+			out().print(target);
+			out().print("\"");
+		}
 	}
 
 	@Override

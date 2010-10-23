@@ -46,9 +46,14 @@
 			{
 				resource = transport.responseJSON.result;
 			},
-			onFailure: function()
+			onFailure: function(transport)
 			{ 
-				openInfoDialog("resourceID không chính xác!");
+				var code = transport.responseJSON.code;
+				if (code == 'not found') {
+				    openInfoDialog("resourceID không chính xác!");
+				} else {
+					DefaultTemplate.onFailure(transport); 
+				}
 			}
 		});
 	}
@@ -75,14 +80,19 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) 
-						{
-							resource = transport.responseJSON.result;
-							location.reload(true);
-						},
-					onFailure: function()
-						{
-							openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
+					{
+						resource = transport.responseJSON.result;
+						location.reload(true);
+					},
+					onFailure: function(transport)
+					{
+						var code = transport.responseJSON.code;
+						if (code == 'old version') {
+							  openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
+						} else {
+							DefaultTemplate.onFailure(transport); 
 						}
+					}
 				});
 			}
 		});
@@ -106,9 +116,14 @@
 					resource = transport.responseJSON.result;
 					location.reload(true);
 				},
-				onFailure: function()
-				{
-					openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
+				onFailure: function(transport)
+                {
+                    var code = transport.responseJSON.code;
+                    if (code == 'old version') {
+                          openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
+                    } else {
+                        DefaultTemplate.onFailure(transport); 
+                    }
 				}
 			});
 		return ;

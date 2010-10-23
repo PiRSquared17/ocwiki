@@ -15,8 +15,9 @@ public class TestMapper implements Mapper<TestBean, Test> {
 		bean.setContent(value.getContent());
 		bean.setType(value.getType());
 		bean.setTime(value.getTime());
+		MapperUtils.toBeans(bean.getSections(), value.getSections(), SectionMapper.get());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
-		MapperUtils.toEntities(bean.getTopics(), value.getTopics(), topicMapper);
+		MapperUtils.toBeans(bean.getTopics(), value.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
 		MapperUtils.toBeans(bean.getAttachments(), value.getAttachments(), fileMapper);
 		MapperUtils.toBeans(bean.getEmbeds(), value.getEmbeds(), fileMapper);
@@ -32,6 +33,7 @@ public class TestMapper implements Mapper<TestBean, Test> {
 		entity.setContent(value.getContent());
 		entity.setType(value.getType());
 		entity.setTime(value.getTime());
+		MapperUtils.toEntities(value.getSections(), entity.getSections(), SectionMapper.get());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toEntities(value.getTopics(), entity.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();

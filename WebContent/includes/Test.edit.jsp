@@ -4,6 +4,9 @@
 
 <c:set var="resource" value="${empty resource ? action.resource : resource}"></c:set>
 <c:set var="test" value="${empty article ? action.article : article}"></c:set>
+
+<h3>Sửa ${test.namespace.name}:<jsp:include page="/includes/article.edit.name.jsp"></jsp:include></h3>
+
 <c:set var="i" value="1"></c:set>
 
 <div id = "Test-Content">
@@ -146,14 +149,16 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	new Ajax.Request(restPath + '/tests/' + resourceId,{
 			method: 'get',
 			requestHeaders : {
-	      	Accept : 'application/json'
+		       Accept : 'application/json'
 	  		},
 		    evalJSON : true,
 		    onSuccess : function(transport) {
 		       test = transport.responseJSON.result;
 		       template();
 		    },
-		    onFailure: function(){ }
+		    onFailure: function(transport){ 
+		    	DefaultTemplate.onFailure(transport); 
+			}
 	})
 	function Show(){
 		alert($F('section'));
@@ -226,7 +231,8 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		      test.sections[Nosection].questions[ques_length - 1].deleted = false;
 		  },
 		  onFailure: function(){ 
-			  alert("Fail!");}
+			  DefaultTemplate.onFailure(transport);
+		  } 
 		});
 	}
 

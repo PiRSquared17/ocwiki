@@ -79,18 +79,22 @@ deletedTemplate = new Template('${deletedTemplate}');
 
 question = null;
 
-new Ajax.Request(restPath + '/questions/' + resourceId,
-{
-  method:'get',
-  requestHeaders : {
-      Accept : 'application/json'
-  },
-  evalJSON : true,
-  onSuccess : function(transport) {
-      question = transport.responseJSON.result;
-  },
-  onFailure: function(){ }
-});
+Event.observe(window, 'load', function() {
+	new Ajax.Request(restPath + '/questions/' + resourceId,
+	{
+	  method:'get',
+	  requestHeaders : {
+	      Accept : 'application/json'
+	  },
+	  evalJSON : true,
+	  onSuccess : function(transport) {
+	      question = transport.responseJSON.result;
+	  },
+	  onFailure: function(transport){ 
+		  DefaultTemplate.onFailure(transport); 
+      }
+    });
+}
 
 function getQuestionContent() {
 	return tinymce.get('question-content-textarea').getContent();
@@ -156,7 +160,7 @@ EditAction.save = function() {
           } else if (code == 'no correct answer') {
               $('articleEdit-error').innerHTML = 'Hãy chọn ít nhất một lựa chọn đúng.';
           } else {
-        	  $('articleEdit-error').innerHTML = 'Lỗi không rõ: ' + code;
+        	  DefaultTemplate.onFailure(transport); 
           }
       }
     });

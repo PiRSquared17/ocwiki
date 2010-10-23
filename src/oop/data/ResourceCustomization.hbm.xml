@@ -15,15 +15,18 @@
         <property name="level" type="int">
             <column name="LEVEL" />
         </property>
-        <property name="like">
-            <column name="`LIKE`" />
+        <property name="done" type="boolean">
+            <column name="done" />
+        </property>
+        <property name="like" not-null="true">
+            <column name="`LIKE`" default="'NORMAL'" />
             <type name="org.hibernate.type.EnumType">
                 <param name="type">12</param>
                 <param name="enumClass">oop.data.ResourceLike</param>
             </type>
         </property>
-        <property name="todo">
-            <column name="TODO" />
+        <property name="todo" not-null="true">
+            <column name="TODO" default="'NORMAL'" />
             <type name="org.hibernate.type.EnumType">
                 <param name="type">12</param>
                 <param name="enumClass">oop.data.ResourceTodo</param>

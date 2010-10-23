@@ -272,6 +272,9 @@
       <class>oop.controller.action.topic.ListAction</class>
     </action>
     <action>
+      <name>topic.tree</name>
+    </action>
+    <action>
       <name>topic.create</name>
       <class>oop.controller.action.topic.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
@@ -283,12 +286,36 @@
       <!-- <requiredGroup>teacher</requiredGroup> -->
       <loginRequired>true</loginRequired>
     </action>
+    <action>
+      <name>statistics.list</name>
+      <class>oop.controller.action.statistics.ListAction</class>
+    </action>
+    <action>
+      <name>statistics.topic.uncategorized</name>
+      <class>oop.controller.action.topic.ListUncategorizedAction</class>
+    </action>
+    <action>
+      <name>statistics.topic.unused</name>
+      <class>oop.controller.action.topic.ListUnusedAction</class>
+    </action>
+    <action>
+      <name>statistics.article.uncategorized</name>
+      <class>oop.controller.action.article.ListUncategorizedAction</class>
+    </action>
+        <action>
+      <name>statistics.article.locked</name>
+      <class>oop.controller.action.article.ListLockedAction</class>
+    </action>
     <!--********************************************************************
                            TextArticle Action
      ********************************************************************-->
 	<action>
       <name>textarticle.view</name>
       <class>oop.controller.action.TextArticle.ViewAction</class>
+    </action>
+    <action>
+      <name>solution.view</name>
+      <class>oop.controller.action.solution.ViewAction</class>
     </action>
     <action>
       <name>solution.create</name>
@@ -330,6 +357,10 @@
       <class>oop.controller.action.file.UploadAction</class>
       <loginRequired>true</loginRequired>
     </action>
+
+    <action>
+      <name>uploadFile-Ajax</name>
+    </action>
     
     <action>
       <name>user.edituser</name>
@@ -353,6 +384,12 @@
     <action>
         <name>user.fblogin</name>
         <class>oop.controller.action.user.FacebookLoginAction</class>
+    </action>
+    
+    <action>
+      <name>search</name>
+      <class>oop.controller.action.search.SearchAction</class>
+      <loginRequired>false</loginRequired>
     </action>
 
     <!--********************************************************************
@@ -410,11 +447,24 @@
         <order>2</order>
     </module>
     <module>
+       <name>user-lib</name>
+        <title>Thư viện cá nhân</title>
+        <position>left</position>
+        <order>3</order>
+        <loginRequired>true</loginRequired>
+    </module>
+    <module>
        <name>session</name>
         <title>Đăng nhập</title>
         <class>oop.module.SessionModule</class>
         <position>top_right</position>
         <order>1</order>
+    </module>
+    <module>
+       <name>topic-button</name>
+        <title>Chủ đề</title>
+        <position>top_right</position>
+        <order>3</order>
     </module>
     <module>
        <name>comment</name>
@@ -507,9 +557,24 @@
         <articleType>oop.data.Test</articleType>
     </module>
     <module>
+        <name>todo</name>
+        <class>oop.module.personal.Todo</class>
+        <position>action-bottom</position>
+        <order>1</order>
+        <page>personal/todo.jsp</page>
+        <inAction>article.view</inAction>
+        <loginRequired>true</loginRequired>
+    </module>
+    <module>
         <name>create-article</name>
         <title>Tạo bài viết</title>
         <position>top_right</position>
+        <order>2</order>
+    </module>
+    <module>
+        <name>search</name>
+        <title>Tìm kiếm</title>
+        <position>top_left</position>
         <order>2</order>
     </module>
     
