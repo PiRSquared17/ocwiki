@@ -8,9 +8,9 @@ public class OpenIDAccount {
 	public OpenIDAccount() {
 	}
 
-	public OpenIDAccount(String uid, User user) {
+	public OpenIDAccount(String url, User user) {
 		super();
-		this.url = uid;
+		this.url = url;
 		this.user = user;
 	}
 
