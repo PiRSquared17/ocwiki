@@ -21,10 +21,16 @@
 <input type="hidden" id="id-question-add" name="taq_question" 
 				value="${param.taq_question}">
 <c:forEach items="${test.sections}" var="section">
-	<div id = "section-${indexsection}">
-		<div>
-		${section.content.text}<br>
-		</div>
+	<div id = "section-${indexsection}" >
+					        
+		<div class = "section-wrapper mouse-out"
+				onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
+		                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
+			<div class="buttons">
+		     	<img alt="" src="${templatePath}/images/wrong.png" onclick="del_section(${indexsection})">
+		    </div>
+			${section.content.text}<br>
+	    </div>
 		<p></p>
 		<c:set var="indexquestion" value="0"></c:set>
 		<c:forEach items="${section.questions}" var="question">
@@ -34,7 +40,7 @@
 				<div class="question">			    
 			        <div class="question-number-wrapper">
 						<div id = "${question.id}" style="margin-right: 10px">
-							<b><ocw:articleLink resource="${question.baseContainer}">Câu ${indexquestion + 1}</ocw:articleLink></b>
+							<b><ocw:articleLink resource="${question.baseContainer}" id ="Qnum-${question.id}">Câu ${i}</ocw:articleLink></b>
 							<input type="text" id ="Mark-${question.id}" value = "${question.mark}" onblur="SpanOnclick(${indexsection}, ${indexquestion},${question.id})">
 							<script type="text/javascript">
 								Editor.previewTextField('${question.id}');
@@ -87,7 +93,7 @@
                 onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
 		<div class="question-number-wrapper">
             <div id = "\#{question.id}" style="margin-right: 10px">
-				<b><a href="\#{link}">Câu \#{lastQuestion}</a></b>
+				<b><a href="\#{link}" id = "Qnum-\#{question.id}">Câu \#{lastQuestion}</a></b>
 	            <input type="text" id ="Mark-\#{question.id}" value = "\#{question.mark}" onblur="SpanOnclick(\#{indexsection}, \#{indexquestion},\#{question.id})">
 				<script type="text/javascript">
 					Editor.previewTextField('\#{question.id}');
@@ -124,7 +130,12 @@
 </ocw:setJs>
 
 <ocw:setJs var="SectionTemplate">
-	<div id="section-\#{indexsection}">
+	<div id="section-\#{indexsection}" class = "section-wrapper mouse-out"
+				onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
+		                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
+		<div class="buttons">
+	     	<img alt="" src="\#{templatePath}/images/wrong.png" onclick="del_section(${indexsection})">
+	     </div>			        
 		<b>\#{section_content}</b><br>
 	</div>
 	<div id ="add-section-\#{indexsection}"></div>
@@ -134,11 +145,19 @@
 	</form>
 </ocw:setJs>
 
+<ocw:setJs var = "DeleteSection">
+	<div id="section-\#{indexsection}-deleted" style="text-align: center;">
+        Section đã bị xoá.
+        <a href="#" onclick="undeleteSection(\#{indexsection}); return false;">Phục hồi</a>
+    </div>
+</ocw:setJs>
+
 <script type="text/javascript"><!--
 DelTemplate = new Template('${deletedTemplate}');
 QuestionTempl = new Template('${questionTemplate}');
 AnswerTempl = new Template('${answerTemplate}');
 SectionTempl = new Template('${SectionTemplate}');
+DelSection = new Template('${DeleteSection}')
 
 var test=null;
 var lastQuestion = ${i};
@@ -167,9 +186,11 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	function del(indexsection,indexquestion,index){
 		var data={"indexsection":indexsection,"indexquestion":indexquestion,"index": index}; 
 		var element=$('Delete-question-id' + index);
+		var question_id = test.sections[indexsection].questions[indexquestion].id;
 		element.insert({after: DelTemplate.evaluate(data)});
 		element.hide();
 		test.sections[indexsection].questions[indexquestion].deleted=true;
+		Khoiphuc(question_id);
 	}
 	//Xoa bo lua chon del
 	function undeleteQuestion(indexsection,indexquestion,index){
@@ -178,6 +199,8 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		deleted.show();
 		element.remove();
 		test.sections[indexsection].questions[indexquestion].deleted=false;
+		var question_id = test.sections[indexsection].questions[indexquestion].id;
+		Khoiphuc(question_id);
 	}
 	function search_question(){
 		
@@ -229,6 +252,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		      lastQuestion++;
 		      test.sections[Nosection].questions[ques_length - 1] = question;
 		      test.sections[Nosection].questions[ques_length - 1].deleted = false;
+		      Khoiphuc(questionId);
 		  },
 		  onFailure: function(){ 
 			  DefaultTemplate.onFailure(transport);
@@ -319,7 +343,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		if (section_content == "") return;
 		//var index = indexsection;
 		var section_length = test.sections.length;
-		var data = {"section_content": section_content,"indexsection":section_length};
+		var data = {"section_content": section_content,"indexsection":section_length, "templatePath":templatePath};
 		var question_array = new Array();
 		var newsection = {"content":section_content,"question":question_array};
 		test.sections[section_length] = newsection;
@@ -365,5 +389,55 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		var exp = /^[0-9]+(\.[0-9]+)?$/;
 		if (exp.test(num)) return true;
 		else return false;
+	}
+	function Khoiphuc(id){
+		var i, j;
+		var dem = 1;
+		var ok = false;
+		var id_ques;
+		for (i = 0; i<test.sections.length; i++){
+			if (test.sections[i].deleted) continue;
+			for (j = 0; j< test.sections[i].questions.length; j++){
+				if (test.sections[i].questions[j].id == id){
+					ok = true;
+				}
+				if (!test.sections[i].questions[j].deleted){
+					id_ques = 'Qnum-' + test.sections[i].questions[j].id;
+					if (test.sections[i].questions[j].id != id){
+						if (ok){
+							$(id_ques).innerHTML = 'Câu ' + dem + ' ';
+						}
+					}
+					else{
+						$(id_ques).innerHTML = 'Câu ' + dem + ' ';
+					}
+					dem++;
+				} 
+			}
+		}
+	}
+	
+	function del_section(index){
+		var data={"indexsection":index}; 
+		var element=$('section-' + index);
+		var sectionId = test.sections[index].id;
+		element.insert({after: DelSection.evaluate(data)});
+		element.hide();
+		test.sections[index].deleted = true;
+		KhoiphucSection(sectionId);
+	}
+	
+	function undeleteSection(index){
+		var element=$('section-'+index+'-deleted');
+		var deleted=$('section-' + index);
+		deleted.show();
+		element.remove();
+		test.sections[index].deleted=false;
+		var section_id = test.sections[index].id;
+		KhoiphucSection(section_id);
+		
+	}
+	function KhoiphucSection(sectionId){
+		
 	}
 </script>
