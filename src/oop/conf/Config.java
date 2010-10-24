@@ -36,8 +36,8 @@ public class Config implements Serializable {
 	private String defaultTemplate = "default";
 	private String mysqlCommand = "mysql";
 	private String uploadDir = "/uploads";
-	private String facebookAppId = "";
-	private String facebookSecret = "";
+	private String facebookAppId = null;
+	private String facebookSecret = null;
 	private boolean useCDN = false;
 	private String texCgi = "http://www.imathas.com/cgi-bin/mimetex.cgi";
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();

@@ -12,7 +12,7 @@ public class TestMapper implements Mapper<TestBean, Test> {
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setNamespace(value.getNamespace());
-		bean.setContent(value.getContent());
+		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		bean.setType(value.getType());
 		bean.setTime(value.getTime());
 		MapperUtils.toBeans(bean.getSections(), value.getSections(), SectionMapper.get());
@@ -30,7 +30,7 @@ public class TestMapper implements Mapper<TestBean, Test> {
 		entity.setId(value.getId());
 		entity.setName(value.getName());
 		entity.setNamespace(value.getNamespace());
-		entity.setContent(value.getContent());
+		entity.setContent(TextMapper.get().toEntity(value.getContent()));
 		entity.setType(value.getType());
 		entity.setTime(value.getTime());
 		MapperUtils.toEntities(value.getSections(), entity.getSections(), SectionMapper.get());
