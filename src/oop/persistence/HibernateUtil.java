@@ -49,9 +49,12 @@ public class HibernateUtil {
 		// config Hibernate search
 		hconf.setProperty("hibernate.search.default.directory_provider",
 				"org.hibernate.search.store.FSDirectoryProvider");
-		hconf.setProperty("hibernate.search.default.indexBase",
-				OcwikiApp.get().getServletContext().getRealPath(
-				config.getLuceneIndexDirectory()));
+		String indexBasePath = config.getLuceneIndexDirectory();
+		if (OcwikiApp.get() != null) {
+			indexBasePath = OcwikiApp.get().getServletContext()
+					.getRealPath(indexBasePath);
+		}
+		hconf.setProperty("hibernate.search.default.indexBase", indexBasePath);
 
 		sessionFactory = hconf.buildSessionFactory();
 	}

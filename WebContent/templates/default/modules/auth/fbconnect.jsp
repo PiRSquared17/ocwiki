@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/includes/common.jsp" %>
 
-<c:if test="${not empty config.facebookAppId and not sessionScope.login}">
+<c:if test="${(not empty config.facebookAppId) and (not sessionScope.login)}">
 	<div id="fb-root"></div>
 	<script src="http://connect.facebook.net/en_US/all.js"></script>
 	<script>
