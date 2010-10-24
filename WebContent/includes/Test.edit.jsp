@@ -9,10 +9,16 @@
 
 <c:set var="i" value="1"></c:set>
 
-<div id = "Test-Content">
-	<textarea rows="5" cols="60" id="Test-content-${test.id}" onblur="SaveContent()">${test.content}</textarea>
+<div id = "Test-Name">
+	<textarea rows="" cols="" id = "Test-Name-${test.id}">${test.name}</textarea>
 	<script type="text/javascript">
-		Editor.edit('Test-Content');
+		Editor.edit('Test-Name');
+	</script>
+</div>
+<div id = "Test-Content">
+	<textarea rows="5" cols="60" id="Test-content-${test.id}">${test.content}</textarea>
+	<script type="text/javascript">
+		Editor.preview('Test-Content');
 	</script>	
 </div>
 
@@ -29,7 +35,13 @@
 			<div class="buttons">
 		     	<img alt="" src="${templatePath}/images/wrong.png" onclick="del_section(${indexsection})">
 		    </div>
-			${section.content.text}<br>
+		    <div id ="section-edit-name-${indexsection}">
+				<textarea rows="" cols="" id = "section-content-${indexsection}">${section.content.text}</textarea>
+				<script type="text/javascript">
+					Editor.preview('section-edit-name-${indexsection}');
+				</script>
+			</div>			
+			<br>
 	    </div>
 		<p></p>
 		<c:set var="indexquestion" value="0"></c:set>
@@ -136,8 +148,13 @@
 		                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
 			<div class="buttons">
 		     	<img alt="" src="\#{templatePath}/images/wrong.png" onclick="del_section(\#{indexsection})">
-		     </div>			        
-			<b>\#{section_content}</b><br>
+		    </div>
+		    <div id ="section-edit-name-\#{indexsection}">
+				<textarea rows="" cols="" id = "section-content-\#{indexsection}">\#{section_content}</textarea>
+				<script type="text/javascript">
+					Editor.preview('section-edit-name-\#{indexsection}');
+				</script>
+			</div>
 		</div>
 		<div id ="add-section-\#{indexsection}"></div>
 		<form>
@@ -272,11 +289,11 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		// Lay cac cau hoi cua test
 		var i,j;
 		var newtest;
-		var newsection,section;
+		var newsection,section, IdSection;
 		var length_sec = test.sections.length;
 		var question_length;
 		var newquestion;
-		var content;
+		var content, name;
 		var indexquestion = 0;
 		var indexsection = 0;
 		newsection =  new Array();
@@ -291,8 +308,9 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 					newquestion[indexquestion] = test.sections[i].questions[j];
 					indexquestion++;
 				}
+			IdSection = 'section-content-' + i;
 			section.questions = newquestion;
-			section.content = test.sections[i].content;
+			section.content = tinymce.get(IdSection).getContent();
 			newsection[indexsection] = section;
 			indexsection++;
 		}
@@ -300,6 +318,9 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		// Lay thong tin bai kiem tra
 		content = tinymce.get('Test-content-' + test.id).getContent();
 		test.content.text = content;
+		// Sua ten bai kiem tra
+		name = tinymce.get('Test-Name-' + test.id).getContent();
+		test.name = name;
 		new Ajax.Request(restPath + '/tests/' + resourceId,
 			    {
 			      method:'post',
