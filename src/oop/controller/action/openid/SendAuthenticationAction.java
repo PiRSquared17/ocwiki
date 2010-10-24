@@ -23,7 +23,9 @@ import java.io.IOException;
 @SuppressWarnings("unused")
 public class SendAuthenticationAction extends AbstractAction {
 
-	public ConsumerManager manager;
+	private ConsumerManager manager;
+    final private String yahooEndpoint = "https://me.yahoo.com"; 
+    final private String googleEndpoint = "https://www.google.com"; 
 
 	@Override
 	public void performImpl() throws Exception {
@@ -52,6 +54,22 @@ public class SendAuthenticationAction extends AbstractAction {
 			getRequest().getSession().setAttribute("openid-disc", discovered);
 			AuthRequest authReq = manager.authenticate(discovered, returnToUrl);
 
+            FetchRequest fetch = FetchRequest.createFetchRequest(); 
+            if (userSuppliedString.startsWith(googleEndpoint)) { 
+                    fetch.addAttribute("email", "http://axschema.org/contact/email", true); 
+                    fetch.addAttribute("firstname", "http://axschema.org/namePerson/first", true); 
+                    fetch.addAttribute("lastname", "http://axschema.org/namePerson/last", true); 
+            } 
+            else if (userSuppliedString.startsWith(yahooEndpoint)) { 
+                    fetch.addAttribute("email", "http://axschema.org/contact/email", true); 
+                    fetch.addAttribute("fullname", "http://axschema.org/namePerson", true); 
+            } 
+            else { //works for myOpenID 
+                    fetch.addAttribute("fullname", "http://schema.openid.net/namePerson", true); 
+                    fetch.addAttribute("email", "http://schema.openid.net/contact/email", true); 
+            } 
+            authReq.addExtension(fetch);
+            
 			// Attribute Exchange example: fetching the 'email' attribute
 /*			FetchRequest fetch = FetchRequest.createFetchRequest();
 			fetch.addAttribute("email",			// attribute alias

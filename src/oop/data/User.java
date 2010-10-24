@@ -23,13 +23,13 @@ public class User implements Serializable, Entity, HasVersion {
 	private String password;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String email;
-	private String group;
-	private boolean blocked;
+	private String group = Group.USER;
+	private boolean blocked = false;
 	private Date blockExpiredDate;
 	private String warningMessage;
 	private Date warningExpiredDate;
 	private String avatar;
-	private Date registerDate;
+	private Date registerDate = new Date();
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
 	private Preferences preferences = new Preferences();
@@ -42,7 +42,7 @@ public class User implements Serializable, Entity, HasVersion {
 	private String location;
 	private String bio;
 	private Gender gender = Gender.UNKNOWN;
-	private String timezone;
+	private String timezone = "+7";
 
 	public User() {
 	}

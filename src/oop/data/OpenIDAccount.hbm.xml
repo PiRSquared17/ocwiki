@@ -8,7 +8,7 @@
             <column name="URL" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="user" class="oop.data.User" fetch="join">
+        <many-to-one name="user" class="oop.data.User" fetch="join" cascade="all">
             <column name="USER" />
         </many-to-one>
     </class>

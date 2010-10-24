@@ -38,9 +38,9 @@
 				//-->
 				</script>
             </c:if>
-            <li><a href="#" onclick="return false;">Google</a></li>
-            <li><a href="#" onclick="return false;">Yahoo</a></li>
-            <li><ocw:actionLink name="user.login.openid">OpenID</ocw:actionLink>
+            <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://www.google.com/accounts/o8/id"></ocw:param>Google</ocw:actionLink></li>
+            <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://me.yahoo.com/"></ocw:param>Yahoo</ocw:actionLink></li>
+            <li><ocw:actionLink name="user.login.openid">OpenID</ocw:actionLink></li>
             <li><a href="#" onclick="openLoginDialog(); return false;">Nội bộ</a></li>
         </ul>
 	</li>
