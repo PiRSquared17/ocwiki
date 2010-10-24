@@ -1,6 +1,7 @@
 package oop.controller.rest.bean;
 
 import oop.data.Section;
+import oop.persistence.HibernateUtil;
 
 public class SectionMapper implements Mapper<SectionBean, Section> {
 
@@ -16,12 +17,16 @@ public class SectionMapper implements Mapper<SectionBean, Section> {
 
 	@Override
 	public Section toEntity(SectionBean value) {
-		Section entity = new Section();
-		entity.setId(value.getId());
-		entity.setContent(TextMapper.get().toEntity(value.getContent()));
-		MapperUtils.toEntities(value.getQuestions(), entity.getQuestions(),
-				QuestionMapper.get());
-		return entity;
+		if (value.getId() == 0) {
+			Section entity = new Section();
+			entity.setId(value.getId());
+			entity.setContent(TextMapper.get().toEntity(value.getContent()));
+			MapperUtils.toEntities(value.getQuestions(), entity.getQuestions(),
+					QuestionMapper.get());
+			return entity;
+		}
+		return (Section) HibernateUtil.getSession().load(Section.class,
+				value.getId());
 	}
 
 	private static SectionMapper DEFAULT_INSTANCE = new SectionMapper();
