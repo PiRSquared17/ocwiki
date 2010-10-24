@@ -130,19 +130,23 @@
 </ocw:setJs>
 
 <ocw:setJs var="SectionTemplate">
-	<div id="section-\#{indexsection}" class = "section-wrapper mouse-out"
+	<div id="section-\#{indexsection}">
+		<div  class = "section-wrapper mouse-out"
 				onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
 		                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
-		<div class="buttons">
-	     	<img alt="" src="\#{templatePath}/images/wrong.png" onclick="del_section(${indexsection})">
-	     </div>			        
-		<b>\#{section_content}</b><br>
+			<div class="buttons">
+		     	<img alt="" src="\#{templatePath}/images/wrong.png" onclick="del_section(\#{indexsection})">
+		     </div>			        
+			<b>\#{section_content}</b><br>
+		</div>
+		<div id ="add-section-\#{indexsection}"></div>
+		<form>
+			<button type="submit" onclick="Add_question(\#{indexsection}); return false;">Thêm</button>
+			<input type="text" id="id-question-add-\#{indexsection}"></input>
+			<span id = "Message-\#{indexsection}"></span>
+		</form>
 	</div>
-	<div id ="add-section-\#{indexsection}"></div>
-	<form>
-		<button type="submit" onclick="Add_question(\#{indexsection}); return false;">Thêm</button>
-		<input type="text" id="id-question-add-\#{indexsection}"></input>
-	</form>
+	
 </ocw:setJs>
 
 <ocw:setJs var = "DeleteSection">
@@ -345,7 +349,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		var section_length = test.sections.length;
 		var data = {"section_content": section_content,"indexsection":section_length, "templatePath":templatePath};
 		var question_array = new Array();
-		var newsection = {"content":section_content,"question":question_array};
+		var newsection = {"content":section_content,"questions":question_array};
 		test.sections[section_length] = newsection;
 		//var st = SectionTempl.evaluate(data);
 		//var is = '<h2>Hello</h2>';
@@ -438,6 +442,22 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		
 	}
 	function KhoiphucSection(sectionId){
-		
+		var i, j;
+		var dem = 1;
+		var ok = false;
+		var id_ques;
+		for (i = 0; i<test.sections.length; i++){
+			if (test.sections[i].id == sectionId) ok = true;
+			if (test.sections[i].deleted) continue;
+			for (j = 0; j< test.sections[i].questions.length; j++){
+				if (!test.sections[i].questions[j].deleted){
+					id_ques = 'Qnum-' + test.sections[i].questions[j].id;
+					if (ok){
+						$(id_ques).innerHTML = 'Câu ' + dem + ' ';
+					}
+					dem++;
+				} 
+			}
+		}
 	}
 </script>
