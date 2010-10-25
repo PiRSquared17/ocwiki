@@ -1,20 +1,16 @@
 package oop.controller.rest.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class SectionStructureBean {
-
+public class AnswerBean {
 	private long id;
 	private TextBean content;
-	private List<ConstraintBean> constraints = new ArrayList<ConstraintBean>();
+	private boolean correct;
 
-	public SectionStructureBean() {
+	public AnswerBean() {
 	}
-
+	
 	public long getId() {
 		return id;
 	}
@@ -31,12 +27,12 @@ public class SectionStructureBean {
 		this.content = content;
 	}
 
-	public List<ConstraintBean> getConstraints() {
-		return constraints;
+	public boolean isCorrect() {
+		return correct;
 	}
 
-	public void setConstraints(List<ConstraintBean> constraints) {
-		this.constraints = constraints;
+	public void setCorrect(boolean correct) {
+		this.correct = correct;
 	}
 
 }

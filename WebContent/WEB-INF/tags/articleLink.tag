@@ -7,6 +7,8 @@
     rtexprvalue="true" type="oop.data.Revision"%>
 <%@ attribute name="onclick" description="Mã xử lí sự kiện nhấn chuột"
 	required="false" type="java.lang.String"%>
+<%@ attribute name="id" description="id"
+	required="false" type="java.lang.String"%>
 <%@ include file="/includes/common.jsp"%>
 
 <jsp:doBody var="body" />
@@ -28,4 +30,4 @@
     </c:otherwise>
 </c:choose>
 
-<a href="${url}" onclick="${onclick}">${fn:trim(body)}</a>
+<a href="${url}" onclick="${onclick}" id="${id}">${fn:trim(body)}</a>

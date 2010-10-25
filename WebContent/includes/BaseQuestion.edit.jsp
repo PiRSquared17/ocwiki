@@ -94,7 +94,7 @@ Event.observe(window, 'load', function() {
 		  DefaultTemplate.onFailure(transport); 
       }
     });
-}
+});
 
 function getQuestionContent() {
 	return tinymce.get('question-content-textarea').getContent();

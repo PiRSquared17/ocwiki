@@ -62,6 +62,11 @@ a:hover {
 	clear: both;
 }
 
+#right .section-wrapper {
+	margin-top: 0px;
+	clear: both;
+}
+
 .question-content-wrapper {
 	padding-bottom: 5px;
 }

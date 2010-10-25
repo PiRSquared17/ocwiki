@@ -352,11 +352,13 @@
     <action>
       <name>user.signup</name>
       <class>oop.controller.action.user.SignUpAction</class>
+      <disabled>true</disabled>
     </action>
     
     <action>
       <name>user.forgetpass</name>
       <class>oop.controller.action.user.ForgetPassAction</class>
+      <disabled>true</disabled>
     </action>
     
     <action>
@@ -387,6 +389,12 @@
     <action>
       <name>user.profile</name>
       <class>oop.controller.action.user.ProfileAction</class>
+    </action>
+    
+    <action>
+        <name>admin/reindex</name>
+        <class>oop.controller.action.admin.RebuildIndexAction</class>
+        <requiredGroup>admin</requiredGroup>
     </action>
     <action>
       <name>admin.home</name>
@@ -588,6 +596,18 @@
         <title>Tìm kiếm</title>
         <position>top_left</position>
         <order>2</order>
+    </module>
+    
+    <module>
+        <name>todo</name>
+        <class>oop.module.personal.Todo</class>
+        <position>action-bottom</position>
+        <order>1</order>
+        <page>personal/todo.jsp</page>
+        <inAction>article.view</inAction>
+        <articleType>oop.data.TextArticle</articleType>
+        <articleType>oop.data.Test</articleType>
+        <loginRequired>true</loginRequired>
     </module>
     <!-- 
     <module>

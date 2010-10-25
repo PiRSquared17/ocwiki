@@ -6,9 +6,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import oop.controller.rest.util.ObjectResult;
+import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.data.TextArticle;
+import oop.data.User;
 import oop.db.dao.ResourceDAO;
+import oop.util.SessionUtils;
 
 @Path(SolutionResource.PATH)
 public class SolutionResource extends AbstractResource {
@@ -24,8 +27,9 @@ public class SolutionResource extends AbstractResource {
 	}
 	
 	@POST
-	public ObjectResult<TextArticle> create(TextArticle text){
-		ResourceDAO.create(getUserNullSafe(), TextArticle.class, text);
+	public ObjectResult<TextArticle> create(TextArticle text,Resource<BaseQuestion> res){
+		User user = SessionUtils.getUser(getSession());
+		ResourceDAO.create(user, TextArticle.class, text);
 		return new ObjectResult<TextArticle>(text);
 	}
 

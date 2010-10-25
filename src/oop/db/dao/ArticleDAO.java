@@ -6,7 +6,6 @@ import oop.data.Article;
 import oop.data.CategorizableArticle;
 import oop.data.Resource;
 import oop.data.ResourceSearchReport;
-import oop.data.Topic;
 import oop.persistence.HibernateUtil;
 
 import org.hibernate.HibernateException;

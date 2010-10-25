@@ -22,6 +22,7 @@ public class ModuleDescriptor {
 	private int order;
 	private String page;
 	private Class<? extends Module> clazz;
+	private boolean disabled;
 
 	public String getName() {
 		return name;
@@ -114,5 +115,20 @@ public class ModuleDescriptor {
 	public Set<Class<? extends Article>> getArticleType() {
 		return articleTypes;
 	}
-	
+
+	public void setEnabled(boolean enabled) {
+		this.disabled = !enabled;
+	}
+
+	public boolean isEnabled() {
+		return !disabled;
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
 }

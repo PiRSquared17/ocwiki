@@ -61,7 +61,43 @@
 <ocw:actionLink name="user.forgetpass">Quên mật khẩu?</ocw:actionLink>
 </ocw:setJs>
 
-<script src="http://connect.facebook.net/en_US/all.js"></script>
+<c:if test="${(not empty config.facebookAppId) and (not sessionScope.login)}">
+	<script src="http://connect.facebook.net/en_US/all.js"></script>
+	<script type="text/javascript">
+	<!--
+	
+	function fblogin() {
+	  FB.login(function(response) {
+	      if (response.session) {
+	          new Ajax.Request(
+	                  restPath + '/login/facebook',
+	                  {
+	                      method : 'get',
+	                      requestHeaders : {
+	                          Accept : 'application/json'
+	                      },
+	                      evalJSON : true,
+	                      onSuccess : function(transport) {
+	                          location.reload(true);
+	                      },
+	                      onFailure : function(transport) {
+	                          alert(transport.responseText);
+	                          var code = transport.responseJSON.code;
+	                          if (code == 'account blocked') {
+	                              alert('Tài khoản của bạn đã bị khoá.');
+	                          } else {
+	                              DefaultTemplate.onFailure(transport); 
+	                          }
+	                      }
+	                  });
+	      }
+	    });
+	}
+
+//-->
+</script>
+    
+</c:if>
 <script type="text/javascript">
 
 var userToolbar;
@@ -128,34 +164,6 @@ function session_login() {
 			}
 		});
 	return false;
-}
-
-function fblogin() {
-  FB.login(function(response) {
-      if (response.session) {
-          new Ajax.Request(
-                  restPath + '/login/facebook',
-                  {
-                      method : 'get',
-                      requestHeaders : {
-                          Accept : 'application/json'
-                      },
-                      evalJSON : true,
-                      onSuccess : function(transport) {
-                          location.reload(true);
-                      },
-                      onFailure : function(transport) {
-                          alert(transport.responseText);
-                          var code = transport.responseJSON.code;
-                          if (code == 'account blocked') {
-                              alert('Tài khoản của bạn đã bị khoá.');
-                          } else {
-                              DefaultTemplate.onFailure(transport); 
-                          }
-                      }
-                  });
-      }
-    });
 }
 
 	//-->
