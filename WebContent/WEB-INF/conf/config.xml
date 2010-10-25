@@ -340,11 +340,13 @@
     <action>
       <name>user.signup</name>
       <class>oop.controller.action.user.SignUpAction</class>
+      <disabled>true</disabled>
     </action>
     
     <action>
       <name>user.forgetpass</name>
       <class>oop.controller.action.user.ForgetPassAction</class>
+      <disabled>true</disabled>
     </action>
     
     <action>
@@ -375,6 +377,12 @@
     <action>
       <name>user.profile</name>
       <class>oop.controller.action.user.ProfileAction</class>
+    </action>
+    
+    <action>
+        <name>admin/reindex</name>
+        <class>oop.controller.action.admin.RebuildIndexAction</class>
+        <requiredGroup>admin</requiredGroup>
     </action>
     <action>
       <name>admin.home</name>
