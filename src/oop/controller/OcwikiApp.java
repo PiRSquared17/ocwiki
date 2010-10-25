@@ -38,13 +38,14 @@ public class OcwikiApp implements ServletContextListener {
 			config = new Config();
 			ConfigIO.loadDirectory(config,
 					context.getRealPath(context.getInitParameter("configDir")));
-			config.setHomeDir(config.getDomain() + context.getContextPath());
-			Config.setDefaultInstance(config);
-			HibernateUtil.init(config);
 		} catch (IOException e) {
-			System.out.println("Có lỗi khi đọc tệp cấu hình, hệ thống không thể khởi động.");
+			System.out
+					.println("Có lỗi khi đọc tệp cấu hình, hệ thống không thể khởi động.");
 			throw new RuntimeException(e);
 		}
+		config.setHomeDir(config.getDomain() + context.getContextPath());
+		Config.setDefaultInstance(config);
+		HibernateUtil.init(config);
 	}
 
 	/**
