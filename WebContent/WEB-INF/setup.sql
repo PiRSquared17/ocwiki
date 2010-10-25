@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 24, 2010 at 03:45 PM
+-- Generation Time: Oct 25, 2010 at 11:04 PM
 -- Server version: 5.1.49
 -- PHP Version: 5.3.3-1ubuntu9.1
 
@@ -3029,6 +3029,24 @@ INSERT INTO `Namespace` (`id`, `name`) VALUES
 (4, 'Đề thi'),
 (5, 'Cấu trúc đề'),
 (6, 'Tập tin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `OpenIDAccount`
+--
+
+CREATE TABLE IF NOT EXISTS `OpenIDAccount` (
+  `url` varchar(200) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `user` bigint(20) NOT NULL,
+  PRIMARY KEY (`url`),
+  KEY `user` (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
+
+--
+-- Dumping data for table `OpenIDAccount`
+--
+
 
 -- --------------------------------------------------------
 
@@ -6719,11 +6737,11 @@ CREATE TABLE IF NOT EXISTS `User` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
-  `fullname` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
-  `pass` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
+  `fullname` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `pass` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `ugroup` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
-  `blocked` bit(1) NOT NULL,
+  `blocked` bit(1) NOT NULL DEFAULT b'0',
   `warning` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `avatar` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `register_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -6823,17 +6841,17 @@ ALTER TABLE `Answer`
 -- Constraints for table `AnswerAttempt`
 --
 ALTER TABLE `AnswerAttempt`
-  ADD CONSTRAINT `FKD6EACCCCB1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `User` (`id`),
-  ADD CONSTRAINT `FKD6EACCCC190692FA` FOREIGN KEY (`question`) REFERENCES `Resource` (`id`);
+  ADD CONSTRAINT `FKD6EACCCC190692FA` FOREIGN KEY (`question`) REFERENCES `Resource` (`id`),
+  ADD CONSTRAINT `FKD6EACCCCB1E4DD9C` FOREIGN KEY (`USER`) REFERENCES `User` (`id`);
 
 --
 -- Constraints for table `Article`
 --
 ALTER TABLE `Article`
+  ADD CONSTRAINT `Article_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `Resource` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FKC38C3A53232F5FBE` FOREIGN KEY (`parent`) REFERENCES `Resource` (`id`),
   ADD CONSTRAINT `FKC38C3A537D807870` FOREIGN KEY (`namespace`) REFERENCES `Namespace` (`id`),
-  ADD CONSTRAINT `FKC38C3A53EA647FAC` FOREIGN KEY (`content`) REFERENCES `Text` (`id`),
-  ADD CONSTRAINT `Article_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `Resource` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FKC38C3A53EA647FAC` FOREIGN KEY (`content`) REFERENCES `Text` (`id`);
 
 --
 -- Constraints for table `ArticleAttachment`
@@ -6900,6 +6918,12 @@ ALTER TABLE `Log`
   ADD CONSTRAINT `FKC3144721B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `User` (`id`),
   ADD CONSTRAINT `FKC3144721EC5981D4` FOREIGN KEY (`old_revision`) REFERENCES `Revision` (`id`),
   ADD CONSTRAINT `FKC3144721F3DA5E7B` FOREIGN KEY (`new_revision`) REFERENCES `Revision` (`id`);
+
+--
+-- Constraints for table `OpenIDAccount`
+--
+ALTER TABLE `OpenIDAccount`
+  ADD CONSTRAINT `OpenIDAccount_ibfk_1` FOREIGN KEY (`user`) REFERENCES `User` (`id`);
 
 --
 -- Constraints for table `Question`
