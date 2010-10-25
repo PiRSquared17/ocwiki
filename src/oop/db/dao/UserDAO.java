@@ -79,8 +79,7 @@ public class UserDAO {
 		Query query = session.createQuery("from User");
 		query.setFirstResult(start);
 		query.setMaxResults(length);
-		List userList = query.list();
-		return userList;
+		return query.list();
 	}
 
 	public static long count() {
