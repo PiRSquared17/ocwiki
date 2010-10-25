@@ -2,6 +2,7 @@ package oop.controller.rest.bean;
 
 import oop.data.BaseQuestion;
 import oop.data.Question;
+import oop.persistence.HibernateUtil;
 
 public class QuestionMapper implements Mapper<QuestionBean, Question> {
 
@@ -20,14 +21,17 @@ public class QuestionMapper implements Mapper<QuestionBean, Question> {
 
 	@Override
 	public Question toEntity(QuestionBean value) {
-		Question entity = new Question(); 
-		entity.setId(value.getId());
-		entity.setMark(value.getMark());
-		ResourceReferenceMapper<BaseQuestion> resourceMapper = ResourceReferenceMapper.get();
-		entity.setBaseResource(resourceMapper.toEntity(value.getBaseResource()));
-		RevisionReferenceMapper<BaseQuestion> revisionMapper = RevisionReferenceMapper.get();
-		entity.setBaseRevision(revisionMapper.toEntity(value.getBaseRevision()));
-		return entity;
+		if (value.getId() == 0) {
+			Question entity = new Question(); 
+			entity.setId(value.getId());
+			entity.setMark(value.getMark());
+			ResourceReferenceMapper<BaseQuestion> resourceMapper = ResourceReferenceMapper.get();
+			entity.setBaseResource(resourceMapper.toEntity(value.getBaseResource()));
+			RevisionReferenceMapper<BaseQuestion> revisionMapper = RevisionReferenceMapper.get();
+			entity.setBaseRevision(revisionMapper.toEntity(value.getBaseRevision()));
+			return entity;
+		}
+		return (Question) HibernateUtil.getSession().load(Question.class, value.getId());
 	}
 
 	private static QuestionMapper DEFAULT_INSTANCE = new QuestionMapper();

@@ -90,7 +90,7 @@
 		alert(resourceID);
 	}
 	
-	function Li_To_Le(type){
+	function Like_Todo_Level(type){
 		var userId = resourcereport.user;
 		//var user = {id: userId};
 		var level = $('Level').value;

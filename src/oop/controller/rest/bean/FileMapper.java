@@ -11,7 +11,7 @@ public class FileMapper implements Mapper<FileBean, File> {
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setNamespace(value.getNamespace());
-		bean.setContent(value.getContent());
+		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toBeans(bean.getTopics(), value.getTopics(), topicMapper);
 		return null;
@@ -23,7 +23,7 @@ public class FileMapper implements Mapper<FileBean, File> {
 		entity.setId(value.getId());
 		entity.setName(value.getName());
 		entity.setNamespace(value.getNamespace());
-		entity.setContent(value.getContent());
+		entity.setContent(TextMapper.get().toEntity(value.getContent()));
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toEntities(value.getTopics(), entity.getTopics(), topicMapper);
 		return null;

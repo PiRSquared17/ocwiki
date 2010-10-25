@@ -12,9 +12,9 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setNamespace(value.getNamespace());
-		bean.setContent(value.getContent());
+		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		bean.setLevel(value.getLevel());
-		bean.setAnswers(value.getAnswers());
+		MapperUtils.toBeans(bean.getAnswers(), value.getAnswers(), AnswerMapper.get());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toBeans(bean.getTopics(), value.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
@@ -29,9 +29,9 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 		entity.setId(value.getId());
 		entity.setName(value.getName());
 		entity.setNamespace(value.getNamespace());
-		entity.setContent(value.getContent());
+		entity.setContent(TextMapper.get().toEntity(value.getContent()));
 		entity.setLevel(value.getLevel());
-		entity.setAnswers(value.getAnswers());
+		MapperUtils.toEntities(value.getAnswers(), entity.getAnswers(), AnswerMapper.get());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toEntities(value.getTopics(), entity.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
