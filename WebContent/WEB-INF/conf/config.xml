@@ -306,6 +306,10 @@
       <name>statistics.article.locked</name>
       <class>oop.controller.action.article.ListLockedAction</class>
     </action>
+	<action>
+      <name>statistics.file.unused</name>
+      <class>oop.controller.action.file.ListUnusedAction</class>
+    </action>
     <!--********************************************************************
                            TextArticle Action
      ********************************************************************-->
@@ -332,6 +336,14 @@
     <action>
       <name>user.login</name>
       <class>oop.controller.action.user.LogInAction</class>
+    </action>
+    <action>
+      <name>user.login.openid</name>
+      <class>oop.controller.action.openid.SendAuthenticationAction</class>
+    </action>
+    <action>
+      <name>user.login.openid.verification</name>
+      <class>oop.controller.action.openid.GetVerificationAction</class>
     </action>
     <action>
       <name>user.logout</name>

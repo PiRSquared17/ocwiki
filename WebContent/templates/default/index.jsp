@@ -5,11 +5,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>${pageTitle}</title>
-
+	
+	<link rel="shortcut icon" href="${templatePath}/images/favicon.png">
     <link rel="stylesheet" href="${templatePath}/css/main.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/js/windowjs/themes/default.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/js/windowjs/themes/alphacube.css" type="text/css" />
-
+	
     <c:choose>
         <c:when test="${config.useCDN}">
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
