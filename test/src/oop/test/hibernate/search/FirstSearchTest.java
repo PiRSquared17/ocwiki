@@ -37,7 +37,6 @@ public class FirstSearchTest extends AbstractResourceTest {
 		System.out.println(result);
 		tx.commit();
 		session.close();
-
 	}
 
 }

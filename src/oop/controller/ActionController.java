@@ -83,6 +83,12 @@ public class ActionController extends HttpServlet {
 						+ actionStr);
 				return;
 			}
+			if (!actionDesc.isEnabled()) {
+				String mess = "Hành động này tạm thời bị khoá. <a href=\""
+						+ Config.get().getHomeDir() + "\">Trở về trang chủ</a>";
+				error(request, response, mess);
+				return;
+			}
 			
 			// check permission
 			User user = SessionUtils.getUser(request.getSession());
@@ -164,6 +170,9 @@ public class ActionController extends HttpServlet {
 			public Object transform(Object position) {
 				List<Module> modules = new ArrayList<Module>();
 				for (ModuleDescriptor descriptor : Config.get().getModuleDescriptors((String)position)) {
+					if (!descriptor.isEnabled()) {
+						continue;
+					}
 					if (descriptor.isLoginRequired() && !loggedIn) {
 						continue;
 					}

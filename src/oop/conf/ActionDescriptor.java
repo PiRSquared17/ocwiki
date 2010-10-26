@@ -17,7 +17,11 @@ public class ActionDescriptor {
 	private String css;
 	private String title;
 	private String container;
+	private boolean disabled = true;
 
+	ActionDescriptor() {
+	}
+	
 	public boolean isLoginRequired() {
 		return loginRequired;
 	}
@@ -102,6 +106,22 @@ public class ActionDescriptor {
 			return "index.jsp";
 		}
 		return container;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.disabled = !enabled;
+	}
+
+	public boolean isEnabled() {
+		return !disabled;
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
 	}
 	
 }
