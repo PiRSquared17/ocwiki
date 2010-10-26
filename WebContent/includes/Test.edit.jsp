@@ -178,7 +178,7 @@ DelTemplate = new Template('${deletedTemplate}');
 QuestionTempl = new Template('${questionTemplate}');
 AnswerTempl = new Template('${answerTemplate}');
 SectionTempl = new Template('${SectionTemplate}');
-DelSection = new Template('${DeleteSection}')
+DelSection = new Template('${DeleteSection}');
 
 var test=null;
 var lastQuestion = ${i};
@@ -321,6 +321,12 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		// Sua ten bai kiem tra
 		name = tinymce.get('Test-Name-' + test.id).getContent();
 		test.name = name;
+
+		// Sua cac chu de cua bai kiem tra
+		for (i = 0; i < test.topics.length; i++){
+			if (test.topics[i].deleted) test.topics.splice(i,1);
+		}
+		
 		new Ajax.Request(restPath + '/tests/' + resourceId,
 			    {
 			      method:'post',
