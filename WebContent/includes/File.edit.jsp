@@ -13,6 +13,7 @@
 	}
 	
 	EditAction.save = function(){
+		// gửi dữ liệu lên server
 	};
 //-->
 </script>
