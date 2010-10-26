@@ -10,9 +10,12 @@
 			<a href="" onclick = "Delete(${topic.id}); return false" id="Delete-${topic.id}"> Xóa</a>
 		</div>
 	</c:forEach>
-	<button type="button" id = "add-topic-button" onclick = "Add()">Thêm chủ đề mới</button>
-	<input type="text" id="add-content-topic">
-	<span id = "Message-topic"></span>
+	<span id = "add-topic-content"></span>
+	<form>
+		<button type="submit" id = "add-topic-button" onclick = "Add(); return false;">Thêm chủ đề mới</button>
+		<input type="text" id="add-content-topic">
+		<span id = "Message-topic"></span>
+	</form>
 </div>
 
 <ocw:setJs var="PhuchoiTemplate">
@@ -49,7 +52,7 @@
 	  			var tpName = topicElement.name;
 		       	data = {"idTopic": idTopic,"nameTopic":tpName};
 		       	test.topics[length_topic] = {"id":topicElement.id};
-		       	$('add-topic-button').insert({before: topicTempl.evaluate(data)});
+		       	$('add-topic-content').insert({before: topicTempl.evaluate(data)});
 		    },
 		    onFailure: function(transport){ 
 		    	DefaultTemplate.onFailure(transport); 
