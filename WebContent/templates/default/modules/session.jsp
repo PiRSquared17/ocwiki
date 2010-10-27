@@ -8,7 +8,7 @@
 <ul class="level1 horizontal" id="user-toolbar-root">
 	<li class="level1">${sessionScope.user.fullname}
 	<ul class="level2 dropdown">
-		<li><ocw:actionLink name="user.edituser"
+		<li><ocw:actionLink name="user.profileedit"
 			title="Sửa thông tin người dùng">Sửa thông tin</ocw:actionLink></li>
 		<li><ocw:actionLink name="user.preference">Tuỳ chọn</ocw:actionLink>
 		</li>

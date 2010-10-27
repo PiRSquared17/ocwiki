@@ -123,7 +123,7 @@ public class GetVerificationAction extends AbstractAction {
 		            OpenIDAccountDAO.persist(newOpenIDAccount);
 		            
 		            SessionUtils.login(getSession(), newUser); 
-		            setRedirect(ActionUtil.getActionURL("user.edituser","user="+userUrl));
+		            setRedirect(ActionUtil.getActionURL("user.profileedit","user="+userUrl));
 				}
 
 				return verified; // success
