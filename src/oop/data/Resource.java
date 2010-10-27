@@ -8,12 +8,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import oop.data.log.ResourceLog;
+import oop.persistence.ResourceCustomizationBridge;
+import oop.util.Utils;
+
 import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
+import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
-
-import oop.data.log.ResourceLog;
-import oop.util.Utils;
+import org.hibernate.search.annotations.Store;
 
 @Indexed
 @XmlRootElement
@@ -196,6 +201,15 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	@Override
 	public String toString() {
 		return "Resource #" + id + " (" + type + ")";
+	}
+	
+	/**
+	 * Dùng làm placeholder cho Hibernate Search bridge.
+	 */
+	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
+	@FieldBridge(impl=ResourceCustomizationBridge.class)
+	long getCustomization() {
+		return id;
 	}
 	
 }
