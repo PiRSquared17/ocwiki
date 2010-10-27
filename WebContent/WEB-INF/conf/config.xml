@@ -377,8 +377,8 @@
     </action>
     
     <action>
-      <name>user.edituser</name>
-      <class>oop.controller.action.user.EditUserAction</class>
+      <name>user.profileedit</name>
+      <class>oop.controller.action.user.ProfileEditAction</class>
       <loginRequired>true</loginRequired>
     </action>
     <action>

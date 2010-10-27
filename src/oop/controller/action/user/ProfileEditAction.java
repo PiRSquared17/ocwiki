@@ -2,47 +2,52 @@ package oop.controller.action.user;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 import oop.controller.action.AbstractAction;
+import oop.data.User;
 import oop.persistence.HibernateUtil;
 import oop.util.UserUtils;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.exception.ConstraintViolationException;
 
-public class EditUserAction extends AbstractAction {
+public class ProfileEditAction extends AbstractAction {
+
+	private User displayedUser;
+	private boolean success;
+	
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public User getDisplayedUser() {
+		return displayedUser;
+	}
 
 	@Override
 	public void performImpl() throws Exception {
-		title("Thay đổi thông tin cá nhân của " + getUser().getName());
+		displayedUser = getUser();
+		title("Thay đổi thông tin cá nhân của " + displayedUser.getName());
 		if ("Change".equals(getParams().get("change"))) {
 			int errorEmail = updateEmail();
 			int errorPass = updatePass();
-			int error = 0;
+
 			// if ((errorEmail == 0)&&(errorPass == 0));
 			if (errorEmail == -1) {
-				request.setAttribute("invalidEmail", "true");
-				error++;
+				addError("Email", "Invalid");
 			} else if (errorEmail == -2) {
-				request.setAttribute("emailUnavailable", "true");
-				error++;
+				addError("Email", "Unavalaible");
 			} else if (errorEmail == -3) {
-				request.setAttribute("dbError", "true");
-				error++;
+				addError("Email", "Database error");
 			}
 			if ((errorPass == -1) || (errorPass == -3)) {
-				request.setAttribute("wrongPass", "true");
-				error++;
+				addError("Password", "Wrong");
 			} else if (errorPass == -2) {
-				request.setAttribute("invalidPass", "true");
-				error++;
+				addError("Password", "Invalid");
 			} else if (errorPass == -4) {
-				request.setAttribute("dbError", "true");
-				error++;
+				addError("Password", "Database error");
 			}
 			if (((errorEmail >= 0) && (errorPass >= 0))
 					&& ((errorEmail != 0) || (errorPass != 0)))
-				request.setAttribute("success", "true");
-			if (error > 0)
-				request.setAttribute("error", "true");
+				success=true;
 		}
 
 	}
