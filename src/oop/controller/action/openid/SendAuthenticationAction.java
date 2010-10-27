@@ -95,6 +95,7 @@ public class SendAuthenticationAction extends AbstractAction {
 				dispatcher.forward(httpReq, httpResp);
 			}*/
 			getSession().setAttribute("OIDManager", manager);
+			
 		} catch (OpenIDException e) {
 			throw new ActionException(e.getMessage());
 		}
