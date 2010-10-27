@@ -1,5 +1,7 @@
 package oop.db.dao;
 
+import java.util.List;
+
 import oop.data.ResourceCustomization;
 import oop.persistence.HibernateUtil;
 
@@ -39,6 +41,17 @@ public class ResourceCustomizationDAO {
 			}
 			throw ex;
 		}
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public static List<ResourceCustomization> fetchByResource(long resourceId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from ResourceCustomization " +
+				"where resource.id = :resId";
+		Query query = session.createQuery(hql);
+		query.setLong("resId", resourceId);
+		return query.list();
 	}
 	
 }
