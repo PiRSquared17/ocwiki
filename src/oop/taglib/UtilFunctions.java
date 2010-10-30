@@ -32,7 +32,6 @@ public final class UtilFunctions {
 		return (long)Math.round(a);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static int size(Object o) {
 		if (o instanceof Collection) {
 			return ((Collection)o).size();

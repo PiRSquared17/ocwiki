@@ -7,6 +7,9 @@ public class TextMapper implements Mapper<TextBean, Text> {
 
 	@Override
 	public TextBean toBean(Text value) {
+		if (value == null) {
+			return null;
+		}
 		TextBean bean = new TextBean();
 		bean.setId(value.getId());
 		bean.setText(value.getText());
@@ -15,6 +18,9 @@ public class TextMapper implements Mapper<TextBean, Text> {
 
 	@Override
 	public Text toEntity(TextBean value) {
+		if (value == null) {
+			return null;
+		}
 		if (value.getId() == 0) {
 			return new Text(value.getText());
 		}

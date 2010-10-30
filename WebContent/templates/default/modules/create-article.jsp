@@ -6,11 +6,14 @@
     <li class="level1">Tạo mới
     <ul class="level2 dropdown">
         <li><a href="#" onclick="createQuestion(); return false">Câu hỏi</a></li>
-        <li><a href="#" onclick="createSolution(); return false">Bài giải</a></li>
+        <c:if test="${ocw:assignableFrom('oop.data.BaseQuestion', action.resource.type.name)}">
+	        <li><a href="#" onclick="createSolution(); return false">Bài giải</a></li>
+        </c:if>
         <li><a href="#" onclick="createTest(); return false">Đề thi</a></li>
         <li><a href="#" onclick="createTextArticle(); return false">Bài giảng</a></li>
         <li><a href="#" onclick="createTestStructure(); return false">Cấu trúc đề</a></li>
         <li><a href="#" onclick="createTopic(); return false">Chủ đề</a></li>
+        <li><a href="#" onclick="createFile(); return false">Tập tin</a></li>
     </ul>
     </li>
 </ul>
@@ -34,19 +37,20 @@ function createQuestion() {
 }
 
 function createSolution() {
-	/*
     resource = {
-            articleType: 'oop.data.BaseQuestion',
+            articleType: 'oop.data.Solution',
             article: {
-                type: 'baseQuestionBean',
-                name: 'Câu hỏi mới',
+            	//question: {
+            	//	id: ${article.resource.id}
+            	//},
+                type: 'solutionBean',
+                name: 'Bài giải mới',
                 namespace: {
-                    id: 3
+                    id: 0
                 }
             } 
         };
         sendCreateRequest(resource);
-    */
 }
 
 function createTest() {
@@ -57,6 +61,20 @@ function createTest() {
             name: 'Đề thi mới',
             namespace: {
                 id: 4
+            }
+        } 
+    };
+    sendCreateRequest(resource);
+}
+
+function createFile() {
+    resource = {
+        articleType: 'oop.data.File',
+        article: {
+            type: 'fileBean',
+            name: 'Tập tin mới',
+            namespace: {
+                id: 0
             }
         } 
     };

@@ -32,6 +32,7 @@ public class User implements Serializable, Entity, HasVersion {
 	private Date registerDate;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
+	private NameOrdering nameOrdering;
 	private Preferences preferences = new Preferences();
 	private String firstName;
 	private String lastName;

@@ -14,7 +14,13 @@ public class FileMapper implements Mapper<FileBean, File> {
 		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toBeans(bean.getTopics(), value.getTopics(), topicMapper);
-		return null;
+		bean.setFilename(value.getFilename());
+		bean.setAuthor(value.getAuthor());
+		bean.setLicense(value.getLicense());
+		bean.setOriginalSource(value.getOriginalSource());
+		bean.setDateOfWork(value.getDateOfWork());
+		bean.setAdditionalInfo(value.getAdditionalInfo());
+		return bean;
 	}
 
 	@Override
@@ -26,7 +32,13 @@ public class FileMapper implements Mapper<FileBean, File> {
 		entity.setContent(TextMapper.get().toEntity(value.getContent()));
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toEntities(value.getTopics(), entity.getTopics(), topicMapper);
-		return null;
+		entity.setFilename(value.getFilename());
+		entity.setAuthor(value.getAuthor());
+		entity.setLicense(value.getLicense());
+		entity.setOriginalSource(value.getOriginalSource());
+		entity.setDateOfWork(value.getDateOfWork());
+		entity.setAdditionalInfo(value.getAdditionalInfo());
+		return entity;
 	}
 
 	private static FileMapper DEFAULT_INSTANCE = new FileMapper();
