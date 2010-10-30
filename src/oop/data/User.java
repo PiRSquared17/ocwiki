@@ -19,7 +19,6 @@ public class User implements Serializable, Entity, HasVersion {
 	private long id;
 	private int version;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
-	private String fullname;
 	private String password;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String email;
@@ -32,9 +31,10 @@ public class User implements Serializable, Entity, HasVersion {
 	private Date registerDate;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
-	private NameOrdering nameOrdering;
+	private NameOrdering nameOrdering = NameOrdering.LAST_FIRST;
 	private Preferences preferences = new Preferences();
 	private String firstName;
+	private String middleName;
 	private String lastName;
 	private String about;
 	private Date birthday;
@@ -48,12 +48,11 @@ public class User implements Serializable, Entity, HasVersion {
 	public User() {
 	}
 
-	public User(String name, String fullname, String password,
+	public User(String name, String password,
 			String email, String group, String avatar, String warning,
 			boolean blocked, Date registerDate) {
 		super();
 		this.name = name;
-		this.fullname = fullname;
 		this.password = password;
 		this.email = email;
 		this.group = group;
@@ -82,11 +81,15 @@ public class User implements Serializable, Entity, HasVersion {
 	}
 	
 	public String getFullname() {
-		return fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+		switch (nameOrdering) {
+		case FIRST_LAST:
+			return firstName + " " + lastName;
+		case LAST_FIRST:
+			return lastName + " " + firstName;
+		case LAST_MIDDLE_FIRST:
+			return lastName + " " + middleName + " " + firstName;
+		}
+		return firstName;
 	}
 
 	public void setPassword(String password) {
@@ -271,6 +274,22 @@ public class User implements Serializable, Entity, HasVersion {
 
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
+	}
+
+	public void setNameOrdering(NameOrdering nameOrdering) {
+		this.nameOrdering = nameOrdering;
+	}
+
+	public NameOrdering getNameOrdering() {
+		return nameOrdering;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
 	}
 	
 }

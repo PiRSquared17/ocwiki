@@ -13,6 +13,7 @@ import oop.data.Question;
 import oop.data.Section;
 import oop.data.Test;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 
 public final class UtilFunctions {
@@ -39,7 +40,7 @@ public final class UtilFunctions {
 		if (o instanceof Map) {
 			return ((Map)o).size();
 		}
-		return 0;
+		return ArrayUtils.getLength(o);
 	}
 	
 	public static String ellipsize(String s, int length) {
