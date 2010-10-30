@@ -11,9 +11,6 @@
 		<property name="name" type="java.lang.String" access="field">
 			<column name="name" not-null="false" unique="true" />
 		</property>
-		<property name="fullname" type="java.lang.String">
-			<column name="fullname" not-null="true" />
-		</property>
 		<property name="password" type="java.lang.String" access="field">
 			<column name="pass" not-null="true" />
 		</property>
@@ -50,8 +47,18 @@
 					default="'default'"></column>
 			</property>
 		</component>
+        <property name="nameOrdering" length="10" not-null="true">
+            <column name="name_ordering"></column>
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">oop.data.NameOrdering</param>
+                <param name="type">12</param> <!-- VARCHAR -->
+            </type>
+        </property>
         <property name="firstName" type="java.lang.String">
             <column name="first_name" not-null="false" />
+        </property>
+        <property name="middleName" type="java.lang.String">
+            <column name="middle_name" not-null="false" />
         </property>
         <property name="lastName" type="java.lang.String">
             <column name="last_name" not-null="false" />
