@@ -16,6 +16,7 @@
         <mapping resource="oop/data/ResourceCustomization.hbm.xml" />
         <mapping resource="oop/data/CategorizableArticle.hbm.xml" />
         <mapping resource="oop/data/TextArticle.hbm.xml" />
+        <mapping resource="oop/data/Solution.hbm.xml" />
         <mapping resource="oop/data/BaseArticle.hbm.xml" />
         <mapping resource="oop/data/Article.hbm.xml" />
         <mapping resource="oop/data/Text.hbm.xml" />
