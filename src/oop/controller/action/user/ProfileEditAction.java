@@ -1,19 +1,33 @@
 package oop.controller.action.user;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
+
+import java.util.Date;
+
+import oop.util.TimeZone;
+
 import oop.controller.action.AbstractAction;
+import oop.data.Gender;
 import oop.data.User;
+import oop.db.dao.UserDAO;
 import oop.persistence.HibernateUtil;
 import oop.util.UserUtils;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.exception.ConstraintViolationException;
 
+import com.oreilly.servlet.ParameterNotFoundException;
+
 public class ProfileEditAction extends AbstractAction {
 
 	private User displayedUser;
 	private boolean success;
+	private TimeZone timezone;
 	
+	public TimeZone getTimezone() {
+		return timezone;
+	}
+
 	public boolean isSuccess() {
 		return success;
 	}
@@ -21,69 +35,90 @@ public class ProfileEditAction extends AbstractAction {
 	public User getDisplayedUser() {
 		return displayedUser;
 	}
+	
+	
 
 	@Override
 	public void performImpl() throws Exception {
 		displayedUser = getUser();
+		timezone = new TimeZone(displayedUser.getTimezone());
 		title("Thay đổi thông tin cá nhân của " + displayedUser.getName());
 		if ("Change".equals(getParams().get("change"))) {
-			int errorEmail = updateEmail();
-			int errorPass = updatePass();
+			
+			String name=getParams().get("name-edit-input");
+			String pass=getParams().get("pass-edit-old");
+			String newPass=getParams().get("pass-edit-input");
+			String rePass=getParams().get("pass-edit-confirm");
+			String fullName=getParams().get("fullname-edit-input");
+			String firstName=getParams().get("firstname-edit-input");
+			String lastName=getParams().get("lastname-edit-input");
+			String gender=getParams().get("gender-edit-input");
+			Date date = new Date(	Integer.parseInt(getParams().get("birthday-edit-input-year")),
+									Integer.parseInt(getParams().get("birthday-edit-input-month")),
+									Integer.parseInt(getParams().get("birthday-edit-input-day")));
+			Date birthday=date;
+			String about=getParams().get("about-edit-input");
+			String hometown=getParams().get("hometown-edit-input");
+			String location=getParams().get("location-edit-input");
+			String bio=getParams().get("bio-edit-input");
+			String email=getParams().get("email-edit-input");
+			String website=getParams().get("website-edit-input");
+			String timezone=getParams().get("timezone-edit-input");
 
-			// if ((errorEmail == 0)&&(errorPass == 0));
-			if (errorEmail == -1) {
-				addError("Email", "Invalid");
-			} else if (errorEmail == -2) {
-				addError("Email", "Unavalaible");
-			} else if (errorEmail == -3) {
-				addError("Email", "Database error");
+			if (!checkEmail(email)) addError("Email", "Không hợp lệ");
+			if (!checkPass(pass,newPass,rePass)) addError("Mật khẩu", "Mật khẩu cũ không đúng hoặc xác nhận mật khẩu mới không khớp");
+			
+			if (!hasErrors()){
+				if (!isEmpty(name)) displayedUser.setName(name);
+				if (!isEmpty(newPass)) displayedUser.setPassword(newPass);
+				displayedUser.setFirstName(firstName);
+				displayedUser.setLastName(lastName);
+				//tenho - hoten
+				displayedUser.setFullname(fullName);
+				
+				if (gender=="male") displayedUser.setGender(Gender.MALE);
+				else if (gender=="female") displayedUser.setGender(Gender.FEMALE);
+				else displayedUser.setGender(Gender.UNKNOWN);
+				
+				displayedUser.setBirthday(birthday);
+				displayedUser.setAbout(about);
+				displayedUser.setHometown(hometown);
+				displayedUser.setLocation(location);
+				displayedUser.setBio(bio);
+				displayedUser.setEmail(email);
+				displayedUser.setWebsite(website);
+				displayedUser.setTimezone(timezone);
+				
+				try{
+					UserDAO.persist(displayedUser);
+				}catch (Exception ex) {
+					displayedUser=getUser();
+				}
 			}
-			if ((errorPass == -1) || (errorPass == -3)) {
-				addError("Password", "Wrong");
-			} else if (errorPass == -2) {
-				addError("Password", "Invalid");
-			} else if (errorPass == -4) {
-				addError("Password", "Database error");
-			}
-			if (((errorEmail >= 0) && (errorPass >= 0))
-					&& ((errorEmail != 0) || (errorPass != 0)))
-				success=true;
+			
 		}
 
 	}
 
-	private int updateEmail() throws Exception {
-		String email = getParams().getString("userEmail");
+	private boolean checkEmail(String email){
 		email = StringEscapeUtils.escapeSql(email);
-		if (isEmpty(email))
-			return 0;
-		if (!UserUtils.isValidEmail(email)) {
-			return -1;
-		} else {
-			try {
-				getUser().setEmail(email);
-				HibernateUtil.getSession().flush();
-				return 1;
-			} catch (ConstraintViolationException ex) {
-				return -2;
-			}
+		if (isEmpty(email)){
+			return false;
 		}
+		if (!UserUtils.isValidEmail(email)) {
+			return false;
+		}
+		return true;
 	}
 
-	private int updatePass() throws Exception {
-		String pass = getParams().get("password");
-		String changedPass = getParams().get("changedPassword");
-		String confirmPass = getParams().get("confirmPass");
-		if (isEmpty(pass) || isEmpty(changedPass) || isEmpty(confirmPass)) {
-			return 0;}
-		else if (!getUser().matchPassword(pass))
-			return -1;
-		else if (!pass.equals(confirmPass))
-			return -2;
-		else {
-			getUser().setPassword(pass);
-			return 1;
-		}
+	private boolean checkPass(String pass,String newPass,String rePass){
+		if (isEmpty(pass) || isEmpty(newPass) || isEmpty(rePass)) {
+			return false;
+		} else if (!getUser().matchPassword(pass))
+			return false;
+		else if (!pass.equals(rePass))
+			return false;
+		return true;
 	}
 
 }
