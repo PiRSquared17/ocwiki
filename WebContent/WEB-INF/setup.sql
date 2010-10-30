@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 30, 2010 at 03:27 PM
+-- Generation Time: Oct 30, 2010 at 03:57 PM
 -- Server version: 5.1.49
 -- PHP Version: 5.3.3-1ubuntu9.1
 
@@ -1080,7 +1080,7 @@ CREATE TABLE IF NOT EXISTS `Article` (
   KEY `FKC38C3A53EA647FAC` (`content`),
   KEY `FKC38C3A53232F5FBE` (`parent`),
   KEY `solution_question` (`solution_question`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=603 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=604 ;
 
 --
 -- Dumping data for table `Article`
@@ -1456,7 +1456,8 @@ INSERT INTO `Article` (`id`, `discriminator`, `namespace`, `content`, `name`, `p
 (599, 'Test', 3, NULL, 'Đề thi mới', NULL, NULL, NULL, 0, NULL, 'UNKNOWN', 'UNKNOWN', '2010-10-24 14:30:04', 'UNKNOWN', 'UNKNOWN', NULL),
 (600, 'BaseQuestion', 3, 1794, NULL, NULL, 1, NULL, NULL, NULL, 'UNKNOWN', 'UNKNOWN', '2010-10-24 14:30:04', 'UNKNOWN', 'UNKNOWN', NULL),
 (601, 'BaseQuestion', 3, 1799, NULL, NULL, 2, NULL, NULL, NULL, 'UNKNOWN', 'UNKNOWN', '2010-10-24 14:30:04', 'UNKNOWN', 'UNKNOWN', NULL),
-(602, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2010-10-24 14:37:12', 'UNKNOWN', 'UNKNOWN', NULL);
+(602, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2010-10-24 14:37:12', 'UNKNOWN', 'UNKNOWN', NULL),
+(603, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, NULL, '', 'UNKNOWN', '2010-10-30 15:35:39', '', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -3334,7 +3335,7 @@ CREATE TABLE IF NOT EXISTS `Resource` (
   KEY `FKE2E602515DDB135C` (`author`),
   KEY `FKE2E602515EB7070E` (`link`),
   KEY `FKE2E6025172978E26` (`article`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=533 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=534 ;
 
 --
 -- Dumping data for table `Resource`
@@ -3658,7 +3659,8 @@ INSERT INTO `Resource` (`id`, `version`, `create_date`, `type`, `article`, `auth
 (529, 0, '2010-09-29 08:56:35', 'oop.data.BaseQuestion', 593, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
 (530, 0, '2010-09-29 08:56:40', 'oop.data.BaseQuestion', 594, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
 (531, 0, '2010-10-05 17:56:47', 'oop.data.Topic', 598, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
-(532, 0, '2010-10-05 18:02:57', 'oop.data.Test', 599, 1, 'NEW', NULL, 'EVERYONE', '0.50');
+(532, 0, '2010-10-05 18:02:57', 'oop.data.Test', 599, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(533, 0, '2010-10-30 15:35:39', 'oop.data.File', 603, 1, 'NEW', NULL, 'EVERYONE', '0.50');
 
 --
 -- Triggers `Resource`
@@ -6739,7 +6741,7 @@ CREATE TABLE IF NOT EXISTS `TopicSetInfo` (
 CREATE TABLE IF NOT EXISTS `User` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `fullname` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `pass` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
