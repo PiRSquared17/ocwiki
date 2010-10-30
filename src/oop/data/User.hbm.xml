@@ -9,7 +9,7 @@
 		</id>
 		<version name="version" type="integer" access="field"></version>
 		<property name="name" type="java.lang.String" access="field">
-			<column name="name" not-null="true" unique="true" />
+			<column name="name" not-null="false" unique="true" />
 		</property>
 		<property name="fullname" type="java.lang.String">
 			<column name="fullname" not-null="true" />

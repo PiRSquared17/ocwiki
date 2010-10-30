@@ -43,7 +43,7 @@ public class User implements Serializable, Entity, HasVersion {
 	private String location;
 	private String bio;
 	private Gender gender = Gender.UNKNOWN;
-	private String timezone;
+	private String timezone = "+7:00";
 
 	public User() {
 	}
