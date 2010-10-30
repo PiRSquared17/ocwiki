@@ -20,7 +20,7 @@ public class UserDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			User user = new User(userName, fullName, password, email,
+			User user = new User(userName, password, email,
 					group, null, null, false, new Date());
 			session.save(user);
 			tx.commit();

@@ -93,7 +93,7 @@ public class GetVerificationAction extends AbstractAction {
 		                
 		                List fullNames = fetchResp.getAttributeValues("fullname");
 		                if (fullNames.size()>0){
-		                	newUser.setFullname((String) fullNames.get(0));
+		                	newUser.setLastName((String) fullNames.get(0));
 		                }
 		                
 		                List firstNames = fetchResp.getAttributeValues("firstname");
@@ -106,19 +106,6 @@ public class GetVerificationAction extends AbstractAction {
 			            }               
 		            }
 		       		            
-		            if (StringUtils.isEmpty(newUser.getFullname())){
-		            	String newFullname = "";
-		            	if (!StringUtils.isEmpty(newUser.getFirstName())){
-		            		newFullname+=newUser.getFirstName();
-		            	}
-		            	if (!StringUtils.isEmpty(newUser.getLastName())){
-		            		newFullname+=" "+newUser.getLastName();
-		            	}
-		            	if (newFullname.compareTo("")==0){
-		            		newUser.setFullname(userUrl);
-		            	}
-		            	newUser.setFullname(newFullname);
-		            }
 		            OpenIDAccount newOpenIDAccount = new OpenIDAccount(userUrl, newUser);
 		            OpenIDAccountDAO.persist(newOpenIDAccount);
 		            

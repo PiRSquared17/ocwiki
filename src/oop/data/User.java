@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import oop.util.Utils;
+
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
@@ -19,21 +21,22 @@ public class User implements Serializable, Entity, HasVersion {
 	private long id;
 	private int version;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
-	private String fullname;
 	private String password;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String email;
-	private String group = Group.USER;
-	private boolean blocked = false;
+	private String group;
+	private boolean blocked;
 	private Date blockExpiredDate;
 	private String warningMessage;
 	private Date warningExpiredDate;
 	private String avatar;
-	private Date registerDate = new Date();
+	private Date registerDate;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
+	private NameOrdering nameOrdering = NameOrdering.LAST_FIRST;
 	private Preferences preferences = new Preferences();
 	private String firstName;
+	private String middleName;
 	private String lastName;
 	private String about;
 	private Date birthday;
@@ -42,17 +45,16 @@ public class User implements Serializable, Entity, HasVersion {
 	private String location;
 	private String bio;
 	private Gender gender = Gender.UNKNOWN;
-	private String timezone = "+7";
+	private String timezone = "+7:00";
 
 	public User() {
 	}
 
-	public User(String name, String fullname, String password,
+	public User(String name, String password,
 			String email, String group, String avatar, String warning,
 			boolean blocked, Date registerDate) {
 		super();
 		this.name = name;
-		this.fullname = fullname;
 		this.password = password;
 		this.email = email;
 		this.group = group;
@@ -81,11 +83,13 @@ public class User implements Serializable, Entity, HasVersion {
 	}
 	
 	public String getFullname() {
-		return fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+		switch (nameOrdering) {
+		case FIRST_LAST:
+			return Utils.join(" ", firstName, lastName);
+		case LAST_MIDDLE_FIRST:
+			return Utils.join(" ", lastName, middleName, firstName);
+		}
+		return Utils.join(" ", lastName, firstName);
 	}
 
 	public void setPassword(String password) {
@@ -270,6 +274,22 @@ public class User implements Serializable, Entity, HasVersion {
 
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
+	}
+
+	public void setNameOrdering(NameOrdering nameOrdering) {
+		this.nameOrdering = nameOrdering;
+	}
+
+	public NameOrdering getNameOrdering() {
+		return nameOrdering;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
 	}
 	
 }

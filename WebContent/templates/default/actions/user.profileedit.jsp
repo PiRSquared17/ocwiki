@@ -240,8 +240,8 @@ Mật khẩu: <b>******</b> <a href="#" id="pass-edit-button-show" style="displa
 <div>
 Tên đầy đủ: <b>${action.displayedUser.fullname}</b> <a href="#" id="fullname-edit-button-show" style="display: inline" onclick="showEditField(4);return false;">sửa</a><a href="#" id="fullname-edit-button-hide" style="display: none" onclick="hideEditField(4);return false;">thôi</a>
 <div id=fullname-edit-field style="display: none">
-	<div><input type="radio" name="fullname-edit-input" id="fullname-edit-input-1" value="firstLast" checked="checked"/>Tên-Họ (ví dụ: ${action.displayedUser.firstName} ${action.displayedUser.lastName})</div>
-	<div><input type="radio" name="fullname-edit-input" id="fullname-edit-input-2" value="lastFirst"/>Họ-Tên (ví dụ: ${action.displayedUser.lastName} ${action.displayedUser.firstName})</div>
+	<div><input type="radio" name="fullname-edit-input" id="fullname-edit-input-1" value="firstLast" <c:if test="${action.displayedUser.nameOdering=='FIRST_LAST'}">checked="checked"</c:if>/>Tên-Họ (ví dụ: ${action.displayedUser.firstName} ${action.displayedUser.lastName})</div>
+	<div><input type="radio" name="fullname-edit-input" id="fullname-edit-input-2" value="lastFirst" <c:if test="${action.displayedUser.nameOdering=='LAST_FIRST'}">checked="checked"</c:if>/>Họ-Tên (ví dụ: ${action.displayedUser.lastName} ${action.displayedUser.firstName})</div>
 </div> 
 </div>
 <div>
@@ -360,7 +360,7 @@ Múi giờ: <b>${action.displayedUser.timezone}</b> <a href="#" id="timezone-edi
     </label>
   </p>
   --><p>
-    <input style="margin-left:0%; float:none;" type="submit" name="change" id="change" value="Lưu" />
+    <input style="margin-left:0%; float:none;" type="submit" name="change-abc" id="change-abc" value="Lưu" />
     <input style="margin-left:0%; float:none;" type="reset" name="resetAll" id="resetAll" value="Hủy bỏ" />
     
   </p>
