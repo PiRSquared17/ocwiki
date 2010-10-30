@@ -35,6 +35,7 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     		oop.data.SectionStructure.class,
     		oop.data.Test.class,
     		oop.data.TestStructure.class,
+    		oop.data.Solution.class,
     		oop.data.Text.class,
     		oop.data.File.class,
     		oop.data.TextArticle.class,
