@@ -59,6 +59,7 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
 			oop.controller.rest.bean.ResourceSearchReportBean.class,
 			oop.controller.rest.bean.RevisionBean.class,
 			oop.controller.rest.bean.SectionBean.class,
+			oop.controller.rest.bean.SolutionBean.class,
 			oop.controller.rest.bean.SectionStructureBean.class,
     		oop.controller.rest.bean.TextBean.class,
     		oop.controller.rest.bean.TestBean.class,

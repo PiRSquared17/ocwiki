@@ -7,10 +7,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
+import oop.controller.rest.bean.RevisionBean;
+import oop.controller.rest.bean.SolutionBean;
+import oop.controller.rest.bean.SolutionMapper;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
-import oop.data.Revision;
 import oop.data.Solution;
 import oop.data.TextArticle;
 import oop.data.User;
@@ -21,14 +23,15 @@ import oop.util.SessionUtils;
 @Path(SolutionResource.PATH)
 public class SolutionResource extends AbstractResource {
 
-	public static final String PATH = "/Solution";
+	public static final String PATH = "/solutions";
 	
 	@GET
 	@Path("/{id: \\d+}")
-	public ObjectResult<Solution> get(@PathParam("id") long id){
+	public ObjectResult<SolutionBean> get(@PathParam("id") long id){
 		Resource<Solution> resource = ResourceDAO.fetchById(id);
 		assertResourceFound(resource);
-		return new ObjectResult<Solution>(resource.getArticle());
+		SolutionBean bean = SolutionMapper.get().toBean(resource.getArticle());
+		return new ObjectResult<SolutionBean>(bean);
 	}
 	
 	@POST
@@ -41,18 +44,20 @@ public class SolutionResource extends AbstractResource {
 	@POST
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ObjectResult<Solution> update(@PathParam("id") long resourceId,
-			Revision<Solution> data){
+	public ObjectResult<SolutionBean> update(@PathParam("id") long resourceId,
+			RevisionBean<SolutionBean> data){
 		WebServiceUtils.assertValid(data.getArticle() != null, "Đối tượng rỗng");
 		Resource<Solution> resource = getResourceSafe(resourceId, Solution.class);
 		WebServiceUtils.assertValid(resource.getArticle().getId() == data
 				.getArticle().getId(), "old version");
-		Solution solution = data.getArticle();
+		Solution solution = SolutionMapper.get().toEntity(data.getArticle());
+		solution.setId(0); // coi la doi tuong moi
 		SolutionDAO.persist(solution);
 
 		saveNewRevision(resource, solution, data.getSummary(), data.isMinor());
 		
-		return new ObjectResult<Solution>(solution);
+		SolutionBean bean = SolutionMapper.get().toBean(solution);		
+		return new ObjectResult<SolutionBean>(bean);
 	}
 	
 }
