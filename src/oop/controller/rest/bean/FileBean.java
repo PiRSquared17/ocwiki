@@ -10,11 +10,11 @@ import oop.data.ContentLicense;
 public class FileBean extends CategorizableArticleBean {
 
 	private String filename;
-	private String author;
-	private ContentLicense license;
-	private String originalSource;
-	private Date dateOfWork;
-	private String additionalInfo;
+	private String author  = "";;
+	private ContentLicense license = ContentLicense.UNKNOWN;;
+	private String originalSource = "";
+	private Date dateOfWork = new Date();
+	private String additionalInfo = "";
 
 	public FileBean() {
 	}
