@@ -8,6 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import oop.data.Entity;
 
 public class Utils {
@@ -40,6 +42,14 @@ public class Utils {
 			sum += i;
 		}
 		return sum;
+	}
+	
+	public static String join(Object... objects) {
+		return StringUtils.join(objects);
+	}
+	
+	public static String join(String seperator, Object... objects) {
+		return StringUtils.join(objects, seperator);
 	}
 
 	public static void deepCopy(int[][][] source, int[][][] dest) {

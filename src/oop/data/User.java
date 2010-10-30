@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import oop.util.Utils;
+
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
@@ -83,13 +85,11 @@ public class User implements Serializable, Entity, HasVersion {
 	public String getFullname() {
 		switch (nameOrdering) {
 		case FIRST_LAST:
-			return firstName + " " + lastName;
-		case LAST_FIRST:
-			return lastName + " " + firstName;
+			return Utils.join(" ", firstName, lastName);
 		case LAST_MIDDLE_FIRST:
-			return lastName + " " + middleName + " " + firstName;
+			return Utils.join(" ", lastName, middleName, firstName);
 		}
-		return firstName;
+		return Utils.join(" ", lastName, firstName);
 	}
 
 	public void setPassword(String password) {
