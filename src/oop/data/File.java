@@ -10,11 +10,11 @@ import javax.xml.bind.annotation.XmlTransient;
 public class File extends CategorizableArticle {
 
 	private String filename;
-	private String author = "UNKNOWN";
+	private String author = "";
 	private ContentLicense license = ContentLicense.UNKNOWN;
-	private String originalSource = "UNKNOWN";
-	private Date dateOfWork = new Date() ;
-	private String additionalInfo = "UNKNOWN";
+	private String originalSource = "";
+	private Date dateOfWork = new Date();
+	private String additionalInfo = "";
 
 	public File() {
 	}
