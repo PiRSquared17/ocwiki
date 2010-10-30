@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 
 public class FileDAO {
 
-	public static File fetchById(long id) throws Exception {
+	public static File fetchById(long id){
 		Session session = HibernateUtil.getSession();
 		return (File) session.get(File.class, id);
 	}
