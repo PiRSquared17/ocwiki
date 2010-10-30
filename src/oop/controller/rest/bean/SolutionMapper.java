@@ -1,14 +1,15 @@
 package oop.controller.rest.bean;
 
+import oop.data.BaseQuestion;
 import oop.data.File;
-import oop.data.TextArticle;
+import oop.data.Solution;
 import oop.data.Topic;
 
-public class TextArticleMapper implements Mapper<TextArticleBean, TextArticle> {
+public class SolutionMapper implements Mapper<SolutionBean, Solution> {
 
 	@Override
-	public TextArticleBean toBean(TextArticle value) {
-		TextArticleBean bean = new TextArticleBean();
+	public SolutionBean toBean(Solution value) {
+		SolutionBean bean = new SolutionBean();
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setNamespace(value.getNamespace());
@@ -18,12 +19,14 @@ public class TextArticleMapper implements Mapper<TextArticleBean, TextArticle> {
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
 		MapperUtils.toBeans(bean.getAttachments(), value.getAttachments(), fileMapper);
 		MapperUtils.toBeans(bean.getEmbeds(), value.getEmbeds(), fileMapper);
+		ResourceReferenceMapper<BaseQuestion> questionMapper = ResourceReferenceMapper.get();
+		bean.setQuestion(questionMapper.toBean(value.getQuestion()));
 		return bean;
 	}
 
 	@Override
-	public TextArticle toEntity(TextArticleBean value) {
-		TextArticle entity = new TextArticle();
+	public Solution toEntity(SolutionBean value) {
+		Solution entity = new Solution();
 		entity.setId(value.getId());
 		entity.setName(value.getName());
 		entity.setNamespace(value.getNamespace());
@@ -33,13 +36,15 @@ public class TextArticleMapper implements Mapper<TextArticleBean, TextArticle> {
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
 		MapperUtils.toEntities(value.getAttachments(), entity.getAttachments(), fileMapper);
 		MapperUtils.toEntities(value.getEmbeds(), entity.getEmbeds(), fileMapper);
+		ResourceReferenceMapper<BaseQuestion> questionMapper = ResourceReferenceMapper.get();
+		entity.setQuestion(questionMapper.toEntity(value.getQuestion()));
 		return entity;
 	}
+	
+	private static SolutionMapper DEFAULT_INSTANCE = new SolutionMapper();
 
-	private static TextArticleMapper DEFAULT_INSTANCE = new TextArticleMapper();
-
-	public static TextArticleMapper get() {
+	public static SolutionMapper get() {
 		return DEFAULT_INSTANCE;
 	}
-	
+
 }

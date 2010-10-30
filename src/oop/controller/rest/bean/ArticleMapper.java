@@ -55,6 +55,9 @@ public class ArticleMapper implements Mapper<ArticleBean, Article> {
 		if (bean instanceof TopicBean) {
 			return TopicMapper.get().toEntity((TopicBean) bean);
 		}
+		if (bean instanceof SolutionBean) {
+			return SolutionMapper.get().toEntity((SolutionBean)bean);
+		}
 		throw new InvalidParameterException("unsupported type");
 	}
 
