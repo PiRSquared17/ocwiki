@@ -7,6 +7,7 @@ public class ListAction extends AbstractAction {
 
 		@Override
 		public void performImpl() throws Exception {
+			title("Thống kê");
 		}
 
 }

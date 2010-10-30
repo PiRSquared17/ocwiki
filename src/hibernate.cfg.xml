@@ -6,6 +6,7 @@
 	<session-factory>
 	    <mapping resource="oop/data/User.hbm.xml" />
         <mapping resource="oop/data/FacebookAccount.hbm.xml" />
+        <mapping resource="oop/data/OpenIDAccount.hbm.xml" />
         <mapping resource="oop/data/Topic.hbm.xml" />
         <mapping resource="oop/data/TopicReport.hbm.xml" />
         <mapping resource="oop/data/TopicSet.hbm.xml" />

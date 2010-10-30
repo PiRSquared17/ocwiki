@@ -10,3 +10,5 @@
 <li><ocw:actionLink name="statistics.article.uncategorized">Bài viết chưa phân loại</ocw:actionLink></li>
 <li><ocw:actionLink name="statistics.article.locked">Bài viết bị khóa</ocw:actionLink></li>
 </div>
+<h3>Tệp tin:</h3>
+<li><ocw:actionLink name="statistics.file.unused">Tệp tin chưa được sử dụng</ocw:actionLink></li>
