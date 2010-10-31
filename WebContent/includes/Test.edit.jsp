@@ -16,7 +16,7 @@
 	</script>
 </div>
 <div id = "Test-Content">
-	<textarea rows="5" cols="60" id="Test-content-${test.id}">${test.content}</textarea>
+	<textarea rows="15" cols="80" id="Test-content-${test.id}">${test.content}</textarea>
 	<script type="text/javascript">
 		Editor.preview('Test-Content');
 	</script>	
@@ -43,56 +43,61 @@
 				</div>			
 				<br>
 		    </div>
-			<p></p>
-			<c:set var="indexquestion" value="0"></c:set>
-			<c:forEach items="${section.questions}" var="question">
-				<div id="Delete-question-id${i}" class="question-wrapper mouse-out"
-		                onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
-			                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
-					<div class="question">			    
-				        <div class="question-number-wrapper">
-							<div id = "${question.id}" style="margin-right: 10px">
-								<b><ocw:articleLink resource="${question.baseContainer}" id ="Qnum-${question.id}">Câu ${i}</ocw:articleLink></b>
-								<input type="text" id ="Mark-${question.id}" value = "${question.mark}" onblur="SpanOnclick(${indexsection}, ${indexquestion},${question.id})">
-								<script type="text/javascript">
-									Editor.previewTextField('${question.id}');
-								</script>
-				            </div>
-				        </div>
-				        <div class="buttons">
-					     	<img alt="" src="${templatePath}/images/wrong.png" onclick="del(${indexsection},${indexquestion},${i})">
-					     </div>
-				        <div class="question-content-wrapper">${question.content}</div>
-						<div>
-				             <c:set var="j" value="0" />
-				             <div class="answer-list-wrapper">
-				             <c:forEach items="${question.answers}" var="answer">
-				                <div class="answer-wrapper">
-				                     <div class="number-wrapper">
-				                        <b>${u:alpha(j)}</b>.
-				                     </div>
-				                     <div>${answer.content}</div>
-				                     <c:set var="j" value="${j+1}" />
-				                 </div>
-				             </c:forEach>
-				             </div>
-				        </div>
-					</div>			 
-				</div>
-				<c:set var="i" value="${i+1}"></c:set>
-				<c:set var="indexquestion" value="${indexquestion+1}"></c:set>
-			</c:forEach>
-			<div id ="add-section-${indexsection}"></div>
-			<form>
-				<button type="submit" onclick="Add_question(${indexsection}); return false;">Thêm</button>
-				<input type="text" id="id-question-add-${indexsection}"></input>
-				<span id = "Message-${indexsection}"></span>
-			</form>
-			<c:set var="indexsection" value="${indexsection+1}"></c:set>
-			<p>
-		</div>
-	</c:forEach>
-	<div id="Add_Section_edit">
+		    <div id ="section-edit-name-${indexsection}">
+				<textarea rows="15" cols="80" id = "section-content-${indexsection}">${section.content.text}</textarea>
+				<script type="text/javascript">
+					Editor.preview('section-edit-name-${indexsection}');
+				</script>
+			</div>			
+			<br>
+	    </div>
+		<p></p>
+		<c:set var="indexquestion" value="0"></c:set>
+		<c:forEach items="${section.questions}" var="question">
+			<div id="Delete-question-id${i}" class="question-wrapper mouse-out"
+	                onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
+		                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
+				<div class="question">			    
+			        <div class="question-number-wrapper">
+						<div id = "${question.id}" style="margin-right: 10px">
+							<b><ocw:articleLink resource="${question.baseContainer}" id ="Qnum-${question.id}">Câu ${i}</ocw:articleLink></b>
+							<input type="text" id ="Mark-${question.id}" value = "${question.mark}" onblur="SpanOnclick(${indexsection}, ${indexquestion},${question.id})">
+							<script type="text/javascript">
+								Editor.previewTextField('${question.id}');
+							</script>
+			            </div>
+			        </div>
+			        <div class="buttons">
+				     	<img alt="" src="${templatePath}/images/wrong.png" onclick="del(${indexsection},${indexquestion},${i})">
+				     </div>
+			        <div class="question-content-wrapper">${question.content}</div>
+					<div>
+			             <c:set var="j" value="0" />
+			             <div class="answer-list-wrapper">
+			             <c:forEach items="${question.answers}" var="answer">
+			                <div class="answer-wrapper">
+			                     <div class="number-wrapper">
+			                        <b>${u:alpha(j)}</b>.
+			                     </div>
+			                     <div>${answer.content}</div>
+			                     <c:set var="j" value="${j+1}" />
+			                 </div>
+			             </c:forEach>
+			             </div>
+			        </div>
+				</div>			 
+			</div>
+			<c:set var="i" value="${i+1}"></c:set>
+			<c:set var="indexquestion" value="${indexquestion+1}"></c:set>
+		</c:forEach>
+		<div id ="add-section-${indexsection}"></div>
+		<form>
+			<button type="submit" onclick="Add_question(${indexsection}); return false;">Thêm</button>
+			<input type="text" id="id-question-add-${indexsection}"></input>
+			<span id = "Message-${indexsection}"></span>
+		</form>
+		<c:set var="indexsection" value="${indexsection+1}"></c:set>
+		<p>
 	</div>
 	<button type="button" onclick = "AddSection()">Thêm Section</button>
 	<textarea rows="" cols="80" id = "test_edit_sectioncontent"></textarea>
