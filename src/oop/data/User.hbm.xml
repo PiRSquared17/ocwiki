@@ -86,5 +86,8 @@
         </property>
         <property name="timezone" type="java.lang.String">
         </property>
+        <property name="draft" type="java.lang.String">
+            <column name="draft" not-null="false" />
+        </property>
 	</class>
 </hibernate-mapping>
