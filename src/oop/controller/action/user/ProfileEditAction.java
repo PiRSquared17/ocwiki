@@ -20,7 +20,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 public class ProfileEditAction extends AbstractAction {
 
 	private User displayedUser;
-	private boolean success;
+	private boolean success = false;
 	private TimeZone userTimezone;
 
 	public TimeZone getTimezone() {
@@ -38,7 +38,7 @@ public class ProfileEditAction extends AbstractAction {
 
 	@Override
 	public void performImpl() throws Exception {
-		displayedUser = getUser();
+		displayedUser = UserDAO.fetchById(getUser().getId());
 		userTimezone = new TimeZone(displayedUser.getTimezone());
 		
 		title("Thay đổi thông tin cá nhân của " + displayedUser.getFullname());
@@ -60,7 +60,7 @@ public class ProfileEditAction extends AbstractAction {
 													getParams().getInt("birthday-edit-day"));
 				birthday = date.getTime();
 			}catch (Exception e) {
-				addError(e.getCause().toString(), e.getMessage());
+				addError("birthdayError", e.getMessage());
 			}
 			
 
@@ -72,8 +72,17 @@ public class ProfileEditAction extends AbstractAction {
 			String website=getParams().get("website-edit-input");
 			String timezone=getParams().get("timezone-edit-input");
 
-			if (!checkEmail(email)) addError("Email", "Không hợp lệ");
-			if (!checkPass(pass,newPass,rePass)) addError("Mật khẩu", "Mật khẩu cũ không đúng hoặc xác nhận mật khẩu mới không khớp");
+			if (!isEmpty(name)){
+				if (!checkUsername(name)) {
+					addError("nameError", "Username đã được dùng bởi người khác");
+				}
+			}
+			if (!checkEmail(email)) {
+				addError("emailError", "Email không hợp lệ hoặc đã được dùng bởi người khác");
+			}
+			if (!checkPass(pass,newPass,rePass)) {
+				addError("passError", "Mật khẩu cũ không đúng hoặc xác nhận mật khẩu mới không khớp");
+			}
 			
 			if (!hasErrors()){
 				if (!isEmpty(name)) displayedUser.setName(name);
@@ -100,23 +109,33 @@ public class ProfileEditAction extends AbstractAction {
 				
 				try{
 					UserDAO.persist(displayedUser);
-					userTimezone = new TimeZone(displayedUser.getTimezone());
+					userTimezone = new TimeZone(displayedUser.getTimezone());					
+					SessionUtils.login(getSession(), displayedUser);
 					success=true;
 				}catch (Exception ex) {
-					addError(ex.getCause().toString(), ex.getMessage());
+					addError("updateError", ex.getMessage());
 				}
-			}
-			
+			}			
 		}
 
 	}
 
+	private boolean checkUsername(String name){
+		if (displayedUser.getId()!=UserDAO.fetchByUsername(name).getId()){
+			return false;
+		}
+		return true;
+	}
+	
 	private boolean checkEmail(String email){
 		email = StringEscapeUtils.escapeSql(email);
 		if (isEmpty(email)){
 			return false;
 		}
 		if (!UserUtils.isValidEmail(email)) {
+			return false;
+		}
+		if (displayedUser.getId()!=UserDAO.fetchByEmail(email).getId()){
 			return false;
 		}
 		return true;
@@ -129,7 +148,7 @@ public class ProfileEditAction extends AbstractAction {
 			return false;
 		} else if (!getUser().matchPassword(pass))
 			return false;
-		else if (!pass.equals(rePass))
+		else if (!newPass.equals(rePass))
 			return false;
 		return true;
 	}

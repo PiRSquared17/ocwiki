@@ -40,7 +40,12 @@
 	}
 
 	function showEditField(value){
-		if (value==2){
+		if (value==1){
+			$('avatar-edit-field').show();
+			$('avatar-edit-button-show').hide();
+			$('avatar-edit-button-hide').show();
+			$('avatar-view').hide();
+		}else if (value==2){
 			$('name-edit-field').show();
 			$('name-edit-button-show').hide();
 			$('name-edit-button-hide').show();
@@ -115,7 +120,12 @@
 	}
 	
 	function hideEditField(value){
-		if (value==2){
+		if (value==1){
+			$('avatar-edit-field').hide();
+			$('avatar-edit-button-show').show();
+			$('avatar-edit-button-hide').hide();			
+			$('avatar-view').show();
+		}else if (value==2){
 			$('name-edit-field').hide();
 			$('name-edit-button-show').show();
 			$('name-edit-button-hide').hide();			
@@ -206,11 +216,18 @@
 		}else{
 		}
 	}
+
+	function resetAllChanges(){
+		for(var i=0;i<=15;i++){
+			hideEditField(i);
+		}
+	}
 </script>
 	
 <h2>Thay đổi thông tin của ${action.displayedUser.fullname}</h2>
-<ocw:form action="user.profileedit" id="form1" method="post">
+<ocw:form action="user.profileedit" id="form" method="post">
 <input type="hidden" name="action" value="Sign Up" >
+<div><ocw:error code="updateError"></ocw:error></div>
 <c:if test="${(action.success == true)}">
 	<div class="notification"><font color ="green">  Thay đổi thành công! </font></div>
 </c:if>
@@ -219,7 +236,8 @@
 <fieldset>
 <legend>Thông tin</legend>
 	<div>
-		Hình đại diện: <b>:P</b> 
+		Hình đại diện: 
+		<div><img alt="Hình đại diện" src="${config.uploadPath}/avatar/${action.displayedUser.avatar}"/></div>
 	</div>
 	<div>
 		Tên đầy đủ: <b>${action.displayedUser.fullname}</b> 
@@ -245,7 +263,11 @@
 					Hình đại diện:  
 				</td>
 				<td>
-					<img alt="Hình đại diện" src="${action.displayedUser.avatar}"/>
+					<span id=avatar-view style="display: inline"><img alt="Hình đại diện" src="${config.uploadPath}/avatar/${action.displayedUser.avatar}"/></span>
+					<span id=avatar-edit-field style="display: none">
+						<ocw:actionLink name="user.preference" target="_blank">Chọn một bức ảnh làm hình đại diện</ocw:actionLink>
+					</span>
+					<a href="#" id="avatar-edit-button-show" style="display: inline" onclick="showEditField(1);return false;">sửa</a><a href="#" id="avatar-edit-button-hide" style="display: none" onclick="hideEditField(1);return false;">thôi</a>
 				</td>
 			</tr>
 			<tr>
@@ -254,14 +276,12 @@
 				</td> 
 				<td> 
 					<span id=name-view style="display: inline"><b>${action.displayedUser.name}</b></span>
-					<c:if test="${action.displayedUser.name}"> 
-						<span id=name-edit-field style="display: none">
-							<input name="name-edit-input" id="name-edit-input" value=""/>			
-							<a href="#" id="name-edit-button-hide" style="display: none" onclick="hideEditField(2);return false;">thôi</a>
-							<span class="notification">Lưu ý, bạn chỉ được thay đổi tên người dùng 1 lần duy nhất.</span>					
-						</span>
-						<a href="#" id="name-edit-button-show" style="display: inline" onclick="showEditField(2);return false;">sửa</a>
-					</c:if>
+					<span id=name-edit-field style="display: none">
+						<input name="name-edit-input" id="name-edit-input" value=""/>			
+						<a href="#" id="name-edit-button-hide" style="display: none" onclick="hideEditField(2);return false;">thôi</a>
+						<span class="notification">Lưu ý, bạn chỉ được thay đổi tên người dùng 1 lần duy nhất.</span>					
+					</span>
+					<a href="#" id="name-edit-button-show" <c:if test="${(empty action.displayedUser.name)==false}"> style="display: none"</c:if> onclick="showEditField(2);return false;">sửa</a>
 				</td>
 			</tr>
 			<tr>
@@ -296,6 +316,7 @@
 						</table>
 					</span>
 					<a href="#" id="pass-edit-button-show" style="display: inline" onclick="showEditField(3);return false;">sửa</a>
+					<div><ocw:error code="passError"></ocw:error></div>
 				</td> 
 			</tr>
 		</table>
@@ -422,7 +443,7 @@
 				<td>
 					Lý lịch: 
 				</td><td>
-					<span id=bio-edit-field style="display: inline">${action.displayedUser.bio}</span> 
+					<span id=bio-view style="display: inline">${action.displayedUser.bio}</span> 
 					<span id=bio-edit-field style="display: none">
 						<textarea name="bio-edit-input" id="bio-edit-input" cols="45" rows="5">${fn:escapeXml(action.displayedUser.bio)}</textarea>
 					</span> 
@@ -441,16 +462,18 @@
 				</td><td>
 					<span id=email-view style="display: inline"><a href="mailto:${action.displayedUser.email}">${action.displayedUser.email}</a></span>
 					<span id=email-edit-field style="display: none">
+						
 						<input name="email-edit-input" id="email-edit-input" value="${fn:escapeXml(action.displayedUser.email)}"/>
 					</span> 
 					<a href="#" id="email-edit-button-show" style="display: inline" onclick="showEditField(13);return false;">sửa</a><a href="#" id="email-edit-button-hide" style="display: none" onclick="hideEditField(13);return false;">thôi</a>
+					<div><ocw:error code="emailError"></ocw:error></div>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					Website:
 				</td><td>
-					<span id=website-view style="display: inline">${action.displayedUser.website}</span>
+					<span id=website-view style="display: inline"><a href="${action.displayedUser.website}" target="_blank" >${action.displayedUser.website}</a></span>
 					<span id=website-edit-field style="display: none">
 						<input name="website-edit-input" id="website-edit-input" value="${fn:escapeXml(action.displayedUser.website)}"/>
 					</span> 
@@ -487,7 +510,7 @@
 	<div id="form-buttons">
 		<p>
 			<button style="margin-left:0%; float:none;" type="submit" name="change" id="change" value="change" >Lưu</button>
-			<button style="margin-left:0%; float:none;" type="reset" name="resetAll" id="resetAll" value="reset">Hủy bỏ</button>
+			<button style="margin-left:0%; float:none;" type="reset" name="resetAll" id="resetAll" value="reset" onclick="resetAllChanges();">Hủy bỏ mọi thay đổi</button>
 		</p>
 	</div>
 </fieldset>
