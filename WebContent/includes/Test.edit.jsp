@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<c:set var="resource" value="${empty resource ? action.resource : resource}"></c:set>
-<c:set var="test" value="${empty article ? action.article : article}"></c:set>
+<c:set var="resource" value="${empty resource ? action.resource : resource}" scope="request"></c:set>
+<c:set var="test" value="${empty article ? action.article : article}" scope="request"></c:set>
 
 <h3>Sửa ${test.namespace.name}:<jsp:include page="/includes/article.edit.name.jsp"></jsp:include></h3>
 
@@ -23,17 +23,25 @@
 </div>
 
 <div>
-<c:set var="indexsection" value="0"></c:set>
-<input type="hidden" id="id-question-add" name="taq_question" 
-				value="${param.taq_question}">
-<c:forEach items="${test.sections}" var="section">
-	<div id = "section-${indexsection}" >
-					        
-		<div class = "section-wrapper mouse-out"
-				onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
-		                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
-			<div class="buttons">
-		     	<img alt="" src="${templatePath}/images/wrong.png" onclick="del_section(${indexsection})">
+	<c:set var="indexsection" value="0"></c:set>
+	<input type="hidden" id="id-question-add" name="taq_question" 
+					value="${param.taq_question}">
+	<c:forEach items="${test.sections}" var="section">
+		<div id = "section-${indexsection}" >
+						        
+			<div class = "section-wrapper mouse-out"
+					onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
+			                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
+				<div class="buttons">
+			     	<img alt="" src="${templatePath}/images/wrong.png" onclick="del_section(${indexsection})">
+			    </div>
+			    <div id ="section-edit-name-${indexsection}">
+					<textarea rows="" cols="" id = "section-content-${indexsection}">${section.content.text}</textarea>
+					<script type="text/javascript">
+						Editor.preview('section-edit-name-${indexsection}');
+					</script>
+				</div>			
+				<br>
 		    </div>
 		    <div id ="section-edit-name-${indexsection}">
 				<textarea rows="15" cols="80" id = "section-content-${indexsection}">${section.content.text}</textarea>
@@ -91,12 +99,9 @@
 		<c:set var="indexsection" value="${indexsection+1}"></c:set>
 		<p>
 	</div>
-</c:forEach>
-<div id="Add_Section_edit">
-</div>
-<button type="button" onclick = "AddSection()">Thêm Section</button>
-<textarea rows="" cols="80" id = "test_edit_sectioncontent"></textarea>
-
+	<button type="button" onclick = "AddSection()">Thêm Section</button>
+	<textarea rows="" cols="80" id = "test_edit_sectioncontent"></textarea>
+	<%@ include file="Test.edit-topic.jsp" %>
 </div>
 
 <ocw:setJs var="questionTemplate">
@@ -178,7 +183,7 @@ DelTemplate = new Template('${deletedTemplate}');
 QuestionTempl = new Template('${questionTemplate}');
 AnswerTempl = new Template('${answerTemplate}');
 SectionTempl = new Template('${SectionTemplate}');
-DelSection = new Template('${DeleteSection}')
+DelSection = new Template('${DeleteSection}');
 
 var test=null;
 var lastQuestion = ${i};
@@ -321,6 +326,12 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		// Sua ten bai kiem tra
 		name = tinymce.get('Test-Name-' + test.id).getContent();
 		test.name = name;
+
+		// Sua cac chu de cua bai kiem tra
+		for (i = 0; i < test.topics.length; i++){
+			if (test.topics[i].deleted) test.topics.splice(i,1);
+		}
+		
 		new Ajax.Request(restPath + '/tests/' + resourceId,
 			    {
 			      method:'post',
