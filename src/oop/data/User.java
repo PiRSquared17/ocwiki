@@ -46,6 +46,7 @@ public class User implements Serializable, Entity, HasVersion {
 	private String bio;
 	private Gender gender = Gender.UNKNOWN;
 	private String timezone = "+7:00";
+	private String draft;
 
 	public User() {
 	}
@@ -292,6 +293,14 @@ public class User implements Serializable, Entity, HasVersion {
 
 	public String getMiddleName() {
 		return middleName;
+	}
+
+	public void setDraft(String draft) {
+		this.draft = draft;
+	}
+
+	public String getDraft() {
+		return draft;
 	}
 	
 }

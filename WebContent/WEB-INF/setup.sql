@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 31, 2010 at 02:48 PM
+-- Generation Time: Oct 31, 2010 at 03:46 PM
 -- Server version: 5.1.49
 -- PHP Version: 5.3.3-1ubuntu9.1
 
@@ -6764,6 +6764,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `bio` mediumtext COLLATE utf8_vietnamese1_ci,
   `gender` varchar(10) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'UNKNOWN',
   `timezone` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT '+7',
+  `draft` mediumtext COLLATE utf8_vietnamese1_ci,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
@@ -6773,12 +6774,12 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`id`, `version`, `name`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `middle_name`, `last_name`, `name_ordering`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`) VALUES
-(1, 2, 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', 'admin', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
-(2, 0, 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'teacher', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
-(3, 0, 'cumeo89', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'Minh', NULL, 'Lê', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
-(4, 0, 'greenriver', '1234', 'greenriver_89@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-03 01:28:13', '2010-10-30 18:56:09', '2010-10-30 18:56:09', 'default', 'Thắng', NULL, 'Phạm', 'LAST_FIRST', NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7'),
-(5, 0, NULL, NULL, 'ngocminhxuixeo@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-26 00:52:59', NULL, NULL, 'default', 'Hà', NULL, 'Nguyễn', 'LAST_FIRST', NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7');
+INSERT INTO `User` (`id`, `version`, `name`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `middle_name`, `last_name`, `name_ordering`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`, `draft`) VALUES
+(1, 2, 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', 'admin', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', 'xyz'),
+(2, 0, 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'teacher', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', NULL),
+(3, 0, 'cumeo89', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'Minh', NULL, 'Lê', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', NULL),
+(4, 0, 'greenriver', '1234', 'greenriver_89@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-03 01:28:13', '2010-10-31 15:21:22', '2010-10-31 15:21:22', 'default', 'Thắng', NULL, 'Phạm', 'LAST_FIRST', NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7', 'abc xyz'),
+(5, 0, NULL, NULL, 'ngocminhxuixeo@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-26 00:52:59', NULL, NULL, 'default', 'Hà', NULL, 'Nguyễn', 'LAST_FIRST', NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7', NULL);
 
 -- --------------------------------------------------------
 
