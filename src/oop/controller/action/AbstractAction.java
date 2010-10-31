@@ -201,11 +201,11 @@ public abstract class AbstractAction implements Action {
 		return errors;
 	}
 
-	protected void addError(String name, String message) {
+	protected void addError(String code, String message) {
 		if (errors == null) {
 			errors = new HashMap<String, String>();
 		}
-		errors.put(name, message);
+		errors.put(code, message);
 	}
 	
 	public boolean hasErrors() {
