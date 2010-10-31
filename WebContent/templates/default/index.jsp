@@ -148,6 +148,11 @@
 	<!--footer begins -->
 	</div>
 
+    <c:forEach items="${modules['bottom']}" var="item">
+       <c:set var="module" scope="request" value="${item}"></c:set>
+       <jsp:include page="modules/${module.page}"></jsp:include>
+    </c:forEach>
+
 	<div id="footer">
 		<p><a href="https://code.google.com/p/ocwiki/">ocwiki v0.1</a>. 
 		Copyright © 2010. Powered by CS Force</p>
