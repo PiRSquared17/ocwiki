@@ -111,6 +111,7 @@
 			<!-- ########################################## -->
 			<c:catch var="ex">
 				<jsp:include page="actions/${action.descriptor.name}.jsp" />
+			
 			</c:catch>
 			<c:choose>
                 <c:when test="${empty ex}">
@@ -123,7 +124,7 @@
 	                </c:forEach>
                 </c:when>
                 <c:otherwise>
-					<h3 style="color:red">${ex}</h3>
+                    <pre style="color:red">${ex}</pre>
                 </c:otherwise>			
 			</c:choose>
 		</div>			
