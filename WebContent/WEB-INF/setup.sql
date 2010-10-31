@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 30, 2010 at 03:57 PM
+-- Generation Time: Oct 31, 2010 at 02:48 PM
 -- Server version: 5.1.49
 -- PHP Version: 5.3.3-1ubuntu9.1
 
@@ -6742,7 +6742,6 @@ CREATE TABLE IF NOT EXISTS `User` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
-  `fullname` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `pass` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `ugroup` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -6754,7 +6753,9 @@ CREATE TABLE IF NOT EXISTS `User` (
   `warning_expired_date` timestamp NULL DEFAULT NULL,
   `pref_template` varchar(50) COLLATE utf8_vietnamese1_ci NOT NULL DEFAULT 'default',
   `first_name` varchar(50) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `middle_name` varchar(50) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `last_name` varchar(50) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
+  `name_ordering` varchar(30) CHARACTER SET armscii8 COLLATE armscii8_bin NOT NULL DEFAULT 'LAST_FIRST',
   `about` varchar(1000) COLLATE utf8_vietnamese1_ci DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `website` mediumtext COLLATE utf8_vietnamese1_ci,
@@ -6772,12 +6773,12 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`id`, `version`, `name`, `fullname`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `last_name`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`) VALUES
-(1, 2, 'admin', 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
-(2, 0, 'teacher', 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
-(3, 0, 'cumeo89', 'Lê Ngọc Minh', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', '', '', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
-(4, 0, 'greenriver', 'Phạm Huy Thắng', '1234', 'greenriver_89@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-03 01:28:13', '2010-10-03 01:28:13', '2010-10-03 01:28:13', 'default', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7'),
-(5, 0, 'https://me.yahoo.com/ngocminhxuixeo#fc7f5', 'Minh Le', NULL, 'ngocminhxuixeo@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-26 00:52:59', NULL, NULL, 'default', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7');
+INSERT INTO `User` (`id`, `version`, `name`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `middle_name`, `last_name`, `name_ordering`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`) VALUES
+(1, 2, 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', 'admin', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
+(2, 0, 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'teacher', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
+(3, 0, 'cumeo89', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'Minh', NULL, 'Lê', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7'),
+(4, 0, 'greenriver', '1234', 'greenriver_89@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-03 01:28:13', '2010-10-30 18:56:09', '2010-10-30 18:56:09', 'default', 'Thắng', NULL, 'Phạm', 'LAST_FIRST', NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7'),
+(5, 0, NULL, NULL, 'ngocminhxuixeo@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-26 00:52:59', NULL, NULL, 'default', 'Hà', NULL, 'Nguyễn', 'LAST_FIRST', NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7');
 
 -- --------------------------------------------------------
 

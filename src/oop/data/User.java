@@ -24,8 +24,8 @@ public class User implements Serializable, Entity, HasVersion {
 	private String password;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String email;
-	private String group;
-	private boolean blocked;
+	private String group = Group.USER;
+	private boolean blocked = false;
 	private Date blockExpiredDate;
 	private String warningMessage;
 	private Date warningExpiredDate;
