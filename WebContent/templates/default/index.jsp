@@ -160,13 +160,6 @@
 </div>
 <!-- footer ends -->
 
-<c:if test="${not empty action.descriptor.javaScript}">
-<script type="text/javascript">
-<!--
-<jsp:include page="actions/${action.descriptor.javaScript}"></jsp:include>
-//-->
-</script>
-</c:if>
 
 </body>
 </html>
