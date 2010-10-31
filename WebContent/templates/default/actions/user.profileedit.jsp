@@ -259,9 +259,9 @@ Tên: <b>${action.displayedUser.firstName}</b> <a href="#" id="firstname-edit-bu
 <div>
 Giới tính: <b>${action.displayedUser.gender}</b> <a href="#" id="gender-edit-button-show" style="display: inline" onclick="showEditField(7);return false;">sửa</a><a href="#" id="gender-edit-button-hide" style="display: none" onclick="hideEditField(7);return false;">thôi</a>
 <div id=gender-edit-field style="display: none">
-    	<div><input type="radio" name="gender-edit-input" id="gender-edit-input-male" value="male" <c:if test="${action.displayedUser.gender=='MALE'}">checked="checked"</c:if>>Nam</div> 
-    	<div><input type="radio" name="gender-edit-input" id="gender-edit-input-female" value="female" <c:if test="${action.displayedUser.gender=='FEMALE'}">checked="checked"</c:if>>Nữ</div> 
-    	<div><input type="radio" name="gender-edit-input" id="gender-edit-input-unknown" value="unknown" <c:if test="${action.displayedUser.gender=='UNKNOWN'}">checked="checked"</c:if>>Không rõ</div> 
+    	<div><input type="radio" name="gender-edit-input" id="gender-edit-input-male" value="male" <c:if test="${u:enumName(action.displayedUser.gender)=='MALE'}">checked="checked"</c:if>>Nam</div> 
+    	<div><input type="radio" name="gender-edit-input" id="gender-edit-input-female" value="female" <c:if test="${u:enumName(action.displayedUser.gender)=='FEMALE'}">checked="checked"</c:if>>Nữ</div> 
+    	<div><input type="radio" name="gender-edit-input" id="gender-edit-input-unknown" value="unknown" <c:if test="${u:enumName(action.displayedUser.gender)=='UNKNOWN'}">checked="checked"</c:if>>Không rõ</div> 
 </div>
 </div>
 <div>
