@@ -1,0 +1,14 @@
+<dataset>
+  <table name="ocwFacebookAccount">
+	  <column>uid</column>
+	  <column>user</column>
+	  <row>
+	    <value>1260054681</value>
+	    <value>1</value>
+	  </row>
+	  <row>
+	    <value>100000099729209</value>
+	    <value>2</value>
+	  </row>
+  </table>
+</dataset>
