@@ -5,7 +5,7 @@
 <ul>
  <c:choose>
     <c:when test="${sessionScope.login}">
-        <li>Xin chào <a href="${scriptPath}?action=user.edituser" title="Sửa thông tin người dung" target="_self">${sessionScope.user.fullname}</a></li>
+        <li>Xin chào <a href="${scriptPath}?action=user.profileedit" title="Sửa thông tin người dung" target="_self">${sessionScope.user.fullname}</a></li>
         <li><a href="${scriptPath}?action=user.logout" title="Đăng xuất khỏi hệ thống" target="_self">Đăng xuất</a> </li>
         <li><ocw:actionLink name="user.preference">Tuỳ chọn</ocw:actionLink></li>
     </c:when>

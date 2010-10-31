@@ -8,7 +8,7 @@
 <ul class="level1 horizontal" id="user-toolbar-root">
 	<li class="level1">${sessionScope.user.fullname}
 	<ul class="level2 dropdown">
-		<li><ocw:actionLink name="user.edituser"
+		<li><ocw:actionLink name="user.profileedit"
 			title="Sửa thông tin người dùng">Sửa thông tin</ocw:actionLink></li>
 		<li><ocw:actionLink name="user.preference">Tuỳ chọn</ocw:actionLink>
 		</li>
@@ -38,9 +38,9 @@
 				//-->
 				</script>
             </c:if>
-            <li><a href="#" onclick="return false;">Google</a></li>
-            <li><a href="#" onclick="return false;">Yahoo</a></li>
-            <li><a href="#" onclick="return false;">OpenID</a></li>
+            <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://www.google.com/accounts/o8/id"></ocw:param>Google</ocw:actionLink></li>
+            <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://me.yahoo.com/"></ocw:param>Yahoo</ocw:actionLink></li>
+            <li><ocw:actionLink name="user.login.openid">OpenID</ocw:actionLink></li>
             <li><a href="#" onclick="openLoginDialog(); return false;">Nội bộ</a></li>
         </ul>
 	</li>

@@ -7,6 +7,7 @@
 <c:choose>
 
 <c:when test="${u:size(action.unusedTopics) > 0}">
+	<div align="center"><ocw:pagination actionName="${action.descriptor.name}" count="${action.count}" currentStart="${action.curStart}"/></div>
 	<div class="content-wrapper">
         <ul style="list-style: none;">
 		<c:forEach items="${action.unusedTopics}" var="topic" >

@@ -5,14 +5,17 @@
 <%@ include file="/includes/common.jsp"%>
 
 <jsp:doBody var="customBody"></jsp:doBody>
+<!-- 
 <c:choose>
-    <c:when test="${empty user.name}">
-        <c:set var="url">${config.actionPath}/user.profile?user=${user.id}</c:set>
+    <c:when test="${empty user.name}"> -->
+    <!-- 
     </c:when>
     <c:otherwise>
-        <c:set var="url">${config.userPath}/${user.name}</c:set>
+        <c:set var="url">${config.userPath}/${u:urlEncode(user.name)}</c:set>
     </c:otherwise>
-</c:choose>
+</c:choose>-->
+        <c:set var="url">${config.actionPath}/user.profile?user=${user.id}</c:set>
+
 <a href="${url}">
     <c:choose>
         <c:when test="${empty fn:trim(customBody)}">
