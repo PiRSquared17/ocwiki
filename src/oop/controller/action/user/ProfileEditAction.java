@@ -7,15 +7,18 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import oop.controller.action.AbstractAction;
+import oop.controller.action.ActionException;
 import oop.data.Gender;
 import oop.data.NameOrdering;
 import oop.data.User;
 import oop.db.dao.UserDAO;
-import oop.util.SessionUtils;
 import oop.util.TimeZone;
 import oop.util.UserUtils;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+
+import com.oreilly.servlet.ParameterNotFoundException;
 
 public class ProfileEditAction extends AbstractAction {
 
@@ -51,7 +54,13 @@ public class ProfileEditAction extends AbstractAction {
 			String fullName=getParams().get("fullname-edit-input");
 			String firstName=getParams().get("firstname-edit-input");
 			String lastName=getParams().get("lastname-edit-input");
-			String gender=getParams().get("gender-edit-input");
+			
+			Gender gender=Gender.UNKNOWN;
+			try {
+				gender = Gender.valueOf(StringUtils.upperCase(getParams().get("gender-edit-input")));
+			} catch (IllegalArgumentException ex) {
+				addError("gender", "Giới tính không hợp lệ");
+			}
 			
 			Date birthday = new Date();
 			try{
@@ -59,8 +68,12 @@ public class ProfileEditAction extends AbstractAction {
 													getParams().getInt("birthday-edit-month")-1,
 													getParams().getInt("birthday-edit-day"));
 				birthday = date.getTime();
-			}catch (Exception e) {
-				addError(e.getCause().toString(), e.getMessage());
+			} catch (ParameterNotFoundException ex) {
+				addError("birthday", "Bạn cần điền ngày sinh.");
+			} catch (NumberFormatException ex) {
+				addError("birthday", "Ngày sinh không hợp lệ.");
+			} catch (Exception e) {
+				throw new ActionException(e.getMessage());
 			}
 			
 
@@ -85,10 +98,8 @@ public class ProfileEditAction extends AbstractAction {
 				else if (fullName=="lastMiddleFirst") displayedUser.setNameOrdering(NameOrdering.LAST_MIDDLE_FIRST);
 				else displayedUser.setNameOrdering(NameOrdering.LAST_FIRST);
 								
-				if (gender=="male") displayedUser.setGender(Gender.MALE);
-				else if (gender=="female") displayedUser.setGender(Gender.FEMALE);
-				else displayedUser.setGender(Gender.UNKNOWN);
 				
+				displayedUser.setGender(gender);
 				displayedUser.setBirthday(birthday);
 				displayedUser.setAbout(about);
 				displayedUser.setHometown(hometown);
