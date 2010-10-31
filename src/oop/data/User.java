@@ -24,8 +24,8 @@ public class User implements Serializable, Entity, HasVersion {
 	private String password;
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String email;
-	private String group;
-	private boolean blocked;
+	private String group = Group.USER;
+	private boolean blocked = false;
 	private Date blockExpiredDate;
 	private String warningMessage;
 	private Date warningExpiredDate;
@@ -50,11 +50,13 @@ public class User implements Serializable, Entity, HasVersion {
 	public User() {
 	}
 
-	public User(String name, String password,
+	public User(String name, String password, String firstName, String lastName,
 			String email, String group, String avatar, String warning,
 			boolean blocked, Date registerDate) {
 		super();
 		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
 		this.group = group;

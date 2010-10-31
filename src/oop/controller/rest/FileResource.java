@@ -6,10 +6,16 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+
+
+import oop.controller.rest.bean.FileBean;
+import oop.controller.rest.bean.FileMapper;
+import oop.controller.rest.bean.RevisionBean;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.File;
 import oop.data.Resource;
-import oop.db.dao.FileDAO;
+import oop.data.Status;
+import oop.db.dao.ArticleDAO;
 
 @Path(FileResource.PATH)
 public class FileResource extends AbstractResource {
@@ -18,26 +24,38 @@ public class FileResource extends AbstractResource {
 	
 	@GET
 	@Path("/{id: \\d+}")
-	public ObjectResult<File> get(@PathParam("id") long id){
-		Resource<File> fileResource = FileDAO.fetchById(id);
+	public ObjectResult<FileBean> get(@PathParam("id") long resourceId){
+		Resource<File> fileResource = getResourceSafe(resourceId, File.class);
 		File file = fileResource.getArticle();
-		return new ObjectResult<File>(file);
+		FileBean fileBean = FileMapper.get().toBean(file);
+		return new ObjectResult<FileBean>(fileBean);
 	}
 	
 	@POST
 	@Path("/{id: \\d+}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ObjectResult<File> update(@PathParam("id") long id, File data) {
-		Resource<File> fileResource = FileDAO.fetchById(id);
-		File file = fileResource.getArticle();
-		assertResourceFound(file);
-		file.setOriginalSource(data.getOriginalSource());
-		file.setAuthor(data.getAuthor());
-		file.setAdditionalInfo(data.getAdditionalInfo());
-		file.setLicense(data.getLicense());
-		file.setDateOfWork(data.getDateOfWork());
-		FileDAO.persist(file);
-		return new ObjectResult<File>(file);
+	public ObjectResult<FileBean> update(@PathParam("id") long resourceId,
+			RevisionBean<FileBean> data) throws Exception{
+		Resource<File> resource = getResourceSafe(resourceId,
+				File.class);
+		if (resource.getStatus() != Status.NEW) {
+			validate(data.getArticle());
+		}
+		WebServiceUtils.assertValid(resource.getArticle().getId() == data
+				.getArticle().getId(), "old version");
+
+		File file = FileMapper.get().toEntity(data.getArticle());
+		file.setId(0); // coi nó như đối tượng mới
+		ArticleDAO.persist(file);
+
+		saveNewRevision(resource, file, data.getSummary(), data.isMinor());
+		FileBean bean = FileMapper.get().toBean(resource.getArticle());
+		return new ObjectResult<FileBean>(bean);
+	}
+
+	private void validate(FileBean file) {
+		// TODO Auto-generated method stub
+		WebServiceUtils.assertValid(file != null, "File is empty");
 	}
 
 }

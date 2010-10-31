@@ -14,13 +14,13 @@ import org.hibernate.Transaction;
 @SuppressWarnings("unchecked")
 public class UserDAO {
 
-	public static User create(String userName, String fullName,
+	public static User create(String userName, String firstName, String lastName,
 			String group, String password, String email) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			User user = new User(userName, password, email,
+			User user = new User(userName, firstName, lastName, password, email,
 					group, null, null, false, new Date());
 			session.save(user);
 			tx.commit();
