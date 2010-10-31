@@ -5,8 +5,8 @@ import oop.controller.action.ActionException;
 import oop.data.BaseQuestion;
 import oop.data.Namespace;
 import oop.data.Resource;
+import oop.data.Solution;
 import oop.data.Text;
-import oop.data.TextArticle;
 import oop.db.dao.BaseQuestionDAO;
 import oop.db.dao.ResourceDAO;
 
@@ -34,9 +34,9 @@ public class CreateSolution extends AbstractAction {
 			String content = getParams().getString("bai_giai");
 			Namespace namespace = resource.getNamespace();
 			Text text = new Text(content);
-			TextArticle textaritcle = new TextArticle(name, namespace, text);
+			Solution solution = new Solution(name, namespace, text, resource);
 			//Resource<TextArticle> res = ResourceDAO.create(getUser(), TextArticle.class, textaritcle);
-			Resource<TextArticle> res=ResourceDAO.create(getUser(), TextArticle.class, textaritcle, resource);
+			Resource<Solution> res=ResourceDAO.create(getUser(), Solution.class, solution, resource);
 			setNextAction("solution.view?id="+res.getId());
 		}
 		
