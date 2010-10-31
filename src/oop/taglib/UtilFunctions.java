@@ -114,4 +114,8 @@ public final class UtilFunctions {
 		}
 	}
 
+	public static String enumName(Enum<?> e) {
+		return e.name();
+	}
+	
 }
