@@ -283,5 +283,12 @@
     <function-signature>java.lang.String escapeJavaScript(java.lang.String)</function-signature>
   </function>
 
+  <function>
+    <description>Lấy về tên của một biến enum</description>
+    <name>name</name>
+    <function-class>org.apache.commons.lang.UtilFunctions</function-class>
+    <function-signature>java.lang.String name(java.lang.Enum)</function-signature>
+  </function>
+
 </taglib>
   

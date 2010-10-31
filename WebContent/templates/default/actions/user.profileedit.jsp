@@ -385,6 +385,7 @@
 					    </script>
 					</span>
 					<a href="#" id="gender-edit-button-show" style="display: inline" onclick="showEditField(7);return false;">sửa</a><a href="#" id="gender-edit-button-hide" style="display: none" onclick="hideEditField(7);return false;">thôi</a>
+					<ocw:error code="gender"></ocw:error>
 				</td>
 			</tr>
 			<tr>
@@ -398,6 +399,7 @@
 						<input name="birthday-edit-year" id="birthday-edit-year" size="4px" maxlength="4" value="${action.displayedUser.birthday.year+1900}"/>	
 						(ngày-tháng-năm)
 					</span> <a href="#" id="birthday-edit-button-show" style="display: inline" onclick="showEditField(8);return false;">sửa</a><a href="#" id="birthday-edit-button-hide" style="display: none" onclick="hideEditField(8);return false;">thôi</a>
+					<ocw:error code="birthday"></ocw:error>
 				</td>
 			</tr>
 		</table>
