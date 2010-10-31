@@ -284,10 +284,10 @@
   </function>
 
   <function>
-    <description>enum name</description>
-    <name>enumName</name>
+    <description>Lấy về tên của một biến enum</description>
+    <name>name</name>
     <function-class>org.apache.commons.lang.UtilFunctions</function-class>
-    <function-signature>java.lang.String enumName(java.lang.Enum)</function-signature>
+    <function-signature>java.lang.String name(java.lang.Enum)</function-signature>
   </function>
 
 </taglib>

@@ -65,10 +65,16 @@ public final class UtilFunctions {
 	}
 	
 	public static String formatDate(Date date) {
+		if (date == null) {
+			return "";
+		}
 		return new SimpleDateFormat(DATE_FORMAT).format(date);
 	}
 	
 	public static String formatDateTime(Date date) {
+		if (date == null) {
+			return "";
+		}
 		return new SimpleDateFormat(DATE_TIME_FORMAT).format(date);
 	}
 	
@@ -114,7 +120,7 @@ public final class UtilFunctions {
 		}
 	}
 
-	public static String enumName(Enum<?> e) {
+	public static String name(Enum<?> e) {
 		return e.name();
 	}
 	
