@@ -6,8 +6,10 @@ import oop.data.Resource;
 import oop.data.TextArticle;
 import oop.persistence.HibernateUtil;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 @SuppressWarnings("unchecked")
 public class TextArticleDAO {
@@ -47,4 +49,20 @@ public class TextArticleDAO {
 		return HibernateUtil.count(hql);
 	}
 
+	public static void persist(TextArticle textarticle) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(textarticle);
+			tx.commit();
+		} catch (HibernateException ex) {
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+			throw ex;
+		}
+	}
+	
 }

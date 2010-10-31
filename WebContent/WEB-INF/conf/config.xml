@@ -597,6 +597,13 @@
         <articleType>oop.data.Test</articleType>
         <loginRequired>true</loginRequired>
     </module>
+    <module>
+       <name>draft</name>
+        <title>Nháp</title>
+        <class>oop.module.DraftModule</class>
+        <position>bottom</position>
+        <order>1</order>
+    </module>
     <!-- 
     <module>
         <name>fbconnect</name>
