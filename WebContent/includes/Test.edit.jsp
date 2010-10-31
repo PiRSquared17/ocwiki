@@ -16,7 +16,7 @@
 	</script>
 </div>
 <div id = "Test-Content">
-	<textarea rows="5" cols="60" id="Test-content-${test.id}">${test.content}</textarea>
+	<textarea rows="15" cols="80" id="Test-content-${test.id}">${test.content}</textarea>
 	<script type="text/javascript">
 		Editor.preview('Test-Content');
 	</script>	
@@ -36,7 +36,7 @@
 		     	<img alt="" src="${templatePath}/images/wrong.png" onclick="del_section(${indexsection})">
 		    </div>
 		    <div id ="section-edit-name-${indexsection}">
-				<textarea rows="" cols="" id = "section-content-${indexsection}">${section.content.text}</textarea>
+				<textarea rows="15" cols="80" id = "section-content-${indexsection}">${section.content.text}</textarea>
 				<script type="text/javascript">
 					Editor.preview('section-edit-name-${indexsection}');
 				</script>
