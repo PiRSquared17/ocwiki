@@ -6,27 +6,50 @@
 
 <fieldset> 
 <legend><b>Tải tệp tin</b></legend>
-
 <table class="" id="uploadFile">
 	<tbody>
 	<tr>
-	<td><label>Tệp tin trên máy :</label></td>
-	<td><input id="uploadFile" name="uploadFile" size="60" value="" type="file" />
-	</td></tr>
-	<tr>
-	<td colspan="2" class="htmlform-tip">Kích thước tối đa: 10 MB</td>
+	<td>
+		<div id="file-uploader-demo1">		
+		<noscript>			
+			<p>Please enable JavaScript to use file uploader.</p>
+			<!-- or put a simple form for upload here -->
+		</noscript>         
+		</div>
+	</td>
+	<td><span id="progress"></span></td>
 	</tr>
 	<tr>
-	<td><label>Các định dạng cho phép:</label></td>
-	<td><div id="uploadPermitted"><p>png, gif, jpg, jpeg, svg.</p></div></td>
+	<td>Kích thước tối đa: <b>10 MB</b></td>
+	</tr>
+	<tr>
+	<td>Các định dạng cho phép: <b>png, gif, jpg, jpeg, svg.</b></td>
 	</tr>
 	</tbody>
 	<tr>
-	<td><input type="submit" name="submit" value="Tải tệp tin lên"></td>
 	<td><ocw:error code="file"></ocw:error></td>
 	</tr>
 </table>
 </fieldset>
+
+
+<script src="${templatePath}/js/fileuploader.js" type="text/javascript"></script>
+<script>        
+    function createUploader(){            
+        var uploader = new qq.FileUploader({
+            element: document.getElementById('file-uploader-demo1'),
+            action: '${ocw:restUrl("upload/123")}',
+            onProgress: function(id, fileName, loaded, total){$('progress').innerHTML = loaded;},
+            onComplete: function(id, fileName, responseJSON){},
+            onCancel: function(id, fileName){},
+            showMessage: function(message) {}
+        });           
+    }
+    
+    // in your app create uploader as soon as the DOM is ready
+    // don't wait for the window to load  
+    window.onload = createUploader;     
+</script>    
 
 <fieldset> 
 <legend><b>File description</b></legend> 

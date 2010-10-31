@@ -50,6 +50,7 @@
 	  },
 	  onFailure: function(transport){
 		  DefaultTemplate.onFailure(transport); 
+	  }
 	});
 
 	EditAction=Class.create();
@@ -60,6 +61,7 @@
 	EditAction.save = function(){
 		textarticle.content={text : tinymce.get('edit_context').getContent()};
 		textarticle.namespace={id : $F('namespaedit')};
+		textarticle.name = $('edit_name').value;
 		new Ajax.Request(restPath + '/texts/'+ resourceId,
 			{
 				method: 'post',
@@ -74,7 +76,8 @@
 			     }),
 			     evalJSON: true,
 			     onSuccess: function(transport) {
-			      },
+					location.href = articlePath + '/' + resourceId;     
+			     },
 			     onFailure: function(transport){
 			    	  DefaultTemplate.onFailure(transport); 
 			     }
