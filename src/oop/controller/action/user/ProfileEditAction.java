@@ -6,29 +6,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import oop.util.TimeZone;
-
 import oop.controller.action.AbstractAction;
 import oop.data.Gender;
 import oop.data.NameOrdering;
 import oop.data.User;
 import oop.db.dao.UserDAO;
-import oop.persistence.HibernateUtil;
+import oop.util.SessionUtils;
+import oop.util.TimeZone;
 import oop.util.UserUtils;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.hibernate.exception.ConstraintViolationException;
-
-import com.oreilly.servlet.ParameterNotFoundException;
 
 public class ProfileEditAction extends AbstractAction {
 
 	private User displayedUser;
 	private boolean success;
-	private TimeZone timezone;
-	private Calendar displayedUserBirthday;
+	private TimeZone userTimezone;
+
 	public TimeZone getTimezone() {
-		return timezone;
+		return userTimezone;
 	}
 
 	public boolean isSuccess() {
@@ -38,18 +34,15 @@ public class ProfileEditAction extends AbstractAction {
 	public User getDisplayedUser() {
 		return displayedUser;
 	}
-	public Calendar getDisplayedUserBirthday() {
-		return displayedUserBirthday;
-	}
+
 
 	@Override
 	public void performImpl() throws Exception {
 		displayedUser = getUser();
-		timezone = new TimeZone(displayedUser.getTimezone());
-		displayedUserBirthday = new GregorianCalendar(displayedUser.getBirthday().getYear(),displayedUser.getBirthday().getMonth(),displayedUser.getBirthday().getDate());
+		userTimezone = new TimeZone(displayedUser.getTimezone());
 		
-		title("Thay đổi thông tin cá nhân của " + displayedUser.getName());
-		if ("Change".equals(getParams().get("change"))) {
+		title("Thay đổi thông tin cá nhân của " + displayedUser.getFullname());
+		if ("change".equals(getParams().get("change"))) {
 			
 			String name=getParams().get("name-edit-input");
 			String pass=getParams().get("pass-edit-old");
@@ -62,9 +55,9 @@ public class ProfileEditAction extends AbstractAction {
 			
 			Date birthday = new Date();
 			try{
-				Calendar date = new GregorianCalendar(	Integer.parseInt(getParams().get("birthday-edit-input-year")),
-													Integer.parseInt(getParams().get("birthday-edit-input-month")),
-													Integer.parseInt(getParams().get("birthday-edit-input-day")));
+				Calendar date = new GregorianCalendar(getParams().getInt("birthday-edit-year"),
+													getParams().getInt("birthday-edit-month")-1,
+													getParams().getInt("birthday-edit-day"));
 				birthday = date.getTime();
 			}catch (Exception e) {
 				addError(e.getCause().toString(), e.getMessage());
@@ -107,6 +100,8 @@ public class ProfileEditAction extends AbstractAction {
 				
 				try{
 					UserDAO.persist(displayedUser);
+					userTimezone = new TimeZone(displayedUser.getTimezone());
+					success=true;
 				}catch (Exception ex) {
 					addError(ex.getCause().toString(), ex.getMessage());
 				}
@@ -128,7 +123,9 @@ public class ProfileEditAction extends AbstractAction {
 	}
 
 	private boolean checkPass(String pass,String newPass,String rePass){
-		if (isEmpty(pass) || isEmpty(newPass) || isEmpty(rePass)) {
+		if (isEmpty(pass) && isEmpty(newPass) && isEmpty(rePass)) {
+			return true;
+		} else if (isEmpty(pass) || isEmpty(newPass) || isEmpty(rePass)) {
 			return false;
 		} else if (!getUser().matchPassword(pass))
 			return false;
