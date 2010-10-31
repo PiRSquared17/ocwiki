@@ -12,6 +12,7 @@ import oop.data.Gender;
 import oop.data.NameOrdering;
 import oop.data.User;
 import oop.db.dao.UserDAO;
+import oop.util.SessionUtils;
 import oop.util.TimeZone;
 import oop.util.UserUtils;
 
