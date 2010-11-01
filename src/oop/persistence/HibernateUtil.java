@@ -24,6 +24,15 @@ public class HibernateUtil {
 		}
 		if (!config.isLazyStartup()) {
 			init();
+		} else {
+			// get it initialized in a different thread
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					HibernateUtil.getSessionFactory();
+				}
+			}).start();
 		}
 	}
 
