@@ -45,7 +45,7 @@ public class OcwikiApp implements ServletContextListener {
 		}
 		config.setHomeDir(config.getDomain() + context.getContextPath());
 		Config.setDefaultInstance(config);
-		HibernateUtil.init(config);
+		HibernateUtil.setConfig(config);
 	}
 
 	/**
@@ -67,5 +67,5 @@ public class OcwikiApp implements ServletContextListener {
     public static OcwikiApp get() {
     	return INSTANCE;
     }
-    
+
 }
