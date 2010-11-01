@@ -9,6 +9,7 @@
 	<uploadPath>${homeDir}/uploads</uploadPath>
 	<uploadDir>/uploads</uploadDir>
 	<defaultTemplate>default</defaultTemplate>
+	<lazyStartup>true</lazyStartup>
 
     <!--********************************************************************
                                  Actions 

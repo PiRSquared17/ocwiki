@@ -45,12 +45,15 @@
 	
 		<event type="post-update">
 			<listener class="org.hibernate.search.event.FullTextIndexEventListener" />
+			<listener class="oop.persistence.IndexUpdateListener"/>
 		</event>
 		<event type="post-insert">
 			<listener class="org.hibernate.search.event.FullTextIndexEventListener" />
+			<listener class="oop.persistence.IndexUpdateListener"/>
 		</event>
 		<event type="post-delete">
 			<listener class="org.hibernate.search.event.FullTextIndexEventListener" />
+			<listener class="oop.persistence.IndexUpdateListener"/>
 		</event>
 		<event type="post-collection-recreate">
 			<listener class="org.hibernate.search.event.FullTextIndexEventListener" />
