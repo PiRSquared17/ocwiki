@@ -9,6 +9,7 @@
 	<uploadPath>${homeDir}/uploads</uploadPath>
 	<uploadDir>/uploads</uploadDir>
 	<defaultTemplate>default</defaultTemplate>
+	<lazyStartup>true</lazyStartup>
 
     <!--********************************************************************
                                  Actions 
@@ -608,6 +609,13 @@
         <articleType>oop.data.TextArticle</articleType>
         <articleType>oop.data.Test</articleType>
         <loginRequired>true</loginRequired>
+    </module>
+    <module>
+       <name>draft</name>
+        <title>Nháp</title>
+        <class>oop.module.DraftModule</class>
+        <position>bottom</position>
+        <order>1</order>
     </module>
     <!-- 
     <module>

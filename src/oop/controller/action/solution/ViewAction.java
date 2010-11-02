@@ -3,30 +3,30 @@ package oop.controller.action.solution;
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.Resource;
-import oop.data.TextArticle;
-import oop.db.dao.TextArticleDAO;
+import oop.data.Solution;
+import oop.db.dao.ResourceDAO;
 
 public class ViewAction extends AbstractAction {
 
-	Resource<TextArticle> resource;
-	TextArticle textarticle;
+	Resource<Solution> resource;
+	Solution solution;
 	
 	@Override
 	protected void performImpl() throws Exception {
 		// TODO Auto-generated method stub
-		resource = TextArticleDAO.fetchById(getParams().getLong("id"));
+		resource = ResourceDAO.fetchById(getParams().getLong("id"));
 		if(resource==null){
 			throw new ActionException("Không tìm thấy câu hỏi!");
 		}
-		textarticle = resource.getArticle();
+		solution = resource.getArticle();
 	}
 	
-	public Resource<TextArticle> getResource(){
+	public Resource<Solution> getResource(){
 		return resource;
 	}
 	
-	public TextArticle getQuestion(){
-		return textarticle;
+	public Solution getSolution(){
+		return solution;
 	}
 
 

@@ -112,6 +112,7 @@
 			<!-- ########################################## -->
 			<c:catch var="ex">
 				<jsp:include page="actions/${action.descriptor.name}.jsp" />
+			
 			</c:catch>
 			<c:choose>
                 <c:when test="${empty ex}">
@@ -124,7 +125,7 @@
 	                </c:forEach>
                 </c:when>
                 <c:otherwise>
-					<h3 style="color:red">${ex}</h3>
+                    <pre style="color:red">${ex}</pre>
                 </c:otherwise>			
 			</c:choose>
 		</div>			
@@ -149,6 +150,11 @@
 	<!--footer begins -->
 	</div>
 
+    <c:forEach items="${modules['bottom']}" var="item">
+       <c:set var="module" scope="request" value="${item}"></c:set>
+       <jsp:include page="modules/${module.page}"></jsp:include>
+    </c:forEach>
+
 	<div id="footer">
 		<p><a href="https://code.google.com/p/ocwiki/">ocwiki v0.1</a>. 
 		Copyright © 2010. Powered by CS Force</p>
@@ -156,13 +162,6 @@
 </div>
 <!-- footer ends -->
 
-<c:if test="${not empty action.descriptor.javaScript}">
-<script type="text/javascript">
-<!--
-<jsp:include page="actions/${action.descriptor.javaScript}"></jsp:include>
-//-->
-</script>
-</c:if>
 
 </body>
 </html>

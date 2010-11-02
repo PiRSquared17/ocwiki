@@ -15,6 +15,9 @@ public class ViewAction extends AbstractResourceAction<Article> {
 		try {
 			id = getParams().getLong("id");
 			resource = ResourceDAO.fetchById(id);
+			if (resource == null) {
+				throw new ActionException("Không tìm thấy bài viết.");
+			}
 		} catch (NumberFormatException e) {
 			throw new ActionException("Mã bài viết không hợp lệ.");
 		} catch (ParameterNotFoundException e) {

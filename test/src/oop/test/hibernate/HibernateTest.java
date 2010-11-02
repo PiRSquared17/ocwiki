@@ -42,7 +42,7 @@ public class HibernateTest {
 	public static void setupClass() throws Exception {
 		Config config = new Config();
 		ConfigIO.loadDirectory(config, "test/conf");
-		HibernateUtil.init(config);
+		HibernateUtil.setConfig(config);
 		Config.setDefaultInstance(config);
 		// clean insert all tables
 		HibernateTestUtil.cleanInsertDataset("test/dataset/full.xml");
