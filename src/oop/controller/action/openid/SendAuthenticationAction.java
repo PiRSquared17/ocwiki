@@ -51,7 +51,7 @@ public class SendAuthenticationAction extends AbstractAction {
 			String returnToUrl = ActionUtil.getActionURL("user.login.openid.verification");
 			List discoveries = manager.discover(userSuppliedString);
 			DiscoveryInformation discovered = manager.associate(discoveries);
-			getRequest().getSession().setAttribute("openid-disc", discovered);
+			getSession().setAttribute("openid-disc", discovered);
 			AuthRequest authReq = manager.authenticate(discovered, returnToUrl);
 
             FetchRequest fetch = FetchRequest.createFetchRequest(); 
@@ -69,14 +69,6 @@ public class SendAuthenticationAction extends AbstractAction {
                     fetch.addAttribute("email", "http://schema.openid.net/contact/email", true); 
             } 
             authReq.addExtension(fetch);
-            
-			// Attribute Exchange example: fetching the 'email' attribute
-/*			FetchRequest fetch = FetchRequest.createFetchRequest();
-			fetch.addAttribute("email",			// attribute alias
-					"http://schema.openid.net/contact/email", // type URI
-					true); // required
-
-			authReq.addExtension(fetch);*/
 
 			//if (!discovered.isVersion2()) {
 				// Option 1: GET HTTP-redirect to the OpenID Provider endpoint
@@ -99,7 +91,6 @@ public class SendAuthenticationAction extends AbstractAction {
 		} catch (OpenIDException e) {
 			throw new ActionException(e.getMessage());
 		}
-
 		return null;
 	}	
 
