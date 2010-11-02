@@ -34,6 +34,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
 	private Status status = Status.NORMAL;
 	private int version = 0;
+//	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
 	private Class<T> type;
 	@IndexedEmbedded
 	private T article;
@@ -215,13 +216,13 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 		return id;
 	}
 	
-	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	@FieldBridge(impl=BaseQuestionBridge.class)
 	Object getBaseQuestion() {
 		return this;
 	}
 	
-	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	@FieldBridge(impl=TestBridge.class)
 	Object getTest() {
 		return this;

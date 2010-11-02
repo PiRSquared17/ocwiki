@@ -5,10 +5,15 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
+
 
 @XmlRootElement
 public class File extends CategorizableArticle {
 
+	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
 	private String filename = "";
 	private String author = "";
 	private ContentLicense license = ContentLicense.UNKNOWN;
