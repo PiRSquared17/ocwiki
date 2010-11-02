@@ -1,4 +1,4 @@
-package oop.persistence;
+package oop.persistence.search;
 
 import java.util.List;
 
@@ -43,11 +43,16 @@ public class ResourceCustomizationBridge implements FieldBridge {
 				easys.append(userId).append(' ');
 			}
 		}
-		document.add(new Field(name + ".likes", likes.toString(), Field.Store.NO, Field.Index.ANALYZED));
-		document.add(new Field(name + ".todos", todos.toString(), Field.Store.NO, Field.Index.ANALYZED));
-		document.add(new Field(name + ".dones", dones.toString(), Field.Store.NO, Field.Index.ANALYZED));
-		document.add(new Field(name + ".hards", hards.toString(), Field.Store.NO, Field.Index.ANALYZED));
-		document.add(new Field(name + ".easys", easys.toString(), Field.Store.NO, Field.Index.ANALYZED));
+		document.add(new Field(name + ".likes", likes.toString(),
+				Field.Store.NO, Field.Index.ANALYZED));
+		document.add(new Field(name + ".todos", todos.toString(),
+				Field.Store.NO, Field.Index.ANALYZED));
+		document.add(new Field(name + ".dones", dones.toString(),
+				Field.Store.NO, Field.Index.ANALYZED));
+		document.add(new Field(name + ".hards", hards.toString(),
+				Field.Store.NO, Field.Index.ANALYZED));
+		document.add(new Field(name + ".easys", easys.toString(),
+				Field.Store.NO, Field.Index.ANALYZED));
 	}
 
 }

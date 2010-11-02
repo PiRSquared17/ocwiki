@@ -131,4 +131,10 @@ public class ModuleDescriptor {
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 	}
+	
+	@Override
+	public String toString() {
+		return name + "(" + position + ", " + order + ")";
+	}
+	
 }

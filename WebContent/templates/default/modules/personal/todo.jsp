@@ -3,10 +3,10 @@
 
 <c:if test="${sessionScope.login}">
 	<div>Đánh dấu bài cần làm:
-	   <button onclick="Li_To_Le(0)" id="todo">Bài cần làm</button>
+	   <button onclick="markLikeTodoLevel(0)" id="todo">Bài cần làm</button>
 	</div>
 	<div>Độ khó:
-	    <select onchange="Li_To_Le(1)" id="Level">
+	    <select onchange="markLikeTodoLevel(1)" id="Level">
 	        <option label="Bình thường" value="-1">Bình thường</option>
 	        <option label="Khó" value="0">Khó</option>
 	        <option label="Dễ" value="1">Dễ</option>
@@ -15,7 +15,9 @@
 </c:if>
 <div>Số người thích:
 	<span id="LikeCount"></span>
-	<button onclick="Li_To_Le(2)" id="Like_button">Thích</button>
+	<c:if test="${sessionScope.login}">
+	   <button onclick="markLikeTodoLevel(2)" id="Like_button">Thích</button>
+	</c:if>
 </div>
 
 
@@ -90,7 +92,7 @@
 		alert(resourceID);
 	}
 	
-	function Like_Todo_Level(type){
+	function markLikeTodoLevel(type){
 		var userId = resourcereport.user;
 		//var user = {id: userId};
 		var level = $('Level').value;

@@ -193,7 +193,8 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             },
             evalJSON : true,
             onSuccess : function(transport) {
-               test = transport.responseJSON.result;
+               test = { id: 0, content: { id:0, text: ''}, sections: {} };
+               test = Object.extend(test, transport.responseJSON.result);
                template();
             },
             onFailure: function(transport){ 
@@ -392,9 +393,6 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 $('id-question-add').value = data;
             }
         }); 
-    }
-    function SaveContent(){
-        alert("Ngon!");
     }
 
     function SpanOnclick(indexsection, indexquestion, questionId){

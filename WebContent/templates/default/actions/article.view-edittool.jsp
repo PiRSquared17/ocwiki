@@ -35,7 +35,7 @@
 	var timeout;
 
 	function initEditTools() {
-		new Ajax.Request(restPath + '/resource/'+ resourceID, {
+		new Ajax.Request(restPath + '/resources/'+ resourceID, {
 			method:'get',
 			requestHeaders : 
 			{
@@ -70,7 +70,7 @@
 			ok: function(win) 
 			{	
 				resource.accessibility = $F('lock_value');
-				new Ajax.Request(restPath + '/resource/'+ resourceID,
+				new Ajax.Request(restPath + '/resources/'+ resourceID,
 					{
 					method:'post',
 					contentType: 'application/json',
@@ -102,7 +102,7 @@
 	function unlockArticle()
 	{
 		resource = {accessibility : 'EVERYONE', status : 'NORMAL'};
-		new Ajax.Request(restPath + '/resource/'+ resourceID,
+		new Ajax.Request(restPath + '/resources/'+ resourceID,
 			{
 				method:'post',
 				contentType: 'application/json',
