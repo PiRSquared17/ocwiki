@@ -9,7 +9,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import oop.data.log.ResourceLog;
-import oop.persistence.ResourceCustomizationBridge;
+import oop.persistence.search.BaseQuestionBridge;
+import oop.persistence.search.ResourceCustomizationBridge;
+import oop.persistence.search.TestBridge;
 import oop.util.Utils;
 
 import org.hibernate.search.annotations.DocumentId;
@@ -29,6 +31,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	private Date createDate;
 	@IndexedEmbedded
 	private User author;
+	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
 	private Status status = Status.NORMAL;
 	private int version = 0;
 	private Class<T> type;
@@ -210,6 +213,18 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	@FieldBridge(impl=ResourceCustomizationBridge.class)
 	long getCustomization() {
 		return id;
+	}
+	
+	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
+	@FieldBridge(impl=BaseQuestionBridge.class)
+	Object getBaseQuestion() {
+		return this;
+	}
+	
+	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
+	@FieldBridge(impl=TestBridge.class)
+	Object getTest() {
+		return this;
 	}
 	
 }

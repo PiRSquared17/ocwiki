@@ -578,15 +578,6 @@
         <articleType>oop.data.Test</articleType>
     </module>
     <module>
-        <name>todo</name>
-        <class>oop.module.personal.Todo</class>
-        <position>action-bottom</position>
-        <order>1</order>
-        <page>personal/todo.jsp</page>
-        <inAction>article.view</inAction>
-        <loginRequired>true</loginRequired>
-    </module>
-    <module>
         <name>create-article</name>
         <title>Tạo bài viết</title>
         <position>top_right</position>
@@ -606,8 +597,6 @@
         <order>1</order>
         <page>personal/todo.jsp</page>
         <inAction>article.view</inAction>
-        <articleType>oop.data.TextArticle</articleType>
-        <articleType>oop.data.Test</articleType>
         <loginRequired>true</loginRequired>
     </module>
     <module>

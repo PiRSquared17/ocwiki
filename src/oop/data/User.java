@@ -35,14 +35,18 @@ public class User implements Serializable, Entity, HasVersion {
 	private String name;
 	private NameOrdering nameOrdering = NameOrdering.LAST_FIRST;
 	private Preferences preferences = new Preferences();
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String firstName;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String middleName;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String lastName;
 	private String about;
 	private Date birthday;
 	private String website;
 	private String hometown;
 	private String location;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String bio;
 	private Gender gender = Gender.UNKNOWN;
 	private String timezone = "+7:00";

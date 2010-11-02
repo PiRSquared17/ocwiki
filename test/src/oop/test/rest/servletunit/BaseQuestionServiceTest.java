@@ -2,7 +2,7 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
-import oop.conf.Config;
+import oop.controller.rest.resources.basequestion.BaseQuestionServiceImpl;
 import oop.data.Namespace;
 
 import org.codehaus.jackson.JsonNode;
@@ -16,13 +16,11 @@ import com.meterware.servletunit.ServletUnitClient;
 
 public class BaseQuestionServiceTest extends AbstractResourceTest {
 
-	private static final String PATH = Config.get().getRestPath()
-			+ "/questions";
-
 	@Test
 	public void testRetrieve() throws IOException, SAXException {
 		ServletUnitClient client = getServletRunner().newClient();
-		WebResponse response = client.getResponse(PATH + "/88");
+		WebResponse response = client
+				.getResponse(createRequest(BaseQuestionServiceImpl.PATH + "/88"));
 		
 		System.out.println(response.getText());
 		JsonNode root = parseJSON(response);
@@ -60,7 +58,8 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 				"\"minor\": true}";
 //		String json = "{}";
 //		JsonUtils.fromJson(json, new TypeReference<Revision<BaseQuestion>>() {});
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		System.out.println(response.getText());
@@ -111,7 +110,8 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 					"\"level\":\"3\"}," +
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
@@ -135,7 +135,8 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 					"\"level\":\"3\"}," +
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
@@ -160,7 +161,8 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 					"\"level\":\"3\"}," +
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
@@ -185,7 +187,8 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 					"\"level\":\"3\"}," +
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		

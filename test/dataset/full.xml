@@ -14824,7 +14824,7 @@ jkj
         <value>LIKE</value>
      </row>
   </table>
-  <table name="Constraint">
+  <table name="TestStructureConstraint">
     <column>id</column>
     <column>type</column>
     <column>count</column>
@@ -33459,7 +33459,7 @@ The divers in both &ldquo;houses&rdquo; spent most of their time (37)______ the 
     <column>id</column>
     <column>version</column>
     <column>name</column>
-    <column>fullname</column>
+    <column>first_name</column>
     <column>pass</column>
     <column>email</column>
     <column>ugroup</column>

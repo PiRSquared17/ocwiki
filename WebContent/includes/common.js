@@ -141,3 +141,47 @@ Editor.EditTextField = function(id){
 	textfield.select();
 	Editor.active = id;
 };
+
+var ResourceService = Class.create( {
+	retrieve: function(id, successCallback, failCallback) {
+		new Ajax.Request(restPath + '/resources/' + resourceId,
+				{
+				  method:'get',
+				  requestHeaders : {
+				      Accept : 'application/json'
+				  },
+				  evalJSON : true,
+				  onSuccess : function(transport) {
+					  successCallback(transport.responseJSON.result);
+				  },
+				  onFailure: function(transport){ 
+					  DefaultTemplate.onFailure(transport); 
+					  if (failCallback) {
+						  failCallback(transport);
+					  }
+			      }
+			    });
+	},
+	
+	update: function(value, successCallback, failCallback) {
+		new Ajax.Request(restPath + '/resources/' + value.id,
+				{
+				  method:'put',
+				  requestHeaders : {
+				      Accept : 'application/json'
+				  },
+				  contentType: 'application/json',
+				  postBody: Object.toJSON(value),
+				  evalJSON : true,
+				  onSuccess : function(transport) {
+					  successCallback(transport.responseJSON.result);
+				  },
+				  onFailure: function(transport){ 
+					  DefaultTemplate.onFailure(transport); 
+					  if (failCallback) {
+						  failCallback(transport);
+					  }
+			      }
+			    });
+	}
+});

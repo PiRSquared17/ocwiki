@@ -25,9 +25,11 @@ import oop.db.dao.ResourceDAO;
 
 import org.apache.commons.collections.CollectionUtils;
 
-@Path("/questions")
+@Path(BaseQuestionServiceImpl.PATH)
 public class BaseQuestionServiceImpl extends AbstractResource implements
 		BaseQuestionService {
+
+	public static final String PATH = "/questions";
 
 	@Override
 	public ObjectResult<BaseQuestionBean> add(BaseQuestionBean bean)

@@ -2919,10 +2919,10 @@ CREATE TABLE IF NOT EXISTS `CommentReportWithUser` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Constraint`
+-- Table structure for table `TestStructureConstraint`
 --
 
-CREATE TABLE IF NOT EXISTS `Constraint` (
+CREATE TABLE IF NOT EXISTS `TestStructureConstraint` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
   `count` int(11) NOT NULL,
@@ -2931,7 +2931,7 @@ CREATE TABLE IF NOT EXISTS `Constraint` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `Constraint`
+-- Dumping data for table `TestStructureConstraint`
 --
 
 
@@ -6988,7 +6988,7 @@ ALTER TABLE `SectionStructure`
 --
 ALTER TABLE `SectionStructureConstraint`
   ADD CONSTRAINT `FK2228CC0E5CF139C9` FOREIGN KEY (`section_id`) REFERENCES `SectionStructure` (`id`),
-  ADD CONSTRAINT `FK2228CC0E9391B220` FOREIGN KEY (`constraint_id`) REFERENCES `Constraint` (`id`);
+  ADD CONSTRAINT `FK2228CC0E9391B220` FOREIGN KEY (`constraint_id`) REFERENCES `TestStructureConstraint` (`id`);
 
 --
 -- Constraints for table `TestSection`
@@ -7009,7 +7009,7 @@ ALTER TABLE `TestSectionStructure`
 --
 ALTER TABLE `TopicConstraintTopic`
   ADD CONSTRAINT `FK7F38E1E62575393F` FOREIGN KEY (`topic_id`) REFERENCES `Resource` (`id`),
-  ADD CONSTRAINT `FK7F38E1E68DCE1D63` FOREIGN KEY (`constraint_id`) REFERENCES `Constraint` (`id`);
+  ADD CONSTRAINT `FK7F38E1E68DCE1D63` FOREIGN KEY (`constraint_id`) REFERENCES `TestStructureConstraint` (`id`);
 
 --
 -- Constraints for table `TopicSet`
