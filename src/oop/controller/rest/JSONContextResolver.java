@@ -1,5 +1,9 @@
 package oop.controller.rest;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -18,6 +22,7 @@ import com.sun.jersey.api.json.JSONJAXBContext;
 @Produces(MediaType.APPLICATION_JSON)
 public class JSONContextResolver implements ContextResolver<JAXBContext> {
 
+	public static final Set<Class<?>> TYPE_SET;
 	public static final Class<?>[] TYPES = {
 		oop.data.Answer.class,
 		oop.data.Resource.class,
@@ -70,8 +75,14 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
 		oop.controller.rest.bean.UserReferenceBean.class,
 
 		ListResult.class,
-		ObjectResult.class,
+		ObjectResult.class
 	};
+	
+	static {
+		Set<Class<?>> types = new HashSet<Class<?>>();
+		Collections.addAll(types, TYPES);
+		TYPE_SET = Collections.unmodifiableSet(types);
+	}
 
     private JAXBContext context;
 
@@ -82,10 +93,8 @@ public class JSONContextResolver implements ContextResolver<JAXBContext> {
     }
 
 	public JAXBContext getContext(Class<?> objectType) {
-		for (Class<?> type : TYPES) {
-			if (type.isAssignableFrom(objectType)) {
+		if (TYPE_SET.contains(objectType)) {
 				return context;
-			}
 		}
 		return null;
 	}

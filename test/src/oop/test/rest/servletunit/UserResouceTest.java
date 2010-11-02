@@ -18,13 +18,12 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class UserResouceTest extends ResourceTest {
+public class UserResouceTest extends AbstractResourceTest {
 
 	@Test
 	public void testRetrieve() throws IOException, SAXException {
 		ServletUnitClient sc = getServletRunner().newClient();
-		WebRequest request = new GetMethodWebRequest(
-				Config.get().getRestPath() + "/users/1");
+		WebRequest request = new GetMethodWebRequest(getRestPath("/users/1"));
 		request.setHeaderField("Accept", MediaType.APPLICATION_XML);
 		WebResponse response = sc.getResponse(request);
 

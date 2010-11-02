@@ -20,10 +20,8 @@ public class XMLContextResolver implements ContextResolver<JAXBContext> {
 	
 	@Override
 	public JAXBContext getContext(Class<?> objectType) {
-		for (Class<?> type : JSONContextResolver.TYPES) {
-			if (type.isAssignableFrom(objectType)) {
-				return context;
-			}
+		if (JSONContextResolver.TYPE_SET.contains(objectType)) {
+			return context;
 		}
 		return null;
 	}
