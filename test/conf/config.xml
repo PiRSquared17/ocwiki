@@ -267,11 +267,6 @@
     </action>
     
     <action>
-      <name>user.edituser</name>
-      <class>oop.controller.action.user.EditUserAction</class>
-      <loginRequired>true</loginRequired>
-    </action>
-    <action>
       <name>user.editrequiredGroup</name>
       <class>oop.controller.action.user.EditGroupAction</class>
       <requiredGroup>admin</requiredGroup>

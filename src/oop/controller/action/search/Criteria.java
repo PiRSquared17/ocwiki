@@ -18,8 +18,12 @@ public class Criteria {
 	}
 
 	public enum Tag {
-		FULLTEXT(""), TOPIC("topic", "chủ-đề"), IS("is", "là"), NAME("name",
-				"tên");
+		FULLTEXT(""), 
+		TOPIC("topic", "chủ-đề"), 
+		IS("is", "là"), 
+		NAME("name", "tên"), 
+		AUTHOR("author", "tác-giả"), 
+		STATUS("status", "trạng-thái");
 
 		private String[] codes;
 

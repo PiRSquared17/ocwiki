@@ -25,8 +25,8 @@ import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
 import com.oreilly.servlet.ParameterParser;
 
-@Consumes( { MediaType.APPLICATION_JSON })
-@Produces( { MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
+@Consumes( { MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+@Produces( { MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 public abstract class AbstractResource {
 
 	public static final int MAX_PAGE_SIZE = 50;
@@ -142,6 +142,19 @@ public abstract class AbstractResource {
 		if (!valid) {
 			throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
 					.entity(new ErrorResult(message)).build());
+		}
+	}
+
+	protected void requireGroup(String... groups) {
+		boolean hasRequiredGroup = false;
+		for (String group : groups) {
+			if (group.equals(getUserNullSafe().getGroup())) {
+				hasRequiredGroup = true;
+			}
+		}
+		if (!hasRequiredGroup) {
+			throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+					.entity(new ErrorResult("not enough permission")).build());
 		}
 	}
 
