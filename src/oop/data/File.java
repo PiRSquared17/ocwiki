@@ -59,7 +59,7 @@ public class File extends CategorizableArticle {
 	};
 
 	@Override
-	public Article copy() {
+	public File copy() {
 		return copyTo(new File());
 	}
 
