@@ -3,13 +3,12 @@ package oop.controller.rest.bean;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import oop.data.Namespace;
-import oop.data.Text;
 
 @XmlRootElement
 public class ArticleBean {
 
 	private long id;
-	private Text content;
+	private TextBean content;
 	
 	public ArticleBean() {
 	}
@@ -22,11 +21,11 @@ public class ArticleBean {
 		this.id = id;
 	}
 
-	public Text getContent() {
+	public TextBean getContent() {
 		return content;
 	}
 
-	public void setContent(Text content) {
+	public void setContent(TextBean content) {
 		this.content = content;
 	}
 

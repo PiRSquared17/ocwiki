@@ -91,4 +91,12 @@ public class Comment implements Serializable {
 	public int hashCode() {
 		return Utils.hashCode(getId());
 	}
+
+	public void setResource(Resource<? extends Article> resource) {
+		this.resource = resource;
+	}
+
+	public void setRevision(Revision<? extends Article> revision) {
+		this.revision = revision;
+	}
 }

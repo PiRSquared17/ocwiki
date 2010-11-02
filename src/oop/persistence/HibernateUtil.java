@@ -1,6 +1,7 @@
 package oop.persistence;
 
 import oop.conf.Config;
+import oop.controller.OcwikiApp;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -11,22 +12,37 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
+	private static Config config;
 	private static SessionFactory sessionFactory = null;
 	private static ThreadLocal<Session> sessionLocal = new ThreadLocal<Session>();
 
-	public static void init(final Config config) {
-		// if (sessionFactory != null) {
-		// throw new IllegalStateException(
-		// "Session factory is already initialized.");
-		// }
+	public static void setConfig(final Config config) {
+		HibernateUtil.config = config;
 		if (sessionFactory != null) {
 			sessionFactory.close();
+			sessionFactory = null;
 		}
+		if (!config.isLazyStartup()) {
+			init();
+		} else {
+			// get it initialized in a different thread
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					HibernateUtil.getSessionFactory();
+				}
+			}).start();
+		}
+	}
 
+	private static void init() {
 		Configuration hconf = new Configuration();
 
+		hconf.configure("hibernate.cfg.xml");
+		
 		// modify table prefixes
-		hconf.setNamingStrategy(new PrefixNamingStrategy(config));
+		//hconf.setNamingStrategy(new PrefixNamingStrategy(config));
 
 		// init database connection
 		hconf.setProperty("hibernate.dialect",
@@ -37,49 +53,24 @@ public class HibernateUtil {
 				+ config.getDatabasePort() + "/" + config.getDatabaseName()
 				+ "?useUnicode=true&characterEncoding=UTF-8";
 		hconf.setProperty("hibernate.connection.url", url);
-		hconf
-				.setProperty("hibernate.connection.username", config
+		hconf.setProperty("hibernate.connection.username", config
 						.getUserName());
-		hconf
-				.setProperty("hibernate.connection.password", config
+		hconf.setProperty("hibernate.connection.password", config
 						.getPassword());
 
-		// add classes
-		hconf.addClass(oop.data.User.class);
-		hconf.addClass(oop.data.Topic.class);
-		hconf.addClass(oop.data.TopicSet.class);
-		hconf.addClass(oop.data.Namespace.class);
-		hconf.addClass(oop.data.Revision.class);
-		hconf.addClass(oop.data.Resource.class);
-		hconf.addClass(oop.data.CategorizableArticle.class);
-		hconf.addClass(oop.data.TextArticle.class);
-		hconf.addClass(oop.data.BaseArticle.class);
-		hconf.addClass(oop.data.Article.class);
-		hconf.addClass(oop.data.Text.class);
-		hconf.addClass(oop.data.File.class);
-		hconf.addClass(oop.data.BaseQuestion.class);
-		hconf.addClass(oop.data.Answer.class);
-		hconf.addClass(oop.data.Question.class);
-		hconf.addClass(oop.data.Section.class);
-		hconf.addClass(oop.data.Test.class);
-		hconf.addClass(oop.data.SectionStructure.class);
-		hconf.addClass(oop.data.TestStructure.class);
-		hconf.addClass(oop.data.Constraint.class);
-		hconf.addClass(oop.data.TopicConstraint.class);
-		hconf.addClass(oop.data.LevelConstraint.class);
-		hconf.addClass(oop.data.History.class);
-		hconf.addClass(oop.data.Comment.class);
-		hconf.addClass(oop.data.CommentReport.class);
-		hconf.addClass(oop.data.CommentCustomization.class);
-		hconf.addClass(oop.data.log.Log.class);
-		hconf.addClass(oop.data.log.ResourceLog.class);
-		hconf.addClass(oop.data.log.CommentLog.class);
-		hconf.addClass(oop.data.log.RevisionLog.class);
-		hconf.addClass(oop.data.log.NewMemberLog.class);
+		// config Hibernate search
+		hconf.setProperty("hibernate.search.default.directory_provider",
+				"org.hibernate.search.store.FSDirectoryProvider");
+		String indexBasePath = config.getLuceneIndexDirectory();
+		if (OcwikiApp.get() != null) {
+			indexBasePath = OcwikiApp.get().getServletContext()
+					.getRealPath(indexBasePath);
+		}
+		hconf.setProperty("hibernate.search.default.indexBase", indexBasePath);
 
 		sessionFactory = hconf.buildSessionFactory();
 	}
-
+	
 	public static long count(String hql) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
@@ -98,7 +89,21 @@ public class HibernateUtil {
 		}
 	}
 
+	/**
+	 * Use double checking to initialize session factory.
+	 * I know that double checking is not safe but it rarely fails and we use
+	 * lazy startup only in development so it's OK.
+	 * @author cumeo89
+	 * @return
+	 */
 	public static SessionFactory getSessionFactory() {
+		if (sessionFactory == null && config.isLazyStartup()) {
+			synchronized (config) {
+				if (sessionFactory == null) {
+					init();
+				}
+			}
+		}
 		return sessionFactory;
 	}
 
@@ -112,20 +117,15 @@ public class HibernateUtil {
 	@SuppressWarnings("unchecked")
 	public static <T> T load(Class<T> clazz, long id) {
 		if (id <= 0) {
-			try {
-				return clazz.newInstance();
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
+			return null;
 		}
-		Session session = HibernateUtil.getSession();
-		return (T) session.load(clazz, id);
+		return (T) getSession().load(clazz, id);
 	}
 
 	public static void closeSession() {
 		if (sessionLocal.get() != null) {
 			Session session = sessionLocal.get();
-			if (session.isOpen()) {
+			if (session != null && session.isOpen()) {
 				session.flush();
 				Transaction tx = session.getTransaction();
 				if (tx.isActive()) {

@@ -1,11 +1,11 @@
 package oop.controller.action.sectstruct;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.data.SectionStructure;
 import oop.data.TestStructure;
 import oop.db.dao.ResourceDAO;
 
-public class MoveUpAction extends AbstractAction<TestStructure> {
+public class MoveUpAction extends AbstractResourceAction<TestStructure> {
 
 	private TestStructure test;
 

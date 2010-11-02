@@ -2,7 +2,7 @@ package oop.controller.action.levelconst;
 
 import java.util.List;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.data.LevelConstraint;
 import oop.data.SectionStructure;
 import oop.data.TestStructure;
@@ -14,7 +14,7 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class CreateAction extends AbstractAction<TestStructure> {
+public class CreateAction extends AbstractResourceAction<TestStructure> {
 
 	public CreateAction() {
 	}

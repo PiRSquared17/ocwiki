@@ -7,6 +7,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import oop.util.Utils;
+
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
+
 @XmlRootElement
 public class User implements Serializable, Entity, HasVersion {
 
@@ -14,25 +20,48 @@ public class User implements Serializable, Entity, HasVersion {
 
 	private long id;
 	private int version;
-	private String fullname;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String password;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String email;
-	private String group;
-	private boolean blocked;
+	private String group = Group.USER;
+	private boolean blocked = false;
 	private Date blockExpiredDate;
 	private String warningMessage;
 	private Date warningExpiredDate;
 	private String avatar;
 	private Date registerDate;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
+	private NameOrdering nameOrdering = NameOrdering.LAST_FIRST;
 	private Preferences preferences = new Preferences();
+	@Field(index=Index.TOKENIZED, store=Store.NO)
+	private String firstName;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
+	private String middleName;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
+	private String lastName;
+	private String about;
+	private Date birthday;
+	private String website;
+	private String hometown;
+	private String location;
+	@Field(index=Index.TOKENIZED, store=Store.NO)
+	private String bio;
+	private Gender gender = Gender.UNKNOWN;
+	private String timezone = "+7:00";
+	private String draft;
 
-	public User(String name, String fullname, String password,
+	public User() {
+	}
+
+	public User(String name, String password, String firstName, String lastName,
 			String email, String group, String avatar, String warning,
 			boolean blocked, Date registerDate) {
 		super();
 		this.name = name;
-		this.fullname = fullname;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
 		this.group = group;
@@ -61,11 +90,13 @@ public class User implements Serializable, Entity, HasVersion {
 	}
 	
 	public String getFullname() {
-		return fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+		switch (nameOrdering) {
+		case FIRST_LAST:
+			return Utils.join(" ", firstName, lastName);
+		case LAST_MIDDLE_FIRST:
+			return Utils.join(" ", lastName, middleName, firstName);
+		}
+		return Utils.join(" ", lastName, firstName);
 	}
 
 	public void setPassword(String password) {
@@ -129,12 +160,6 @@ public class User implements Serializable, Entity, HasVersion {
 		this.registerDate = registerDate;
 	}
 
-	/**
-	 * For hibernate
-	 */
-	User() {
-	}
-
 	public void setPreferences(Preferences preferences) {
 		this.preferences = preferences;
 	}
@@ -176,6 +201,110 @@ public class User implements Serializable, Entity, HasVersion {
 
 	public boolean matchPassword(String password) {
 		return this.password.equals(password);
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public String getHometown() {
+		return hometown;
+	}
+
+	public void setHometown(String hometown) {
+		this.hometown = hometown;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public String getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(String timezone) {
+		this.timezone = timezone;
+	}
+
+	public void setNameOrdering(NameOrdering nameOrdering) {
+		this.nameOrdering = nameOrdering;
+	}
+
+	public NameOrdering getNameOrdering() {
+		return nameOrdering;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setDraft(String draft) {
+		this.draft = draft;
+	}
+
+	public String getDraft() {
+		return draft;
 	}
 	
 }

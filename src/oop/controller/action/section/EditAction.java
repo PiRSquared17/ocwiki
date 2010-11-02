@@ -1,6 +1,6 @@
 package oop.controller.action.section;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Section;
 import oop.data.Test;
@@ -10,7 +10,7 @@ import oop.util.Utils;
 
 import com.mysql.jdbc.StringUtils;
 
-public class EditAction extends AbstractAction<Test> {
+public class EditAction extends AbstractResourceAction<Test> {
 
 	private Test test;
 

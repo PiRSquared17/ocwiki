@@ -2,13 +2,14 @@ package oop.controller.rest.bean;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import oop.data.Article;
 import oop.data.HasVersion;
 import oop.data.ResourceAccessibility;
 import oop.data.Status;
 
-@SuppressWarnings("unchecked")
 @XmlRootElement
 public class ResourceBean implements HasVersion {
 
@@ -17,10 +18,10 @@ public class ResourceBean implements HasVersion {
 	private UserReferenceBean author;
 	private Status status = Status.NORMAL;
 	private int version = 0;
-	private ArticleReferenceBean article;
+	private ArticleBean article;
 	private ResourceAccessibility accessibility = ResourceAccessibility.EVERYONE;
 	private ResourceReferenceBean link = null;
-	private Class type;
+	private Class<? extends Article> type;
 
 	public ResourceBean() {
 	}
@@ -65,11 +66,11 @@ public class ResourceBean implements HasVersion {
 		this.version = version;
 	}
 
-	public ArticleReferenceBean getArticle() {
+	public ArticleBean getArticle() {
 		return article;
 	}
 
-	public void setArticle(ArticleReferenceBean article) {
+	public void setArticle(ArticleBean article) {
 		this.article = article;
 	}
 
@@ -89,11 +90,12 @@ public class ResourceBean implements HasVersion {
 		this.link = link;
 	}
 
-	public void setType(Class type) {
+	public void setType(Class<? extends Article> type) {
 		this.type = type;
 	}
 
-	public Class getType() {
+	@XmlElement(name="articleType")
+	public Class<? extends Article> getType() {
 		return type;
 	}
 	

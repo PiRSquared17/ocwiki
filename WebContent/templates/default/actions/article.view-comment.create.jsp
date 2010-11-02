@@ -30,6 +30,10 @@
 			return;
 		}
 		var newComment = {message: tinyMCE.getInstanceById('comment-input').getContent()};
+
+		//for (i=68;i<200;i++){ //batch add comments
+		//var newComment = {message: i};
+		
 		new Ajax.Request(
 				restPath + '/comments/resource/' + articleID,
 				{
@@ -41,25 +45,26 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						var newpostcomment = transport.responseJSON.result;
+						var newPostComment = transport.responseJSON.result;
+						var newPostCommentReport = {comment:newPostComment, /*user:getUser(),*/ status:'NORMAL' , likeCount: 0};
 						if (commentCount == 0){
-							$('commentslist').innerHTML=showComments(newpostcomment);
+							$('commentslist').innerHTML=showComments(newPostCommentReport);
 						} else {
-							$('commentslist').innerHTML+=showComments(newpostcomment);
+							$('commentslist').innerHTML+=showComments(newPostCommentReport);
 						}
 						tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';	
 						$('cannot-post').hide();
 						commentCount++;
 						pageCount = getPageCount(commentCount);
 						//can có curPage?
-						pagination();				
+						pagination();			
 					},
-				    onFailure: function()
+				    onFailure: function(transport)
 				    { 
-						$('cannot-post').innerHTML = 'Không thể đăng comment!';
-						$('cannot-post').show();
+						DefaultTemplate.onFailure(transport); 
 				    }		
-				}
+				}				
 			);
+		//}
 	}
 </script>

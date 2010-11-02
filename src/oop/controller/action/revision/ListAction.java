@@ -1,6 +1,7 @@
 package oop.controller.action.revision;
 
 import java.util.List;
+
 import oop.controller.action.AbstractAction;
 import oop.data.Article;
 import oop.data.Resource;

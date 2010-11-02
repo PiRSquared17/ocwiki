@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 	<!-- Generated 15:48:34 15-08-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<class name="oop.data.Resource" table="Resource">
+	<class name="oop.data.Resource" table="Resource" batch-size="20">
 		<id name="id" type="long" access="field">
 			<column name="id" />
 			<generator class="identity" />
@@ -17,7 +17,7 @@
 			<column name="type" not-null="true" />
 		</property>
 		<many-to-one name="article" class="oop.data.Article"
-			access="field" fetch="join" cascade="all" lazy="false">
+			access="field" fetch="select" cascade="all" lazy="false">
 			<column name="article" not-null="true" />
 		</many-to-one>
 		<many-to-one name="author" class="oop.data.User" access="field"

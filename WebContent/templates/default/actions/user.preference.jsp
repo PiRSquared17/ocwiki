@@ -9,7 +9,7 @@
 		<br>
 	</c:when>
 	<c:otherwise>
-		<img src="${homeDir}/images/avatar/${user.avatar}" width="100"
+		<img src="${config.uploadPath}/avatar/${user.avatar}" width="100"
 			height="100" />
 		<br>
 	</c:otherwise>
@@ -17,8 +17,9 @@
 
 <p><strong>Custom Avatar</strong></p>
 
-<ocw:form action="user.preference">
+<ocw:form action="user.preference" enctype="multipart/form-data" method="post">
     Choose Your Avatar:<br>
 	<input type="file" name="file1"> <br>
 	<input type="submit" name="submit" value="Upload">
+	<ocw:error code="File Error"></ocw:error>
 </ocw:form>

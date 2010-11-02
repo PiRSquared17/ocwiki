@@ -4,6 +4,8 @@
 <c:set var="resource" value="${empty resource ? action.resource : resource}"></c:set>
 <c:set var="question" value="${empty article ? action.article : article}"></c:set>
 
+<h3>Sửa ${question.namespace.name}:<jsp:include page="/includes/article.edit.name.jsp"></jsp:include></h3>
+
 <div>
     <div id="question-content">
         <textarea id="question-content-textarea" rows="10" cols="40" style="width: 100%">${question.content}</textarea>
@@ -47,6 +49,7 @@
 </div>
 
 <ocw:setJs var="newTemplate">
+    <h3>\#{index}</h3>
     <div id="answer\#{index}" class="answer-wrapper mouse-out"
                 onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
                 onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
@@ -76,17 +79,21 @@ deletedTemplate = new Template('${deletedTemplate}');
 
 question = null;
 
-new Ajax.Request(restPath + '/questions/' + resourceId,
-{
-  method:'get',
-  requestHeaders : {
-      Accept : 'application/json'
-  },
-  evalJSON : true,
-  onSuccess : function(transport) {
-      question = transport.responseJSON.result;
-  },
-  onFailure: function(){ }
+Event.observe(window, 'load', function() {
+	new Ajax.Request(restPath + '/questions/' + resourceId,
+	{
+	  method:'get',
+	  requestHeaders : {
+	      Accept : 'application/json'
+	  },
+	  evalJSON : true,
+	  onSuccess : function(transport) {
+	      question = transport.responseJSON.result;
+	  },
+	  onFailure: function(transport){ 
+		  DefaultTemplate.onFailure(transport); 
+      }
+    });
 });
 
 function getQuestionContent() {
@@ -153,7 +160,7 @@ EditAction.save = function() {
           } else if (code == 'no correct answer') {
               $('articleEdit-error').innerHTML = 'Hãy chọn ít nhất một lựa chọn đúng.';
           } else {
-        	  $('articleEdit-error').innerHTML = 'Lỗi không rõ: ' + code;
+        	  DefaultTemplate.onFailure(transport); 
           }
       }
     });

@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.lang.ObjectUtils;
+
 @XmlRootElement
 public class CommentReport implements Serializable {
 
@@ -47,4 +49,19 @@ public class CommentReport implements Serializable {
 		return user;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof CommentReport) {
+			CommentReport cr = (CommentReport) obj;
+			return ObjectUtils.equals(comment, cr.comment)
+					&& ObjectUtils.equals(user, cr.user);
+		}
+		return super.equals(obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return ObjectUtils.hashCode(comment) ^ ObjectUtils.hashCode(user);
+	}
+	
 }

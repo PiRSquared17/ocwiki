@@ -23,6 +23,14 @@ public final class CommentDAO {
 		return (Long) query.uniqueResult();
 	}
 
+	public static long countByAuthor(long authorId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "select count(*) from Comment where user.id=:auId";
+		Query query = session.createQuery(hql);
+		query.setLong("auId", authorId);
+		return (Long) query.uniqueResult();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static List<Comment> fetchLatest(long resourceId, int start, int size) {
 		Session session = HibernateUtil.getSession();

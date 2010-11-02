@@ -1,5 +1,7 @@
 package oop.test.rest;
 
+import java.io.IOException;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -7,11 +9,12 @@ import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
 import oop.data.Comment;
 import oop.data.CommentStatus;
+import oop.util.JsonUtils;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Assert;
-import org.junit.Test;
 
-import com.google.gson.Gson;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
@@ -46,7 +49,7 @@ public class CommentServiceTest extends AbstractServiceTest {
 	}
 	
 //	@Test
-	public void testBaseQuestionUpdate() {
+	public void testBaseQuestionUpdate() throws JsonParseException, JsonMappingException, IOException {
 		WebResource resource = createResource("/basequestion/88");
 		String json = "{" +
 				"\"id\":\"88\"," +
@@ -58,7 +61,7 @@ public class CommentServiceTest extends AbstractServiceTest {
 					"{\"id\":\"323\",\"content\":{\"id\":\"58\",\"text\":\"answer3\"},\"correct\":\"false\"}" +
 				"]," +
 				"\"level\":\"3\"}";
-		BaseQuestion newQuestion = new Gson().fromJson(json, BaseQuestion.class);
+		BaseQuestion newQuestion = JsonUtils.fromJson(json, BaseQuestion.class);
 		BaseQuestion question = resource
 				.accept(MediaType.APPLICATION_JSON)
 				.type(MediaType.APPLICATION_JSON)

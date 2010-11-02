@@ -7,6 +7,7 @@
 	<restPath>${homeDir}/rest</restPath>
 	<templatePath>${homeDir}/templates/${template}</templatePath>
 	<uploadPath>${homeDir}/uploads</uploadPath>
+	<uploadDir>/build</uploadDir>
 	<defaultTemplate>default</defaultTemplate>
 
     <!--********************************************************************
@@ -266,11 +267,6 @@
     </action>
     
     <action>
-      <name>user.edituser</name>
-      <class>oop.controller.action.user.EditUserAction</class>
-      <loginRequired>true</loginRequired>
-    </action>
-    <action>
       <name>user.editrequiredGroup</name>
       <class>oop.controller.action.user.EditGroupAction</class>
       <requiredGroup>admin</requiredGroup>
@@ -278,6 +274,12 @@
     <action>
       <name>user.profile</name>
       <class>oop.controller.action.user.ProfileAction</class>
+    </action>
+    
+    <action>
+        <name>admin/reindex</name>
+        <class>oop.controller.action.admin.RebuildIndexAction</class>
+        <requiredGroup>admin</requiredGroup>
     </action>
     <action>
       <name>admin.home</name>

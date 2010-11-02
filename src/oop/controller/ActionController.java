@@ -56,8 +56,9 @@ public class ActionController extends HttpServlet {
 		// set variables
 		String template = StringUtils.defaultIfEmpty((String) request
 				.getSession().getAttribute("template"), "default");
-		String templateEntry = "/templates/" + template + "/index.jsp";
 
+		request.getSession().setAttribute("login",
+				SessionUtils.isLoggedIn(request.getSession()));
 		request.setAttribute("config", Config.get());
 		request.setAttribute("homeDir", Config.get().getHomeDir());
 		request.setAttribute("scriptPath", getScriptPath());
@@ -82,6 +83,12 @@ public class ActionController extends HttpServlet {
 						+ actionStr);
 				return;
 			}
+			if (!actionDesc.isEnabled()) {
+				String mess = "Hành động này tạm thời bị khoá. <a href=\""
+						+ Config.get().getHomeDir() + "\">Trở về trang chủ</a>";
+				error(request, response, mess);
+				return;
+			}
 			
 			// check permission
 			User user = SessionUtils.getUser(request.getSession());
@@ -104,6 +111,9 @@ public class ActionController extends HttpServlet {
 			action.setController(this);
 			action.setRequest(request);
 			action.perform();
+			
+			// flush current session to avoid late thrown exception
+			HibernateUtil.getSession().flush();
 
 			// forward next action or jsp
 			request.getSession().setAttribute("previousQuery",
@@ -122,14 +132,16 @@ public class ActionController extends HttpServlet {
 					url = url.substring(0, i) + "?" + url.substring(i+1);
 				}
 				url = Config.get().getActionPath() + "/" + url;
-				response.sendRedirect(url);
+				response.sendRedirect(response.encodeRedirectURL(url));
 			} else if (action.getRedirect() != null) {
-				response.sendRedirect(action.getRedirect());
+				response.sendRedirect(response.encodeRedirectURL(action
+						.getRedirect()));
 			} else {
 				request.setAttribute("modules", getModules(request, action));
 				request.setAttribute("action", action);
-				request.getRequestDispatcher(templateEntry).forward(request,
-						response);
+				String entry = "/templates/" + template + "/"
+						+ actionDesc.getContainer();
+				request.getRequestDispatcher(entry).forward(request, response);
 			}
 		} catch (ActionException e) {
 			error(request, response, e.getMessage());
@@ -158,6 +170,9 @@ public class ActionController extends HttpServlet {
 			public Object transform(Object position) {
 				List<Module> modules = new ArrayList<Module>();
 				for (ModuleDescriptor descriptor : Config.get().getModuleDescriptors((String)position)) {
+					if (!descriptor.isEnabled()) {
+						continue;
+					}
 					if (descriptor.isLoginRequired() && !loggedIn) {
 						continue;
 					}

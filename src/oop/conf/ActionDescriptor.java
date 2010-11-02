@@ -5,6 +5,8 @@ import java.util.Set;
 
 import oop.controller.action.Action;
 
+import org.apache.commons.lang.StringUtils;
+
 public class ActionDescriptor {
 
 	private String name;
@@ -14,7 +16,12 @@ public class ActionDescriptor {
 	private String javaScript;
 	private String css;
 	private String title;
+	private String container;
+	private boolean disabled = true;
 
+	ActionDescriptor() {
+	}
+	
 	public boolean isLoginRequired() {
 		return loginRequired;
 	}
@@ -68,10 +75,15 @@ public class ActionDescriptor {
 	public void setLoginRequired(boolean loginRequired) {
 		this.loginRequired = loginRequired;
 	}
-
+	
 	public Action createAction() throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException {
-		Action action = getActionClass().newInstance();
+		Action action;
+		if (actionClass == null) {
+			action = Action.NULL_ACTION;
+		} else {
+			action = actionClass.newInstance();
+		}
 		action.setTitle(title);
 		action.setDescriptor(this);
 		return action;
@@ -83,6 +95,33 @@ public class ActionDescriptor {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public void setContainer(String container) {
+		this.container = container;
+	}
+
+	public String getContainer() {
+		if (StringUtils.isEmpty(container)) {
+			return "index.jsp";
+		}
+		return container;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.disabled = !enabled;
+	}
+
+	public boolean isEnabled() {
+		return !disabled;
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
 	}
 	
 }

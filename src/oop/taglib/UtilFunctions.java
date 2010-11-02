@@ -13,6 +13,7 @@ import oop.data.Question;
 import oop.data.Section;
 import oop.data.Test;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 
 public final class UtilFunctions {
@@ -32,7 +33,6 @@ public final class UtilFunctions {
 		return (long)Math.round(a);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static int size(Object o) {
 		if (o instanceof Collection) {
 			return ((Collection)o).size();
@@ -40,7 +40,7 @@ public final class UtilFunctions {
 		if (o instanceof Map) {
 			return ((Map)o).size();
 		}
-		return 0;
+		return ArrayUtils.getLength(o);
 	}
 	
 	public static String ellipsize(String s, int length) {
@@ -65,10 +65,16 @@ public final class UtilFunctions {
 	}
 	
 	public static String formatDate(Date date) {
+		if (date == null) {
+			return "";
+		}
 		return new SimpleDateFormat(DATE_FORMAT).format(date);
 	}
 	
 	public static String formatDateTime(Date date) {
+		if (date == null) {
+			return "";
+		}
 		return new SimpleDateFormat(DATE_TIME_FORMAT).format(date);
 	}
 	
@@ -114,4 +120,8 @@ public final class UtilFunctions {
 		}
 	}
 
+	public static String name(Enum<?> e) {
+		return e.name();
+	}
+	
 }

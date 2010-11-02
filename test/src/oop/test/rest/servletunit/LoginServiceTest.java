@@ -2,6 +2,8 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
+import javax.ws.rs.core.MediaType;
+
 import oop.conf.Config;
 
 import org.codehaus.jackson.JsonNode;
@@ -23,6 +25,7 @@ public class LoginServiceTest extends ResourceTest {
 		ServletUnitClient client = getServletRunner().newClient();
 		PostMethodWebRequest request = new PostMethodWebRequest(
 				Config.get().getRestPath() + "/login");
+		request.setHeaderField("Accept", MediaType.APPLICATION_XML);
 		request.setParameter("name", username);
 		request.setParameter("password", password);
 		WebResponse response = client.getResponse(request);

@@ -1,6 +1,6 @@
 package oop.controller.action.topic;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Resource;
 import oop.data.Topic;
@@ -8,7 +8,7 @@ import oop.db.dao.TopicDAO;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditAction extends AbstractAction<Topic> {
+public class EditAction extends AbstractResourceAction<Topic> {
 
 	private Topic topic;
 

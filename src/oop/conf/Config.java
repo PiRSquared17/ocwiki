@@ -6,15 +6,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.List;
 import java.util.Map.Entry;
 
 public class Config implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private boolean lazyStartup = false;
 	private String databaseHost = "localhost";
 	private String databasePort = "3306";
 	private String databaseName = "ocwiki";
@@ -22,17 +23,24 @@ public class Config implements Serializable {
 	private String username = "root";
 	private String password = "root";
 	private String homeDir = "http://localhost:8080";
+	private String luceneIndexDirectory = "WEB-INF/lucene/indexes";
 	private String articlePath = "${homeDir}/article";
 	private String actionPath = "${homeDir}/action";
 	private String apiPath = "${homeDir}/api";
 	private String restPath = "${homeDir}/rest";
 	private String templatePath = "${homeDir}/templates";
 	private String uploadPath = "${homeDir}/uploads";
+	private String userPath = "${homeDir}/user";
 	private String mainEntry = "/index.jsp";
 	private String siteName = "OCWiki";
 	private String tablePrefix = "ocw";
 	private String defaultTemplate = "default";
 	private String mysqlCommand = "mysql";
+	private String uploadDir = "/uploads";
+	private String facebookAppId = null;
+	private String facebookSecret = null;
+	private boolean useCDN = false;
+	private String texCgi = "http://www.imathas.com/cgi-bin/mimetex.cgi";
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
 	private Set<ActionDescriptor> actionDescriptors = new HashSet<ActionDescriptor>();
 	private Set<APIDescriptor> apiDescriptors = new HashSet<APIDescriptor>();
@@ -271,6 +279,22 @@ public class Config implements Serializable {
 	public String getArticlePath() {
 		return replaceMagicWords(articlePath);
 	}
+
+	public String getUploadDir() {
+		return uploadDir;
+	}
+	
+	public void setUploadDir(String uploadDir) {
+		this.uploadDir = uploadDir;
+	}
+
+	public String getUserPath() {
+		return replaceMagicWords(userPath);
+	}
+	
+	public void setUserPath(String userPath) {
+		this.userPath = userPath;
+	}
 	
 	void doneLoading() {
 		// create action map
@@ -296,6 +320,54 @@ public class Config implements Serializable {
 		for (Entry<String, List<ModuleDescriptor>> entries : moduleMap.entrySet()) {
 			Collections.sort(entries.getValue(), MODULE_POSITION_COMPARATOR);
 		}
+	}
+
+	public void setFacebookAppId(String facebookAppId) {
+		this.facebookAppId = facebookAppId;
+	}
+
+	public String getFacebookAppId() {
+		return facebookAppId;
+	}
+
+	public void setFacebookSecret(String facebookSecret) {
+		this.facebookSecret = facebookSecret;
+	}
+
+	public String getFacebookSecret() {
+		return facebookSecret;
+	}
+
+	public void setTexCgi(String texCgi) {
+		this.texCgi = texCgi;
+	}
+
+	public String getTexCgi() {
+		return texCgi;
+	}
+
+	public void setUseCDN(boolean useCDN) {
+		this.useCDN = useCDN;
+	}
+
+	public boolean isUseCDN() {
+		return useCDN;
+	}
+
+	public void setLuceneIndexDirectory(String luceneIndexDirectory) {
+		this.luceneIndexDirectory = luceneIndexDirectory;
+	}
+
+	public String getLuceneIndexDirectory() {
+		return luceneIndexDirectory;
+	}
+
+	public void setLazyStartup(boolean lazyStartup) {
+		this.lazyStartup = lazyStartup;
+	}
+
+	public boolean isLazyStartup() {
+		return lazyStartup;
 	}
 	
 }
