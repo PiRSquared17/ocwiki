@@ -30,7 +30,7 @@ public class User implements Serializable, Entity, HasVersion {
 	private String warningMessage;
 	private Date warningExpiredDate;
 	private String avatar;
-	private Date registerDate;
+	private Date registerDate = new Date();
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
 	private NameOrdering nameOrdering = NameOrdering.LAST_FIRST;

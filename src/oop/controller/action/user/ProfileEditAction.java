@@ -55,13 +55,7 @@ public class ProfileEditAction extends AbstractAction {
 			String fullName=getParams().get("fullname-edit-input");
 			String firstName=getParams().get("firstname-edit-input");
 			String lastName=getParams().get("lastname-edit-input");
-			
-			Gender gender=Gender.UNKNOWN;
-			try {
-				gender = Gender.valueOf(StringUtils.upperCase(getParams().get("gender-edit-input")));
-			} catch (IllegalArgumentException ex) {
-				addError("gender", "Giới tính không hợp lệ");
-			}
+			String gender=getParams().get("gender-edit-input");
 			
 			Date birthday = new Date();
 			try{
@@ -70,7 +64,8 @@ public class ProfileEditAction extends AbstractAction {
 													getParams().getInt("birthday-edit-day"));
 				birthday = date.getTime();
 			} catch (ParameterNotFoundException ex) {
-				addError("birthday", "Bạn cần điền ngày sinh.");
+				//addError("birthday", "Bạn cần điền ngày sinh.");
+				birthday = null;
 			} catch (NumberFormatException ex) {
 				addError("birthday", "Ngày sinh không hợp lệ.");
 			} catch (Exception e) {
@@ -97,6 +92,10 @@ public class ProfileEditAction extends AbstractAction {
 			if (!checkPass(pass,newPass,rePass)) {
 				addError("passError", "Mật khẩu cũ không đúng hoặc xác nhận mật khẩu mới không khớp");
 			}
+			if (!checkFullname(lastName, firstName)){
+				addError("fullnameError","Phải điền họ hoặc tên, không được để trống cả 2 giá trị này");
+			}
+			
 			
 			if (!hasErrors()){
 				if (!isEmpty(name)) displayedUser.setName(name);
@@ -104,12 +103,15 @@ public class ProfileEditAction extends AbstractAction {
 				displayedUser.setFirstName(firstName);
 				displayedUser.setLastName(lastName);
 				//tenho - hoten
-				if (fullName=="firstLast") displayedUser.setNameOrdering(NameOrdering.FIRST_LAST);
-				else if (fullName=="lastMiddleFirst") displayedUser.setNameOrdering(NameOrdering.LAST_MIDDLE_FIRST);
+				if ("firstLast".compareTo(fullName)==0) displayedUser.setNameOrdering(NameOrdering.FIRST_LAST);
+				else if ("lastMiddleFirst".compareTo(fullName)==0) displayedUser.setNameOrdering(NameOrdering.LAST_MIDDLE_FIRST);
 				else displayedUser.setNameOrdering(NameOrdering.LAST_FIRST);
 								
-				displayedUser.setGender(gender);
-				displayedUser.setBirthday(birthday);
+				if ("male".compareTo(gender)==0) displayedUser.setGender(Gender.MALE);
+				else if ("female".compareTo(gender)==0) displayedUser.setGender(Gender.FEMALE);
+				else displayedUser.setGender(Gender.UNKNOWN);
+				
+				if (birthday!=null) displayedUser.setBirthday(birthday);
 				displayedUser.setAbout(about);
 				displayedUser.setHometown(hometown);
 				displayedUser.setLocation(location);
@@ -161,6 +163,12 @@ public class ProfileEditAction extends AbstractAction {
 			return false;
 		else if (!newPass.equals(rePass))
 			return false;
+		return true;
+	}
+	private boolean checkFullname(String lastName, String firstName){
+		if (isEmpty(firstName) && isEmpty(lastName)){
+			return false;
+		}
 		return true;
 	}
 
