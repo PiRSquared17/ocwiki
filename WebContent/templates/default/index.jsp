@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>${pageTitle}</title>
+	<title>${fn:escapeXml(pageTitle)}</title>
 	
 	<link rel="shortcut icon" href="${templatePath}/images/favicon.png">
     <link rel="stylesheet" href="${templatePath}/css/main.css" type="text/css" />

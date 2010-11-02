@@ -1,4 +1,4 @@
-package oop.controller.action.TextArticle;
+package oop.controller.action.textart;
 
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;

@@ -2,6 +2,8 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
+import javax.ws.rs.core.MediaType;
+
 import oop.conf.Config;
 import oop.controller.rest.ResourceService;
 
@@ -11,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
@@ -22,7 +25,8 @@ public class ResourceServiceTest extends AbstractResourceTest {
 	@Test
 	public void testRetrieve() throws IOException, SAXException {
 		ServletUnitClient client = getServletRunner().newClient();
-		WebResponse response = client.getResponse(PATH + "/62");
+		WebResponse response = client
+				.getResponse(createRequest(ResourceService.PATH + "/62"));
 		
 		JsonNode resource = parseJSON(response).get("result");
 		Assert.assertEquals("1", resource.get("author").get("id").getValueAsText());
@@ -44,11 +48,13 @@ public class ResourceServiceTest extends AbstractResourceTest {
 				"\"status\":\"DELETED\"," +
 				"\"articleType\":\"oop.data.TestStructure\"," +
 				"\"version\":0}";
-
 		System.out.println(StringEscapeUtils.escapeJava(json));
-		JsonBodyPostWebRequest request = new JsonBodyPostWebRequest(PATH + "/62", json);
+
 		ServletUnitClient client = getServletRunner().newClient();
 		login(client, "admin", "1234");
+
+		WebRequest request = new JsonBodyPutWebRequest(PATH + "/62", json);
+		request.setHeaderField("Accept", MediaType.APPLICATION_XML);
 		WebResponse response = client.getResponse(request);
 		JsonNode result = parseJSON(response).get("result");
 		
@@ -65,11 +71,13 @@ public class ResourceServiceTest extends AbstractResourceTest {
 		String json = "{\"accessibility\":\"AUTHOR_ONLY\"," +
 				"\"status\":\"DELETED\"," +
 				"\"version\":0}";
-
 		System.out.println(StringEscapeUtils.escapeJava(json));
-		JsonBodyPostWebRequest request = new JsonBodyPostWebRequest(PATH + "/62", json);
+
 		ServletUnitClient client = getServletRunner().newClient();
 		login(client, "admin", "1234");
+
+		JsonBodyPostWebRequest request = new JsonBodyPostWebRequest(PATH + "/62", json);
+		request.setHeaderField("Accept", MediaType.APPLICATION_XML);
 		WebResponse response = client.getResponse(request);
 		JsonNode result = parseJSON(response).get("result");
 		

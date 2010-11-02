@@ -1,9 +1,14 @@
-package oop.persistence;
+package oop.persistence.search;
 
 import oop.data.ResourceCustomization;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.event.PostCollectionRecreateEvent;
+import org.hibernate.event.PostCollectionRecreateEventListener;
+import org.hibernate.event.PostCollectionRemoveEvent;
+import org.hibernate.event.PostCollectionRemoveEventListener;
+import org.hibernate.event.PostCollectionUpdateEvent;
+import org.hibernate.event.PostCollectionUpdateEventListener;
 import org.hibernate.event.PostDeleteEvent;
 import org.hibernate.event.PostDeleteEventListener;
 import org.hibernate.event.PostInsertEvent;
@@ -14,7 +19,9 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 
 public class IndexUpdateListener implements PostUpdateEventListener,
-		PostInsertEventListener, PostDeleteEventListener {
+		PostInsertEventListener, PostDeleteEventListener,
+		PostCollectionUpdateEventListener, PostCollectionRecreateEventListener,
+		PostCollectionRemoveEventListener {
 
 	/**
 	 * 
@@ -41,10 +48,26 @@ public class IndexUpdateListener implements PostUpdateEventListener,
 			ResourceCustomization customization = (ResourceCustomization) entity;
 			FullTextSession fullTextSession = Search
 					.getFullTextSession(session);
-			Transaction tx = fullTextSession.beginTransaction();
 			fullTextSession.index(customization.getResource());
-			tx.commit();
 		}
+	}
+
+	@Override
+	public void onPostUpdateCollection(PostCollectionUpdateEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPostRemoveCollection(PostCollectionRemoveEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPostRecreateCollection(PostCollectionRecreateEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
