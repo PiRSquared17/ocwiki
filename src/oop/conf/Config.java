@@ -15,6 +15,7 @@ public class Config implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private boolean lazyStartup = false;
 	private String databaseHost = "localhost";
 	private String databasePort = "3306";
 	private String databaseName = "ocwiki";
@@ -359,6 +360,14 @@ public class Config implements Serializable {
 
 	public String getLuceneIndexDirectory() {
 		return luceneIndexDirectory;
+	}
+
+	public void setLazyStartup(boolean lazyStartup) {
+		this.lazyStartup = lazyStartup;
+	}
+
+	public boolean isLazyStartup() {
+		return lazyStartup;
 	}
 	
 }

@@ -12,22 +12,34 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
+	private static Config config;
 	private static SessionFactory sessionFactory = null;
 	private static ThreadLocal<Session> sessionLocal = new ThreadLocal<Session>();
 
-	public static void init(final Config config) {
-		// if (sessionFactory != null) {
-		// throw new IllegalStateException(
-		// "Session factory is already initialized.");
-		// }
+	public static void setConfig(final Config config) {
+		HibernateUtil.config = config;
 		if (sessionFactory != null) {
 			sessionFactory.close();
+			sessionFactory = null;
 		}
+		if (!config.isLazyStartup()) {
+			init();
+		} else {
+			// get it initialized in a different thread
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					HibernateUtil.getSessionFactory();
+				}
+			}).start();
+		}
+	}
 
+	private static void init() {
 		Configuration hconf = new Configuration();
 
 		hconf.configure("hibernate.cfg.xml");
-		
 		
 		// modify table prefixes
 		//hconf.setNamingStrategy(new PrefixNamingStrategy(config));
@@ -58,7 +70,7 @@ public class HibernateUtil {
 
 		sessionFactory = hconf.buildSessionFactory();
 	}
-
+	
 	public static long count(String hql) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
@@ -77,7 +89,21 @@ public class HibernateUtil {
 		}
 	}
 
+	/**
+	 * Use double checking to initialize session factory.
+	 * I know that double checking is not safe but it rarely fails and we use
+	 * lazy startup only in development so it's OK.
+	 * @author cumeo89
+	 * @return
+	 */
 	public static SessionFactory getSessionFactory() {
+		if (sessionFactory == null && config.isLazyStartup()) {
+			synchronized (config) {
+				if (sessionFactory == null) {
+					init();
+				}
+			}
+		}
 		return sessionFactory;
 	}
 
@@ -91,20 +117,15 @@ public class HibernateUtil {
 	@SuppressWarnings("unchecked")
 	public static <T> T load(Class<T> clazz, long id) {
 		if (id <= 0) {
-			try {
-				return clazz.newInstance();
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
+			return null;
 		}
-		Session session = HibernateUtil.getSession();
-		return (T) session.load(clazz, id);
+		return (T) getSession().load(clazz, id);
 	}
 
 	public static void closeSession() {
 		if (sessionLocal.get() != null) {
 			Session session = sessionLocal.get();
-			if (session.isOpen()) {
+			if (session != null && session.isOpen()) {
 				session.flush();
 				Transaction tx = session.getTransaction();
 				if (tx.isActive()) {
