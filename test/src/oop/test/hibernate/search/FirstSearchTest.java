@@ -34,14 +34,9 @@ public class FirstSearchTest extends AbstractResourceTest {
 				Version.LUCENE_29, fields, new StandardAnalyzer(Version.LUCENE_29));
 		org.apache.lucene.search.Query query = parser.parse("\"would he like\"");
 		
-		
-		
-		BooleanQuery andQuery = new BooleanQuery();
-		andQuery.add(query, BooleanClause.Occur.MUST);
-		
 		// wrap Lucene query in a org.hibernate.Query
 		org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(
-				query, Resource.class, BaseQuestion.class);
+				query, Resource.class);
 		// execute search
 		List result = hibQuery.list();
 		System.out.println(result);

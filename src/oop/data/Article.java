@@ -20,6 +20,7 @@ public abstract class Article implements Entity {
 	
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
+	
 	@IndexedEmbedded
 	private Namespace namespace;
 

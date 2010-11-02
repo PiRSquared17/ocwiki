@@ -8,6 +8,7 @@ import oop.data.Resource;
 import oop.data.Status;
 import oop.persistence.HibernateUtil;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
@@ -55,8 +56,8 @@ public class SearchAction extends AbstractAction {
 					luceneQuery.add(subquery, BooleanClause.Occur.MUST);
 				}
 			}
-			luceneQuery.add(new TermQuery(new Term("status", status)),
-					BooleanClause.Occur.MUST);
+//			luceneQuery.add(new TermQuery(new Term("status", status)),
+//					BooleanClause.Occur.MUST);
 			FullTextSession fullTextSession = Search
 					.getFullTextSession(HibernateUtil.getSession());
 			FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery(
@@ -81,40 +82,33 @@ public class SearchAction extends AbstractAction {
 					criteria.getContent()));
 
 		case IS:
-			if ("liked".equalsIgnoreCase(criteria.getContent())
-					|| "thích".equalsIgnoreCase(criteria.getContent())) {
-				if (isUserLoggedIn()) {
-					return new TermQuery(new Term("customization.likes",
-							String.valueOf(getUser().getId())));
-				}
-			} else if ("todo".equalsIgnoreCase(criteria.getContent())
-					|| "cần-làm".equalsIgnoreCase(criteria.getContent())) {
-				if (isUserLoggedIn()) {
-					return new TermQuery(new Term("customization.todos",
-							String.valueOf(getUser().getId())));
-				}
-			} else if ("done".equalsIgnoreCase(criteria.getContent())
-					|| "xong".equalsIgnoreCase(criteria.getContent())) {
-				if (isUserLoggedIn()) {
-					return new TermQuery(new Term("customization.dones",
-							String.valueOf(getUser().getId())));
-				}
-			} else if ("hard".equalsIgnoreCase(criteria.getContent())
-					|| "khó".equalsIgnoreCase(criteria.getContent())) {
-				if (isUserLoggedIn()) {
-					return new TermQuery(new Term("customization.hards",
-							String.valueOf(getUser().getId())));
-				}
-			} else if ("easy".equalsIgnoreCase(criteria.getContent())
-					|| "dễ".equalsIgnoreCase(criteria.getContent())) {
-				if (isUserLoggedIn()) {
-					return new TermQuery(new Term("customization.easys",
-							String.valueOf(getUser().getId())));
+			if (isUserLoggedIn()) {
+				if ("liked".equalsIgnoreCase(criteria.getContent())
+						|| "thích".equalsIgnoreCase(criteria.getContent())) {
+						return new TermQuery(new Term("customization.likes",
+								String.valueOf(getUser().getId())));
+				} else if ("todo".equalsIgnoreCase(criteria.getContent())
+						|| "cần-làm".equalsIgnoreCase(criteria.getContent())) {
+						return new TermQuery(new Term("customization.todos",
+								String.valueOf(getUser().getId())));
+				} else if ("done".equalsIgnoreCase(criteria.getContent())
+						|| "xong".equalsIgnoreCase(criteria.getContent())) {
+						return new TermQuery(new Term("customization.dones",
+								String.valueOf(getUser().getId())));
+				} else if ("hard".equalsIgnoreCase(criteria.getContent())
+						|| "khó".equalsIgnoreCase(criteria.getContent())) {
+						return new TermQuery(new Term("customization.hards",
+								String.valueOf(getUser().getId())));
+				} else if ("easy".equalsIgnoreCase(criteria.getContent())
+						|| "dễ".equalsIgnoreCase(criteria.getContent())) {
+						return new TermQuery(new Term("customization.easys",
+								String.valueOf(getUser().getId())));
 				}
 			}
+			return null;
 
 		case STATUS:
-			status = criteria.getContent();
+			status = StringUtils.upperCase(criteria.getContent());
 			return null;
 
 		case AUTHOR:

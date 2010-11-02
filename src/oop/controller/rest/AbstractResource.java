@@ -25,8 +25,10 @@ import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
 import com.oreilly.servlet.ParameterParser;
 
-@Consumes( { MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-@Produces( { MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+//@Consumes( { MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+//@Produces( { MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+@Consumes( MediaType.APPLICATION_JSON )
+@Produces( MediaType.APPLICATION_JSON )
 public abstract class AbstractResource {
 
 	public static final int MAX_PAGE_SIZE = 50;

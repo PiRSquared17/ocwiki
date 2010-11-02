@@ -316,7 +316,7 @@
      ********************************************************************-->
 	<action>
       <name>textarticle.view</name>
-      <class>oop.controller.action.TextArticle.ViewAction</class>
+      <class>oop.controller.action.textart.ViewAction</class>
     </action>
     <action>
       <name>solution.view</name>
