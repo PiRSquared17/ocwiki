@@ -1,6 +1,9 @@
 package oop.controller.action.openid;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
+
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.ejb.criteria.predicate.IsEmptyPredicate;
 import org.openid4java.OpenIDException;
 import org.openid4java.consumer.ConsumerManager;
 import org.openid4java.consumer.VerificationResult;
@@ -25,6 +28,7 @@ import oop.util.SessionUtils;
 
 import java.util.List;
 import java.io.IOException;
+import org.apache.commons.lang.StringUtils;
 
 @SuppressWarnings("unused")
 public class GetVerificationAction extends AbstractAction {
@@ -72,7 +76,7 @@ public class GetVerificationAction extends AbstractAction {
 			if (verified != null) {
 				User newUser = new User();
 				String userUrl = verified.toString();
-				newUser.setName(userUrl);
+				newUser.setName(null);
 				
 				OpenIDAccount found = OpenIDAccountDAO.fetchByUrl(userUrl);
 				if (found!=null){
@@ -105,7 +109,9 @@ public class GetVerificationAction extends AbstractAction {
 			            	newUser.setLastName((String) lastNames.get(0));
 			            }               
 		            }
-		       		            
+		       		        
+		            if (isEmpty(newUser.getFullname())) newUser.setLastName("người dùng"+newUser.getId());
+		            
 		            OpenIDAccount newOpenIDAccount = new OpenIDAccount(userUrl, newUser);
 		            OpenIDAccountDAO.persist(newOpenIDAccount);
 		            

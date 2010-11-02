@@ -279,7 +279,7 @@
 					<span id=name-edit-field style="display: none">
 						<input name="name-edit-input" id="name-edit-input" value=""/>			
 						<a href="#" id="name-edit-button-hide" style="display: none" onclick="hideEditField(2);return false;">thôi</a>
-						<span class="notification">Lưu ý, bạn chỉ được thay đổi tên người dùng 1 lần duy nhất.</span>					
+						<div class="notification">Lưu ý, bạn chỉ được thay đổi tên người dùng 1 lần duy nhất.</div>					
 					</span>
 					<a href="#" id="name-edit-button-show" <c:if test="${(empty action.displayedUser.name)==false}"> style="display: none"</c:if> onclick="showEditField(2);return false;">sửa</a>
 				</td>
@@ -324,6 +324,7 @@
 	
 	<fieldset>
 	<legend>Thay đổi thông tin cá nhân</legend>
+		<div><ocw:error code="fullnameError"></ocw:error></div>
 		<table>
 			<tr>
 				<td width="100px">
@@ -394,9 +395,9 @@
 				</td><td>
 					<span id="birthday-view" style="display: inline"><b>${u:formatDate(action.displayedUser.birthday)}</b></span> 
 					<span id=birthday-edit-field style="display: none">
-						<input name="birthday-edit-day" id="birthday-edit-day" size="2px" maxlength="2" value="${action.displayedUser.birthday.date}"/>-
-						<input name="birthday-edit-month" id="birthday-edit-month" size="2px" maxlength="2" value="${action.displayedUser.birthday.month+1}"/>-
-						<input name="birthday-edit-year" id="birthday-edit-year" size="4px" maxlength="4" value="${action.displayedUser.birthday.year+1900}"/>	
+						<input name="birthday-edit-day" id="birthday-edit-day" size="2px" maxlength="2" value="${(empty action.displayedUser.birthday.date)?'':(action.displayedUser.birthday.date)}"/>-
+						<input name="birthday-edit-month" id="birthday-edit-month" size="2px" maxlength="2" value="${(empty action.displayedUser.birthday.month)?'':(action.displayedUser.birthday.month+1)}"/>-
+						<input name="birthday-edit-year" id="birthday-edit-year" size="4px" maxlength="4" value="${(empty action.displayedUser.birthday.year)?'':(action.displayedUser.birthday.year+1900)}"/>	
 						(ngày-tháng-năm)
 					</span> <a href="#" id="birthday-edit-button-show" style="display: inline" onclick="showEditField(8);return false;">sửa</a><a href="#" id="birthday-edit-button-hide" style="display: none" onclick="hideEditField(8);return false;">thôi</a>
 					<ocw:error code="birthday"></ocw:error>

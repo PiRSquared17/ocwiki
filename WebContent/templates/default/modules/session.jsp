@@ -40,7 +40,7 @@
             </c:if>
             <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://www.google.com/accounts/o8/id"></ocw:param>Google</ocw:actionLink></li>
             <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://me.yahoo.com/"></ocw:param>Yahoo</ocw:actionLink></li>
-            <li><ocw:actionLink name="user.login.openid">OpenID</ocw:actionLink></li>
+            <li><a href="#" onclick="openOpenIDLoginDialog(); return false;">OpenID</a></li>
             <li><a href="#" onclick="openLoginDialog(); return false;">Nội bộ</a></li>
         </ul>
 	</li>
@@ -166,5 +166,25 @@ function session_login() {
 	return false;
 }
 
+function openOpenIDLoginDialog() {
+	Dialog.confirm($('openID-login-dialog').innerHTML, 
+			{
+				className :"alphacube", 
+				width : 400, 
+				height : 250, 
+				okLabel : "Đăng nhập", 
+				cancelLabel : "Thôi", 
+				buttonClass : "session-button",
+				id : "openID-loginDialog",
+				onOk :
+					function(win){ 
+						alert(getURL());
+					}
+			}
+	); 
+}
+
 	//-->
 </script>
+<%-- openID login Dialog --%>
+<jsp:include page="user.login.openid-view.jsp" flush="true"></jsp:include>
