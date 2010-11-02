@@ -82,9 +82,9 @@
 				onSuccess : function(transport) {
 					user = transport.responseJSON.result;
 				},
-			    onFailure: function()
-			    { 
-					openInfoDialog("UserID không chính xác!");
+			    onFailure: function(transport)
+                {
+                    DefaultTemplate.onFailure(transport); 
 			    }
 			  });
 
@@ -125,9 +125,14 @@
 						user = transport.responseJSON.result;
 						location.reload(true);
 					},
-				    onFailure: function()
-				    {
-						openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
+				    onFailure: function(transport)
+	                {
+	                    var code = transport.responseJSON.code;
+	                    if (code == 'old version') {
+	                          openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
+	                    } else {
+	                        DefaultTemplate.onFailure(transport); 
+	                    }
 					}
 				   });
 		return ;
@@ -174,10 +179,15 @@
 						user = transport.responseJSON.result;
 						location.reload(true);
 					},
-				    onFailure: function()
-				    {
-						openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
-					}
+				    onFailure: function(transport)
+                    {
+                        var code = transport.responseJSON.code;
+                        if (code == 'old version') {
+                              openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
+                        } else {
+                            DefaultTemplate.onFailure(transport); 
+                        }
+                    }
 				   });
 			}
 		});		
@@ -203,10 +213,15 @@
 						user = transport.responseJSON.result;
 						location.reload(true);
 					},
-				    onFailure: function()
-				    {
-						openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
-					}
+				    onFailure: function(transport)
+                    {
+                        var code = transport.responseJSON.code;
+                        if (code == 'old version') {
+                              openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
+                        } else {
+                            DefaultTemplate.onFailure(transport); 
+                        }
+                    }
 				   });
 		return ;
 	}
@@ -258,10 +273,15 @@
 							user = transport.responseJSON.result;
 							location.reload(true);
 						},
-					    onFailure: function()
-					    {
-							openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
-						}
+					    onFailure: function(transport)
+	                    {
+	                        var code = transport.responseJSON.code;
+	                        if (code == 'old version') {
+	                              openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
+	                        } else {
+	                            DefaultTemplate.onFailure(transport); 
+	                        }
+	                    }
 					});
 				}	
 			}

@@ -2,9 +2,7 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
-import javax.ws.rs.core.MediaType;
-
-import oop.conf.Config;
+import oop.controller.rest.resources.basequestion.BaseQuestionServiceImpl;
 import oop.data.Namespace;
 
 import org.codehaus.jackson.JsonNode;
@@ -16,15 +14,13 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class BaseQuestionServiceTest extends ResourceTest {
-
-	private static final String PATH = Config.get().getRestPath()
-			+ "/questions";
+public class BaseQuestionServiceTest extends AbstractResourceTest {
 
 	@Test
 	public void testRetrieve() throws IOException, SAXException {
 		ServletUnitClient client = getServletRunner().newClient();
-		WebResponse response = client.getResponse(PATH + "/88");
+		WebResponse response = client
+				.getResponse(createRequest(BaseQuestionServiceImpl.PATH + "/88"));
 		
 		System.out.println(response.getText());
 		JsonNode root = parseJSON(response);
@@ -47,7 +43,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," +
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -62,8 +58,8 @@ public class BaseQuestionServiceTest extends ResourceTest {
 				"\"minor\": true}";
 //		String json = "{}";
 //		JsonUtils.fromJson(json, new TypeReference<Revision<BaseQuestion>>() {});
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
-		request.setHeaderField("Accept", MediaType.APPLICATION_JSON);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		System.out.println(response.getText());
@@ -106,7 +102,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," +
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -114,7 +110,8 @@ public class BaseQuestionServiceTest extends ResourceTest {
 					"\"level\":\"3\"}," +
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
@@ -129,7 +126,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," +
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -138,7 +135,8 @@ public class BaseQuestionServiceTest extends ResourceTest {
 					"\"level\":\"3\"}," +
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
@@ -153,7 +151,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"content\"}," + 
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -163,7 +161,8 @@ public class BaseQuestionServiceTest extends ResourceTest {
 					"\"level\":\"3\"}," +
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
@@ -178,7 +177,7 @@ public class BaseQuestionServiceTest extends ResourceTest {
 		login(client, "teacher", "1234");
 		String json = "{" +
 				"\"article\": {" +
-					"\"type\":\"baseQuestion\"," +
+					"\"type\":\"baseQuestionBean\"," +
 					"\"id\":\"88\"," +
 					"\"content\":{\"text\":\"\"}," + // blank
 					"\"namespace\":{\"id\":\"0\"}," +
@@ -188,7 +187,8 @@ public class BaseQuestionServiceTest extends ResourceTest {
 					"\"level\":\"3\"}," +
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
-		WebRequest request = new JsonBodyPostWebRequest(PATH + "/88", json);
+		WebRequest request = new JsonBodyPostWebRequest(
+				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		

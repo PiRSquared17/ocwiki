@@ -16,24 +16,16 @@ import org.junit.Test;
 public class CommentCustomizationTest extends HibernateTest {
 
 	@Test
-	public void testCount() {
-		long count = CommentCustomizationDAO.countAllCustomizationForUser(1,
+	public void testCountByCommentAuthorAndStatus() {
+		long count = CommentCustomizationDAO.countByCommentAuthorAndStatus(1,
 				CommentStatus.LIKE);
-		System.out.println(count);
-		count = CommentCustomizationDAO.countAllCustomizationForUser(1,
+		Assert.assertEquals(1, count);
+		
+		count = CommentCustomizationDAO.countByCommentAuthorAndStatus(1,
 				CommentStatus.HIDDEN);
-		System.out.println(count);
+		Assert.assertEquals(1, count);
 	}
 	
-	@Test
-	public void testFetchWithDefault() {
-		List<CommentCustomization> customizations = CommentCustomizationDAO
-				.fetchByResourceAndUserWithDefault(88, 1, 0, 10);
-		Assert.assertEquals(2, customizations.size());
-		Assert.assertEquals("comment 1234", customizations.get(0).getComment()
-				.getMessage());
-	}
-
 	@Test
 	public void testFetch() {
 		List<CommentCustomization> customizations = CommentCustomizationDAO
@@ -63,8 +55,9 @@ public class CommentCustomizationTest extends HibernateTest {
 		CommentCustomizationDAO.persist(customization);
 
 		List<CommentCustomization> customizations = CommentCustomizationDAO
-				.fetchByResourceAndUser(88, 1, 0, 10);
-		Assert.assertEquals(2, customizations.size());
+				.fetchByResourceAndUser(comment.getResource().getId(), user
+						.getId(), 0, 10);
+		Assert.assertEquals(1, customizations.size());
 	}
 
 }

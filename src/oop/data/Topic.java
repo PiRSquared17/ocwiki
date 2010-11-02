@@ -6,10 +6,11 @@ import oop.util.Utils;
 
 public class Topic extends Article {
 
+	public static final int ROOT_ID = 1;
+	
 	private Resource<Topic> parent;
 
-	Topic() {
-		// default constructor
+	public Topic() {
 	}
 
 	public Topic(Namespace namespace, String name, Resource<Topic> parent, Text content) {

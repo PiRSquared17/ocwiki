@@ -1,11 +1,11 @@
 package oop.controller.action.article;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.data.Article;
 import oop.data.Revision;
 import oop.db.dao.RevisionDAO;
 
-public class ViewOldRevisionAction extends AbstractAction<Article> {
+public class ViewOldRevisionAction extends AbstractResourceAction<Article> {
 
 	private Revision<Article> revision;
 	private Revision<Article> previousRevision;

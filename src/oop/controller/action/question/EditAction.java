@@ -3,7 +3,7 @@ package oop.controller.action.question;
 import java.util.HashSet;
 import java.util.Set;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
 import oop.data.BaseQuestion;
@@ -15,7 +15,7 @@ import oop.db.dao.TopicDAO;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditAction extends AbstractAction<BaseQuestion> {
+public class EditAction extends AbstractResourceAction<BaseQuestion> {
 
 	@Override
 	public void performImpl() throws Exception {

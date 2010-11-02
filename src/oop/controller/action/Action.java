@@ -9,6 +9,14 @@ import oop.data.Resource;
 
 public interface Action {
 	
+	public static Action NULL_ACTION = new AbstractAction() {
+		
+		@Override
+		protected void performImpl() throws Exception {
+			// DO NOTHING
+		}
+	};
+	
 	public ActionDescriptor getDescriptor();
 	
 	public void setDescriptor(ActionDescriptor desc);

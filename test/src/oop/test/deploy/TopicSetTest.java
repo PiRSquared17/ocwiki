@@ -20,7 +20,7 @@ public class TopicSetTest {
 	public static void setupClass() throws IOException {
 		Config config = new Config();
 		ConfigIO.loadDirectory(config, "WebContent/WEB-INF/conf");
-		HibernateUtil.init(config);
+		HibernateUtil.setConfig(config);
 		Config.setDefaultInstance(config);
 	}
 	

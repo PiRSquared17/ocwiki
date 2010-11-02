@@ -8,11 +8,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CommentBean {
 
 	private long id;
-	private UserBean user;
+	private UserReferenceBean user;
 	private Date timestamp;
 	private String message;
 	private ResourceReferenceBean resource;
-	private RevisionBean revision;
+	private RevisionReferenceBean revision;
 
 	public CommentBean() {
 	}
@@ -25,11 +25,11 @@ public class CommentBean {
 		this.id = id;
 	}
 
-	public UserBean getUser() {
+	public UserReferenceBean getUser() {
 		return user;
 	}
 
-	public void setUser(UserBean user) {
+	public void setUser(UserReferenceBean user) {
 		this.user = user;
 	}
 
@@ -57,11 +57,11 @@ public class CommentBean {
 		this.resource = resource;
 	}
 
-	public RevisionBean getRevision() {
+	public RevisionReferenceBean getRevision() {
 		return revision;
 	}
 
-	public void setRevision(RevisionBean revision) {
+	public void setRevision(RevisionReferenceBean revision) {
 		this.revision = revision;
 	}
 

@@ -1,11 +1,11 @@
 package oop.controller.action.question;
 
-import oop.controller.action.AbstractAction;
+import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.BaseQuestion;
 import oop.db.dao.BaseQuestionDAO;
 
-public class ViewAction extends AbstractAction<BaseQuestion> {
+public class ViewAction extends AbstractResourceAction<BaseQuestion> {
 	
 	private BaseQuestion question;
 

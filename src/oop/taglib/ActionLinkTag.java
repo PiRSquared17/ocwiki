@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 public class ActionLinkTag extends AbstractActionTag {
 
 	private String title;
+	private String target;
 	
 	@Override
 	public void doTag() throws JspException, IOException {
@@ -26,10 +27,19 @@ public class ActionLinkTag extends AbstractActionTag {
 		appendHref();
 		appendClass();
 		appendOnclick();
+		appendTarget();
 		out().print("\">");
 		out().append(sb);
-		out().append(sw.toString());
+		out().append(sw.toString().trim());
 		out().append("</a>");
+	}
+
+	private void appendTarget() throws IOException {
+		if (StringUtils.isNotEmpty(target)) {
+			out().print(" target=\"");
+			out().print(target);
+			out().print("\"");
+		}
 	}
 
 	@Override
@@ -57,9 +67,8 @@ public class ActionLinkTag extends AbstractActionTag {
 				first = false;
 				out().print(entry.getKey());
 				out().print("=");
-				out().print(
-						StringEscapeUtils
-								.escapeXml(entry.getValue().toString()));
+				out().print(StringEscapeUtils
+						.escapeXml(String.valueOf(entry.getValue())));
 			}
 		}
 	}
@@ -70,6 +79,14 @@ public class ActionLinkTag extends AbstractActionTag {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	public String getTarget() {
+		return target;
 	}
 
 }

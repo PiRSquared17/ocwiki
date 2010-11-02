@@ -5,12 +5,10 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import oop.data.Answer;
-
 @XmlRootElement
 public class BaseQuestionBean extends BaseArticleBean {
 	private int level;
-	private List<Answer> answers = new ArrayList<Answer>();
+	private List<AnswerBean> answers = new ArrayList<AnswerBean>();
 
 	public BaseQuestionBean() {
 	}
@@ -23,11 +21,11 @@ public class BaseQuestionBean extends BaseArticleBean {
 		this.level = level;
 	}
 
-	public List<Answer> getAnswers() {
+	public List<AnswerBean> getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(List<Answer> answers) {
+	public void setAnswers(List<AnswerBean> answers) {
 		this.answers = answers;
 	}
 

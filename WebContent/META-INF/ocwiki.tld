@@ -33,6 +33,9 @@
     <attribute>
         <name>method</name>
     </attribute>
+    <attribute>
+        <name>enctype</name>
+    </attribute>
   </tag>
   
   <tag>
@@ -69,6 +72,7 @@
         <description>Tên của hành động</description>
         <name>name</name>
         <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
     </attribute>    
     <attribute>
         <description>Lớp CSS dùng để định dạng</description>
@@ -83,6 +87,9 @@
     </attribute>    
     <attribute>
         <name>onclick</name>
+    </attribute>    
+    <attribute>
+        <name>target</name>
     </attribute>    
   </tag>
 
@@ -141,9 +148,18 @@
     <attribute>
         <description>Tên biến chứa kết quả</description>
         <name>var</name>
-        <required>true</required>
         <rtexprvalue>false</rtexprvalue>
     </attribute>    
+    <attribute>
+        <description>Tên biến JavaScript chứa kết quả</description>
+        <name>jsVar</name>
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>  
+    <attribute>
+        <description>Tên biến Template (Prototype) chứa kết quả</description>
+        <name>templateVar</name>
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>  
     <attribute>
         <description>Nội dung văn bản</description>
         <name>value</name>
@@ -174,6 +190,13 @@
   </tag-file>
   
   <tag-file>
+    <description>Tạo liên kết đến bài viết trong Template</description>
+    <display-name>Liên kết bài viết</display-name>
+    <name>articleLinkTemplate</name>
+    <path>/WEB-INF/tags/articleLinkTemplate.tag</path>
+  </tag-file>
+  
+  <tag-file>
     <description>Tạo liên kết đến profile của người dùng</description>
     <display-name>Profile người dùng</display-name>
     <name>userLink</name>
@@ -187,6 +210,13 @@
     <path>/WEB-INF/tags/articleButton.tag</path>
   </tag-file>
 
+  <tag-file>
+    <description>Phân trang bài viết</description>
+    <display-name>Phân trang bài viết</display-name>
+    <name>pagination</name>
+    <path>/WEB-INF/tags/pagination.tag</path>
+  </tag-file>
+  
   <function>
     <description>
       Trả về đường dẫn đến hành động (action).
@@ -196,6 +226,18 @@
     <function-signature>java.lang.String getActionURL(java.lang.String)</function-signature>
     <example>
       ${ocw:actionUrl('ques.view')}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Trả về đường dẫn đến REST web service.
+    </description>
+    <name>restUrl</name>
+    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-signature>java.lang.String getRestURL(java.lang.String)</function-signature>
+    <example>
+      ${ocw:restUrl('questions/1234')}
     </example>
   </function>
 
@@ -239,6 +281,13 @@
     <name>escapeJs</name>
     <function-class>org.apache.commons.lang.StringEscapeUtils</function-class>
     <function-signature>java.lang.String escapeJavaScript(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <description>Lấy về tên của một biến enum</description>
+    <name>name</name>
+    <function-class>org.apache.commons.lang.UtilFunctions</function-class>
+    <function-signature>java.lang.String name(java.lang.Enum)</function-signature>
   </function>
 
 </taglib>

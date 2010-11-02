@@ -12,9 +12,11 @@
 		<div>
 		   <label>Phần: 
 		   <select id="taq_section" name="taq_section">
+		      <c:set var="sectionIndex" value="0"></c:set>
 		       <c:forEach items="${test.sections}" var="section">
-		           <option value="${section.id}" ${section.id==param.taq_section ? 'selected' : ''}>
-		                  ${section.order} - ${u:ellipsize(u:stripHTML(section.content.text), 50)}</option>
+		           <option value="${sectionIndex}" ${section.id==param.taq_section ? 'selected' : ''}>
+		                  ${sectionIndex} - ${u:ellipsize(u:stripHTML(section.content.text), 50)}</option>
+                  <c:set var="sectionIndex" value="${sectionIndex+1}"></c:set>
 		       </c:forEach>
 		   </select></label>
 		   <c:if test="${empty param.taq_section}">

@@ -4,11 +4,12 @@ import oop.data.Article;
 import oop.data.Resource;
 import oop.persistence.HibernateUtil;
 
-public class ResourceReferenceMapper implements
-		Mapper<ResourceReferenceBean, Resource<? extends Article>> {
+@SuppressWarnings("unchecked")
+public class ResourceReferenceMapper<T extends Article> implements
+		Mapper<ResourceReferenceBean, Resource<T>> {
 
 	@Override
-	public ResourceReferenceBean apply(Resource<? extends Article> value) {
+	public ResourceReferenceBean toBean(Resource value) {
 		if (value == null) {
 			return null;
 		}
@@ -20,7 +21,7 @@ public class ResourceReferenceMapper implements
 	}
 
 	@Override
-	public Resource<? extends Article> get(ResourceReferenceBean value) {
+	public Resource<T> toEntity(ResourceReferenceBean value) {
 		if (value == null) {
 			return null;
 		}
@@ -29,7 +30,7 @@ public class ResourceReferenceMapper implements
 
 	private static ResourceReferenceMapper DEFAULT_INSTANCE = new ResourceReferenceMapper();
 
-	public static ResourceReferenceMapper get() {
+	public static <K extends Article> ResourceReferenceMapper<K> get() {
 		return DEFAULT_INSTANCE;
 	}
 

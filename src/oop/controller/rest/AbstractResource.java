@@ -1,5 +1,6 @@
 package oop.controller.rest;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
@@ -24,28 +25,35 @@ import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterNotFoundException;
 import com.oreilly.servlet.ParameterParser;
 
-@Consumes( { MediaType.APPLICATION_JSON })
-@Produces( { MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
+//@Consumes( { MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+//@Produces( { MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+@Consumes( MediaType.APPLICATION_JSON )
+@Produces( MediaType.APPLICATION_JSON )
 public abstract class AbstractResource {
 
 	public static final int MAX_PAGE_SIZE = 50;
 	
 	@Context
 	private HttpServletRequest request;
+	@Context
+	private ServletContext servletContext;
 	private ParameterList params;
 
 	public HttpServletRequest getRequest() {
 		return request;
 	}
 
+	public ServletContext getServletContext() {
+		return servletContext;
+	}
+	
 	public HttpSession getSession() {
 		return request.getSession();
 	}
 
 	protected <T extends Article> Revision<T> saveNewRevision(
 			Resource<T> resource, T article, String summary, boolean minor) {
-		User user = SessionUtils.getUser(getSession());
-		return ResourceDAO.update(resource, article, user, summary, minor);
+		return ResourceDAO.update(resource, article, getUserNullSafe(), summary, minor);
 	}
 
 	protected int getBaseVersion() {
@@ -60,7 +68,15 @@ public abstract class AbstractResource {
 	
 	protected User getUser() {
 		return SessionUtils.getUser(getSession());
-		
+	}
+	
+	protected User getUserNullSafe() {
+		User user = SessionUtils.getUser(getSession());
+		if (user == null) {
+			throw new WebApplicationException(Response.status(Status.NOT_FOUND)
+					.entity(new ErrorResult("login required")).build());
+		}
+		return user;
 	}
 
 	protected ParameterList getParams() {
@@ -121,6 +137,26 @@ public abstract class AbstractResource {
 	protected void assertBaseVersion(HasVersion entity) {
 		if (entity.getVersion() != getBaseVersion()) {
 			throw invalidParam("basever", "old version");	
+		}
+	}
+
+	protected void assertParamValid(String message, boolean valid) {
+		if (!valid) {
+			throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+					.entity(new ErrorResult(message)).build());
+		}
+	}
+
+	protected void requireGroup(String... groups) {
+		boolean hasRequiredGroup = false;
+		for (String group : groups) {
+			if (group.equals(getUserNullSafe().getGroup())) {
+				hasRequiredGroup = true;
+			}
+		}
+		if (!hasRequiredGroup) {
+			throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+					.entity(new ErrorResult("not enough permission")).build());
 		}
 	}
 

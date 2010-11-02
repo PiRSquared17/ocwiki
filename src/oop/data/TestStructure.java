@@ -9,7 +9,7 @@ public class TestStructure extends BaseArticle {
 	private int time;
 	private List<SectionStructure> sectionStructures = new ArrayList<SectionStructure>();
 
-	TestStructure() {
+	public TestStructure() {
 	}
 
 	public TestStructure(Namespace namespace, String name, Text content, String type, int time) {

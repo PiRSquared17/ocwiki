@@ -9,7 +9,7 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   <listener>
-    <listener-class>oop.controller.Initializer</listener-class>
+    <listener-class>oop.controller.OcwikiApp</listener-class>
   </listener>
   <servlet>
     <description></description>
@@ -48,7 +48,7 @@
   <servlet>
     <description></description>
     <servlet-name>REST Service</servlet-name>
-    <servlet-class>oop.controller.RestController</servlet-class>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
     <init-param>
       <param-name>com.sun.jersey.config.property.packages</param-name>
       <param-value>oop.controller.rest</param-value>
@@ -60,22 +60,12 @@
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
   <filter>
-    <display-name>PrototypeMethodFilter</display-name>
-    <filter-name>PrototypeMethodFilter</filter-name>
-    <filter-class>oop.controller.PrototypeMethodFilter</filter-class>
+    <display-name>rest-filter</display-name>
+    <filter-name>rest-filter</filter-name>
+    <filter-class>oop.filter.RestFilter</filter-class>
   </filter>
   <filter-mapping>
-    <filter-name>PrototypeMethodFilter</filter-name>
+    <filter-name>rest-filter</filter-name>
     <url-pattern>/rest/*</url-pattern>
   </filter-mapping>
-  <servlet>
-    <description></description>
-    <display-name>SetupServlet</display-name>
-    <servlet-name>SetupServlet</servlet-name>
-    <servlet-class>oop.controller.SetupServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SetupServlet</servlet-name>
-    <url-pattern>/setup</url-pattern>
-  </servlet-mapping>
 </web-app>

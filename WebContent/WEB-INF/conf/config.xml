@@ -7,7 +7,9 @@
 	<restPath>${homeDir}/rest</restPath>
 	<templatePath>${homeDir}/templates/${template}</templatePath>
 	<uploadPath>${homeDir}/uploads</uploadPath>
+	<uploadDir>/uploads</uploadDir>
 	<defaultTemplate>default</defaultTemplate>
+	<lazyStartup>true</lazyStartup>
 
     <!--********************************************************************
                                  Actions 
@@ -60,6 +62,11 @@
     <action>
       <name>revision.list</name>
       <class>oop.controller.action.revision.ListAction</class>
+    </action>
+    <action>
+      <name>article.print</name>
+      <class>oop.controller.action.article.PrintAction</class>
+      <container>print.jsp</container>
     </action>
     
     
@@ -266,6 +273,9 @@
       <class>oop.controller.action.topic.ListAction</class>
     </action>
     <action>
+      <name>topic.tree</name>
+    </action>
+    <action>
       <name>topic.create</name>
       <class>oop.controller.action.topic.CreateAction</class>
       <!-- <requiredGroup>teacher</requiredGroup> -->
@@ -277,12 +287,40 @@
       <!-- <requiredGroup>teacher</requiredGroup> -->
       <loginRequired>true</loginRequired>
     </action>
+    <action>
+      <name>statistics.list</name>
+      <class>oop.controller.action.statistics.ListAction</class>
+    </action>
+    <action>
+      <name>statistics.topic.uncategorized</name>
+      <class>oop.controller.action.topic.ListUncategorizedAction</class>
+    </action>
+    <action>
+      <name>statistics.topic.unused</name>
+      <class>oop.controller.action.topic.ListUnusedAction</class>
+    </action>
+    <action>
+      <name>statistics.article.uncategorized</name>
+      <class>oop.controller.action.article.ListUncategorizedAction</class>
+    </action>
+        <action>
+      <name>statistics.article.locked</name>
+      <class>oop.controller.action.article.ListLockedAction</class>
+    </action>
+	<action>
+      <name>statistics.file.unused</name>
+      <class>oop.controller.action.file.ListUnusedAction</class>
+    </action>
     <!--********************************************************************
                            TextArticle Action
      ********************************************************************-->
 	<action>
       <name>textarticle.view</name>
-      <class>oop.controller.action.TextArticle.ViewAction</class>
+      <class>oop.controller.action.textart.ViewAction</class>
+    </action>
+    <action>
+      <name>solution.view</name>
+      <class>oop.controller.action.solution.ViewAction</class>
     </action>
     <action>
       <name>solution.create</name>
@@ -301,17 +339,27 @@
       <class>oop.controller.action.user.LogInAction</class>
     </action>
     <action>
+      <name>user.login.openid</name>
+      <class>oop.controller.action.openid.SendAuthenticationAction</class>
+    </action>
+    <action>
+      <name>user.login.openid.verification</name>
+      <class>oop.controller.action.openid.GetVerificationAction</class>
+    </action>
+    <action>
       <name>user.logout</name>
       <class>oop.controller.action.user.LogOutAction</class>
     </action>
     <action>
       <name>user.signup</name>
       <class>oop.controller.action.user.SignUpAction</class>
+      <disabled>true</disabled>
     </action>
     
     <action>
       <name>user.forgetpass</name>
       <class>oop.controller.action.user.ForgetPassAction</class>
+      <disabled>true</disabled>
     </action>
     
     <action>
@@ -319,10 +367,19 @@
       <class>oop.controller.action.user.PreferenceAction</class>
       <loginRequired>true</loginRequired>
     </action>
+    <action>
+      <name>uploadFile</name>
+      <class>oop.controller.action.file.UploadAction</class>
+      <loginRequired>true</loginRequired>
+    </action>
+
+    <action>
+      <name>uploadFile-Ajax</name>
+    </action>
     
     <action>
-      <name>user.edituser</name>
-      <class>oop.controller.action.user.EditUserAction</class>
+      <name>user.profileedit</name>
+      <class>oop.controller.action.user.ProfileEditAction</class>
       <loginRequired>true</loginRequired>
     </action>
     <action>
@@ -334,11 +391,27 @@
       <name>user.profile</name>
       <class>oop.controller.action.user.ProfileAction</class>
     </action>
+    
+    <action>
+        <name>admin/reindex</name>
+        <class>oop.controller.action.admin.RebuildIndexAction</class>
+        <requiredGroup>admin</requiredGroup>
+    </action>
     <action>
       <name>admin.home</name>
       <class>oop.controller.action.admin.HomeAction</class>
     </action>
 
+    <action>
+        <name>user.fblogin</name>
+        <class>oop.controller.action.user.FacebookLoginAction</class>
+    </action>
+    
+    <action>
+      <name>search</name>
+      <class>oop.controller.action.search.SearchAction</class>
+      <loginRequired>false</loginRequired>
+    </action>
 
     <!--********************************************************************
                                   API  
@@ -395,11 +468,24 @@
         <order>2</order>
     </module>
     <module>
+       <name>user-lib</name>
+        <title>Thư viện cá nhân</title>
+        <position>left</position>
+        <order>3</order>
+        <loginRequired>true</loginRequired>
+    </module>
+    <module>
        <name>session</name>
         <title>Đăng nhập</title>
         <class>oop.module.SessionModule</class>
         <position>top_right</position>
         <order>1</order>
+    </module>
+    <module>
+       <name>topic-button</name>
+        <title>Chủ đề</title>
+        <position>top_right</position>
+        <order>3</order>
     </module>
     <module>
        <name>comment</name>
@@ -491,7 +577,43 @@
         <articleType>oop.data.TextArticle</articleType>
         <articleType>oop.data.Test</articleType>
     </module>
+    <module>
+        <name>create-article</name>
+        <title>Tạo bài viết</title>
+        <position>top_right</position>
+        <order>2</order>
+    </module>
+    <module>
+        <name>search</name>
+        <title>Tìm kiếm</title>
+        <position>top_left</position>
+        <order>2</order>
+    </module>
+    
+    <module>
+        <name>todo</name>
+        <class>oop.module.personal.Todo</class>
+        <position>action-bottom</position>
+        <order>1</order>
+        <page>personal/todo.jsp</page>
+        <inAction>article.view</inAction>
+        <loginRequired>true</loginRequired>
+    </module>
+    <module>
+       <name>draft</name>
+        <title>Nháp</title>
+        <class>oop.module.DraftModule</class>
+        <position>bottom</position>
+        <order>1</order>
+    </module>
     <!-- 
+    <module>
+        <name>fbconnect</name>
+        <title>Đăng nhập bằng tài khoản FaceBook</title>
+        <position>top_right</position>
+        <order>3</order>
+        <page>auth/fbconnect.jsp</page>
+    </module>
     <module>
        <name>login</name>
         <title>Đăng nhập</title>

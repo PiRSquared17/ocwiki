@@ -6,7 +6,7 @@
 		extends="oop.data.BaseArticle" discriminator-value="BaseQuestion">
 		<property name="level" type="int" />
 		<list name="answers" table="BaseQuestionAnswer" lazy="true"
-			cascade="all" inverse="false">
+			cascade="all" inverse="false" fetch="subselect">
 			<key column="question_id" />
 			<index column="answer_index"></index>
 			<many-to-many column="answer_id" class="oop.data.Answer" />

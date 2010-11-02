@@ -12,11 +12,6 @@
 				<select id="namespaedit">
 					<option value="0" ${textedit.namespace.id==0 ? 'selected="selected"':''} >Chinh</option>
 					<option value="1" ${textedit.namespace.id==1 ? 'selected="selected"':''} >OCWIKI</option>
-					<option value="2" ${textedit.namespace.id==2 ? 'selected="selected"':''} >Chủ đề</option>
-					<option value="3" ${textedit.namespace.id==3 ? 'selected="selected"':''} >Câu hỏi</option>
-					<option value="4" ${textedit.namespace.id==4 ? 'selected="selected"':''} >Đề thi</option>
-					<option value="5" ${textedit.namespace.id==5 ? 'selected="selected"':''} >Cấu trúc đề</option>
-					<option value="6" ${textedit.namespace.id==6 ? 'selected="selected"':''} >Tập tin</option>
 				</select>
 			</td>
 		</tr>
@@ -37,15 +32,13 @@
 			</td>
 		</tr>
 	</table>
-	<div>
-		<input type="button" onclick="saveEdit()" name="Save" value="Save">
-	</div>
+	<br></br>
 </ocw:form>
 <script type="text/javascript">
 <!--
 	var textarticle=null;
 	
-	new Ajax.Request(restPath + '/TextArticle/'+ resourceId,
+	new Ajax.Request(restPath + '/texts/'+ resourceId,
 	{
 	  method:'get',
 	  requestHeaders : {
@@ -55,14 +48,21 @@
 	  onSuccess : function(transport) {
 		  textarticle = transport.responseJSON.result;
 	  },
-	  onFailure: function(){
-		  alert('Fail'); }
+	  onFailure: function(transport){
+		  DefaultTemplate.onFailure(transport); 
+	  }
 	});
 
-	function saveEdit(){
+	EditAction=Class.create();
+
+	EditAction.preview=function(){
+	}
+	
+	EditAction.save = function(){
 		textarticle.content={text : tinymce.get('edit_context').getContent()};
 		textarticle.namespace={id : $F('namespaedit')};
-		new Ajax.Request(restPath + '/TextArticle/'+ resourceId,
+		textarticle.name = $('edit_name').value;
+		new Ajax.Request(restPath + '/texts/'+ resourceId,
 			{
 				method: 'post',
 				requestHeaders:{
@@ -76,9 +76,11 @@
 			     }),
 			     evalJSON: true,
 			     onSuccess: function(transport) {
-			      },
-			      onFailure: function(error){
-				      alert('Loi:'+error.status); }
+					location.href = articlePath + '/' + resourceId;     
+			     },
+			     onFailure: function(transport){
+			    	  DefaultTemplate.onFailure(transport); 
+			     }
 			});
 	};
 //-->

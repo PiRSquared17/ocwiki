@@ -7,7 +7,7 @@
 
 <ocw:setJs var="testTemplate">
 		<li>
-			<a href="${config.articlePath}/\#{resource.id}">\#{resource.article.name}</a>
+			<a href="${config.articlePath}/\#{resource.id}">\#{resource.name}</a>
 		</li>
 </ocw:setJs>
 
@@ -16,27 +16,29 @@
 	var resourceID  = ${action.resource.id} ;
 	var relatedTestList;
 	var timeout;
-	new Ajax.Request(restPath + '/tests/related/'+ resourceID,
-			  {
-			    method:'get',
-				requestHeaders : {
-					Accept : 'application/json'
-				},
-				evalJSON : true,
-				onSuccess : function(transport) {
-					//alert(transport.responseText);
-					var i;
-					relatedTestList = transport.responseJSON.result;
-					for(i = 0 ; i < relatedTestList.length ; i++){
-						var test = relatedTestList[i];
-						$('relatedTestsContainer').insert(testTemplate.evaluate(test));
-					}
-				},
-			    onFailure: function()
-			    { 
-					openInfoDialog("resourceID không chính xác!");
-			    }
-			  });
+
+	Event.observe(window, 'load', function() {
+		new Ajax.Request(restPath + '/tests/related/'+ resourceID,
+				  {
+				    method:'get',
+					requestHeaders : {
+						Accept : 'application/json'
+					},
+					evalJSON : true,
+					onSuccess : function(transport) {
+						//alert(transport.responseText);
+						var i;
+						relatedTestList = transport.responseJSON.result;
+						for(i = 0 ; i < relatedTestList.length ; i++){
+							var test = relatedTestList[i];
+							$('relatedTestsContainer').insert(testTemplate.evaluate(test));
+						}
+					},
+				    onFailure: function(transport) {
+			            DefaultTemplate.onFailure(transport); 
+			        }
+				  });
+	});
 
 	function openInfoDialog(info) {
 		Dialog.info(info + "<br> Thông báo tự động đóng sau 2 giây ...",

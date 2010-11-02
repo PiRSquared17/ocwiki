@@ -33,8 +33,9 @@
 	var resource;
 	var resourceID = ${action.resource.id};
 	var timeout;
-	new Ajax.Request(restPath + '/resource/'+ resourceID,
-		{
+
+	function initEditTools() {
+		new Ajax.Request(restPath + '/resources/'+ resourceID, {
 			method:'get',
 			requestHeaders : 
 			{
@@ -45,11 +46,17 @@
 			{
 				resource = transport.responseJSON.result;
 			},
-			onFailure: function()
+			onFailure: function(transport)
 			{ 
-				openInfoDialog("resourceID không chính xác!");
+				var code = transport.responseJSON.code;
+				if (code == 'not found') {
+				    openInfoDialog("resourceID không chính xác!");
+				} else {
+					DefaultTemplate.onFailure(transport); 
+				}
 			}
 		});
+	}
 
 	function lockArticle()
 	{
@@ -62,8 +69,8 @@
 			cancel:function(win){}, 
 			ok: function(win) 
 			{	
-				resource = {accessibility : $F('lock_value')};
-				new Ajax.Request(restPath + '/resource/'+ resourceID,
+				resource.accessibility = $F('lock_value');
+				new Ajax.Request(restPath + '/resources/'+ resourceID,
 					{
 					method:'post',
 					contentType: 'application/json',
@@ -73,14 +80,19 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) 
-						{
-							resource = transport.responseJSON.result;
-							location.reload(true);
-						},
-					onFailure: function()
-						{
-							openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
+					{
+						resource = transport.responseJSON.result;
+						location.reload(true);
+					},
+					onFailure: function(transport)
+					{
+						var code = transport.responseJSON.code;
+						if (code == 'old version') {
+							  openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
+						} else {
+							DefaultTemplate.onFailure(transport); 
 						}
+					}
 				});
 			}
 		});
@@ -90,7 +102,7 @@
 	function unlockArticle()
 	{
 		resource = {accessibility : 'EVERYONE', status : 'NORMAL'};
-		new Ajax.Request(restPath + '/resource/'+ resourceID,
+		new Ajax.Request(restPath + '/resources/'+ resourceID,
 			{
 				method:'post',
 				contentType: 'application/json',
@@ -104,9 +116,14 @@
 					resource = transport.responseJSON.result;
 					location.reload(true);
 				},
-				onFailure: function()
-				{
-					openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
+				onFailure: function(transport)
+                {
+                    var code = transport.responseJSON.code;
+                    if (code == 'old version') {
+                          openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
+                    } else {
+                        DefaultTemplate.onFailure(transport); 
+                    }
 				}
 			});
 		return ;
@@ -128,4 +145,6 @@
 	 	else
 	  		Dialog.closeInfo();
 	}
+
+	Event.observe(window, 'load', initEditTools);
 </script>
