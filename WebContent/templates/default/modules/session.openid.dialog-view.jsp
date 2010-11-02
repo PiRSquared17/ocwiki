@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
+<form>
 <div id="openID-login-dialog" style="display:none;float: center;" align="center">
 	<span id="username" style="display: none">Username: <input type="text"id="username-input" name="username-input" width="100px" onkeyup="updateUsernameView();"></input></span>
 	<div>OpenID url: 
@@ -45,7 +46,7 @@
 				onmouseout="$('aol-btn').src='${templatePath}/images/openid-buttons/small/aol-no.png';"
 				onmousedown="$('aol-btn').src='${templatePath}/images/openid-buttons/small/aol-do.png';" 
 				onmouseup="$('aol-btn').src='${templatePath}/images/openid-buttons/small/aol-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(3);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/aol-no.png" name="aol-btn" id="aol-btn" alt="Aol." border="none"/>
 		
@@ -56,20 +57,20 @@
 				onmouseout="$('blogger-btn').src='${templatePath}/images/openid-buttons/small/blogger-no.png';"
 				onmousedown="$('blogger-btn').src='${templatePath}/images/openid-buttons/small/blogger-do.png';" 
 				onmouseup="$('blogger-btn').src='${templatePath}/images/openid-buttons/small/blogger-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(4);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/blogger-no.png" name="blogger-btn" id="blogger-btn" alt="Blogger" border="none"/>
 		
 			</a>
 		</td><td   width="89px" align="center">
 			<a href="#" 
-				onmouseover="$('claimID-btn').src='${templatePath}/images/openid-buttons/small/claimID-up.png';" 
-				onmouseout="$('claimID-btn').src='${templatePath}/images/openid-buttons/small/claimID-no.png';"
-				onmousedown="$('claimID-btn').src='${templatePath}/images/openid-buttons/small/claimID-do.png';" 
-				onmouseup="$('claimID-btn').src='${templatePath}/images/openid-buttons/small/claimID-up.png';" 
-				onclick="return false;">
+				onmouseover="$('chimp-btn').src='${templatePath}/images/openid-buttons/small/chimp-up.png';" 
+				onmouseout="$('chimp-btn').src='${templatePath}/images/openid-buttons/small/chimp-no.png';"
+				onmousedown="$('chimp-btn').src='${templatePath}/images/openid-buttons/small/chimp-do.png';" 
+				onmouseup="$('chimp-btn').src='${templatePath}/images/openid-buttons/small/chimp-up.png';" 
+				onclick="setDefaultURL(5);return false;">
 		
-				<img src="${templatePath}/images/openid-buttons/small/claimID-no.png" name="claimID-btn" id="claimID-btn" alt="claimID" border="none"/>
+				<img src="${templatePath}/images/openid-buttons/small/chimp-no.png" name="chimp-btn" id="chimp-btn" alt="chi.mp" border="none"/>
 		
 			</a>
 		</td><td width="89px" align="center">
@@ -78,7 +79,7 @@
 				onmouseout="$('flickr-btn').src='${templatePath}/images/openid-buttons/small/flickr-no.png';"
 				onmousedown="$('flickr-btn').src='${templatePath}/images/openid-buttons/small/flickr-do.png';" 
 				onmouseup="$('flickr-btn').src='${templatePath}/images/openid-buttons/small/flickr-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(6);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/flickr-no.png" name="flickr-btn" id="flickr-btn" alt="flickr" border="none"/>
 		
@@ -91,7 +92,7 @@
 				onmouseout="$('hyves-btn').src='${templatePath}/images/openid-buttons/small/hyves-no.png';"
 				onmousedown="$('hyves-btn').src='${templatePath}/images/openid-buttons/small/hyves-do.png';" 
 				onmouseup="$('hyves-btn').src='${templatePath}/images/openid-buttons/small/hyves-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(7);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/hyves-no.png" name="hyves-btn" id="hyves-btn" alt="Hyves" border="none"/>
 		
@@ -102,7 +103,7 @@
 				onmouseout="$('livejournal-btn').src='${templatePath}/images/openid-buttons/small/livejournal-no.png';"
 				onmousedown="$('livejournal-btn').src='${templatePath}/images/openid-buttons/small/livejournal-do.png';" 
 				onmouseup="$('livejournal-btn').src='${templatePath}/images/openid-buttons/small/livejournal-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(8);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/livejournal-no.png" name="livejournal-btn" id="livejournal-btn" alt="LiVEJOURNAL" border="none"/>
 		
@@ -113,7 +114,7 @@
 				onmouseout="$('microsoft-btn').src='${templatePath}/images/openid-buttons/small/microsoft-no.png';"
 				onmousedown="$('microsoft-btn').src='${templatePath}/images/openid-buttons/small/microsoft-do.png';" 
 				onmouseup="$('microsoft-btn').src='${templatePath}/images/openid-buttons/small/microsoft-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(9);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/microsoft-no.png" name="microsoft-btn" id="microsoft-btn" alt="Microsoft" border="none"/>
 		
@@ -124,7 +125,7 @@
 				onmouseout="$('myIDnet-btn').src='${templatePath}/images/openid-buttons/small/myIDnet-no.png';"
 				onmousedown="$('myIDnet-btn').src='${templatePath}/images/openid-buttons/small/myIDnet-do.png';" 
 				onmouseup="$('myIDnet-btn').src='${templatePath}/images/openid-buttons/small/myIDnet-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(10);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/myIDnet-no.png" name="myIDnet-btn" id="myIDnet-btn" alt="myID.net" border="none"/>
 		
@@ -137,7 +138,7 @@
 				onmouseout="$('myOpenID-btn').src='${templatePath}/images/openid-buttons/small/myOpenID-no.png';"
 				onmousedown="$('myOpenID-btn').src='${templatePath}/images/openid-buttons/small/myOpenID-do.png';" 
 				onmouseup="$('myOpenID-btn').src='${templatePath}/images/openid-buttons/small/myOpenID-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(11);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/myOpenID-no.png" name="myOpenID-btn" id="myOpenID-btn" alt="myOpenID" border="none"/>
 		
@@ -148,7 +149,7 @@
 				onmouseout="$('myspace-btn').src='${templatePath}/images/openid-buttons/small/myspace-no.png';"
 				onmousedown="$('myspace-btn').src='${templatePath}/images/openid-buttons/small/myspace-do.png';" 
 				onmouseup="$('myspace-btn').src='${templatePath}/images/openid-buttons/small/myspace-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(12);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/myspace-no.png" name="myspace-btn" id="myspace-btn" alt="myspace" border="none"/>
 		
@@ -159,7 +160,7 @@
 				onmouseout="$('steam-btn').src='${templatePath}/images/openid-buttons/small/steam-no.png';"
 				onmousedown="$('steam-btn').src='${templatePath}/images/openid-buttons/small/steam-do.png';" 
 				onmouseup="$('steam-btn').src='${templatePath}/images/openid-buttons/small/steam-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(13);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/steam-no.png" name="steam-btn" id="steam-btn" alt="STEAM" border="none"/>
 		
@@ -170,7 +171,7 @@
 				onmouseout="$('wordpress-btn').src='${templatePath}/images/openid-buttons/small/wordpress-no.png';"
 				onmousedown="$('wordpress-btn').src='${templatePath}/images/openid-buttons/small/wordpress-do.png';" 
 				onmouseup="$('wordpress-btn').src='${templatePath}/images/openid-buttons/small/wordpress-up.png';" 
-				onclick="return false;">
+				onclick="setDefaultURL(14);return false;">
 		
 				<img src="${templatePath}/images/openid-buttons/small/wordpress-no.png" name="wordpress-btn" id="wordpress-btn" alt="WORDPRESS" border="none"/>
 		
@@ -179,6 +180,8 @@
 	</tr>
 	</table>
 	</div>
+	
+	<span id="openID_loginError" style="color: red"></span>
 </div>
 
 <script type="text/javascript">
@@ -194,7 +197,68 @@ function setDefaultURL(value){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='<span id="provider-view">http://me.yahoo.com/</span><b><span id="username-view">username</span></b>';
+		$('default-url').innerHTML='http://<span id="provider-view">me.yahoo.com/</span><b><span id="username-view">username</span></b>';
+	}else if (value==3){
+		$('username').show();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://<span id="provider-view">openid.aol.com/</span><b><span id="username-view">username</span></b>';
+	}else if (value==4){
+		$('username').show();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.blogspot.com</span>';
+	}else if (value==5){
+		$('username').show();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.mp</span>';
+	}else if (value==6){
+		$('username').show();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://<span id="provider-view">flickr.com/photos/</span><b><span id="username-view">username</span></b>';
+	}else if (value==7){
+		$('username').show();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.hyves.nl</span>';
+	}else if (value==8){
+		$('username').show();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.livejournal.com</span>';
+	}else if (value==9){
+		$('username').hide();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://www.passport.net/';
+	}else if (value==10){
+		$('username').hide();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://myid.net';
+	}else if (value==11){
+		$('username').show();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.myopenid.com</span>';
+	}else if (value==12){
+		$('username').show();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://<span id="provider-view">myspace.com/</span><b><span id="username-view">username</span></b>';
+	}else if (value==13){
+		$('username').hide();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://steamcommunity.com/openid';
+	}else if (value==14){
+		$('username').show();
+		$('user-url').hide();
+		$('default-url').show();
+		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.wordpress.com</span>';
+	
 	}else{
 		$('user-url').show();
 		$('username').hide();
@@ -209,12 +273,22 @@ function updateUsernameView(){
 }
 
 function getURL(){
-	if (OIDP==1){
-		return ($('default-url').innerHTML);
-	}else if (OIDP==2){
-		return (($('provider-view').innerHTML)+($('username-view').innerHTML));
+	var result;
+	if ((OIDP==1)||(OIDP==9)||(OIDP==10)||(OIDP==13)){
+		result = ($('default-url').innerHTML);
+	}else if ((OIDP==2)||(OIDP==3)||(OIDP==6)||(OIDP==12)){
+		result = ('http://'+($('provider-view').innerHTML)+($('username-input').value));
+	}else if ((OIDP==4)||(OIDP==5)||(OIDP==7)||(OIDP==8)||(OIDP==11)||(OIDP==14)){
+		result = ('http://'+($('username-input').value)+($('provider-view').innerHTML));		
 	}else{
-		return ($('user-url-input').value);
+		result = ($('user-url-input').value);
 	}	
+	$('userSuppliedOpenIDUrl').value=result;
+	alert(result);
+	return result;
 }
 </script>
+<input id="userSuppliedOpenIDUrl" name="userSuppliedOpenIDUrl" type="hidden" value=""/>
+</form>
+
+<%-- hyves/myopenID co the hok can id --%>

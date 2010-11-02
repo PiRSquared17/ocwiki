@@ -178,13 +178,47 @@ function openOpenIDLoginDialog() {
 				id : "openID-loginDialog",
 				onOk :
 					function(win){ 
-						alert(getURL());
+						getURL();
+						openID_login();
 					}
 			}
 	); 
 }
 
+function openID_login(){
+	if ($F('userSuppliedOpenIDUrl') == '') {
+		$('openID_loginError').innerHTML = 'Bạn cần nhập đường dẫn OpenID';
+		return false;
+	}
+	new Ajax.Request(
+			restPath + '/login/openid',
+			{
+				method : 'get',
+				parameters : {
+					userSuppliedOpenIDUrl : $F(encodeURI('userSuppliedOpenIDUrl'))
+				},
+				requestHeaders : {
+					Accept : 'application/json'
+				},
+				evalJSON : true,
+				onSuccess : function(transport) {
+					location.href=transport.responseJSON.result;
+				},
+				onFailure : function(transport) {
+					var code = transport.responseJSON.code;
+					if (code == 'empty url') {
+						$('openID_loginError').innerHTML = 'Bạn cần nhập đường dẫn OpenID';
+					} else if (code == 'connection error') {
+						$('openID_loginError').innerHTML = 'Không thể kết nối tới nhà cung cấp OpenID';
+					} else {
+					    DefaultTemplate.onFailure(transport); 
+					}
+				}
+			});
+		return false;
+}
+
 	//-->
 </script>
 <%-- openID login Dialog --%>
-<jsp:include page="user.login.openid-view.jsp" flush="true"></jsp:include>
+<jsp:include page="session.openid.dialog-view.jsp" flush="true"></jsp:include>

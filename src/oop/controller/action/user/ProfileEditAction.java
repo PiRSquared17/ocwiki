@@ -83,7 +83,7 @@ public class ProfileEditAction extends AbstractAction {
 
 			if (!isEmpty(name)){
 				if (!checkUsername(name)) {
-					addError("nameError", "Username đã được dùng bởi người khác");
+					addError("nameError", "Tên người dùng không hợp lệ hoặc đã được dùng bởi người khác");
 				}
 			}
 			if (!checkEmail(email)) {
@@ -135,6 +135,9 @@ public class ProfileEditAction extends AbstractAction {
 
 	private boolean checkUsername(String name){
 		if (displayedUser.getId()!=UserDAO.fetchByUsername(name).getId()){
+			return false;
+		}
+		if (!UserUtils.isValidUserName(name)){
 			return false;
 		}
 		return true;
