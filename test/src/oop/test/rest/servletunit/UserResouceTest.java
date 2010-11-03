@@ -2,6 +2,8 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
+import javax.ws.rs.core.MediaType;
+
 
 import oop.conf.Config;
 
@@ -21,8 +23,8 @@ public class UserResouceTest extends AbstractResourceTest {
 	@Test
 	public void testRetrieve() throws IOException, SAXException {
 		ServletUnitClient sc = getServletRunner().newClient();
-		WebRequest request = new GetMethodWebRequest(
-				Config.get().getRestPath() + "/users/1");
+		WebRequest request = new GetMethodWebRequest(getRestPath("/users/1"));
+		request.setHeaderField("Accept", MediaType.APPLICATION_XML);
 		WebResponse response = sc.getResponse(request);
 
 		JsonNode tree = parseJSON(response);
@@ -37,13 +39,14 @@ public class UserResouceTest extends AbstractResourceTest {
 		String blockExpiredDate = "2010-10-25T00:47:13+07:00";
 
 		ServletUnitClient sc = getServletRunner().newClient();
-		String url = Config.get().getRestPath() + "/users/1";
-		WebResponse response = sc.getResponse(url);
+		WebResponse response = sc.getResponse(createRequest("/users/1"));
 		ObjectNode root = (ObjectNode) parseJSON(response).get("result");
 		
 		root.put("blocked", true);
 		root.put("blockExpiredDate", blockExpiredDate);
-		JsonBodyPostWebRequest request = new JsonBodyPostWebRequest(url, root.toString());
+		JsonBodyPostWebRequest request = new JsonBodyPostWebRequest(
+				getRestPath("/users/1"), root.toString());
+		request.setHeaderField("Accept", MediaType.APPLICATION_XML);
 		response = sc.getResponse(request);
 		
 		root = (ObjectNode) parseJSON(response).get("result");

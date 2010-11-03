@@ -12,7 +12,7 @@ var DefaultTemplate = {
 
 	onFailure: function(transport) {
         if (transport.responseJSON.code == 'login required') {
-            promptLogin();
+            this.promptLogin();
         } else {
             alert('Có lỗi xảy ra, xin lỗi vì sự bất tiện!');
         }  

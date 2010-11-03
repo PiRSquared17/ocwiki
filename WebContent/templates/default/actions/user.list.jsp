@@ -21,7 +21,7 @@
 		</tr>
 		<c:forEach items="${users}" var="user">
 		<tr>
-			<td>linh tinh <ocw:userLink user="${user}"></ocw:userLink></td>
+			<td><ocw:userLink user="${user}"></ocw:userLink></td>
 			<td>${user.group}</td>
 			<td>${u:formatDateTime(user.registerDate)}</td>
 		</tr>
