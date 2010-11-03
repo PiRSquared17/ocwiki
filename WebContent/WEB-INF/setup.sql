@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 03, 2010 at 02:21 PM
+-- Generation Time: Nov 03, 2010 at 11:44 PM
 -- Server version: 5.1.49
 -- PHP Version: 5.3.3-1ubuntu9.1
 
@@ -3028,7 +3028,7 @@ INSERT INTO `Namespace` (`id`, `name`) VALUES
 CREATE TABLE IF NOT EXISTS `OpenIDAccount` (
   `url` varchar(200) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `user` bigint(20) NOT NULL,
-  `provider_url` varchar(100) CHARACTER SET armscii8 COLLATE armscii8_bin NOT NULL,
+  `provider_url` varchar(100) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   PRIMARY KEY (`url`),
   KEY `user` (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;

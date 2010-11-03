@@ -2,6 +2,7 @@ package oop.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,12 +165,18 @@ public class ActionController extends HttpServlet {
 			final Action action) {
 		final User user = SessionUtils.getUser(request.getSession());
 		final boolean loggedIn = (user != null);
-		return LazyMap.decorate(new HashMap(), new Transformer() {
+		return LazyMap.decorate(new HashMap<String, List<Module>>(), 
+				new Transformer() {
 
 			@Override
 			public Object transform(Object position) {
+				List<ModuleDescriptor> moduleDescriptors = 
+					Config.get().getModuleDescriptors((String)position);
+				if (Utils.isEmpty(moduleDescriptors)) {
+					return Collections.EMPTY_LIST;
+				}
 				List<Module> modules = new ArrayList<Module>();
-				for (ModuleDescriptor descriptor : Config.get().getModuleDescriptors((String)position)) {
+				for (ModuleDescriptor descriptor : moduleDescriptors) {
 					if (!descriptor.isEnabled()) {
 						continue;
 					}
