@@ -202,7 +202,8 @@ function openID_login(){
 				},
 				evalJSON : true,
 				onSuccess : function(transport) {
-					location.href=transport.responseJSON.result;
+					alert(transport.responseJSON.result.text);
+					location.href=transport.responseJSON.result.text;
 				},
 				onFailure : function(transport) {
 					var code = transport.responseJSON.code;

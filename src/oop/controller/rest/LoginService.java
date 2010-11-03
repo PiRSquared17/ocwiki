@@ -27,6 +27,7 @@ import oop.controller.action.ActionUtil;
 import oop.controller.rest.util.ErrorResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.FacebookAccount;
+import oop.data.Text;
 import oop.data.User;
 import oop.db.dao.FacebookAccountDAO;
 import oop.db.dao.UserDAO;
@@ -84,12 +85,12 @@ public class LoginService extends AbstractResource {
 	
 	@Path("/openid")
 	@GET
-	public ObjectResult<String> openIDLogin(@QueryParam("userSuppliedOpenIDUrl") String userSuppliedString) 
+	public ObjectResult<Text> openIDLogin(@QueryParam("userSuppliedOpenIDUrl") String userSuppliedString) 
 		throws BlockedUserException, ConsumerException, IOException {
 		
 		manager = new ConsumerManager();
 		if (userSuppliedString!=null){
-			return new ObjectResult<String>(authRequest(userSuppliedString));
+			return new ObjectResult<Text>(new Text(authRequest(userSuppliedString)));
 		}else{
 			throw new WebApplicationException(Response.status(
 					Status.BAD_REQUEST).entity(

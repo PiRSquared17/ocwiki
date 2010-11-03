@@ -44,9 +44,7 @@ public class GetVerificationAction extends AbstractAction {
 
 		}else{
 			throw new ActionException("Đăng nhập bằng openID thất bại: Có lỗi xảy ra với việc xác thực danh tính.");
-		}
-
-		
+		}		
 	}
 
 	public ConsumerManager getManager() {
@@ -76,6 +74,7 @@ public class GetVerificationAction extends AbstractAction {
 			if (verified != null) {
 				User newUser = new User();
 				String userUrl = verified.toString();
+				String providerUrl = "";
 				newUser.setName(null);
 				
 				OpenIDAccount found = OpenIDAccountDAO.fetchByUrl(userUrl);
@@ -110,13 +109,16 @@ public class GetVerificationAction extends AbstractAction {
 			            }               
 		            }
 		       		        
-		            if (isEmpty(newUser.getFullname())) newUser.setLastName("người dùng"+newUser.getId());
+		            if (isEmpty(newUser.getFullname())) newUser.setFirstName("người dùng"+newUser.getId());
 		            
-		            OpenIDAccount newOpenIDAccount = new OpenIDAccount(userUrl, newUser);
-		            OpenIDAccountDAO.persist(newOpenIDAccount);
+		            getSession().setAttribute("newOIDAcc", new OpenIDAccount(userUrl,providerUrl,newUser));
+		           
+		            //OpenIDAccount newOpenIDAccount = new OpenIDAccount(userUrl, newUser);
+		            //OpenIDAccountDAO.persist(newOpenIDAccount);
 		            
-		            SessionUtils.login(getSession(), newUser); 
-		            setRedirect(ActionUtil.getActionURL("user.profileedit","user="+userUrl));
+		            //SessionUtils.login(getSession(), newUser); 
+		            
+		            setRedirect(ActionUtil.getActionURL("user.profile.complete"));
 				}
 
 				return verified; // success

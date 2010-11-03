@@ -226,7 +226,6 @@
 	
 <h2>Thay đổi thông tin của ${action.displayedUser.fullname}</h2>
 <ocw:form action="user.profileedit" id="form" method="post">
-<input type="hidden" name="action" value="Sign Up" >
 <div><ocw:error code="updateError"></ocw:error></div>
 <c:if test="${(action.success == true)}">
 	<div class="notification"><font color ="green">  Thay đổi thành công! </font></div>
