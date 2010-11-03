@@ -36,15 +36,15 @@ public class FileResource extends AbstractResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ObjectResult<FileBean> update(@PathParam("id") long resourceId,
 			RevisionBean<FileBean> data) throws Exception{
-		Resource<File> resource = getResourceSafe(resourceId,
-				File.class);
+		Resource<File> resource = getResourceSafe(resourceId,File.class);
 		if (resource.getStatus() != Status.NEW) {
 			validate(data.getArticle());
 		}
-		WebServiceUtils.assertValid(resource.getArticle().getId() == data
-				.getArticle().getId(), "old version");
-
-		File file = FileMapper.get().toEntity(data.getArticle());
+		WebServiceUtils.assertValid(resource.getArticle().getId() == data.getArticle().getId() + 1, "old version");		
+		
+		File file = FileMapper.get().toEntity(data.getArticle());	
+		file.setFilename(resource.getArticle().getFilename());
+		WebServiceUtils.assertValid(!file.getFilename().equals(""), "not upload yet");
 		file.setId(0); // coi nó như đối tượng mới
 		ArticleDAO.persist(file);
 
