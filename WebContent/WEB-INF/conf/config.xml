@@ -10,6 +10,7 @@
 	<uploadDir>/uploads</uploadDir>
 	<defaultTemplate>default</defaultTemplate>
 	<lazyStartup>true</lazyStartup>
+	<logoPath>ocw_logo_tiny.png</logoPath>
 
     <!--********************************************************************
                                  Actions 
@@ -479,13 +480,13 @@
         <title>Đăng nhập</title>
         <class>oop.module.SessionModule</class>
         <position>top_right</position>
-        <order>1</order>
+        <order>3</order>
     </module>
     <module>
        <name>topic-button</name>
         <title>Chủ đề</title>
         <position>top_right</position>
-        <order>3</order>
+        <order>1</order>
     </module>
     <module>
        <name>comment</name>
@@ -586,8 +587,8 @@
     <module>
         <name>search</name>
         <title>Tìm kiếm</title>
-        <position>top_left</position>
-        <order>2</order>
+        <position>top_right</position>
+        <order>0</order>
     </module>
     
     <module>

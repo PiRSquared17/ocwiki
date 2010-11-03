@@ -19,3 +19,35 @@ var DefaultTemplate = {
 	}
 
 };
+
+var TextboxDefaultHandler = Class.create( {
+	initialize: function (elementOrId, defaultValue) {
+		this.text = $(elementOrId);
+		this.defaultValue = defaultValue;
+		this.appendDefaultValue();
+		
+		me = this;
+		Event.observe(this.text, 'focus', function() {
+			me.text.style.color = 'black';
+			if (me.text.value == me.defaultValue) {
+				me.text.value = '';
+			}
+		});
+		Event.observe(this.text, 'blur', function() {
+			me.appendDefaultValue();
+		});
+	},
+	appendDefaultValue: function() {
+		if (this.text.value == '' || this.text.value == this.defaultValue) {
+			this.text.style.color = '#777777';
+			this.text.value = this.defaultValue;
+		}
+	}
+});
+
+var AccordionHandler = Class.create({
+	initialize: function(elementOrId) {
+		this.container = $(elementOrId);
+		this.title = 
+	}
+});

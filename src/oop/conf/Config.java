@@ -15,6 +15,7 @@ public class Config implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private String logoPath = "";
 	private boolean lazyStartup = false;
 	private String databaseHost = "localhost";
 	private String databasePort = "3306";
@@ -368,6 +369,17 @@ public class Config implements Serializable {
 
 	public boolean isLazyStartup() {
 		return lazyStartup;
+	}
+
+	public void setLogoPath(String logoPath) {
+		this.logoPath = logoPath;
+	}
+
+	public String getLogoPath() {
+		if (!logoPath.startsWith("/")) {
+			return "/images/" + logoPath;
+		}
+		return logoPath;
 	}
 	
 }
