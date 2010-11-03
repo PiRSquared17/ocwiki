@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import oop.conf.Config;
@@ -16,8 +17,10 @@ import oop.controller.rest.AbstractResource;
 import oop.data.File;
 import oop.data.Namespace;
 import oop.data.Resource;
+import oop.data.Status;
 import oop.db.dao.FileDAO;
 import oop.db.dao.NamespaceDAO;
+import oop.db.dao.ResourceDAO;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadBase;
@@ -31,13 +34,15 @@ public class UploadService extends AbstractResource {
 
 	@POST
 	@Path("/{id: \\d+}")
-	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_OCTET_STREAM})
+	@Consumes( { MediaType.MULTIPART_FORM_DATA,
+			MediaType.APPLICATION_OCTET_STREAM })
 	public JSONObject upload(@PathParam("id") long id) throws Exception {
 		Resource<File> resource = FileDAO.fetchById(id);
-		String newFileName;
+		String newFileName = "";
 		if (getRequest().getContentType().equals(MediaType.MULTIPART_FORM_DATA)) {
 			newFileName = uploadMultipart();
-		} else if (getRequest().getContentType().equals(MediaType.APPLICATION_OCTET_STREAM)) {
+		} else if (getRequest().getContentType().equals(
+				MediaType.APPLICATION_OCTET_STREAM)) {
 			newFileName = uploadOctetStream();
 		} else {
 			return new JSONObject().put("error", "unsupported media type");
@@ -45,7 +50,10 @@ public class UploadService extends AbstractResource {
 		File newFile = resource.getArticle().copy();
 		newFile.setFilename(newFileName);
 		saveNewRevision(resource, newFile, "", false);
+		resource.setStatus(Status.NORMAL);
+		ResourceDAO.persist(resource);
 		return new JSONObject().put("success", true);
+
 	}
 
 	private String uploadOctetStream() throws IOException {
@@ -70,8 +78,8 @@ public class UploadService extends AbstractResource {
 	//
 
 	protected String uploadMultipart() throws Exception {
-		java.io.File tempDir = new java.io.File(
-				System.getProperty("java.io.tmpdir"));
+		java.io.File tempDir = new java.io.File(System
+				.getProperty("java.io.tmpdir"));
 		String realPath = getServletContext().getRealPath(
 				Config.get().getUploadDir());
 		java.io.File destDir = new java.io.File(realPath);
@@ -90,8 +98,8 @@ public class UploadService extends AbstractResource {
 			while (itr.hasNext()) {
 				FileItem item = (FileItem) itr.next();
 				if (!item.isFormField() && check(item)) {
-					java.io.File uploadedFile = new java.io.File(destDir,
-							item.getName());
+					java.io.File uploadedFile = new java.io.File(destDir, item
+							.getName());
 					item.write(uploadedFile);
 					oop.data.File file = new oop.data.File();
 					file.setFilename(uploadedFile.getName());
@@ -121,13 +129,13 @@ public class UploadService extends AbstractResource {
 		long fileSize = file.getSize();
 		if ((fileExt.equalsIgnoreCase(".png")
 				|| fileExt.equalsIgnoreCase(".jpg")
-				|| fileExt.equalsIgnoreCase(".gif")
-				|| fileExt.equalsIgnoreCase(".svg"))
+				|| fileExt.equalsIgnoreCase(".gif") || fileExt
+				.equalsIgnoreCase(".svg"))
 				&& fileSize <= 10 * 1024 * 1024)
 			return true;
 		else {
 			throw invalidParam("file", "invalid format");
 		}
 	}
-	
+
 }

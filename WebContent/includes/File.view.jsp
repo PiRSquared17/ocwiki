@@ -12,7 +12,7 @@
 <tr>
 <th style="background: #ccf; text-align: right; vertical-align: top; padding-right: 0.4em; width: 15%;" id="fileinfotpl_desc">Tên tệp tin</th>
 <td>
-<p>${file.filename}</p>
+<p>${file.name}</p>
 </td>
 </tr>
 <tr>
