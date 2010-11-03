@@ -192,7 +192,7 @@ function setDefaultURL(value){
 		$('username').hide();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://google.com/accounts/o8/id';
+		$('default-url').innerHTML='https://google.com/accounts/o8/id';
 	}else if (value==2){
 		$('username').show();
 		$('user-url').hide();

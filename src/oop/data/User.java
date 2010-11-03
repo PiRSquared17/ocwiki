@@ -66,6 +66,20 @@ public class User implements Serializable, Entity, HasVersion {
 		this.avatar = avatar;
 		this.registerDate = registerDate;
 	}
+	
+	public User(User anotherUser) {
+		super();
+		this.id = anotherUser.getId();
+		this.version = anotherUser.getVersion();
+		this.email = anotherUser.getEmail();
+		this.group = anotherUser.getGroup();
+		this.name = anotherUser.getName();
+		this.nameOrdering = anotherUser.getNameOrdering();
+		this.preferences = anotherUser.getPreferences();
+		this.firstName = anotherUser.getFirstName();
+		this.middleName = anotherUser.getMiddleName();
+		this.lastName = anotherUser.getLastName();
+	}
 
 	public String getName() {
 		return name;
