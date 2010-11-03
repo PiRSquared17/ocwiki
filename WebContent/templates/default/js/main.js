@@ -48,6 +48,6 @@ var TextboxDefaultHandler = Class.create( {
 var AccordionHandler = Class.create({
 	initialize: function(elementOrId) {
 		this.container = $(elementOrId);
-		this.title = 
+		this.title = '';
 	}
 });
