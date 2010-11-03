@@ -32,12 +32,22 @@
 <div><ocw:error code="newProfileError"></ocw:error></div>
 
 <fieldset>
-<legend>Thông tin</legend>	
+<legend>Đăng nhập</legend>	
 	<fieldset>
-	<legend></legend>
-		<c:if test="${action.usedEmail}"><div>
-			Có thể bạn đã từng sử dụng OCWiki với email ${action.newOpenIDAcc.user.email} bạn hãy <ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value=""></ocw:param><ocw:param name="connect" value="true"></ocw:param> liên kết với tài khoản này</ocw:actionLink> hoặc <a href="#" onclick="$('email-edit-input').focus;return false;">thay đổi email</a>.
+	<legend>Hoàn tất thông tin cá nhân</legend>
+		<c:if test="${action.usedEmail}"><div style="color: green">
+			Có thể bạn đã từng sử dụng OCWiki với email ${action.newOpenIDAcc.user.email} bạn hãy 
+			<ocw:actionLink name="user.login.openid">
+				<ocw:param name="openIDUrl" value="${u:urlEncode(action.providerUrl)}"></ocw:param>
+				<ocw:param name="connect" value="true"></ocw:param> 
+				liên kết với tài khoản này
+			</ocw:actionLink> 
+			hoặc 
+			<a href="#" onclick="$('email-edit-input').focus();$('email-edit-input').select();return false;">
+				thay đổi email
+			</a>.
 		</div></c:if>
+		<div><ocw:error code="verifyError"></ocw:error></div>
 		<div><ocw:error code="fullnameError"></ocw:error></div>
 		<table>
 			<tr>
@@ -91,4 +101,5 @@
 		</p>
 	</div>
 </fieldset>
+${action.providerUrl}
 </ocw:form>

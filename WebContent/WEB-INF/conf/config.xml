@@ -349,7 +349,6 @@
     <action>
       <name>user.profile.complete</name>
       <class>oop.controller.action.user.CompleteProfileAction</class>
-      <disabled>true</disabled>
     </action>
     <action>
       <name>user.logout</name>

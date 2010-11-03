@@ -12,6 +12,8 @@ import org.openid4java.message.ax.AxMessage;
 import org.openid4java.message.ax.FetchRequest;
 import org.openid4java.message.ax.FetchResponse;
 
+import com.oreilly.servlet.ParameterNotFoundException;
+
 import oop.conf.Config;
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
@@ -26,14 +28,28 @@ public class SendAuthenticationAction extends AbstractAction {
 	private ConsumerManager manager;
     final private String yahooEndpoint = "https://me.yahoo.com"; 
     final private String googleEndpoint = "https://www.google.com"; 
+    private boolean connect = false;
 
 	@Override
 	public void performImpl() throws Exception {
 		title("Đăng nhập sử dụng OpenID");
 		manager = new ConsumerManager();
+		try {
+			connect = getParams().getBoolean("connect");
+			getSession().setAttribute("connect", connect);
+		} catch (ParameterNotFoundException e) {
+		}
 		String userSuppliedString = getParams().get("openIDUrl");
+		getSession().setAttribute("providerUrl", userSuppliedString);
 		if (userSuppliedString!=null){
 			authRequest(userSuppliedString);
+		}else{
+			if (connect==true){
+				setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
+				getSession().removeAttribute("connect");
+			}else{
+				addError("UserUrl", "Bạn chưa nhập đường dẫn.");
+			}
 		}
 	}
 
@@ -89,7 +105,12 @@ public class SendAuthenticationAction extends AbstractAction {
 			getSession().setAttribute("OIDManager", manager);
 			
 		} catch (OpenIDException e) {
-			throw new ActionException(e.getMessage());
+			if (connect==true){
+				setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
+				getSession().removeAttribute("connect");
+			}else{
+				throw new ActionException(e.getMessage());
+			}
 		}
 		return null;
 	}	
