@@ -32,7 +32,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	@IndexedEmbedded
 	private User author;
 	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
-	private Status status = Status.NORMAL;
+	private Status status = Status.NEW;
 	private int version = 0;
 //	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
 	private Class<T> type;

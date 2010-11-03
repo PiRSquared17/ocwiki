@@ -38,7 +38,8 @@
     function createUploader(){            
         var uploader = new qq.FileUploader({
             element: document.getElementById('file-uploader-demo1'),
-            action: '${ocw:restUrl("upload/123")}',
+            action: restPath + '/upload/' + resourceId,
+            //'${ocw:restUrl("upload/123")}',
             onProgress: function(id, fileName, loaded, total){$('progress').innerHTML = loaded;},
             onComplete: function(id, fileName, responseJSON){},
             onCancel: function(id, fileName){},
@@ -131,7 +132,7 @@
 	EditAction.save = function(){
 		// gửi dữ liệu lên server
 		
-		file.filename = tinymce.get('name').getContent();
+		file.name = tinymce.get('name').getContent();
 		file.originalSource = tinymce.get('fileSource').getContent();
 		file.author = tinymce.get('author').getContent();
 		file.additionalInfo = tinymce.get('additionalInfo').getContent();
@@ -162,7 +163,11 @@
 	                    if (code == 'old version') {
 	                          openInfoDialog("Có người đã sửa file này trước bạn, hãy tải lại trang!");
 	                    } else {
-	                        DefaultTemplate.onFailure(transport); 
+		                    if(code == 'not upload yet')
+		                    	openInfoDialog("Bạn phải tải tệp tin lên trước khi lưu!");
+		                    else{
+	                        	DefaultTemplate.onFailure(transport); 
+		                    }
 	                    }
 					}
 				   });
