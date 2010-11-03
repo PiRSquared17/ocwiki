@@ -30,21 +30,40 @@ import java.util.List;
 import java.io.IOException;
 import org.apache.commons.lang.StringUtils;
 
+import com.oreilly.servlet.ParameterNotFoundException;
+
 @SuppressWarnings("unused")
 public class GetVerificationAction extends AbstractAction {
 
 	private ConsumerManager manager;
-
+	private Boolean connect = false;
 	@Override
 	public void performImpl() throws Exception {
 		title("Đăng nhập sử dụng OpenID");
-		manager = (ConsumerManager) getSession().getAttribute("OIDManager");
-		Identifier verified = verifyResponse();
-		if (verified!=null){
-
+		if (getSession().getAttribute("OIDManager")!=null){
+			manager = (ConsumerManager) getSession().getAttribute("OIDManager");
+			if (getSession().getAttribute("connect")!=null){
+				connect=(Boolean) getSession().getAttribute("connect");
+			}
+			Identifier verified = verifyResponse();
+			if (verified!=null){
+	
+			}else{
+				if (connect.booleanValue()==true){
+					setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
+					getSession().removeAttribute("connect");
+				}else{
+					throw new ActionException("Đăng nhập bằng openID thất bại: Có lỗi xảy ra với việc xác thực danh tính.");
+				}
+			}
 		}else{
-			throw new ActionException("Đăng nhập bằng openID thất bại: Có lỗi xảy ra với việc xác thực danh tính.");
-		}		
+			if (connect.booleanValue()==true){
+				setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
+				getSession().removeAttribute("connect");
+			}else{
+				throw new ActionException("Đăng nhập bằng openID thất bại: Lỗi phiên làm việc. Bạn hãy thực hiện lại.");
+			}
+		}
 	}
 
 	public ConsumerManager getManager() {
@@ -53,6 +72,7 @@ public class GetVerificationAction extends AbstractAction {
 
 
 	public Identifier verifyResponse() throws BlockedUserException {
+
 		try {
 			ParameterList response = new ParameterList(getRequest()
 					.getParameterMap());
@@ -72,16 +92,50 @@ public class GetVerificationAction extends AbstractAction {
 
 			Identifier verified = verification.getVerifiedId();
 			if (verified != null) {
-				User newUser = new User();
 				String userUrl = verified.toString();
-				String providerUrl = "";
-				newUser.setName(null);
-				
+				String providerUrl = (String) getSession().getAttribute("providerUrl");
+
 				OpenIDAccount found = OpenIDAccountDAO.fetchByUrl(userUrl);
 				if (found!=null){
-					SessionUtils.login(getSession(), found.getUser()); 
-					setRedirect(Config.get().getHomeDir());
-				}else{				
+					
+					if (connect.booleanValue()==true){
+						User newUser;
+						OpenIDAccount newOpenIDAcc;
+					
+						if ((getSession().getAttribute("newOIDAcc")==null)||(getSession().getAttribute("newUser")==null)){
+							setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
+						}else{							
+							newUser = new User((User)getSession().getAttribute("newUser"));
+							newOpenIDAcc = new OpenIDAccount((OpenIDAccount) getSession().getAttribute("newOIDAcc"));
+							
+							if (!isEmpty(newUser.getLastName())){
+								found.getUser().setLastName(newUser.getLastName());
+							}
+							if (!isEmpty(newUser.getFirstName())){
+								found.getUser().setFirstName(newUser.getFirstName());
+							}
+							found.getUser().setNameOrdering(newUser.getNameOrdering());
+							
+							newOpenIDAcc.setUser(found.getUser());
+							try{
+								OpenIDAccountDAO.persist(newOpenIDAcc);
+								SessionUtils.login(getSession(), newOpenIDAcc.getUser());
+								setRedirect(ActionUtil.getActionURL("user.profileedit","mergeUser=true"));
+							}catch (Exception e) {
+								setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
+								//throw new ActionException(e.getMessage());
+							}
+							
+						}						
+						getSession().removeAttribute("connect");
+						
+					}else{
+						SessionUtils.login(getSession(), found.getUser()); 
+						setRedirect(Config.get().getHomeDir());
+					}
+				}else{	
+					User newUser = new User();
+					newUser.setName(null);
 	                AuthSuccess authSuccess = (AuthSuccess) verification.getAuthResponse();
 	
 		            if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX))
@@ -112,6 +166,7 @@ public class GetVerificationAction extends AbstractAction {
 		            if (isEmpty(newUser.getFullname())) newUser.setFirstName("người dùng"+newUser.getId());
 		            
 		            getSession().setAttribute("newOIDAcc", new OpenIDAccount(userUrl,providerUrl,newUser));
+		            getSession().setAttribute("newUser", newUser);
 		           
 		            //OpenIDAccount newOpenIDAccount = new OpenIDAccount(userUrl, newUser);
 		            //OpenIDAccountDAO.persist(newOpenIDAccount);
@@ -124,7 +179,12 @@ public class GetVerificationAction extends AbstractAction {
 				return verified; // success
 			}
 		} catch (OpenIDException e) {
-			throw new ActionException(e.getMessage());
+			if (connect.booleanValue()==true){
+				setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
+				getSession().removeAttribute("connect");
+			}else{
+				throw new ActionException(e.getMessage());
+			}
 		}
 		return null;
 	}

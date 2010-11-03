@@ -230,6 +230,9 @@
 <c:if test="${(action.success == true)}">
 	<div class="notification"><font color ="green">  Thay đổi thành công! </font></div>
 </c:if>
+<c:if test="${(action.mergeSuccess == true)}">
+	<div class="notification"><font color ="green">  Liên kết thành công! Một số thông tin đã được cập nhật bạn có thể thay đổi lại.</font></div>
+</c:if>
 <br />
   
 <fieldset>

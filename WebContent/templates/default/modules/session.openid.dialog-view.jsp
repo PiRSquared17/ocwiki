@@ -197,37 +197,37 @@ function setDefaultURL(value){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<span id="provider-view">me.yahoo.com/</span><b><span id="username-view">username</span></b>';
+		$('default-url').innerHTML='http://<span id="provider-view">me.yahoo.com</span><b><span id="username-view">/username</span></b>';
 	}else if (value==3){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<span id="provider-view">openid.aol.com/</span><b><span id="username-view">username</span></b>';
+		$('default-url').innerHTML='http://<span id="provider-view">openid.aol.com</span><b><span id="username-view">/username</span></b>';
 	}else if (value==4){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.blogspot.com</span>';
+		$('default-url').innerHTML='http://<b><span id="username-view">username.</span></b><span id="provider-view">blogspot.com</span>';
 	}else if (value==5){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.mp</span>';
+		$('default-url').innerHTML='http://<b><span id="username-view">username.</span></b><span id="provider-view">mp</span>';
 	}else if (value==6){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<span id="provider-view">flickr.com/photos/</span><b><span id="username-view">username</span></b>';
+		$('default-url').innerHTML='http://<span id="provider-view">flickr.com/photos</span><b><span id="username-view">/username</span></b>';
 	}else if (value==7){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.hyves.nl</span>';
+		$('default-url').innerHTML='http://<b><span id="username-view">username.</span></b><span id="provider-view">hyves.nl</span>';
 	}else if (value==8){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.livejournal.com</span>';
+		$('default-url').innerHTML='http://<b><span id="username-view">username.</span></b><span id="provider-view">livejournal.com</span>';
 	}else if (value==9){
 		$('username').hide();
 		$('user-url').hide();
@@ -242,12 +242,12 @@ function setDefaultURL(value){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.myopenid.com</span>';
+		$('default-url').innerHTML='http://<b><span id="username-view">username.</span></b><span id="provider-view">myopenid.com</span>';
 	}else if (value==12){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<span id="provider-view">myspace.com/</span><b><span id="username-view">username</span></b>';
+		$('default-url').innerHTML='http://<span id="provider-view">myspace.com</span><b><span id="username-view">/username</span></b>';
 	}else if (value==13){
 		$('username').hide();
 		$('user-url').hide();
@@ -257,7 +257,7 @@ function setDefaultURL(value){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<b><span id="username-view">username</span></b><span id="provider-view">.wordpress.com</span>';
+		$('default-url').innerHTML='http://<b><span id="username-view">username.</span></b><span id="provider-view">wordpress.com</span>';
 	
 	}else{
 		$('user-url').show();
@@ -267,8 +267,13 @@ function setDefaultURL(value){
 }
 
 function updateUsernameView(){
-
-	$('username-view').innerHTML=$('username-input').value;
+	if ((OIDP==2)||(OIDP==3)||(OIDP==6)||(OIDP==12)){
+		$('username-view').innerHTML="/"+$('username-input').value;;
+	}else if ((OIDP==4)||(OIDP==5)||(OIDP==7)||(OIDP==8)||(OIDP==11)||(OIDP==14)){
+		$('username-view').innerHTML=$('username-input').value+".";		
+	}else{
+		$('username-view').innerHTML=$('username-input').value;
+	}
 	$('username').focus;
 }
 
@@ -277,9 +282,17 @@ function getURL(){
 	if ((OIDP==1)||(OIDP==9)||(OIDP==10)||(OIDP==13)){
 		result = ($('default-url').innerHTML);
 	}else if ((OIDP==2)||(OIDP==3)||(OIDP==6)||(OIDP==12)){
-		result = ('http://'+($('provider-view').innerHTML)+($('username-input').value));
+		if (($('username-input').value==null) || ($('username-input').value=="")){
+			result = ('http://'+($('provider-view').innerHTML));
+		}else{
+			result = ('http://'+($('provider-view').innerHTML)+"/"+($('username-input').value));
+		}
 	}else if ((OIDP==4)||(OIDP==5)||(OIDP==7)||(OIDP==8)||(OIDP==11)||(OIDP==14)){
-		result = ('http://'+($('username-input').value)+($('provider-view').innerHTML));		
+		if (($('username-input').value==null) || ($('username-input').value=="")){
+			result = ('http://'+($('provider-view').innerHTML));
+		}else{
+			result = ('http://'+($('username-input').value)+"."+($('provider-view').innerHTML));
+		}		
 	}else{
 		result = ($('user-url-input').value);
 	}	

@@ -40,8 +40,10 @@ public class LoginService extends AbstractResource {
 
 	public static final String PATH = "/login";
 	private ConsumerManager manager;
-    final private String yahooEndpoint = "https://me.yahoo.com"; 
-    final private String googleEndpoint = "https://www.google.com"; 
+    final private String yahooEndpoint = "http://me.yahoo.com"; 
+    final private String yahooEndpoint_s = "https://me.yahoo.com"; 
+    final private String googleEndpoint = "http://www.google.com"; 
+    final private String googleEndpoint_s = "https://www.google.com"; 
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -89,6 +91,7 @@ public class LoginService extends AbstractResource {
 		throws BlockedUserException, ConsumerException, IOException {
 		
 		manager = new ConsumerManager();
+		getSession().setAttribute("providerUrl", userSuppliedString);
 		if (userSuppliedString!=null){
 			return new ObjectResult<Text>(new Text(authRequest(userSuppliedString)));
 		}else{
@@ -112,12 +115,12 @@ public class LoginService extends AbstractResource {
 			AuthRequest authReq = manager.authenticate(discovered, returnToUrl);
 
             FetchRequest fetch = FetchRequest.createFetchRequest(); 
-            if (userSuppliedString.startsWith(googleEndpoint)) { 
+            if (userSuppliedString.startsWith(googleEndpoint)||userSuppliedString.startsWith(googleEndpoint_s)) { 
                     fetch.addAttribute("email", "http://axschema.org/contact/email", true); 
                     fetch.addAttribute("firstname", "http://axschema.org/namePerson/first", true); 
                     fetch.addAttribute("lastname", "http://axschema.org/namePerson/last", true); 
             } 
-            else if (userSuppliedString.startsWith(yahooEndpoint)) { 
+            else if (userSuppliedString.startsWith(yahooEndpoint)||userSuppliedString.startsWith(yahooEndpoint_s)) { 
                     fetch.addAttribute("email", "http://axschema.org/contact/email", true); 
                     fetch.addAttribute("fullname", "http://axschema.org/namePerson", true); 
             } 
