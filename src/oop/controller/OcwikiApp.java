@@ -23,10 +23,12 @@ public class OcwikiApp implements ServletContextListener {
      * Default constructor. 
      */
     public OcwikiApp() {
-    	if (INSTANCE != null) {
-    		throw new RuntimeException("Already initialized???");
+//    	if (INSTANCE != null) {
+//    		throw new RuntimeException("Already initialized???");
+//    	}
+    	if (INSTANCE == null) {
+    		INSTANCE = this;
     	}
-    	INSTANCE = this;
     }
 
 	/**

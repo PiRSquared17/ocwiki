@@ -28,7 +28,7 @@ public class ResourceMapper implements
 		Resource<Article> entity = new Resource<Article>();
 		entity.setId(value.getId());
 		entity.setArticle(ArticleMapper.get().toEntity(value.getArticle()));
-		entity.setType(value.getType());
+		entity.setType((Class<Article>) value.getType());
 		entity.setAuthor(UserReferenceMapper.get().toEntity(value.getAuthor()));
 		entity.setCreateDate(value.getCreateDate());
 		entity.setStatus(value.getStatus());

@@ -11,5 +11,8 @@
         <many-to-one name="user" class="oop.data.User" fetch="join" cascade="all">
             <column name="USER" />
         </many-to-one>
+        <property name="providerUrl" type="java.lang.String">
+            <column name="provider_url" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

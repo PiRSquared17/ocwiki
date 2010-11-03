@@ -2,6 +2,8 @@ package oop.test.rest.servletunit;
 
 import java.io.IOException;
 
+import javax.ws.rs.core.MediaType;
+
 import oop.conf.Config;
 
 import org.codehaus.jackson.JsonNode;
@@ -13,7 +15,7 @@ import com.meterware.httpunit.PostMethodWebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class LoginServiceTest extends AbstractResourceTest {
+public class LoginServiceTest extends ResourceTest {
 
 	@Test
 	public void testLogin() throws IOException, SAXException {
@@ -23,6 +25,7 @@ public class LoginServiceTest extends AbstractResourceTest {
 		ServletUnitClient client = getServletRunner().newClient();
 		PostMethodWebRequest request = new PostMethodWebRequest(
 				Config.get().getRestPath() + "/login");
+		request.setHeaderField("Accept", MediaType.APPLICATION_XML);
 		request.setParameter("name", username);
 		request.setParameter("password", password);
 		WebResponse response = client.getResponse(request);

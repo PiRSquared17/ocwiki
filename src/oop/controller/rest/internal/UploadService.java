@@ -13,7 +13,10 @@ import javax.ws.rs.core.MediaType;
 
 import oop.conf.Config;
 import oop.controller.rest.AbstractResource;
+import oop.data.File;
 import oop.data.Namespace;
+import oop.data.Resource;
+import oop.db.dao.FileDAO;
 import oop.db.dao.NamespaceDAO;
 
 import org.apache.commons.fileupload.FileItem;
@@ -30,17 +33,22 @@ public class UploadService extends AbstractResource {
 	@Path("/{id: \\d+}")
 	@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_OCTET_STREAM})
 	public JSONObject upload(@PathParam("id") long id) throws Exception {
+		Resource<File> resource = FileDAO.fetchById(id);
+		String newFileName;
 		if (getRequest().getContentType().equals(MediaType.MULTIPART_FORM_DATA)) {
-			uploadMultipart();
+			newFileName = uploadMultipart();
 		} else if (getRequest().getContentType().equals(MediaType.APPLICATION_OCTET_STREAM)) {
-			uploadOctetStream();
+			newFileName = uploadOctetStream();
 		} else {
 			return new JSONObject().put("error", "unsupported media type");
 		}
+		File newFile = resource.getArticle().copy();
+		newFile.setFilename(newFileName);
+		saveNewRevision(resource, newFile, "", false);
 		return new JSONObject().put("success", true);
 	}
 
-	private void uploadOctetStream() throws IOException {
+	private String uploadOctetStream() throws IOException {
 		String filename = getRequest().getHeader("X-File-Name");
 		String path = getServletContext().getRealPath(
 				Config.get().getUploadDir())
@@ -54,13 +62,14 @@ public class UploadService extends AbstractResource {
 				out.close();
 			}
 		}
+		return filename;
 	}
 
 	//
 	// copy from UploadAction (modified)
 	//
 
-	protected void uploadMultipart() throws Exception {
+	protected String uploadMultipart() throws Exception {
 		java.io.File tempDir = new java.io.File(
 				System.getProperty("java.io.tmpdir"));
 		String realPath = getServletContext().getRealPath(
@@ -85,7 +94,7 @@ public class UploadService extends AbstractResource {
 							item.getName());
 					item.write(uploadedFile);
 					oop.data.File file = new oop.data.File();
-					file.setName(uploadedFile.getName());
+					file.setFilename(uploadedFile.getName());
 					file.setNamespace(NamespaceDAO.fetch(Namespace.FILE));
 					// FileDAO.persist(file);
 				} else {
@@ -96,6 +105,7 @@ public class UploadService extends AbstractResource {
 			throw invalidParam("file", "file is too big");
 			// ex.printStackTrace(); dung bao h bat loi r de do'
 		}
+		return "xyz";
 	}
 
 	public boolean check(FileItem file) {

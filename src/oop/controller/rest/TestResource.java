@@ -121,8 +121,8 @@ public class TestResource extends AbstractResource {
 		for (SectionBean section : bean.getSections()) {
 			WebServiceUtils.assertValid(CollectionUtils.size(section
 					.getQuestions()) > 0, "too little questions");
-			WebServiceUtils.assertValid(TextBean.isNotBlank(section.getContent()),
-					"section content is blank");
+//			WebServiceUtils.assertValid(TextBean.isNotBlank(section.getContent()),
+//					"section content is blank");
 			for (QuestionBean question : section.getQuestions()) {
 				WebServiceUtils.assertValid(question != null
 						&& question.getBase() != null, "question is empty");

@@ -5,6 +5,7 @@ public class OpenIDAccount {
 	private String url;
 	private String providerUrl;
 	private User user;
+	private String providerUrl;
 
 	public OpenIDAccount() {
 	}
@@ -46,5 +47,13 @@ public class OpenIDAccount {
 		return providerUrl;
 	}
 
+
+	public void setProviderUrl(String providerUrl) {
+		this.providerUrl = providerUrl;
+	}
+
+	public String getProviderUrl() {
+		return providerUrl;
+	}
 
 }
