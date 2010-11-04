@@ -64,24 +64,29 @@ public final class OpenIDUtils {
                     fetch.addAttribute("email", "http://schema.openid.net/contact/email", true); 
             } 
             authReq.addExtension(fetch);
+        	session.setAttribute("OIDManager", manager);
+        	
+        	if (action==null){
+        		return authReq.getDestinationUrl(true);
+        	}else{
+				//if (!discovered.isVersion2()) {
+					// Option 1: GET HTTP-redirect to the OpenID Provider endpoint
+					// The only method supported in OpenID 1.x
+					// redirect-URL usually limited ~2048 bytes
+	            action.setRedirect(authReq.getDestinationUrl(true));
+					/*return null;
+				} else {
+					// Option 2: HTML FORM Redirection (Allows payloads >2048 bytes)
+	
+					RequestDispatcher dispatcher = getServletContext()
+							.getRequestDispatcher("formredirection.jsp");
+					httpReq.setAttribute("parameterMap", authReq.getParameterMap());
+					httpReq.setAttribute("destinationUrl", authReq
+							.getDestinationUrl(false));
+					dispatcher.forward(httpReq, httpResp);
+				}*/
+        	}
 
-			//if (!discovered.isVersion2()) {
-				// Option 1: GET HTTP-redirect to the OpenID Provider endpoint
-				// The only method supported in OpenID 1.x
-				// redirect-URL usually limited ~2048 bytes
-            	action.setRedirect(authReq.getDestinationUrl(true));
-				/*return null;
-			} else {
-				// Option 2: HTML FORM Redirection (Allows payloads >2048 bytes)
-
-				RequestDispatcher dispatcher = getServletContext()
-						.getRequestDispatcher("formredirection.jsp");
-				httpReq.setAttribute("parameterMap", authReq.getParameterMap());
-				httpReq.setAttribute("destinationUrl", authReq
-						.getDestinationUrl(false));
-				dispatcher.forward(httpReq, httpResp);
-			}*/
-            	session.setAttribute("OIDManager", manager);
 			
 		} catch (OpenIDException e) {
 			if (session.getAttribute("OIDManager")!=null){
@@ -195,7 +200,7 @@ public final class OpenIDUtils {
 		                
 		                List fullNames = fetchResp.getAttributeValues("fullname");
 		                if (fullNames.size()>0){
-		                	newUser.setLastName((String) fullNames.get(0));
+		                	newUser.setFirstName((String) fullNames.get(0));
 		                }
 		                
 		                List firstNames = fetchResp.getAttributeValues("firstname");

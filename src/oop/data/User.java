@@ -320,5 +320,9 @@ public class User implements Serializable, Entity, HasVersion {
 	public String getDraft() {
 		return draft;
 	}
+	public boolean hasPassword(){
+		if (password==null) return false;
+		else return true;
+	}
 	
 }

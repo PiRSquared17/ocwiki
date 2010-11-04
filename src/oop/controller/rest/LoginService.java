@@ -33,17 +33,13 @@ import oop.db.dao.FacebookAccountDAO;
 import oop.db.dao.UserDAO;
 import oop.util.BlockedUserException;
 import oop.util.FacebookUtils;
+import oop.util.OpenIDUtils;
 import oop.util.SessionUtils;
 
 @Path(LoginService.PATH)
 public class LoginService extends AbstractResource {
 
 	public static final String PATH = "/login";
-	private ConsumerManager manager;
-    final private String yahooEndpoint = "http://me.yahoo.com"; 
-    final private String yahooEndpoint_s = "https://me.yahoo.com"; 
-    final private String googleEndpoint = "http://www.google.com"; 
-    final private String googleEndpoint_s = "https://www.google.com"; 
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -90,10 +86,10 @@ public class LoginService extends AbstractResource {
 	public ObjectResult<Text> openIDLogin(@QueryParam("userSuppliedOpenIDUrl") String userSuppliedString) 
 		throws BlockedUserException, ConsumerException, IOException {
 		
-		manager = new ConsumerManager();
 		getSession().setAttribute("providerUrl", userSuppliedString);
 		if (userSuppliedString!=null){
-			return new ObjectResult<Text>(new Text(authRequest(userSuppliedString)));
+			Text redirect = new Text(OpenIDUtils.authRequest(userSuppliedString, false, null, getSession()));
+			return new ObjectResult<Text>(redirect);
 		}else{
 			throw new WebApplicationException(Response.status(
 					Status.BAD_REQUEST).entity(
@@ -101,43 +97,4 @@ public class LoginService extends AbstractResource {
 		}
 		
 	}
-	
-	@SuppressWarnings("unchecked")
-	// --- placing the authentication request ---
-	public String authRequest(String userSuppliedString)
-			throws IOException {
-		try {
-			// Sau nay mun dang nhap xong tra ve j thi sua o day
-			String returnToUrl = ActionUtil.getActionURL("user.login.openid.verification");
-			List discoveries = manager.discover(userSuppliedString);
-			DiscoveryInformation discovered = manager.associate(discoveries);
-			getSession().setAttribute("openid-disc", discovered);
-			AuthRequest authReq = manager.authenticate(discovered, returnToUrl);
-
-            FetchRequest fetch = FetchRequest.createFetchRequest(); 
-            if (userSuppliedString.startsWith(googleEndpoint)||userSuppliedString.startsWith(googleEndpoint_s)) { 
-                    fetch.addAttribute("email", "http://axschema.org/contact/email", true); 
-                    fetch.addAttribute("firstname", "http://axschema.org/namePerson/first", true); 
-                    fetch.addAttribute("lastname", "http://axschema.org/namePerson/last", true); 
-            } 
-            else if (userSuppliedString.startsWith(yahooEndpoint)||userSuppliedString.startsWith(yahooEndpoint_s)) { 
-                    fetch.addAttribute("email", "http://axschema.org/contact/email", true); 
-                    fetch.addAttribute("fullname", "http://axschema.org/namePerson", true); 
-            } 
-            else { //works for myOpenID 
-                    fetch.addAttribute("fullname", "http://schema.openid.net/namePerson", true); 
-                    fetch.addAttribute("email", "http://schema.openid.net/contact/email", true); 
-            } 
-            authReq.addExtension(fetch);
-            getSession().setAttribute("OIDManager", manager);
-			
-			return authReq.getDestinationUrl(true);
-		
-		} catch (OpenIDException e) {
-			throw new WebApplicationException(Response.status(
-					Status.BAD_REQUEST).entity(
-					new ErrorResult("connection error")).build());
-		}
-	}	
-
 }

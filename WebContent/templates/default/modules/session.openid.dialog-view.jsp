@@ -110,13 +110,13 @@
 			</a>
 		</td><td align="center">
 			<a href="#" 
-				onmouseover="$('microsoft-btn').src='${templatePath}/images/openid-buttons/small/microsoft-up.png';" 
-				onmouseout="$('microsoft-btn').src='${templatePath}/images/openid-buttons/small/microsoft-no.png';"
-				onmousedown="$('microsoft-btn').src='${templatePath}/images/openid-buttons/small/microsoft-do.png';" 
-				onmouseup="$('microsoft-btn').src='${templatePath}/images/openid-buttons/small/microsoft-up.png';" 
+				onmouseover="$('verisign-btn').src='${templatePath}/images/openid-buttons/small/verisign-up.png';" 
+				onmouseout="$('verisign-btn').src='${templatePath}/images/openid-buttons/small/verisign-no.png';"
+				onmousedown="$('verisign-btn').src='${templatePath}/images/openid-buttons/small/verisign-do.png';" 
+				onmouseup="$('verisign-btn').src='${templatePath}/images/openid-buttons/small/verisign-up.png';" 
 				onclick="setDefaultURL(9);return false;">
 		
-				<img src="${templatePath}/images/openid-buttons/small/microsoft-no.png" name="microsoft-btn" id="microsoft-btn" alt="Microsoft" border="none"/>
+				<img src="${templatePath}/images/openid-buttons/small/verisign-no.png" name="verisign-btn" id="verisign-btn" alt="VeriSign" border="none"/>
 		
 			</a>
 		</td><td align="center">
@@ -192,7 +192,7 @@ function setDefaultURL(value){
 		$('username').hide();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='https://google.com/accounts/o8/id';
+		$('default-url').innerHTML='https://www.google.com/accounts/o8/id';
 	}else if (value==2){
 		$('username').show();
 		$('user-url').hide();
@@ -229,15 +229,15 @@ function setDefaultURL(value){
 		$('default-url').show();
 		$('default-url').innerHTML='http://<b><span id="username-view">username.</span></b><span id="provider-view">livejournal.com</span>';
 	}else if (value==9){
-		$('username').hide();
+		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://www.passport.net/';
+		$('default-url').innerHTML='http://<b><span id="username-view">username.</span></b><span id="provider-view">pip.verisignlabs.com</span>';
 	}else if (value==10){
-		$('username').hide();
+		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://myid.net';
+		$('default-url').innerHTML='http://<b><span id="username-view">username.</span></b><span id="provider-view">myid.net</span>';
 	}else if (value==11){
 		$('username').show();
 		$('user-url').hide();
@@ -269,7 +269,7 @@ function setDefaultURL(value){
 function updateUsernameView(){
 	if ((OIDP==2)||(OIDP==3)||(OIDP==6)||(OIDP==12)){
 		$('username-view').innerHTML="/"+$('username-input').value;;
-	}else if ((OIDP==4)||(OIDP==5)||(OIDP==7)||(OIDP==8)||(OIDP==11)||(OIDP==14)){
+	}else if ((OIDP==4)||(OIDP==5)||(OIDP==7)||(OIDP==8)||(OIDP==11)||(OIDP==14)||(OIDP==9)||(OIDP==10)){
 		$('username-view').innerHTML=$('username-input').value+".";		
 	}else{
 		$('username-view').innerHTML=$('username-input').value;
@@ -279,7 +279,7 @@ function updateUsernameView(){
 
 function getURL(){
 	var result;
-	if ((OIDP==1)||(OIDP==9)||(OIDP==10)||(OIDP==13)){
+	if ((OIDP==1)||(OIDP==13)){
 		result = ($('default-url').innerHTML);
 	}else if ((OIDP==2)||(OIDP==3)||(OIDP==6)||(OIDP==12)){
 		if (($('username-input').value==null) || ($('username-input').value=="")){
@@ -287,9 +287,13 @@ function getURL(){
 		}else{
 			result = ('http://'+($('provider-view').innerHTML)+"/"+($('username-input').value));
 		}
-	}else if ((OIDP==4)||(OIDP==5)||(OIDP==7)||(OIDP==8)||(OIDP==11)||(OIDP==14)){
+	}else if ((OIDP==4)||(OIDP==5)||(OIDP==7)||(OIDP==8)||(OIDP==11)||(OIDP==14)||(OIDP==9)||(OIDP==10)){
 		if (($('username-input').value==null) || ($('username-input').value=="")){
-			result = ('http://'+($('provider-view').innerHTML));
+			if ((OIDP==4)||(OIDP==5)){
+				result=null
+			}else{
+				result = ('http://'+($('provider-view').innerHTML));
+			}			
 		}else{
 			result = ('http://'+($('username-input').value)+"."+($('provider-view').innerHTML));
 		}		

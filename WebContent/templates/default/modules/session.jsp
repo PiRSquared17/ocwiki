@@ -178,8 +178,11 @@ function openOpenIDLoginDialog() {
 				id : "openID-loginDialog",
 				onOk :
 					function(win){ 
-						getURL();
-						openID_login();
+						if (getURL()==null){
+							$('openID_loginError').innerHTML = 'username của nhà cung cấp OpenID không được phép trống';
+						}else{
+							openID_login();
+						}
 					}
 			}
 	); 
@@ -202,7 +205,6 @@ function openID_login(){
 				},
 				evalJSON : true,
 				onSuccess : function(transport) {
-					alert(transport.responseJSON.result.text);
 					location.href=transport.responseJSON.result.text;
 				},
 				onFailure : function(transport) {
