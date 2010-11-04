@@ -80,6 +80,10 @@
 	        <ocw:articleLink revision="${revision}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink>
 			<ocw:userLink user="${revision.author}" />
 			(${revision.summary})
+			<ocw:actionLink name="revision.restore">
+				<ocw:param name="revisionId" value="${revision.id}"></ocw:param>
+				Lùi
+			</ocw:actionLink>
 		</li>
 	</c:forEach>
 </ul>
