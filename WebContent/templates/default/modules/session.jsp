@@ -21,7 +21,7 @@
 <div class="jsmenu" id="guest-toolbar"
     style="display: ${sessionScope.login ? 'none' : 'block'};">
 <ul class="level1 horizontal" id="guest-toolbar-root">
-	<li class="level1">Đăng nhập
+	<li class="level1" id="login-dropdown-menu">Đăng nhập
         <ul class="level2 dropdown">
             <c:if test="${not empty config.facebookAppId}">
 	            <li><a href="#" onclick="fblogin(); return false;">FaceBook</a></li>
