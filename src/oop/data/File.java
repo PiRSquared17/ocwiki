@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
@@ -85,14 +86,10 @@ public class File extends CategorizableArticle {
 	}
 
 	public boolean isImage() {
-		if (filename == null)
+		if (StringUtils.isEmpty(filename)) {
 			return false;
-		else
-		{ 
-			if(filename.equals(""))
-				return false;
-			else
-				return (filename.endsWith("jpg") ||filename.endsWith("png") ||filename.endsWith("gif"));
 		}
+		String str = filename.toLowerCase();
+		return (str.endsWith(".jpg") || str.endsWith(".png") || str.endsWith(".gif"));
 	}
 }
