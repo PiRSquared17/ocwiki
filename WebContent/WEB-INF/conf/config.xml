@@ -62,6 +62,19 @@
       <name>revision.list</name>
       <class>oop.controller.action.revision.ListAction</class>
     </action>
+    
+    <action>
+      <name>revision.restore</name>
+      <class>oop.controller.action.revision.RestoreAction</class>
+      <loginRequired>false</loginRequired>
+    </action>
+    
+    <action>
+      <name>revision.cofirm</name>
+      <class>oop.controller.action.revision.CofirmAction</class>
+      <loginRequired>false</loginRequired>
+    </action>
+    
     <action>
       <name>article.print</name>
       <class>oop.controller.action.article.PrintAction</class>
@@ -399,6 +412,8 @@
       <class>oop.controller.action.search.SearchAction</class>
       <loginRequired>false</loginRequired>
     </action>
+    
+    
 
     <!--********************************************************************
                                   API  
@@ -603,6 +618,7 @@
         <class>oop.module.DraftModule</class>
         <position>bottom</position>
         <order>1</order>
+        <loginRequired>true</loginRequired>
     </module>
     <!-- 
     <module>

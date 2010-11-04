@@ -61,6 +61,7 @@
 	   login = ${sessionScope.login ? true : false};
 	//-->
 	</script>
+	
 </head>
 <body>
 <div id="content">

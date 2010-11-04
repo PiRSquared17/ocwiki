@@ -298,23 +298,32 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		var indexsection = 0;
 		newsection =  new Array();
 		section = new Object();
-		for (i = 0; i< length_sec; i++){
+		for (i = length_sec - 1; i>=0 ; i--){
 			question_length = test.sections[i].questions.length;
-			if (question_length == 0) continue;
-			newquestion = new Array();
-			indexquestion = 0;
-			for (j = 0; j < question_length; j++)
-				if (test.sections[i].questions[j].deleted != true){
-					newquestion[indexquestion] = test.sections[i].questions[j];
-					indexquestion++;
+			if (question_length == 0) {
+				test.sections.splice(i,1);
+				continue;
+			}
+			if (test.sections[i].deleted == true){
+				test.sections.splice(i,1);
+				continue;
+			}
+			//newquestion = new Array();
+			//indexquestion = 0;
+			for (j = question_length - 1; j >= 0 ; j--)
+				if (test.sections[i].questions[j].deleted == true){
+					//newquestion[indexquestion] = test.sections[i].questions[j];
+					//indexquestion++;
+					test.sections[i].questions.splice(j,1);
+					test.sections[i].id = 0;
 				}
-			IdSection = 'section-content-' + i;
-			section.questions = newquestion;
-			section.content = tinymce.get(IdSection).getContent();
-			newsection[indexsection] = section;
-			indexsection++;
+			//IdSection = 'section-content-' + i;
+			//section.questions = newquestion;
+			//section.content = tinymce.get(IdSection).getContent();
+			//newsection[indexsection] = section;
+			//indexsection++;
 		}
-		test.sections = newsection;
+		//test.sections = newsection;
 		// Lay thong tin bai kiem tra
 		content = tinymce.get('Test-content-' + test.id).getContent();
 		test.content.text = content;
@@ -341,7 +350,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			      }),
 			      evalJSON: true,
 			      onSuccess: function(transport) {
-			          location.href = articlePath + '/' + resourceId;
+				      location.href = articlePath + '/' + resourceId;
 			      },
 			      onFailure: function(transport) {
 			    	  var code = transport.responseJSON.code;
