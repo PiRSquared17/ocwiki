@@ -87,24 +87,6 @@
                     DefaultTemplate.onFailure(transport); 
 			    }
 			  });
-
-	
-	function openInfoDialog(info) {
-		Dialog.info(info + "<br> Thông báo tự động đóng sau 2 giây ...",
-	               {width:300, height:100, className: "alphacube",showProgress: true});
-	  	timeout=2;
-	  	setTimeout(infoTimeout, 1000);
-	}
-
-	function infoTimeout() {
-	  	timeout--;
-	  	if (timeout >0) {
-	    	Dialog.setInfoMessage("Thông báo tự động đóng sau " + timeout + "giây ...");
-	    	setTimeout(infoTimeout, 1000);
-	 	}
-	 	else
-	  		Dialog.closeInfo();
-	}
 		
 	function unlockUser()
 	{

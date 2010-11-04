@@ -1,7 +1,5 @@
 package oop.controller;
 
-import java.io.IOException;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -16,8 +14,12 @@ import oop.persistence.HibernateUtil;
  */
 public class OcwikiApp implements ServletContextListener {
 
+	public static final String VERSION = "1.0";
+	public static final String NAME = "OCWiki";
+	
     private ServletContext context;
 	private Config config;
+	private ConfigIOException configException = null;
 
 	/**
      * Default constructor. 
@@ -40,14 +42,17 @@ public class OcwikiApp implements ServletContextListener {
 			config = new Config();
 			ConfigIO.loadDirectory(config,
 					context.getRealPath(context.getInitParameter("configDir")));
-		} catch (IOException e) {
-			System.out
-					.println("Có lỗi khi đọc tệp cấu hình, hệ thống không thể khởi động.");
-			throw new RuntimeException(e);
+			config.setHomeDir(config.getDomain() + context.getContextPath());
+			
+			context.setAttribute("app", this);
+			context.setAttribute("config", config);
+			context.setAttribute("homeDir", config.getHomeDir());
+			context.setAttribute("scriptPath", getScriptPath());
+
+			HibernateUtil.setConfig(config);
+		} catch (ConfigIOException e) {
+			configException = e;
 		}
-		config.setHomeDir(config.getDomain() + context.getContextPath());
-		Config.setDefaultInstance(config);
-		HibernateUtil.setConfig(config);
 	}
 
 	/**
@@ -61,13 +66,28 @@ public class OcwikiApp implements ServletContextListener {
 	}
 
     public Config getConfig() {
+    	if (configException != null) {
+			throw configException;
+		}
 		return config;
 	}
 
+    public String getVersion() {
+    	return VERSION;
+    }
+    
+    public String getName() {
+    	return NAME;
+    }
+    
     private static OcwikiApp INSTANCE = null;
     
     public static OcwikiApp get() {
     	return INSTANCE;
     }
+	
+	public String getScriptPath() {
+		return config.getHomeDir() + config.getMainEntry();
+	}
 
 }
