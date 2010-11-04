@@ -52,9 +52,9 @@
 <table>
 	<tbody>
 		<tr>
-		<td><label>Tên tệp tin sau khi tải lên:</label></td>
+		<td><label>Tên tệp tin :</label></td>
 		<td>
-		<textarea id=name name="name" cols="60" rows="1" readonly>${file.name}</textarea>
+		<input id=name type="text" name="name" size="50" value="${file.name}">
 		<div style="font-size: smaller; font-color: red" ><span>Tên của tệp tin sau khi tải lên.</span></div>
 		</td>
 		</tr>
@@ -127,7 +127,7 @@
 	EditAction.save = function(){
 		// gửi dữ liệu lên server
 		
-		file.name = tinymce.get('name').getContent();
+		file.name = $F('name');
 		file.originalSource = tinymce.get('fileSource').getContent();
 		file.author = tinymce.get('author').getContent();
 		file.additionalInfo = tinymce.get('additionalInfo').getContent();
@@ -156,7 +156,8 @@
 	                {
 	                    var code = transport.responseJSON.code;
 	                    if (code == 'old version') {
-	                          openInfoDialog("Có người đã sửa file này trước bạn, hãy tải lại trang!");
+	                          //openInfoDialog("Có người đã sửa file này trước bạn, hãy tải lại trang!");
+	                          openInfoDialog("Bạn phải tải tệp tin lên trước khi lưu!");
 	                    } else {
 		                    if(code == 'not upload yet')
 		                    	openInfoDialog("Bạn phải tải tệp tin lên trước khi lưu!");
