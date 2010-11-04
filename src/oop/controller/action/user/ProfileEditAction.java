@@ -45,7 +45,7 @@ public class ProfileEditAction extends AbstractAction {
 
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() {
 		displayedUser = UserDAO.fetchById(getUser().getId());
 		userTimezone = new TimeZone(displayedUser.getTimezone());
 		title("Thay đổi thông tin cá nhân của " + displayedUser.getFullname());

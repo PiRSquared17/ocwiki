@@ -31,6 +31,7 @@ import oop.data.Text;
 import oop.data.User;
 import oop.db.dao.FacebookAccountDAO;
 import oop.db.dao.UserDAO;
+import oop.util.BlockedUserException;
 import oop.util.FacebookUtils;
 import oop.util.OpenIDUtils;
 import oop.util.SessionUtils;
