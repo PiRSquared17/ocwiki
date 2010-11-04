@@ -1,5 +1,9 @@
 package oop.controller.action.revision;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
@@ -11,7 +15,7 @@ public class ViewAction extends AbstractAction {
 	private Article article;
 
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		long id = getParams().getLong("revID");
 		revision = RevisionDAO.fetch(id);

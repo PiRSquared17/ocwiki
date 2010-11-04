@@ -1,5 +1,9 @@
 package oop.controller.action.section;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Section;
@@ -12,7 +16,7 @@ public class CreateAction extends AbstractResourceAction<Test> {
 	private Test test;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			resource = ResourceDAO.fetchById(getParams().getLong("test"));
 			if (resource == null) {
@@ -31,7 +35,7 @@ public class CreateAction extends AbstractResourceAction<Test> {
 		}
 	}
 
-	private void doCreate() throws Exception {
+	private void doCreate() {
 		String contentStr = getParams().get("text");
 		int index = getParams().getInt("index", test.getSections().size());
 		Section section = new Section(new Text(contentStr));

@@ -25,14 +25,11 @@ public class OcwikiApp implements ServletContextListener {
      * Default constructor. 
      */
     public OcwikiApp() {
-//    	if (INSTANCE != null) {
-//    		throw new RuntimeException("Already initialized???");
-//    	}
     	if (INSTANCE == null) {
     		INSTANCE = this;
     	}
     }
-
+    
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
@@ -40,18 +37,29 @@ public class OcwikiApp implements ServletContextListener {
 		try {
 			context = evt.getServletContext();
 			config = new Config();
-			ConfigIO.loadDirectory(config,
-					context.getRealPath(context.getInitParameter("configDir")));
-			config.setHomeDir(config.getDomain() + context.getContextPath());
-			
-			context.setAttribute("app", this);
-			context.setAttribute("config", config);
-			context.setAttribute("homeDir", config.getHomeDir());
-			context.setAttribute("scriptPath", getScriptPath());
-
-			HibernateUtil.setConfig(config);
+			String configPath = context.getRealPath(context.getInitParameter("configDir"));
+			init(configPath);
 		} catch (ConfigIOException e) {
 			configException = e;
+		}
+	}
+
+	private void init(String configPath) {
+		ConfigIO.loadDirectory(config, configPath);
+		config.setHomeDir(config.getDomain() + context.getContextPath());
+		
+		context.setAttribute("app", this);
+		context.setAttribute("config", config);
+		context.setAttribute("homeDir", config.getHomeDir());
+		context.setAttribute("scriptPath", getScriptPath());
+
+		HibernateUtil.setConfig(config);
+	}
+	
+	public static void initialize(String configPath) {
+		if (INSTANCE == null) {
+			OcwikiApp ocwikiApp = new OcwikiApp();
+			ocwikiApp.init(configPath);
 		}
 	}
 

@@ -1,6 +1,9 @@
 package oop.controller.action.teststruct;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
@@ -20,7 +23,7 @@ public class ListAction extends AbstractAction {
 	public static final int PAGE_LENGTH = 30;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 
 		title("Danh sách các cấu trúc đề thi");
 		String submit = getParams().get("tsl_submit");

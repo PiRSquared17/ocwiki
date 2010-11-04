@@ -1,6 +1,8 @@
 package oop.controller.action.test;
 
-import java.sql.SQLException;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
@@ -14,7 +16,7 @@ import com.oreilly.servlet.ParameterNotFoundException;
 public class EditAction extends AbstractResourceAction<Test> {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			long id = getParams().getLong("te_id");
 			resource = TestDAO.fetchById(id);
@@ -32,8 +34,7 @@ public class EditAction extends AbstractResourceAction<Test> {
 		}
 	}
 
-	private void doUpdate(ParameterList parser, Test test)
-			throws ParameterNotFoundException, SQLException {
+	private void doUpdate(ParameterList parser, Test test) {
 		test = test.copy();
 
 		try {

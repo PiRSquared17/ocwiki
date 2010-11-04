@@ -1,5 +1,9 @@
 package oop.controller.action.sectstruct;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.SectionStructure;
@@ -11,7 +15,7 @@ import oop.util.Utils;
 public class EditAction extends AbstractResourceAction<TestStructure> {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			resource = TestStructureDAO
 					.fetchById(getParams().getLong("tstr"));

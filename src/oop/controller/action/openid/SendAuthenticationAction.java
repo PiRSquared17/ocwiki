@@ -1,26 +1,22 @@
 package oop.controller.action.openid;
 
-import org.openid4java.OpenIDException;
-import org.openid4java.consumer.ConsumerManager;
-import org.openid4java.consumer.VerificationResult;
-import org.openid4java.discovery.DiscoveryInformation;
-import org.openid4java.discovery.Identifier;
-import org.openid4java.message.AuthRequest;
-import org.openid4java.message.AuthSuccess;
-import org.openid4java.message.ParameterList;
-import org.openid4java.message.ax.AxMessage;
-import org.openid4java.message.ax.FetchRequest;
-import org.openid4java.message.ax.FetchResponse;
+import java.io.IOException;
+import java.util.List;
 
-import oop.conf.Config;
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.controller.action.ActionUtil;
 
-import java.util.List;
-import java.io.IOException;
+import org.openid4java.OpenIDException;
+import org.openid4java.consumer.ConsumerException;
+import org.openid4java.consumer.ConsumerManager;
+import org.openid4java.discovery.DiscoveryInformation;
+import org.openid4java.message.AuthRequest;
+import org.openid4java.message.ax.FetchRequest;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("rawtypes")
 public class SendAuthenticationAction extends AbstractAction {
 
 	private ConsumerManager manager;
@@ -28,12 +24,16 @@ public class SendAuthenticationAction extends AbstractAction {
     final private String googleEndpoint = "https://www.google.com"; 
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		title("Đăng nhập sử dụng OpenID");
-		manager = new ConsumerManager();
-		String userSuppliedString = getParams().get("openIDUrl");
-		if (userSuppliedString!=null){
-			authRequest(userSuppliedString);
+		try {
+			manager = new ConsumerManager();
+			String userSuppliedString = getParams().get("openIDUrl");
+			if (userSuppliedString!=null){
+				authRequest(userSuppliedString);
+			}
+		} catch (ConsumerException e) {
+			throw new ActionException("Không khởi tạo được consumer", e);
 		}
 	}
 
@@ -42,7 +42,6 @@ public class SendAuthenticationAction extends AbstractAction {
 	}
 
 
-	@SuppressWarnings("unchecked")
 	// --- placing the authentication request ---
 	public String authRequest(String userSuppliedString)
 			throws IOException {

@@ -2,9 +2,12 @@ package oop.controller.action.user;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
@@ -40,7 +43,7 @@ public class ProfileEditAction extends AbstractAction {
 
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		displayedUser = getUser();
 		userTimezone = new TimeZone(displayedUser.getTimezone());
 		

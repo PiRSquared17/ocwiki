@@ -11,14 +11,25 @@
   <listener>
     <listener-class>oop.controller.OcwikiApp</listener-class>
   </listener>
+  
+  <!-- Error pages start -->
   <error-page>
     <error-code>404</error-code>
     <location>/errors/404.jsp</location>
   </error-page>
   <error-page>
+    <exception-type>oop.controller.ConfigIOException</exception-type>
+    <location>/errors/fail-to-load-config.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>org.hibernate.exception.GenericJDBCException</exception-type>
+    <location>/errors/no-database-connection.jsp</location>
+  </error-page>
+  <error-page>
     <error-code>500</error-code>
     <location>/errors/500.jsp</location>
   </error-page>
+  <!-- Error pages end -->
   
   <servlet>
     <description></description>

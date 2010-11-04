@@ -1,5 +1,9 @@
 package oop.controller.action.question;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.BaseQuestion;
@@ -10,7 +14,7 @@ public class ViewAction extends AbstractResourceAction<BaseQuestion> {
 	private BaseQuestion question;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			resource = BaseQuestionDAO.fetchById(getParams().getLong("id"));
 			if (resource == null) {
