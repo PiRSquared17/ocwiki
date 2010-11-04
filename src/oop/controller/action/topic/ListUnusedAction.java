@@ -1,6 +1,9 @@
 package oop.controller.action.topic;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.AbstractResourceAction;
@@ -16,7 +19,7 @@ public class ListUnusedAction extends AbstractAction {
 		private long curStart;
 
 		@Override
-		public void performImpl() throws Exception {
+		public void performImpl() throws IOException, ServletException {
 			int start = getParams().getInt("start", 0);
 			int size = 20;
 			title("Dang sách các chủ đề chưa được sử dụng, trang " + ((start/size)+1));

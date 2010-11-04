@@ -1,5 +1,9 @@
 package oop.controller.action.teststruct;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.data.Namespace;
 import oop.data.Resource;
@@ -12,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
 public class CreateAction extends AbstractAction {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		String submit = getParams().get("tsubmit");
 		if ("create".equals(submit)) {
 			String name = getParams().get("tname");

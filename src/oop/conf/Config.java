@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import oop.controller.OcwikiApp;
 
 public class Config implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String logoPath = "";
-	private boolean lazyStartup = false;
 	private String databaseHost = "localhost";
 	private String databasePort = "3306";
 	private String databaseName = "ocwiki";
@@ -34,6 +34,9 @@ public class Config implements Serializable {
 	private String userPath = "${homeDir}/user";
 	private String mainEntry = "/index.jsp";
 	private String siteName = "OCWiki";
+	private String copyright = "";
+	private String logoPath = "";
+	private boolean lazyStartup = false;
 	private String tablePrefix = "ocw";
 	private String defaultTemplate = "default";
 	private String mysqlCommand = "mysql";
@@ -42,9 +45,11 @@ public class Config implements Serializable {
 	private String facebookSecret = null;
 	private boolean useCDN = false;
 	private String texCgi = "http://www.imathas.com/cgi-bin/mimetex.cgi";
+	
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
 	private Set<ActionDescriptor> actionDescriptors = new HashSet<ActionDescriptor>();
 	private Set<APIDescriptor> apiDescriptors = new HashSet<APIDescriptor>();
+
 	private transient Map<String, List<ModuleDescriptor>> moduleMap = new HashMap<String, List<ModuleDescriptor>>();
 	private transient Map<String, ActionDescriptor> actionMap = new HashMap<String, ActionDescriptor>();
 	private transient Map<String, APIDescriptor> apiMap = new HashMap<String, APIDescriptor>();
@@ -138,8 +143,6 @@ public class Config implements Serializable {
 		return apiMap.get(name);
 	}
 
-	private static Config DEFAULT = null;
-
 	private static final Comparator<ModuleDescriptor> MODULE_POSITION_COMPARATOR = new Comparator<ModuleDescriptor>() {
 		
 		@Override
@@ -149,16 +152,9 @@ public class Config implements Serializable {
 	};
 	
 	public static Config get() {
-		return DEFAULT;
+		return OcwikiApp.get().getConfig();
 	}
 	
-	public static void setDefaultInstance(Config config) {
-//		if (DEFAULT != null) {
-//			throw new IllegalStateException("Already initialized.");
-//		}
-		DEFAULT = config;
-	}
-
 	public void setDefaultTemplate(String defaultTemplate) {
 		this.defaultTemplate = defaultTemplate;
 	}
@@ -380,6 +376,14 @@ public class Config implements Serializable {
 			return "/images/" + logoPath;
 		}
 		return logoPath;
+	}
+
+	public void setCopyright(String copyright) {
+		this.copyright = copyright;
+	}
+
+	public String getCopyright() {
+		return copyright;
 	}
 	
 }

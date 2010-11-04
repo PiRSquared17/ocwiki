@@ -5,12 +5,12 @@
 <p><strong>Your Current Avatar</strong></p>
 <c:choose>
 	<c:when test="${empty user.avatar}">
-		<img src="${homeDir}/images/default.png" width="100" height="100" />
+		<img src="${homeDir}/images/default.png" width="30%" height="30%" />
 		<br>
 	</c:when>
 	<c:otherwise>
-		<img src="${config.uploadPath}/avatar/${user.avatar}" width="100"
-			height="100" />
+		<img src="${config.uploadPath}/avatar/${user.avatar}" width="30%"
+			height="30%" />
 		<br>
 	</c:otherwise>
 </c:choose>

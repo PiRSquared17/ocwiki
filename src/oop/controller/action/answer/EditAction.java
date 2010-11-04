@@ -1,5 +1,9 @@
 package oop.controller.action.answer;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Answer;
@@ -13,7 +17,7 @@ import com.oreilly.servlet.ParameterNotFoundException;
 public class EditAction extends AbstractResourceAction<BaseQuestion> {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			resource = ResourceDAO.fetchById(getParams().getLong("question"));
 		} catch (NumberFormatException e) {

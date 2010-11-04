@@ -1,7 +1,9 @@
 package oop.controller.action.test;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.ServletException;
 import javax.xml.bind.JAXBException;
 
 import oop.conf.Config;
@@ -21,7 +23,7 @@ public class SaveDocxAction extends AbstractAction {
 	}
 
 	@Override
-	public void performImpl() throws Exception{
+	public void performImpl() throws IOException, ServletException{
 		long testId = getParams().getLong("test");
 		Test test = TestDAO.fetchById(testId).getArticle();
 		
@@ -35,8 +37,6 @@ public class SaveDocxAction extends AbstractAction {
 			throw e;
 		} catch (JAXBException e) {
 			throw new ActionException("Quá trình tạo gặp sự cố!");
-		} catch (SQLException e) {
-			throw e;
 		} catch (Docx4JException e) {
 			throw new ActionException("Không thể tạo hoặc lưu file này!");
 		}

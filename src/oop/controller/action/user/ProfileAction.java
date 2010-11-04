@@ -1,6 +1,9 @@
 package oop.controller.action.user;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
@@ -28,7 +31,7 @@ public class ProfileAction extends AbstractAction {
 
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			long userId = getParams().getLong("user");
 			user = UserDAO.fetchById(userId);

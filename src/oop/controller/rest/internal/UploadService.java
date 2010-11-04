@@ -50,8 +50,8 @@ public class UploadService extends AbstractResource {
 		File newFile = resource.getArticle().copy();
 		newFile.setFilename(newFileName);
 		saveNewRevision(resource, newFile, "", false);
-		resource.setStatus(Status.NORMAL);
-		ResourceDAO.persist(resource);
+//		resource.setStatus(Status.NORMAL);
+//		ResourceDAO.persist(resource);
 		return new JSONObject().put("success", true);
 
 	}

@@ -28,9 +28,13 @@
 						var i;
 						//alert("Cai nay la TA" + transport.responseText);
 						relatedTextArticleList = transport.responseJSON.result;
-						for(i = 0 ; i < relatedTextArticleList.length ; i++){
-							var textArticle = relatedTextArticleList[i];
-							$('relatedTextArticleContainer').insert(textArticleTemplate.evaluate(textArticle));
+						if (relatedTextArticleList && relatedTextArticleList.length > 0) {
+							for(i = 0 ; i < relatedTextArticleList.length ; i++){
+								var textArticle = relatedTextArticleList[i];
+								$('relatedTextArticleContainer').insert(textArticleTemplate.evaluate(textArticle));
+							}
+						} else {
+							$('relatedTextArticleContainer').insert('Không có');
 						}
 					},
 				    onFailure: function(transport) {
@@ -39,20 +43,4 @@
 				  });
 	});
 
-	function openInfoDialog(info) {
-		Dialog.info(info + "<br> Thông báo tự động đóng sau 2 giây ...",
-	               {width:300, height:100, className: "alphacube",showProgress: true});
-	  	timeout=2;
-	  	setTimeout(infoTimeout, 1000);
-	}
-
-	function infoTimeout() {
-	  	timeout--;
-	  	if (timeout >0) {
-	    	Dialog.setInfoMessage("Thông báo tự động đóng sau " + timeout + "giây ...");
-	    	setTimeout(infoTimeout, 1000);
-	 	}
-	 	else
-	  		Dialog.closeInfo();
-	}
 </script>

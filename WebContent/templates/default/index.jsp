@@ -19,7 +19,10 @@
             <script type="text/javascript" src="${templatePath}/js/prototype.js"></script>
         </c:otherwise>
     </c:choose>
-	
+
+    <!-- ShareThis library -->
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'b52d3378-3f03-434c-a81b-eeac4052b94c'});</script>	
+    
 	<script type="text/javascript" src="${templatePath}/js/autocomplete.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/tiny_mce/tiny_mce.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/scriptaculous.js"></script>
@@ -60,38 +63,38 @@
 	   restPath = '${config.restPath}';
 	   templatePath = '${templatePath}';
 	   login = ${sessionScope.login ? true : false};
+	   resource = ${u:toJson(action.resourceBean)};
 	//-->
 	</script>
 </head>
 <body>
-<div id="headBar">&nbsp;</div>
 <div id="content">
-<div id="headNav">
-    <div class="lfloat logo">
-        <ocw:actionLink name="homepage">
-            <img src="${homeDir}${config.logoPath}">
-        </ocw:actionLink>
-    </div>
-    <div class="lfloat">
-	    <c:forEach items="${modules['top_left']}" var="module">
-	        <jsp:include page="modules/${module.page}"></jsp:include>
-	    </c:forEach>
-    </div>
-    &nbsp;
-    <ul class="rfloat">
-		<c:forEach items="${modules['top_right']}" var="module">
-			<li>
-			        <jsp:include page="modules/${module.page}"></jsp:include>
-			</li>
-		</c:forEach>
-	</ul>
-</div>
-<!-- content begins -->
-<div class="clear"></div>
-<div id="main">
-	<div id="right">
-    	<div class="clear"></div>
-		<div class="rightbg">
+	<div id="headBar">&nbsp;</div>
+	<div id="headNav">
+	    <div class="lfloat logo">
+	        <ocw:actionLink name="homepage">
+	            <img src="${homeDir}${config.logoPath}">
+	        </ocw:actionLink>
+	    </div>
+	    <div class="lfloat">
+		    <c:forEach items="${modules['top_left']}" var="module">
+		        <jsp:include page="modules/${module.page}"></jsp:include>
+		    </c:forEach>
+	    </div>
+	    &nbsp;
+	    <ul class="rfloat">
+			<c:forEach items="${modules['top_right']}" var="module">
+				<li>
+				        <jsp:include page="modules/${module.page}"></jsp:include>
+				</li>
+			</c:forEach>
+		</ul>
+	</div>
+	<!-- content begins -->
+	<div class="clear"></div>
+	<div id="main">
+	    <div id="rightWrapper">
+		<div id="right">
             <c:if test="${not empty sessionScope.user.warningMessage}">
                 <div class="notification">Bạn bị cảnh cáo với lí do: 
                      ${sessionScope.user.warningMessage}  
@@ -119,75 +122,65 @@
                     <pre style="color:red">${ex}</pre>
                 </c:otherwise>			
 			</c:choose>
-		</div>			
-				
-	</div>
-	
-	<div id="left">
-        <ul>
-            <li><ocw:actionLink name="homepage">Trang chủ</ocw:actionLink></li>
-            <li><ocw:actionLink name="test.list">Đề thi</ocw:actionLink></li>
-            <li><ocw:actionLink name="teststruct.list">Cấu trúc đề</ocw:actionLink></li>
-            <li><ocw:actionLink name="question.list">Câu hỏi</ocw:actionLink></li>
-            <li><ocw:actionLink name="topic.list">Chủ đề</ocw:actionLink></li>
-            <li><ocw:actionLink name="user.list">Thành viên</ocw:actionLink></li>
-            <li><a href="http://code.google.com/p/ocwiki/" target="_blank" title="">Giới thiệu</a></li>
-        </ul>
-        <c:set var="i" value="0"></c:set>
-	    <c:forEach items="${modules['left']}" var="item">
-	        <h5 class="modtitle accor-header">${module.title}</h5>
-	        <div id="leftmod${i}" class="accor-body">
+			<div class="clear"></div>
+		</div>
+		</div>
+		
+		<div id="left">
+	        <ul>
+	            <li><ocw:actionLink name="question.list">Câu hỏi</ocw:actionLink></li>
+	            <li><ocw:actionLink name="test.list">Đề thi</ocw:actionLink></li>
+	            <li><ocw:actionLink name="teststruct.list">Cấu trúc đề</ocw:actionLink></li>
+	            <li><ocw:actionLink name="topic.list">Chủ đề</ocw:actionLink></li>
+	        </ul>
+	        <c:set var="i" value="0"></c:set>
+		    <c:forEach items="${modules['left']}" var="item">
 		        <c:set var="module" scope="request" value="${item}"></c:set>
-                <jsp:include page="modules/${module.page}"></jsp:include>
-            </div>
-            <script type="text/javascript">
-			<!--
-			new AccordionHandler('leftmod${i}');
-			//-->
-			</script>
-            <c:set var="i" value="${i+1}"></c:set>
-	    </c:forEach>
+		        <div id="leftmod${i}" class="accor-container">
+			        <h5 class="modtitle accor-header">${module.title}</h5>
+			        <div class="accor-bodyWrapper">
+    			        <div class="accor-body">
+		                <jsp:include page="modules/${module.page}"></jsp:include>
+		                </div>
+		            </div>
+		            <script type="text/javascript">
+					<!--
+					new AccordionHandler('leftmod${i}');
+					//-->
+					</script>
+		            <c:set var="i" value="${i+1}"></c:set>
+	            </div>
+		    </c:forEach>
+		</div>
+		
+	   	<div id="mainbot">
+		    <c:forEach items="${modules['bottom']}" var="item">
+		       <c:set var="module" scope="request" value="${item}"></c:set>
+		       <jsp:include page="modules/${module.page}"></jsp:include>
+		    </c:forEach>
+	   	</div>
+	    <!--content ends -->
 	</div>
-	
-   	<div id="mainbot">
-	    <c:forEach items="${modules['bottom']}" var="item">
-	       <c:set var="module" scope="request" value="${item}"></c:set>
-	       <jsp:include page="modules/${module.page}"></jsp:include>
-	    </c:forEach>
-   	</div>
-<!--content ends -->
-</div>
-
-
-<!--footer begins -->
-<div id="footer">
-    <div>
-        <!-- Twitter & FB buttons -->
     
-	    <!-- linkhay button -->
-	    <script type="text/javascript">
-		<!--
-		var linkhay_title = '';
-		var linkhay_url = location.href;
-		var linkhay_desc = '';
-		var linkhay_style = '2';
-		//-->
-		</script>
-		<script type="text/javascript" src="http://linkhay.com/widgets/linkhay.js"></script>
+    <!--footer begins -->
+    <div id="footer">
+        <div class="lfloat">
+            
+        </div>
+        <div class="rfloat">
+            ${config.copyright}
+            ·
+            <a href="https://code.google.com/p/ocwiki/" target="_blank">${app.name} v${app.version}</a> 
+            · 
+            <ocw:actionLink name="user.list">Thành viên</ocw:actionLink>
+            ·
+            <a href="#">Chúng tôi</a>
+            ·
+            <a href="#">Trợ giúp</a>
+        </div>
+        &nbsp;
     </div>
-    <div class="rfloat">
-		<a href="https://code.google.com/p/ocwiki/">ocwiki v0.1</a> 
-		· 
-		CS Force © 2010
-		·
-		<a href="#">Chúng tôi</a>
-		·
-		<a href="#">Trợ giúp</a>
-	</div>
+    <!-- footer ends -->
 </div>
-</div>
-<!-- footer ends -->
-
-
 </body>
 </html>
