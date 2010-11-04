@@ -27,7 +27,7 @@ import java.io.IOException;
 public class SendAuthenticationAction extends AbstractAction {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() {
 		title("Đăng nhập sử dụng OpenID");
 		
 		boolean connect = false;
@@ -42,7 +42,16 @@ public class SendAuthenticationAction extends AbstractAction {
 		getSession().setAttribute("providerUrl", userSuppliedString);
 		
 		if (userSuppliedString!=null){
-			OpenIDUtils.authRequest(userSuppliedString, connect, this, getSession());
+			try {
+				OpenIDUtils.authRequest(userSuppliedString, connect, this, getSession());
+			} catch (IOException e) {
+				if (connect==true){
+					setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
+					getSession().removeAttribute("connect");
+				}else{
+					addError("UserUrl", e.getMessage());
+				}
+			}
 		}else{
 			if (connect==true){
 				setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));

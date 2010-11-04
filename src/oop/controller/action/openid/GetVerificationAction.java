@@ -38,7 +38,7 @@ public class GetVerificationAction extends AbstractAction {
 
 	private Boolean connect = false;
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() {
 		title("Đăng nhập sử dụng OpenID");
 
 		Boolean connect = false;

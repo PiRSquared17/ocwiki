@@ -65,7 +65,7 @@ public class CompleteProfileAction extends AbstractAction {
 	}
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() {
 		boolean actionError=false;
 		if (getParams().get("actionError")!=null){
 			actionError = getParams().getBoolean("actionError");

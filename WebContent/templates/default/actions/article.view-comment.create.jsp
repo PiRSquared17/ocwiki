@@ -26,7 +26,7 @@
 		
 		var newMessage = tinyMCE.getInstanceById('comment-input').getContent();
 		if (login!=true){
-			var callLogin = 'đăng nhập';//phải gọi đến login menu ở đây.//'<a href="#" onclick="$(\'login-dropdown-menu\').style.background=\"red\";">đăng nhập</a>';
+			var callLogin = '<a href="#" onclick="$(\'login-dropdown-menu\').style.background=\"red\";">đăng nhập</a>';
 			$('cannot-post').innerHTML = 'Bạn cần '+callLogin+' để thảo luận!';
 			$('cannot-post').show();
 			return;
