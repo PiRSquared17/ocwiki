@@ -36,12 +36,33 @@
 	<fieldset>
 	<legend>Hoàn tất thông tin cá nhân</legend>
 		<c:if test="${action.usedEmail}"><div style="color: green">
-			Có thể bạn đã từng sử dụng OCWiki với email ${action.newOpenIDAcc.user.email} bạn hãy 
-			<ocw:actionLink name="user.login.openid">
-				<ocw:param name="openIDUrl" value="${u:urlEncode(action.providerUrl)}"></ocw:param>
-				<ocw:param name="connect" value="true"></ocw:param> 
-				liên kết với tài khoản này
-			</ocw:actionLink> 
+			Có thể bạn đã từng sử dụng OCWiki với email ${action.newOpenIDAcc.user.email} bạn hãy liên kết với tài khoản thông qua (các) phương thức sau
+			<c:if test="${action.mergeSA}">
+				<div>Xác nhận sử dụng tên người dùng và mật khẩu của ${action.simpleAccount.fullname} (Đang được xây dựng)</div>
+			</c:if>
+			<c:if test="${action.mergeOID}">
+				<div>Xác nhận sử dụng OpenID:
+				<ul>
+				<c:forEach items="${action.oIDAccounts}" var="account">
+					<li><ocw:actionLink name="user.login.openid">
+						<ocw:param name="openIDUrl" value="${u:urlEncode(account.providerUrl)}"></ocw:param>
+						<ocw:param name="connect" value="true"></ocw:param> 
+						${account.providerUrl}
+					</ocw:actionLink></li>
+				</c:forEach> 
+				</ul></div>
+			</c:if>
+			<c:if test="${action.mergeFB}">
+				<div>Xác nhận sử dụng Facebook:(Đang được xây dựng)
+				<ul>
+				<c:forEach items="${action.fbAccounts}" var="account">
+					<li>
+						${account.Uid}
+					</li>
+				</c:forEach> 
+				</ul></div>
+			</c:if>
+
 			hoặc 
 			<a href="#" onclick="$('email-edit-input').focus();$('email-edit-input').select();return false;">
 				thay đổi email
@@ -101,5 +122,4 @@
 		</p>
 	</div>
 </fieldset>
-${action.providerUrl}
 </ocw:form>

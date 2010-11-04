@@ -2,13 +2,18 @@ package oop.controller.action.user;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.commons.lang.StringEscapeUtils;
 
 import oop.conf.Config;
 import oop.controller.action.AbstractAction;
+import oop.data.FacebookAccount;
 import oop.data.NameOrdering;
 import oop.data.OpenIDAccount;
 import oop.data.User;
+import oop.db.dao.FacebookAccountDAO;
 import oop.db.dao.OpenIDAccountDAO;
 import oop.db.dao.UserDAO;
 import oop.util.SessionUtils;
@@ -18,11 +23,25 @@ import oop.util.Utils;
 public class CompleteProfileAction extends AbstractAction {
 	
 	private OpenIDAccount newOpenIDAcc;
-	private String providerUrl="";
-	boolean usedEmail=false;
+	private List<OpenIDAccount> oIDAccounts=null;
+	private List<FacebookAccount> fbAccounts=null;
+	private User simpleAccount=null;
+	private boolean usedEmail=false;
 	
-	public String getProviderUrl() {
-		return providerUrl;
+	private boolean mergeSA=false;
+	private boolean mergeOID=false;
+	private boolean mergeFB=false;
+	
+	public List<OpenIDAccount> getOIDAccounts() {
+		return oIDAccounts;
+	}
+
+	public List<FacebookAccount> getFbAccounts() {
+		return fbAccounts;
+	}
+
+	public User getSimpleAccount() {
+		return simpleAccount;
 	}
 
 	public boolean isUsedEmail() {
@@ -31,6 +50,18 @@ public class CompleteProfileAction extends AbstractAction {
 
 	public OpenIDAccount getNewOpenIDAcc() {
 		return newOpenIDAcc;
+	}
+
+	public boolean isMergeSA() {
+		return mergeSA;
+	}
+
+	public boolean isMergeOID() {
+		return mergeOID;
+	}
+
+	public boolean isMergeFB() {
+		return mergeFB;
 	}
 
 	@Override
@@ -65,9 +96,22 @@ public class CompleteProfileAction extends AbstractAction {
 						newOpenIDAcc.getUser().setFirstName(firstName);
 						newOpenIDAcc.getUser().setLastName(lastName);
 						newOpenIDAcc.getUser().setEmail(email);
-						if ((!isEmpty(email)) &&(UserDAO.fetchByEmail(newOpenIDAcc.getUser().getEmail())!=null)){
+						
+						User check=UserDAO.fetchByEmail(newOpenIDAcc.getUser().getEmail());
+						if ((!isEmpty(email)) &&(check!=null)){
 							usedEmail=true;
-							providerUrl = (OpenIDAccountDAO.fetchByUser(UserDAO.fetchByEmail(email).getId())).get(0).getProviderUrl();
+							if (check.hasPassword()){
+								mergeSA=true;
+								simpleAccount=check;
+							}
+							oIDAccounts = OpenIDAccountDAO.fetchByUser(check.getId());
+							if (oIDAccounts.size()>0){
+								mergeOID=true;
+							}
+							fbAccounts = FacebookAccountDAO.fetchByUser(check.getId());
+							if (fbAccounts.size()>0){
+								mergeFB=true;
+							}							
 							getSession().setAttribute("newOpenIDAcc", newOpenIDAcc);
 							getSession().setAttribute("newUser", newOpenIDAcc.getUser());
 						}else{		
@@ -103,6 +147,7 @@ public class CompleteProfileAction extends AbstractAction {
 		}
 		return true;
 	}
+
 }
 
 	
