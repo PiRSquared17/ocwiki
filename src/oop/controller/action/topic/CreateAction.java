@@ -1,5 +1,9 @@
 package oop.controller.action.topic;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.Namespace;
@@ -16,7 +20,7 @@ import com.oreilly.servlet.ParameterNotFoundException;
 public class CreateAction extends AbstractAction {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		title("Tạo chủ đề mới");
 		try {
 			String submitted = getParams().get("submit");

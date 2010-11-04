@@ -27,7 +27,6 @@ import oop.util.Utils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.map.LazyMap;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.exception.GenericJDBCException;
 
 /**
  * Servlet implementation class Test
@@ -106,7 +105,11 @@ public class ActionController extends HttpServlet {
 			Action action = actionDesc.createAction();
 			action.setController(this);
 			action.setRequest(request);
-			action.perform();
+			try {
+				action.perform();
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
 			
 			// flush current session to avoid late thrown exception
 			HibernateUtil.getSession().flush();
@@ -141,14 +144,6 @@ public class ActionController extends HttpServlet {
 			}
 		} catch (ActionException e) {
 			error(request, response, e.getMessage());
-		} catch (ConfigIOException e) {
-			request.getRequestDispatcher("/errors/fail-to-load-config.jsp")
-					.forward(request, response);
-		} catch (GenericJDBCException e) {
-			request.getRequestDispatcher("/errors/no-database-connection.jsp")
-					.forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RuntimeException(e);
 		} finally {
 			HibernateUtil.closeSession();

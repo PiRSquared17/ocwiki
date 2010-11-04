@@ -1,6 +1,9 @@
 package oop.controller.action.article;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.data.log.ResourceLog;
@@ -13,7 +16,7 @@ public class ChangeLogAction extends AbstractAction {
 	private List<ResourceLog> logs;
 
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		try {
 			long resourceId = getParams().getLong("resid");
 			int start = getParams().getInt("start");

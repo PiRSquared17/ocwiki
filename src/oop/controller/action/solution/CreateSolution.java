@@ -1,5 +1,9 @@
 package oop.controller.action.solution;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.BaseQuestion;
@@ -16,7 +20,7 @@ public class CreateSolution extends AbstractAction {
 	BaseQuestion basequestion;
 	
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		resource = BaseQuestionDAO.fetchById(getParams().getLong("id"));
 		if(resource==null){
 			throw new ActionException("Không tìm thấy câu hỏi!");

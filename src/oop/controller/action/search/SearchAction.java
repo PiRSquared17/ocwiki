@@ -1,6 +1,9 @@
 package oop.controller.action.search;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.data.Article;
@@ -40,7 +43,7 @@ public class SearchAction extends AbstractAction {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		try {
 			query = getParams().getString("search_query");
 			title("Tìm \"" + query + "\"");

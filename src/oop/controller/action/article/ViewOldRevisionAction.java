@@ -1,5 +1,9 @@
 package oop.controller.action.article;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.data.Article;
 import oop.data.Revision;
@@ -13,7 +17,7 @@ public class ViewOldRevisionAction extends AbstractResourceAction<Article> {
 	private Article article;
 
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		long id = getParams().getLong("id");
 		revision = RevisionDAO.fetch(id);
 		previousRevision = RevisionDAO.fetchPreviousRevision(id);

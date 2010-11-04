@@ -1,5 +1,9 @@
 package oop.controller.action.textart;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.TextArticle;
@@ -10,7 +14,7 @@ public class ViewAction extends AbstractResourceAction<TextArticle> {
 	private TextArticle textcontext;
 	
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		try{
 			resource = TextArticleDAO.fetchById(getParams().getLong("id"));
 			if (resource == null){

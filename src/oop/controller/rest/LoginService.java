@@ -18,7 +18,6 @@ import oop.data.FacebookAccount;
 import oop.data.User;
 import oop.db.dao.FacebookAccountDAO;
 import oop.db.dao.UserDAO;
-import oop.util.BlockedUserException;
 import oop.util.FacebookUtils;
 import oop.util.SessionUtils;
 
@@ -30,7 +29,7 @@ public class LoginService extends AbstractResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ObjectResult<User> login(@FormParam("name") String name,
-			@FormParam("password") String password) throws BlockedUserException {
+			@FormParam("password") String password) {
 		User user = UserDAO.fetchByUsername(name);
 		if (user == null) {
 			throw new WebApplicationException(Response.status(
@@ -49,7 +48,7 @@ public class LoginService extends AbstractResource {
 
 	@Path("/facebook")
 	@GET
-	public ObjectResult<User> facebookLogin() throws BlockedUserException {
+	public ObjectResult<User> facebookLogin() {
 		SortedMap<String, String> facebook = FacebookUtils
 				.readFacebookCookie(getRequest());
 		if (facebook == null) {

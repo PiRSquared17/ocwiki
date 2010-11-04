@@ -1,6 +1,5 @@
 package oop.taglib;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -35,10 +34,10 @@ public final class UtilFunctions {
 	
 	public static int size(Object o) {
 		if (o instanceof Collection) {
-			return ((Collection)o).size();
+			return ((Collection<?>)o).size();
 		}
 		if (o instanceof Map) {
-			return ((Map)o).size();
+			return ((Map<?,?>)o).size();
 		}
 		return ArrayUtils.getLength(o);
 	}
@@ -82,8 +81,7 @@ public final class UtilFunctions {
 		return html.replaceAll("\\<.*?\\>", "");
 	}
 
-	public static double getMark(Test test, Map<Long, long[]> choices)
-			throws SQLException {
+	public static double getMark(Test test, Map<Long, long[]> choices) {
 		double total = 0.0;
 		int count = 0;
 		for (Section section : test.getSections()) {

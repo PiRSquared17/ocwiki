@@ -1,6 +1,9 @@
 package oop.controller.action;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.data.BaseQuestion;
 import oop.data.Resource;
@@ -26,7 +29,7 @@ public class HomepageAction extends AbstractAction {
 	private long userCount;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		title("Trang chủ");
 		tests = TestDAO.fetch(0, 10);
 		textArticles = TextArticleDAO.fetchNewest(0, 10);

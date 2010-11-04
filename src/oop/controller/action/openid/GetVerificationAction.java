@@ -26,13 +26,15 @@ import oop.util.SessionUtils;
 import java.util.List;
 import java.io.IOException;
 
+import javax.servlet.ServletException;
+
 @SuppressWarnings("unused")
 public class GetVerificationAction extends AbstractAction {
 
 	private ConsumerManager manager;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		title("Đăng nhập sử dụng OpenID");
 		manager = (ConsumerManager) getSession().getAttribute("OIDManager");
 		Identifier verified = verifyResponse();
@@ -50,7 +52,8 @@ public class GetVerificationAction extends AbstractAction {
 	}
 
 
-	public Identifier verifyResponse() throws BlockedUserException {
+	@SuppressWarnings("rawtypes")
+	public Identifier verifyResponse() {
 		try {
 			ParameterList response = new ParameterList(getRequest()
 					.getParameterMap());

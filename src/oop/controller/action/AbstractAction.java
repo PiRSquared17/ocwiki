@@ -1,9 +1,11 @@
 package oop.controller.action;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -59,8 +61,13 @@ public abstract class AbstractAction implements Action {
 	 * 
 	 * @see oop.controller.action.Action#perform()
 	 */
-	public void perform() throws Exception {
-		performImpl();
+	public void perform() {
+		try {
+			performImpl();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	protected boolean isUserLoggedIn() {
@@ -121,7 +128,7 @@ public abstract class AbstractAction implements Action {
 		return params;
 	}
 
-	protected abstract void performImpl() throws Exception;
+	protected abstract void performImpl() throws IOException, ServletException;
 
 	protected void title(String pageTitle) {
 		request.setAttribute("pageTitle", pageTitle + " - "
@@ -183,7 +190,7 @@ public abstract class AbstractAction implements Action {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected <T extends Article> Resource<T> saveNewResource(T article) throws Exception {
+	protected <T extends Article> Resource<T> saveNewResource(T article) {
 		User user = SessionUtils.getUser(getSession());
 		String editToken = SessionUtils.getEditToken(getSession());
 		if (!editToken.equals(getParams().getString("editToken"))) {
