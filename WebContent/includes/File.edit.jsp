@@ -10,12 +10,7 @@
 	<tbody>
 	<tr>
 	<td>
-		<div id="file-uploader-demo1">		
-		<noscript>			
-			<p>Please enable JavaScript to use file uploader.</p>
-			<!-- or put a simple form for upload here -->
-		</noscript>         
-		</div>
+		<div id="file-uploader-demo1"></div>
 	</td>
 	<td><span id="progress"></span></td>
 	</tr>
@@ -92,13 +87,13 @@
 		<td><label>Bản quyền:</label></td>
 		<td>
 			<select name="license" id="license">
-			<option selected="selected" value="UNKNOWN">Không chọn</option> 
-			<option value="CC3">Giấy phép Creative Commons 3.0</option>  
-			<option value="CC_SA3">Giấy phép Creative Commons - Share Alike 3.0CC_SA3</option> 
-			<option value="GFPL">Giấy phép GNU Free Documentation License</option> 
-			<option value="CC_SA3_GFDL">Kết hợp 2 giấy phép Creative Commons 3.0 và GNU Free Documentation License</option> 			 
-			<option value="CREATIVE_COMMONS_ZERO_WAIVER">Giấy phép CC0 Waiver</option> 
-			<option value="PUBLIC_DOMAIN">Không nắm giữ bản quyền</option>
+				<option selected="selected" value="UNKNOWN">Chưa chọn</option> 
+				<option value="CC3">Giấy phép Creative Commons 3.0</option>  
+				<option value="CC_SA3">Giấy phép Creative Commons - Share Alike 3.0</option> 
+				<option value="GFPL">Giấy phép GNU Free Documentation License</option> 
+				<option value="CC_SA3_GFDL">Kết hợp giấy phép CC-SA 3.0 và GFDL</option> 			 
+				<option value="CREATIVE_COMMONS_ZERO_WAIVER">Giấy phép CC0 Waiver</option> 
+				<option value="PUBLIC_DOMAIN">Không nắm giữ bản quyền</option>
 			</select>
 		</td>
 		</tr>
@@ -122,7 +117,7 @@
 		    onFailure: function(transport){ 
 		    	DefaultTemplate.onFailure(transport); 
 			}
-		})
+		});
 	});	
 	EditAction=Class.create();
 

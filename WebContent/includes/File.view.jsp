@@ -6,7 +6,7 @@
 
 <p><b>Tên File :</b> ${file.filename}</p>
         <c:if test="${file.image}">
-        	<img alt="${file.filename}" src="${template}/uploads/${file.filename}"/>
+        	<img alt="${file.filename}" src="${homeDir}/uploads/${file.filename}"/>
 	    </c:if>
 <table class="toccolours mbox-inside" style="width: 100%;" cellpadding="2">
 <tr>
