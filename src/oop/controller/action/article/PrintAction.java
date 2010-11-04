@@ -1,5 +1,9 @@
 package oop.controller.action.article;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
@@ -10,7 +14,7 @@ import com.oreilly.servlet.ParameterNotFoundException;
 public class PrintAction extends AbstractResourceAction<Article> {
 
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		long id;
 		try {
 			id = getParams().getLong("id");

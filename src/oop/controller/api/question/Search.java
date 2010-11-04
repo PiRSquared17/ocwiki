@@ -6,10 +6,9 @@ import oop.controller.api.AbstractAPI;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.db.dao.BaseQuestionDAO;
-import oop.util.JsonUtils;
 
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
 
 public class Search extends AbstractAPI {
 
@@ -19,14 +18,14 @@ public class Search extends AbstractAPI {
 		List<Resource<BaseQuestion>> questions = BaseQuestionDAO
 				.fetchByContent("%" + query + "%", 20);
 
-		ArrayNode suggestions = JsonUtils.getFactory().arrayNode();
-		ArrayNode data = JsonUtils.getFactory().arrayNode();
+		JSONArray suggestions = new JSONArray();
+		JSONArray data = new JSONArray();
 		for (Resource<BaseQuestion> question : questions) {
-			suggestions.add(JsonUtils.getFactory().textNode(question.getName()));
-			data.add(JsonUtils.getFactory().numberNode(question.getId()));
+			suggestions.put(question.getName());
+			data.put(question.getId());
 		}
 
-		ObjectNode result = JsonUtils.getFactory().objectNode();
+		JSONObject result = new JSONObject();
 		result.put("query", query);
 		result.put("suggestions", suggestions);
 		result.put("data", data);

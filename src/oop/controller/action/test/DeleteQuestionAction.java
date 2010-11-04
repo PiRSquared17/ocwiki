@@ -1,5 +1,9 @@
 package oop.controller.action.test;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.Resource;
@@ -13,7 +17,7 @@ public class DeleteQuestionAction extends AbstractAction {
 	}
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			Resource<Test> resource = ResourceDAO.fetchById(getParams().getLong("test"));
 			Test newTest = resource.getArticle().copy();

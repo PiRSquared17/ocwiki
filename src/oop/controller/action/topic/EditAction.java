@@ -1,5 +1,9 @@
 package oop.controller.action.topic;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Resource;
@@ -13,7 +17,7 @@ public class EditAction extends AbstractResourceAction<Topic> {
 	private Topic topic;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		if (!getParams().hasParameter("id")) {
 			throw new ActionException("Bạn cần chọn chủ đề");
 		}
@@ -37,7 +41,7 @@ public class EditAction extends AbstractResourceAction<Topic> {
 		}
 	}
 
-	private void doEdit() throws Exception {
+	private void doEdit() {
 		topic = topic.copy();
 		
 		try {

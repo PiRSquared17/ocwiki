@@ -1,5 +1,9 @@
 package oop.controller.action.textart;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
@@ -11,7 +15,7 @@ import oop.db.dao.TextArticleDAO;
 public class EditAction extends AbstractResourceAction<TextArticle> {
 
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		resource = TextArticleDAO.fetchById(getParams().getLong("id"));
 		if(resource == null){
@@ -21,7 +25,7 @@ public class EditAction extends AbstractResourceAction<TextArticle> {
 			doEdit();
 		}
 	}
-	private void doEdit()throws Exception{
+	private void doEdit() {
 		TextArticle text = resource.getArticle().copy();
 		String context = getParams().get("content");
 		if (!text.getContent().getText().equals(context)){

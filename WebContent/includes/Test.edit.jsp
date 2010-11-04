@@ -180,30 +180,11 @@ AnswerTempl = new Template('${answerTemplate}');
 SectionTempl = new Template('${SectionTemplate}');
 DelSection = new Template('${DeleteSection}');
 
-var test=null;
+var test = resource.article;
 var lastQuestion = ${i};
 var indexsection = ${indexsection};
 var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-//Lấy từ server về
-    new Ajax.Request(restPath + '/tests/' + resourceId,{
-            method: 'get',
-            requestHeaders : {
-               Accept : 'application/json'
-            },
-            evalJSON : true,
-            onSuccess : function(transport) {
-               test = { id: 0, content: { id:0, text: ''}, sections: {} };
-               test = Object.extend(test, transport.responseJSON.result);
-               template();
-            },
-            onFailure: function(transport){ 
-                DefaultTemplate.onFailure(transport); 
-            }
-    })
-    function Show(){
-        alert($F('section'));
-    }
     //Del question Order
     function del(indexsection,indexquestion,index){
         var data={"indexsection":indexsection,"indexquestion":indexquestion,"index": index}; 

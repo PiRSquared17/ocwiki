@@ -1,5 +1,9 @@
 package oop.controller.action.question;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.data.BaseQuestion;
 import oop.data.Namespace;
@@ -12,7 +16,7 @@ import com.oreilly.servlet.ParameterNotFoundException;
 public class CreateAction extends AbstractAction {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		title("Tạo câu hỏi mới");
 
 		String submit = getParams().get("qc_submit");
@@ -21,7 +25,7 @@ public class CreateAction extends AbstractAction {
 		}
 	}
 
-	private void doCreate() throws Exception {
+	private void doCreate() {
 		String content = getParams().get("qc_content");
 
 		int level = 3;

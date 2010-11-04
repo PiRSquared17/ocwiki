@@ -11,6 +11,7 @@
 	<defaultTemplate>default</defaultTemplate>
 	<lazyStartup>true</lazyStartup>
 	<logoPath>ocw_logo_tiny.png</logoPath>
+	<copyright>CS Force © 2010</copyright>
 
     <!--********************************************************************
                                  Actions 
@@ -496,8 +497,9 @@
        <name>comment</name>
         <title>Nhận xét</title>
         <class>oop.module.CommentModule</class>
-        <position>bottom_right</position>
-        <order>1</order>
+        <position>action-bottom</position>
+        <inAction>article.view</inAction>
+        <order>10</order>
     </module>
     <module>
         <name>topic-children</name>
@@ -511,7 +513,7 @@
     </module>
     <module>
         <name>topic-question</name>
-        <title>Câu hỏi thuộc chủ đề</title>
+        <title>Câu hỏi</title>
         <class>oop.module.topic.QuestionInTopicModule</class>
         <position>action-bottom</position>
         <order>2</order>
@@ -521,7 +523,7 @@
     </module>
     <module>
         <name>topic-test</name>
-        <title>Đề thi thuộc chủ đề</title>
+        <title>Đề thi</title>
         <class>oop.module.topic.TestInTopicModule</class>
         <position>action-bottom</position>
         <order>3</order>
@@ -531,7 +533,7 @@
     </module>
     <module>
         <name>topic-teststruct</name>
-        <title>Cấu trúc đề thuộc chủ đề</title>
+        <title>Cấu trúc đề</title>
         <class>oop.module.topic.TestStructureInTopicModule</class>
         <position>action-bottom</position>
         <order>4</order>
@@ -541,20 +543,20 @@
     </module>
     <module>
         <name>question-test</name>
-        <title>Được sử dụng trong đề thi</title>
+        <title>Dùng trong đề thi</title>
         <class>oop.module.question.UsedByTestModule</class>
-        <position>action-bottom</position>
-        <order>4</order>
+        <position>left</position>
+        <order>2</order>
         <page>question/test.jsp</page>
         <inAction>article.view</inAction>
         <articleType>oop.data.BaseQuestion</articleType>
     </module>
     <module>
         <name>related-test</name>
-        <title>Các bài thi có liên quan:</title>
+        <title>Đề thi liên quan</title>
         <class>oop.module.test.RelatedTest</class>
-        <position>action-bottom</position>
-        <order>4</order>
+        <position>left</position>
+        <order>3</order>
         <page>test/related-test.jsp</page>
         <inAction>article.view</inAction>
         <articleType>oop.data.TextArticle</articleType>
@@ -562,9 +564,9 @@
     </module>
     <module>
         <name>related-TextArticle</name>
-        <title>Các bài viết có liên quan:</title>
+        <title>Bài viết liên quan</title>
         <class>oop.module.TextArticle.RelatedTextArticle</class>
-        <position>action-bottom</position>
+        <position>left</position>
         <order>4</order>
         <page>TextArticle/related-TextArticle.jsp</page>
         <inAction>article.view</inAction>
@@ -573,10 +575,10 @@
     </module>
     <module>
         <name>related-BaseQuestion</name>
-        <title>Các câu hỏi có liên quan:</title>
+        <title>Câu hỏi liên quan</title>
         <class>oop.module.question.RelatedBaseQuestion</class>
-        <position>action-bottom</position>
-        <order>4</order>
+        <position>left</position>
+        <order>5</order>
         <page>question/related-BaseQuestion.jsp</page>
         <inAction>article.view</inAction>
         <articleType>oop.data.TextArticle</articleType>
@@ -611,20 +613,10 @@
         <position>bottom</position>
         <order>1</order>
     </module>
-    <!-- 
     <module>
-        <name>fbconnect</name>
-        <title>Đăng nhập bằng tài khoản FaceBook</title>
-        <position>top_right</position>
-        <order>3</order>
-        <page>auth/fbconnect.jsp</page>
-    </module>
-    <module>
-       <name>login</name>
-        <title>Đăng nhập</title>
-        <class>oop.module.LoginModule</class>
+        <name>share</name>
+        <title>Chia sẻ</title>
         <position>left</position>
-        <order>1</order>
+        <order>10</order>
     </module>
-    -->
 </config>

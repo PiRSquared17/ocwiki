@@ -4,17 +4,13 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import oop.controller.ActionController;
-import oop.controller.rest.util.ErrorResult;
 import oop.data.User;
-import oop.util.JsonUtils;
 import oop.util.SessionUtils;
 
-import org.codehaus.jackson.node.ObjectNode;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 import com.oreilly.servlet.ParameterList;
 import com.oreilly.servlet.ParameterParser;
@@ -59,21 +55,19 @@ public abstract class AbstractAPI implements API {
 	/**
 	 * Create a result object when the action is successful.
 	 * @return JSON result object
+	 * @throws JSONException 
 	 */
-	protected ObjectNode success() {
-		ObjectNode result = JsonUtils.getFactory().objectNode();
-		result.put("status", APIResult.STATUS_SUCCESSFUL);
-		return result;
+	protected JSONObject success() throws JSONException {
+		return new JSONObject().put("status", APIResult.STATUS_SUCCESSFUL);
 	}
 	
 	/**
 	 * Create a result object when the action is failed.
 	 * @return JSON result object
+	 * @throws JSONException 
 	 */
-	protected ObjectNode fail() {
-		ObjectNode result = JsonUtils.getFactory().objectNode();
-		result.put("status", APIResult.STATUS_FAILED);
-		return result;
+	protected JSONObject fail() throws JSONException {
+		return new JSONObject().put("status", APIResult.STATUS_FAILED);
 	}
 	
 	protected HttpSession getSession() {

@@ -1,5 +1,9 @@
 package oop.controller.action.test;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.data.Question;
 import oop.data.Section;
@@ -16,7 +20,7 @@ public class EditQuestionAction extends AbstractResourceAction<Test> {
 	private Question question;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		resource = ResourceDAO.fetchById(getParams().getLong("test"));
 		test = resource.getArticle();
 		section = Utils.replaceByCopy(test.getSections(), getParams().getInt(
@@ -30,7 +34,7 @@ public class EditQuestionAction extends AbstractResourceAction<Test> {
 		}
 	}
 
-	private void doEdit() throws Exception {
+	private void doEdit() {
 		test = test.copy();
 
 		try {
