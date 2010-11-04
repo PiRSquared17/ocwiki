@@ -156,8 +156,8 @@
 	                {
 	                    var code = transport.responseJSON.code;
 	                    if (code == 'old version') {
-	                          //openInfoDialog("Có người đã sửa file này trước bạn, hãy tải lại trang!");
-	                          openInfoDialog("Bạn phải tải tệp tin lên trước khi lưu!");
+	                          openInfoDialog("Có người đã sửa file này trước bạn, hãy tải lại trang!");
+	                          
 	                    } else {
 		                    if(code == 'not upload yet')
 		                    	openInfoDialog("Bạn phải tải tệp tin lên trước khi lưu!");
