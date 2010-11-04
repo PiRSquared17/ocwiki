@@ -30,33 +30,8 @@
 
 <script language="javascript">
 	var lock_dialog = $('lock_dialog').innerHTML;
-	var resource;
 	var resourceID = ${action.resource.id};
 	var timeout;
-
-	function initEditTools() {
-		new Ajax.Request(restPath + '/resources/'+ resourceID, {
-			method:'get',
-			requestHeaders : 
-			{
-				Accept : 'application/json'
-			},
-			evalJSON : true,
-			onSuccess : function(transport) 
-			{
-				resource = transport.responseJSON.result;
-			},
-			onFailure: function(transport)
-			{ 
-				var code = transport.responseJSON.code;
-				if (code == 'not found') {
-				    openInfoDialog("resourceID không chính xác!");
-				} else {
-					DefaultTemplate.onFailure(transport); 
-				}
-			}
-		});
-	}
 
 	function lockArticle()
 	{
@@ -127,23 +102,6 @@
 				}
 			});
 		return ;
-	}
-
-	function openInfoDialog(info) {
-		Dialog.info(info + "<br> Thông báo tự động đóng sau 2 giây ...",
-	               {width:300, height:100, className: "alphacube",showProgress: true});
-	  	timeout=2;
-	  	setTimeout(infoTimeout, 1000);
-	}
-
-	function infoTimeout() {
-	  	timeout--;
-	  	if (timeout >0) {
-	    	Dialog.setInfoMessage("Thông báo tự động đóng sau " + timeout + "giây ...");
-	    	setTimeout(infoTimeout, 1000);
-	 	}
-	 	else
-	  		Dialog.closeInfo();
 	}
 
 	Event.observe(window, 'load', initEditTools);

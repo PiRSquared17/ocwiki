@@ -27,6 +27,7 @@ import oop.util.Utils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.map.LazyMap;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.exception.GenericJDBCException;
 
 /**
  * Servlet implementation class Test
@@ -51,24 +52,18 @@ public class ActionController extends HttpServlet {
 
 	protected void process(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		
-		// set variables
-		String template = StringUtils.defaultIfEmpty((String) request
-				.getSession().getAttribute("template"), "default");
-
-		request.getSession().setAttribute("login",
-				SessionUtils.isLoggedIn(request.getSession()));
-		request.setAttribute("config", Config.get());
-		request.setAttribute("homeDir", Config.get().getHomeDir());
-		request.setAttribute("scriptPath", getScriptPath());
-		request.setAttribute("templatePath", Config.get().getTemplatePath()
-				.replaceAll("\\$\\{template\\}", template));
-		request.setAttribute("pageTitle", Config.get().getSiteName());
-
-		// perform action
 		try {
+			// set variables
+			String template = StringUtils.defaultIfEmpty((String) request
+					.getSession().getAttribute("template"), "default");
+	
+			request.getSession().setAttribute("login",
+					SessionUtils.isLoggedIn(request.getSession()));
+			request.setAttribute("templatePath", Config.get().getTemplatePath()
+					.replaceAll("\\$\\{template\\}", template));
+			request.setAttribute("pageTitle", Config.get().getSiteName());
+	
+			// perform action
 			// get action descriptor
 			String actionStr;
 			if (request.getServletPath().endsWith("index.jsp")) {
@@ -146,6 +141,12 @@ public class ActionController extends HttpServlet {
 			}
 		} catch (ActionException e) {
 			error(request, response, e.getMessage());
+		} catch (ConfigIOException e) {
+			request.getRequestDispatcher("/errors/fail-to-load-config.jsp")
+					.forward(request, response);
+		} catch (GenericJDBCException e) {
+			request.getRequestDispatcher("/errors/no-database-connection.jsp")
+					.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
@@ -156,7 +157,7 @@ public class ActionController extends HttpServlet {
 	
 	private void error(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
 		request.setAttribute("message", message);
-		String uri = getMainEntry() + "?action=error";
+		String uri = Config.get().getMainEntry() + "?action=error";
 		request.getRequestDispatcher(uri).forward(request, response);
 	}
 
@@ -218,14 +219,6 @@ public class ActionController extends HttpServlet {
 				return modules;
 			}
 		});
-	}
-	
-	public String getMainEntry() {
-		return Config.get().getMainEntry();
-	}
-	
-	public String getScriptPath() {
-		return Config.get().getHomeDir() + getMainEntry();
 	}
 
 }

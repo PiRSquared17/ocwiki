@@ -6,9 +6,9 @@
 </div>
 
 <ocw:setJs var="testTemplate">
-		<li>
-			<a href="${config.articlePath}/\#{resource.id}">\#{resource.name}</a>
-		</li>
+	<div>
+		<a href="${config.articlePath}/\#{resource.id}">\#{resource.name}</a>
+	</div>
 </ocw:setJs>
 
 <script language="javascript">
@@ -29,9 +29,13 @@
 						//alert(transport.responseText);
 						var i;
 						relatedTestList = transport.responseJSON.result;
-						for(i = 0 ; i < relatedTestList.length ; i++){
-							var test = relatedTestList[i];
-							$('relatedTestsContainer').insert(testTemplate.evaluate(test));
+						if (relatedTestList && relatedTestList.length > 0) {
+							for(i = 0 ; i < relatedTestList.length ; i++){
+								var test = relatedTestList[i];
+								$('relatedTestsContainer').insert(testTemplate.evaluate(test));
+							}
+						} else {
+							$('relatedTestsContainer').insert('Không có');
 						}
 					},
 				    onFailure: function(transport) {
@@ -39,21 +43,4 @@
 			        }
 				  });
 	});
-
-	function openInfoDialog(info) {
-		Dialog.info(info + "<br> Thông báo tự động đóng sau 2 giây ...",
-	               {width:300, height:100, className: "alphacube",showProgress: true});
-	  	timeout=2;
-	  	setTimeout(infoTimeout, 1000);
-	}
-
-	function infoTimeout() {
-	  	timeout--;
-	  	if (timeout >0) {
-	    	Dialog.setInfoMessage("Thông báo tự động đóng sau " + timeout + "giây ...");
-	    	setTimeout(infoTimeout, 1000);
-	 	}
-	 	else
-	  		Dialog.closeInfo();
-	}
 </script>

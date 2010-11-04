@@ -36,9 +36,7 @@
 
 <h1>${action.resource.qualifiedName}</h1>
 <hr />
-<br>
 <p><jsp:include page="article.view-edittool.jsp"></jsp:include></p>
-<br>
 <ocw:userLink user="${action.resource.author}" /> tạo lúc 
 ${u:formatDateTime(action.resource.createDate)}
 
@@ -48,12 +46,9 @@ ${u:formatDateTime(action.resource.createDate)}
 
 <div class="clear"></div>
 
-<p><jsp:include page="article.view-comments.jsp"></jsp:include></p>
-
 <script type="text/javascript">
 <!--
 function markResourceDeleted() {
-	
 }
 //-->
 </script>

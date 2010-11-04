@@ -12,18 +12,18 @@ import oop.conf.Config;
 import oop.controller.api.API;
 import oop.data.User;
 import oop.persistence.HibernateUtil;
+import oop.util.JsonUtils;
 import oop.util.SessionUtils;
 import oop.util.Utils;
 
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * Servlet implementation class APIController
  */
 public class APIController extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-	private static final ObjectMapper mapper = new ObjectMapper();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -66,7 +66,7 @@ public class APIController extends HttpServlet {
 			} else if (result instanceof JsonNode) {
 				response.getWriter().write(result.toString());
 			} else {
-				mapper.writeValue(response.getWriter(), result);
+				JsonUtils.toJson(result, response.getWriter());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -24,8 +24,51 @@ a:visited {
 	float: left;
 }
 
+ul {
+    list-style-type: square;
+}	
+
 .mouse-out {
 	
+}
+
+#rightWrapper {
+    float: right;
+    width: 610px;
+    margin-right: 10px;
+    background-image: url("../images/right-border.png");
+    background-position: top left;
+    background-repeat: repeat-y;
+    padding-left: 1px;
+}
+
+#rightBottom {
+	background-image: url("../images/right-border.png");
+    background-position: top left;
+    background-repeat: repeat-x;
+    height: 1px;
+    width: 100%;
+}
+
+#right {
+	background: white;
+	padding: 10px;
+    min-height: 450px;
+}
+
+#right ol,#right ul {
+    margin-left: 30px;
+}
+
+#right h2 {
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    color: #196050;
+}
+
+#right img {
+    border: 0;
 }
 
 #right .test-description {
@@ -180,6 +223,7 @@ body {
 	width: 100%;
 	margin: 0 auto;
 	clear: both;
+    background: #F3F3F3;
 }
 
 #right ol,#right ul {
@@ -228,7 +272,7 @@ body {
 
 #left {
 	width: 178px;
-	background: #F3F3F3;
+	background: transparent;
 }
 
 #left ul {
@@ -257,76 +301,13 @@ body {
 	padding-left: 20px;
 }
 
-#right {
-	float: right;
-	width: 620px;
-}
-
-#righttop {
-	background: url(../images/righttop.gif) no-repeat top right;
-	min-height: 13px;
-	padding-right: 25px;
-	padding-left: 25px;
-}
-
-#right H4 {
-	width: 660px;
-	height: 30px;
-	font-size: 18px;
-	font-weight: normal;
-	padding-left: 14px;
-	padding-top: 12px;
-	color: #ffffff;
-	background: url(../images/right_top.png) no-repeat;
-	margin: 0 auto;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 18px;
-}
-
-.rightcenter {
-	background: url(../images/rightcenter.gif) no-repeat right;
-	height: 19px;
-}
-
-.rightbg {
-	background: url(../images/rightbg.jpg) no-repeat center top;
-	padding-right: 25px;
-	padding-left: 25px;
-	padding-top: 25px;
-}
-
-#right p {
-	margin: 0;
-}
-
-#right h1 {
-	
-}
-
-#right .navigator {
-	
-}
-
-#right ol,#right ul {
-	margin-left: 30px;
-}
-
-#right h2 {
-	margin: 0;
-	padding: 0;
-	padding-top: 10px;
-	color: #196050;
-}
-
-#right img {
-	border: 0;
-}
-
 #mainbot {
 	clear: both;
 }
 
 #footer {
+	background: none repeat scroll 0 0 #F3F3F3;
+	padding: 10px;
 }
 
 #footer p {
@@ -416,8 +397,7 @@ div.error-validating {
 }
 
 #right .list-new {
-	list-style-image: url('../images/new.jpeg');
-	margin-left: 50px;
+	margin-left: 20px;
 }
 
 #listForm {
@@ -631,9 +611,7 @@ legend {
 	left: 0px;
 	visibility: hidden;
 	width: 100px;
-	border-left: 1px solid #999999;
-	border-top: 1px solid #999999;
-	border-right: 1px solid #999999;
+	border: 1px solid #999999;
 	background-color: white;
 }
 
@@ -702,7 +680,14 @@ legend {
 	display: block;
 	color: white;
 	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.3);
-	cursor: pointer;
+} 
+
+#headNav > .rfloat li.level1 {
+    cursor: pointer;
+}
+
+#headNav > .rfloat .level2 {
+    text-shadow: none;
 } 
 
 #headNav > .rfloat > li > a {
@@ -743,7 +728,6 @@ legend {
 }
 
 #headNav .logo a {
-    padding-left: 10px;
     padding-right: 10px;
 }	
 
@@ -765,8 +749,10 @@ legend {
  * Left side bar start
  */
 
-#left h5.modtitle {
+#left .modtitle {
 	color: #4D4D4D;
+    font-weight: normal;
+    font-size: 14px;
 }
 
 /**
@@ -997,7 +983,7 @@ span.AMedit {
 }
 
 .wrapper {
-	border-color: #3B5998;
+	border-color: #5dac3a;
 	border-style: solid;
 	border-width: 1px;
 	overflow: hidden;
@@ -1005,4 +991,47 @@ span.AMedit {
 
 .logo img {
 	border: none;
+}
+
+/**
+ * Accordion begin
+ */
+ 
+.accor-container {
+    background-image:url("../images/accor-break.png");
+    background-position:left top;
+    background-repeat:no-repeat;
+    padding-top: 12px;
+    padding-bottom: 10px;
+}
+ 
+.accor-header {
+	padding-left: 23px;
+	padding-bottom: 5px;
+	background-image: url("../images/accor-down.png");
+	background-position: top left;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	color: #4D4D4D;
+}
+
+.accor-collapsed {
+	text-decoration: underline;
+    color: #265b6f;
+}
+ 
+.accor-body {
+	margin-left: 25px;
+}
+ 
+/*
+ * Accordion end
+ */
+ 
+.defaultValueTextbox {
+    color: #777777;
+}
+
+ul.shareList li {
+	margin-top: 10px;
 }

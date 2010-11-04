@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import oop.conf.ActionDescriptor;
 import oop.conf.Config;
 import oop.controller.ActionController;
+import oop.controller.rest.bean.ResourceBean;
+import oop.controller.rest.bean.ResourceMapper;
 import oop.data.Article;
 import oop.data.Resource;
 import oop.data.Revision;
@@ -229,6 +231,11 @@ public abstract class AbstractAction implements Action {
 	@Override
 	public Resource<? extends Article> getResource() {
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ResourceBean getResourceBean() {
+		return ResourceMapper.get().toBean((Resource<Article>) getResource());
 	}
 	
 	@Override
