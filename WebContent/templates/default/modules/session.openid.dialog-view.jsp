@@ -217,7 +217,7 @@ function setDefaultURL(value){
 		$('username').show();
 		$('user-url').hide();
 		$('default-url').show();
-		$('default-url').innerHTML='http://<span id="provider-view">flickr.com/photos</span><b><span id="username-view">/username</span></b>';
+		$('default-url').innerHTML='http://<span id="provider-view">flickr.com</span><b><span id="username-view">/username</span></b>';
 	}else if (value==7){
 		$('username').show();
 		$('user-url').hide();

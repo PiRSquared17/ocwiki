@@ -70,7 +70,6 @@ public class CompleteProfileAction extends AbstractAction {
 							providerUrl = (OpenIDAccountDAO.fetchByUser(UserDAO.fetchByEmail(email).getId())).get(0).getProviderUrl();
 							getSession().setAttribute("newOpenIDAcc", newOpenIDAcc);
 							getSession().setAttribute("newUser", newOpenIDAcc.getUser());
-							//getSession().setAttribute("providerUrl", providerUrl);
 						}else{		
 							try{
 								OpenIDAccountDAO.persist(newOpenIDAcc);				

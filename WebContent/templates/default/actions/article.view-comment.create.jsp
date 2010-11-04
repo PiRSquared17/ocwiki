@@ -25,11 +25,18 @@
 	function postComment(){
 		
 		var newMessage = tinyMCE.getInstanceById('comment-input').getContent();
+		if (login!=true){
+			var callLogin = 'đăng nhập';//phải gọi đến login menu ở đây.//'<a href="#" onclick="$(\'login-dropdown-menu\').style.background=\"red\";">đăng nhập</a>';
+			$('cannot-post').innerHTML = 'Bạn cần '+callLogin+' để thảo luận!';
+			$('cannot-post').show();
+			return;
+		}
 		if (newMessage.empty()==true){
 			$('cannot-post').innerHTML = 'Bạn chưa nhận xét gì!';
 			$('cannot-post').show();
 			return;
 		}
+
 		var newComment = {message: tinyMCE.getInstanceById('comment-input').getContent()};
 
 		//for (i=68;i<200;i++){ //batch add comments
