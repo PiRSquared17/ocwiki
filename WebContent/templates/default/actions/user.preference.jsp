@@ -2,24 +2,26 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp"%>
 
-<p><strong>Your Current Avatar</strong></p>
+<fieldset>
+<legend><strong>Your Current Avatar</strong></legend>
 <c:choose>
 	<c:when test="${empty user.avatar}">
-		<img src="${homeDir}/images/default.png" width="30%" height="30%" />
+		<img src="${homeDir}/uploads/avatar/default.png" width="20%" height="20%" />
 		<br>
 	</c:when>
 	<c:otherwise>
-		<img src="${config.uploadPath}/avatar/${user.avatar}" width="30%"
-			height="30%" />
+		<img src="${homeDir}/uploads/avatar/${user.avatar}" width="20%" height="20%" />
 		<br>
 	</c:otherwise>
 </c:choose>
-
-<p><strong>Custom Avatar</strong></p>
-
+</fieldset>
+<fieldset>
+<legend><strong>Custom Avatar</strong></legend>
 <ocw:form action="user.preference" enctype="multipart/form-data" method="post">
     Choose Your Avatar:<br>
 	<input type="file" name="file1"> <br>
-	<input type="submit" name="submit" value="Upload">
+	<input type="submit" name="submit" value="Upload"><br>
+	Dung lượng tối đa : 2MB<br>
 	<ocw:error code="File Error"></ocw:error>
 </ocw:form>
+</fieldset>

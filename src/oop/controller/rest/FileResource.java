@@ -42,6 +42,7 @@ public class FileResource extends AbstractResource {
 		if(resource.getStatus().equals(Status.NEW)) // luc vua tao file moi
 		{
 			//kiem tra da upload file chua
+			WebServiceUtils.assertValid(resource.getArticle().getFilename() != null, "not upload yet");
 			WebServiceUtils.assertValid(!resource.getArticle().getFilename().equals(""), "not upload yet");
 			//neu upload roi thi cho phep luu file
 			file.setFilename(resource.getArticle().getFilename());
