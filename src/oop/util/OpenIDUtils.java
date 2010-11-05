@@ -173,7 +173,6 @@ public final class OpenIDUtils {
 								action.setRedirect(ActionUtil.getActionURL("user.profileedit","mergeUser=true"));
 							}catch (Exception e) {
 								action.setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
-								//throw new ActionException(e.getMessage());
 							}
 							
 						}						
