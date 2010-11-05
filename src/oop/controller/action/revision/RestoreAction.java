@@ -21,7 +21,7 @@ public class RestoreAction extends AbstractAction {
 			minor = getParams().get("minor");
 			//Revision<? extends Article> newRevision = new Revision<Article>(id, resource, article, author, timestamp, summary, minor)
 			saveNewRevision(oldRevision.getResource(), oldRevision.getArticle());
-			setNextAction("revision.list");
+			setNextAction("revision.list?resourceID=" + oldRevision.getResource().getId());
 		}
 
 	}
