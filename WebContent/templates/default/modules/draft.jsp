@@ -12,21 +12,23 @@
 	//var content = null;
 	
 	// Connect len server lay du lieu ve
-	new Ajax.Request(restPath + "/draft/",{
-		method: 'get',
-		requestHeaders : {
-	       Accept : 'application/json'
-  		},
-	    evalJSON : true,
-	    onSuccess : function(transport) {
-  		   	var contentDraft = transport.responseJSON.result;
-  		   	content = contentDraft.text;
-  		  	$('draft-content').innerHTML = content;
-  		  	$('draft-content').hide();
-	    },
-	    onFailure: function(transport){ 
-	    	DefaultTemplate.onFailure(transport); 
-		}
+	Event.observe(window,'load',function(){
+		new Ajax.Request(restPath + "/draft/",{
+			method: 'get',
+			requestHeaders : {
+		       Accept : 'application/json'
+	  		},
+		    evalJSON : true,
+		    onSuccess : function(transport) {
+	  		   	var contentDraft = transport.responseJSON.result;
+	  		   	content = contentDraft.text;
+	  		  	$('draft-content').innerHTML = content;
+	  		  	$('draft-content').hide();
+		    },
+		    onFailure: function(transport){ 
+		    	DefaultTemplate.onFailure(transport); 
+			}
+		});
 	});
 	
 	function ShowDraft(){
@@ -44,7 +46,7 @@
 		else{
 			tinyEditor.hide();
 			$('draft-content').hide();
-			$('draft-area').hide();
+			//$('draft-area').hide();
 			isHide = true;			
 		}
 	}
@@ -79,8 +81,8 @@
 	}
 	function timeoutExc(){
 		save();
-		setTimeout(timeoutExc, 10000);
+		setTimeout(timeoutExc, 60 * 1000);
 	}
-	window.setTimeout(timeoutExc, 10000);
+	window.setTimeout(timeoutExc, 60 * 1000);
 	Event.observe(window,'unload',save);
 </script>
