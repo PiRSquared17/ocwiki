@@ -28,6 +28,14 @@ public final class SessionUtils {
 		session.setAttribute("login", false);
 		session.removeAttribute("editToken");
 	}
+	
+	public static void updateUser(HttpSession session, User user) {
+		if (user.getId() != getUser(session).getId()) {
+			throw new IllegalArgumentException("Not the same user");
+		}
+		Hibernate.initialize(user);
+		session.setAttribute("user", user);
+	}
 
 	public static User getUser(HttpSession session) {
 		return (User) session.getAttribute("user");

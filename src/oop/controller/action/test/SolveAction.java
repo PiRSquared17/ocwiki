@@ -1,19 +1,23 @@
 package oop.controller.action.test;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
-import oop.data.Article;
+import oop.data.Answer;
+import oop.data.BaseQuestion;
+import oop.data.ChoiceAnswer;
 import oop.data.History;
+import oop.data.HistoryAnswer;
 import oop.data.Test;
 import oop.db.dao.HistoryDAO;
-import oop.db.dao.ResourceDAO;
-import oop.taglib.UtilFunctions;
+import oop.db.dao.TestDAO;
+import oop.persistence.HibernateUtil;
 
 public class SolveAction extends AbstractResourceAction<Test> {
 
@@ -22,48 +26,47 @@ public class SolveAction extends AbstractResourceAction<Test> {
 	@Override
 	public void performImpl() throws IOException, ServletException {
 		String submit = getParams().getString("submit", "");
-		resource = ResourceDAO.fetchById(getParams()
-				.getLong("testId"));
+		resource = TestDAO.fetchById(getParams().getLong("testId"));
 		test = resource.getArticle();
+		if (test.getQuestionCount() <= 0) {
+			throw new ActionException("Đề thi chưa hoàn thiện.");
+		}
 		if ("done".equals(submit)) {
-			if (test.getQuestionCount() <= 0) {
-				throw new ActionException("Đề thi chưa hoàn thiện.");
-			}
-			
-			Map<Long, long[]> choices = getChoices();
-			double mark = UtilFunctions.getMark(test, choices);
+			Set<HistoryAnswer> answers = getChoiceAnswers();
 			int time = getParams().getInt("time");
-			History history = HistoryDAO.create(getUser().getId(), test
-					.getId(), mark, time);
-
+			History history = new History(getUser(), test, new Date(), answers,
+					time);
+			HistoryDAO.persist(history);
 			setNextAction("history.view&id=" + history.getId());
 		} else {
 			if (test.getQuestionCount() <= 0) {
 				throw new ActionException("Đề thi chưa hoàn thiện.");
 			}
-			
 			title("Làm đề: " + test.getName());
 		}
 	}
 
-	private Map<Long, long[]> getChoices() {
-		Map<Long, long[]> map = new HashMap<Long, long[]>();
+	private Set<HistoryAnswer> getChoiceAnswers() {
+		Set<HistoryAnswer> answers = new HashSet<HistoryAnswer>();
 		for (Object obj : request.getParameterMap().keySet()) {
 			String key = (String) obj;
 			if (key.startsWith("q")) {
+				ChoiceAnswer choiceAnswer = new ChoiceAnswer();
 				long questionId = Long.parseLong(key.substring(1));
+				choiceAnswer.setQuestion(HibernateUtil.load(BaseQuestion.class, questionId));
 				String[] params = (String[]) request.getParameterMap().get(key);
-				long[] answerIds = new long[params.length];
 				for (int i = 0; i < params.length; i++) {
-					answerIds[i] = Long.parseLong(params[i]);
+					long answerId = Long.parseLong(params[i]);
+					Answer answer = HibernateUtil.load(Answer.class, answerId);
+					choiceAnswer.getAnswers().add(answer);
 				}
-				map.put(questionId, answerIds);
+				answers.add(choiceAnswer);
 			}
 		}
-		return map;
+		return answers;
 	}
 
-	public Article getTest() {
+	public Test getTest() {
 		return test;
 	}
 	

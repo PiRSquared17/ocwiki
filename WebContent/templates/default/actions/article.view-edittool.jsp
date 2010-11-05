@@ -103,6 +103,4 @@
 			});
 		return ;
 	}
-
-	Event.observe(window, 'load', initEditTools);
 </script>
