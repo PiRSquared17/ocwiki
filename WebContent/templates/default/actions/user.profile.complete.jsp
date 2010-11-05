@@ -36,7 +36,7 @@
 	<fieldset>
 	<legend>Hoàn tất thông tin cá nhân</legend>
 		<c:if test="${action.usedEmail}"><div style="color: green">
-			Có thể bạn đã từng sử dụng OCWiki với email ${action.newOpenIDAcc.user.email} bạn hãy liên kết với tài khoản thông qua (các) phương thức sau
+			Có thể bạn đã từng sử dụng OCWiki với email ${action.newOpenIDAcc.user.email} bạn hãy liên kết với tài khoản thông qua (một trong các) cách sau
 			<c:if test="${action.mergeSA}">
 				<div>Xác nhận sử dụng tên người dùng và mật khẩu của ${action.simpleAccount.fullname} (Đang được xây dựng)</div>
 			</c:if>
@@ -88,7 +88,7 @@
 					Họ: 
 				</td><td>
 					<span id="lastname-edit-field">
-						<input name="lastname-edit-input" id="lastname-edit-input" value="${fn:escapeXml(action.newOpenIDAcc.user.lastName)}"/>	
+						<input name="lastname-edit-input" id="lastname-edit-input" value="${action.newOpenIDAcc.user.lastName}"/>	
 					</span> 
 				</td>
 			</tr>
@@ -97,7 +97,7 @@
 					*Tên: 
 				</td><td>
 					<span id="firstname-edit-field">
-						<input name="firstname-edit-input" id="firstname-edit-input" value="${fn:escapeXml(action.newOpenIDAcc.user.firstName)}"/>	
+						<input name="firstname-edit-input" id="firstname-edit-input" value="${action.newOpenIDAcc.user.firstName}"/>	
 					</span> 
 				</td>
 			</tr>
@@ -106,7 +106,7 @@
 					*Email: 
 				</td><td>
 					<span id="email-edit-field">	
-						<input name="email-edit-input" id="email-edit-input" value="${fn:escapeXml(action.newOpenIDAcc.user.email)}"/>
+						<input name="email-edit-input" id="email-edit-input" value="${action.newOpenIDAcc.user.email}"/>
 					</span> 
 					<div><ocw:error code="emailError"></ocw:error></div>
 				</td>
