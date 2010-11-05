@@ -3,8 +3,7 @@ package oop.test.rest;
 import java.io.IOException;
 
 import oop.conf.Config;
-import oop.conf.ConfigIO;
-import oop.persistence.HibernateUtil;
+import oop.controller.OcwikiApp;
 
 import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 import org.junit.BeforeClass;
@@ -22,10 +21,7 @@ public class AbstractServiceTest {
 	
 	@BeforeClass
 	public static void setupClass() throws IOException {
-		Config config = new Config();
-		ConfigIO.loadDirectory(config, "WebContent/WEB-INF/conf");
-		HibernateUtil.init(config);
-		Config.setDefaultInstance(config);
+		OcwikiApp.initialize("WebContent/WEB-INF/conf");
 	}
 
 	protected Client createClient() {

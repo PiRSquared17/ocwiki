@@ -1,5 +1,9 @@
 package oop.controller.action.section;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Section;
@@ -15,7 +19,7 @@ public class EditAction extends AbstractResourceAction<Test> {
 	private Test test;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			resource = ResourceDAO.fetchById(getParams().getLong("test"));
 			test = resource.getArticle().copy();

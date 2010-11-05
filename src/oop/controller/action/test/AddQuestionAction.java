@@ -1,6 +1,9 @@
 package oop.controller.action.test;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
@@ -24,7 +27,7 @@ public class AddQuestionAction extends AbstractResourceAction<Test> {
 	}
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			long testId = getParams().getLong("taq_test");
 			resource = TestDAO.fetchById(testId);
@@ -66,7 +69,7 @@ public class AddQuestionAction extends AbstractResourceAction<Test> {
 		}
 	}
 
-	private void addQuestionRandomly(Section section) throws Exception {
+	private void addQuestionRandomly(Section section) {
 		long topicId = getParams().getLong("taq_topicid");
 		int quantity = getParams().getInt("taq_quantity");
 
@@ -90,7 +93,7 @@ public class AddQuestionAction extends AbstractResourceAction<Test> {
 		}
 	}
 
-	private void addQuestionByAjaxSearch(Section section) throws Exception {
+	private void addQuestionByAjaxSearch(Section section) {
 		try {
 			Resource<BaseQuestion> base = ResourceDAO.fetchById(getParams()
 					.getLong("taq_question"), BaseQuestion.class);
@@ -102,7 +105,7 @@ public class AddQuestionAction extends AbstractResourceAction<Test> {
 		}
 	}
 
-	private void addQuestionById(Section section) throws Exception {
+	private void addQuestionById(Section section) {
 		try {
 			Resource<BaseQuestion> base = ResourceDAO.fetchById(getParams()
 					.getLong("taq_question"), BaseQuestion.class);

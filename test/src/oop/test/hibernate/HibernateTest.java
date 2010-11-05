@@ -1,8 +1,7 @@
 package oop.test.hibernate;
 
 
-import oop.conf.Config;
-import oop.conf.ConfigIO;
+import oop.controller.OcwikiApp;
 import oop.persistence.HibernateUtil;
 
 import org.junit.After;
@@ -40,10 +39,7 @@ public class HibernateTest {
 	 */
 	@BeforeClass
 	public static void setupClass() throws Exception {
-		Config config = new Config();
-		ConfigIO.loadDirectory(config, "test/conf");
-		HibernateUtil.init(config);
-		Config.setDefaultInstance(config);
+		OcwikiApp.initialize("test/conf");
 		// clean insert all tables
 		HibernateTestUtil.cleanInsertDataset("test/dataset/full.xml");
 	}

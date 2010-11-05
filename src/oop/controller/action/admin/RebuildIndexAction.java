@@ -1,5 +1,9 @@
 package oop.controller.action.admin;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.persistence.HibernateUtil;
 
@@ -10,7 +14,7 @@ import org.hibernate.search.Search;
 public class RebuildIndexAction extends AbstractAction {
 
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 	}
 
 	/**

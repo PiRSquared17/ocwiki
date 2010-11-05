@@ -1,5 +1,8 @@
 package oop.controller.action;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import oop.conf.ActionDescriptor;
@@ -12,7 +15,7 @@ public interface Action {
 	public static Action NULL_ACTION = new AbstractAction() {
 		
 		@Override
-		protected void performImpl() throws Exception {
+		protected void performImpl() throws IOException, ServletException {
 			// DO NOTHING
 		}
 	};
@@ -21,7 +24,7 @@ public interface Action {
 	
 	public void setDescriptor(ActionDescriptor desc);
 
-	public void perform() throws Exception;
+	public void perform() throws IOException, ServletException;
 
 	public ActionController getController();
 

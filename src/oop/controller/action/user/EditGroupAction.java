@@ -1,5 +1,9 @@
 package oop.controller.action.user;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.User;
@@ -11,7 +15,7 @@ public class EditGroupAction extends AbstractAction {
 	private User user;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			long userId = getParams().getLong("user");
 			user = UserDAO.fetchById(userId);

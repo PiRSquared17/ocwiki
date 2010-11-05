@@ -1,6 +1,9 @@
 package oop.controller.action.user;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
@@ -28,23 +31,28 @@ public class ProfileAction extends AbstractAction {
 
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			long userId = getParams().getLong("user");
 			user = UserDAO.fetchById(userId);
-			
-			title("Hồ sơ người dùng " + user.getName());
-			
-			histories = HistoryDAO.fetchByUser(userId, 0, 5);
-			tests = TestDAO.fetchByAuthor(userId, 0, 5);
-			likedComments = CommentCustomizationDAO.countByCommentAuthorAndStatus(userId, CommentStatus.LIKE);
-			hiddenComments = CommentCustomizationDAO.countByCommentAuthorAndStatus(userId, CommentStatus.HIDDEN);
-			postedComments = CommentDAO.countByAuthor(userId);
 		} catch (ParameterNotFoundException ex) {
 			throw new ActionException("Bạn cần chọn người sử dụng.");
 		} catch (NumberFormatException ex) {
-			throw new ActionException("ID không hợp lệ.");
+			user = UserDAO.fetchByUsername(getParams().get("user"));
+			if (user == null) {
+				throw new ActionException("Không tìm thấy người dùng");
+			}
 		}
+
+		title("Hồ sơ người dùng " + user.getName());
+
+		histories = HistoryDAO.fetchByUser(user.getId(), 0, 5);
+		tests = TestDAO.fetchByAuthor(user.getId(), 0, 5);
+		likedComments = CommentCustomizationDAO.countByCommentAuthorAndStatus(
+				user.getId(), CommentStatus.LIKE);
+		hiddenComments = CommentCustomizationDAO.countByCommentAuthorAndStatus(
+				user.getId(), CommentStatus.HIDDEN);
+		postedComments = CommentDAO.countByAuthor(user.getId());
 	}
 	
 	public User getDisplayedUser() {

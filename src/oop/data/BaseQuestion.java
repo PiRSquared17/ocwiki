@@ -7,10 +7,8 @@ import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
-@Indexed
 @XmlRootElement
 public class BaseQuestion extends BaseArticle {
 

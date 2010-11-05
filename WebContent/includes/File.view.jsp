@@ -6,13 +6,13 @@
 
 <p><b>Tên File :</b> ${file.filename}</p>
         <c:if test="${file.image}">
-        	<img alt="${file.filename}" src="${template}/uploads/${file.filename}"/>
+        	<img alt="${file.filename}" width="100%" height="100%" src="${homeDir}/uploads/${file.filename}"/>
 	    </c:if>
 <table class="toccolours mbox-inside" style="width: 100%;" cellpadding="2">
 <tr>
 <th style="background: #ccf; text-align: right; vertical-align: top; padding-right: 0.4em; width: 15%;" id="fileinfotpl_desc">Tên tệp tin</th>
 <td>
-<p>${file.filename}</p>
+<p>${file.name}</p>
 </td>
 </tr>
 <tr>

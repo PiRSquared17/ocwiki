@@ -1,6 +1,9 @@
 package oop.controller.action.levelconst;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractResourceAction;
 import oop.data.LevelConstraint;
@@ -20,7 +23,7 @@ public class CreateAction extends AbstractResourceAction<TestStructure> {
 	}
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		resource = TestStructureDAO.fetchById(getParams()
 				.getLong("teststruct"));
 		testStructure = resource.getArticle();
@@ -31,7 +34,7 @@ public class CreateAction extends AbstractResourceAction<TestStructure> {
 		}
 	}
 
-	private void doCreate() throws Exception {
+	private void doCreate() {
 		testStructure = testStructure.copy();
 		
 		SectionStructure sectionStructure = null;

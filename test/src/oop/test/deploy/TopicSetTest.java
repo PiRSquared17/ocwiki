@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import oop.conf.Config;
-import oop.conf.ConfigIO;
+import oop.controller.OcwikiApp;
 import oop.persistence.HibernateUtil;
 
 import org.hibernate.Query;
@@ -18,10 +17,7 @@ public class TopicSetTest {
 
 	@BeforeClass
 	public static void setupClass() throws IOException {
-		Config config = new Config();
-		ConfigIO.loadDirectory(config, "WebContent/WEB-INF/conf");
-		HibernateUtil.init(config);
-		Config.setDefaultInstance(config);
+		OcwikiApp.initialize("WebContent/WEB-INF/conf");
 	}
 	
 	@Test

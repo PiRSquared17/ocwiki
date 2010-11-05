@@ -1,6 +1,9 @@
 package oop.controller.action.user;
 
+import java.io.IOException;
 import java.util.SortedMap;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.data.FacebookAccount;
@@ -11,7 +14,7 @@ import oop.util.SessionUtils;
 public class FacebookLoginAction extends AbstractAction {
 
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		SortedMap<String, String> facebook = FacebookUtils
 				.readFacebookCookie(getRequest());
 		if (facebook != null) {
