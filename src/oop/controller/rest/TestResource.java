@@ -118,6 +118,7 @@ public class TestResource extends AbstractResource {
 		WebServiceUtils.assertValid(
 				CollectionUtils.size(bean.getSections()) > 0,
 				"too little sections");
+		
 		for (SectionBean section : bean.getSections()) {
 			WebServiceUtils.assertValid(CollectionUtils.size(section
 					.getQuestions()) > 0, "too little questions");
