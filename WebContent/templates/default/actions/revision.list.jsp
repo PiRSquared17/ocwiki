@@ -82,6 +82,11 @@
 			<c:if test="${not empty revision.summary}">
 				(${revision.summary})
 			</c:if>
+			(${revision.summary})
+			<ocw:actionLink name="revision.restore">
+				<ocw:param name="revisionId" value="${revision.id}"></ocw:param>
+				Lùi
+			</ocw:actionLink>
 		</li>
 	</c:forEach>
 </ul>

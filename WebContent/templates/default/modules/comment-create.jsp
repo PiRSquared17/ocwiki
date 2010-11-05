@@ -2,10 +2,10 @@
 <%@ include file="/includes/common.jsp" %>
 
 <div id="creat-comment">
-<form id="creat-comment" name="creat-comment">
-
-<label>Đăng nhận xét của bạn<br />
-<textarea name="comment-input" id="comment-input" cols="45" rows="5"></textarea>
+<form id="creat-comment" name="creat-comment" >
+<div align="center">
+<label><b>::Đăng nhận xét của bạn::</b><br />
+<textarea name="comment-input" id="comment-input" style="width: 100%" cols="45" rows="5"></textarea>
 </label>
 <p><span id = "cannot-post" style="color: red; display:none;" ></span></p>
 <p>
@@ -17,6 +17,7 @@
   <input type="reset" name="btn-reset" id="btn-reset" value="Hủy bỏ" />
   </label>
 </p>
+</div>
 </form>
 </div>
 <script language="javascript">
@@ -24,11 +25,18 @@
 	function postComment(){
 		
 		var newMessage = tinyMCE.getInstanceById('comment-input').getContent();
+		if (login!=true){
+			var callLogin = '<a href="#" onclick="openOpenIDLoginDialog();">đăng nhập</a>';
+			$('cannot-post').innerHTML = 'Bạn cần '+callLogin+' để thảo luận!';
+			$('cannot-post').show();
+			return;
+		}
 		if (newMessage.empty()==true){
 			$('cannot-post').innerHTML = 'Bạn chưa nhận xét gì!';
 			$('cannot-post').show();
 			return;
 		}
+
 		var newComment = {message: tinyMCE.getInstanceById('comment-input').getContent()};
 
 		//for (i=68;i<200;i++){ //batch add comments
@@ -48,7 +56,7 @@
 						var newPostComment = transport.responseJSON.result;
 						var newPostCommentReport = {comment:newPostComment, /*user:getUser(),*/ status:'NORMAL' , likeCount: 0};
 						if (commentCount == 0){
-							$('commentslist').innerHTML=showComments(newPostCommentReport);
+							$('commentslist').innerHTML=showComments(newPostCommentReport,0);
 						} else {
 							$('commentslist').innerHTML+=showComments(newPostCommentReport);
 						}

@@ -2,13 +2,16 @@
 <%@ include file="/includes/common.jsp" %>
 	
 <h2>Thay đổi thông tin của ${action.displayedUser.fullname}</h2>
-<ocw:form action="user.profileedit" id="form1" method="post">
-<input type="hidden" name="action" value="Sign Up" >
+<ocw:form action="user.profileedit" id="form" method="post">
+<div><ocw:error code="updateError"></ocw:error></div>
 <c:if test="${(action.success == true)}">
 	<div class="notification"><font color ="green">  Thay đổi thành công! </font></div>
 </c:if>
+<c:if test="${(action.mergeSuccess == true)}">
+	<div class="notification"><font color ="green">  Liên kết thành công! Một số thông tin đã được cập nhật bạn có thể thay đổi lại.</font></div>
+</c:if>
 <br />
-
+  
 <fieldset>
 <legend>Thông tin</legend>
     <table>
@@ -54,14 +57,12 @@
 				</td> 
 				<td> 
 					<span id=name-view style="display: inline"><b>${action.displayedUser.name}</b></span>
-					<c:if test="${action.displayedUser.name}"> 
-						<span id=name-edit-field style="display: none">
-							<input name="name-edit-input" id="name-edit-input" value=""/>			
-							<a href="#" id="name-edit-button-hide" style="display: none" onclick="hideEditField(2);return false;">thôi</a>
-							<span class="notification">Lưu ý, bạn chỉ được thay đổi tên người dùng 1 lần duy nhất.</span>					
-						</span>
-						<a href="#" id="name-edit-button-show" style="display: inline" onclick="showEditField(2);return false;">sửa</a>
-					</c:if>
+					<span id=name-edit-field style="display: none">
+						<input name="name-edit-input" id="name-edit-input" value=""/>			
+						<a href="#" id="name-edit-button-hide" style="display: none" onclick="hideEditField(2);return false;">thôi</a>
+						<div class="notification">Lưu ý, bạn chỉ được thay đổi tên người dùng 1 lần duy nhất.</div>					
+					</span>
+					<a href="#" id="name-edit-button-show" <c:if test="${(empty action.displayedUser.name)==false}"> style="display: none"</c:if> onclick="showEditField(2);return false;">sửa</a>
 				</td>
 			</tr>
 			<tr>
@@ -96,6 +97,7 @@
 						</table>
 					</span>
 					<a href="#" id="pass-edit-button-show" style="display: inline" onclick="showEditField(3);return false;">sửa</a>
+					<div><ocw:error code="passError"></ocw:error></div>
 				</td> 
 			</tr>
 		</table>
@@ -103,6 +105,7 @@
 	
 	<fieldset>
 	<legend>Thay đổi thông tin cá nhân</legend>
+		<div><ocw:error code="fullnameError"></ocw:error></div>
 		<table>
 			<tr>
 				<td width="100px">
@@ -173,9 +176,9 @@
 				</td><td>
 					<span id="birthday-view" style="display: inline"><b>${u:formatDate(action.displayedUser.birthday)}</b></span> 
 					<span id=birthday-edit-field style="display: none">
-						<input name="birthday-edit-day" id="birthday-edit-day" size="2px" maxlength="2" value="${action.displayedUser.birthday.date}"/>-
-						<input name="birthday-edit-month" id="birthday-edit-month" size="2px" maxlength="2" value="${action.displayedUser.birthday.month+1}"/>-
-						<input name="birthday-edit-year" id="birthday-edit-year" size="4px" maxlength="4" value="${action.displayedUser.birthday.year+1900}"/>	
+						<input name="birthday-edit-day" id="birthday-edit-day" size="2px" maxlength="2" value="${(empty action.displayedUser.birthday.date)?'':(action.displayedUser.birthday.date)}"/>-
+						<input name="birthday-edit-month" id="birthday-edit-month" size="2px" maxlength="2" value="${(empty action.displayedUser.birthday.month)?'':(action.displayedUser.birthday.month+1)}"/>-
+						<input name="birthday-edit-year" id="birthday-edit-year" size="4px" maxlength="4" value="${(empty action.displayedUser.birthday.year)?'':(action.displayedUser.birthday.year+1900)}"/>	
 						(ngày-tháng-năm)
 					</span> <a href="#" id="birthday-edit-button-show" style="display: inline" onclick="showEditField(8);return false;">sửa</a><a href="#" id="birthday-edit-button-hide" style="display: none" onclick="hideEditField(8);return false;">thôi</a>
 					<ocw:error code="birthday"></ocw:error>
@@ -224,7 +227,7 @@
 				<td>
 					Lý lịch: 
 				</td><td>
-					<span id=bio-edit-field style="display: inline">${action.displayedUser.bio}</span> 
+					<span id=bio-view style="display: inline">${action.displayedUser.bio}</span> 
 					<span id=bio-edit-field style="display: none">
 						<textarea name="bio-edit-input" id="bio-edit-input" cols="45" rows="5">${fn:escapeXml(action.displayedUser.bio)}</textarea>
 					</span> 
@@ -243,16 +246,18 @@
 				</td><td>
 					<span id=email-view style="display: inline"><a href="mailto:${action.displayedUser.email}">${action.displayedUser.email}</a></span>
 					<span id=email-edit-field style="display: none">
+						
 						<input name="email-edit-input" id="email-edit-input" value="${fn:escapeXml(action.displayedUser.email)}"/>
 					</span> 
 					<a href="#" id="email-edit-button-show" style="display: inline" onclick="showEditField(13);return false;">sửa</a><a href="#" id="email-edit-button-hide" style="display: none" onclick="hideEditField(13);return false;">thôi</a>
+					<div><ocw:error code="emailError"></ocw:error></div>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					Website:
 				</td><td>
-					<span id=website-view style="display: inline">${action.displayedUser.website}</span>
+					<span id=website-view style="display: inline"><a href="${action.displayedUser.website}" target="_blank" >${action.displayedUser.website}</a></span>
 					<span id=website-edit-field style="display: none">
 						<input name="website-edit-input" id="website-edit-input" value="${fn:escapeXml(action.displayedUser.website)}"/>
 					</span> 
@@ -289,215 +294,232 @@
 	<div id="form-buttons">
 		<p>
 			<button style="margin-left:0%; float:none;" type="submit" name="change" id="change" value="change" >Lưu</button>
-			<button style="margin-left:0%; float:none;" type="reset" name="resetAll" id="resetAll" value="reset">Hủy bỏ</button>
+			<button style="margin-left:0%; float:none;" type="reset" name="resetAll" id="resetAll" value="reset" onclick="resetAllChanges();">Hủy bỏ mọi thay đổi</button>
 		</p>
 	</div>
 </fieldset>
 </ocw:form>
 
+
 <script language="javascript">
 
-    //kiem tra inputbox empty
-    function is_empty(element) {
-        if (element.value=="" || element.value == null || element.value.length==0) {
-            //bien bao loi
-            element.style.background="#FF99AF";
-            return true;
-        } else {
-            element.style.background="#FFFFFF";
-            return false;
-        }
-    }
+	//kiem tra inputbox empty
+	function is_empty(element) {
+		if (element.value=="" || element.value == null || element.value.length==0) {
+			//bien bao loi
+			element.style.background="#FF99AF";
+			return true;
+		} else {
+			element.style.background="#FFFFFF";
+			return false;
+		}
+	}
 
-    //co phai e mail?
-    function is_email(element){
-        var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
-        if(element.value.match(emailExp) && element.value!="" && element.value != null && element.value.lenth!=0){
-            element.style.background="#FFFFFF";
-        }else{
-            //bien bao loi
-            element.style.background="#FF99AF";
-        }
-    }
+	//co phai e mail?
+	function is_email(element){
+		var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+		if(element.value.match(emailExp) && element.value!="" && element.value != null && element.value.lenth!=0){
+			element.style.background="#FFFFFF";
+		}else{
+			//bien bao loi
+			element.style.background="#FF99AF";
+		}
+	}
 
-    function confirm_pass(pass1,pass2){
-        if (pass1.value == pass2.value) {
-            if (pass1.value=="" || pass1.value == null || pass1.value.length==0)
-                pass1.style.background="#FF99AF";
-            else {
-                pass1.style.background="#FFFFFF";
-                pass2.style.background="#FFFFFF";
-            }
-        } else {
-            pass2.style.background="#FF99AF";
-        }
-    }
+	function confirm_pass(pass1,pass2){
+		if (pass1.value == pass2.value) {
+			if (pass1.value=="" || pass1.value == null || pass1.value.length==0)
+				pass1.style.background="#FF99AF";
+			else {
+				pass1.style.background="#FFFFFF";
+				pass2.style.background="#FFFFFF";
+			}
+		} else {
+			pass2.style.background="#FF99AF";
+		}
+	}
 
-    function showEditField(value){
-        if (value==2){
-            $('name-edit-field').show();
-            $('name-edit-button-show').hide();
-            $('name-edit-button-hide').show();
-            $('name-view').hide();
-        }else if (value==3){
-            $('pass-edit-field').show();
-            $('pass-edit-button-show').hide();
-            $('pass-edit-button-hide').show();
-            $('pass-view').hide();
-        }else if (value==4){
-            $('fullname-edit-field').show();
-            $('fullname-edit-button-show').hide();
-            $('fullname-edit-button-hide').show();
-            $('fullname-view').hide();
-        }else if (value==5){
-            $('lastname-edit-field').show();
-            $('lastname-edit-button-show').hide();
-            $('lastname-edit-button-hide').show();
-            $('lastname-view').hide();
-        }else if (value==6){
-            $('firstname-edit-field').show();
-            $('firstname-edit-button-show').hide();
-            $('firstname-edit-button-hide').show();
-            $('firstname-view').hide();
-        }else if (value==7){
-            $('gender-edit-field').show();
-            $('gender-edit-button-show').hide();
-            $('gender-edit-button-hide').show();
-            $('gender-view').hide();
-        }else if (value==8){
-            $('birthday-edit-field').show();
-            $('birthday-edit-button-show').hide();
-            $('birthday-edit-button-hide').show();
-            $('birthday-view').hide();
-        }else if (value==9){
-            $('about-edit-field').show();
-            $('about-edit-button-show').hide();
-            $('about-edit-button-hide').show();
-            $('about-view').hide();
-        }else if (value==10){
-            $('hometown-edit-field').show();
-            $('hometown-edit-button-show').hide();
-            $('hometown-edit-button-hide').show();
-            $('hometown-view').hide();
-        }else if (value==11){
-            $('location-edit-field').show();
-            $('location-edit-button-show').hide();
-            $('location-edit-button-hide').show();
-            $('location-view').hide();
-        }else if (value==12){
-            $('bio-edit-field').show();
-            $('bio-edit-button-show').hide();
-            $('bio-edit-button-hide').show();
-            $('bio-view').hide();
-        }else if (value==13){
-            $('email-edit-field').show();
-            $('email-edit-button-show').hide();
-            $('email-edit-button-hide').show();
-            $('email-view').hide();
-        }else if (value==14){
-            $('website-edit-field').show();
-            $('website-edit-button-show').hide();
-            $('website-edit-button-hide').show();
-            $('website-view').hide();
-        }else if (value==15){
-            $('timezone-edit-field').show();
-            $('timezone-edit-button-show').hide();
-            $('timezone-edit-button-hide').show();
-            $('timezone-view').hide();
-        }else{
-        }
-    }
-    
-    function hideEditField(value){
-        if (value==2){
-            $('name-edit-field').hide();
-            $('name-edit-button-show').show();
-            $('name-edit-button-hide').hide();          
-            $('name-edit-input').value='';
-            $('name-view').show();
-        }else if (value==3){
-            $('pass-edit-field').hide();
-            $('pass-edit-button-show').show();
-            $('pass-edit-button-hide').hide();  
-            $('pass-edit-old').value='';        
-            $('pass-edit-input').value='';
-            $('pass-edit-confirm').value='';
-            $('pass-view').show();
-        }else if (value==4){
-            $('fullname-edit-field').hide();
-            $('fullname-edit-button-show').show();
-            $('fullname-edit-button-hide').hide();  
-            $('fullname-edit-input').selectedIndex=defaultNameOrderSelected;
-            $('fullname-view').show();
-        }else if (value==5){
-            $('lastname-edit-field').hide();
-            $('lastname-edit-button-show').show();
-            $('lastname-edit-button-hide').hide();          
-            $('lastname-edit-input').value=$('lastname-edit-input').defaultValue;
-            $('lastname-view').show();
-        }else if (value==6){
-            $('firstname-edit-field').hide();
-            $('firstname-edit-button-show').show();
-            $('firstname-edit-button-hide').hide();         
-            $('firstname-edit-input').value=$('firstname-edit-input').defaultValue;
-            $('firstname-view').show();
-        }else if (value==7){
-            $('gender-edit-field').hide();
-            $('gender-edit-button-show').show();
-            $('gender-edit-button-hide').hide();
-            $('gender-edit-input').selectedIndex=defaultGenderSelected; 
-            $('gender-view').show();        
-        }else if (value==8){
-            $('birthday-edit-field').hide();
-            $('birthday-edit-button-show').show();
-            $('birthday-edit-button-hide').hide();  
-            $('birthday-edit-day').value=$('birthday-edit-day').defaultValue;       
-            $('birthday-edit-month').value=$('birthday-edit-month').defaultValue;
-            $('birthday-edit-year').value=$('birthday-edit-year').defaultValue;
-            $('birthday-view').show();
-        }else if (value==9){
-            $('about-edit-field').hide();
-            $('about-edit-button-show').show();
-            $('about-edit-button-hide').hide(); 
-            tinyMCE.get('about-edit-input').load($('about-edit-input'));
-            $('about-view').show();
-        }else if (value==10){
-            $('hometown-edit-field').hide();
-            $('hometown-edit-button-show').show();
-            $('hometown-edit-button-hide').hide();  
-            tinyMCE.get('hometown-edit-input').load($('hometown-edit-input'));
-            $('hometown-view').show();
-        }else if (value==11){
-            $('location-edit-field').hide();
-            $('location-edit-button-show').show();
-            $('location-edit-button-hide').hide();  
-            tinyMCE.get('location-edit-input').load($('location-edit-input'));
-            $('location-view').show();
-        }else if (value==12){
-            $('bio-edit-field').hide();
-            $('bio-edit-button-show').show();
-            $('bio-edit-button-hide').hide();   
-            tinyMCE.get('bio-edit-input').load($('bio-edit-input'));
-            $('bio-view').show();
-        }else if (value==13){
-            $('email-edit-field').hide();
-            $('email-edit-button-show').show();
-            $('email-edit-button-hide').hide();         
-            $('email-edit-input').value=$('email-edit-input').defaultValue;
-            $('email-view').show();
-        }else if (value==14){
-            $('website-edit-field').hide();
-            $('website-edit-button-show').show();
-            $('website-edit-button-hide').hide();           
-            $('website-edit-input').value=$('website-edit-input').defaultValue;
-            $('website-view').show();
-        }else if (value==15){
-            $('timezone-edit-field').hide();
-            $('timezone-edit-button-show').show();
-            $('timezone-edit-button-hide').hide();          
-            $('timezone-edit-input').selectedIndex=defaultTimezoneSelected;
-            $('timezone-view').show();
-        }else{
-        }
-    }
+	function showEditField(value){
+		if (value==1){
+			$('avatar-edit-field').show();
+			$('avatar-edit-button-show').hide();
+			$('avatar-edit-button-hide').show();
+			$('avatar-view').hide();
+		}else if (value==2){
+			$('name-edit-field').show();
+			$('name-edit-button-show').hide();
+			$('name-edit-button-hide').show();
+			$('name-view').hide();
+		}else if (value==3){
+			$('pass-edit-field').show();
+			$('pass-edit-button-show').hide();
+			$('pass-edit-button-hide').show();
+			$('pass-view').hide();
+		}else if (value==4){
+			$('fullname-edit-field').show();
+			$('fullname-edit-button-show').hide();
+			$('fullname-edit-button-hide').show();
+			$('fullname-view').hide();
+		}else if (value==5){
+			$('lastname-edit-field').show();
+			$('lastname-edit-button-show').hide();
+			$('lastname-edit-button-hide').show();
+			$('lastname-view').hide();
+		}else if (value==6){
+			$('firstname-edit-field').show();
+			$('firstname-edit-button-show').hide();
+			$('firstname-edit-button-hide').show();
+			$('firstname-view').hide();
+		}else if (value==7){
+			$('gender-edit-field').show();
+			$('gender-edit-button-show').hide();
+			$('gender-edit-button-hide').show();
+			$('gender-view').hide();
+		}else if (value==8){
+			$('birthday-edit-field').show();
+			$('birthday-edit-button-show').hide();
+			$('birthday-edit-button-hide').show();
+			$('birthday-view').hide();
+		}else if (value==9){
+			$('about-edit-field').show();
+			$('about-edit-button-show').hide();
+			$('about-edit-button-hide').show();
+			$('about-view').hide();
+		}else if (value==10){
+			$('hometown-edit-field').show();
+			$('hometown-edit-button-show').hide();
+			$('hometown-edit-button-hide').show();
+			$('hometown-view').hide();
+		}else if (value==11){
+			$('location-edit-field').show();
+			$('location-edit-button-show').hide();
+			$('location-edit-button-hide').show();
+			$('location-view').hide();
+		}else if (value==12){
+			$('bio-edit-field').show();
+			$('bio-edit-button-show').hide();
+			$('bio-edit-button-hide').show();
+			$('bio-view').hide();
+		}else if (value==13){
+			$('email-edit-field').show();
+			$('email-edit-button-show').hide();
+			$('email-edit-button-hide').show();
+			$('email-view').hide();
+		}else if (value==14){
+			$('website-edit-field').show();
+			$('website-edit-button-show').hide();
+			$('website-edit-button-hide').show();
+			$('website-view').hide();
+		}else if (value==15){
+			$('timezone-edit-field').show();
+			$('timezone-edit-button-show').hide();
+			$('timezone-edit-button-hide').show();
+			$('timezone-view').hide();
+		}else{
+		}
+	}
+	
+	function hideEditField(value){
+		if (value==1){
+			$('avatar-edit-field').hide();
+			$('avatar-edit-button-show').show();
+			$('avatar-edit-button-hide').hide();			
+			$('avatar-view').show();
+		}else if (value==2){
+			$('name-edit-field').hide();
+			$('name-edit-button-show').show();
+			$('name-edit-button-hide').hide();			
+			$('name-edit-input').value='';
+			$('name-view').show();
+		}else if (value==3){
+			$('pass-edit-field').hide();
+			$('pass-edit-button-show').show();
+			$('pass-edit-button-hide').hide();	
+			$('pass-edit-old').value='';		
+			$('pass-edit-input').value='';
+			$('pass-edit-confirm').value='';
+			$('pass-view').show();
+		}else if (value==4){
+			$('fullname-edit-field').hide();
+			$('fullname-edit-button-show').show();
+			$('fullname-edit-button-hide').hide();	
+			$('fullname-edit-input').selectedIndex=defaultNameOrderSelected;
+			$('fullname-view').show();
+		}else if (value==5){
+			$('lastname-edit-field').hide();
+			$('lastname-edit-button-show').show();
+			$('lastname-edit-button-hide').hide();			
+			$('lastname-edit-input').value=$('lastname-edit-input').defaultValue;
+			$('lastname-view').show();
+		}else if (value==6){
+			$('firstname-edit-field').hide();
+			$('firstname-edit-button-show').show();
+			$('firstname-edit-button-hide').hide();			
+			$('firstname-edit-input').value=$('firstname-edit-input').defaultValue;
+			$('firstname-view').show();
+		}else if (value==7){
+			$('gender-edit-field').hide();
+			$('gender-edit-button-show').show();
+			$('gender-edit-button-hide').hide();
+			$('gender-edit-input').selectedIndex=defaultGenderSelected;	
+			$('gender-view').show();		
+		}else if (value==8){
+			$('birthday-edit-field').hide();
+			$('birthday-edit-button-show').show();
+			$('birthday-edit-button-hide').hide();	
+			$('birthday-edit-day').value=$('birthday-edit-day').defaultValue;		
+			$('birthday-edit-month').value=$('birthday-edit-month').defaultValue;
+			$('birthday-edit-year').value=$('birthday-edit-year').defaultValue;
+			$('birthday-view').show();
+		}else if (value==9){
+			$('about-edit-field').hide();
+			$('about-edit-button-show').show();
+			$('about-edit-button-hide').hide();	
+			tinyMCE.get('about-edit-input').load($('about-edit-input'));
+			$('about-view').show();
+		}else if (value==10){
+			$('hometown-edit-field').hide();
+			$('hometown-edit-button-show').show();
+			$('hometown-edit-button-hide').hide();	
+			tinyMCE.get('hometown-edit-input').load($('hometown-edit-input'));
+			$('hometown-view').show();
+		}else if (value==11){
+			$('location-edit-field').hide();
+			$('location-edit-button-show').show();
+			$('location-edit-button-hide').hide();	
+			tinyMCE.get('location-edit-input').load($('location-edit-input'));
+			$('location-view').show();
+		}else if (value==12){
+			$('bio-edit-field').hide();
+			$('bio-edit-button-show').show();
+			$('bio-edit-button-hide').hide();	
+			tinyMCE.get('bio-edit-input').load($('bio-edit-input'));
+			$('bio-view').show();
+		}else if (value==13){
+			$('email-edit-field').hide();
+			$('email-edit-button-show').show();
+			$('email-edit-button-hide').hide();			
+			$('email-edit-input').value=$('email-edit-input').defaultValue;
+			$('email-view').show();
+		}else if (value==14){
+			$('website-edit-field').hide();
+			$('website-edit-button-show').show();
+			$('website-edit-button-hide').hide();			
+			$('website-edit-input').value=$('website-edit-input').defaultValue;
+			$('website-view').show();
+		}else if (value==15){
+			$('timezone-edit-field').hide();
+			$('timezone-edit-button-show').show();
+			$('timezone-edit-button-hide').hide();			
+			$('timezone-edit-input').selectedIndex=defaultTimezoneSelected;
+			$('timezone-view').show();
+		}else{
+		}
+	}
+
+	function resetAllChanges(){
+		for(var i=0;i<=15;i++){
+			hideEditField(i);
+		}
+	}
 </script>

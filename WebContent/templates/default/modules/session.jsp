@@ -22,7 +22,7 @@
 <div class="jsmenu" id="guest-toolbar"
     style="display: ${sessionScope.login ? 'none' : 'block'};">
 <ul class="level1 horizontal" id="guest-toolbar-root">
-	<li class="level1">Đăng nhập
+	<li class="level1" id="login-dropdown-menu">Đăng nhập
         <ul class="level2 dropdown">
             <c:if test="${not empty config.facebookAppId}">
 	            <li><a href="#" onclick="fblogin(); return false;">FaceBook</a></li>
@@ -41,7 +41,7 @@
             </c:if>
             <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://www.google.com/accounts/o8/id"></ocw:param>Google</ocw:actionLink></li>
             <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://me.yahoo.com/"></ocw:param>Yahoo</ocw:actionLink></li>
-            <li><ocw:actionLink name="user.login.openid">OpenID</ocw:actionLink></li>
+            <li><a href="#" onclick="openOpenIDLoginDialog(); return false;">OpenID</a></li>
             <li><a href="#" onclick="openLoginDialog(); return false;">Nội bộ</a></li>
         </ul>
 	</li>
@@ -167,5 +167,63 @@ function session_login() {
 	return false;
 }
 
+function openOpenIDLoginDialog() {
+	Dialog.confirm($('openID-login-dialog').innerHTML, 
+			{
+				className :"alphacube", 
+				width : 400, 
+				height : 280, 
+				okLabel : "Đăng nhập", 
+				cancelLabel : "Thôi", 
+				buttonClass : "session-button",
+				id : "openID-loginDialog",
+				title: "Đăng nhập bằng OpenID",
+				onOk :
+					function(win){ 
+						if (getURL()==null){
+							$('openID_loginError').innerHTML = 'username của nhà cung cấp OpenID không được phép trống';
+						}else{
+							openID_login();
+						}
+					}
+			}
+	); 
+}
+
+function openID_login(){
+	if ($F('userSuppliedOpenIDUrl') == '') {
+		$('openID_loginError').innerHTML = 'Bạn cần nhập đường dẫn OpenID';
+		return false;
+	}
+	new Ajax.Request(
+			restPath + '/login/openid',
+			{
+				method : 'get',
+				parameters : {
+					userSuppliedOpenIDUrl : $F(encodeURI('userSuppliedOpenIDUrl'))
+				},
+				requestHeaders : {
+					Accept : 'application/json'
+				},
+				evalJSON : true,
+				onSuccess : function(transport) {
+					location.href=transport.responseJSON.result.text;
+				},
+				onFailure : function(transport) {
+					var code = transport.responseJSON.code;
+					if (code == 'empty url') {
+						$('openID_loginError').innerHTML = 'Bạn cần nhập đường dẫn OpenID';
+					} else if (code == 'connection error') {
+						$('openID_loginError').innerHTML = 'Không thể kết nối tới nhà cung cấp OpenID';
+					} else {
+					    DefaultTemplate.onFailure(transport); 
+					}
+				}
+			});
+		return false;
+}
+
 	//-->
 </script>
+<%-- openID login Dialog --%>
+<jsp:include page="session.openid.dialog-view.jsp" flush="true"></jsp:include>

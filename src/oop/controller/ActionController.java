@@ -56,6 +56,7 @@ public class ActionController extends HttpServlet {
 			String template = StringUtils.defaultIfEmpty((String) request
 					.getSession().getAttribute("template"), "default");
 	
+			request.setCharacterEncoding("UTF-8");
 			// !!!IMPORTANT!!! Encoding error if delete the next line
 			request.setCharacterEncoding("UTF-8");
 			

@@ -3,8 +3,8 @@
 <%@ include file="/includes/common.jsp" %>
 
 <div>
-<form>
-OpenID url: <input type="text" id="openIDUrl" name="openIDUrl"></input>
+<form name="openid-login" id="openid-login">
+<jsp:include page="user.login.openid-view.jsp"></jsp:include>
 <input type="submit" value="OK"/>
 <input type="reset" value="reset"/> 
 </form>
