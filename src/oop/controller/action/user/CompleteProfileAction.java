@@ -23,17 +23,17 @@ import oop.util.Utils;
 public class CompleteProfileAction extends AbstractAction {
 	
 	private OpenIDAccount newOpenIDAcc;
-	private List<OpenIDAccount> oIDAccounts=null;
-	private List<FacebookAccount> fbAccounts=null;
-	private User simpleAccount=null;
+	private List<OpenIDAccount> openIDAccounts;
+	private List<FacebookAccount> fbAccounts;
+	private User simpleAccount;
 	private boolean usedEmail=false;
 	
 	private boolean mergeSA=false;
 	private boolean mergeOID=false;
 	private boolean mergeFB=false;
 	
-	public List<OpenIDAccount> getOIDAccounts() {
-		return oIDAccounts;
+	public List<OpenIDAccount> getOpenIDAccounts() {
+		return openIDAccounts;
 	}
 
 	public List<FacebookAccount> getFbAccounts() {
@@ -104,8 +104,8 @@ public class CompleteProfileAction extends AbstractAction {
 								mergeSA=true;
 								simpleAccount=check;
 							}
-							oIDAccounts = OpenIDAccountDAO.fetchByUser(check.getId());
-							if (oIDAccounts.size()>0){
+							openIDAccounts = OpenIDAccountDAO.fetchByUser(check.getId());
+							if (openIDAccounts.size()>0){
 								mergeOID=true;
 							}
 							fbAccounts = FacebookAccountDAO.fetchByUser(check.getId());

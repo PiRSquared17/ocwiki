@@ -43,7 +43,7 @@
 			<c:if test="${action.mergeOID}">
 				<div>Xác nhận sử dụng OpenID:
 				<ul>
-				<c:forEach items="${action.oIDAccounts}" var="account">
+				<c:forEach items="${action.openIDAccounts}" var="account">
 					<li><ocw:actionLink name="user.login.openid">
 						<ocw:param name="openIDUrl" value="${u:urlEncode(account.providerUrl)}"></ocw:param>
 						<ocw:param name="connect" value="true"></ocw:param> 
