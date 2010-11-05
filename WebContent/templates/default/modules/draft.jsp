@@ -1,10 +1,15 @@
 <div style="position: fixed; right: 10px; bottom: 0px" >
-	<div>
-		<textarea rows="10" cols="40" id="draft-content">
-		</textarea>
+	<div id="draft-area">
+		<div>
+			<textarea rows="10" cols="40" id="draft-content">
+			</textarea>
+		</div>
+		<div>
+			<button onclick="save()">Lưu</button>
+		</div>
 	</div>
 	<div align="right">
-		<span onclick = "ShowDraft()" style="margin-right: 0px">Nh�p</span>
+		<span onclick = "ShowDraft()" style="margin-right: 0px">Nháp</span>
 	</div>
 </div>
 <script type="text/javascript">
@@ -37,12 +42,14 @@
 		}
 		
 		if (isHide) {
-			tinyEditor.show();
+			//tinyEditor.show();
+			$('draft-area').show();
 			isHide = false;
 		}
 		else{
-			tinyEditor.hide();
-			$('draft-content').hide();
+			//tinyEditor.hide();
+			//$('draft-content').hide();
+			$('draft-area').hide();
 			isHide = true;			
 		}
 	}
