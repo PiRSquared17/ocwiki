@@ -26,7 +26,7 @@
 		
 		var newMessage = tinyMCE.getInstanceById('comment-input').getContent();
 		if (login!=true){
-			var callLogin = '<a href="#" onclick="$(\'login-dropdown-menu\').style.background=\"red\";">đăng nhập</a>';
+			var callLogin = '<a href="#" onclick="openOpenIDLoginDialog();">đăng nhập</a>';
 			$('cannot-post').innerHTML = 'Bạn cần '+callLogin+' để thảo luận!';
 			$('cannot-post').show();
 			return;
