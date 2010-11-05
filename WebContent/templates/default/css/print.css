@@ -1,0 +1,224 @@
+
+*
+{
+margin: 0px;
+padding: 0px;
+}
+
+a:link {
+	color: #630000;
+	text-decoration:none;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #78030a;
+}
+
+.question-content-wrapper {
+	padding-bottom: 5px;
+}
+
+.answer-list-wrapper {
+	clear: both;
+}	
+
+.answer-wrapper {
+	clear: both;
+	padding-top: 5px; 
+	padding-bottom: 5px;
+}
+
+.content-wrapper {
+	float: left;
+}
+ 
+.number-wrapper {
+    float: left;
+    margin-right: 2px;
+}
+ 
+.number {
+	font-weight: bold;
+}
+ 
+.check-wrapper {
+    float: left;
+    margin-right: 10px;
+}
+ 
+.marker-wrapper {
+    float: left;
+    margin-right: 5px;
+}
+
+#right .question {
+    padding-right: 90px;
+}
+
+.buttons {
+	float: right;
+    margin-right: 10px;
+}
+
+.buttons a {
+    cursor: pointer;
+}
+
+.button-wrapper {
+	float: right;
+    margin-right: 10px;
+    display: none;
+}
+
+.button-wrapper a {
+    cursor: pointer;
+}
+
+.hover {
+   background: #ffefef;
+}	
+
+.hover .button-wrapper {
+	display: block;
+}
+
+body {	
+}
+
+#content{
+	margin: 0 auto;
+	background: #1e7c01;
+	width: 989px;
+	text-align: left;
+	background: url(../images/mainbg.gif) center;
+	background-repeat:repeat-y;
+}
+
+#main{
+width: 989px;
+margin: 0 auto;
+clear:both;
+}
+
+#header {
+	height: 397px;
+	width: 289px;
+	background: #1e7c01 url(../images/header.jpg) no-repeat top;		
+}
+
+#footer {
+	clear: both;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	text-align: center;
+}
+
+table {
+	text-align:left;
+}
+
+#right table {
+	width: 100%;
+	clear: both;
+}
+
+#right .mceLayout {
+	clear: none;
+}
+
+#right .mceToolbar {
+	width: auto;
+}
+
+#form_edit br {
+	clear: both;
+}
+	
+#form_edit {
+	clear: both;
+	width: 400px;
+}
+
+#form_edit input, #form_edit select {
+	float:right;
+	clear: both;
+}
+
+.toolbar {
+	float: left;
+}
+
+#listForm {
+    clear: both;
+}
+
+.clear {
+    clear: both;
+}
+
+fieldset {
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	-moz-border-radius: 10px 10px 0 0;
+}
+
+legend {
+	padding-left: 10px;
+	padding-right: 10px;
+}	
+
+.mark-question-list .mouse-in {
+    background: #ffefef;
+}	
+
+.mark-question-list .mouse-out {
+    background: none;
+}	
+
+/*
+ * tránh bị xuống dòng vì trong câu trả lời có thẻ p
+ */
+.question-number-wrapper {
+    float: left;
+    margin-right: 10px;
+}
+
+.section-title {
+	border-bottom: 1px solid #AAAAAA;
+}
+
+/***************************************************************************
+ * ARTICLE STYLES
+ ***************************************************************************/
+ 
+.article-wrapper .header {
+    border-bottom: 1px solid #AAAAAA;
+}
+
+.article-wrapper .name {
+}
+
+.article-wrapper .toolbar {
+	margin-top: 8px;
+	float: right;
+}
+
+.article-wrapper .meta-wrapper {
+	clear: both;
+    font-size: smaller;
+}
+
+.top_right {
+	padding-right: 10px;
+	float: right;
+}
+
+.ocw-label {
+    text-align: right;
+}
+
+.ocw-input {
+    text-align: left;
+}

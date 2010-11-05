@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 14, 2010 1:07:52 PM by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="oop.data.TopicReport" table="TopicReport" mutable="false">
+        <composite-id>
+            <key-many-to-one name="resource" class="oop.data.Resource">
+	            <column name="RESOURCE" />
+            </key-many-to-one>
+        </composite-id>
+        <property name="childrenCount" type="int">
+            <column name="children_count" />
+        </property>
+        <property name="articleCount" type="int">
+            <column name="article_count" />
+        </property>
+    </class>
+</hibernate-mapping>

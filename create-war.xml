@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="create-war">
+    <target name="create-war">
+        <mkdir dir="dist"/>
+        <delete file="dist/ocwiki.war" />
+        <war destfile="dist/ocwiki.war" webxml="WebContent/WEB-INF/web.xml" update="true">
+            <classes dir="build/classes">
+                <exclude name="oop/test/**"/>
+            </classes>
+            <fileset dir="WebContent">
+                <exclude name="examples/**"/>
+                <exclude name="WEB-INF/web.xml"/>
+                <exclude name="WEB-INF/conf/cumeo89.xml"/>
+            </fileset>
+            <fileset dir="deploy">
+            	<include name="WEB-INF/**"/>
+            </fileset>
+        </war>
+    </target>
+</project>
