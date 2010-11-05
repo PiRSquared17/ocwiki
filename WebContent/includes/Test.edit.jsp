@@ -317,6 +317,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 					test.sections[i].questions.splice(j,1);
 					test.sections[i].id = 0;
 				}
+			if (test.sections[i].questions.length <= 0) delete test.section[i].questions;
 			//IdSection = 'section-content-' + i;
 			//section.questions = newquestion;
 			//section.content = tinymce.get(IdSection).getContent();
@@ -324,6 +325,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			//indexsection++;
 		}
 		//test.sections = newsection;
+		if (test.sections.length <= 0) delete test.sections;
 		// Lay thong tin bai kiem tra
 		content = tinymce.get('Test-content-' + test.id).getContent();
 		test.content.text = content;
@@ -355,10 +357,26 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			      onFailure: function(transport) {
 			    	  var code = transport.responseJSON.code;
 			          if (code == 'old version') {
-			              alert('old version');
-			          } else {
-			        	  $('articleEdit-error').innerHTML = 'Lỗi không rõ: ' + code;
+			        	  $('articleEdit-error').innerHTML = 'Trùng phiên bản';
+			          } 
+				      if (code == 'test content is blank'){
+			        	  $('articleEdit-error').innerHTML = 'Nội dung bài kiểm tra rỗng';
 			          }
+				      if (code == 'too little sections'){
+					  	  $('articleEdit-error').innerHTML = 'Không có phần nào trong bài kiểm tra';
+					  }
+				      if (code == 'too little questions'){
+					  	  $('articleEdit-error').innerHTML = 'Câu hỏi trong phần không có câu hỏi';
+					  }
+				      if (code == 'section content is blank'){
+					  	  $('articleEdit-error').innerHTML = 'Có một phần trong bài kiểm tra không có nội dung';
+					  }
+				      if (code == 'question is empty'){
+					  	  $('articleEdit-error').innerHTML = 'Câu hỏi rỗng';
+					  }
+				      if (code == 'mark must be positive'){
+					  	  $('articleEdit-error').innerHTML = 'Điểm phải.....';
+					  }
 			      }
 			    });
 	}
