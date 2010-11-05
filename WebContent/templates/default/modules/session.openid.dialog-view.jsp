@@ -4,7 +4,7 @@
 
 <form>
 <div id="openID-login-dialog" style="display:none;float: center;" align="center">
-	<span id="username" style="display: none">Username: <input type="text"id="username-input" name="username-input" width="100px" onkeyup="updateUsernameView();"></input></span>
+	<div id="username" style="display: none">Username: <input type="text"id="username-input" name="username-input" width="100px" onkeyup="updateUsernameView();" maxlength="50"></input></div>
 	<div>OpenID url: 
 		<span id="default-url" style="display: none"></span>
 		<span id="user-url" style="display: inline"><input width="200px" type="text" id="user-url-input" name="user-url-input"></input></span>
@@ -180,7 +180,7 @@
 	</tr>
 	</table>
 	</div>
-	
+	<div>Tìm hiểu thêm về OpenID tại <a href="http://openid.net" target="_blank">OpenID.net</a> hoặc <a href="http://vi.wikipedia.org/wiki/OpenID" target="_blank">Wikipedia.org</a></div>
 	<span id="openID_loginError" style="color: red"></span>
 </div>
 
