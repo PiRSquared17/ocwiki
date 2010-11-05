@@ -5,11 +5,11 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import oop.data.Article;
 import oop.data.HasVersion;
 import oop.data.ResourceAccessibility;
 import oop.data.Status;
 
-@SuppressWarnings("unchecked")
 @XmlRootElement
 public class ResourceBean implements HasVersion {
 
@@ -21,7 +21,7 @@ public class ResourceBean implements HasVersion {
 	private ArticleBean article;
 	private ResourceAccessibility accessibility = ResourceAccessibility.EVERYONE;
 	private ResourceReferenceBean link = null;
-	private Class type;
+	private Class<? extends Article> type;
 
 	public ResourceBean() {
 	}
@@ -90,12 +90,12 @@ public class ResourceBean implements HasVersion {
 		this.link = link;
 	}
 
-	public void setType(Class type) {
+	public void setType(Class<? extends Article> type) {
 		this.type = type;
 	}
 
 	@XmlElement(name="articleType")
-	public Class getType() {
+	public Class<? extends Article> getType() {
 		return type;
 	}
 	

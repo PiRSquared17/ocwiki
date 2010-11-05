@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 31, 2010 at 03:46 PM
+-- Generation Time: Nov 03, 2010 at 11:44 PM
 -- Server version: 5.1.49
 -- PHP Version: 5.3.3-1ubuntu9.1
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `Answer` (
   `correct` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK81F532C1EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1304 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1306 ;
 
 --
 -- Dumping data for table `Answer`
@@ -1019,7 +1019,9 @@ INSERT INTO `Answer` (`id`, `content`, `correct`) VALUES
 (1300, 1800, b'0'),
 (1301, 1801, b'0'),
 (1302, 1802, b'1'),
-(1303, 1803, b'0');
+(1303, 1803, b'0'),
+(1304, 1805, b'1'),
+(1305, 1806, b'0');
 
 -- --------------------------------------------------------
 
@@ -1080,7 +1082,7 @@ CREATE TABLE IF NOT EXISTS `Article` (
   KEY `FKC38C3A53EA647FAC` (`content`),
   KEY `FKC38C3A53232F5FBE` (`parent`),
   KEY `solution_question` (`solution_question`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=604 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=606 ;
 
 --
 -- Dumping data for table `Article`
@@ -1457,7 +1459,9 @@ INSERT INTO `Article` (`id`, `discriminator`, `namespace`, `content`, `name`, `p
 (600, 'BaseQuestion', 3, 1794, NULL, NULL, 1, NULL, NULL, NULL, 'UNKNOWN', 'UNKNOWN', '2010-10-24 14:30:04', 'UNKNOWN', 'UNKNOWN', NULL),
 (601, 'BaseQuestion', 3, 1799, NULL, NULL, 2, NULL, NULL, NULL, 'UNKNOWN', 'UNKNOWN', '2010-10-24 14:30:04', 'UNKNOWN', 'UNKNOWN', NULL),
 (602, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2010-10-24 14:37:12', 'UNKNOWN', 'UNKNOWN', NULL),
-(603, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, NULL, '', 'UNKNOWN', '2010-10-30 15:35:39', '', '', NULL);
+(603, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, NULL, '', 'UNKNOWN', '2010-10-30 15:35:39', '', '', NULL),
+(604, 'BaseQuestion', 3, 1804, NULL, NULL, 5, NULL, NULL, NULL, 'UNKNOWN', 'UNKNOWN', '2010-11-02 14:26:24', 'UNKNOWN', 'UNKNOWN', NULL),
+(605, 'Text', 0, NULL, 'Bài viết mới', NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', 'UNKNOWN', '2010-11-03 13:10:37', 'UNKNOWN', 'UNKNOWN', NULL);
 
 -- --------------------------------------------------------
 
@@ -2839,7 +2843,9 @@ INSERT INTO `BaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`) VA
 (601, 1300, 0),
 (601, 1301, 1),
 (601, 1302, 2),
-(601, 1303, 3);
+(601, 1303, 3),
+(604, 1304, 0),
+(604, 1305, 1);
 
 -- --------------------------------------------------------
 
@@ -2916,25 +2922,6 @@ CREATE TABLE IF NOT EXISTS `CommentReportWithUser` (
 ,`status` varchar(255)
 ,`like_count` bigint(21)
 );
--- --------------------------------------------------------
-
---
--- Table structure for table `Constraint`
---
-
-CREATE TABLE IF NOT EXISTS `Constraint` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
-  `count` int(11) NOT NULL,
-  `level` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `Constraint`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -3041,6 +3028,7 @@ INSERT INTO `Namespace` (`id`, `name`) VALUES
 CREATE TABLE IF NOT EXISTS `OpenIDAccount` (
   `url` varchar(200) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `user` bigint(20) NOT NULL,
+  `provider_url` varchar(100) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   PRIMARY KEY (`url`),
   KEY `user` (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
@@ -3049,8 +3037,6 @@ CREATE TABLE IF NOT EXISTS `OpenIDAccount` (
 -- Dumping data for table `OpenIDAccount`
 --
 
-INSERT INTO `OpenIDAccount` (`url`, `user`) VALUES
-('https://me.yahoo.com/ngocminhxuixeo#fc7f5', 5);
 
 -- --------------------------------------------------------
 
@@ -3335,7 +3321,7 @@ CREATE TABLE IF NOT EXISTS `Resource` (
   KEY `FKE2E602515DDB135C` (`author`),
   KEY `FKE2E602515EB7070E` (`link`),
   KEY `FKE2E6025172978E26` (`article`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=534 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=535 ;
 
 --
 -- Dumping data for table `Resource`
@@ -3346,8 +3332,8 @@ INSERT INTO `Resource` (`id`, `version`, `create_date`, `type`, `article`, `auth
 (63, 2, '2010-08-25 01:15:32', 'oop.data.Test', 63, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (64, 1, '2010-08-25 01:15:32', 'oop.data.Test', 602, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (65, 0, '2010-08-25 01:15:32', 'oop.data.Test', 65, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
-(66, 0, '2010-08-25 01:15:32', 'oop.data.Test', 66, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
-(88, 9, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 584, 1, 'NORMAL', NULL, 'NO_ONE', '0.50'),
+(66, 0, '2010-08-25 01:15:32', 'oop.data.Test', 66, 1, 'DELETED', NULL, 'EVERYONE', '0.50'),
+(88, 10, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 604, 1, 'NORMAL', NULL, 'NO_ONE', '0.50'),
 (89, 14, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 597, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
 (90, 2, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 601, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
 (91, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 91, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
@@ -3660,7 +3646,8 @@ INSERT INTO `Resource` (`id`, `version`, `create_date`, `type`, `article`, `auth
 (530, 0, '2010-09-29 08:56:40', 'oop.data.BaseQuestion', 594, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
 (531, 0, '2010-10-05 17:56:47', 'oop.data.Topic', 598, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
 (532, 0, '2010-10-05 18:02:57', 'oop.data.Test', 599, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
-(533, 0, '2010-10-30 15:35:39', 'oop.data.File', 603, 1, 'NEW', NULL, 'EVERYONE', '0.50');
+(533, 0, '2010-10-30 15:35:39', 'oop.data.File', 603, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
+(534, 0, '2010-11-03 13:10:37', 'oop.data.TextArticle', 605, 1, 'NEW', NULL, 'EVERYONE', '0.50');
 
 --
 -- Triggers `Resource`
@@ -3763,9 +3750,12 @@ CREATE TABLE IF NOT EXISTS `ResourceCustomization` (
 --
 
 INSERT INTO `ResourceCustomization` (`RESOURCE`, `USER`, `LEVEL`, `LIKE`, `TODO`, `done`) VALUES
-(90, 1, -1, 'NORMAL', 'NORMAL', 1),
+(62, 1, 0, 'NORMAL', 'TODO', 0),
+(64, 1, 0, 'LIKE', 'NORMAL', 0),
+(90, 1, -1, 'NORMAL', 'TODO', 1),
 (93, 1, -1, 'NORMAL', 'NORMAL', 1),
-(458, 1, 0, 'LIKE', 'NORMAL', 0);
+(458, 1, 0, 'LIKE', 'NORMAL', 0),
+(532, 1, 0, 'LIKE', 'NORMAL', 0);
 
 -- --------------------------------------------------------
 
@@ -3809,7 +3799,7 @@ CREATE TABLE IF NOT EXISTS `Revision` (
   KEY `FKE7AEF61E5DDB135C` (`author`),
   KEY `FKE7AEF61E72978E26` (`article`),
   KEY `FKE7AEF61E4A301B22` (`resource`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=568 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=569 ;
 
 --
 -- Dumping data for table `Revision`
@@ -4169,7 +4159,8 @@ INSERT INTO `Revision` (`id`, `resource`, `article`, `author`, `timestamp`, `sum
 (564, 89, 597, 1, '2010-10-05 09:59:03', '', b'0'),
 (565, 93, 600, 1, '2010-10-09 00:24:41', 'linh tinh', b'0'),
 (566, 90, 601, 1, '2010-10-09 01:42:30', '', b'0'),
-(567, 64, 602, 1, '2010-10-24 14:37:13', '', b'0');
+(567, 64, 602, 1, '2010-10-24 14:37:13', '', b'0'),
+(568, 88, 604, 1, '2010-11-02 14:26:24', '', b'0');
 
 -- --------------------------------------------------------
 
@@ -4805,6 +4796,25 @@ CREATE TABLE IF NOT EXISTS `TestSectionStructure` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `TestStructureConstraint`
+--
+
+CREATE TABLE IF NOT EXISTS `TestStructureConstraint` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
+  `count` int(11) NOT NULL,
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `TestStructureConstraint`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Text`
 --
 
@@ -4812,7 +4822,7 @@ CREATE TABLE IF NOT EXISTS `Text` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` mediumtext COLLATE utf8_vietnamese1_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1804 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1807 ;
 
 --
 -- Dumping data for table `Text`
@@ -6608,7 +6618,10 @@ INSERT INTO `Text` (`id`, `text`) VALUES
 (1800, '<p>and she</p>'),
 (1801, '<p>she</p>'),
 (1802, '<p>when she had</p>'),
-(1803, '<p>that she</p>');
+(1803, '<p>that she</p>'),
+(1804, '<p>I ______ this letter around for days without looking at it.</p>'),
+(1805, '<p>have been carrying</p>'),
+(1806, '<p>has been carrying</p>');
 
 -- --------------------------------------------------------
 
@@ -6988,7 +7001,7 @@ ALTER TABLE `SectionStructure`
 --
 ALTER TABLE `SectionStructureConstraint`
   ADD CONSTRAINT `FK2228CC0E5CF139C9` FOREIGN KEY (`section_id`) REFERENCES `SectionStructure` (`id`),
-  ADD CONSTRAINT `FK2228CC0E9391B220` FOREIGN KEY (`constraint_id`) REFERENCES `Constraint` (`id`);
+  ADD CONSTRAINT `FK2228CC0E9391B220` FOREIGN KEY (`constraint_id`) REFERENCES `TestStructureConstraint` (`id`);
 
 --
 -- Constraints for table `TestSection`
@@ -7009,7 +7022,7 @@ ALTER TABLE `TestSectionStructure`
 --
 ALTER TABLE `TopicConstraintTopic`
   ADD CONSTRAINT `FK7F38E1E62575393F` FOREIGN KEY (`topic_id`) REFERENCES `Resource` (`id`),
-  ADD CONSTRAINT `FK7F38E1E68DCE1D63` FOREIGN KEY (`constraint_id`) REFERENCES `Constraint` (`id`);
+  ADD CONSTRAINT `FK7F38E1E68DCE1D63` FOREIGN KEY (`constraint_id`) REFERENCES `TestStructureConstraint` (`id`);
 
 --
 -- Constraints for table `TopicSet`

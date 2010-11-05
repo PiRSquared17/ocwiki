@@ -1,8 +1,11 @@
 package oop.controller.action.topicconst;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractResourceAction;
 import oop.data.Resource;
@@ -23,7 +26,7 @@ public class CreateAction extends AbstractResourceAction<TestStructure> {
 	}
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		long testStructureId = getParams().getLong("teststruct");
 		resource = TestStructureDAO.fetchById(testStructureId);
 		testStructure = resource.getArticle();
@@ -34,7 +37,7 @@ public class CreateAction extends AbstractResourceAction<TestStructure> {
 		}
 	}
 
-	private void doCreate(TestStructure testStructure) throws Exception {
+	private void doCreate(TestStructure testStructure) {
 		testStructure = testStructure.copy();
 
 		SectionStructure sectionStructure = null;

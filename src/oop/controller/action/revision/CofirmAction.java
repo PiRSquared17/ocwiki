@@ -11,7 +11,7 @@ public class CofirmAction extends AbstractAction {
 	
 	
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() {
 		// TODO Auto-generated method stub
 		revisionId = getParams().getInt("revisionId");
 		currRevision = RevisionDAO.fetch(revisionId);

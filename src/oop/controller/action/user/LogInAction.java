@@ -1,5 +1,9 @@
 package oop.controller.action.user;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.data.User;
 import oop.db.dao.UserDAO;
@@ -9,7 +13,7 @@ import oop.util.SessionUtils;
 public class LogInAction extends AbstractAction {
 
 	@Override
-	public void performImpl() {
+	public void performImpl() throws IOException, ServletException {
 		title("Đăng nhập");
 
 		if ("Log In".equals(getParams().get("logIn"))) {

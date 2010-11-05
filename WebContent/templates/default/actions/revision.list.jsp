@@ -79,6 +79,9 @@
 		    <input type="checkbox" name="revid" value="${revision.id}">
 	        <ocw:articleLink revision="${revision}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink>
 			<ocw:userLink user="${revision.author}" />
+			<c:if test="${not empty revision.summary}">
+				(${revision.summary})
+			</c:if>
 			(${revision.summary})
 			<ocw:actionLink name="revision.restore">
 				<ocw:param name="revisionId" value="${revision.id}"></ocw:param>

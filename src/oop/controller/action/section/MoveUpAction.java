@@ -1,5 +1,9 @@
 package oop.controller.action.section;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.data.Section;
 import oop.data.Test;
@@ -10,7 +14,7 @@ public class MoveUpAction extends AbstractResourceAction<Test> {
 	private Test test;
 	
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		resource = ResourceDAO.fetchById(getParams().getLong("testid"));
 		test = resource.getArticle().copy();
 		int sectionIndex = getParams().getInt("id");

@@ -1,7 +1,10 @@
 package oop.controller.action.question;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
@@ -18,7 +21,7 @@ import com.oreilly.servlet.ParameterNotFoundException;
 public class EditAction extends AbstractResourceAction<BaseQuestion> {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		resource = BaseQuestionDAO.fetchById(getParams().getLong("id"));
 		if (resource == null) {
 			throw new ActionException("Không tìm thấy câu hỏi");
@@ -31,7 +34,7 @@ public class EditAction extends AbstractResourceAction<BaseQuestion> {
 		}
 	}
 
-	private void doEdit() throws Exception {
+	private void doEdit() {
 		BaseQuestion question = resource.getArticle().copy();
 		
 		Set<Resource<Topic>> newTopics = new HashSet<Resource<Topic>>();

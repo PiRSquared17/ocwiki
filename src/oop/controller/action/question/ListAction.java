@@ -1,6 +1,9 @@
 package oop.controller.action.question;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.data.BaseQuestion;
@@ -17,7 +20,7 @@ public class ListAction extends AbstractAction {
 	public static final int PAGE_LENGTH = 10;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 
 		title("Danh sách câu hỏi");
 

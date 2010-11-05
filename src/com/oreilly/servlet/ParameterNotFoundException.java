@@ -1,6 +1,6 @@
 package com.oreilly.servlet;
 
-public class ParameterNotFoundException extends Exception {
+public class ParameterNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 4422875541335393521L;
 	private String name;
 	

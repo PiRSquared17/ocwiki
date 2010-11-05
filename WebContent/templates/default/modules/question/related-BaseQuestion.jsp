@@ -25,12 +25,14 @@
 					},
 					evalJSON : true,
 					onSuccess : function(transport) {
-						//alert("cai nay la BQ " + transport.responseText);
-						var i;
 						relatedBaseQuestionList = transport.responseJSON.result;
-						for(i = 0 ; i < relatedBaseQuestionList.length ; i++){
-							var baseQuestion = relatedBaseQuestionList[i];
-							$('relatedBaseQuestionContainer').insert(baseQuestionTemplate.evaluate(baseQuestion));
+						if (relatedBaseQuestionList && relatedBaseQuestionList.length > 0) {
+							for(i = 0 ; i < relatedBaseQuestionList.length ; i++){
+								var baseQuestion = relatedBaseQuestionList[i];
+								$('relatedBaseQuestionContainer').insert(baseQuestionTemplate.evaluate(baseQuestion));
+							}
+						} else {
+							$('relatedBaseQuestionContainer').insert('Không có');
 						}
 					},
 				    onFailure: function(transport) {
@@ -39,20 +41,4 @@
 				  });
 	});
 
-	function openInfoDialog(info) {
-		Dialog.info(info + "<br> Thông báo tự động đóng sau 2 giây ...",
-	               {width:300, height:100, className: "alphacube",showProgress: true});
-	  	timeout=2;
-	  	setTimeout(infoTimeout, 1000);
-	}
-
-	function infoTimeout() {
-	  	timeout--;
-	  	if (timeout >0) {
-	    	Dialog.setInfoMessage("Thông báo tự động đóng sau " + timeout + "giây ...");
-	    	setTimeout(infoTimeout, 1000);
-	 	}
-	 	else
-	  		Dialog.closeInfo();
-	}
 </script>

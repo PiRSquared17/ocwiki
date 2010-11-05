@@ -8,12 +8,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import oop.data.log.ResourceLog;
+import oop.persistence.search.BaseQuestionBridge;
+import oop.persistence.search.ResourceCustomizationBridge;
+import oop.persistence.search.TestBridge;
+import oop.util.Utils;
+
 import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
+import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
-
-import oop.data.log.ResourceLog;
-import oop.util.Utils;
+import org.hibernate.search.annotations.Store;
 
 @Indexed
 @XmlRootElement
@@ -24,8 +31,10 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	private Date createDate;
 	@IndexedEmbedded
 	private User author;
-	private Status status = Status.NORMAL;
+	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
+	private Status status = Status.NEW;
 	private int version = 0;
+//	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
 	private Class<T> type;
 	@IndexedEmbedded
 	private T article;
@@ -196,6 +205,27 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	@Override
 	public String toString() {
 		return "Resource #" + id + " (" + type + ")";
+	}
+	
+	/**
+	 * Dùng làm placeholder cho Hibernate Search bridge.
+	 */
+	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
+	@FieldBridge(impl=ResourceCustomizationBridge.class)
+	long getCustomization() {
+		return id;
+	}
+	
+	@Field(index=Index.TOKENIZED, store=Store.NO)
+	@FieldBridge(impl=BaseQuestionBridge.class)
+	Object getBaseQuestion() {
+		return this;
+	}
+	
+	@Field(index=Index.TOKENIZED, store=Store.NO)
+	@FieldBridge(impl=TestBridge.class)
+	Object getTest() {
+		return this;
 	}
 	
 }

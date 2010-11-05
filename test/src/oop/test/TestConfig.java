@@ -1,21 +1,12 @@
 package oop.test;
 
-import java.io.IOException;
-
 import oop.conf.Config;
-import oop.conf.ConfigIO;
+import oop.controller.OcwikiApp;
 
 public class TestConfig {
 
 	static {
-		try {
-			Config config = new Config();
-			ConfigIO.loadDirectory(config, "test/conf");
-			Config.setDefaultInstance(config);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+		OcwikiApp.initialize("test/conf");
 	}
 	
 	public static Config getConfig() {

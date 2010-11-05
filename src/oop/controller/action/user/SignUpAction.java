@@ -1,8 +1,13 @@
 package oop.controller.action.user;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.data.User;
 import oop.db.dao.UserDAO;
+import oop.util.BlockedUserException;
 import oop.util.SessionUtils;
 import oop.util.UserUtils;
 
@@ -10,7 +15,7 @@ import oop.util.UserUtils;
 public class SignUpAction extends AbstractAction {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		title("Đăng kí thành viên");
 		if (isUserLoggedIn()){
 			setNextAction("homepage");		

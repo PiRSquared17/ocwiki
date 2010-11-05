@@ -1,5 +1,9 @@
 package oop.controller.action.test;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Test;
@@ -10,7 +14,7 @@ public class ViewAction extends AbstractResourceAction<Test> {
 	private Test test;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			long id = getParams().getLong("id");
 			resource = ResourceDAO.fetchById(id, Test.class);

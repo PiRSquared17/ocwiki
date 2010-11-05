@@ -1,5 +1,9 @@
 package oop.controller.api.test;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
@@ -11,7 +15,7 @@ public class Edit extends AbstractResourceAction<Test>  {
 	private Article test;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		try {
 			resource = ResourceDAO.fetchById(getParams().getLong("testId"));
 			test = resource.getArticle();

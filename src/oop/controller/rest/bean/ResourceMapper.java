@@ -9,6 +9,9 @@ public class ResourceMapper implements
 
 	@Override
 	public ResourceBean toBean(Resource<Article> value) {
+		if (value == null) {
+			return null;
+		}
 		ResourceBean bean = new ResourceBean();
 		bean.setId(value.getId());
 		bean.setArticle(ArticleMapper.get().toBean(value.getArticle()));
@@ -28,7 +31,7 @@ public class ResourceMapper implements
 		Resource<Article> entity = new Resource<Article>();
 		entity.setId(value.getId());
 		entity.setArticle(ArticleMapper.get().toEntity(value.getArticle()));
-		entity.setType(value.getType());
+		entity.setType((Class<Article>) value.getType());
 		entity.setAuthor(UserReferenceMapper.get().toEntity(value.getAuthor()));
 		entity.setCreateDate(value.getCreateDate());
 		entity.setStatus(value.getStatus());

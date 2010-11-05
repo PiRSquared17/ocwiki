@@ -12,10 +12,10 @@
 			<column name="name" not-null="false" unique="true" />
 		</property>
 		<property name="password" type="java.lang.String" access="field">
-			<column name="pass" not-null="true" />
+			<column name="pass" />
 		</property>
 		<property name="email" type="java.lang.String">
-			<column name="email" not-null="true" unique="true" />
+			<column name="email" not-null="false" unique="true" />
 		</property>
 		<property name="group" type="java.lang.String">
 			<column name="ugroup" not-null="true" />

@@ -124,7 +124,7 @@ function createTopic() {
 }
 
 function sendCreateRequest(resource) {
-    new Ajax.Request(restPath + '/resource',
+    new Ajax.Request(restPath + '/resources',
     {
         method:'post',
         contentType: 'application/json',

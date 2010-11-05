@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.xml.bind.JAXBException;
 
 import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
@@ -11,8 +12,6 @@ import oop.data.Comment;
 import oop.data.CommentStatus;
 import oop.util.JsonUtils;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Assert;
 
 import com.sun.jersey.api.client.GenericType;
@@ -49,7 +48,7 @@ public class CommentServiceTest extends AbstractServiceTest {
 	}
 	
 //	@Test
-	public void testBaseQuestionUpdate() throws JsonParseException, JsonMappingException, IOException {
+	public void testBaseQuestionUpdate() throws IOException, JAXBException {
 		WebResource resource = createResource("/basequestion/88");
 		String json = "{" +
 				"\"id\":\"88\"," +
