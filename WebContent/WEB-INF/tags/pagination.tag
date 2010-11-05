@@ -73,7 +73,7 @@
 			<c:if test="${currentStart < ((pageCount-1)*pageSize)}">
 					<ocw:actionLink name="${actionName}">
 						<ocw:param name="start" value="${currentStart+pageSize}"/>
-						Trang sau >				
+						Trang sau >
 					</ocw:actionLink>
 			</c:if>	
 		</span>
