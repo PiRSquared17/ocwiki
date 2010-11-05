@@ -95,6 +95,8 @@ public class ProfileEditAction extends AbstractAction {
 				String bio=getParams().get("bio-edit-input");
 				String email=getParams().get("email-edit-input");
 				String website=getParams().get("website-edit-input");
+				if (!website.startsWith("http://")) 
+					website="http://"+website;
 				String timezone=getParams().get("timezone-edit-input");
 	
 				if (!isEmpty(name)){
