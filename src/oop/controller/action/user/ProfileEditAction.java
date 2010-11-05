@@ -44,6 +44,10 @@ public class ProfileEditAction extends AbstractAction {
 	}
 
 
+	public boolean isMergeSuccess() {
+		return mergeSuccess;
+	}
+
 	@Override
 	public void performImpl() {
 		displayedUser = UserDAO.fetchById(getUser().getId());
