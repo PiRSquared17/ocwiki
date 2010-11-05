@@ -171,11 +171,12 @@ function openOpenIDLoginDialog() {
 			{
 				className :"alphacube", 
 				width : 400, 
-				height : 250, 
+				height : 280, 
 				okLabel : "Đăng nhập", 
 				cancelLabel : "Thôi", 
 				buttonClass : "session-button",
 				id : "openID-loginDialog",
+				title: "Đăng nhập bằng OpenID",
 				onOk :
 					function(win){ 
 						if (getURL()==null){

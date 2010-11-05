@@ -56,6 +56,7 @@ public class ActionController extends HttpServlet {
 			String template = StringUtils.defaultIfEmpty((String) request
 					.getSession().getAttribute("template"), "default");
 	
+			request.setCharacterEncoding("UTF-8");
 			request.getSession().setAttribute("login",
 					SessionUtils.isLoggedIn(request.getSession()));
 			request.setAttribute("templatePath", Config.get().getTemplatePath()
