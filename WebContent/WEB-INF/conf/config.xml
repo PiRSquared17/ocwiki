@@ -12,6 +12,9 @@
 	<lazyStartup>true</lazyStartup>
 	<logoPath>ocw_logo_tiny.png</logoPath>
 	<copyright>CS Force © 2010</copyright>
+    <maxAvartarFileSize>2</maxAvartarFileSize>
+    <maxAvartarDimension>150</maxAvartarDimension>
+    <maxUploadFileSize>10</maxUploadFileSize>
 
     <!--********************************************************************
                                  Actions 

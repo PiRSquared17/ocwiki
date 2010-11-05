@@ -216,6 +216,13 @@
     <name>pagination</name>
     <path>/WEB-INF/tags/pagination.tag</path>
   </tag-file>
+
+  <tag-file>
+    <description>Hiển thị ảnh đại diện của người dùng</description>
+    <display-name>Ảnh đại diện</display-name>
+    <name>userAvatar</name>
+    <path>/WEB-INF/tags/userAvatar.tag</path>
+  </tag-file>
   
   <function>
     <description>
