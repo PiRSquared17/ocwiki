@@ -10,8 +10,9 @@
 	<ul class="level2 dropdown">
 		<li><ocw:actionLink name="user.profileedit"
 			title="Sửa thông tin người dùng">Sửa thông tin</ocw:actionLink></li>
-		<li><ocw:actionLink name="user.preference">Tuỳ chọn</ocw:actionLink>
-		</li>
+	    <!-- tạm thời chưa có cái gì 
+		<li><ocw:actionLink name="user.preference">Tuỳ chọn</ocw:actionLink></li>
+		 -->
 		<li><ocw:actionLink name="user.logout"
 			title="Đăng xuất khỏi hệ thống">Đăng xuất</ocw:actionLink></li>
 	</ul>

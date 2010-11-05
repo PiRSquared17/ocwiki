@@ -9,6 +9,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
 
 public class HibernateUtil {
 
@@ -138,6 +140,20 @@ public class HibernateUtil {
 				session.close();
 			}
 			sessionLocal.set(null);
+		}
+	}
+
+	public static String rebuildIndex() {
+		try {
+			Session session = getSession();
+			FullTextSession fullTextSession = Search
+					.getFullTextSession(session);
+			fullTextSession.createIndexer().startAndWait();
+			return ("Done.");
+		} catch (InterruptedException ex) {
+			return ("Failed.");
+		} finally {
+			closeSession();
 		}
 	}
 

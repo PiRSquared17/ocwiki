@@ -46,6 +46,10 @@ public class Config implements Serializable {
 	private boolean useCDN = false;
 	private String texCgi = "http://www.imathas.com/cgi-bin/mimetex.cgi";
 	
+	private int maxAvartarFileSize = 2; // MB
+	private int maxAvartarDimension = 150; // pixels
+	private int maxUploadFileSize = 10; // MB
+	
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
 	private Set<ActionDescriptor> actionDescriptors = new HashSet<ActionDescriptor>();
 	private Set<APIDescriptor> apiDescriptors = new HashSet<APIDescriptor>();
@@ -384,6 +388,38 @@ public class Config implements Serializable {
 
 	public String getCopyright() {
 		return copyright;
+	}
+
+	public int getMaxAvartarFileSize() {
+		return maxAvartarFileSize;
+	}
+	
+	public long getMaxAvartarFileBytes() {
+		return maxAvartarFileSize * (long)1024 * 1024;
+	}
+
+	public void setMaxAvartarFileSize(int maxAvartarFileSize) {
+		this.maxAvartarFileSize = maxAvartarFileSize;
+	}
+
+	public int getMaxAvartarDimension() {
+		return maxAvartarDimension;
+	}
+
+	public void setMaxAvartarDimension(int maxAvartarDimension) {
+		this.maxAvartarDimension = maxAvartarDimension;
+	}
+
+	public int getMaxUploadFileSize() {
+		return maxUploadFileSize;
+	}
+
+	public long getMaxUploadFileBytes() {
+		return maxUploadFileSize * (long)1024 * 1024;
+	}
+	
+	public void setMaxUploadFileSize(int maxUploadFileSize) {
+		this.maxUploadFileSize = maxUploadFileSize;
 	}
 	
 }

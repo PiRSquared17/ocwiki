@@ -3,17 +3,7 @@
 <%@ include file="/includes/common.jsp"%>
 
 <p><strong>Your Current Avatar</strong></p>
-<c:choose>
-	<c:when test="${empty user.avatar}">
-		<img src="${homeDir}/images/default.png" width="100" height="100" />
-		<br>
-	</c:when>
-	<c:otherwise>
-		<img src="${config.uploadPath}/avatar/${user.avatar}" width="100"
-			height="100" />
-		<br>
-	</c:otherwise>
-</c:choose>
+<ocw:userAvatar user="${user}" />
 
 <p><strong>Custom Avatar</strong></p>
 
