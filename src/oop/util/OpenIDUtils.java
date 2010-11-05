@@ -61,7 +61,12 @@ public final class OpenIDUtils {
             } 
             else { //works for myOpenID 
                     fetch.addAttribute("fullname", "http://schema.openid.net/namePerson", true); 
-                    fetch.addAttribute("email", "http://schema.openid.net/contact/email", true); 
+                    fetch.addAttribute("email", "http://schema.openid.net/contact/email", true);
+                    
+                    fetch.addAttribute("email_2", "http://axschema.org/contact/email", true); 
+                    fetch.addAttribute("firstname_2", "http://axschema.org/namePerson/first", true); 
+                    fetch.addAttribute("lastname_2", "http://axschema.org/namePerson/last", true); 
+                    fetch.addAttribute("fullname_2", "http://axschema.org/namePerson", true);
             } 
             authReq.addExtension(fetch);
         	session.setAttribute("OIDManager", manager);
@@ -192,23 +197,50 @@ public final class OpenIDUtils {
 		                FetchResponse fetchResp = (FetchResponse) authSuccess
 		                        .getExtension(AxMessage.OPENID_NS_AX);
 		
-		                List emails = fetchResp.getAttributeValues("email");
+		                List emails = fetchResp.getAttributeValues("email_2");
 		                if (emails.size()>0){
-		                	newUser.setEmail((String) emails.get(0));
+		                	if (!isEmpty((String) emails.get(0)))
+		                		newUser.setEmail((String) emails.get(0));
 		                }
 		                
-		                List fullNames = fetchResp.getAttributeValues("fullname");
+		                List fullNames = fetchResp.getAttributeValues("fullname_2");
 		                if (fullNames.size()>0){
-		                	newUser.setFirstName((String) fullNames.get(0));
+		                	if (!isEmpty((String) fullNames.get(0)))
+		                		newUser.setFirstName((String) fullNames.get(0));
 		                }
 		                
-		                List firstNames = fetchResp.getAttributeValues("firstname");
+		                List firstNames = fetchResp.getAttributeValues("firstname_2");
 			            if (firstNames.size()>0) {
-			            	newUser.setFirstName((String) firstNames.get(0));
+			            	if (!isEmpty((String) firstNames.get(0)))
+			            		newUser.setFirstName((String) firstNames.get(0));
 			            }
-			            List lastNames = fetchResp.getAttributeValues("lastname");
+			            List lastNames = fetchResp.getAttributeValues("lastname_2");
 			            if (lastNames.size()>0){
-			            	newUser.setLastName((String) lastNames.get(0));
+			            	if (!isEmpty((String) lastNames.get(0)))
+			            		newUser.setLastName((String) lastNames.get(0));
+			            }    
+			            
+		                emails = fetchResp.getAttributeValues("email");
+		                if (emails.size()>0){
+		                	if (!isEmpty((String) emails.get(0)))
+		                		newUser.setEmail((String) emails.get(0));
+		                }
+		                
+		                fullNames = fetchResp.getAttributeValues("fullname");
+		                if (fullNames.size()>0){
+		                	if (!isEmpty((String) fullNames.get(0)))
+		                		newUser.setFirstName((String) fullNames.get(0));
+		                }
+		                
+		                firstNames = fetchResp.getAttributeValues("firstname");
+			            if (firstNames.size()>0) {
+			            	if (!isEmpty((String) firstNames.get(0)))
+			            		newUser.setFirstName((String) firstNames.get(0));
+			            }
+			            lastNames = fetchResp.getAttributeValues("lastname");
+			            if (lastNames.size()>0){
+			            	if (!isEmpty((String) lastNames.get(0)))
+			            		newUser.setLastName((String) lastNames.get(0));
 			            }               
 		            }
 		       		        
