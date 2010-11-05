@@ -12,7 +12,7 @@ public class RestoreAction extends AbstractAction {
 	private String minor;
 	
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() {
 		// TODO Auto-generated method stub
 		revisionId = getParams().getInt("revisionId");
 		currRevision = RevisionDAO.fetch(revisionId);
