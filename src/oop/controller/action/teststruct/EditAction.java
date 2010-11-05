@@ -1,5 +1,9 @@
 package oop.controller.action.teststruct;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractResourceAction;
 import oop.data.TestStructure;
 import oop.db.dao.TestStructureDAO;
@@ -12,7 +16,7 @@ public class EditAction extends AbstractResourceAction<TestStructure> {
 	protected TestStructure testStructure;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		long id = getParams().getLong("tid");
 		resource = TestStructureDAO.fetchById(id);
 		testStructure = resource.getArticle();

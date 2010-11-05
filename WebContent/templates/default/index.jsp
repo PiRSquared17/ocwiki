@@ -4,12 +4,13 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>${pageTitle}</title>
-
+	<title>${fn:escapeXml(pageTitle)}</title>
+	
+	<link rel="shortcut icon" href="${templatePath}/images/favicon.png">
     <link rel="stylesheet" href="${templatePath}/css/main.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/js/windowjs/themes/default.css" type="text/css" />
     <link rel="stylesheet" href="${templatePath}/js/windowjs/themes/alphacube.css" type="text/css" />
-
+	
     <c:choose>
         <c:when test="${config.useCDN}">
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
@@ -18,7 +19,10 @@
             <script type="text/javascript" src="${templatePath}/js/prototype.js"></script>
         </c:otherwise>
     </c:choose>
-	
+
+    <!-- ShareThis library -->
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'b52d3378-3f03-434c-a81b-eeac4052b94c'});</script>	
+    
 	<script type="text/javascript" src="${templatePath}/js/autocomplete.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/tiny_mce/tiny_mce.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/scriptaculous.js"></script>
@@ -59,48 +63,39 @@
 	   restPath = '${config.restPath}';
 	   templatePath = '${templatePath}';
 	   login = ${sessionScope.login ? true : false};
+	   resource = ${u:toJson(action.resourceBean)};
 	//-->
 	</script>
 	
 </head>
 <body>
 <div id="content">
-<div class="headNav">
-    <c:forEach items="${modules['top_left']}" var="module">
-    <div class="top_left">
-        <jsp:include page="modules/${module.page}"></jsp:include>
-    </div>
-    </c:forEach>
-    &nbsp;
-	<c:forEach items="${modules['top_right']}" var="module">
-	<div class="top_right">
-        <jsp:include page="modules/${module.page}"></jsp:include>
+	<div id="headBar">&nbsp;</div>
+	<div id="headNav">
+	    <div class="lfloat logo">
+	        <ocw:actionLink name="homepage">
+	            <img src="${homeDir}${config.logoPath}">
+	        </ocw:actionLink>
+	    </div>
+	    <div class="lfloat">
+		    <c:forEach items="${modules['top_left']}" var="module">
+		        <jsp:include page="modules/${module.page}"></jsp:include>
+		    </c:forEach>
+	    </div>
+	    &nbsp;
+	    <ul class="rfloat">
+			<c:forEach items="${modules['top_right']}" var="module">
+				<li>
+				        <jsp:include page="modules/${module.page}"></jsp:include>
+				</li>
+			</c:forEach>
+		</ul>
 	</div>
-	</c:forEach>
-</div>
-<!-- content begins -->
-<div class="clear"></div>
-<div id="main">
-	<div id="right">
-        <div id="logo">         
-            <img src="${templatePath}/images/banner.jpg" alt="first" width="700"/>
-            <!-- Computer Science Team -->
-        </div>
-    	<div id="menu">
-			<ul>
-				<li id="button1"><a href="${scriptPath}">Trang chủ</a></li>
-				<li id="button2"><a href="${scriptPath}?action=test.list" title="">Đề thi</a></li>
-				<li id="button3"><a href="${scriptPath}?action=teststruct.list" title="">Cấu trúc đề</a></li>
-				<li id="button4"><a href="${scriptPath}?action=question.list" title="">Câu hỏi</a></li>
-				<li id="button4"><a href="${scriptPath}?action=topic.list" title="">Chủ đề</a></li>
-				<li id="button5"><a href="${scriptPath}?action=user.list" title="Danh sách thành viên" target="_self">Thành viên</a></li>
-				<li id="button6"><a href="http://code.google.com/p/ocwiki/" target="_blank" title="">Giới thiệu</a></li>
-			</ul>
-		</div>
-    	<div id="righttop">
-    	</div>
-    	<div class="clear"></div>
-		<div class="rightbg">
+	<!-- content begins -->
+	<div class="clear"></div>
+	<div id="main">
+	    <div id="rightWrapper">
+		<div id="right">
             <c:if test="${not empty sessionScope.user.warningMessage}">
                 <div class="notification">Bạn bị cảnh cáo với lí do: 
                      ${sessionScope.user.warningMessage}  
@@ -112,6 +107,7 @@
 			<!-- ########################################## -->
 			<c:catch var="ex">
 				<jsp:include page="actions/${action.descriptor.name}.jsp" />
+			
 			</c:catch>
 			<c:choose>
                 <c:when test="${empty ex}">
@@ -124,43 +120,68 @@
 	                </c:forEach>
                 </c:when>
                 <c:otherwise>
-					<h3 style="color:red">${ex}</h3>
+                    <pre style="color:red">${ex}</pre>
                 </c:otherwise>			
 			</c:choose>
-		</div>			
-				
-	</div>
-	<div id="left">		
-		<div id="header"></div>
-		<div id="lefttop"></div>
- 
-	    <c:forEach items="${modules['left']}" var="item">
-	       <c:set var="module" scope="request" value="${item}"></c:set>
-	        <h3>${module.title}</h3>
-            <div class="leftbg">
-                <jsp:include page="modules/${module.page}"></jsp:include>
-            </div>
-			<div class="leftcenter"></div>
-	    </c:forEach>
-		
+			<div class="clear"></div>
 		</div>
-    	<div id="mainbot"></div>
-		<!--content ends -->
-	<!--footer begins -->
+		</div>
+		
+		<div id="left">
+	        <ul>
+	            <li><ocw:actionLink name="question.list">Câu hỏi</ocw:actionLink></li>
+	            <li><ocw:actionLink name="test.list">Đề thi</ocw:actionLink></li>
+	            <li><ocw:actionLink name="teststruct.list">Cấu trúc đề</ocw:actionLink></li>
+	            <li><ocw:actionLink name="topic.list">Chủ đề</ocw:actionLink></li>
+	        </ul>
+	        <c:set var="i" value="0"></c:set>
+		    <c:forEach items="${modules['left']}" var="item">
+		        <c:set var="module" scope="request" value="${item}"></c:set>
+		        <div id="leftmod${i}" class="accor-container">
+			        <h5 class="modtitle accor-header">${module.title}</h5>
+			        <div class="accor-bodyWrapper">
+    			        <div class="accor-body">
+		                <jsp:include page="modules/${module.page}"></jsp:include>
+		                </div>
+		            </div>
+		            <script type="text/javascript">
+					<!--
+					new AccordionHandler('leftmod${i}');
+					//-->
+					</script>
+		            <c:set var="i" value="${i+1}"></c:set>
+	            </div>
+		    </c:forEach>
+		</div>
+		
+	   	<div id="mainbot">
+		    <c:forEach items="${modules['bottom']}" var="item">
+		       <c:set var="module" scope="request" value="${item}"></c:set>
+		       <jsp:include page="modules/${module.page}"></jsp:include>
+		    </c:forEach>
+	   	</div>
+	    <!--content ends -->
 	</div>
-
-    <c:forEach items="${modules['bottom']}" var="item">
-       <c:set var="module" scope="request" value="${item}"></c:set>
-       <jsp:include page="modules/${module.page}"></jsp:include>
-    </c:forEach>
-
-	<div id="footer">
-		<p><a href="https://code.google.com/p/ocwiki/">ocwiki v0.1</a>. 
-		Copyright © 2010. Powered by CS Force</p>
-	</div>
+    
+    <!--footer begins -->
+    <div id="footer">
+        <div class="lfloat">
+            
+        </div>
+        <div class="rfloat">
+            ${config.copyright}
+            ·
+            <a href="https://code.google.com/p/ocwiki/" target="_blank">${app.name} v${app.version}</a> 
+            · 
+            <ocw:actionLink name="user.list">Thành viên</ocw:actionLink>
+            ·
+            <a href="#">Chúng tôi</a>
+            ·
+            <a href="#">Trợ giúp</a>
+        </div>
+        &nbsp;
+    </div>
+    <!-- footer ends -->
 </div>
-<!-- footer ends -->
-
-
 </body>
 </html>

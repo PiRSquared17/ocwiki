@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 <br/><br/>
-<p>--Các nhận xét--</p>
-<p><jsp:include page="article.view-commentstoolbar.jsp"></jsp:include></p>
-<p>------------</p>
+<p align="center"><b>::Các nhận xét::</b></p>
+<div><jsp:include page="article.view-commentstoolbar.jsp"></jsp:include></div>
 <div id="commentslist"> ... đang tải... </div>
 
 <p><jsp:include page="article.view-comment.create.jsp"></jsp:include></p>
@@ -14,11 +13,13 @@
 	var curPage = 0;
 	var pageCount = 0;
 	var commentCount = 0;
+	var curPageCommCount = 0;
 
 	Event.observe(window, 'load', loadLatest);	
 
 	//load comments
 	function loadLatest(){
+		curPageCommCount = 0
 		var comments;
 		var commentslisthtml = '';
 		new Ajax.Request(
@@ -103,9 +104,13 @@
 
 	function showComments(commentPreview){
 		var commenthtml='';
-		commenthtml+=('<div id=comment'+commentPreview.comment.id+'>');
+		commenthtml+=('<div');
+		if ((curPageCommCount%2)==0){
+			commenthtml+=(' style="background:#c7dcff;"');
+		}
+		commenthtml+=(' id=comment'+commentPreview.comment.id+'>');
 		commenthtml+=('vào lúc: '+dateToString(commentPreview.comment.timestamp));
-		commenthtml+=(' <a href="${scriptPath}?action=user.profile&user='+commentPreview.comment.user.id+'">'+commentPreview.comment.user.name+'</a> cho rằng:');
+		commenthtml+=(' <a href="${scriptPath}?action=user.profile&user='+commentPreview.comment.user.id+'">'+commentPreview.comment.user.fullname+'</a> cho rằng:');
 		commenthtml+=('<div style="display:' + (commentPreview.status == 'HIDDEN' ? 'none' : 'block') + '" id=commentmessage'+commentPreview.comment.id+'>'+commentPreview.comment.message+'</div>');
 		commenthtml+=('<div><span style="display:' + (commentPreview.likeCount == 0 ? 'none' : 'inline') + '" id="commentlikecountpreview'+commentPreview.comment.id+'"><span id="commentlikecount'+commentPreview.comment.id+'">'+commentPreview.likeCount+'</span> người thích.</span>');
 		if (login){
@@ -116,9 +121,8 @@
 			//commenthtml+=('.<a id="commentdel'+comment.id+'" href="#" onclick = "del('+comment.id+'); return false;" >'+'del</a>');
 		}
 		commenthtml+=('</div>');
-		commenthtml+=('<br/>------------<br/>');
 		commenthtml+='</div>';
-		
+		curPageCommCount++;
 		return commenthtml;
 	}
 

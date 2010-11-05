@@ -1,7 +1,6 @@
 package oop.wml.hcwg.docx;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.xml.bind.JAXBException;
@@ -112,7 +111,7 @@ public class DocXDocument {
 		return fileDir + "/" + fileName;
 	}
 
-	public void create() throws JAXBException, SQLException, Docx4JException,
+	public void create() throws JAXBException, Docx4JException,
 			NullPointerException {
 		WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage
 				.createPackage();

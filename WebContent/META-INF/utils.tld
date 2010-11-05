@@ -142,4 +142,23 @@
     </example>
   </function>
 
+  <function>
+    <description>
+      Trả về chuỗi JSON của đối tượng.
+    </description>
+    <name>toJson</name>
+    <function-class>oop.util.JsonUtils</function-class>
+    <function-signature>java.lang.String toJson(java.lang.Object)</function-signature>
+    <example>
+      ${util:toJson(resource)}
+    </example>
+  </function>
+
+  <function>
+    <description>Escape JavaScript</description>
+    <name>escapeJs</name>
+    <function-class>org.apache.commons.lang.StringEscapeUtils</function-class>
+    <function-signature>java.lang.String escapeJavaScript(java.lang.String)</function-signature>
+  </function>
+
 </taglib>

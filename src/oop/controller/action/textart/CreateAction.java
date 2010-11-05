@@ -1,5 +1,9 @@
 package oop.controller.action.textart;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.data.Namespace;
 import oop.data.Resource;
@@ -11,7 +15,7 @@ import oop.db.dao.ResourceDAO;
 public class CreateAction extends AbstractAction {
 
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		if (getParams().hasParameter("submit")) {
 			String name = getParams().getString("name");
 			Namespace namespace = NamespaceDAO.fetch(getParams().getLong("namespace"));

@@ -10,15 +10,16 @@
 <body>
 <!-- content begins -->
 <div>
-		<div>
-			<!-- ########################################## -->
-			<!--  nội dung action được đặt ở đây -->
-			<!-- ########################################## -->
-			<jsp:include page="actions/${action.descriptor.name}.jsp" />
-		</div>		
+	<div>
+		<!-- ########################################## -->
+		<!--  nội dung action được đặt ở đây -->
+		<!-- ########################################## -->
+		<jsp:include page="actions/${action.descriptor.name}.jsp" />
+	</div>
 	<div id="footer">
-		<p><a href="https://code.google.com/p/tracnghiem-csforce/">ocwiki v0.1</a>. 
-		Copyright © 2010. Powered by CS Force</p>
+	    ${config.copyright}
+	    ·
+	    <a href="https://code.google.com/p/ocwiki/" target="_blank">${app.name} v${app.version}</a>
 	</div>
 </div>
 

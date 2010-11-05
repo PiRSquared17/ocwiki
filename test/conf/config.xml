@@ -43,7 +43,7 @@
     </action>
     <action>
       <name>article.diff</name>
-      <class>oop.controller.action.article.DifferentiateAction</class>
+      <class>oop.controller.action.article.DiffAction</class>
     </action>
     <action>
       <name>revision.list</name>
@@ -266,11 +266,6 @@
       <loginRequired>true</loginRequired>
     </action>
     
-    <action>
-      <name>user.edituser</name>
-      <class>oop.controller.action.user.EditUserAction</class>
-      <loginRequired>true</loginRequired>
-    </action>
     <action>
       <name>user.editrequiredGroup</name>
       <class>oop.controller.action.user.EditGroupAction</class>

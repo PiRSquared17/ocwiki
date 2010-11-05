@@ -3,8 +3,11 @@ package oop.data;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 public abstract class CategorizableArticle extends Article {
 
+	@IndexedEmbedded()
 	private Set<Resource<Topic>> topics = new HashSet<Resource<Topic>>();
 
 	public CategorizableArticle() {

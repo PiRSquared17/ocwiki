@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
 
 import oop.conf.Config;
 import oop.controller.action.AbstractAction;
@@ -28,7 +29,7 @@ public class PreferenceAction extends AbstractAction {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	protected void performImpl() throws Exception {
+	protected void performImpl() throws IOException, ServletException {
 		tempDir = new File(TEMP_DIR);
 		if (!tempDir.isDirectory()) {
 			throw new ActionException(TEMP_DIR + "khong ton tai");

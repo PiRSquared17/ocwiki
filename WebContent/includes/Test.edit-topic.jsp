@@ -5,10 +5,10 @@
 
 <div>
 	<c:forEach var="topic" items = "${topics}">
-		<div id="topic-${topic.id}">
+		<span id="topic-${topic.id}">
 			${topic.name}
 			<a href="" onclick = "Delete(${topic.id}); return false" id="Delete-${topic.id}"> Xóa</a>
-		</div>
+		</span>
 	</c:forEach>
 	<span id = "add-topic-content"></span>
 	<form>

@@ -1,5 +1,9 @@
 package oop.controller.action.test;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import oop.controller.action.AbstractAction;
 import oop.data.Resource;
 import oop.data.Test;
@@ -12,7 +16,7 @@ import com.oreilly.servlet.ParameterNotFoundException;
 public class CreateAction extends AbstractAction {
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		title("Tạo đề thi mới");
 		String submit = getParams().get("submit");
 		if ("create".equals(submit)) {
@@ -20,7 +24,7 @@ public class CreateAction extends AbstractAction {
 		}
 	}
 
-	private void doCreate() throws Exception {
+	private void doCreate() {
 		Test test = new Test();
 
 		try {

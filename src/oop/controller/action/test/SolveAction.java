@@ -1,7 +1,10 @@
 package oop.controller.action.test;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
@@ -17,7 +20,7 @@ public class SolveAction extends AbstractResourceAction<Test> {
 	private Test test;
 
 	@Override
-	public void performImpl() throws Exception {
+	public void performImpl() throws IOException, ServletException {
 		String submit = getParams().getString("submit", "");
 		resource = ResourceDAO.fetchById(getParams()
 				.getLong("testId"));
