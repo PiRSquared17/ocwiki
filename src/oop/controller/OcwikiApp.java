@@ -1,5 +1,7 @@
 package oop.controller;
 
+import java.io.File;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -96,6 +98,13 @@ public class OcwikiApp implements ServletContextListener {
 	
 	public String getScriptPath() {
 		return config.getHomeDir() + config.getMainEntry();
+	}
+
+	public File getTemporaryDirectory() {
+		if (context != null) {
+			return (File)context.getAttribute("javax.servlet.context.tempdir");
+		}
+		return new File(System.getProperty("java.io.tmpdir"));
 	}
 
 }

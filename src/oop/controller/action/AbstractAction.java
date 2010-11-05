@@ -61,13 +61,8 @@ public abstract class AbstractAction implements Action {
 	 * 
 	 * @see oop.controller.action.Action#perform()
 	 */
-	public void perform() {
-		try {
-			performImpl();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void perform() throws IOException, ServletException {
+		performImpl();
 	}
 
 	protected boolean isUserLoggedIn() {

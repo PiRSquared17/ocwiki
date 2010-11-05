@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
-
-
-<%@page import="oop.data.Test"%><script type="text/javascript">
+<script type="text/javascript">
 <!--
 
 var allowedTime = ${action.test.time} * 60;
@@ -54,14 +52,13 @@ function updateCount() {
 //-->
 </script>
 
-<form method="get" action="${scriptPath}" id="solve-form">
+<ocw:form method="post" action="test.solve" id="solve-form">
 	<h3>${action.test.name}</h3>
 	<p><b>Mô tả:</b> ${action.test.content}</p>
 	<p><b>Thời gian:</b> ${action.test.time} phút</p>
 
 
-	<input type="hidden" name="action" value="test.solve">
-	<input type="hidden" name="testId" value="${action.test.id}">
+	<input type="hidden" name="testId" value="${action.resource.id}">
 	<input type="hidden" name="time" value="0" id="txtTime">
 	
 	<c:set var="i" value="0"></c:set>
@@ -108,7 +105,7 @@ function updateCount() {
 				onclick="return validateDone();">Gửi</button>
 	    <ocw:articleButton resource="${action.resource}">Thôi</ocw:articleButton>
 	</div>
-</form>
+</ocw:form>
 
 <div class="solve-status">
 Số câu còn lại: <span class="value" id="lblQuestionCount"></span>
