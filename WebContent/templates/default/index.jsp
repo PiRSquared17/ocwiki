@@ -66,6 +66,7 @@
 	   resource = ${u:toJson(action.resourceBean)};
 	//-->
 	</script>
+	
 </head>
 <body>
 <div id="content">

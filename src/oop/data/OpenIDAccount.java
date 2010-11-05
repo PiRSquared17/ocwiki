@@ -3,16 +3,25 @@ package oop.data;
 public class OpenIDAccount {
 
 	private String url;
-	private User user;
 	private String providerUrl;
+	private User user;
+
 
 	public OpenIDAccount() {
 	}
 
-	public OpenIDAccount(String url, User user) {
+	public OpenIDAccount(String url, String providerUrl, User user) {
 		super();
 		this.url = url;
+		this.providerUrl = providerUrl;
 		this.user = user;
+	}
+	
+	public OpenIDAccount(OpenIDAccount anotherOIDA) {
+		super();
+		this.url = anotherOIDA.getUrl();
+		this.providerUrl = anotherOIDA.getProviderUrl();
+		this.user = anotherOIDA.getUser();
 	}
 
 	public String getUrl() {
