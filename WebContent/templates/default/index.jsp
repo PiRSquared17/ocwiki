@@ -173,6 +173,10 @@
             ·
             <a href="https://code.google.com/p/ocwiki/" target="_blank">${app.name} v${app.version}</a> 
             · 
+            <a href="#">Bản quyền</a>
+            · 
+            <a href="#">API</a>
+            · 
             <ocw:actionLink name="user.list">Thành viên</ocw:actionLink>
             ·
             <a href="#">Chúng tôi</a>

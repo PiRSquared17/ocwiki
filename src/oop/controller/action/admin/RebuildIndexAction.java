@@ -7,9 +7,6 @@ import javax.servlet.ServletException;
 import oop.controller.action.AbstractAction;
 import oop.persistence.HibernateUtil;
 
-import org.hibernate.Session;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
 
 public class RebuildIndexAction extends AbstractAction {
 
@@ -22,17 +19,7 @@ public class RebuildIndexAction extends AbstractAction {
 	 * @return
 	 */
 	public String getRun() {
-		try {
-			Session session = HibernateUtil.getSession();
-			FullTextSession fullTextSession = Search
-					.getFullTextSession(session);
-			fullTextSession.createIndexer().startAndWait();
-			return ("Done.");
-		} catch (InterruptedException ex) {
-			return ("Failed.");
-		} finally {
-			HibernateUtil.closeSession();
-		}
+		return HibernateUtil.rebuildIndex();
 	}
 
 }

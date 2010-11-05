@@ -2,15 +2,9 @@ package oop.taglib;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
-
-import oop.data.Answer;
-import oop.data.Question;
-import oop.data.Section;
-import oop.data.Test;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -81,33 +75,6 @@ public final class UtilFunctions {
 		return html.replaceAll("\\<.*?\\>", "");
 	}
 
-	public static double getMark(Test test, Map<Long, long[]> choices) {
-		double total = 0.0;
-		int count = 0;
-		for (Section section : test.getSections()) {
-			for (Question question : section.getQuestions()) {
-				long[] c = choices.get(question.getId());
-				if (c != null) {
-					boolean correct = true;
-					Arrays.sort(c);
-					for (Answer answer : question.getAnswers()) {
-						boolean choosed = Arrays
-								.binarySearch(c, answer.getId()) >= 0;
-						if (answer.isCorrect() != choosed) {
-							correct = false;
-							break;
-						}
-					}
-					if (correct) {
-						total += question.getMark();
-					}
-				}
-				count++;
-			}
-		}
-		return total / count;
-	}
-	
 	public static boolean isAssignableFrom(String a, String b) {
 		try {
 			Class<?> classA = Class.forName(a);

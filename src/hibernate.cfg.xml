@@ -34,6 +34,8 @@
         <mapping resource="oop/data/TopicConstraint.hbm.xml" />
         <mapping resource="oop/data/LevelConstraint.hbm.xml" />
         <mapping resource="oop/data/History.hbm.xml" />
+        <mapping resource="oop/data/HistoryAnswer.hbm.xml" />
+        <mapping resource="oop/data/ChoiceAnswer.hbm.xml" />
         <mapping resource="oop/data/Comment.hbm.xml" />
         <mapping resource="oop/data/CommentReport.hbm.xml" />
         <mapping resource="oop/data/CommentCustomization.hbm.xml" />

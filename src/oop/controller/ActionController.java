@@ -56,6 +56,10 @@ public class ActionController extends HttpServlet {
 			String template = StringUtils.defaultIfEmpty((String) request
 					.getSession().getAttribute("template"), "default");
 	
+			request.setCharacterEncoding("UTF-8");
+			// !!!IMPORTANT!!! Encoding error if delete the next line
+			request.setCharacterEncoding("UTF-8");
+			
 			request.getSession().setAttribute("login",
 					SessionUtils.isLoggedIn(request.getSession()));
 			request.setAttribute("templatePath", Config.get().getTemplatePath()
@@ -108,6 +112,7 @@ public class ActionController extends HttpServlet {
 			try {
 				action.perform();
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new ServletException(e);
 			}
 			
