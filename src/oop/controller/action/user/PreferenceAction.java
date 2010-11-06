@@ -88,6 +88,7 @@ public class PreferenceAction extends AbstractAction {
 		// png
 		String fileName = String.valueOf(getUser().getId() + ".png");
 		final File imageFile = new File(destDir + "/" + fileName);
+		
 		ImageIO.write(image, "png", imageFile);
 		return imageFile;
 	}

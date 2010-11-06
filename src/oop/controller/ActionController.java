@@ -148,7 +148,6 @@ public class ActionController extends HttpServlet {
 			}
 		} catch (ActionException e) {
 			error(request, response, e.getMessage());
-			throw new RuntimeException(e);
 		} finally {
 			HibernateUtil.closeSession();
 		}

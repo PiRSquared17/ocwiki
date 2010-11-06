@@ -72,10 +72,13 @@
 		});
 		return false;
 	}
+	
 	function timeoutExc(){
 		save();
 		setTimeout(timeoutExc, 60 * 1000);
 	}
+	
 	window.setTimeout(timeoutExc, 60 * 1000);
 	Event.observe(window, 'unload', save);
+	
 </script>
