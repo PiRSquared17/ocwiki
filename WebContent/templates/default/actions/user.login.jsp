@@ -24,9 +24,5 @@
     </label>
   </p>
   <br />
-  <p>
-    <ocw:actionLink name="user.forgetpass">Quên mật khẩu?</ocw:actionLink>
-    <ocw:actionLink name="user.signup">Đăng kí</ocw:actionLink>
-  </p>
-  <p><a href="/tracnghiem/" title="home" target="_self">Quay về trang chủ</a></p>
+  <p><a href="${config.homeDir}" title="home" target="_self">Quay về trang chủ</a></p>
 </ocw:form>

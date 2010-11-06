@@ -46,8 +46,8 @@ public class Config implements Serializable {
 	private boolean useCDN = false;
 	private String texCgi = "http://www.imathas.com/cgi-bin/mimetex.cgi";
 	
-	private int maxAvartarFileSize = 2; // MB
-	private int maxAvartarDimension = 150; // pixels
+	private int maxAvatarFileSize = 2; // MB
+	private int maxAvatarDimension = 150; // pixels
 	private int maxUploadFileSize = 10; // MB
 	
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
@@ -390,24 +390,24 @@ public class Config implements Serializable {
 		return copyright;
 	}
 
-	public int getMaxAvartarFileSize() {
-		return maxAvartarFileSize;
+	public int getMaxAvatarFileSize() {
+		return maxAvatarFileSize;
 	}
 	
-	public long getMaxAvartarFileBytes() {
-		return maxAvartarFileSize * (long)1024 * 1024;
+	public long getMaxAvatarFileBytes() {
+		return maxAvatarFileSize * (long)1024 * 1024;
 	}
 
-	public void setMaxAvartarFileSize(int maxAvartarFileSize) {
-		this.maxAvartarFileSize = maxAvartarFileSize;
+	public void setMaxAvatarFileSize(int maxAvatarFileSize) {
+		this.maxAvatarFileSize = maxAvatarFileSize;
 	}
 
-	public int getMaxAvartarDimension() {
-		return maxAvartarDimension;
+	public int getMaxAvatarDimension() {
+		return maxAvatarDimension;
 	}
 
-	public void setMaxAvartarDimension(int maxAvartarDimension) {
-		this.maxAvartarDimension = maxAvartarDimension;
+	public void setMaxAvatarDimension(int maxAvatarDimension) {
+		this.maxAvatarDimension = maxAvatarDimension;
 	}
 
 	public int getMaxUploadFileSize() {

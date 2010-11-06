@@ -4,16 +4,16 @@
 }
 
 a {
-    text-decoration: none;
-    color: #265b6f;
+	text-decoration: none;
+	color: #265b6f;
 }
 
 a:HOVER {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 a:visited {
-    color: #196050;
+	color: #196050;
 }
 
 .rfloat {
@@ -25,50 +25,50 @@ a:visited {
 }
 
 ul {
-    list-style-type: square;
-}	
+	list-style-type: square;
+}
 
 .mouse-out {
 	
 }
 
 #rightWrapper {
-    float: right;
-    width: 610px;
-    margin-right: 10px;
-    background-image: url("../images/right-border.png");
-    background-position: top left;
-    background-repeat: repeat-y;
-    padding-left: 1px;
+	float: right;
+	width: 610px;
+	margin-right: 10px;
+	background-image: url("../images/right-border.png");
+	background-position: top left;
+	background-repeat: repeat-y;
+	padding-left: 1px;
 }
 
 #rightBottom {
 	background-image: url("../images/right-border.png");
-    background-position: top left;
-    background-repeat: repeat-x;
-    height: 1px;
-    width: 100%;
+	background-position: top left;
+	background-repeat: repeat-x;
+	height: 1px;
+	width: 100%;
 }
 
 #right {
 	background: white;
 	padding: 10px;
-    min-height: 450px;
+	min-height: 450px;
 }
 
 #right ol,#right ul {
-    margin-left: 30px;
+	margin-left: 30px;
 }
 
 #right h2 {
-    margin: 0;
-    padding: 0;
-    padding-top: 10px;
-    color: #196050;
+	margin: 0;
+	padding: 0;
+	padding-top: 10px;
+	color: #196050;
 }
 
 #right img {
-    border: 0;
+	border: 0;
 }
 
 #right .test-description {
@@ -215,7 +215,7 @@ body {
 
 #content {
 	margin: 0 auto;
-    width: 798px;
+	width: 798px;
 	text-align: left;
 }
 
@@ -223,7 +223,7 @@ body {
 	width: 100%;
 	margin: 0 auto;
 	clear: both;
-    background: #F3F3F3;
+	background: #F3F3F3;
 }
 
 #right ol,#right ul {
@@ -280,22 +280,23 @@ body {
 }
 
 #left ul li {
+	
 }
 
 #left ul li a {
-    display: block;
-    color: black;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 25px;
-    padding-right: 20px;
-    background: url("../images/tick-tiny.png") no-repeat scroll 10px 11px;
-}  
+	display: block;
+	color: black;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 25px;
+	padding-right: 20px;
+	background: url("../images/tick-tiny.png") no-repeat scroll 10px 11px;
+}
 
 #left ul li a:HOVER {
 	text-decoration: none;
 	background-color: #c2ffa7;
-}  
+}
 
 #left p {
 	padding-left: 20px;
@@ -311,6 +312,7 @@ body {
 }
 
 #footer p {
+	
 }
 
 table {
@@ -641,7 +643,6 @@ legend {
 /**
  * Header begin
  */
- 
 #headBar {
 	position: absolute;
 	top: 0;
@@ -649,7 +650,7 @@ legend {
 	z-index: -1;
 	width: 100%;
 	height: 39px;
-    background: url("../images/headerbg.png") repeat-x;
+	background: url("../images/headerbg.png") repeat-x;
 }
 
 #headNav {
@@ -661,12 +662,12 @@ legend {
 #headNav a {
 	display: block;
 	text-decoration: none;
-    padding-top: 8px;
-    padding-bottom: 3px;
+	padding-top: 8px;
+	padding-bottom: 3px;
 }
 
 #headNav a:VISITED {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 #headNav a:HOVER {
@@ -675,51 +676,51 @@ legend {
 	background-color: #59a437;
 }
 
-#headNav > .rfloat {
-	list-style:none outside none;
+#headNav>.rfloat {
+	list-style: none outside none;
 	display: block;
 	color: white;
-	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.3);
-} 
-
-#headNav > .rfloat li.level1 {
-    cursor: pointer;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
-#headNav > .rfloat .level2 {
-    text-shadow: none;
-} 
+#headNav>.rfloat li.level1 {
+	cursor: pointer;
+}
 
-#headNav > .rfloat > li > a {
-    color: white;
-    text-shadow:0 -1px 0 rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+#headNav>.rfloat .level2 {
+	text-shadow: none;
+}
+
+#headNav>.rfloat>li>a {
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+	cursor: pointer;
 }
 
 #headNav .level2 a {
-    padding:4px 10px 5px;
+	padding: 4px 10px 5px;
 }
 
-#headNav > .rfloat > li {
+#headNav>.rfloat>li {
 	float: left;
 }
 
-#headNav > .rfloat > li > a {
-    padding-top: 12px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 12px;
+#headNav>.rfloat>li>a {
+	padding-top: 12px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 12px;
 }
 
-#headNav > .rfloat li.level1 {
-    padding-top: 12px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 12px;
+#headNav>.rfloat li.level1 {
+	padding-top: 12px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 12px;
 }
 
-#headNav > .rfloat li.level1:HOVER {
-    background-color: #59a437;
+#headNav>.rfloat li.level1:HOVER {
+	background-color: #59a437;
 }
 
 #headNav .jsmenu ul.horizontal li.level1 {
@@ -728,8 +729,8 @@ legend {
 }
 
 #headNav .logo a {
-    padding-right: 10px;
-}	
+	padding-right: 10px;
+}
 
 #headNav .logo a:HOVER {
 	background: none;
@@ -743,22 +744,18 @@ legend {
 /*
  * Header end
  */
-
-
 /**
  * Left side bar start
  */
-
 #left .modtitle {
 	color: #4D4D4D;
-    font-weight: normal;
-    font-size: 14px;
+	font-weight: normal;
+	font-size: 14px;
 }
 
 /**
  * Left side bar end
  */
-
 .top_left {
 	padding-left: 10px;
 	float: left;
@@ -996,15 +993,14 @@ span.AMedit {
 /**
  * Accordion begin
  */
- 
 .accor-container {
-    background-image:url("../images/accor-break.png");
-    background-position:left top;
-    background-repeat:no-repeat;
-    padding-top: 12px;
-    padding-bottom: 10px;
+	background-image: url("../images/accor-break.png");
+	background-position: left top;
+	background-repeat: no-repeat;
+	padding-top: 12px;
+	padding-bottom: 10px;
 }
- 
+
 .accor-header {
 	padding-left: 23px;
 	padding-bottom: 5px;
@@ -1017,21 +1013,33 @@ span.AMedit {
 
 .accor-collapsed {
 	text-decoration: underline;
-    color: #265b6f;
+	color: #265b6f;
 }
- 
+
 .accor-body {
 	margin-left: 25px;
 }
- 
+
 /*
  * Accordion end
  */
- 
 .defaultValueTextbox {
-    color: #777777;
+	color: #777777;
 }
 
 ul.shareList li {
 	margin-top: 10px;
+}
+
+.toolbar {
+	float: right;
+	cursor: pointer;
+	background-image: url("../images/toolbar-bg.png");
+	background-repeat: repeat-x;
+	height: 16px;
+	padding: 4px;
+	margin-top: 4px;
+	border-top: 1px #999999 solid;
+	border-left: 1px #999999 solid;
+	border-right: 1px #999999 solid;
 }

@@ -5,9 +5,17 @@
 <input type="text" name="search_query" value="${fn:escapeXml(param.search_query)}"></input>
 <button type="submit">Tìm kiếm</button>
 </ocw:form>
+<hr />
 
-<c:forEach var="resource" items="${action.results}">
-<div>
-<ocw:articleLink resource="${resource}"></ocw:articleLink>
-</div>
-</c:forEach>
+<c:choose>
+    <c:when test="${u:size(action.results) == 0}">
+        Không tìm thấy kết quả nào.
+    </c:when>
+    <c:otherwise>
+		<c:forEach var="resource" items="${action.results}">
+		<div>
+		<ocw:articleLink resource="${resource}"></ocw:articleLink>
+		</div>
+		</c:forEach>
+    </c:otherwise>
+</c:choose>
