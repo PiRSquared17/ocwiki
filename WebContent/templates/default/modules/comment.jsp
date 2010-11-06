@@ -109,10 +109,16 @@
 			commenthtml+=(' style="background:#c7dcff;"');
 		}
 		commenthtml+=(' id=comment'+commentPreview.comment.id+'>');
-		commenthtml+=('vào lúc: '+dateToString(commentPreview.comment.timestamp));
-		commenthtml+=(' <a href="${scriptPath}?action=user.profile&user='+commentPreview.comment.user.id+'">'+commentPreview.comment.user.fullname+'</a> cho rằng:');
+		var avatarUrl = '${templatePath}/images/default-avatar.gif'; 
+		if (commentPreview.comment.user.avatar) {
+			avatarUrl = '${config.uploadPath}/avatar/' + commentPreview.comment.user.avatar; 
+		}
+		commenthtml+='<div class="avatar"><img sr="' + avatarUrl + '"></div>';
+		commenthtml+=('<a href="${scriptPath}?action=user.profile&user='+commentPreview.comment.user.id+'">'+commentPreview.comment.user.fullname+'</a>');
 		commenthtml+=('<div style="display:' + (commentPreview.status == 'HIDDEN' ? 'none' : 'block') + '" id=commentmessage'+commentPreview.comment.id+'>'+commentPreview.comment.message+'</div>');
-		commenthtml+=('<div><span style="display:' + (commentPreview.likeCount == 0 ? 'none' : 'inline') + '" id="commentlikecountpreview'+commentPreview.comment.id+'"><span id="commentlikecount'+commentPreview.comment.id+'">'+commentPreview.likeCount+'</span> người thích.</span>');
+		commenthtml+=('<div>');
+		commenthtml+=dateToString(commentPreview.comment.timestamp);
+		commenthtml+=('<span style="display:' + (commentPreview.likeCount == 0 ? 'none' : 'inline') + '" id="commentlikecountpreview'+commentPreview.comment.id+'"><span id="commentlikecount'+commentPreview.comment.id+'">'+commentPreview.likeCount+'</span> người thích.</span>');
 		if (login){
 			commenthtml+=('<a style="display:' + (commentPreview.status == 'LIKE' ? 'none' : 'inline') + '" id="commentlike'+commentPreview.comment.id+'" href="#" onclick = "likeComment('+commentPreview.comment.id+'); return false;" >'+'thích</a>');
 			commenthtml+=('<a style="display:' + (commentPreview.status == 'LIKE' ? 'inline' : 'none') + '" id="commentunlike'+commentPreview.comment.id+'" href="#" onclick = "unlihiComment('+commentPreview.comment.id+'); return false;" >'+'bỏ thích</a>');

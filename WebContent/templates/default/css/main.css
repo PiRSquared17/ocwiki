@@ -1031,7 +1031,7 @@ ul.shareList li {
 	margin-top: 10px;
 }
 
-.toolbar {
+.bottom-toolbar {
 	float: right;
 	cursor: pointer;
 	background-image: url("../images/toolbar-bg.png");

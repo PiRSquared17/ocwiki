@@ -8,6 +8,7 @@ public class UserReferenceBean {
 	private long id;
 	private String name;
 	private String fullname;
+	private String avatar;
 
 	public UserReferenceBean() {
 	}
@@ -34,6 +35,14 @@ public class UserReferenceBean {
 
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getAvatar() {
+		return avatar;
 	}
 
 }

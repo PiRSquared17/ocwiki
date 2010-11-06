@@ -11,6 +11,7 @@ public class UserReferenceMapper implements Mapper<UserReferenceBean, User> {
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setFullname(value.getFullname());
+		bean.setAvatar(value.getAvatar());
 		return bean;
 	}
 
