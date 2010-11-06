@@ -98,8 +98,9 @@ Editor.previewTextField = function(id){
 	var element = $(id);
 	var textfield = element.getElementsByTagName('input')[0];
 	var textfieldId = textfield.id;
-	var prevSpan = document.createElement('span');
+	var prevSpans = element.getElementsByTagName('span');
 	var content = '';
+	var prevSpan = document.createElement('span');
 	prevSpan.setAttribute('id',id + '-preview');
 	tinymceEditor = tinymce.get(textfield.id);
 	if (tinymceEditor) {
@@ -109,8 +110,8 @@ Editor.previewTextField = function(id){
 	}
 	prevSpan.innerHTML = '(' + content + ' điểm): ';
 	prevSpan.observe('click',function(event){
-		var elementId = this.id;
-		elementId = elementId.substring(0,elementId.length-8);
+		var elementPrev = this.id;
+		var elementId = elementPrev.substring(0,elementPrev.length-8);
 		Editor.EditTextField(elementId);
 	});
 	$(textfieldId).insert({after: prevSpan});
@@ -124,7 +125,7 @@ Editor.EditTextField = function(id){
 	if (!element) {
 		return;
 	}
-	if (Editor.ActiveTextField) {
+	if (Editor.ActiveTextField != null) {
 		Editor.previewTextField(Editor.ActiveTextField);
 	}
 	var previewSpan = $(id + '-preview');
@@ -185,3 +186,5 @@ var ResourceService = Class.create( {
 			    });
 	}
 });
+	Editor.ActiveTextField = id;
+};

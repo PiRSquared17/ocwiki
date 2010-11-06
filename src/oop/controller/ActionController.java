@@ -111,7 +111,6 @@ public class ActionController extends HttpServlet {
 			try {
 				action.perform();
 			} catch (Exception e) {
-				e.printStackTrace();
 				throw new ServletException(e);
 			}
 			

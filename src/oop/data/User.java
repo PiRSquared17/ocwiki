@@ -30,7 +30,7 @@ public class User implements Serializable, Entity, HasVersion {
 	private String warningMessage;
 	private Date warningExpiredDate;
 	private String avatar;
-	private Date registerDate;
+	private Date registerDate = new Date();
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
 	private NameOrdering nameOrdering = NameOrdering.LAST_FIRST;
@@ -69,6 +69,20 @@ public class User implements Serializable, Entity, HasVersion {
 		this.blocked = blocked;
 		this.avatar = avatar;
 		this.registerDate = registerDate;
+	}
+	
+	public User(User anotherUser) {
+		super();
+		this.id = anotherUser.getId();
+		this.version = anotherUser.getVersion();
+		this.email = anotherUser.getEmail();
+		this.group = anotherUser.getGroup();
+		this.name = anotherUser.getName();
+		this.nameOrdering = anotherUser.getNameOrdering();
+		this.preferences = anotherUser.getPreferences();
+		this.firstName = anotherUser.getFirstName();
+		this.middleName = anotherUser.getMiddleName();
+		this.lastName = anotherUser.getLastName();
 	}
 
 	public String getName() {
@@ -305,6 +319,10 @@ public class User implements Serializable, Entity, HasVersion {
 
 	public String getDraft() {
 		return draft;
+	}
+	public boolean hasPassword(){
+		if (password==null) return false;
+		else return true;
 	}
 	
 }
