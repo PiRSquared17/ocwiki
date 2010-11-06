@@ -1050,7 +1050,8 @@ ul.shareList li {
 }
 
 .comment-body {
-	margin-left: 32px;
+	margin-left: 36px;
+	min-height: 32px;
 }
 
 .even .comment-body {
