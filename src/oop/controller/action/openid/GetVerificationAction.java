@@ -40,26 +40,26 @@ public class GetVerificationAction extends AbstractAction {
 	@Override
 	public void performImpl() {
 		title("Đăng nhập sử dụng OpenID");
-
-		Boolean connect = false;
-		if (getSession().getAttribute("connect")!=null){
-			connect=(Boolean) getSession().getAttribute("connect");
-		}
-		Identifier verified = OpenIDUtils.verifyResponse(connect.booleanValue(),this,getSession());
-		if (verified!=null){
-	
-		}else{
-			if (connect.booleanValue()==true){
-				setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
-				getSession().removeAttribute("connect");
-			}else{
-				throw new ActionException("Đăng nhập bằng openID thất bại: Có lỗi xảy ra với việc xác thực danh tính.");
+		User whoIsLogin = getUser();
+		if (whoIsLogin==null){
+			Boolean connect = false;
+			if (getSession().getAttribute("connect")!=null){
+				connect=(Boolean) getSession().getAttribute("connect");
 			}
+			Identifier verified = OpenIDUtils.verifyResponse(connect.booleanValue(),this,getSession());
+			if (verified!=null){
+		
+			}else{
+				if (connect.booleanValue()==true){
+					setRedirect(ActionUtil.getActionURL("user.profile.complete","actionError=true"));
+					getSession().removeAttribute("connect");
+				}else{
+					throw new ActionException("Đăng nhập bằng openID thất bại: Có lỗi xảy ra với việc xác thực danh tính.");
+				}
+			}
+		}else{
+			setRedirect(Config.get().getHomeDir());
 		}
 	}
-
-
-
-	
 
 }
