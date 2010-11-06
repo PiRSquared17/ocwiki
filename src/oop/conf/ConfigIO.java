@@ -9,6 +9,8 @@ import oop.util.XMLUtils;
 
 public class ConfigIO {
 
+	public static final String DEFAULT_FILE_NAME = "config.xml";
+	
 	public static void load(File file, Config config) {
 		FileInputStream input = null;
 		try {
@@ -28,20 +30,14 @@ public class ConfigIO {
 
 	public static void loadDirectory(Config config, String dirPath) {
 		File dir = new File(dirPath);
+		File defaultFile = new File(dirPath + "/" + DEFAULT_FILE_NAME);
+		if (defaultFile.exists()) {
+			load(defaultFile, config);
+		}
 		File[] confFiles = dir.listFiles(CONFIG_FILE_FILTER);
 		for (File file : confFiles) {
-			FileInputStream input = null;
-			try {
-				try {
-					input = new FileInputStream(file);
-					XMLUtils.getXStream().fromXML(input, config);
-				} finally {
-					if (input != null) {
-						input.close();
-					}
-				}
-			} catch (Exception e) {
-				throw new ConfigIOException(file, e);
+			if (!file.equals(defaultFile)) {
+				load(file, config);
 			}
 		}
 		config.doneLoading();

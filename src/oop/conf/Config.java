@@ -48,6 +48,7 @@ public class Config implements Serializable {
 	
 	private int maxAvatarFileSize = 2; // MB
 	private int maxAvatarDimension = 150; // pixels
+	private int avatarThumbnailDimension = 32; // pixels
 	private int maxUploadFileSize = 10; // MB
 	
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
@@ -420,6 +421,14 @@ public class Config implements Serializable {
 	
 	public void setMaxUploadFileSize(int maxUploadFileSize) {
 		this.maxUploadFileSize = maxUploadFileSize;
+	}
+
+	public void setAvatarThumbnailDimension(int avatarThumbnailDimension) {
+		this.avatarThumbnailDimension = avatarThumbnailDimension;
+	}
+
+	public int getAvatarThumbnailDimension() {
+		return avatarThumbnailDimension;
 	}
 	
 }
