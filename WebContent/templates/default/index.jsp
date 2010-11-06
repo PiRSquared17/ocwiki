@@ -107,7 +107,6 @@
 			<!-- ########################################## -->
 			<c:catch var="ex">
 				<jsp:include page="actions/${action.descriptor.name}.jsp" />
-			
 			</c:catch>
 			<c:choose>
                 <c:when test="${empty ex}">

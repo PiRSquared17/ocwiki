@@ -45,7 +45,9 @@ public class BaseQuestionDAO {
 
 	public static List<Resource<BaseQuestion>> fetch(int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Resource where article in (from BaseQuestion)";
+		String hql = "from Resource where article in (from BaseQuestion) " +
+				"and status = 'NORMAL' " +
+				"order by id desc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
@@ -129,7 +131,7 @@ public class BaseQuestionDAO {
 
 	public static long count() {
 		String sql = "SELECT COUNT(*) from Resource where article in " +
-				"(FROM  BaseQuestion)";
+				"(FROM  BaseQuestion) and status='NORMAL'";
 		return HibernateUtil.count(sql);
 	}
 

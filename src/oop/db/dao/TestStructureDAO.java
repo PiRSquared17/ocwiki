@@ -24,8 +24,10 @@ public class TestStructureDAO {
 	
 	public static List<Resource<TestStructure>> fetch(int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Resource where " +
-				"article in (from TestStructure) order by id desc";
+		String hql = "from Resource " +
+				"where article in (from TestStructure) " +
+					"and status='NORMAL'" +
+				"order by id desc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
@@ -34,7 +36,7 @@ public class TestStructureDAO {
 	
 	public static long count() {
 		String hql = "SELECT COUNT(*) from Resource where " +
-				"article in (FROM TestStructure)";
+				"article in (FROM TestStructure) and status='NORMAL'";
 		return HibernateUtil.count(hql);
 	}
 	

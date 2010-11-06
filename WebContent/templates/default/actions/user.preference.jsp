@@ -12,7 +12,7 @@
     Choose Your Avatar:<br>
 	<input type="file" name="file1"> <br>
 	<input type="submit" name="submit" value="Upload"><br>
-	Dung lượng tối đa : 2MB<br>
+	Dung lượng tối đa : ${config.maxAvatarFileSize}MB<br>
 	<ocw:error code="File Error"></ocw:error>
 </ocw:form>
 </fieldset>

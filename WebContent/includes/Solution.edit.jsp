@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<c:set var="resource" value="${action.resource}"></c:set>
-<c:set var="solution" value="${resource.article}"></c:set>
+<c:set var="resource" value="${empty resource ? action.resource : resource}" scope="request"></c:set>
+<c:set var="solution" value="${empty article ? action.article : article}" scope="request"></c:set>
 <c:set var="question" value="${solution.question.article}"></c:set>
 
 <ocw:form action="textarticle.edit">
@@ -62,7 +62,7 @@
 	EditAction.preview = function(){
 	}
 	
-	EditAction.save = function(){
+	EditAction.save = function(successCallback, failureCallback){
 		var content = tinymce.get('edit_context').getContent();	
 		var name = $('edit_name').value;
 		solution.namespace = {id: $F('namespaedit')};
@@ -81,11 +81,10 @@
 				          checked: $F('articleEdit-minor')
 				     }),
 				     evalJSON: true,
-				     onSuccess: function(transport) {
-						location.href = articlePath + '/' + resourceId;
-					 },
+				     onSuccess: successCallback,
 				     onFailure: function(transport){
 				    	  DefaultTemplate.onFailure(transport); 
+				    	  failureCallback();
 				 	 }
 				});
 	}
