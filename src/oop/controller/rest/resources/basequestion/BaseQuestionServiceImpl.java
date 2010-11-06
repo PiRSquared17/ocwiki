@@ -19,7 +19,6 @@ import oop.controller.rest.util.ObjectResult;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
 import oop.data.ResourceSearchReport;
-import oop.data.Status;
 import oop.db.dao.ArticleDAO;
 import oop.db.dao.ResourceDAO;
 
@@ -55,17 +54,15 @@ public class BaseQuestionServiceImpl extends AbstractResource implements
 			RevisionBean<BaseQuestionBean> data) throws Exception {
 		Resource<BaseQuestion> resource = getResourceSafe(resourceId,
 				BaseQuestion.class);
-		if (resource.getStatus() != Status.NEW) {
-			validate(data.getArticle());
-		}
+		validate(data.getArticle());
 		WebServiceUtils.assertValid(resource.getArticle().getId() == data
 				.getArticle().getId(), "old version");
 
 		BaseQuestion question = BaseQuestionMapper.get().toEntity(data.getArticle());
 		question.setId(0); // coi nó như đối tượng mới
 		ArticleDAO.persist(question);
-
 		saveNewRevision(resource, question, data.getSummary(), data.isMinor());
+
 		BaseQuestionBean bean = BaseQuestionMapper.get().toBean(resource.getArticle());
 		return new ObjectResult<BaseQuestionBean>(bean);
 	}

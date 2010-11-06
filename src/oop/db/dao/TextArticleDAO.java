@@ -35,7 +35,7 @@ public class TextArticleDAO {
 	public static List<Resource<TextArticle>> fetchNewest(int start, int size) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource " +
-				"where article in (from TextArticle) and status <> 'DELETED' " +
+				"where article in (from TextArticle) and status='NORMAL' " +
 				"order by id desc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(start);
@@ -45,7 +45,7 @@ public class TextArticleDAO {
 	
 	public static long count() {
 		String hql = "select count(*) from Resource " + 
-				"where article in (from TextArticle) and status <> 'DELETED'";
+				"where article in (from TextArticle) and status='NORMAL'";
 		return HibernateUtil.count(hql);
 	}
 
