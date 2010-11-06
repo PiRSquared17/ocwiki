@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 2, 2010 7:14:50 PM by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="oop.data.OpenIDAccount" table="OpenIDAccount">
+        <id name="url" type="java.lang.String">
+            <column name="URL" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="user" class="oop.data.User" fetch="join" cascade="all">
+            <column name="USER" />
+        </many-to-one>
+        <property name="providerUrl" type="java.lang.String">
+            <column name="provider_url" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
