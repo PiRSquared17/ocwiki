@@ -74,7 +74,7 @@ Editor.edit = function(id) {
 	}
 	element.show();
 	Editor.active = id;
-	Editor.ActiveTextField = id;
+	//Editor.ActiveTextField = id;
 };
 
 Editor.preview = function(id) {
@@ -141,7 +141,7 @@ Editor.EditTextField = function(id){
 	}
 	textfield.show();
 	textfield.select();
-	Editor.active = id;
+	Editor.ActiveTextField = id;
 };
 
 var ResourceService = Class.create( {
