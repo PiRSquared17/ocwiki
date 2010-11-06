@@ -1043,3 +1043,17 @@ ul.shareList li {
 	border-left: 1px #999999 solid;
 	border-right: 1px #999999 solid;
 }
+
+.comment .avatar {
+	float: left;
+    margin-right: 4px;
+}
+
+.comment-body {
+	margin-left: 36px;
+	min-height: 32px;
+}
+
+.even .comment-body {
+	background:#c7dcff;
+}
