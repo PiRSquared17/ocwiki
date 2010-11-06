@@ -110,9 +110,12 @@ public class ActionController extends HttpServlet {
 			action.setRequest(request);
 			try {
 				action.perform();
-			} catch (Exception e) {
+			} catch (IOException e) {
 				e.printStackTrace();
-				throw new ServletException(e);
+				throw e;
+			} catch (ServletException e) {
+				e.printStackTrace();
+				throw e;
 			}
 			
 			// flush current session to avoid late thrown exception
