@@ -5,6 +5,7 @@ import java.security.InvalidParameterException;
 import oop.data.Article;
 import oop.data.BaseQuestion;
 import oop.data.File;
+import oop.data.Solution;
 import oop.data.Test;
 import oop.data.TestStructure;
 import oop.data.TextArticle;
@@ -25,6 +26,9 @@ public class ArticleMapper implements Mapper<ArticleBean, Article> {
 		}
 		if (value instanceof File) {
 			return FileMapper.get().toBean((File) value);
+		}
+		if (value instanceof Solution) { // must be before TextArticle
+			return SolutionMapper.get().toBean((Solution) value);
 		}
 		if (value instanceof TextArticle) {
 			return TextArticleMapper.get().toBean((TextArticle) value);
@@ -49,14 +53,14 @@ public class ArticleMapper implements Mapper<ArticleBean, Article> {
 		if (bean instanceof FileBean) {
 			return FileMapper.get().toEntity((FileBean) bean);
 		}
+		if (bean instanceof SolutionBean) { // must be before TextArticle
+			return SolutionMapper.get().toEntity((SolutionBean)bean);
+		}
 		if (bean instanceof TextArticleBean) {
 			return TextArticleMapper.get().toEntity((TextArticleBean) bean);
 		}
 		if (bean instanceof TopicBean) {
 			return TopicMapper.get().toEntity((TopicBean) bean);
-		}
-		if (bean instanceof SolutionBean) {
-			return SolutionMapper.get().toEntity((SolutionBean)bean);
 		}
 		throw new InvalidParameterException("unsupported type");
 	}

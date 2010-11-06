@@ -285,7 +285,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	EditAction = Class.create();
 	EditAction.preview = function(){
 	}
-	EditAction.save = function(){
+	EditAction.save = function(successCallback, failureCallback){
 		// Lay cac cau hoi cua test
 		var i,j;
 		var newtest;
@@ -351,9 +351,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			          minor: $('articleEdit-minor').checked
 			      }),
 			      evalJSON: true,
-			      onSuccess: function(transport) {
-				      location.href = articlePath + '/' + resourceId;
-			      },
+			      onSuccess: successCallback,
 			      onFailure: function(transport) {
 			    	  var code = transport.responseJSON.code;
 			          if (code == 'old version') {
@@ -377,6 +375,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 				      if (code == 'mark must be positive'){
 					  	  $('articleEdit-error').innerHTML = 'Điểm phải.....';
 					  }
+				      failureCallback();
 			      }
 			    });
 	}

@@ -58,7 +58,7 @@
 	EditAction.preview=function(){
 	}
 	
-	EditAction.save = function(){
+	EditAction.save = function(successCallback, failureCallback){
 		textarticle.content={text : tinymce.get('edit_context').getContent()};
 		textarticle.namespace={id : $F('namespaedit')};
 		textarticle.name = $('edit_name').value;
@@ -75,11 +75,10 @@
 			          checked: $F('articleEdit-minor')
 			     }),
 			     evalJSON: true,
-			     onSuccess: function(transport) {
-					location.href = articlePath + '/' + resourceId;     
-			     },
+			     onSuccess: successCallback,
 			     onFailure: function(transport){
 			    	  DefaultTemplate.onFailure(transport); 
+			    	  failureCallback();
 			     }
 			});
 	};

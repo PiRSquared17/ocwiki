@@ -50,7 +50,7 @@
 	EditAction.preview = function(){
 	}
 
-	EditAction.save = function(){
+	EditAction.save = function(successCallback, failureCallback){
 		var content = tinymce.get('Topic-content-edit').getContent();
 		var parentId = $('Parent-topic-edit').value;
 		topic.content.text = content;
@@ -67,11 +67,10 @@
 		          minor: $('articleEdit-minor').checked
 		    }),
 		    evalJSON : true,
-		    onSuccess : function(transport) {
-	  			location.href = articlePath + '/' + resourceId;
-		    },
+		    onSuccess : successCallback,
 		    onFailure: function(transport){ 
 		    	DefaultTemplate.onFailure(transport); 
+		    	failureCallback();
 			}
 		});
 	}

@@ -124,7 +124,7 @@
 	EditAction.preview=function(){
 	}
 	
-	EditAction.save = function(){
+	EditAction.save = function(successCallback, failureCallback){
 		// gửi dữ liệu lên server
 		
 		file.name = $F('name');
@@ -147,11 +147,7 @@
 						Accept : 'application/json'
 					},
 					evalJSON : true,
-					onSuccess : function(transport) 
-					{
-						file = transport.responseJSON.result;
-						location.href = articlePath + '/' + resourceId;
-					},
+					onSuccess : successCallback,
 				    onFailure: function(transport)
 	                {
 	                    var code = transport.responseJSON.code;
@@ -165,6 +161,7 @@
 	                        	DefaultTemplate.onFailure(transport); 
 		                    }
 	                    }
+	                    failureCallback();
 					}
 				   });
 		   return;

@@ -40,14 +40,14 @@ function createSolution() {
     resource = {
             articleType: 'oop.data.Solution',
             article: {
-            	//question: {
-            	//	id: ${article.resource.id}
-            	//},
                 type: 'solutionBean',
                 name: 'Bài giải mới',
                 namespace: {
                     id: 0
-                }
+                },
+	            question: {
+	                id: resource.id
+	            }
             } 
         };
         sendCreateRequest(resource);
