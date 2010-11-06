@@ -13,53 +13,51 @@ import javax.ws.rs.core.MediaType;
 
 import oop.conf.Config;
 import oop.controller.rest.AbstractResource;
-import oop.data.File;
-import oop.data.Resource;
-import oop.data.Status;
-import oop.db.dao.FileDAO;
-import oop.db.dao.ResourceDAO;
+import oop.data.User;
+import oop.db.dao.UserDAO;
+import oop.util.SessionUtils;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jettison.json.JSONObject;
 
 @SuppressWarnings("rawtypes")
-@Path("/upload")
-public class UploadService extends AbstractResource {
+@Path("/avatar")
+public class AvatarService extends AbstractResource {
+
+	public static int MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 	@POST
-	@Path("/{id: \\d+}")
+	@Path("/")
 	@Consumes( { MediaType.MULTIPART_FORM_DATA,
 			MediaType.APPLICATION_OCTET_STREAM })
 	public JSONObject upload(@PathParam("id") long id) throws Exception {
-		Resource<File> resource = FileDAO.fetchById(id);
-		assertResourceFound(resource);
+		User user = UserDAO.fetchById(getUserNullSafe().getId());
 		
 		String newFileName = "";
 		if (getRequest().getContentType().equals(MediaType.MULTIPART_FORM_DATA)) {
-			newFileName = uploadMultipart();
+			newFileName = uploadMultipart(user);
 		} else if (getRequest().getContentType().equals(
 				MediaType.APPLICATION_OCTET_STREAM)) {
-			newFileName = uploadOctetStream();
+			newFileName = uploadOctetStream(user);
 		} else {
 			return new JSONObject().put("error", "unsupported media type");
 		}
-		File newFile = resource.getArticle().copy();
-		newFile.setFilename(newFileName);
-		saveNewRevision(resource, newFile, "", false);
-//		resource.setStatus(Status.NORMAL);
-//		ResourceDAO.persist(resource);
+		user.setAvatar(newFileName);
+		UserDAO.persist(user);
+		SessionUtils.updateUser(getSession(), user);
 		return new JSONObject().put("success", true);
 	}
 	
-	private String uploadOctetStream() throws IOException {
+	private String uploadOctetStream(User user) throws IOException {
 		String filename = getRequest().getHeader("X-File-Name");
+		filename = user.getId() + "." + FilenameUtils.getExtension(filename);
 		String path = getServletContext().getRealPath(
-				Config.get().getUploadDir())
-				+ "/" + filename;
+				Config.get().getUploadDir() + "/avatar/" + filename);
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream(path);
@@ -75,8 +73,7 @@ public class UploadService extends AbstractResource {
 	//
 	// copy from UploadAction (modified)
 	//
-
-	protected String uploadMultipart() throws Exception {
+	protected String uploadMultipart(User user) throws Exception {
 		java.io.File tempDir = new java.io.File(System
 				.getProperty("java.io.tmpdir"));
 		String realPath = getServletContext().getRealPath(
@@ -84,11 +81,11 @@ public class UploadService extends AbstractResource {
 		java.io.File destDir = new java.io.File(realPath);
 
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-		diskFileItemFactory.setSizeThreshold(10 * 1024 * 1024); // 10 MB
+		diskFileItemFactory.setSizeThreshold(MAX_FILE_SIZE); // 10 MB
 		diskFileItemFactory.setRepository(tempDir);
 		ServletFileUpload uploadHandler = new ServletFileUpload(
 				diskFileItemFactory);
-		uploadHandler.setSizeMax(10 * 1024 * 1024);
+		uploadHandler.setSizeMax(MAX_FILE_SIZE);
 		// Parse the HTTP request...
 		try {
 			List itemsList = uploadHandler.parseRequest(getRequest());

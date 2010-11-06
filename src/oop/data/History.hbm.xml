@@ -26,5 +26,9 @@
 		<property name="time" type="int" access="field" not-null="true">
 			<column name="time" />
 		</property>
+		<set name="answers" cascade="all,delete-orphan">
+		    <key column="history"></key>
+		    <one-to-many class="oop.data.HistoryAnswer"/>
+		</set>
 	</class>
 </hibernate-mapping>

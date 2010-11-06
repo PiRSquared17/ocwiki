@@ -4,16 +4,7 @@
 
 <fieldset>
 <legend><strong>Your Current Avatar</strong></legend>
-<c:choose>
-	<c:when test="${empty user.avatar}">
-		<img src="${homeDir}/uploads/avatar/default.png" width="20%" height="20%" />
-		<br>
-	</c:when>
-	<c:otherwise>
-		<img src="${homeDir}/uploads/avatar/${user.avatar}" width="20%" height="20%" />
-		<br>
-	</c:otherwise>
-</c:choose>
+<ocw:userAvatar user="${user}" />
 </fieldset>
 <fieldset>
 <legend><strong>Custom Avatar</strong></legend>

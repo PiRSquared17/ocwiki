@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import oop.conf.Config;
+import oop.persistence.HibernateUtil;
 
 /**
  * Servlet implementation class SetupServlet
@@ -44,7 +45,6 @@ public class SetupServlet extends HttpServlet {
 					"use " + config.getDatabaseName() + ";" +
 					"source " + sqlFile.getName() + ";";
 			String[] command = { config.getMysqlCommand(),
-					"--database=" + config.getDatabaseName(), 
 					"--verbose",
 					"--user=" + config.getUserName(),
 					"--password=" + config.getPassword(), 
@@ -54,7 +54,7 @@ public class SetupServlet extends HttpServlet {
 					sqlFile.getParentFile()).start();
 			int status = -1;
 			try {
-				pump(process.getInputStream(), response.getWriter());
+				copy(process.getInputStream(), response.getWriter());
 				status = process.waitFor();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -62,6 +62,7 @@ public class SetupServlet extends HttpServlet {
 				closeDiv(response);
 			}
 			if (status == 0) {
+				HibernateUtil.rebuildIndex();
 				response.getWriter().println("<h3>Cài đặt thành công!</h3>");
 			} else {
 				response.getWriter().println("Lỗi: " + status);
@@ -73,11 +74,12 @@ public class SetupServlet extends HttpServlet {
 	}
 
 	private void printInstructions(HttpServletResponse response) throws IOException {
-		String html = "<p>Chương trình cài đặt CSDL:" +
+		String html = "<p>Chương trình cài đặt CSDL thực hiện:" +
 				"<ol>" +
 					"<li>Xoá DB được chọn trong tệp cấu hình</li>" +
 					"<li>Tạo lại DB</li>" +
 					"<li>Tạo bảng và dữ liệu theo tệp /WEB-INF/setup.sql</li>" +
+					"<li>Đánh chỉ mục tìm kiếm lại</li>" +
 				"</ol>" +
 				"<b>Hãy đảm bảo người sử dụng CSDL có quyền xoá-tạo CSDL.</b>" +
 				"</p>" +
@@ -96,7 +98,7 @@ public class SetupServlet extends HttpServlet {
 		response.getWriter().print(html);
 	}
 
-	private void pump(InputStream inp, PrintWriter writer) throws IOException {
+	private void copy(InputStream inp, PrintWriter writer) throws IOException {
 		byte[] buffer = new byte[1024];
 		int read;
 		while ((read = inp.read(buffer)) > 0) {
