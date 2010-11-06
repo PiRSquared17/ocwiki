@@ -51,15 +51,8 @@
 	}
 
 	function save(){
-		var content = null;
-		var text;
-		var tinyEditor = tinymce.get('draft-content');
-		if (!tinyEditor){
-			tinyEditor = new tinymce.Editor('draft-content',{});
-			tinyEditor.render();
-		}
-		content = tinyEditor.getContent();
-		text = {"text": content};
+		var content = $F('draft-content');
+		var text = {"text": content};
 		new Ajax.Request(restPath + '/draft/',{
 			method: 'post',
 			requestHeaders : {
@@ -84,5 +77,5 @@
 		setTimeout(timeoutExc, 60 * 1000);
 	}
 	window.setTimeout(timeoutExc, 60 * 1000);
-	window.onunload = save;
+	Event.observe(window, 'unload', save);
 </script>
