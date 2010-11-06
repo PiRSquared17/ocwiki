@@ -29,6 +29,8 @@ public class PreferenceAction extends AbstractAction {
 
 	@Override
 	protected void performImpl() throws IOException, ServletException {
+		title("Tuỳ chọn của " + getUser().getFullname());
+		
 		String realPath = super.getController().getServletContext()
 				.getRealPath(Config.get().getUploadDir() + DEST_DIR);
 
@@ -39,11 +41,11 @@ public class PreferenceAction extends AbstractAction {
 		}
 
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-		diskFileItemFactory.setSizeThreshold((int) Config.get().getMaxAvartarFileBytes());
+		diskFileItemFactory.setSizeThreshold((int) Config.get().getMaxAvatarFileBytes());
 		diskFileItemFactory.setRepository(OcwikiApp.get().getTemporaryDirectory());
 		ServletFileUpload uploadHandler = new ServletFileUpload(
 				diskFileItemFactory);
-		uploadHandler.setSizeMax(Config.get().getMaxAvartarFileBytes());
+		uploadHandler.setSizeMax(Config.get().getMaxAvatarFileBytes());
 
 		try {
 			List itemsList = uploadHandler.parseRequest(request);
@@ -72,7 +74,7 @@ public class PreferenceAction extends AbstractAction {
 		return (fileExt.equalsIgnoreCase(".png")
 				|| fileExt.equalsIgnoreCase(".jpg")
 				|| fileExt.equalsIgnoreCase(".gif"))
-				&& fileSize <= Config.get().getMaxAvartarFileBytes();
+				&& fileSize <= Config.get().getMaxAvatarFileBytes();
 	}	
 
 	private File saveImageFile(FileItem originalFileItem)
@@ -80,8 +82,8 @@ public class PreferenceAction extends AbstractAction {
 		InputStream inputStream = originalFileItem.getInputStream();
 		BufferedImage image = ImageIO.read(inputStream);
 		image = ImageUtils.ensureMaxSize(image, Config.get()
-				.getMaxAvartarDimension(), Config.get()
-				.getMaxAvartarDimension());
+				.getMaxAvatarDimension(), Config.get()
+				.getMaxAvatarDimension());
 		// Java chi ho tro ghi dinh dang png va jpg nen thong nhat luon la
 		// png
 		String fileName = String.valueOf(getUser().getId() + ".png");

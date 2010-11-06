@@ -58,8 +58,6 @@
 	id="session_password" /> <span class="error-validating"
 	id="session_passwordError"></span> </label></p>
 </form>
-<ocw:actionLink name="user.signup">Đăng kí</ocw:actionLink> 
-<ocw:actionLink name="user.forgetpass">Quên mật khẩu?</ocw:actionLink>
 </ocw:setJs>
 
 <c:if test="${(not empty config.facebookAppId) and (not sessionScope.login)}">
@@ -153,6 +151,8 @@ function session_login() {
 			},
 			onFailure : function(transport) {
 				var code = transport.responseJSON.code;
+				$('session_passwordError').innerHTML = '';
+				$('session_nameError').innerHTML = '';
 				if (code == 'invalid password') {
 					$('session_passwordError').innerHTML = 'Sai mật khẩu';
 				} else if (code == 'invalid name') {

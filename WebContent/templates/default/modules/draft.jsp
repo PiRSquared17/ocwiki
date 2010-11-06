@@ -3,7 +3,7 @@
 		<textarea rows="10" cols="40" id="draft-content">
 		</textarea>
 	</div>
-	<div align="right">
+	<div class="toolbar">
 		<span onclick = "ShowDraft()" style="margin-right: 0px">Nháp</span>
 	</div>
 </div>
