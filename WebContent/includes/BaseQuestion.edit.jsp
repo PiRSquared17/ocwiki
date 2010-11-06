@@ -48,8 +48,7 @@
     <button type="button" onclick="createNewAnswer()">Tạo lựa chọn mới</button>
 </div>
 
-<ocw:setJs var="newTemplate">
-    <h3>\#{index}</h3>
+<ocw:setJs templateVar="newAnswerTemplate">
     <div id="answer\#{index}" class="answer-wrapper mouse-out"
                 onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
                 onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
@@ -64,7 +63,7 @@
     </div>
 </ocw:setJs>
 
-<ocw:setJs var="deletedTemplate">
+<ocw:setJs templateVar="deletedTemplate">
     <div id="answer\#{index}-deleted" style="text-align: center;">
         Lựa chọn đã bị xoá. 
         <a href="#" onclick="undeleteAnswer(\#{index}); return false;">Phục hồi</a>
@@ -74,27 +73,10 @@
 <script type="text/javascript">
 <!--
 
-newAnswerTemplate = new Template('${newTemplate}');
-deletedTemplate = new Template('${deletedTemplate}');
-
-question = null;
-
-Event.observe(window, 'load', function() {
-	new Ajax.Request(restPath + '/questions/' + resourceId,
-	{
-	  method:'get',
-	  requestHeaders : {
-	      Accept : 'application/json'
-	  },
-	  evalJSON : true,
-	  onSuccess : function(transport) {
-	      question = transport.responseJSON.result;
-	  },
-	  onFailure: function(transport){ 
-		  DefaultTemplate.onFailure(transport); 
-      }
-    });
-});
+question = resource.article;
+if (!question.answers) {
+	question.answers = new Array();
+}
 
 function getQuestionContent() {
 	return tinymce.get('question-content-textarea').getContent();
@@ -109,25 +91,32 @@ EditAction = Class.create();
 EditAction.preview = function() {
 };
 
-EditAction.save = function() {
+EditAction.save = function(successCallback, failureCallback) {
 	// sửa nội dung câu hỏi
+	question.name = $F('articleEdit-nameInput');
 	question.content = { text: getQuestionContent() };
-	var newAnswers = new Array();
-	for (i = 0, j=0; i < question.answers.length; i++) {
-		if (!question.answers[i].deleted) {
-			correct = $('answer' + i + '-correct').checked; 
-			contentStr = getAnswerContent(i);
-			if (question.answers[i].correct != correct ||
-					question.answers[i].content.text != contentStr) {
-				question.answers[i] = { 
-					"content": { "text": contentStr }, 
-					"correct": correct 
-				};
+	if (question.answers) {
+		if (question.answers.length == 0) {
+			delete question.answers;
+		} else {
+			var newAnswers = new Array();
+			for (i = 0, j=0; i < question.answers.length; i++) {
+				if (!question.answers[i].deleted) {
+					correct = $('answer' + i + '-correct').checked; 
+					contentStr = getAnswerContent(i);
+					if (question.answers[i].correct != correct ||
+							question.answers[i].content.text != contentStr) {
+						question.answers[i] = { 
+							"content": { "text": contentStr }, 
+							"correct": correct 
+						};
+					}
+					newAnswers[j++] = question.answers[i];
+				}
 			}
-			newAnswers[j++] = question.answers[i];
+			question.answers = newAnswers;
 		}
 	}
-	question.answers = newAnswers;
 	// gửi lên server
     new Ajax.Request(restPath + '/questions/' + resourceId,
     {
@@ -142,9 +131,7 @@ EditAction.save = function() {
           minor: $('articleEdit-minor').checked
       }),
       evalJSON: true,
-      onSuccess: function(transport) {
-          location.href = articlePath + '/' + resourceId;
-      },
+      onSuccess: successCallback,
       onFailure: function(transport) {
     	  var code = transport.responseJSON.code;
           if (code == 'old version') {
@@ -162,11 +149,15 @@ EditAction.save = function() {
           } else {
         	  DefaultTemplate.onFailure(transport); 
           }
+          failureCallback();
       }
     });
 };
 
 function createNewAnswer() {
+	if (!question.answers) {
+		question.answers = new Array();
+	}
 	var index = question.answers.length;
     var data = { "index": index };
     question.answers[index] = { };

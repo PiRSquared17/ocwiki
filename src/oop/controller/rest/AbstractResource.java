@@ -53,6 +53,9 @@ public abstract class AbstractResource {
 
 	protected <T extends Article> Revision<T> saveNewRevision(
 			Resource<T> resource, T article, String summary, boolean minor) {
+		if (resource.getStatus() == oop.data.Status.NEW) {
+			resource.setStatus(oop.data.Status.NORMAL);
+		}
 		return ResourceDAO.update(resource, article, getUserNullSafe(), summary, minor);
 	}
 
