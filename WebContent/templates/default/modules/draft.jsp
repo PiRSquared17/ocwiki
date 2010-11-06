@@ -1,9 +1,9 @@
 <div style="position: fixed; right: 10px; bottom: 0px" >
 	<div>
-		<textarea rows="10" cols="40" id="draft-content">
+		<textarea rows="10" cols="40" id="draft-content" style="display: none;">
 		</textarea>
 	</div>
-	<div class="toolbar">
+	<div class="bottom-toolbar">
 		<span onclick = "ShowDraft()" style="margin-right: 0px">Nháp</span>
 	</div>
 </div>
@@ -23,7 +23,6 @@
 	  		   	var contentDraft = transport.responseJSON.result;
 	  		   	content = contentDraft.text;
 	  		  	$('draft-content').innerHTML = content;
-	  		  	$('draft-content').hide();
 		    },
 		    onFailure: function(transport){ 
 		    	DefaultTemplate.onFailure(transport); 
@@ -78,11 +77,12 @@
 		    	//DefaultTemplate.onFailure(transport); 
 			}
 		});
+		return false;
 	}
 	function timeoutExc(){
 		save();
 		setTimeout(timeoutExc, 60 * 1000);
 	}
 	window.setTimeout(timeoutExc, 60 * 1000);
-	Event.observe(window,'unload',save);
+	window.onunload = save;
 </script>

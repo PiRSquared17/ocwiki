@@ -17,6 +17,8 @@ import oop.util.SessionUtils;
 import oop.util.Utils;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  * Servlet implementation class APIController
@@ -63,7 +65,9 @@ public class APIController extends HttpServlet {
 			}
 			if (result instanceof String) {
 				response.getWriter().write((String) result);
-			} else if (result instanceof JsonNode) {
+			} else if (result instanceof JsonNode
+					|| result instanceof JSONObject
+					|| result instanceof JSONArray) {
 				response.getWriter().write(result.toString());
 			} else {
 				JsonUtils.toJson(result, response.getWriter());
