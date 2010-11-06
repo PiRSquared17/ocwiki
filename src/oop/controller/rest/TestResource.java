@@ -126,7 +126,8 @@ public class TestResource extends AbstractResource {
 //					"section content is blank");
 			for (QuestionBean question : section.getQuestions()) {
 				WebServiceUtils.assertValid(question != null
-						&& question.getBase() != null, "question is empty");
+						&& (question.getBaseResource() != null || question
+								.getBaseRevision() != null), "question is empty");
 				WebServiceUtils.assertValid(question.getMark() > 0,
 						"mark must be positive");
 			}
