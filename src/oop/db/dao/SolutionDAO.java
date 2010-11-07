@@ -1,5 +1,8 @@
 package oop.db.dao;
 
+import java.util.List;
+
+import oop.data.Resource;
 import oop.data.Solution;
 import oop.persistence.HibernateUtil;
 
@@ -31,5 +34,17 @@ public class SolutionDAO {
 			}
 			throw ex;
 		}
+	}
+
+	public static List<Resource<Solution>> fetchByQuestion(long questionId,
+			int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in "
+				+ "(from Solution where question.id = :quesId)";
+		Query query = session.createQuery(hql);
+		query.setLong("quesId", questionId);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return query.list();
 	}
 }

@@ -12,9 +12,9 @@
 			fetch="select" not-null="true">
 			<column name="user" />
 		</many-to-one>
-		<many-to-one name="test" class="oop.data.Test" access="field"
+		<many-to-one name="revision" class="oop.data.Revision" access="field"
 			fetch="select" not-null="true">
-			<column name="test" />
+			<column name="revision" />
 		</many-to-one>
 		<property name="takenDate" type="java.util.Date" access="field"
 			not-null="true">
@@ -26,8 +26,8 @@
 		<property name="time" type="int" access="field" not-null="true">
 			<column name="time" />
 		</property>
-		<set name="answers" cascade="all,delete-orphan">
-		    <key column="history"></key>
+		<set name="answers" cascade="all" inverse="false">
+		    <key column="history" not-null="true" foreign-key="id"></key>
 		    <one-to-many class="oop.data.HistoryAnswer"/>
 		</set>
 	</class>

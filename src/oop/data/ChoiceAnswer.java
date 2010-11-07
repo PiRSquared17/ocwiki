@@ -10,18 +10,18 @@ public class ChoiceAnswer extends HistoryAnswer {
 	public ChoiceAnswer() {
 	}
 	
-	public Answer getAnswer() {
+	public Answer getChoice() {
 		if (choosedAnswers.size() == 1) {
 			return choosedAnswers.iterator().next();
 		}
 		return null;
 	}
 
-	public void setAnswers(Set<Answer> answers) {
+	public void setChoices(Set<Answer> answers) {
 		this.choosedAnswers = answers;
 	}
 
-	public Set<Answer> getAnswers() {
+	public Set<Answer> getChoices() {
 		return choosedAnswers;
 	}
 

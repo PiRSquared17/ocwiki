@@ -23,7 +23,7 @@
   </error-page>
   <error-page>
     <exception-type>org.hibernate.exception.GenericJDBCException</exception-type>
-    <location>/errors/no-database-connection.jsp</location>
+    <location>/errors/database-error.jsp</location>
   </error-page>
   <error-page>
     <error-code>500</error-code>
@@ -94,6 +94,7 @@
   </filter>
   <filter-mapping>
     <filter-name>url-rewrite</filter-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/article/*</url-pattern>
+    <url-pattern>/user/*</url-pattern>
   </filter-mapping>
 </web-app>

@@ -8,16 +8,15 @@ import javax.servlet.ServletException;
 import oop.controller.action.AbstractAction;
 import oop.data.BaseQuestion;
 import oop.data.Resource;
-import oop.data.Topic;
-import oop.data.User;
 import oop.db.dao.BaseQuestionDAO;
-import oop.db.dao.TopicDAO;
-import oop.db.dao.UserDAO;
-import oop.taglib.UtilFunctions;
 
 public class ListAction extends AbstractAction {
 
 	public static final int PAGE_LENGTH = 10;
+	private int start;
+	private int size;
+	private long count;
+	private List<Resource<BaseQuestion>> questions;
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
@@ -30,34 +29,29 @@ public class ListAction extends AbstractAction {
 			return;
 		}
 
-		String pageStr = getParams().getString("page", "1");
-		int page = Integer.parseInt(pageStr) - 1;
+		start = getParams().getInt("start", 0);
+		size = getParams().getInt("size", PAGE_LENGTH);
 
-		List<Resource<BaseQuestion>> questions;
-		long count;
-		if (getParams().hasParameter("topic")) {
-			long id = getParams().getLong("topic");
-			questions = BaseQuestionDAO.fetchByTopic(id, page * PAGE_LENGTH,
-					PAGE_LENGTH);
-			Resource<Topic> topic = TopicDAO.fetchById(id);
-			title("Danh sách các câu hỏi thuộc chủ đề " + topic.getName());
-			count = BaseQuestionDAO.countByTopic(id);
-		} else if (getParams().hasParameter("author")) {
-			long id = getParams().getLong("author");
-			questions = BaseQuestionDAO.fetchByAuthor(id, page * PAGE_LENGTH,
-					PAGE_LENGTH);
-			User author = UserDAO.fetchById(id);
-			title("Danh sách các đề thi của tác giả " + author.getName());
-			count = BaseQuestionDAO.countByAuthor(id);
-		} else {
-			questions = BaseQuestionDAO.fetch(page * PAGE_LENGTH, PAGE_LENGTH);
-			count = BaseQuestionDAO.count();
-		}
+		questions = BaseQuestionDAO.fetch(start, size);
+		count = BaseQuestionDAO.count();
 
 		request.setAttribute("questions", questions);
-		request.setAttribute("page", page + 1);
-		request.setAttribute("pageCount", UtilFunctions.ceil(count
-				/ (double) PAGE_LENGTH));
+	}
+	
+	public List<Resource<BaseQuestion>> getQuestions() {
+		return questions;
+	}
+	
+	public int getStart() {
+		return start;
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
+	public long getCount() {
+		return count;
 	}
 
 }

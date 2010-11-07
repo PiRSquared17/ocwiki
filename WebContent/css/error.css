@@ -1,0 +1,94 @@
+@CHARSET "UTF-8";
+
+body {
+	text-align: center;
+	background-color: #F3F3F3;
+}
+
+#content {
+    width: 811px;
+   	margin: 0 auto;
+}
+
+#messageBoard {
+	width: 711px;
+	height: 503px;
+	background: url("../images/greenboard.png") no-repeat;
+	margin-top: 50px;
+	text-align: center;
+	padding-left: 50px;
+	padding-right: 50px;
+	color: white;
+}
+
+.errorDetail {
+    font-size: smaller;
+}
+
+.errorDetail pre {
+    text-align: left;
+    width: 711px;
+    overflow: scroll;
+    max-height: 60px;
+    border: 1px solid gray;
+}
+
+.contactLink {
+	font-weight: bold;
+	color: white;
+}
+
+
+#searchWrapper {
+    background-color: white;
+    margin-top: 8px;
+    width: 233px;
+    margin: 0 auto;
+}
+
+.searchInput {
+    position: relative;
+    padding: 1px 0 2px;
+}
+
+.searchInput span {
+    border-color: white;
+    border-right: 0 none;
+    border-style: solid none none;
+    display: inline-block;
+    padding: 1px 0 2px;
+    position: relative;
+}
+
+.searchInput input {
+    border-color: -moz-use-text-color #E5E5E5 -moz-use-text-color
+        -moz-use-text-color;
+    border-style: none solid none none;
+    border-width: 0 1px 0 0;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+    font-size: 11px;
+    margin: 0 22px 0 5px;
+    outline: medium none;
+    padding: 1px 5px 2px 0;
+    width: 200px;
+}
+
+.searchInput button {
+    background-image: url("../images/search.png");
+    background-repeat: no-repeat;
+    border: 0 none;
+    position: absolute;
+    cursor: pointer;
+    width: 22px;
+    height: 19px;
+    padding: 0;
+    right: 0;
+    top: 0;
+}
+
+.wrapper {
+    border-color: #5dac3a;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+}

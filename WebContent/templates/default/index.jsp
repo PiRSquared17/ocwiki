@@ -128,9 +128,9 @@
 		
 		<div id="left">
 	        <ul>
+	            <li><ocw:actionLink name="textart.list">Bài viết</ocw:actionLink></li>
 	            <li><ocw:actionLink name="question.list">Câu hỏi</ocw:actionLink></li>
 	            <li><ocw:actionLink name="test.list">Đề thi</ocw:actionLink></li>
-	            <li><ocw:actionLink name="teststruct.list">Cấu trúc đề</ocw:actionLink></li>
 	            <li><ocw:actionLink name="topic.list">Chủ đề</ocw:actionLink></li>
 	        </ul>
 	        <c:set var="i" value="0"></c:set>

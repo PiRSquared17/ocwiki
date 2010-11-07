@@ -13,6 +13,17 @@ import org.hibernate.Session;
 @SuppressWarnings("unchecked")
 public final class TopicDAO {
 
+	public static List<Resource<Topic>> listOrderByName(int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in (from Topic) " +
+				"and status='NORMAL' " +
+				"order by article.name asc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return (List<Resource<Topic>>) query.list();
+	}
+	
 	public static Resource<Topic> fetchByName(String name) {
 		return ResourceDAO.fetchByQualifiedName(NamespaceDAO
 				.fetch(Namespace.TOPIC), name, Topic.class);
@@ -22,7 +33,7 @@ public final class TopicDAO {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
 				"(from Topic where name like :name) " +
-				"and status <> 'DELETED'";
+				"and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setString("name", name);
 		return query.list();
@@ -41,7 +52,7 @@ public final class TopicDAO {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("from Resource where article in (" +
 				"from Topic where parent is null) " +
-				"and status <> 'DELETED'");
+				"and status = 'NORMAL'");
 		return query.list();
 	}
 
@@ -53,7 +64,7 @@ public final class TopicDAO {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("from Resource where article in (" +
 				"from Topic where parent is null) and id <> " + Topic.ROOT_ID + 
-				" and status <> 'DELETED'");
+				" and status = 'NORMAL'");
 		query.setFirstResult(start);
 		query.setMaxResults(size);
 		return query.list();
@@ -63,7 +74,7 @@ public final class TopicDAO {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("Select count (*) from Resource where article in (" +
 				"from Topic where parent is null) and id <> " + Topic.ROOT_ID + 
-				" and status <> 'DELETED'");
+				" and status = 'NORMAL'");
 		return (Long)query.uniqueResult();
 	}
 	
@@ -75,10 +86,10 @@ public final class TopicDAO {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("from Resource r where r not in (" +
 				"select elements(topics) from CategorizableArticle a " +
-					"where a in (select article from Resource where status <> 'DELETED') ) " +
+					"where a in (select article from Resource where status = 'NORMAL') ) " +
 				"and r not in (select parent from Topic t " +
-					"where t in (select article from Resource where status <> 'DELETED') ) " +
-				"and status <> 'DELETED'");
+					"where t in (select article from Resource where status = 'NORMAL') ) " +
+				"and status = 'NORMAL'");
 		query.setFirstResult(start);
 		query.setMaxResults(size);
 		return query.list();
@@ -88,10 +99,10 @@ public final class TopicDAO {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("Select count (*) from Resource r where r not in (" +
 				"select elements(topics) from CategorizableArticle a " +
-					"where a in (select article from Resource where status <> 'DELETED') ) " +
+					"where a in (select article from Resource where status = 'NORMAL') ) " +
 				"and r not in (select parent from Topic t " +
-					"where t in (select article from Resource where status <> 'DELETED') ) " +
-				"and status <> 'DELETED'");
+					"where t in (select article from Resource where status = 'NORMAL') ) " +
+				"and status = 'NORMAL'");
 		return (Long)query.uniqueResult();		
 	}
 
@@ -104,7 +115,7 @@ public final class TopicDAO {
 		String hql = "select s.resource from TopicSet s where " +
 				"s.leftIndex <= (select leftIndex from TopicSet where resource.id=:resId) and " +
 				"s.rightIndex >= (select rightIndex from TopicSet where resource.id=:resId) " +
-				"and status <> 'DELETED'" +
+				"and status = 'NORMAL'" +
 				"order by s.rightIndex asc";
 		Query query = session.createQuery(hql);
 		query.setLong("resId", resourceId);
@@ -135,15 +146,16 @@ public final class TopicDAO {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
 				"(from Topic where parent.id=:resId) " +
-				"and status <> 'DELETED'";
+				"and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setLong("resId", resourceId);
 		return query.list();
 	}
 
 	public static long count() {
-		String hql = "SELECT COUNT(*) FROM Topic " +
-				"WHERE status <> 'DELETED'";
+		String hql = "SELECT COUNT(*) FROM Resource " +
+				"where article in (from Topic) " +
+				"and status='NORMAL'";
 		return HibernateUtil.count(hql);
 	}
 

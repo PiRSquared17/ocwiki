@@ -68,7 +68,7 @@ Nhóm: <b>${action.displayedUser.group}</b>
 	<c:when test="${u:size(action.histories) > 0}">
 		<ul>
 		    <c:forEach items="${action.histories}" var="history">
-		        <li><a href="${scriptPath}?action=history.view&id=${history.id}">${history.test.name}</a>; 
+		        <li><a href="${scriptPath}?action=history/view&id=${history.id}">${history.test.name}</a>; 
 		            ${u:formatDateTime(history.takenDate)})
 		        </li>
 		    </c:forEach>
