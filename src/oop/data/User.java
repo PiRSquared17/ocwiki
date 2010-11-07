@@ -325,5 +325,13 @@ public class User implements Serializable, Entity, HasVersion {
 		if (password==null) return false;
 		else return true;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof User) {
+			return ((User) obj).id == id;
+		}
+		return false;
+	}
 	
 }

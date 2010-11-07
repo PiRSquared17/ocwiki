@@ -3,6 +3,8 @@ package oop.data;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import oop.util.Utils;
+
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -94,4 +96,17 @@ public abstract class Article implements Entity {
 		content = (contentStr == null ? null : new Text(contentStr));
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this.getClass().isInstance(obj)) {
+			return id == ((Article)obj).id;
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Utils.hashCode(id);
+	}
+	
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 03, 2010 at 11:44 PM
+-- Generation Time: Nov 07, 2010 at 07:28 PM
 -- Server version: 5.1.49
 -- PHP Version: 5.3.3-1ubuntu9.1
 
@@ -2850,6 +2850,24 @@ INSERT INTO `BaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ChoiceAnswerAnswer`
+--
+
+CREATE TABLE IF NOT EXISTS `ChoiceAnswerAnswer` (
+  `choice` bigint(20) NOT NULL,
+  `answer` bigint(20) NOT NULL,
+  PRIMARY KEY (`choice`,`answer`),
+  KEY `answer` (`answer`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
+
+--
+-- Dumping data for table `ChoiceAnswerAnswer`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Comment`
 --
 
@@ -2963,6 +2981,25 @@ CREATE TABLE IF NOT EXISTS `History` (
 
 --
 -- Dumping data for table `History`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `HistoryAnswer`
+--
+
+CREATE TABLE IF NOT EXISTS `HistoryAnswer` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `discriminator` varchar(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `question` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `question` (`question`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `HistoryAnswer`
 --
 
 
@@ -6788,7 +6825,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 --
 
 INSERT INTO `User` (`id`, `version`, `name`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `middle_name`, `last_name`, `name_ordering`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`, `draft`) VALUES
-(1, 2, 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', 'admin', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', 'xyz'),
+(1, 3, 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', 'admin', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', '<p>xyz</p>'),
 (2, 0, 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'teacher', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', NULL),
 (3, 0, 'cumeo89', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'Minh', NULL, 'Lê', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', NULL),
 (4, 0, 'greenriver', '1234', 'greenriver_89@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-03 01:28:13', '2010-10-31 15:21:22', '2010-10-31 15:21:22', 'default', 'Thắng', NULL, 'Phạm', 'LAST_FIRST', NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7', 'abc xyz'),
@@ -6904,6 +6941,13 @@ ALTER TABLE `BaseQuestionAnswer`
   ADD CONSTRAINT `FKCB25FAF8EF28C9F1` FOREIGN KEY (`question_id`) REFERENCES `Article` (`id`);
 
 --
+-- Constraints for table `ChoiceAnswerAnswer`
+--
+ALTER TABLE `ChoiceAnswerAnswer`
+  ADD CONSTRAINT `ChoiceAnswerAnswer_ibfk_2` FOREIGN KEY (`answer`) REFERENCES `Answer` (`id`),
+  ADD CONSTRAINT `ChoiceAnswerAnswer_ibfk_1` FOREIGN KEY (`choice`) REFERENCES `HistoryAnswer` (`id`);
+
+--
 -- Constraints for table `Comment`
 --
 ALTER TABLE `Comment`
@@ -6930,6 +6974,12 @@ ALTER TABLE `FacebookAccount`
 ALTER TABLE `History`
   ADD CONSTRAINT `FK267351F1B1E38F2A` FOREIGN KEY (`test`) REFERENCES `Article` (`id`),
   ADD CONSTRAINT `FK267351F1B1E4DD9C` FOREIGN KEY (`user`) REFERENCES `User` (`id`);
+
+--
+-- Constraints for table `HistoryAnswer`
+--
+ALTER TABLE `HistoryAnswer`
+  ADD CONSTRAINT `HistoryAnswer_ibfk_1` FOREIGN KEY (`question`) REFERENCES `Article` (`id`);
 
 --
 -- Constraints for table `Log`

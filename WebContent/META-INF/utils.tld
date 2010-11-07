@@ -116,6 +116,18 @@
 
   <function>
     <description>
+      Kiểm tra phần tử có trong Collection/Map hay không
+    </description>
+    <name>contains</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>boolean contains(java.lang.Object, java.lang.Object)</function-signature>
+    <example>
+      ${util:contains(answers, answer)}
+    </example>
+  </function>
+
+  <function>
+    <description>
       Rút ngắn xâu kí tự nếu cần
     </description>
     <name>ellipsize</name>

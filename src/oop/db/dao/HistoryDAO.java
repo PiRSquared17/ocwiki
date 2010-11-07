@@ -30,7 +30,8 @@ public final class HistoryDAO {
 
 	public static List<History> fetchByUser(long userId, int start, int length) {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("from History where user.id=:userId");
+		String hql = "from History where user.id=:userId order by id desc";
+		Query query = session.createQuery(hql);
 		query.setLong("userId", userId);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
