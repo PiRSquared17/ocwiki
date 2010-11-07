@@ -97,7 +97,7 @@
 	</div>
 	<button type="button" onclick = "AddSection()">Thêm Section</button>
 	<textarea rows="" cols="80" id = "test_edit_sectioncontent"></textarea>
-	<%@ include file="Test.edit-topic.jsp" %>
+	<%@ include file="article.edit.topic.jsp" %>
 </div>
 
 <ocw:setJs var="questionTemplate">
@@ -181,13 +181,13 @@ AnswerTempl = new Template('${answerTemplate}');
 SectionTempl = new Template('${SectionTemplate}');
 DelSection = new Template('${DeleteSection}');
 
-var test=null;
+var test = resource.article;
 var lastQuestion = ${i};
 var indexsection = ${indexsection};
 var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 //Lấy từ server về
-	new Ajax.Request(restPath + '/tests/' + resourceId,{
+	/*new Ajax.Request(restPath + '/tests/' + resourceId,{
 			method: 'get',
 			requestHeaders : {
 		       Accept : 'application/json'
@@ -201,6 +201,8 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		    	DefaultTemplate.onFailure(transport); 
 			}
 	});
+	*/
+	template();
 	function Show(){
 		alert($F('section'));
 	}
