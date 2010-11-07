@@ -48,7 +48,12 @@
 					Hình đại diện:  
 				</td>
 				<td>
-					<ocw:userAvatar user="${action.displayedUser}"/>
+					<span id=avatar-view style="display: inline"><ocw:userAvatar user="${action.displayedUser}"/></span>
+					<span id=avatar-edit-field style="display: none">
+						<ocw:actionLink name="user.preference" target="_blank">Chọn một bức ảnh làm hình đại diện</ocw:actionLink>
+					</span>
+					<a href="#" id="avatar-edit-button-show" style="display: inline" onclick="showEditField(1);return false;">sửa</a><a href="#" id="avatar-edit-button-hide" style="display: none" onclick="hideEditField(1);return false;">thôi</a>
+					
 				</td>
 			</tr>
 			<tr>
