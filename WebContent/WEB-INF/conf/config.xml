@@ -96,7 +96,11 @@
         <class>oop.controller.action.textart.CreateAction</class>
         <title>Tạo bài viết</title>
     </action>
-    
+    <action>
+        <name>textart.list</name>
+        <class>oop.controller.action.textart.ListAction</class>
+        <title>Danh sách bài viết</title>
+    </action>
     
     <action>
       <name>test.list</name>

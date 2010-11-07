@@ -14,6 +14,17 @@ import org.hibernate.Transaction;
 @SuppressWarnings("unchecked")
 public class TextArticleDAO {
 
+	public static List<Resource<TextArticle>> listOrderByName(int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in (from TextArticle) " +
+				"and status='NORMAL' " +
+				"order by article.name asc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return (List<Resource<TextArticle>>) query.list();
+	}
+
 	public static List<Resource<TextArticle>> fetchByTopicId(long Topicid, int start,
 			int length){
 		Session session = HibernateUtil.getSession();
@@ -25,7 +36,7 @@ public class TextArticleDAO {
 		query.setEntity("topic", topic);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
-		return query.list();			
+		return query.list();
 	}
 
 	public static Resource<TextArticle> fetchById(long id){
