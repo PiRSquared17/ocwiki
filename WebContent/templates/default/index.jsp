@@ -174,7 +174,7 @@
             · 
             <a href="#">Bản quyền</a>
             · 
-            <a href="#">API</a>
+            <a href="http://code.google.com/p/ocwiki/wiki/API">API</a>
             · 
             <ocw:actionLink name="user.list">Thành viên</ocw:actionLink>
             ·
