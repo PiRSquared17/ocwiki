@@ -18,6 +18,7 @@ public class User implements Serializable, Entity, HasVersion {
 
 	private static final long serialVersionUID = -8984541011161716639L;
 
+	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
 	private long id;
 	private int version;
 	@Field(index=Index.TOKENIZED, store=Store.NO)

@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import oop.data.log.ResourceLog;
+import oop.persistence.search.ArticleTypeBridge;
 import oop.persistence.search.BaseQuestionBridge;
 import oop.persistence.search.ResourceCustomizationBridge;
 import oop.persistence.search.TestBridge;
@@ -34,7 +35,8 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
 	private Status status = Status.NEW;
 	private int version = 0;
-//	@Field(index=Index.UN_TOKENIZED, store=Store.NO)
+	@Field(name="articleType")
+	@FieldBridge(impl=ArticleTypeBridge.class)
 	private Class<T> type;
 	@IndexedEmbedded
 	private T article;

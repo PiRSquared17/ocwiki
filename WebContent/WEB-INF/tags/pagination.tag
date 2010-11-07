@@ -1,6 +1,6 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="actionName"
-    description="Tên của hành động" required="true" 
+    description="Tên của hành động"
     rtexprvalue="true" type="java.lang.String"%>
 <%@ attribute name="count"
     description="Tổng số lượng đối tượng cần hiển thị" required="true" 
@@ -12,6 +12,10 @@
     description="Số đối tượng hiển thị trong 1 trang" required="false" 
     rtexprvalue="true" type="java.lang.Integer"%>
 <%@ include file="/includes/common.jsp"%>
+
+<c:if test="${empty actionName}">
+    <c:set var="actionName" value="${action.descriptor.name}"></c:set>
+</c:if>
 
 <div class="pagination">
 <c:if test="${empty pageSize}">

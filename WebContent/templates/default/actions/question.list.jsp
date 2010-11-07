@@ -6,7 +6,7 @@
 
 <c:choose>
 
-<c:when test="${pageCount > 0}">
+<c:when test="${action.count > 0}">
 	
 	<script>
 	
@@ -81,9 +81,11 @@
 			</div>
 			<button type="button" onclick="checkanswer(${question.id})">Trả lời</button>
 		</td>
-		<td valign="top" align="center"><a href="${scriptPath}?action=question.list&author=${resource.author.id}">
-			${resource.author.fullname}
-		</a></td>
+		<td valign="top" align="center">
+		    <ocw:actionLink name="search">
+		      <ocw:param name="query" value="type:question author:#${resource.author.id}"></ocw:param>
+		    </ocw:actionLink>
+		</td>
 	</tr>
 	</c:forEach>
 	<tr>
