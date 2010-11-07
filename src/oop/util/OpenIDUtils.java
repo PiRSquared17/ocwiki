@@ -187,53 +187,58 @@ public final class OpenIDUtils {
 
 				OpenIDAccount found = OpenIDAccountDAO.fetchByUrl(userUrl);
 				if (found != null) {
-					if (connect == true) {
-						User newUser;
-						OpenIDAccount newOpenIDAcc;
-
-						if ((session.getAttribute("newOIDAcc") == null)
-								|| (session.getAttribute("newUser") == null)) {
-							action.setRedirect(ActionUtil
-									.getActionURL("user.profile.complete",
+					try{
+						if (connect == true) {
+							User newUser;
+							OpenIDAccount newOpenIDAcc;
+	
+							if ((session.getAttribute("newOIDAcc") == null)
+									|| (session.getAttribute("newUser") == null)) {
+								action.setRedirect(ActionUtil
+										.getActionURL("user.profile.complete",
+												"actionError=true"));
+							} else {
+								newUser = new User((User) session
+										.getAttribute("newUser"));
+								newOpenIDAcc = new OpenIDAccount(
+										(OpenIDAccount) session
+												.getAttribute("newOIDAcc"));
+	
+								if (!isEmpty(newUser.getLastName())) {
+									found.getUser().setLastName(
+											newUser.getLastName());
+								}
+								if (!isEmpty(newUser.getFirstName())) {
+									found.getUser().setFirstName(
+											newUser.getFirstName());
+								}
+								found.getUser().setNameOrdering(
+										newUser.getNameOrdering());
+	
+								newOpenIDAcc.setUser(found.getUser());
+								try {
+									OpenIDAccountDAO.persist(newOpenIDAcc);
+									SessionUtils.login(session, newOpenIDAcc
+											.getUser());
+									action.setRedirect(ActionUtil.getActionURL(
+											"user.profileedit", "mergeUser=true"));
+								} catch (Exception e) {
+									action.setRedirect(ActionUtil.getActionURL(
+											"user.profile.complete",
 											"actionError=true"));
+								}
+	
+							}
+							session.removeAttribute("connect");
+	
 						} else {
-							newUser = new User((User) session
-									.getAttribute("newUser"));
-							newOpenIDAcc = new OpenIDAccount(
-									(OpenIDAccount) session
-											.getAttribute("newOIDAcc"));
-
-							if (!isEmpty(newUser.getLastName())) {
-								found.getUser().setLastName(
-										newUser.getLastName());
-							}
-							if (!isEmpty(newUser.getFirstName())) {
-								found.getUser().setFirstName(
-										newUser.getFirstName());
-							}
-							found.getUser().setNameOrdering(
-									newUser.getNameOrdering());
-
-							newOpenIDAcc.setUser(found.getUser());
-							try {
-								OpenIDAccountDAO.persist(newOpenIDAcc);
-								SessionUtils.login(session, newOpenIDAcc
-										.getUser());
-								action.setRedirect(ActionUtil.getActionURL(
-										"user.profileedit", "mergeUser=true"));
-							} catch (Exception e) {
-								action.setRedirect(ActionUtil.getActionURL(
-										"user.profile.complete",
-										"actionError=true"));
-							}
-
+							SessionUtils.login(session, found.getUser());
+							action.setRedirect(Config.get().getHomeDir());
 						}
-						session.removeAttribute("connect");
-
-					} else {
-						SessionUtils.login(session, found.getUser());
-						action.setRedirect(Config.get().getHomeDir());
-					}
+					}catch (BlockedUserException e) {
+						action.setRedirect(ActionUtil.getActionURL(
+								"user.profile", "user="+found.getUser().getId()));
+					}						
 				} else {
 					User newUser = new User();
 					newUser.setName(null);
