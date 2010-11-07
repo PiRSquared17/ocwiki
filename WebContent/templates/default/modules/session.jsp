@@ -42,7 +42,7 @@
             <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://www.google.com/accounts/o8/id"></ocw:param>Google</ocw:actionLink></li>
             <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://me.yahoo.com/"></ocw:param>Yahoo</ocw:actionLink></li>
             <li><a href="#" onclick="openOpenIDLoginDialog(); return false;">OpenID</a></li>
-            <li><a href="#" onclick="openLoginDialog(); return false;">Nội bộ</a></li>
+            <li><a href="#" onclick="openLoginDialog(); return false;">OCWiki</a></li>
         </ul>
 	</li>
 </ul>
