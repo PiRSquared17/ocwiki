@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/includes/common.jsp" %>
 
-<c:set var = "topics" value = "${test.topics}"></c:set>
+<c:set var = "topics" value = "${resource.article.topics}"></c:set>
 
 <div>
 	<c:forEach var="topic" items = "${topics}">
@@ -23,24 +23,28 @@
 </ocw:setJs>
 
 <ocw:setJs var="topicTemplate">
-	<div id="topic-\#{idTopic}">
+	<span id="topic-\#{idTopic}">
 		\#{nameTopic}
 		<a href="" onclick = "Delete(\#{idTopic}); return false" id="Delete-\#{idTopic}"> Xóa</a>
-	</div>
+	</span>
 </ocw:setJs>
 
 <script type="text/javascript">
 	Phuchoi = new Template('${PhuchoiTemplate}');
 	topicTempl = new Template('${topicTemplate}');
+	var articleTopic = resource.article;
 	
 	function Add(){
 		var idTopic = $('add-content-topic').value;
-		var length_topic = test.topics.length;
+		var length_topic;
+		if (articleTopic.topics == null) articleTopic.topics = new Array();
+		length_topic = articleTopic.topics.length;
 		var data, topicElement;
 		if (isExits(idTopic)){
 			$('Message-topic').innerHTML = 'Chủ đề này đã tồn tại!';
 			return;
 		}
+		if (articleTopic.topics.length <= 0) delete articleTopic.topics;
 		new Ajax.Request(restPath + '/topics/' + idTopic,{
 			method: 'get',
 			requestHeaders : {
@@ -51,7 +55,7 @@
 	  			topicElement = transport.responseJSON.result;
 	  			var tpName = topicElement.name;
 		       	data = {"idTopic": idTopic,"nameTopic":tpName};
-		       	test.topics[length_topic] = {"id":topicElement.id};
+		       	articleTopic.topics[length_topic] = {"id":idTopic};
 		       	$('add-topic-content').insert({before: topicTempl.evaluate(data)});
 		    },
 		    onFailure: function(transport){ 
@@ -79,20 +83,20 @@
 	}
 
 	function checkTopic(id, value){
-		var length_topic = test.topics.length;
+		var length_topic = articleTopic.topics.length;
 		var i;
 		for (i = 0; i<length_topic; i++)
-			if (test.topics[i].id == id){
-				test.topics[i].deleted = value;
+			if (articleTopic.topics[i].id == id){
+				articleTopic.topics[i].deleted = value;
 				break;
 			}		
 	}
 
 	function isExits(id){
-		var length_topic = test.topics.length;
+		var length_topic = articleTopic.topics.length;
 		var i;
 		for (i = 0; i<length_topic; i++)
-			if (test.topics[i].id == id){
+			if (articleTopic.topics[i].id == id){
 				return true;
 			}
 		return false;	
