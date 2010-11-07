@@ -88,5 +88,18 @@ public final class UtilFunctions {
 	public static String name(Enum<?> e) {
 		return e.name();
 	}
+
+	public static boolean contains(Object coll, Object obj) {
+		if (coll instanceof Collection<?>) {
+			return ((Collection<?>)coll).contains(obj);
+		}
+		if (coll instanceof Map<?,?>) {
+			return ((Map<?,?>)coll).containsValue(obj);
+		}
+		if (coll instanceof Object[]) {
+			return ArrayUtils.contains((Object[])coll, obj);
+		}
+		return false;
+	}
 	
 }

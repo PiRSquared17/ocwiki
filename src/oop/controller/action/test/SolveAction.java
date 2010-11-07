@@ -34,7 +34,8 @@ public class SolveAction extends AbstractResourceAction<Test> {
 		if ("done".equals(submit)) {
 			Set<HistoryAnswer> answers = getChoiceAnswers();
 			int time = getParams().getInt("time");
-			History history = new History(getUser(), test, new Date(), answers,
+			// để tạm để commit, sửa ngay bây giờ
+			History history = new History(getUser(), null, new Date(), answers,
 					time);
 			HistoryDAO.persist(history);
 			setNextAction("history.view&id=" + history.getId());
@@ -58,7 +59,7 @@ public class SolveAction extends AbstractResourceAction<Test> {
 				for (int i = 0; i < params.length; i++) {
 					long answerId = Long.parseLong(params[i]);
 					Answer answer = HibernateUtil.load(Answer.class, answerId);
-					choiceAnswer.getAnswers().add(answer);
+					choiceAnswer.getChoices().add(answer);
 				}
 				answers.add(choiceAnswer);
 			}

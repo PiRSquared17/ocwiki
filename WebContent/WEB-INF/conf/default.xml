@@ -441,7 +441,17 @@
       <loginRequired>false</loginRequired>
     </action>
     
-    
+    <action>
+      <name>history/view</name>
+      <class>oop.controller.action.history.ViewAction</class>
+      <loginRequired>true</loginRequired>
+    </action>
+
+    <action>
+      <name>history/list</name>
+      <class>oop.controller.action.history.ListAction</class>
+      <loginRequired>true</loginRequired>
+    </action>
 
     <!--********************************************************************
                                   API  
