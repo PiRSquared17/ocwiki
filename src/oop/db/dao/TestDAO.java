@@ -25,7 +25,7 @@ public class TestDAO {
 	public static Resource<Test> fetchByName(String name) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
-				"(from Test where name=:name) and status <> 'DELETED'";
+				"(from Test where name=:name) and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setString("name", name);
 		return (Resource<Test>) query.uniqueResult();
@@ -34,7 +34,7 @@ public class TestDAO {
 	public static List<Resource<Test>> fetchByNameLike(String name, int limit) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
-				"(from Test where name like :name) and status <> 'DELETED'";
+				"(from Test where name like :name) and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setString("name", name);
 		query.setMaxResults(limit);
@@ -43,14 +43,26 @@ public class TestDAO {
 
 	public static long count() {
 		String hql = "select count(*) from Resource where article in " +
-				"(from Test) and status <> 'DELETED'";
+				"(from Test) and status = 'NORMAL'";
 		return HibernateUtil.count(hql);
 	}
 	
-	public static List<Resource<Test>> fetch(int start, int length) {
+	public static List<Resource<Test>> fetchLatest(int start, int length) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
-				"(from Test) and status <> 'DELETED'";
+				"(from Test) and status = 'NORMAL' " +
+				"order by id desc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(start);
+		query.setMaxResults(length);
+		return query.list();
+	}
+	
+	public static List<Resource<Test>> fetchOrderByName(int start, int length) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in " +
+				"(from Test) and status = 'NORMAL' " +
+				"order by article.name desc";
 		Query query = session.createQuery(hql);
 		query.setFirstResult(start);
 		query.setMaxResults(length);
@@ -61,7 +73,7 @@ public class TestDAO {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from Resource where article in " +
 				"(from Test where :topic in elements(topics)) " +
-				"and status <> 'DELETED'";
+				"and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setEntity("topic", session.load(Resource.class, id));
 		return (Long) query.uniqueResult();
@@ -71,7 +83,7 @@ public class TestDAO {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
 				"(from Test where :topic in elements(topics)) " +
-				"and status <> 'DELETED'";
+				"and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setEntity("topic", session.load(Resource.class, id));
 		query.setFirstResult(start);
@@ -82,7 +94,7 @@ public class TestDAO {
 	public static long countByAuthor(long id) {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from Resource where article in " +
-				"(from Test where author=:author) and status <> 'DELETED'";
+				"(from Test where author=:author) and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setEntity("author", session.load(User.class, id));
 		return (Long) query.uniqueResult();
@@ -91,7 +103,7 @@ public class TestDAO {
 	public static List<Resource<Test>> fetchByAuthor(long id, int start, int length) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
-				"(from Test where author=:author) and status <> 'DELETED'";
+				"(from Test where author=:author) and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setEntity("author", session.load(User.class, id));
 		query.setFirstResult(start);

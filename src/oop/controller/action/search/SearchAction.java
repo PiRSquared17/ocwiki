@@ -48,6 +48,8 @@ public class SearchAction extends AbstractAction {
 	private List<Resource<? extends Article>> results;
 	private long count;
 	private String status = Status.NORMAL.name();
+	private int start;
+	private int size;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -55,8 +57,8 @@ public class SearchAction extends AbstractAction {
 		try {
 			query = getParams().getString("search_query");
 			title("Tìm \"" + query + "\"");
-			int start = getParams().getInt("start", 0);
-			int size = getParams().getInt("size", 50);
+			start = getParams().getInt("start", 0);
+			size = getParams().getInt("size", 50);
 
 			BooleanQuery luceneQuery = new BooleanQuery();
 			QueryParser parser = new QueryParser(query);
@@ -94,27 +96,9 @@ public class SearchAction extends AbstractAction {
 
 		case IS:
 			if (isUserLoggedIn()) {
-				if ("liked".equalsIgnoreCase(criteria.getContent())
-						|| "thích".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.likes",
-								String.valueOf(getUser().getId())));
-				} else if ("todo".equalsIgnoreCase(criteria.getContent())
-						|| "cần-làm".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.todos",
-								String.valueOf(getUser().getId())));
-				} else if ("done".equalsIgnoreCase(criteria.getContent())
-						|| "xong".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.dones",
-								String.valueOf(getUser().getId())));
-				} else if ("hard".equalsIgnoreCase(criteria.getContent())
-						|| "khó".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.hards",
-								String.valueOf(getUser().getId())));
-				} else if ("easy".equalsIgnoreCase(criteria.getContent())
-						|| "dễ".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.easys",
-								String.valueOf(getUser().getId())));
-				}
+				String field = translateCustomization(criteria.getContent());
+				return new TermQuery(new Term(field,
+						String.valueOf(getUser().getId())));
 			}
 			return null;
 
@@ -124,7 +108,8 @@ public class SearchAction extends AbstractAction {
 
 		case AUTHOR:
 			if (ID_PATTERN.matcher(criteria.getContent()).matches()) {
-				return new TermQuery(new Term("author", criteria.getContent().substring(1)));
+				String id = criteria.getContent().substring(1);
+				return new TermQuery(new Term("author.id", id));
 			} else {
 				MultiFieldQueryParser authorParser = new MultiFieldQueryParser(
 						Version.LUCENE_29, AUTHOR_FIELDS, new StandardAnalyzer(
@@ -159,6 +144,22 @@ public class SearchAction extends AbstractAction {
 		return null;
 	}
 	
+	private String translateCustomization(String str) {
+		if ("liked".equalsIgnoreCase(str) || "thích".equalsIgnoreCase(str)) {
+			return "customization.likes";
+		} else if ("todo".equalsIgnoreCase(str)
+				|| "cần-làm".equalsIgnoreCase(str)) {
+			return "customization.todos";
+		} else if ("done".equalsIgnoreCase(str) || "xong".equalsIgnoreCase(str)) {
+			return "customization.dones";
+		} else if ("hard".equalsIgnoreCase(str) || "khó".equalsIgnoreCase(str)) {
+			return "customization.hards";
+		} else if ("easy".equalsIgnoreCase(str) || "dễ".equalsIgnoreCase(str)) {
+			return "customization.easys";
+		}
+		return null;
+	}
+	
 	private String translateArticleTypeName(String str) {
 		if ("question".equals(str)) {
 			return BaseQuestion.class.getSimpleName();
@@ -188,4 +189,12 @@ public class SearchAction extends AbstractAction {
 		return results;
 	}
 
+	public int getStart() {
+		return start;
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
 }

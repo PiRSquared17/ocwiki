@@ -11,6 +11,9 @@
 <%@ attribute name="pageSize"
     description="Số đối tượng hiển thị trong 1 trang" required="false" 
     rtexprvalue="true" type="java.lang.Integer"%>
+<%@ attribute name="additionalParams"
+    description="Tham số bổ sung cho liên kết, đã được mã hoá URL" required="false" 
+    rtexprvalue="true" type="java.lang.String"%>
 <%@ include file="/includes/common.jsp"%>
 
 <c:if test="${empty actionName}">
@@ -42,7 +45,7 @@
 				<c:forEach begin="1" end="${pageCount}" var="i">
 			   		<c:choose>
 			   			<c:when test="${currentStart == ((i-1)*pageSize)}">
-                            <li><ocw:actionLink name="${actionName}" cssClass="currentPage">
+                            <li class="currentPage"><ocw:actionLink name="${actionName}">
                                 <ocw:param name="start" value="${(i-1)*pageSize}"/>
                                 ${i}                
                             </ocw:actionLink></li>
@@ -62,7 +65,7 @@
 				    <span>
 				   		<c:choose>
 				   			<c:when test="${currentStart == ((i-1)*pageSize)}">
-                                <li><ocw:actionLink name="${actionName}" cssClass="currentPage">
+                                <li class="currentPage"><ocw:actionLink name="${actionName}">
                                     <ocw:param name="start" value="${(i-1)*pageSize}"/>
                                     ${i}                
                                 </ocw:actionLink></li>

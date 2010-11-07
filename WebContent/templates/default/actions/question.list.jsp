@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<jsp:include page="question.list-toolbar.jsp"></jsp:include>
 
 <c:choose>
 
@@ -41,10 +40,7 @@
 	
 	<c:if test="${not empty message}"><div class="notification">${message}</div></c:if>
 	
-	<form action="${scriptPath}" id="listForm">
-	<input type="hidden" name="action" value="question.list" />
-	
-	<jsp:include page="question.list-nav.jsp"></jsp:include>
+    <ocw:pagination count="${action.count}" currentStart="${action.start}"></ocw:pagination>
 	
 	<table>
 	<tr>
@@ -83,7 +79,8 @@
 		</td>
 		<td valign="top" align="center">
 		    <ocw:actionLink name="search">
-		      <ocw:param name="query" value="type:question author:#${resource.author.id}"></ocw:param>
+		      <ocw:param name="search_query" value="type:question author:#${resource.author.id}"></ocw:param>
+		      ${resource.author.fullname}
 		    </ocw:actionLink>
 		</td>
 	</tr>
@@ -91,10 +88,6 @@
 	<tr>
 	</tr>
 	</table>
-	
-	<jsp:include page="question.list-nav.jsp"></jsp:include>
-	
-	</form>
     
 </c:when>
 
@@ -105,5 +98,3 @@
 </c:otherwise>
 
 </c:choose>
-    
-<jsp:include page="question.list-toolbar.jsp"></jsp:include>

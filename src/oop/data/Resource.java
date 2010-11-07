@@ -41,6 +41,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>, HasVers
 	@IndexedEmbedded
 	private T article;
 	private ResourceAccessibility accessibility = ResourceAccessibility.EVERYONE;
+	@IndexedEmbedded
 	private Set<Revision<T>> revisions = new HashSet<Revision<T>>();
 	private Set<ResourceLog> logs = new HashSet<ResourceLog>();
 	private Set<Resource<? extends Article>> linkedResources = new HashSet<Resource<? extends Article>>();
