@@ -52,7 +52,7 @@
         
 <ul>
     <c:forEach items="${action.revisions}" var="revision">
-		<li>
+		<li><%--
 		    (<u:trim><c:choose>
 		      <c:when test="${revision.id==action.latestRevision.id}">
 		          h.tại
@@ -77,14 +77,13 @@
 		                trước
 		            </ocw:actionLink>
 		          </c:otherwise>
-		     </c:choose></u:trim>)
-		    <input type="checkbox" name="revid" value="${revision.id}">
+		     </c:choose></u:trim>) 
+		    <input type="checkbox" name="revid" value="${revision.id}"> --%>
 	        <ocw:articleLink revision="${revision}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink>
 			<ocw:userLink user="${revision.author}" />
 			<c:if test="${not empty revision.summary}">
 				(${revision.summary})
 			</c:if>
-			(${revision.summary})
 			<ocw:actionLink name="revision.restore">
 				<ocw:param name="revisionId" value="${revision.id}"></ocw:param>
 				Lùi
