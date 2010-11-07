@@ -289,7 +289,7 @@ function getURL(){
 		}
 	}else if ((OIDP==4)||(OIDP==5)||(OIDP==7)||(OIDP==8)||(OIDP==11)||(OIDP==14)||(OIDP==9)||(OIDP==10)){
 		if (($('username-input').value==null) || ($('username-input').value=="")){
-			if ((OIDP==4)||(OIDP==5)){
+			if ((OIDP==4)||(OIDP==5)||(OIDP==8)||(OIDP==14)){
 				result=null
 			}else{
 				result = ('http://'+($('provider-view').innerHTML));

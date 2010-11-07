@@ -6,11 +6,15 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import oop.conf.Config;
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.controller.action.ActionUtil;
+import oop.controller.rest.util.ErrorResult;
 import oop.data.OpenIDAccount;
 import oop.data.User;
 import oop.db.dao.OpenIDAccountDAO;
@@ -120,7 +124,13 @@ public final class OpenIDUtils {
 				session.removeAttribute("connect");
 
 			} else {
-				throw new ActionException("Đăng nhập bằng openID thất bại: Không thể kết nối tới nhà cung cấp OpenID");//Transport err
+				if (action == null) {
+					throw new WebApplicationException(Response.status(
+							Status.BAD_REQUEST).entity(
+							new ErrorResult("connection error")).build());
+				} else {
+					throw new ActionException("Đăng nhập bằng openID thất bại: Không thể kết nối tới nhà cung cấp OpenID");//Transport err
+				}
 			}
 
 		}
