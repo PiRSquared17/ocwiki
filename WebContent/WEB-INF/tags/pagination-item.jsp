@@ -2,4 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
 
-<ocw:pagination count="${action.count}" currentStart="${action.start}"></ocw:pagination>
+<ocw:actionLink name="${actionName}">
+    <ocw:param name="start" value="${(i-1)*pageSize}"/>
+    ${i}
+</ocw:actionLink>

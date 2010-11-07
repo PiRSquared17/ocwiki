@@ -46,7 +46,7 @@ public class ResourceDAO {
 			long namespaceId, int start, int size) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource " +
-				"where article.namespace.id=:ns and status <> 'DELETED'";
+				"where article.namespace.id=:ns and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setLong("ns", namespaceId);
 		query.setFirstResult(start);
@@ -57,7 +57,7 @@ public class ResourceDAO {
 	public static long countByNamespace(long namespaceId) {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from Resource " +
-				"where article.namespace.id=:ns and status <> 'DELETED'";
+				"where article.namespace.id=:ns and status = 'NORMAL'";
 		Query query = session.createQuery(hql);
 		query.setLong("ns", namespaceId);
 		return (Long) query.uniqueResult();

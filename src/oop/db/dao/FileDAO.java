@@ -56,9 +56,9 @@ public class FileDAO {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("Select count (*) from File f where f not in (" +
 				"select elements(attachments) from BaseArticle a " +
-					"where a in (select article from Resource where status <> 'DELETED'))" +
+					"where a in (select article from Resource where status = 'NORMAL'))" +
 				"and f not in (select elements(embeds) from BaseArticle b " +
-					"where b in (select article from Resource where status <> 'DELETED'))");
+					"where b in (select article from Resource where status = 'NORMAL'))");
 		return (Long)query.uniqueResult();
 	}
 }

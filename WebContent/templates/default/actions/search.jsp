@@ -12,10 +12,13 @@
         Không tìm thấy kết quả nào.
     </c:when>
     <c:otherwise>
+        <ocw:pagination actionName="search?search_query=${action.query}" 
+                count="${action.count}" currentStart="${action.start}">
+        </ocw:pagination>
 		<c:forEach var="resource" items="${action.results}">
-		<div>
-		<ocw:articleLink resource="${resource}"></ocw:articleLink>
-		</div>
+			<div>
+			<ocw:articleLink resource="${resource}"></ocw:articleLink>
+			</div>
 		</c:forEach>
     </c:otherwise>
 </c:choose>

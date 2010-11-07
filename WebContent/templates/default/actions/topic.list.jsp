@@ -10,15 +10,13 @@
 		count="${action.count}" currentStart="${action.start}"></ocw:pagination>
 
 	<div class="clear"></div>
-	<div class="content-wrapper">
-        <ul style="list-style: none;">
-		<c:forEach items="${action.topics}" var="topic" >
-			<li>
-			     <ocw:articleLink resource="${topic}">${topic.name}</ocw:articleLink>
-			</li>
-		</c:forEach>
-		</ul>
-	</div>
+    <ul style="list-style: none;">
+	<c:forEach items="${action.topics}" var="topic" >
+		<li>
+		     <ocw:articleLink resource="${topic}">${topic.name}</ocw:articleLink>
+		</li>
+	</c:forEach>
+	</ul>
 	
 </c:when>
 
