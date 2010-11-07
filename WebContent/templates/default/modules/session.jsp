@@ -6,7 +6,7 @@
 <div class="jsmenu" id="user-toolbar"
 	style="display: ${sessionScope.login ? 'block' : 'none'};">
 <ul class="level1 horizontal" id="user-toolbar-root">
-	<li class="level1">${sessionScope.user.fullname}
+	<li class="level1">${u:ellipsize(sessionScope.user.fullname, 40)}
 	<ul class="level2 dropdown">
 		<li><ocw:actionLink name="user.profileedit"
 			title="Sửa thông tin người dùng">Sửa thông tin</ocw:actionLink></li>
