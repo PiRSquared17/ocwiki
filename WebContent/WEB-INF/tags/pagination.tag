@@ -1,6 +1,6 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="actionName"
-    description="Tên của hành động" required="true" 
+    description="Tên của hành động"
     rtexprvalue="true" type="java.lang.String"%>
 <%@ attribute name="count"
     description="Tổng số lượng đối tượng cần hiển thị" required="true" 
@@ -11,7 +11,14 @@
 <%@ attribute name="pageSize"
     description="Số đối tượng hiển thị trong 1 trang" required="false" 
     rtexprvalue="true" type="java.lang.Integer"%>
+<%@ attribute name="additionalParams"
+    description="Tham số bổ sung cho liên kết, đã được mã hoá URL" required="false" 
+    rtexprvalue="true" type="java.lang.String"%>
 <%@ include file="/includes/common.jsp"%>
+
+<c:if test="${empty actionName}">
+    <c:set var="actionName" value="${action.descriptor.name}"></c:set>
+</c:if>
 
 <div class="pagination">
 <c:if test="${empty pageSize}">
@@ -38,7 +45,7 @@
 				<c:forEach begin="1" end="${pageCount}" var="i">
 			   		<c:choose>
 			   			<c:when test="${currentStart == ((i-1)*pageSize)}">
-                            <li><ocw:actionLink name="${actionName}" cssClass="currentPage">
+                            <li class="currentPage"><ocw:actionLink name="${actionName}">
                                 <ocw:param name="start" value="${(i-1)*pageSize}"/>
                                 ${i}                
                             </ocw:actionLink></li>
@@ -58,7 +65,7 @@
 				    <span>
 				   		<c:choose>
 				   			<c:when test="${currentStart == ((i-1)*pageSize)}">
-                                <li><ocw:actionLink name="${actionName}" cssClass="currentPage">
+                                <li class="currentPage"><ocw:actionLink name="${actionName}">
                                     <ocw:param name="start" value="${(i-1)*pageSize}"/>
                                     ${i}                
                                 </ocw:actionLink></li>

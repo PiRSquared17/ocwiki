@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 @XmlRootElement
 public class Revision<T extends Article> implements ArticleContainer<T> {
 
@@ -16,6 +18,7 @@ public class Revision<T extends Article> implements ArticleContainer<T> {
 	private long id;
 	private Resource<T> resource;
 	private T article;
+	@IndexedEmbedded
 	private User author;
 	private Date timestamp;
 	private String summary;

@@ -45,6 +45,8 @@ public class Config implements Serializable {
 	private String facebookSecret = null;
 	private boolean useCDN = false;
 	private String texCgi = "http://www.imathas.com/cgi-bin/mimetex.cgi";
+	private boolean recreateDatabaseWhenSetup = false;
+	private String contactEmail;
 	
 	private int maxAvatarFileSize = 2; // MB
 	private int maxAvatarDimension = 150; // pixels
@@ -429,6 +431,22 @@ public class Config implements Serializable {
 
 	public int getAvatarThumbnailDimension() {
 		return avatarThumbnailDimension;
+	}
+
+	public void setRecreateDatabaseWhenSetup(boolean recreateDatabaseWhenSetup) {
+		this.recreateDatabaseWhenSetup = recreateDatabaseWhenSetup;
+	}
+
+	public boolean isRecreateDatabaseWhenSetup() {
+		return recreateDatabaseWhenSetup;
+	}
+
+	public void setContactEmail(String contactEmail) {
+		this.contactEmail = contactEmail;
+	}
+
+	public String getContactEmail() {
+		return contactEmail;
 	}
 	
 }

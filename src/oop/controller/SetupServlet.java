@@ -40,10 +40,12 @@ public class SetupServlet extends HttpServlet {
 		
 		File sqlFile = new File(sqlPath);
 		if (sqlFile.exists()) {
-			String sql = "drop database if exists " + config.getDatabaseName() + ";" +
-					"create database " + config.getDatabaseName() + " collate utf8_vietnamese1_ci;" +
-					"use " + config.getDatabaseName() + ";" +
+			String sql = "use " + config.getDatabaseName() + ";" +
 					"source " + sqlFile.getName() + ";";
+			if (config.isRecreateDatabaseWhenSetup()) {
+				sql = "drop database if exists " + config.getDatabaseName() + ";" +
+						"create database " + config.getDatabaseName() + " collate utf8_vietnamese1_ci;" + sql;
+			}
 			String[] command = { config.getMysqlCommand(),
 					"--verbose",
 					"--user=" + config.getUserName(),

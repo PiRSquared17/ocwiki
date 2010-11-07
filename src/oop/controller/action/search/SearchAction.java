@@ -2,13 +2,20 @@ package oop.controller.action.search;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.data.Article;
+import oop.data.BaseQuestion;
 import oop.data.Resource;
+import oop.data.Solution;
 import oop.data.Status;
+import oop.data.Test;
+import oop.data.TestStructure;
+import oop.data.TextArticle;
+import oop.data.Topic;
 import oop.persistence.HibernateUtil;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,11 +42,14 @@ public class SearchAction extends AbstractAction {
 	private static final String[] AUTHOR_FIELDS = { "author.name",
 			"author.email", "author.firtName", "author.lastName", "author.bio",
 			"author.middleName" };
+	private static final Pattern ID_PATTERN = Pattern.compile("#\\d+");
 
 	private String query;
 	private List<Resource<? extends Article>> results;
 	private long count;
 	private String status = Status.NORMAL.name();
+	private int start;
+	private int size;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -47,8 +57,8 @@ public class SearchAction extends AbstractAction {
 		try {
 			query = getParams().getString("search_query");
 			title("Tìm \"" + query + "\"");
-			int start = getParams().getInt("start", 0);
-			int size = getParams().getInt("size", 50);
+			start = getParams().getInt("start", 0);
+			size = getParams().getInt("size", 50);
 
 			BooleanQuery luceneQuery = new BooleanQuery();
 			QueryParser parser = new QueryParser(query);
@@ -59,8 +69,8 @@ public class SearchAction extends AbstractAction {
 					luceneQuery.add(subquery, BooleanClause.Occur.MUST);
 				}
 			}
-//			luceneQuery.add(new TermQuery(new Term("status", status)),
-//					BooleanClause.Occur.MUST);
+			luceneQuery.add(new TermQuery(new Term("status", status)),
+					BooleanClause.Occur.MUST);
 			FullTextSession fullTextSession = Search
 					.getFullTextSession(HibernateUtil.getSession());
 			FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery(
@@ -86,27 +96,9 @@ public class SearchAction extends AbstractAction {
 
 		case IS:
 			if (isUserLoggedIn()) {
-				if ("liked".equalsIgnoreCase(criteria.getContent())
-						|| "thích".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.likes",
-								String.valueOf(getUser().getId())));
-				} else if ("todo".equalsIgnoreCase(criteria.getContent())
-						|| "cần-làm".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.todos",
-								String.valueOf(getUser().getId())));
-				} else if ("done".equalsIgnoreCase(criteria.getContent())
-						|| "xong".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.dones",
-								String.valueOf(getUser().getId())));
-				} else if ("hard".equalsIgnoreCase(criteria.getContent())
-						|| "khó".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.hards",
-								String.valueOf(getUser().getId())));
-				} else if ("easy".equalsIgnoreCase(criteria.getContent())
-						|| "dễ".equalsIgnoreCase(criteria.getContent())) {
-						return new TermQuery(new Term("customization.easys",
-								String.valueOf(getUser().getId())));
-				}
+				String field = translateCustomization(criteria.getContent());
+				return new TermQuery(new Term(field,
+						String.valueOf(getUser().getId())));
 			}
 			return null;
 
@@ -115,14 +107,19 @@ public class SearchAction extends AbstractAction {
 			return null;
 
 		case AUTHOR:
-			MultiFieldQueryParser authorParser = new MultiFieldQueryParser(
-					Version.LUCENE_29, AUTHOR_FIELDS, new StandardAnalyzer(
-							Version.LUCENE_29));
-			try {
-				return authorParser.parse(criteria.getContent());
-			} catch (ParseException e) {
-				e.printStackTrace();
-				return null;
+			if (ID_PATTERN.matcher(criteria.getContent()).matches()) {
+				String id = criteria.getContent().substring(1);
+				return new TermQuery(new Term("author.id", id));
+			} else {
+				MultiFieldQueryParser authorParser = new MultiFieldQueryParser(
+						Version.LUCENE_29, AUTHOR_FIELDS, new StandardAnalyzer(
+								Version.LUCENE_29));
+				try {
+					return authorParser.parse(criteria.getContent());
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return null;
+				}
 			}
 
 		case FULLTEXT:
@@ -135,6 +132,47 @@ public class SearchAction extends AbstractAction {
 				e.printStackTrace();
 				return null;
 			}
+			
+		case TYPE:
+			String typeName = translateArticleTypeName(criteria.getContent());
+			if (typeName == null) {
+				return null;
+			}
+			typeName = typeName.toLowerCase();
+			return new TermQuery(new Term("articleType", typeName));
+		}
+		return null;
+	}
+	
+	private String translateCustomization(String str) {
+		if ("liked".equalsIgnoreCase(str) || "thích".equalsIgnoreCase(str)) {
+			return "customization.likes";
+		} else if ("todo".equalsIgnoreCase(str)
+				|| "cần-làm".equalsIgnoreCase(str)) {
+			return "customization.todos";
+		} else if ("done".equalsIgnoreCase(str) || "xong".equalsIgnoreCase(str)) {
+			return "customization.dones";
+		} else if ("hard".equalsIgnoreCase(str) || "khó".equalsIgnoreCase(str)) {
+			return "customization.hards";
+		} else if ("easy".equalsIgnoreCase(str) || "dễ".equalsIgnoreCase(str)) {
+			return "customization.easys";
+		}
+		return null;
+	}
+	
+	private String translateArticleTypeName(String str) {
+		if ("question".equals(str)) {
+			return BaseQuestion.class.getSimpleName();
+		} else if ("test".equals(str)) {
+			return Test.class.getSimpleName();
+		} else if ("text".equals(str)) {
+			return TextArticle.class.getSimpleName();
+		} else if ("topic".equals(str)) {
+			return Topic.class.getSimpleName();
+		} else if ("structure".equals(str)) {
+			return TestStructure.class.getSimpleName();
+		} else if ("solution".equals(str)) {
+			return Solution.class.getSimpleName();
 		}
 		return null;
 	}
@@ -151,4 +189,12 @@ public class SearchAction extends AbstractAction {
 		return results;
 	}
 
+	public int getStart() {
+		return start;
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
 }

@@ -116,6 +116,11 @@
         <name>default</name>
         <rtexprvalue>true</rtexprvalue>
     </attribute>    
+    <attribute>
+        <description>Đã được mã hoá sẵn hay không</description>
+        <name>encoded</name>
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>    
   </tag>
 
   <tag>

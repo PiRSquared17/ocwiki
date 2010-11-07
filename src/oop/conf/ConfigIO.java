@@ -9,7 +9,7 @@ import oop.util.XMLUtils;
 
 public class ConfigIO {
 
-	public static final String DEFAULT_FILE_NAME = "config.xml";
+	public static final String DEFAULT_FILE_NAME = "default.xml";
 	
 	public static void load(File file, Config config) {
 		FileInputStream input = null;

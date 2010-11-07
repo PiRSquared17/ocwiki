@@ -1076,7 +1076,7 @@ ul.shareList li {
 	padding:3px 3px 2px;
 }
 
-.pagination ul li a.currentPage {
+.pagination ul li.currentPage a {
 	border-bottom:2px solid #59A437;
 	color:#59A437;
 	font-weight:bold;
