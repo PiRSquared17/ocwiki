@@ -239,4 +239,14 @@ public class ResourceDAO {
 		return (List<Resource<? extends Article>>) query.list();
 	}
 	
+	public static <T extends Article> Revision<T> fetchCurrentRevision(
+			Resource<T> resource) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Revision where resource = :resource order by id desc";
+		Query query = session.createQuery(hql);
+		query.setEntity("resource", resource);
+		query.setMaxResults(1);
+		return (Revision<T>) query.uniqueResult();
+	}
+	
 }
