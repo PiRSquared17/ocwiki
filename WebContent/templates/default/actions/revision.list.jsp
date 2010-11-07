@@ -41,16 +41,19 @@
 		100
 	</ocw:actionLink>
 
-<form action="${scriptPath}" id="listForm"><input type="hidden"
-	name="action" value="revision.list" /> <jsp:include
-	page="revision.list-toolbar.jsp"></jsp:include> <jsp:include
-	page="revision.list-nav.jsp"></jsp:include>
+<form action="${scriptPath}" id="listForm">
+    <input type="hidden" name="action" value="revision.list" /> 
+    <jsp:include page="revision.list-toolbar.jsp"></jsp:include> 
 </form>
+
+<ocw:pagination actionName="${action.descriptor.name}"
+        count="${action.count}" currentStart="${action.start}" pageSize="${action.size}"
+        additionalParams="resourceID=${param.resourceID}"></ocw:pagination>
+        
 <ul>
     <c:forEach items="${action.revisions}" var="revision">
 		<li>
-		    (
-		    <c:choose>
+		    (<u:trim><c:choose>
 		      <c:when test="${revision.id==action.latestRevision.id}">
 		          h.tại
 		      </c:when>
@@ -61,9 +64,9 @@
 				    h.tại
 				</ocw:actionLink> 
 		      </c:otherwise>
-		    </c:choose>
+		     </c:choose></u:trim>
 		     | 
-		     <c:choose>
+		     <u:trim><c:choose>
 		          <c:when test="${revision.id == action.earliestRevision.id}">
 		              trước
 		          </c:when>
@@ -74,8 +77,7 @@
 		                trước
 		            </ocw:actionLink>
 		          </c:otherwise>
-		     </c:choose>
-		    )
+		     </c:choose></u:trim>)
 		    <input type="checkbox" name="revid" value="${revision.id}">
 	        <ocw:articleLink revision="${revision}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink>
 			<ocw:userLink user="${revision.author}" />
@@ -90,6 +92,5 @@
 		</li>
 	</c:forEach>
 </ul>
-<jsp:include page="revision.list-nav.jsp"></jsp:include>
 
 <jsp:include page="revision.list-toolbar.jsp"></jsp:include>
