@@ -12,15 +12,11 @@
 <div id="Test-Time">
 	Thời gian làm bài:
 	<input type="text" id="Test-Time-Edit" value="${test.time}">
+	(phút)
 </div>
 
-<div id = "Test-Name">
-	<textarea rows="" cols="" id = "Test-Name-${test.id}">${test.name}</textarea>
-	<script type="text/javascript">
-		Editor.edit('Test-Name');
-	</script>
-</div>
 <div id = "Test-Content">
+	Nội dung:
 	<textarea rows="5" cols="60" id="Test-content-${test.id}">${empty test.content.text ? 'Khong co noi dung' : test.content}</textarea>
 	<script type="text/javascript">
 		Editor.preview('Test-Content');
@@ -339,7 +335,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		else test.content.text = content;
 
 		// Sua ten bai kiem tra
-		name = tinymce.get('Test-Name-' + test.id).getContent();
+		name = $('articleEdit-nameInput').value;
 		test.name = name;
 
 		// Luu diem
