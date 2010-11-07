@@ -11,7 +11,7 @@
         </c:if>
         <li><a href="#" onclick="createTest(); return false">Đề thi</a></li>
         <li><a href="#" onclick="createTextArticle(); return false">Bài viết</a></li>
-        <li><a href="#" onclick="createTestStructure(); return false">Cấu trúc đề</a></li>
+        <!-- <li><a href="#" onclick="createTestStructure(); return false">Cấu trúc đề</a></li> -->
         <li><a href="#" onclick="createTopic(); return false">Chủ đề</a></li>
         <li><a href="#" onclick="createFile(); return false">Tập tin</a></li>
     </ul>
