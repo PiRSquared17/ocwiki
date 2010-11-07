@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+    
+  <description>JSTL 1.1 functions library</description>
+  <display-name>JSTL functions</display-name>
+  <tlib-version>1.1</tlib-version>
+  <short-name>util</short-name>
+  <uri>http://code.google.com/tracnghiem-csforce/tld/math</uri>
+
+  <function>
+    <description>
+      Định dạng ngày 
+    </description>
+    <name>formatDate</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>java.lang.String formatDate(java.util.Date)</function-signature>
+    <example>
+      ${util:formatDate(date)}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Định dạng ngày giờ
+    </description>
+    <name>formatDateTime</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>java.lang.String formatDateTime(java.util.Date)</function-signature>
+    <example>
+      ${util:formatDateTime(dateTime)}
+    </example>
+  </function>
+  
+  <function>
+    <description>
+      Trả về tên của độ khó
+    </description>
+    <name>levelName</name>
+    <function-class>oop.data.BaseQuestion</function-class>
+    <function-signature>java.lang.String getLevelName(int)</function-signature>
+    <example>
+      ${util:levelName(3)}
+    </example>
+  </function>
+  
+  <function>
+    <description>
+      Mã hoá URL
+    </description>
+    <name>urlEncode</name>
+    <function-class>oop.util.Utils</function-class>
+    <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
+    <example>
+      ${util:urlEncode('action=homepage')}
+    </example>
+  </function>
+  
+  <function>
+    <description>
+      Xoá bỏ các thẻ HTML
+    </description>
+    <name>stripHTML</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>java.lang.String stripHTML(java.lang.String)</function-signature>
+    <example>
+      ${util:urlEncode('&lt;p&gt;&lt;/p&gt;&lt;p&gt;content&lt;/p&gt;')}
+    </example>
+  </function>
+  
+  <function>
+    <description>
+      Làm tròn
+    </description>
+    <name>round</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>long round(double)</function-signature>
+    <example>
+      ${util:round(9.5)}
+    </example>
+  </function>
+  
+  <function>
+    <description>
+      Làm tròn xuống
+    </description>
+    <name>floor</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>long floor(double)</function-signature>
+    <example>
+      ${util:floor(9.5)}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Kích thước Collection, Map
+    </description>
+    <name>size</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>int size(java.lang.Object)</function-signature>
+    <example>
+      ${util:size(list)}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Rút ngắn xâu kí tự nếu cần
+    </description>
+    <name>ellipsize</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>java.lang.String ellipsize(java.lang.String, int)</function-signature>
+    <example>
+      ${util:ellipsize(s, 30)}
+    </example>
+  </function>
+  
+  <function>
+    <description>
+      Chuyển số thứ tự (bắt đầu từ 0) từ số sang chữ cái hoa ('A'..'Z')
+    </description>
+    <name>alpha</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>java.lang.String toAlpha(int)</function-signature>
+    <example>
+      ${util:alpha(0)}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Trả về giá trị mặc định nếu đối số bằng null.
+    </description>
+    <name>defaultIfNull</name>
+    <function-class>org.apache.commons.lang.ObjectUtils</function-class>
+    <function-signature>java.lang.Object defaultIfNull(java.lang.Object, java.lang.Object)</function-signature>
+    <example>
+      ${util:defaultIfNull(a, b)}
+    </example>
+  </function>
+
+  <function>
+    <description>
+      Trả về chuỗi JSON của đối tượng.
+    </description>
+    <name>toJson</name>
+    <function-class>oop.util.JsonUtils</function-class>
+    <function-signature>java.lang.String toJson(java.lang.Object)</function-signature>
+    <example>
+      ${util:toJson(resource)}
+    </example>
+  </function>
+
+  <function>
+    <description>Escape JavaScript</description>
+    <name>escapeJs</name>
+    <function-class>org.apache.commons.lang.StringEscapeUtils</function-class>
+    <function-signature>java.lang.String escapeJavaScript(java.lang.String)</function-signature>
+  </function>
+
+</taglib>
