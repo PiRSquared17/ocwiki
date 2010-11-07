@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 @XmlRootElement
@@ -96,6 +97,13 @@ public class Revision<T extends Article> implements ArticleContainer<T> {
 	@XmlTransient
 	public Resource<T> getResource() {
 		return resource;
+	}
+
+	public String getName() {
+		if (StringUtils.isEmpty(article.getName())) {
+			return "#" + resource.getId();
+		}
+		return article.getName();
 	}
 	
 }

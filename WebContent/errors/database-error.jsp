@@ -21,6 +21,7 @@
            <p class="errorDetail">Chi tiết lỗi:
            <code>${requestScope['javax.servlet.error.exception']}</code></p>
            <p>Xin lỗi về sự bất tiện!</p>
+           <p><ocw:actionLink name="homepage">Trở về trang chủ</ocw:actionLink></p>
         </td>
     </tr>
 </table>

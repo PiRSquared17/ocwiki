@@ -16,7 +16,6 @@
     <maxAvatarDimension>150</maxAvatarDimension>
     <maxUploadFileSize>10</maxUploadFileSize>
     <avatarThumbnailDimension>32</avatarThumbnailDimension>
-    <recreateDatabaseWhenSetup>true</recreateDatabaseWhenSetup>
 
     <!--********************************************************************
                                  Actions 
@@ -342,9 +341,14 @@
       <name>textarticle.view</name>
       <class>oop.controller.action.textart.ViewAction</class>
     </action>
+    
     <action>
       <name>solution.view</name>
       <class>oop.controller.action.solution.ViewAction</class>
+    </action>
+    <action>
+      <name>solution.list</name>
+      <class>oop.controller.action.solution.ListAction</class>
     </action>
     <action>
       <name>solution.create</name>

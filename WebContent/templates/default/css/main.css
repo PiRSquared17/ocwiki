@@ -28,6 +28,11 @@ ul {
 	list-style-type: square;
 }
 
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 .mouse-out {
 	
 }
@@ -1086,4 +1091,8 @@ ul.shareList li {
 	color: white;
 	background: #59A437;
     text-decoration:none;
+}
+
+.markInput {
+	width: 40px;
 }

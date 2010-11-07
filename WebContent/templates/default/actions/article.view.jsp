@@ -19,7 +19,10 @@
 	</c:if>
 	<c:choose>
 	    <c:when test="${ocw:assignableFrom('oop.data.BaseQuestion', type.name)}">
-	        [<a href="#">bài giải</a>]
+	        [<ocw:actionLink name="solution.list">
+	           <ocw:param name="id" value="${action.resource.id}"></ocw:param>
+	           bài giải
+	        </ocw:actionLink>]
 	    </c:when>
 	    <c:when test="${ocw:assignableFrom('oop.data.Test', type.name)}">
 	        [<ocw:actionLink name="test.solve">

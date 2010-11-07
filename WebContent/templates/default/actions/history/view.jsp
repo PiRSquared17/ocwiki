@@ -5,9 +5,13 @@
 <c:set var="test" value="${action.history.test}"></c:set>
 
 <div>
-<div>Thời điểm thực hiện: <strong>${u:formatDateTime(action.history.takenDate)}s</strong></div>
+<div>Thời điểm thực hiện: <strong>${u:formatDateTime(action.history.takenDate)}</strong></div>
 <div>Thời gian thực hiện: <strong>${action.history.time}s</strong></div>
 <div>Điểm số: <strong>${action.history.mark}</strong></div>
+<div>Đề thi: <ocw:actionLink name="article.viewold">
+    <ocw:param name="id" value="${action.history.revision.id}"></ocw:param>
+    ${action.history.revision.name}
+</ocw:actionLink></div>
 </div>
 
 <hr />

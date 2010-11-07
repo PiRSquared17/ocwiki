@@ -31,6 +31,7 @@
 		<p>Hoặc <a href="mailto:${config.contactEmail}" class="contactLink">liên
 		hệ với ban quản trị</a> để được trợ giúp.</p>
 	</ocw:form>
+           <p><ocw:actionLink name="homepage">Trở về trang chủ</ocw:actionLink></p>
         </td>
     </tr>
 </table>

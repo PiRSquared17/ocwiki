@@ -21,6 +21,7 @@ public class ResourceBean implements HasVersion {
 	private ArticleBean article;
 	private ResourceAccessibility accessibility = ResourceAccessibility.EVERYONE;
 	private ResourceReferenceBean link = null;
+	private RevisionReferenceBean currentRevision;
 	private Class<? extends Article> type;
 
 	public ResourceBean() {
@@ -97,6 +98,14 @@ public class ResourceBean implements HasVersion {
 	@XmlElement(name="articleType")
 	public Class<? extends Article> getType() {
 		return type;
+	}
+
+	public void setCurrentRevision(RevisionReferenceBean currentRevision) {
+		this.currentRevision = currentRevision;
+	}
+
+	public RevisionReferenceBean getCurrentRevision() {
+		return currentRevision;
 	}
 	
 }
