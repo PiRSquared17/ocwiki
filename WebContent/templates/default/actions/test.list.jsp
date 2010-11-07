@@ -5,9 +5,6 @@
 <c:choose>
 
 <c:when test="${action.count > 0}">
-	
-	<input type="hidden" name="action" value="test.list" />
-	
     <ocw:pagination count="${action.count}" currentStart="${action.start}"></ocw:pagination>
 	<table>
 	<tr>

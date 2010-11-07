@@ -3,8 +3,8 @@
 <%@ include file="/includes/common.jsp" %>
 
 <ul>
-	<li><ocw:actionLink name="history.list"
-		title="Xem lịch sử các bài kiểm tra đã làm">Lịch sử làm bài</ocw:actionLink>
+	<li><ocw:actionLink name="history/list"
+		title="Xem lịch sử các bài kiểm tra đã làm">Lịch sử làm đề</ocw:actionLink>
 	</li>
 	<li>
 	<ocw:actionLink name="search">

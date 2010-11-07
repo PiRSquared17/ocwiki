@@ -16,6 +16,7 @@ import oop.data.History;
 import oop.data.HistoryAnswer;
 import oop.data.Test;
 import oop.db.dao.HistoryDAO;
+import oop.db.dao.ResourceDAO;
 import oop.db.dao.TestDAO;
 import oop.persistence.HibernateUtil;
 
@@ -34,11 +35,11 @@ public class SolveAction extends AbstractResourceAction<Test> {
 		if ("done".equals(submit)) {
 			Set<HistoryAnswer> answers = getChoiceAnswers();
 			int time = getParams().getInt("time");
-			// để tạm để commit, sửa ngay bây giờ
-			History history = new History(getUser(), null, new Date(), answers,
-					time);
+			History history = new History(getUser(),
+					ResourceDAO.fetchCurrentRevision(resource), new Date(),
+					answers, time);
 			HistoryDAO.persist(history);
-			setNextAction("history.view&id=" + history.getId());
+			setNextAction("history/view?id=" + history.getId());
 		} else {
 			if (test.getQuestionCount() <= 0) {
 				throw new ActionException("Đề thi chưa hoàn thiện.");
