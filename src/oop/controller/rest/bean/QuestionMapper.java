@@ -21,7 +21,7 @@ public class QuestionMapper implements Mapper<QuestionBean, Question> {
 
 	@Override
 	public Question toEntity(QuestionBean value) {
-		if (value.getId() == 0) {
+//		if (value.getId() == 0) {
 			Question entity = new Question(); 
 			entity.setId(value.getId());
 			entity.setMark(value.getMark());
@@ -30,8 +30,8 @@ public class QuestionMapper implements Mapper<QuestionBean, Question> {
 			RevisionReferenceMapper<BaseQuestion> revisionMapper = RevisionReferenceMapper.get();
 			entity.setBaseRevision(revisionMapper.toEntity(value.getBaseRevision()));
 			return entity;
-		}
-		return (Question) HibernateUtil.getSession().load(Question.class, value.getId());
+//		}
+//		return (Question) HibernateUtil.getSession().load(Question.class, value.getId());
 	}
 
 	private static QuestionMapper DEFAULT_INSTANCE = new QuestionMapper();

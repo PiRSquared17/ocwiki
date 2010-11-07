@@ -9,6 +9,11 @@
 
 <c:set var="i" value="1"></c:set>
 
+<div id="Test-Time">
+	Thời gian làm bài:
+	<input type="text" id="Test-Time-Edit" value="${test.time}">
+</div>
+
 <div id = "Test-Name">
 	<textarea rows="" cols="" id = "Test-Name-${test.id}">${test.name}</textarea>
 	<script type="text/javascript">
@@ -332,10 +337,19 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			test.content = {"text": content};
 		}
 		else test.content.text = content;
+
 		// Sua ten bai kiem tra
 		name = tinymce.get('Test-Name-' + test.id).getContent();
 		test.name = name;
 
+		// Luu diem
+		if (!isNumber($('Test-Time-Edit').value) || (parseInt($('Test-Time-Edit').value) <= 0)){
+			$('articleEdit-error').innerHTML = 'Thời gian làm bài không hợp lệ';
+			failureCallback();
+			return;
+		}
+		test.time = parseInt($('Test-Time-Edit').value);
+			
 		// Sua cac chu de cua bai kiem tra
 		if (test.topics == null) test.topics = new Array();
 		for (i = 0; i < test.topics.length; i++){
@@ -442,7 +456,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		}
 		var mark = parseInt($(id).value);
 		test.sections[indexsection].questions[indexquestion].mark = mark;
-		Editor.previewTextField('' + questionId);
+		//Editor.previewTextField('' + questionId);
 	}
 	function checkId(id){
 		var i,j;

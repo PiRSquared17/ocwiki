@@ -17,16 +17,16 @@ public class SectionMapper implements Mapper<SectionBean, Section> {
 
 	@Override
 	public Section toEntity(SectionBean value) {
-		if (value.getId() == 0) {
+//		if (value.getId() == 0) {
 			Section entity = new Section();
 			entity.setId(value.getId());
 			entity.setContent(TextMapper.get().toEntity(value.getContent()));
 			MapperUtils.toEntities(value.getQuestions(), entity.getQuestions(),
 					QuestionMapper.get());
 			return entity;
-		}
-		return (Section) HibernateUtil.getSession().load(Section.class,
-				value.getId());
+//		}
+//		return (Section) HibernateUtil.getSession().load(Section.class,
+//				value.getId());
 	}
 
 	private static SectionMapper DEFAULT_INSTANCE = new SectionMapper();
