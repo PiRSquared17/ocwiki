@@ -9,6 +9,7 @@
 	<uploadPath>${homeDir}/uploads</uploadPath>
 	<uploadDir>/build</uploadDir>
 	<defaultTemplate>default</defaultTemplate>
+	<recreateDatabaseWhenSetup>true</recreateDatabaseWhenSetup>
 
     <!--********************************************************************
                                  Actions 
