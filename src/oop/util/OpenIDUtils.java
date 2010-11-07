@@ -120,7 +120,7 @@ public final class OpenIDUtils {
 				session.removeAttribute("connect");
 
 			} else {
-				throw new ActionException(e.getMessage());
+				throw new ActionException("Đăng nhập bằng openID thất bại: Không thể kết nối tới nhà cung cấp OpenID");//Transport err
 			}
 
 		}
@@ -315,7 +315,7 @@ public final class OpenIDUtils {
 						"user.profile.complete", "actionError=true"));
 				session.removeAttribute("connect");
 			} else {
-				throw new ActionException(e.getMessage());
+				throw new ActionException("Đăng nhập bằng openID thất bại: Không thể xác thực danh tính");//loi khi verify
 			}
 		}
 		session.removeAttribute("openid-disc");
