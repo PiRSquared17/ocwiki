@@ -4,46 +4,21 @@
 
 <c:choose>
 
-<c:when test="${u:size(action.topLevels) > 0}">
-	    
-	<script type="text/javascript">
-	<!--
-	
-	function validateDelete() {
-		var topics = $('listForm').topics;
-		for (i = 0; i < cl_topics.length; i++) {
-			if (topics[i].checked) {
-				return confirm('Bạn có chắc muốn xóa (các) chủ đề này?');
-			}
-		}
-		alert('Bạn cần chọn ít nhất 1 chủ đề.');
-		return false;
-	}
-	
-	//-->
-	</script>
-	    
-	${message}
-	    
-	<form action="${scriptPath}" id="listForm">
-	<input type="hidden" name="action" value="topic.list" />
-	
-	<jsp:include page="topic.list-toolbar.jsp"></jsp:include>
-	
+<c:when test="${u:size(action.topics) > 0}">
+
+	<ocw:pagination actionName="${action.descriptor.name}"
+		count="${action.count}" currentStart="${action.start}"></ocw:pagination>
+
 	<div class="clear"></div>
 	<div class="content-wrapper">
         <ul style="list-style: none;">
-		<c:forEach items="${action.topLevels}" var="topic" >
+		<c:forEach items="${action.topics}" var="topic" >
 			<li>
 			     <ocw:articleLink resource="${topic}">${topic.name}</ocw:articleLink>
 			</li>
 		</c:forEach>
 		</ul>
 	</div>
-	
-	<jsp:include page="topic.list-toolbar.jsp"></jsp:include>
-	
-	</form>
 	
 </c:when>
 

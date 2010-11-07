@@ -76,7 +76,7 @@
     </attribute>    
     <attribute>
         <description>Lớp CSS dùng để định dạng</description>
-        <name>class</name>
+        <name>cssClass</name>
     </attribute>
     <attribute>
         <description>Câu lệnh JavaScript để xác nhận muốn thực hiện hành động</description>

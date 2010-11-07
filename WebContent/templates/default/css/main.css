@@ -1057,3 +1057,33 @@ ul.shareList li {
 .even .comment-body {
 	background:#c7dcff;
 }
+
+.pagination ul {
+	clear: both;
+	list-style-type:none;
+	float: right;
+	display:block;
+}
+	
+.pagination ul li {
+	display:block;
+	float: left;
+}
+
+.pagination ul li a {
+	cursor:pointer;
+    text-decoration:none;
+	padding:3px 3px 2px;
+}
+
+.pagination ul li a.currentPage {
+	border-bottom:2px solid #59A437;
+	color:#59A437;
+	font-weight:bold;
+}
+
+.pagination ul li a:hover {
+	color: white;
+	background: #59A437;
+    text-decoration:none;
+}

@@ -13,6 +13,17 @@ import org.hibernate.Session;
 @SuppressWarnings("unchecked")
 public final class TopicDAO {
 
+	public static List<Resource<Topic>> listOrderByName(int start, int size) {
+		Session session = HibernateUtil.getSession();
+		String hql = "from Resource where article in (from Topic) " +
+				"and status='NORMAL' " +
+				"order by article.name asc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return (List<Resource<Topic>>) query.list();
+	}
+	
 	public static Resource<Topic> fetchByName(String name) {
 		return ResourceDAO.fetchByQualifiedName(NamespaceDAO
 				.fetch(Namespace.TOPIC), name, Topic.class);
@@ -142,8 +153,9 @@ public final class TopicDAO {
 	}
 
 	public static long count() {
-		String hql = "SELECT COUNT(*) FROM Topic " +
-				"WHERE status <> 'DELETED'";
+		String hql = "SELECT COUNT(*) FROM Resource " +
+				"where article in (from Topic) " +
+				"and status='NORMAL'";
 		return HibernateUtil.count(hql);
 	}
 
