@@ -5,7 +5,8 @@
 <div id="searchWrapper" class="wrapper">
 	<span class="searchInput">
 	    <span>
-			<input id="searchInputText" type="text" name="search_query" value="${fn:escapeXml(param.search_query)}"></input>
+			<input id="searchInputText" type="text" name="search_query" 
+			     value="${fn:escapeXml(param.search_query)}"></input>
 			<button type="submit"></button>
 		</span>
 	</span>
