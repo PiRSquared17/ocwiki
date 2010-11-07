@@ -10,6 +10,7 @@ public class HomeAction extends AbstractAction {
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
+		title("Ocwiki");
 	}
 
 }

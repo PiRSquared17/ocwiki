@@ -22,7 +22,10 @@
 	</tr>
 	</tbody>
 	<tr>
-	<td><ocw:error code="file"></ocw:error></td>
+	<td>
+		<ocw:error code="file"></ocw:error>
+		<span id="Error-Upload" style="color: red"></span>
+	</td>
 	</tr>
 </table>
 </fieldset>
@@ -34,17 +37,32 @@
         var uploader = new qq.FileUploader({
             element: document.getElementById('file-uploader-demo1'),
             action: restPath + '/upload/' + resourceId,
+            sizeLimit: 10 * 1024 * 1024,   
+            // gioi han cac duoi
+            allowedExtensions: ['png', 'gif', 'jpg', 'jpeg', 'svg'],
             //'${ocw:restUrl("upload/123")}',
-            onProgress: function(id, fileName, loaded, total){$('progress').innerHTML = loaded;},
-            onComplete: function(id, fileName, responseJSON){},
+            onProgress: function(id, fileName, loaded, total){
+            	$('Error-Upload').innerHTML = '';
+                $('progress').innerHTML = loaded;
+            },
+            onComplete: function(id, fileName, responseJSON){
+            },
             onCancel: function(id, fileName){},
-            showMessage: function(message) {}
+         // Thong bao loi
+            messages: {
+                typeError: "File {file} có phần mở rộng không hợp lệ",
+                sizeError: "{file} quá lớn, kích thước file tối đa là {sizeLimit}."        
+            },
+            showMessage: function(message) {
+            	$('Error-Upload').innerHTML = message;
+            }
         });           
     }
     
     // in your app create uploader as soon as the DOM is ready
     // don't wait for the window to load  
-    window.onload = createUploader;     
+    //window.onload = createUploader;     
+    Event.observe(window,'load',createUploader);
 </script>    
 
 <fieldset> 
@@ -152,11 +170,10 @@
 	                {
 	                    var code = transport.responseJSON.code;
 	                    if (code == 'old version') {
-	                          openInfoDialog("Có người đã sửa file này trước bạn, hãy tải lại trang!");
-	                          
+	                    	$('articleEdit-error').innerHTML = 'Có người đã sửa file này trước bạn, hãy tải lại trang!';
 	                    } else {
 		                    if(code == 'not upload yet')
-		                    	openInfoDialog("Bạn phải tải tệp tin lên trước khi lưu!");
+		                    	$('articleEdit-error').innerHTML = 'Bạn phải tải tệp tin lên trước khi lưu!';
 		                    else{
 	                        	DefaultTemplate.onFailure(transport); 
 		                    }

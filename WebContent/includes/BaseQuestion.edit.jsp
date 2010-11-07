@@ -159,6 +159,7 @@ function createNewAnswer() {
 		question.answers = new Array();
 	}
 	var index = question.answers.length;
+	var indexPrev = index - 1;
     var data = { "index": index };
     question.answers[index] = { };
     $('answerList').insert(newAnswerTemplate.evaluate(data));

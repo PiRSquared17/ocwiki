@@ -14,6 +14,7 @@ public class EditAction<T extends Article> extends AbstractResourceAction<T> {
 	protected void performImpl() throws IOException, ServletException {
 		long id = getParams().getLong("id");
 		resource = ResourceDAO.fetchById(id);
+		title("Sửa bài viết " + resource.getName());
 	}
 	
 	public T getArticle() {
