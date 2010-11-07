@@ -12,16 +12,29 @@ import oop.db.dao.TopicDAO;
 
 public class ListAction extends AbstractAction {
 
-	private List<Resource<Topic>> topLevels;
+	private List<Resource<Topic>> topics;
+	private long count;
+	private int start;
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
 		title("Danh sách chủ đề");
-		topLevels = TopicDAO.fetchTopLevels();
+		start = getParams().getInt("start", 0);
+		int size = getParams().getInt("size", 20);
+		topics = TopicDAO.listOrderByName(start, size);
+		count = TopicDAO.count();
 	}
 	
-	public List<Resource<Topic>> getTopLevels() {
-		return topLevels;
+	public List<Resource<Topic>> getTopics() {
+		return topics;
+	}
+	
+	public int getStart() {
+		return start;
+	}
+	
+	public long getCount() {
+		return count;
 	}
 
 }

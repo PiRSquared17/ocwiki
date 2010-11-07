@@ -100,7 +100,6 @@ public class HibernateUtil {
 	 */
 	public static SessionFactory getSessionFactory() {
 		if (sessionFactory == null && config.isLazyStartup()) {
-
 			synchronized (config) {
 				if (sessionFactory == null) {
 					init();

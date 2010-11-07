@@ -2,6 +2,7 @@
 <%@ include file="/includes/common.jsp" %>
 
 <form>
+<label for="root-name">Bạn chọn một chủ đề gốc để hiển thị cây chủ đề</label>
 <table>
   <tr>
     <td>Tên chủ đề gốc</td>

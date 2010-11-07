@@ -71,9 +71,10 @@ public class PreferenceAction extends AbstractAction {
 		String fileName = file.getName();
 		String fileExt = FilenameUtils.getExtension(fileName);
 		long fileSize = file.getSize();
-		return (fileExt.equalsIgnoreCase(".png")
-				|| fileExt.equalsIgnoreCase(".jpg")
-				|| fileExt.equalsIgnoreCase(".gif"))
+		return (fileExt.equalsIgnoreCase("png")
+				|| fileExt.equalsIgnoreCase("jpg")
+				|| fileExt.equalsIgnoreCase("jpeg")
+				|| fileExt.equalsIgnoreCase("gif"))
 				&& fileSize <= Config.get().getMaxAvatarFileBytes();
 	}	
 
@@ -89,6 +90,13 @@ public class PreferenceAction extends AbstractAction {
 		String fileName = String.valueOf(getUser().getId() + ".png");
 		final File imageFile = new File(destDir + "/" + fileName);
 		ImageIO.write(image, "png", imageFile);
+
+		BufferedImage thumbnail = ImageUtils.ensureMaxSize(image, Config.get()
+				.getAvatarThumbnailDimension(), Config.get()
+				.getAvatarThumbnailDimension());
+		final File thumbnailFile = new File(destDir + "/thumbnail/" + fileName);
+		ImageIO.write(thumbnail, "PNG", thumbnailFile);
+		
 		return imageFile;
 	}
 }

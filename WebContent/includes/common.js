@@ -187,3 +187,126 @@ var ResourceService = Class.create( {
 			    });
 	}
 });
+
+
+function createQuestion() {
+	resource = {
+		articleType: 'oop.data.BaseQuestion',
+		article: {
+		    type: 'baseQuestionBean',
+		    name: 'Câu hỏi mới',
+		    namespace: {
+		        id: 3
+		    }
+		} 
+	};
+	sendCreateRequest(resource);
+}
+
+function createSolution(questionId) {
+    resource = {
+            articleType: 'oop.data.Solution',
+            article: {
+                type: 'solutionBean',
+                name: 'Bài giải mới',
+                namespace: {
+                    id: 0
+                },
+	            question: {
+	                id: questionId
+	            }
+            } 
+        };
+        sendCreateRequest(resource);
+}
+
+function createTest() {
+    resource = {
+        articleType: 'oop.data.Test',
+        article: {
+            type: 'testBean',
+            name: 'Đề thi mới',
+            namespace: {
+                id: 4
+            }
+        } 
+    };
+    sendCreateRequest(resource);
+}
+
+function createFile() {
+    resource = {
+        articleType: 'oop.data.File',
+        article: {
+            type: 'fileBean',
+            name: 'Tập tin mới',
+            namespace: {
+                id: 0
+            }
+        } 
+    };
+    sendCreateRequest(resource);
+}
+
+function createTextArticle() {
+    resource = {
+        articleType: 'oop.data.TextArticle',
+        article: {
+            type: 'textArticleBean',
+            name: 'Bài viết mới',
+            namespace: {
+                id: 0
+            }
+        } 
+    };
+    sendCreateRequest(resource);
+}
+
+function createTestStructure() {
+    resource = {
+        articleType: 'oop.data.TestStructure',
+        article: {
+            type: 'testStructureBean',
+            name: 'Cấu trúc đề mới',
+            namespace: {
+                id: 5
+            }
+        } 
+    };
+    sendCreateRequest(resource);
+}
+
+function createTopic() {
+    resource = {
+        articleType: 'oop.data.Topic',
+        article: {
+            type: 'topicBean',
+            name: 'Chủ đề mới',
+            namespace: {
+                id: 2
+            }
+        } 
+    };
+    sendCreateRequest(resource);
+}
+
+function sendCreateRequest(resource) {
+    new Ajax.Request(restPath + '/resources',
+    {
+        method:'post',
+        contentType: 'application/json',
+        postBody: Object.toJSON(resource),
+        requestHeaders : 
+        {
+            Accept : 'application/json'
+        },
+        evalJSON : true,
+        onSuccess : function(transport) {
+            var id = transport.responseJSON.result.id;
+            location.href = actionPath + '/article.edit?id=' + id;
+        },
+        onFailure: function(transport) {
+            DefaultTemplate.onFailure(transport); 
+        }
+    });
+}

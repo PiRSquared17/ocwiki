@@ -40,10 +40,12 @@ public class SetupServlet extends HttpServlet {
 		
 		File sqlFile = new File(sqlPath);
 		if (sqlFile.exists()) {
-			String sql = "drop database if exists " + config.getDatabaseName() + ";" +
-					"create database " + config.getDatabaseName() + " collate utf8_vietnamese1_ci;" +
-					"use " + config.getDatabaseName() + ";" +
+			String sql = "use " + config.getDatabaseName() + ";" +
 					"source " + sqlFile.getName() + ";";
+			if (config.isRecreateDatabaseWhenSetup()) {
+				sql = "drop database if exists " + config.getDatabaseName() + ";" +
+						"create database " + config.getDatabaseName() + " collate utf8_vietnamese1_ci;" + sql;
+			}
 			String[] command = { config.getMysqlCommand(),
 					"--verbose",
 					"--user=" + config.getUserName(),
@@ -65,9 +67,12 @@ public class SetupServlet extends HttpServlet {
 				HibernateUtil.rebuildIndex();
 				response.getWriter().println("<h3>Cài đặt thành công!</h3>");
 			} else {
-				response.getWriter().println("Lỗi: " + status);
+				response.getWriter().println("Lỗi: " + status + ". Chi tiết: ");
+				response.getWriter().println("<code>");
+				copy(process.getErrorStream(), response.getWriter());
+				response.getWriter().println("</code>");
 			}
-			response.getWriter().println("<a name=\"end\">&nbsp;</a><script>location.href+='#end';</script>");
+			response.getWriter().println("<a name=\"end\">&nbsp;</a><script>location.hash='#end';</script>");
 		} else {
 			response.sendRedirect(config.getHomeDir());
 		}
@@ -76,7 +81,8 @@ public class SetupServlet extends HttpServlet {
 	private void printInstructions(HttpServletResponse response) throws IOException {
 		String html = "<p>Chương trình cài đặt CSDL thực hiện:" +
 				"<ol>" +
-					"<li>Xoá DB được chọn trong tệp cấu hình</li>" +
+					"<li>Xoá DB được chọn trong tệp cấu hình" +
+							" (nếu thuộc tính <code>recreateDatabaseWhenSetup</code> được bật trong tệp cấu hình)</li>" +
 					"<li>Tạo lại DB</li>" +
 					"<li>Tạo bảng và dữ liệu theo tệp /WEB-INF/setup.sql</li>" +
 					"<li>Đánh chỉ mục tìm kiếm lại</li>" +

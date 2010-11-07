@@ -237,7 +237,11 @@ public abstract class AbstractAction implements Action {
 
 	@SuppressWarnings("unchecked")
 	public ResourceBean getResourceBean() {
-		return ResourceMapper.get().toBean((Resource<Article>) getResource());
+		try {
+			return ResourceMapper.get().toBean((Resource<Article>) getResource());
+		} catch (IllegalArgumentException ex) {
+			return null;
+		}
 	}
 	
 	@Override

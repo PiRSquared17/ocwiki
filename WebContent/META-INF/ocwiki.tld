@@ -76,7 +76,7 @@
     </attribute>    
     <attribute>
         <description>Lớp CSS dùng để định dạng</description>
-        <name>class</name>
+        <name>cssClass</name>
     </attribute>
     <attribute>
         <description>Câu lệnh JavaScript để xác nhận muốn thực hiện hành động</description>
@@ -115,6 +115,11 @@
         <description>Giá trị mặc định của tham số</description>
         <name>default</name>
         <rtexprvalue>true</rtexprvalue>
+    </attribute>    
+    <attribute>
+        <description>Đã được mã hoá sẵn hay không</description>
+        <name>encoded</name>
+        <rtexprvalue>false</rtexprvalue>
     </attribute>    
   </tag>
 

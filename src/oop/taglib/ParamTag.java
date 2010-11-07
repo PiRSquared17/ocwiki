@@ -11,6 +11,7 @@ public class ParamTag extends SimpleTagSupport {
 	private String name;
 	private Object value;
 	private Object defaultValue;
+	private boolean encoded = false;
 
 	@Override
 	public void doTag() throws JspException, IOException {
@@ -55,6 +56,14 @@ public class ParamTag extends SimpleTagSupport {
 
 	public void setDefault(Object defaultValue) {
 		this.defaultValue = defaultValue;
+	}
+
+	public void setEncoded(boolean encoded) {
+		this.encoded = encoded;
+	}
+
+	public boolean isEncoded() {
+		return encoded;
 	}
 
 }

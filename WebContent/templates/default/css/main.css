@@ -28,6 +28,11 @@ ul {
 	list-style-type: square;
 }
 
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 .mouse-out {
 	
 }
@@ -963,7 +968,7 @@ span.AMedit {
 	margin: 0 22px 0 5px;
 	outline: medium none;
 	padding: 1px 5px 2px 0;
-	width: 265px;
+	width: 200px;
 }
 
 .searchInput button {
@@ -1042,4 +1047,52 @@ ul.shareList li {
 	border-top: 1px #999999 solid;
 	border-left: 1px #999999 solid;
 	border-right: 1px #999999 solid;
+}
+
+.comment .avatar {
+	float: left;
+    margin-right: 4px;
+}
+
+.comment-body {
+	margin-left: 36px;
+	min-height: 32px;
+}
+
+.even .comment-body {
+	background:#c7dcff;
+}
+
+.pagination ul {
+	clear: both;
+	list-style-type:none;
+	float: right;
+	display:block;
+}
+	
+.pagination ul li {
+	display:block;
+	float: left;
+}
+
+.pagination ul li a {
+	cursor:pointer;
+    text-decoration:none;
+	padding:3px 3px 2px;
+}
+
+.pagination ul li.currentPage a {
+	border-bottom:2px solid #59A437;
+	color:#59A437;
+	font-weight:bold;
+}
+
+.pagination ul li a:hover {
+	color: white;
+	background: #59A437;
+    text-decoration:none;
+}
+
+.markInput {
+	width: 40px;
 }

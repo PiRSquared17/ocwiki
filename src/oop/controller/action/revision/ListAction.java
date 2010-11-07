@@ -21,14 +21,15 @@ public class ListAction extends AbstractAction {
 	private int page;
 	private Revision<? extends Article> earliestRevision;
 	private Revision<? extends Article> latestRevision;
+	private long count;
 
 	@Override
 	protected void performImpl() throws IOException, ServletException {
 		pageLength = getParams().getInt("size",10);
 		page = getParams().getInt("page", 1);
 		resourceID = getParams().getLong("resourceID");
-		pageCount = UtilFunctions.ceil(RevisionDAO.countByResource(resourceID)
-				/ (double)pageLength);
+		count = RevisionDAO.countByResource(resourceID);
+		pageCount = UtilFunctions.ceil(count / (double)pageLength);
 		
 		Resource<Article> res = ResourceDAO.fetchById(resourceID);
 		revList = RevisionDAO.fetchByResource(resourceID, (page - 1)
@@ -57,6 +58,10 @@ public class ListAction extends AbstractAction {
 	public int getPage() {
 		return page;
 	}
+
+	public int getStart() {
+		return (page - 1) * pageLength;
+	}
 	
 	public int getSize(){
 		return pageLength;
@@ -65,4 +70,9 @@ public class ListAction extends AbstractAction {
 	public long getPageCount(){
 		return pageCount;
 	}
+	
+	public long getCount() {
+		return count;
+	}
+	
 }

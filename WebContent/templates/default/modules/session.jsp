@@ -6,7 +6,7 @@
 <div class="jsmenu" id="user-toolbar"
 	style="display: ${sessionScope.login ? 'block' : 'none'};">
 <ul class="level1 horizontal" id="user-toolbar-root">
-	<li class="level1">${sessionScope.user.fullname}
+	<li class="level1">${u:ellipsize(sessionScope.user.fullname, 25)}
 	<ul class="level2 dropdown">
 		<li><ocw:actionLink name="user.profileedit"
 			title="Sửa thông tin người dùng">Sửa thông tin</ocw:actionLink></li>
@@ -42,7 +42,7 @@
             <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://www.google.com/accounts/o8/id"></ocw:param>Google</ocw:actionLink></li>
             <li><ocw:actionLink name="user.login.openid"><ocw:param name="openIDUrl" value="https://me.yahoo.com/"></ocw:param>Yahoo</ocw:actionLink></li>
             <li><a href="#" onclick="openOpenIDLoginDialog(); return false;">OpenID</a></li>
-            <li><a href="#" onclick="openLoginDialog(); return false;">Nội bộ</a></li>
+            <li><a href="#" onclick="openLoginDialog(); return false;">OCWiki</a></li>
         </ul>
 	</li>
 </ul>

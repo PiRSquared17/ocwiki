@@ -37,7 +37,11 @@ public abstract class AbstractActionTag extends SimpleTagSupport {
 		return name;
 	}
 
-	public void setClass(String cssClass) {
+	public String getCssClass() {
+		return cssClass;
+	}
+	
+	public void setCssClass(String cssClass) {
 		this.cssClass = cssClass;
 	}
 

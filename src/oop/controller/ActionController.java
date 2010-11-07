@@ -110,9 +110,12 @@ public class ActionController extends HttpServlet {
 			action.setRequest(request);
 			try {
 				action.perform();
-			} catch (Exception e) {
+			} catch (IOException e) {
 				e.printStackTrace();
-				throw new ServletException(e);
+				throw e;
+			} catch (ServletException e) {
+				e.printStackTrace();
+				throw e;
 			}
 			
 			// flush current session to avoid late thrown exception
@@ -148,7 +151,15 @@ public class ActionController extends HttpServlet {
 			}
 		} catch (ActionException e) {
 			error(request, response, e.getMessage());
-			throw new RuntimeException(e);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (ServletException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			throw e;
 		} finally {
 			HibernateUtil.closeSession();
 		}

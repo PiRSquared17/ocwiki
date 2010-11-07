@@ -29,7 +29,6 @@
 					value="${param.taq_question}">
 	<c:forEach items="${test.sections}" var="section">
 		<div id = "section-${indexsection}" >
-						        
 			<div class = "section-wrapper mouse-out"
 					onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
 			                onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
@@ -54,7 +53,7 @@
 				        <div class="question-number-wrapper">
 							<div id = "${question.id}" style="margin-right: 10px">
 								<b><ocw:articleLink resource="${question.baseContainer}" id ="Qnum-${question.id}">Câu ${i}</ocw:articleLink></b>
-								<input type="text" id ="Mark-${question.id}" value = "${question.mark}" onblur="SpanOnclick(${indexsection}, ${indexquestion},${question.id})">
+								<input type="text" class="markInput" id ="Mark-${question.id}" value = "${question.mark}" onblur="SpanOnclick(${indexsection}, ${indexquestion},${question.id})">
 								<script type="text/javascript">
 									Editor.previewTextField('${question.id}');
 								</script>

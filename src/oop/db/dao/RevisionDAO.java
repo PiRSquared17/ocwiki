@@ -21,7 +21,7 @@ public class RevisionDAO {
 	public static List<Revision<Article>> fetchByResource(long resourceId,
 			int start, int size) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Revision where resource.id=:resId";
+		String hql = "from Revision where resource.id=:resId order by id desc";
 		Query query = session.createQuery(hql);
 		query.setLong("resId", resourceId);
 		query.setFirstResult(start);

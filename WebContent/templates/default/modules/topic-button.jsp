@@ -2,4 +2,4 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
  
-<ocw:actionLink name="topic.tree">Chủ đề</ocw:actionLink>
+<ocw:actionLink name="topic.tree">Cây chủ đề</ocw:actionLink>

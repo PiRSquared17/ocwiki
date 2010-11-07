@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 import javax.servlet.jsp.JspException;
 
 import oop.controller.action.ActionUtil;
+import oop.util.Utils;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 public class ActionLinkTag extends AbstractActionTag {
@@ -61,14 +61,13 @@ public class ActionLinkTag extends AbstractActionTag {
 	private void appendActionURL() throws IOException {
 		out().print(ActionUtil.getActionURL(getName()));
 		if (!getParams().isEmpty()) {
-			boolean first = true;
+			boolean first = !getName().contains("?");
 			for (Entry<String, Object> entry : getParams().entrySet()) {
 				out().print(first ? "?" : "&");
 				first = false;
 				out().print(entry.getKey());
 				out().print("=");
-				out().print(StringEscapeUtils
-						.escapeXml(String.valueOf(entry.getValue())));
+				out().print(Utils.urlEncode(String.valueOf(entry.getValue())));
 			}
 		}
 	}

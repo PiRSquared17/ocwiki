@@ -1,6 +1,6 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="actionName"
-    description="Tên của hành động" required="true" 
+    description="Tên của hành động"
     rtexprvalue="true" type="java.lang.String"%>
 <%@ attribute name="count"
     description="Tổng số lượng đối tượng cần hiển thị" required="true" 
@@ -11,43 +11,52 @@
 <%@ attribute name="pageSize"
     description="Số đối tượng hiển thị trong 1 trang" required="false" 
     rtexprvalue="true" type="java.lang.Integer"%>
+<%@ attribute name="additionalParams"
+    description="Tham số bổ sung cho liên kết, đã được mã hoá URL" required="false" 
+    rtexprvalue="true" type="java.lang.String"%>
 <%@ include file="/includes/common.jsp"%>
-<c:if test="${empty pageSize}"><c:set var="pageSize" value="20"></c:set></c:if>
+
+<c:if test="${empty actionName}">
+    <c:set var="actionName" value="${action.descriptor.name}"></c:set>
+</c:if>
+
+<div class="pagination">
+<c:if test="${empty pageSize}">
+    <c:set var="pageSize" value="20"></c:set>
+</c:if>
 <c:set var="pageCount" value="${u:floor(count%pageSize==0 ? count/pageSize : ((count-(count%pageSize))/pageSize)+1)}"></c:set>
 <c:choose>
 	<c:when test="${count > pageSize}">
-		<span>
+	   <ul>
 			<c:if test="${(currentStart > 0)}">
-					<ocw:actionLink name="${actionName}">
-						<ocw:param name="start" value="0"/>
-						<< Trang đầu				
-					</ocw:actionLink>
+				<li><ocw:actionLink name="${actionName}">
+					<ocw:param name="start" value="0"/>
+					Đầu
+				</ocw:actionLink></li>
 			</c:if>
-		</span>
-		<span>
 			<c:if test="${(currentStart > 0)}">
-					<ocw:actionLink name="${actionName}">
-						<ocw:param name="start" value="${currentStart-pageSize}"/>
-						< Trang trước				
-					</ocw:actionLink>
+				<li><ocw:actionLink name="${actionName}">
+					<ocw:param name="start" value="${currentStart-pageSize}"/>
+					Trước
+				</ocw:actionLink></li>
 			</c:if>
-		</span>
 		<c:choose>
-			<c:when test="${pageCount<6}">
+			<c:when test="${pageCount < 6}">
 				<c:forEach begin="1" end="${pageCount}" var="i">
-				    <span>
-				   		<c:choose>
-				   			<c:when test="${currentStart == ((i-1)*pageSize)}">
-							    <b>${i}</b>
-							</c:when>
-							<c:otherwise>
-								<ocw:actionLink name="${actionName}">
-									<ocw:param name="start" value="${(i-1)*pageSize}"/>
-									${i}				
-								</ocw:actionLink>
-							</c:otherwise>
-						</c:choose>
-				    </span>
+			   		<c:choose>
+			   			<c:when test="${currentStart == ((i-1)*pageSize)}">
+                            <li class="currentPage"><ocw:actionLink name="${actionName}">
+                                <ocw:param name="start" value="${(i-1)*pageSize}"/>
+                                ${i}                
+                            </ocw:actionLink></li>
+						</c:when>
+						<c:otherwise>
+							<li><ocw:actionLink name="${actionName}">
+								<ocw:param name="start" value="${(i-1)*pageSize}"/>
+								${i}				
+							</ocw:actionLink></li>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
@@ -56,40 +65,43 @@
 				    <span>
 				   		<c:choose>
 				   			<c:when test="${currentStart == ((i-1)*pageSize)}">
-							    <b>${i}</b>
+                                <li class="currentPage"><ocw:actionLink name="${actionName}">
+                                    <ocw:param name="start" value="${(i-1)*pageSize}"/>
+                                    ${i}                
+                                </ocw:actionLink></li>
 							</c:when>
 							<c:otherwise>
-								<ocw:actionLink name="${actionName}">
+								<li><ocw:actionLink name="${actionName}">
 									<ocw:param name="start" value="${(i-1)*pageSize}"/>
 									${i}				
-								</ocw:actionLink>
+								</ocw:actionLink></li>
 							</c:otherwise>
 						</c:choose>
 				    </span>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-		<span>
-			<c:if test="${currentStart < ((pageCount-1)*pageSize)}">
-					<ocw:actionLink name="${actionName}">
-						<ocw:param name="start" value="${currentStart+pageSize}"/>
-						Trang sau >
-					</ocw:actionLink>
-			</c:if>	
-		</span>
-		<span>
-			<c:if test="${currentStart < ((pageCount-1)*pageSize)}">
-					<ocw:actionLink name="${actionName}">
-						<ocw:param name="start" value="${((pageCount-1)*pageSize)}"/>
-						Trang cuối >>				
-					</ocw:actionLink>
-			</c:if>	
-		</span>
+		<c:if test="${currentStart < ((pageCount-1)*pageSize)}">
+			<li><ocw:actionLink name="${actionName}">
+				<ocw:param name="start" value="${currentStart+pageSize}"/>
+				Sau
+			</ocw:actionLink></li>
+		</c:if>	
+		<c:if test="${currentStart < ((pageCount-1)*pageSize)}">
+			<li><ocw:actionLink name="${actionName}">
+				<ocw:param name="start" value="${((pageCount-1)*pageSize)}"/>
+				Cuối				
+			</ocw:actionLink></li>
+		</c:if>	
+		</ul>
+		<div class="clear"></div>
 	</c:when>
+    <%-- 
 	<c:otherwise>
 	    <div class="empty-notif">
 	        1
 	    </div>
 	</c:otherwise>
+    --%>
 </c:choose>
-
+</div>

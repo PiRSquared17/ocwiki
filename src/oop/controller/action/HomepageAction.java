@@ -31,7 +31,7 @@ public class HomepageAction extends AbstractAction {
 	@Override
 	public void performImpl() throws IOException, ServletException {
 		title("Trang chủ");
-		tests = TestDAO.fetch(0, 10);
+		tests = TestDAO.fetchLatest(0, 10);
 		textArticles = TextArticleDAO.fetchNewest(0, 10);
 		testStructures = TestStructureDAO.fetch(0, 10);
 		questions = BaseQuestionDAO.fetch(0, 10);

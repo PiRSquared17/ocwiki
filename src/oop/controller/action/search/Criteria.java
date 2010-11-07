@@ -23,7 +23,8 @@ public class Criteria {
 		IS("is", "là"), 
 		NAME("name", "tên"), 
 		AUTHOR("author", "tác-giả"), 
-		STATUS("status", "trạng-thái");
+		STATUS("status", "trạng-thái"),
+		TYPE("type", "loại");
 
 		private String[] codes;
 
