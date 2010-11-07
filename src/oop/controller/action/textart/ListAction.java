@@ -1,4 +1,4 @@
-package oop.controller.action.topic;
+package oop.controller.action.textart;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,26 +7,25 @@ import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.data.Resource;
-import oop.data.Topic;
-import oop.db.dao.TopicDAO;
+import oop.data.TextArticle;
+import oop.db.dao.TextArticleDAO;
 
 public class ListAction extends AbstractAction {
 
-	private List<Resource<Topic>> topics;
+	private List<Resource<TextArticle>> textArticles;
 	private long count;
 	private int start;
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
-		title("Danh sách chủ đề");
 		start = getParams().getInt("start", 0);
 		int size = getParams().getInt("size", 20);
-		topics = TopicDAO.listOrderByName(start, size);
-		count = TopicDAO.count();
+		textArticles = TextArticleDAO.listOrderByName(start, size);
+		count = TextArticleDAO.count();
 	}
 	
-	public List<Resource<Topic>> getTopics() {
-		return topics;
+	public List<Resource<TextArticle>> getTextArticles() {
+		return textArticles;
 	}
 	
 	public int getStart() {
