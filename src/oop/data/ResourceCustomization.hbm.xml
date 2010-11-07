@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 24, 2010 9:04:39 AM by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="oop.data.ResourceCustomization" table="ResourceCustomization">
+        <composite-id>
+            <key-many-to-one  name="resource" class="oop.data.Resource">
+	            <column name="RESOURCE" />
+            </key-many-to-one>
+	        <key-many-to-one name="user" class="oop.data.User">
+	            <column name="USER" />
+	        </key-many-to-one>
+        </composite-id>
+        <property name="level" type="int">
+            <column name="LEVEL" />
+        </property>
+        <property name="done" type="boolean">
+            <column name="done" />
+        </property>
+        <property name="like" not-null="true">
+            <column name="`LIKE`" default="'NORMAL'" />
+            <type name="org.hibernate.type.EnumType">
+                <param name="type">12</param>
+                <param name="enumClass">oop.data.ResourceLike</param>
+            </type>
+        </property>
+        <property name="todo" not-null="true">
+            <column name="TODO" default="'NORMAL'" />
+            <type name="org.hibernate.type.EnumType">
+                <param name="type">12</param>
+                <param name="enumClass">oop.data.ResourceTodo</param>
+            </type>
+        </property>
+    </class>
+</hibernate-mapping>
