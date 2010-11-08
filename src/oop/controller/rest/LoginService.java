@@ -1,7 +1,6 @@
 package oop.controller.rest;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.SortedMap;
 
 import javax.ws.rs.Consumes;
@@ -15,15 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.openid4java.OpenIDException;
-import org.openid4java.consumer.ConsumerException;
-import org.openid4java.consumer.ConsumerManager;
-import org.openid4java.discovery.DiscoveryInformation;
-import org.openid4java.message.AuthRequest;
-import org.openid4java.message.ax.FetchRequest;
-
-import oop.controller.action.ActionException;
-import oop.controller.action.ActionUtil;
+import oop.controller.rest.bean.UserBean;
+import oop.controller.rest.bean.UserMapper;
 import oop.controller.rest.util.ErrorResult;
 import oop.controller.rest.util.ObjectResult;
 import oop.data.FacebookAccount;
@@ -36,6 +28,8 @@ import oop.util.FacebookUtils;
 import oop.util.OpenIDUtils;
 import oop.util.SessionUtils;
 
+import org.openid4java.consumer.ConsumerException;
+
 @Path(LoginService.PATH)
 public class LoginService extends AbstractResource {
 
@@ -43,7 +37,7 @@ public class LoginService extends AbstractResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public ObjectResult<User> login(@FormParam("name") String name,
+	public ObjectResult<UserBean> login(@FormParam("name") String name,
 			@FormParam("password") String password) {
 		User user = UserDAO.fetchByUsername(name);
 		if (user == null) {
@@ -53,7 +47,8 @@ public class LoginService extends AbstractResource {
 		}
 		if (user.matchPassword(password)) {
 			SessionUtils.login(getSession(), user);
-			return new ObjectResult<User>(user);
+			UserBean bean = UserMapper.get().toBean(user);
+			return new ObjectResult<UserBean>(bean);
 		} else {
 			throw new WebApplicationException(Response.status(
 					Status.BAD_REQUEST).entity(
@@ -63,7 +58,7 @@ public class LoginService extends AbstractResource {
 
 	@Path("/facebook")
 	@GET
-	public ObjectResult<User> facebookLogin() {
+	public ObjectResult<UserBean> facebookLogin() {
 		SortedMap<String, String> facebook = FacebookUtils
 				.readFacebookCookie(getRequest());
 		if (facebook == null) {
@@ -78,7 +73,8 @@ public class LoginService extends AbstractResource {
 		}
 		SessionUtils.login(getRequest().getSession(), account
 				.getUser());
-		return new ObjectResult<User>(account.getUser());
+		UserBean bean = UserMapper.get().toBean(account.getUser());
+		return new ObjectResult<UserBean>(bean);
 	}
 	
 	@Path("/openid")

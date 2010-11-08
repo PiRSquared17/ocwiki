@@ -5,12 +5,14 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import oop.data.Gender;
+import oop.data.NameOrdering;
 import oop.data.Preferences;
 
 @XmlRootElement
 public class UserBean {
 
 	private long id;
+	private int version;
 	private String name;
 	private String email;
 	private String group;
@@ -21,8 +23,10 @@ public class UserBean {
 	private String avatar;
 	private Date registerDate;
 	private Preferences preferences = new Preferences();
+	private NameOrdering nameOrdering = NameOrdering.LAST_FIRST;
 	private String fullname;
 	private String firstName;
+	private String middleName;
 	private String lastName;
 	private String about;
 	private Date birthday;
@@ -32,6 +36,7 @@ public class UserBean {
 	private String bio;
 	private Gender gender = Gender.UNKNOWN;
 	private String timezone;
+	private String draft;
 
 	public UserBean() {
 	}
@@ -210,6 +215,38 @@ public class UserBean {
 
 	public void setPreferences(Preferences preferences) {
 		this.preferences = preferences;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public NameOrdering getNameOrdering() {
+		return nameOrdering;
+	}
+
+	public void setNameOrdering(NameOrdering nameOrdering) {
+		this.nameOrdering = nameOrdering;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getDraft() {
+		return draft;
+	}
+
+	public void setDraft(String draft) {
+		this.draft = draft;
 	}
 
 }

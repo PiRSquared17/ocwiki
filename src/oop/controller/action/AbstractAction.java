@@ -240,6 +240,7 @@ public abstract class AbstractAction implements Action {
 		try {
 			return ResourceMapper.get().toBean((Resource<Article>) getResource());
 		} catch (IllegalArgumentException ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}

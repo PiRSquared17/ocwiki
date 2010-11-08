@@ -34,7 +34,7 @@ public final class CommentDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Comment> fetchLatest(long resourceId, int start, int size) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Comment where resource.id=:res order by timestamp asc";
+		String hql = "from Comment where resource.id=:res order by id desc";
 		Query query = session.createQuery(hql);
 		query.setLong("res", resourceId);
 		long count = countByResource(resourceId);
@@ -46,7 +46,7 @@ public final class CommentDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Comment> fetch(long resourceId, int start, int size) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Comment where resource.id=:res order by timestamp asc";
+		String hql = "from Comment where resource.id=:res order by id asc";
 		Query query = session.createQuery(hql);
 		query.setLong("res", resourceId);
 		query.setFirstResult(start);
