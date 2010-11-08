@@ -16,7 +16,7 @@
 		<property name="type" type="java.lang.Class" access="field">
 			<column name="type" not-null="true" />
 		</property>
-		<many-to-one name="article" class="oop.data.Article"
+		<many-to-one name="article" class="oop.data.Article" 
 			access="field" fetch="select" cascade="all" lazy="false">
 			<column name="article" not-null="true" />
 		</many-to-one>

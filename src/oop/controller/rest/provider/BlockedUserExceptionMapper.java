@@ -1,4 +1,4 @@
-package oop.controller.rest;
+package oop.controller.rest.provider;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
