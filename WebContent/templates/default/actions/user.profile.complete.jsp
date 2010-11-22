@@ -57,7 +57,7 @@
 				<ul>
 				<c:forEach items="${action.fbAccounts}" var="account">
 					<li>
-						${account.Uid}
+						${account.uid}
 					</li>
 				</c:forEach> 
 				</ul></div>

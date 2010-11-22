@@ -301,7 +301,6 @@ function getURL(){
 		result = ($('user-url-input').value);
 	}	
 	$('userSuppliedOpenIDUrl').value=result;
-	alert(result);
 	return result;
 }
 </script>
