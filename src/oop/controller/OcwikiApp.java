@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 
 import oop.conf.Config;
 import oop.conf.ConfigIO;
+import oop.conf.ConfigIOException;
 import oop.persistence.HibernateUtil;
 
 /**

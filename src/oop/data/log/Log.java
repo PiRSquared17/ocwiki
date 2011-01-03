@@ -8,7 +8,6 @@ import oop.data.User;
 
 public class Log {
 
-	private long id;
 	protected User user;
 	protected Date timestamp;
 
@@ -30,11 +29,6 @@ public class Log {
 	@XmlElement
 	public Date getTimestamp() {
 		return timestamp;
-	}
-
-	@XmlElement
-	public long getId() {
-		return id;
 	}
 
 }

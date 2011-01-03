@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 
-import oop.controller.ConfigIOException;
 import oop.util.XMLUtils;
 
 public class ConfigIO {
