@@ -64,6 +64,7 @@ public class ActionController extends HttpServlet {
 			request.setAttribute("templatePath", Config.get().getTemplatePath()
 					.replaceAll("\\$\\{template\\}", template));
 			request.setAttribute("pageTitle", Config.get().getSiteName());
+			request.setAttribute("inController", true);
 	
 			// perform action
 			// get action descriptor

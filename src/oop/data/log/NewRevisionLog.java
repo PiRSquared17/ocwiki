@@ -7,12 +7,12 @@ import oop.data.Resource;
 import oop.data.Revision;
 import oop.data.User;
 
-public class RevisionLog extends ResourceLog {
+public class NewRevisionLog extends ResourceLog {
 
 	private Revision<? extends Article> newRevision;
 	private Revision<? extends Article> oldRevision;
 
-	public RevisionLog(User user, Date timestamp,
+	public NewRevisionLog(User user, Date timestamp,
 			Resource<? extends Article> resource,
 			Revision<? extends Article> newRevision,
 			Revision<? extends Article> oldRevision) {
@@ -21,7 +21,7 @@ public class RevisionLog extends ResourceLog {
 		this.oldRevision = oldRevision;
 	}
 
-	RevisionLog() {
+	NewRevisionLog() {
 	}
 
 	public Revision<? extends Article> getOldRevision() {

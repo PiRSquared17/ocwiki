@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
     <!-- Generated 16:16:24 20-08-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-    <subclass name="oop.data.log.NewMemberLog" extends="oop.data.log.Log"
-        abstract="false" discriminator-value="NM">
+    <subclass name="oop.data.log.NewUserLog" extends="oop.data.log.Log"
+        abstract="false" discriminator-value="NU">
     </subclass>
 </hibernate-mapping>

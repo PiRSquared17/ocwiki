@@ -42,8 +42,8 @@
         <mapping resource="oop/data/log/Log.hbm.xml" />
         <mapping resource="oop/data/log/ResourceLog.hbm.xml" />
         <mapping resource="oop/data/log/CommentLog.hbm.xml" />
-        <mapping resource="oop/data/log/RevisionLog.hbm.xml" />
-        <mapping resource="oop/data/log/NewMemberLog.hbm.xml" />
+        <mapping resource="oop/data/log/NewRevisionLog.hbm.xml" />
+        <mapping resource="oop/data/log/NewUserLog.hbm.xml" />
 	
 		<event type="post-update">
 			<listener class="org.hibernate.search.event.FullTextIndexEventListener" />

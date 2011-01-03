@@ -3,14 +3,12 @@
 <hibernate-mapping>
 	<class name="oop.data.log.Log" table="Log" mutable="false"
 		abstract="true">
-		<id name="id" column="id" access="field">
-			<generator class="identity" />
+		<id name="timestamp" access="field" type="java.util.Date">
+            <column name="timestamp" sql-type="timestamp" not-null="true"></column>
+            <generator class="assigned"></generator>
 		</id>
 		<discriminator column="type" length="10" not-null="true"></discriminator>
 		<many-to-one name="user" access="field" column="user"
 			class="oop.data.User" fetch="select" not-null="true" />
-		<property name="timestamp" access="field" type="java.util.Date">
-			<column name="timestamp" sql-type="timestamp" not-null="true"></column>
-		</property>
 	</class>
 </hibernate-mapping>
