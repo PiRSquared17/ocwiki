@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/includes/common.jsp" %>
-<br/><br/>
 <!-- <p align="center"><b>::Các nhận xét::</b></p> -->
 <div><jsp:include page="comment-toolbar.jsp"></jsp:include></div>
 <div id="commentslist"> ... đang tải... </div>

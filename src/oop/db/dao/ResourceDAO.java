@@ -248,5 +248,15 @@ public class ResourceDAO {
 		query.setMaxResults(1);
 		return (Revision<T>) query.uniqueResult();
 	}
+
+	public static List<User> fetchEditors(long resourceId) {
+		Session session = HibernateUtil.getSession();
+		String hql = "select distinct v.author " +
+				"from Resource r inner join r.revisions v  " +
+				"where r.id=:resId";
+		Query query = session.createQuery(hql);
+		query.setLong("resId", resourceId);
+		return query.list();
+	}
 	
 }

@@ -583,7 +583,7 @@
         <name>question-test</name>
         <title>Dùng trong đề thi</title>
         <class>oop.module.question.UsedByTestModule</class>
-        <position>left</position>
+        <position>article-bottom</position>
         <order>2</order>
         <page>question/test.jsp</page>
         <inAction>article.view</inAction>
@@ -593,7 +593,7 @@
         <name>related-test</name>
         <title>Đề thi liên quan</title>
         <class>oop.module.test.RelatedTest</class>
-        <position>left</position>
+        <position>article-bottom</position>
         <order>3</order>
         <page>test/related-test.jsp</page>
         <inAction>article.view</inAction>
@@ -604,7 +604,7 @@
         <name>related-TextArticle</name>
         <title>Bài viết liên quan</title>
         <class>oop.module.TextArticle.RelatedTextArticle</class>
-        <position>left</position>
+        <position>article-bottom</position>
         <order>4</order>
         <page>TextArticle/related-TextArticle.jsp</page>
         <inAction>article.view</inAction>
@@ -615,7 +615,7 @@
         <name>related-BaseQuestion</name>
         <title>Câu hỏi liên quan</title>
         <class>oop.module.question.RelatedBaseQuestion</class>
-        <position>left</position>
+        <position>article-bottom</position>
         <order>5</order>
         <page>question/related-BaseQuestion.jsp</page>
         <inAction>article.view</inAction>
@@ -655,7 +655,7 @@
     <module>
         <name>share</name>
         <title>Chia sẻ</title>
-        <position>left</position>
-        <order>10</order>
+        <position>footer-left</position>
+        <order>0</order>
     </module>
 </config>

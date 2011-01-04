@@ -64,7 +64,7 @@ Editor.edit = function(id) {
 		var textarea = element.getElementsByTagName('textarea')[0];
 		var tinymceEditor = tinymce.get(textarea.id);
 		if (!tinymceEditor) {
-			tinymceEditor = new tinymce.Editor(textarea.id, {});
+			tinymceEditor = new tinymce.Editor(textarea.id, tinymceOptions);
 			tinymceEditor.render();
 		}
 		tinymceEditor.focus(true);
@@ -290,6 +290,14 @@ function createTopic() {
     sendCreateRequest(resource);
 }
 
+function getEditorContent(id) {
+	tinymceEditor = tinymce.get(id);
+	if (tinymceEditor) {
+		return tinymceEditor.getContent;
+	}
+	return $F(id);
+}
+
 function sendCreateRequest(resource) {
     new Ajax.Request(restPath + '/resources',
     {
@@ -309,4 +317,13 @@ function sendCreateRequest(resource) {
             DefaultTemplate.onFailure(transport); 
         }
     });
+}
+
+function setVisible(elementOrId, b) {
+	var elem = $(elementOrId);
+	if (b) {
+		elem.show();
+	} else {
+		elem.hide();
+	}
 }

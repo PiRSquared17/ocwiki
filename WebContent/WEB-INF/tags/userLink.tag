@@ -16,7 +16,7 @@
 </c:choose>-->
         <c:set var="url">${config.actionPath}/user.profile?user=${user.id}</c:set>
 
-<a href="${url}">
+<c:set var="linkBody">
     <c:choose>
         <c:when test="${empty fn:trim(customBody)}">
             ${user.fullname}
@@ -25,4 +25,7 @@
             ${customBody}
         </c:otherwise>
     </c:choose>
-</a>
+</c:set>
+<c:set var="linkBody" value="${fn:trim(linkBody)}"></c:set>
+
+<a href="${url}">${linkBody}</a>

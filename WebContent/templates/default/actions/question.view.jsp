@@ -96,7 +96,7 @@ function checkanswer() {
 </p>
 
 <ocw:actionLink name="revision.list">
-    <ocw:param name="resourceID" value="${action.resource.id}"></ocw:param>
+    <ocw:param name="r" value="${action.resource.id}"></ocw:param>
     revision list
 </ocw:actionLink>
 

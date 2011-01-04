@@ -3,11 +3,15 @@ package oop.taglib;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+
+import oop.controller.action.ActionUtil;
+import oop.util.Utils;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -20,6 +24,7 @@ public abstract class AbstractActionTag extends SimpleTagSupport {
 	protected String confirm;
 	protected JspFragment jspBody;
 	private String onclick;
+	private String encodedParams;
 
 	public AbstractActionTag() {
 		super();
@@ -88,6 +93,33 @@ public abstract class AbstractActionTag extends SimpleTagSupport {
 
 	protected void appendOnclick() throws IOException {
 		out().append("onclick=\"").append(onclick).append("\"");
+	}
+
+	public void setEncodedParams(String encodedParams) {
+		this.encodedParams = encodedParams;
+	}
+
+	public String getEncodedParams() {
+		return encodedParams;
+	}
+
+	protected void appendActionURL() throws IOException {
+		out().print(ActionUtil.getActionURL(getName()));
+		if (!getParams().isEmpty()) {
+			boolean first = !getName().contains("?");
+			for (Entry<String, Object> entry : getParams().entrySet()) {
+				out().print(first ? "?" : "&");
+				first = false;
+				out().append(entry.getKey()).append("=").append(
+						Utils.urlEncode(String.valueOf(entry.getValue())));
+			}
+		}
+		if (StringUtils.isNotBlank(getEncodedParams())) {
+			if (!getParams().isEmpty()) {
+				out().append("&");
+			}
+			out().append(getEncodedParams());
+		}
 	}
 
 }
