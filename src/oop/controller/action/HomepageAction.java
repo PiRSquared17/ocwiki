@@ -36,6 +36,7 @@ public class HomepageAction extends AbstractAction {
 		testStructures = TestStructureDAO.fetch(0, 10);
 		questions = BaseQuestionDAO.fetch(0, 10);
 		testCount = TestDAO.count();
+		textArticleCount = TextArticleDAO.count();
 		questionCount = BaseQuestionDAO.count();
 		structCount = TestStructureDAO.count();
 		userCount = UserDAO.count();

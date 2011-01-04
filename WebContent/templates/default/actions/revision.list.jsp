@@ -5,54 +5,49 @@
 <h3>Đối với các phiên bản dưới đây, click vào ngày tạo để xem.</h3>
 <strong>Chọn số phiên bản hiển thị trên một trang :</strong><br/>
 	<ocw:actionLink name="revision.list">
-		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
-		<ocw:param name="page" value="1"></ocw:param>
-		<ocw:param name="size" value="10"></ocw:param>
+		<ocw:param name="r" value="${action.resourceId}"></ocw:param>
+		<ocw:param name="s" value="0"></ocw:param>
+		<ocw:param name="z" value="10"></ocw:param>
 		10
 	</ocw:actionLink>
 		<ocw:actionLink name="revision.list">
-		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
-		<ocw:param name="page" value="1"></ocw:param>
-		<ocw:param name="size" value="20"></ocw:param>
+		<ocw:param name="r" value="${action.resourceId}"></ocw:param>
+		<ocw:param name="s" value="0"></ocw:param>
+		<ocw:param name="z" value="20"></ocw:param>
 		20
 	</ocw:actionLink>
 		<ocw:actionLink name="revision.list">
-		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
-		<ocw:param name="page" value="1"></ocw:param>
-		<ocw:param name="size" value="30"></ocw:param>
+		<ocw:param name="r" value="${action.resourceId}"></ocw:param>
+		<ocw:param name="s" value="0"></ocw:param>
+		<ocw:param name="z" value="30"></ocw:param>
 		30
 	</ocw:actionLink>
 		<ocw:actionLink name="revision.list">
-		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
-		<ocw:param name="page" value="1"></ocw:param>
-		<ocw:param name="size" value="40"></ocw:param>
+		<ocw:param name="r" value="${action.resourceId}"></ocw:param>
+		<ocw:param name="s" value="0"></ocw:param>
+		<ocw:param name="z" value="40"></ocw:param>
 		40
 	</ocw:actionLink>
 		<ocw:actionLink name="revision.list">
-		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
-		<ocw:param name="page" value="1"></ocw:param>
-		<ocw:param name="size" value="50"></ocw:param>
+		<ocw:param name="r" value="${action.resourceId}"></ocw:param>
+		<ocw:param name="s" value="0"></ocw:param>
+		<ocw:param name="z" value="50"></ocw:param>
 		50
 	</ocw:actionLink>
 		<ocw:actionLink name="revision.list">
-		<ocw:param name="resourceID" value="${action.resourceID}"></ocw:param>
-		<ocw:param name="page" value="1"></ocw:param>
-		<ocw:param name="size" value="100"></ocw:param>
+		<ocw:param name="r" value="${action.resourceId}"></ocw:param>
+		<ocw:param name="s" value="0"></ocw:param>
+		<ocw:param name="z" value="100"></ocw:param>
 		100
 	</ocw:actionLink>
 
-<form action="${scriptPath}" id="listForm">
-    <input type="hidden" name="action" value="revision.list" /> 
-    <jsp:include page="revision.list-toolbar.jsp"></jsp:include> 
-</form>
-
 <ocw:pagination actionName="${action.descriptor.name}"
         count="${action.count}" currentStart="${action.start}" pageSize="${action.size}"
-        additionalParams="resourceID=${param.resourceID}"></ocw:pagination>
+        additionalParams="resourceID=${action.resourceId}"></ocw:pagination>
         
 <ul>
     <c:forEach items="${action.revisions}" var="revision">
-		<li><%--
+		<li>
 		    (<u:trim><c:choose>
 		      <c:when test="${revision.id==action.latestRevision.id}">
 		          h.tại
@@ -78,7 +73,7 @@
 		            </ocw:actionLink>
 		          </c:otherwise>
 		     </c:choose></u:trim>) 
-		    <input type="checkbox" name="revid" value="${revision.id}"> --%>
+		    <input type="checkbox" name="revid" value="${revision.id}">
 	        <ocw:articleLink revision="${revision}">${u:formatDateTime(revision.timestamp)}</ocw:articleLink>
 			<ocw:userLink user="${revision.author}" />
 			<c:if test="${not empty revision.summary}">
@@ -91,5 +86,3 @@
 		</li>
 	</c:forEach>
 </ul>
-
-<jsp:include page="revision.list-toolbar.jsp"></jsp:include>

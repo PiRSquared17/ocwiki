@@ -40,11 +40,9 @@ hr {
 #rightWrapper {
 	float: right;
 	width: 610px;
-	margin-right: 10px;
-	background-image: url("../images/right-border.png");
-	background-position: top left;
-	background-repeat: repeat-y;
-	padding-left: 1px;
+	/*margin-right: 10px;*/
+	border-left: 1px #c2ffa7 solid;
+	border-right: 1px #c2ffa7 solid;
 }
 
 #rightBottom {
@@ -228,7 +226,7 @@ body {
 	width: 100%;
 	margin: 0 auto;
 	clear: both;
-	background: #F3F3F3;
+	/*background: #F3F3F3;*/
 }
 
 #right ol,#right ul {
@@ -312,8 +310,13 @@ body {
 }
 
 #footer {
-	background: none repeat scroll 0 0 #F3F3F3;
-	padding: 10px;
+    padding: 10px;
+    background: none repeat scroll 0 0 #F3F3F3;
+}
+
+#innerFooter {
+	margin: 0 auto;
+    width: 798px;
 }
 
 #footer p {
@@ -579,13 +582,17 @@ legend {
 }
 */
 .jsmenu {
-	
 }
 
 .jsmenu ul {
+    display: inline;
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
+}
+
+#right .jsmenu ul {
+	line-height: normal;
 }
 
 .jsmenu ul li {
@@ -1095,4 +1102,20 @@ ul.shareList li {
 
 .markInput {
 	width: 40px;
+}
+
+.topic-list {
+    background-color: #F9F9F9;
+    border: 1px solid #AAAAAA;
+    clear: both;
+    margin-top: 1em;
+    padding: 5px;
+}
+
+.editors {
+	font-size: smaller;
+}
+
+.left {
+	float: left;
 }

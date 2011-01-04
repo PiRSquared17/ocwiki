@@ -8,7 +8,9 @@
 
 <c:if test="${u:size(article.topics) > 0}">
 	<div class="topic-list">
-	<span class="topic-list-title">Chủ đề: </span>
+	<span class="topic-list-title">
+	    <ocw:actionLink name="topic.list">Chủ đề</ocw:actionLink>: 
+	</span>
 	<c:forEach items="${article.topics}" var="topic">
 	    <span class="topic-list-item">
 	        <ocw:articleLink resource="${topic}" />

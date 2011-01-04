@@ -2,13 +2,9 @@ package oop.taglib;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Map.Entry;
 
 import javax.servlet.jsp.JspException;
 
-import oop.controller.action.ActionUtil;
-
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 public class ActionButtonTag extends AbstractActionTag {
@@ -36,18 +32,7 @@ public class ActionButtonTag extends AbstractActionTag {
 			out().print(confirm);
 			out().print(")");
 		}
-		out().print(ActionUtil.getActionURL(getName()));
-		if (!getParams().isEmpty()) {
-			boolean first = true;
-			for (Entry<String, Object> entry : getParams().entrySet()) {
-				out().print(first ? "?" : "&");
-				first = false;
-				out().print(entry.getKey());
-				out().print("=");
-				out().print(StringEscapeUtils
-						.escapeXml(String.valueOf(entry.getValue())));
-			}
-		}
+		appendActionURL();
 		out().print("'\"");
 	}
 

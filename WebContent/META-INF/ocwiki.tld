@@ -60,6 +60,10 @@
     <attribute>
         <name>onclick</name>
     </attribute>    
+    <attribute>
+        <name>encodedParams</name>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>    
   </tag>
 
   <tag>
@@ -90,6 +94,10 @@
     </attribute>    
     <attribute>
         <name>target</name>
+    </attribute>    
+    <attribute>
+        <name>encodedParams</name>
+        <rtexprvalue>true</rtexprvalue>
     </attribute>    
   </tag>
 

@@ -16,8 +16,7 @@
 </div>
 
 <div id = "Test-Content">
-	Nội dung:
-	<textarea rows="5" cols="60" id="Test-content-${test.id}">${empty test.content.text ? 'Khong co noi dung' : test.content}</textarea>
+	<textarea rows="5" cols="60" style="width: 100%" id="Test-content-${test.id}">${empty test.content.text ? 'Không có nội dung' : test.content}</textarea>
 	<script type="text/javascript">
 		Editor.preview('Test-Content');
 	</script>	
@@ -36,7 +35,8 @@
 			     	<img alt="" src="${templatePath}/images/wrong.png" onclick="del_section(${indexsection})">
 			    </div>
 			    <div id ="section-edit-name-${indexsection}">
-					<textarea rows="" cols="" id = "section-content-${indexsection}">${section.content.text}</textarea>
+					<textarea rows="5" cols="80" style="width: 100%" class="mceNoEditor" 
+					       id = "section-content-${indexsection}">${section.content.text}</textarea>
 					<script type="text/javascript">
 						Editor.preview('section-edit-name-${indexsection}');
 					</script>
@@ -99,7 +99,7 @@
 	<%@ include file="article.edit.topic.jsp" %>
 </div>
 
-<ocw:setJs var="questionTemplate">
+<ocw:setJs templateVar="QuestionTempl">
 	<div id="Delete-question-id\#{lastQuestionTest}" class="question-wrapper mouse-out"
                onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
                 onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">
@@ -125,14 +125,14 @@
 	</div>
 </ocw:setJs>
 
-<ocw:setJs var="deletedTemplate">
+<ocw:setJs templateVar="DelTemplate">
     <div id="question\#{index}-deleted" style="text-align: center;">
         Câu hỏi đã bị xoá.
         <a href="#" onclick="undeleteQuestion(\#{indexsection},\#{indexquestion},\#{index}); return false;">Phục hồi</a>
     </div>
 </ocw:setJs>
 
-<ocw:setJs var="answerTemplate">
+<ocw:setJs templateVar="AnswerTempl">
 	<div class="answer-wrapper">
         <div class="number-wrapper">
            <b>\#{oder_ans}</b>.
@@ -141,7 +141,7 @@
     </div>
 </ocw:setJs>
 
-<ocw:setJs var="SectionTemplate">
+<ocw:setJs templateVar="SectionTempl">
 	<div id="section-\#{indexsection}">
 		<div  class = "section-wrapper mouse-out"
 				onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
@@ -163,10 +163,9 @@
 			<span id = "Message-\#{indexsection}"></span>
 		</form>
 	</div>
-	
 </ocw:setJs>
 
-<ocw:setJs var = "DeleteSection">
+<ocw:setJs templateVar="DelSection">
 	<div id="section-\#{indexsection}-deleted" style="text-align: center;">
         Section đã bị xoá.
         <a href="#" onclick="undeleteSection(\#{indexsection}); return false;">Phục hồi</a>
@@ -174,37 +173,31 @@
 </ocw:setJs>
 
 <script type="text/javascript"><!--
-DelTemplate = new Template('${deletedTemplate}');
-QuestionTempl = new Template('${questionTemplate}');
-AnswerTempl = new Template('${answerTemplate}');
-SectionTempl = new Template('${SectionTemplate}');
-DelSection = new Template('${DeleteSection}');
+	var test = resource.article;
+	var lastQuestion = ${i};
+	var indexsection = ${indexsection};
+	var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-var test = resource.article;
-var lastQuestion = ${i};
-var indexsection = ${indexsection};
-var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-//Lấy từ server về
-	/*new Ajax.Request(restPath + '/tests/' + resourceId,{
-			method: 'get',
-			requestHeaders : {
-		       Accept : 'application/json'
-	  		},
-		    evalJSON : true,
-		    onSuccess : function(transport) {
-		       test = transport.responseJSON.result;
-		       template();
-		    },
-		    onFailure: function(transport){ 
-		    	DefaultTemplate.onFailure(transport); 
-			}
+	Event.observe(window, 'load', function() {
+        for(i = 0;i<test.sections.length;i++){
+            new Autocomplete('id-question-add-' + i, {
+                serviceUrl : apiPath + '/question.search?format=qcount',
+                minChars : 2,
+                maxHeight : 400,
+                width : 300,
+                deferRequestBy : 100,
+                // callback function:
+                onSelect : function(value, data,id) {
+                    $('id-question-add').value = data;
+                }
+            });
+        }
 	});
-	*/
-	template();
+	
 	function Show(){
 		alert($F('section'));
 	}
+	
 	//Del question Order
 	function del(indexsection,indexquestion,index){
 		var data={"indexsection":indexsection,"indexquestion":indexquestion,"index": index}; 
@@ -215,6 +208,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		test.sections[indexsection].questions[indexquestion].deleted=true;
 		Khoiphuc(question_id);
 	}
+	
 	//Xoa bo lua chon del
 	function undeleteQuestion(indexsection,indexquestion,index){
 		var element=$('question'+index+'-deleted');
@@ -225,6 +219,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		var question_id = test.sections[indexsection].questions[indexquestion].id;
 		Khoiphuc(question_id);
 	}
+	
 	function search_question(){
 		
 	}
@@ -285,8 +280,10 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	// Save Test
 	EditAction = Class.create();
+	
 	EditAction.preview = function(){
 	}
+	
 	EditAction.save = function(successCallback, failureCallback){
 		// Lay cac cau hoi cua test
 		var i,j;
@@ -299,32 +296,34 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		var indexquestion = 0;
 		var indexsection = 0;
 		newsection =  new Array();
-		section = new Object();
 		for (i = length_sec - 1; i>=0 ; i--){
-			question_length = test.sections[i].questions.length;
-			if (question_length == 0) {
-				test.sections.splice(i,1);
-				continue;
-			}
+			var question_length = test.sections[i].questions.length;
 			if (test.sections[i].deleted == true){
 				test.sections.splice(i,1);
 				continue;
 			}
-			//newquestion = new Array();
-			//indexquestion = 0;
-			for (j = question_length - 1; j >= 0 ; j--)
+
+			for (j = question_length - 1; j >= 0 ; j--) {
 				if (test.sections[i].questions[j].deleted == true){
-					//newquestion[indexquestion] = test.sections[i].questions[j];
-					//indexquestion++;
 					test.sections[i].questions.splice(j,1);
 					test.sections[i].id = 0;
+				} else {
+					var q = test.sections[i].questions[j];
+					test.sections[i].questions[j] = { id: q.id };
 				}
-			if (test.sections[i].questions.length <= 0) delete test.section[i].questions;
-			//IdSection = 'section-content-' + i;
-			//section.questions = newquestion;
-			//section.content = tinymce.get(IdSection).getContent();
-			//newsection[indexsection] = section;
-			//indexsection++;
+			}
+
+			question_length = test.sections[i].questions.length;
+            if (question_length <= 0) {
+                test.sections.splice(i,1);
+                continue;
+            }
+			
+            currentContent = getEditorContent('section-content-' + i);
+			if (currentContent != test.sections[i].content.text) {
+				test.sections[i].id = 0;
+				test.sections[i].content = { "id": 0, "text": currentContent };				
+			}
 		}
 		//test.sections = newsection;
 		if (test.sections.length <= 0) delete test.sections;
@@ -339,7 +338,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		name = $('articleEdit-nameInput').value;
 		test.name = name;
 
-		// Luu diem
+		// Luu thoi gian
 		if (!isNumber($('Test-Time-Edit').value) || (parseInt($('Test-Time-Edit').value) <= 0)){
 			$('articleEdit-error').innerHTML = 'Thời gian làm bài không hợp lệ';
 			failureCallback();
@@ -389,28 +388,13 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 					  	  $('articleEdit-error').innerHTML = 'Câu hỏi rỗng';
 					  }
 				      if (code == 'mark must be positive'){
-					  	  $('articleEdit-error').innerHTML = 'Điểm phải.....';
+					  	  $('articleEdit-error').innerHTML = 'Điểm phải là số dương';
 					  }
 				      failureCallback();
 			      }
 			    });
 	}
 
-	function template(){
-		for(i = 0;i<test.sections.length;i++){
-		    new Autocomplete('id-question-add-' + i, {
-		        serviceUrl : apiPath + '/question.search?format=qcount',
-		        minChars : 2,
-		        maxHeight : 400,
-		        width : 300,
-		        deferRequestBy : 100,
-		        // callback function:
-		        onSelect : function(value, data,id) {
-					$('id-question-add').value = data;
-		        }
-		    });
-		}
-	}
 	function AddSection(){
 		var section_content = tinymce.get('test_edit_sectioncontent').getContent();
 		if (section_content == "") return;
@@ -440,10 +424,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	        }
 	    });	
 	}
-	function SaveContent(){
-		alert("Ngon!");
-	}
-
+	
 	function SpanOnclick(indexsection, indexquestion, questionId){
 		var id = 'Mark-' + questionId;
 		//var DivId = id.substring(0,id.length - 2);
@@ -455,6 +436,7 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		test.sections[indexsection].questions[indexquestion].mark = mark;
 		//Editor.previewTextField('' + questionId);
 	}
+	
 	function checkId(id){
 		var i,j;
 		for (i = 0; i<test.sections.length; i++)
@@ -463,11 +445,13 @@ var st_char='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			}
 		return false;
 	}
+	
 	function isNumber(num){
 		var exp = /^[0-9]+(\.[0-9]+)?$/;
 		if (exp.test(num)) return true;
 		else return false;
 	}
+	
 	function Khoiphuc(id){
 		var i, j;
 		var dem = 1;

@@ -3,14 +3,13 @@
 <%@ include file="/includes/common.jsp" %> 
    
 <!-- Twitter & FB buttons --> 
-<ul class="shareList">
-	<li class="st_twitter_hcount" displayText="Tweet"></li>
-	<li class="st_facebook_hcount" displayText="Share"></li>
-	<!-- 
-	<li class="st_email_hcount" displayText="Email"></li>
-	<li class="st_sharethis_hcount" displayText="Share"></li> 
-	 -->
-</ul>
+<span class="shareList">
+	<span class="st_twitter_hcount" displayText="Tweet"></span>
+	<span class="st_facebook_hcount" displayText="Share"></span>
+</span>
+
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher:'b52d3378-3f03-434c-a81b-eeac4052b94c'});</script> 
 
 <!-- linkhay button -->
 <script type="text/javascript">

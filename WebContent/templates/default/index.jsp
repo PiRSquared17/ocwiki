@@ -20,9 +20,6 @@
         </c:otherwise>
     </c:choose>
 
-    <!-- ShareThis library -->
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'b52d3378-3f03-434c-a81b-eeac4052b94c'});</script>	
-    
 	<script type="text/javascript" src="${templatePath}/js/autocomplete.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/tiny_mce/tiny_mce.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/scriptaculous.js"></script>
@@ -33,22 +30,24 @@
 	var AMTcgiloc = '${config.texCgi}';
 	</script>
 	<script type="text/javascript">
+	   var tinymceOptions = {
+	            mode : "textareas",
+	            editor_deselector : "mceNoEditor",
+	            //skin : "o2k7",
+	            theme : "advanced",
+	            theme_advanced_buttons1 : 'bold,italic,underline,strikethrough,link,unlink,separator,image,asciimath,asciimathcharmap,separator,numlist,bullist,separator,emotions,separator,cleanup,code',
+	            theme_advanced_buttons2 : "tablecontrols",
+	            theme_advanced_buttons3 : "",
+	            theme_advanced_resizing : true,
+	            plugins : "inlinepopups,asciimath,emotions,table",
+	            table_styles : "Header 1=header1;Header 2=header2;Header 3=header3",
+	            table_cell_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Cell=tableCel1",
+	            table_row_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
+	            //TODO: change!                
+	            content_css : "${templatePath}/css/editor-content.css"
+	        };
 	   Element.observe(window, 'load', function() {
-		tinyMCE.init({
-		    mode : "textareas",
-		    //skin : "o2k7",
-		    theme : "advanced",
-		    theme_advanced_buttons1 : 'bold,italic,underline,strikethrough,link,unlink,separator,image,asciimath,asciimathcharmap,separator,numlist,bullist,separator,emotions,separator,cleanup,code',
-		    theme_advanced_buttons2 : "tablecontrols",
-		    theme_advanced_buttons3 : "",
-		    theme_advanced_resizing : true,
-		    plugins : "inlinepopups,asciimath,emotions,table",
-		    table_styles : "Header 1=header1;Header 2=header2;Header 3=header3",
-		    table_cell_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Cell=tableCel1",
-		    table_row_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
-		    //TODO: change!		    	   
-	        content_css : "${templatePath}/css/editor-content.css"
-		});
+		tinyMCE.init(tinymceOptions);
 	   });
 	</script>
 	
@@ -161,11 +160,15 @@
 	   	</div>
 	    <!--content ends -->
 	</div>
-    
-    <!--footer begins -->
-    <div id="footer">
+</div>
+<!--footer begins -->
+<div id="footer">
+    <div id="innerFooter">
         <div class="lfloat">
-            
+            <c:forEach items="${modules['footer-left']}" var="item">
+               <c:set var="module" scope="request" value="${item}"></c:set>
+               <jsp:include page="modules/${module.page}"></jsp:include>
+            </c:forEach>
         </div>
         <div class="rfloat">
             ${config.copyright}
@@ -182,9 +185,9 @@
             ·
             <a href="#">Trợ giúp</a>
         </div>
-        &nbsp;
+        <div class="clear"></div>
     </div>
-    <!-- footer ends -->
 </div>
+<!-- footer ends -->
 </body>
 </html>

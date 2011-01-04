@@ -2,12 +2,9 @@ package oop.taglib;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Map.Entry;
 
 import javax.servlet.jsp.JspException;
 
-import oop.controller.action.ActionUtil;
-import oop.util.Utils;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -28,6 +25,7 @@ public class ActionLinkTag extends AbstractActionTag {
 		appendClass();
 		appendOnclick();
 		appendTarget();
+		appendTitle();
 		out().print("\">");
 		out().append(sb);
 		out().append(sw.toString().trim());
@@ -36,39 +34,24 @@ public class ActionLinkTag extends AbstractActionTag {
 
 	private void appendTarget() throws IOException {
 		if (StringUtils.isNotEmpty(target)) {
-			out().print(" target=\"");
-			out().print(target);
-			out().print("\"");
+			out().append(" target=\"").append(target).append("\"");
+		}
+	}
+	
+	private void appendTitle() throws IOException {
+		if (StringUtils.isNotEmpty(title)) {
+			out().append(" title=\"").append(title).append("\"");
 		}
 	}
 
 	@Override
 	protected void appendHref() throws IOException {
+		out().append(" href=\"");
+		appendActionURL();
+		out().append("\"");
 		if (!StringUtils.isEmpty(getConfirm())) {
-			out().print(" href=\"#\" onclick=\"location.href='");
-			out().print("if(");
-			out().print(confirm);
-			out().print(")");
-			appendActionURL();
-		} else {
-			out().print(" href=\"");
-			appendActionURL();
-			out().print("\"");
-		}
-		out().print("'\"");
-	}
-
-	private void appendActionURL() throws IOException {
-		out().print(ActionUtil.getActionURL(getName()));
-		if (!getParams().isEmpty()) {
-			boolean first = !getName().contains("?");
-			for (Entry<String, Object> entry : getParams().entrySet()) {
-				out().print(first ? "?" : "&");
-				first = false;
-				out().print(entry.getKey());
-				out().print("=");
-				out().print(Utils.urlEncode(String.valueOf(entry.getValue())));
-			}
+			out().append(" onclick=\"if(!").append(confirm)
+					.append(") return false;\"");
 		}
 	}
 
