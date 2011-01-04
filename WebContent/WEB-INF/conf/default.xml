@@ -537,7 +537,7 @@
         <class>oop.module.CommentModule</class>
         <position>action-bottom</position>
         <inAction>article.view</inAction>
-        <order>10</order>
+        <order>1</order>
     </module>
     <module>
         <name>topic-children</name>
@@ -583,17 +583,18 @@
         <name>question-test</name>
         <title>Dùng trong đề thi</title>
         <class>oop.module.question.UsedByTestModule</class>
-        <position>article-bottom</position>
-        <order>2</order>
+        <position>action-bottom</position>
+        <order>7</order>
         <page>question/test.jsp</page>
         <inAction>article.view</inAction>
         <articleType>oop.data.BaseQuestion</articleType>
     </module>
     <module>
+    	<disabled>true</disabled>
         <name>related-test</name>
         <title>Đề thi liên quan</title>
         <class>oop.module.test.RelatedTest</class>
-        <position>article-bottom</position>
+        <position>action-bottom</position>
         <order>3</order>
         <page>test/related-test.jsp</page>
         <inAction>article.view</inAction>
@@ -601,10 +602,11 @@
         <articleType>oop.data.BaseQuestion</articleType>
     </module>
     <module>
+    	<disabled>true</disabled>
         <name>related-TextArticle</name>
         <title>Bài viết liên quan</title>
         <class>oop.module.TextArticle.RelatedTextArticle</class>
-        <position>article-bottom</position>
+        <position>action-bottom</position>
         <order>4</order>
         <page>TextArticle/related-TextArticle.jsp</page>
         <inAction>article.view</inAction>
@@ -612,10 +614,11 @@
         <articleType>oop.data.BaseQuestion</articleType>
     </module>
     <module>
+    	<disabled>true</disabled>
         <name>related-BaseQuestion</name>
         <title>Câu hỏi liên quan</title>
         <class>oop.module.question.RelatedBaseQuestion</class>
-        <position>article-bottom</position>
+        <position>action-bottom</position>
         <order>5</order>
         <page>question/related-BaseQuestion.jsp</page>
         <inAction>article.view</inAction>

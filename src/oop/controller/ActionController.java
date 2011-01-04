@@ -51,6 +51,11 @@ public class ActionController extends HttpServlet {
 
 	protected void process(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		// Must be the first line. When an exception occurs, an JSP will be invoked
+		// to display error message. We should tell it we're in controller, not
+		// directly invocation
+		request.setAttribute("inController", true);
+		
 		try {
 			// set variables
 			String template = StringUtils.defaultIfEmpty((String) request
@@ -64,7 +69,6 @@ public class ActionController extends HttpServlet {
 			request.setAttribute("templatePath", Config.get().getTemplatePath()
 					.replaceAll("\\$\\{template\\}", template));
 			request.setAttribute("pageTitle", Config.get().getSiteName());
-			request.setAttribute("inController", true);
 	
 			// perform action
 			// get action descriptor
