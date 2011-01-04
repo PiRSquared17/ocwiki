@@ -36,10 +36,10 @@ public class ResourceCustomizationBridge implements FieldBridge {
 			if (customization.isDone()) {
 				dones.append(userId).append(' ');
 			}
-			if (customization.getLevel() == 1) {
+			if (customization.getLevel() == ResourceCustomization.LEVEL_HARD) {
 				hards.append(userId).append(' ');
 			}
-			if (customization.getLevel() == 0) {
+			if (customization.getLevel() == ResourceCustomization.LEVEL_EASY) {
 				easys.append(userId).append(' ');
 			}
 		}

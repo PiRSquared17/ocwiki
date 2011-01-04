@@ -72,6 +72,4 @@ public class ArticleMapper implements Mapper<ArticleBean, Article> {
 		return DEFAULT_INSTANCE;
 	}
 	
-
-	
 }

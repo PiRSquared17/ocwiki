@@ -71,6 +71,8 @@ public final class JsonUtils {
 		oop.controller.rest.bean.TopicReportBean.class,
 		oop.controller.rest.bean.UserBean.class,
 		oop.controller.rest.bean.UserReferenceBean.class,
+		oop.controller.rest.bean.ResourceCustomizationBean.class,
+		oop.controller.rest.bean.ResourceReportBean.class,
 	
 		ListResult.class,
 		ObjectResult.class

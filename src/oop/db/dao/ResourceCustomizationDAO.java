@@ -25,15 +25,13 @@ public class ResourceCustomizationDAO {
 	}
 	
 
-	public static ResourceCustomization persist(
-			ResourceCustomization customization) {
+	public static void persist(ResourceCustomization customization) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			session.saveOrUpdate(customization);
 			tx.commit();
-			return customization;
 		} catch (HibernateException ex) {
 			if (tx != null) {
 				tx.rollback();

@@ -13,6 +13,10 @@ public class ResourceReferenceBean {
 	public ResourceReferenceBean() {
 	}
 
+	public ResourceReferenceBean(long id) {
+		this.id = id;
+	}
+
 	public long getId() {
 		return id;
 	}
