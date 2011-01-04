@@ -89,6 +89,7 @@ public final class TopicDAO {
 					"where a in (select article from Resource where status = 'NORMAL') ) " +
 				"and r not in (select parent from Topic t " +
 					"where t in (select article from Resource where status = 'NORMAL') ) " +
+				"and type = '" + Topic.class.getName() + "' " +
 				"and status = 'NORMAL'");
 		query.setFirstResult(start);
 		query.setMaxResults(size);
@@ -102,6 +103,7 @@ public final class TopicDAO {
 					"where a in (select article from Resource where status = 'NORMAL') ) " +
 				"and r not in (select parent from Topic t " +
 					"where t in (select article from Resource where status = 'NORMAL') ) " +
+				"and type = '" + Topic.class.getName() + "' " +
 				"and status = 'NORMAL'");
 		return (Long)query.uniqueResult();		
 	}

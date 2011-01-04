@@ -72,7 +72,7 @@
 		var markStatus = '';
         if (resourceCustomization.level == 1) {
             markStatus = 'Khó';
-        } else if (resourceCustomization.level == 0) {
+        } else if (resourceCustomization.level == -1) {
             markStatus = 'Dễ';
         }
         if (resourceCustomization.todo == 'TODO') {
@@ -100,7 +100,7 @@
     
     function toggleHard() {
         if (resourceCustomization.level == 1) {
-            resourceCustomization.level = -1;
+            resourceCustomization.level = 0;
         } else {
             resourceCustomization.level = 1;
         }
@@ -109,10 +109,10 @@
     }
     
     function toggleEasy() {
-        if (resourceCustomization.level == 0) {
-            resourceCustomization.level = -1;
-        } else {
+        if (resourceCustomization.level == -1) {
             resourceCustomization.level = 0;
+        } else {
+            resourceCustomization.level = -1;
         }
         saveCustomization();
         return false;

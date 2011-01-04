@@ -1,11 +1,10 @@
 package oop.module.search;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import oop.data.BaseQuestion;
@@ -17,9 +16,9 @@ import oop.data.Topic;
 
 public class Search {
 
-	private static Dictionary<Class, String> entityAliases = null;
+	private static Map<Class<?>, String> entityAliases = null;
 	static {
-		entityAliases = new Hashtable<Class, String>();
+		entityAliases = new Hashtable<Class<?>, String>();
 		entityAliases.put(BaseQuestion.class, "basequestion");
 		entityAliases.put(Test.class, "test");
 		entityAliases.put(TestStructure.class, "teststructure");
@@ -28,17 +27,12 @@ public class Search {
 		entityAliases.put(File.class, "file");
 	}
 
-	private static String getAlias(Class clazz) {
+	private static String getAlias(Class<?> clazz) {
 		return entityAliases.get(clazz);
 	}
 	
-	public static List<Class> getAllSearchAbleClasses(){
-		List<Class> allClasses = new ArrayList<Class>();
-		Enumeration<Class> classEnum = entityAliases.keys();
-		while(classEnum.hasMoreElements()){
-			allClasses.add(classEnum.nextElement());
-		}
-		return allClasses;
+	public static List<Class<?>> getAllSearchAbleClasses(){
+		return new ArrayList<Class<?>>(entityAliases.keySet());
 	}
 	
 	public Search(){
@@ -59,7 +53,7 @@ public class Search {
 		return elements;
 	}
 
-	public String buildSearchQueryForClass(Class clazz) {
+	public String buildSearchQueryForClass(Class<?> clazz) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("from ").append(clazz.getName()).append(" as ").append(
 				getAlias(clazz));
