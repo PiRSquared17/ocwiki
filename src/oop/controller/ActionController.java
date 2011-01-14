@@ -22,6 +22,7 @@ import oop.data.User;
 import oop.module.Module;
 import oop.persistence.HibernateUtil;
 import oop.util.SessionUtils;
+import oop.util.SiteViewCountUtil;
 import oop.util.Utils;
 
 import org.apache.commons.collections.Transformer;
@@ -55,6 +56,7 @@ public class ActionController extends HttpServlet {
 		// to display error message. We should tell it we're in controller, not
 		// directly invocation
 		request.setAttribute("inController", true);
+		SiteViewCountUtil.incrementAndGet();
 		
 		try {
 			// set variables

@@ -102,4 +102,9 @@ public class RevisionDAO {
 		return revision;
 	}
 
+	public static long count() {
+		String hql = "select count(*) from Revision";
+		return HibernateUtil.count(hql);
+	}
+
 }

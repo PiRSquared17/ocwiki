@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="oop.data.stat.DailyStatistic" table="DailyStatistic">
+		<id name="date" type="date" access="field">
+			<column name="stat_date" />
+		</id>
+        <property name="viewCount" type="long" access="field">
+            <column name="view_count"></column>
+        </property>
+        <property name="editCount" type="long" access="field">
+            <column name="edit_count"></column>
+        </property>
+        <property name="resourceCount" type="long" access="field">
+            <column name="resource_count"></column>
+        </property>
+        <property name="memberCount" type="long" access="field">
+            <column name="member_count"></column>
+        </property>
+	</class>
+</hibernate-mapping>

@@ -9,9 +9,6 @@ import org.apache.commons.lang.ObjectUtils;
 @XmlRootElement
 public class ResourceReport implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private Resource<? extends Article> resource;

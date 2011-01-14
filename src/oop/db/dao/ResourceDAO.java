@@ -258,5 +258,9 @@ public class ResourceDAO {
 		query.setLong("resId", resourceId);
 		return query.list();
 	}
+
+	public static long count() {
+		return HibernateUtil.count("select count(*) from Resource");
+	}
 	
 }

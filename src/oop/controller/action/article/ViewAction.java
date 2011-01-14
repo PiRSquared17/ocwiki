@@ -9,13 +9,16 @@ import oop.controller.action.AbstractResourceAction;
 import oop.controller.action.ActionException;
 import oop.data.Article;
 import oop.data.User;
+import oop.data.stat.ResourceViewCounter;
 import oop.db.dao.ResourceDAO;
+import oop.db.dao.stat.ResourceViewCounterDAO;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
 public class ViewAction extends AbstractResourceAction<Article> {
 
 	public List<User> editors;
+	private ResourceViewCounter viewCounter;
 	
 	@Override
 	protected void performImpl() throws IOException, ServletException {
@@ -23,6 +26,7 @@ public class ViewAction extends AbstractResourceAction<Article> {
 		try {
 			id = getParams().getLong("id");
 			resource = ResourceDAO.fetchById(id);
+			viewCounter = ResourceViewCounterDAO.incrementAndFetch(id);
 			editors = ResourceDAO.fetchEditors(id);
 			if (resource == null) {
 				throw new ActionException("Không tìm thấy bài viết.");
@@ -36,6 +40,10 @@ public class ViewAction extends AbstractResourceAction<Article> {
 
 	public List<User> getEditors() {
 		return editors;
+	}
+	
+	public ResourceViewCounter getViewCounter() {
+		return viewCounter;
 	}
 	
 }
