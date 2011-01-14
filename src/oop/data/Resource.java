@@ -1,5 +1,6 @@
 package oop.data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,8 +26,11 @@ import org.hibernate.search.annotations.Store;
 
 @Indexed
 @XmlRootElement
-public class Resource<T extends Article> implements ArticleContainer<T>, HasVersion {
+public class Resource<T extends Article> implements ArticleContainer<T>,
+		HasVersion, Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@DocumentId
 	private long id;
 	private Date createDate;

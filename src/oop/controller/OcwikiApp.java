@@ -9,7 +9,10 @@ import javax.servlet.ServletContextListener;
 import oop.conf.Config;
 import oop.conf.ConfigIO;
 import oop.conf.ConfigIOException;
+import oop.data.stat.DailyStatistic;
+import oop.db.dao.stat.DailyStatisticDAO;
 import oop.persistence.HibernateUtil;
+import oop.util.SiteViewCountUtil;
 
 /**
  * Application Lifecycle Listener implementation class Initializer
@@ -41,13 +44,19 @@ public class OcwikiApp implements ServletContextListener {
 			context = evt.getServletContext();
 			config = new Config();
 			String configPath = context.getRealPath(context.getInitParameter("configDir"));
-			init(configPath);
+			initializeImpl(configPath);
+			DailyStatistic lastStatistic = DailyStatisticDAO.fetchLastStatistic();
+			if (lastStatistic == null) {
+				SiteViewCountUtil.initialize(0);
+			} else {
+				SiteViewCountUtil.initialize(lastStatistic.getViewCount());
+			}
 		} catch (ConfigIOException e) {
 			configException = e;
 		}
 	}
 
-	private void init(String configPath) {
+	private void initializeImpl(String configPath) {
 		ConfigIO.loadDirectory(config, configPath);
 		config.setHomeDir(config.getDomain() + context.getContextPath());
 		
@@ -62,7 +71,7 @@ public class OcwikiApp implements ServletContextListener {
 	public static void initialize(String configPath) {
 		if (INSTANCE == null) {
 			OcwikiApp ocwikiApp = new OcwikiApp();
-			ocwikiApp.init(configPath);
+			ocwikiApp.initializeImpl(configPath);
 		}
 	}
 
@@ -70,6 +79,7 @@ public class OcwikiApp implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent arg0) {
+    	DailyStatisticDAO.saveCurrentStatistic();
     }
 
     public ServletContext getServletContext() {
