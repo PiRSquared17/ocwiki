@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <dbhost>localhost</dbhost>
+    <dbport>3306</dbport>
+    <dbname>ocwiki</dbname>
+    <username>root</username>
+    <password>root</password>
+    <mysqlCommand>mysql</mysqlCommand>
+    <contactEmail>opencourseware.wiki@gmail.com</contactEmail>
+    <recreateDatabaseWhenSetup>true</recreateDatabaseWhenSetup>
+</config>
