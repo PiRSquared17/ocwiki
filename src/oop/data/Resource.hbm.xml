@@ -30,24 +30,25 @@
 				<param name="type">12</param> <!-- VARCHAR -->
 			</type>
 		</property>
-		<set name="logs" table="Log" access="field" inverse="true" lazy="true">
+		<set name="logs" table="Log" access="field" inverse="true" 
+		      lazy="true" cascade="all">
 			<key>
 				<column name="resource" />
 			</key>
 			<one-to-many class="oop.data.log.ResourceLog" />
 		</set>
 		<set name="revisions" table="Revision" access="field"
-			lazy="true" order-by="id asc">
+			     lazy="true" order-by="id asc" cascade="all">
 			<key>
 				<column name="resource" />
 			</key>
 			<one-to-many class="oop.data.Revision" />
 		</set>
 		<many-to-one name="link" class="oop.data.Resource" access="property"
-			fetch="select">
+			fetch="select" cascade="all">
 			<column name="link" not-null="false" />
 		</many-to-one>
-		<set name="linkedResources" table="Resource" inverse="true">
+		<set name="linkedResources" table="Resource" inverse="true" cascade="all">
 			<key>
 				<column name="link"></column>
 			</key>

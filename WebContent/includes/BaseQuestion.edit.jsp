@@ -118,19 +118,12 @@ EditAction.save = function(successCallback, failureCallback) {
 		}
 	}
 	// gửi lên server
-    new Ajax.Request(restPath + '/questions/' + resourceId,
-    {
-      method:'post',
-      requestHeaders : {
-          Accept : 'application/json'
-      },
-      contentType: 'application/json',
-      postBody: Object.toJSON({
+    WebService.post('/questions/' + resourceId, {
+      data: {
           article: question,
           summary: $F('articleEdit-summary'),
           minor: $('articleEdit-minor').checked
-      }),
-      evalJSON: true,
+      },
       onSuccess: successCallback,
       onFailure: function(transport) {
     	  var code = transport.responseJSON.code;
@@ -147,7 +140,7 @@ EditAction.save = function(successCallback, failureCallback) {
           } else if (code == 'no correct answer') {
               $('articleEdit-error').innerHTML = 'Hãy chọn ít nhất một lựa chọn đúng.';
           } else {
-        	  DefaultTemplate.onFailure(transport); 
+        	  template.onFailure(transport); 
           }
           failureCallback();
       }

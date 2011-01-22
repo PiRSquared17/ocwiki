@@ -1,4 +1,4 @@
-var DefaultTemplate = {
+var DefaultTemplate = Class.create(OcwikiTemplate, {
 
 	promptLogin : function() {
 		mess = '<p>Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã hết hạn.</p>'
@@ -18,7 +18,9 @@ var DefaultTemplate = {
         }  
 	}
 
-};
+});
+
+template = new DefaultTemplate();
 
 var TextboxDefaultHandler = Class.create( {
 	initialize: function (elementOrId, defaultValue) {

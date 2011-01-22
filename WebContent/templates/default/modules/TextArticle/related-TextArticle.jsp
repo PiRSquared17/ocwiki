@@ -17,13 +17,7 @@
 	var relatedTextArticleList;
 	var timeout;
 	Event.observe(window, 'load', function() {
-		new Ajax.Request(restPath + '/texts/related/'+ resourceID,
-				  {
-				    method:'get',
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
+		WebService.get('/texts/related/'+ resourceID,  {
 					onSuccess : function(transport) {
 						var i;
 						//alert("Cai nay la TA" + transport.responseText);
@@ -38,7 +32,7 @@
 						}
 					},
 				    onFailure: function(transport) {
-			            DefaultTemplate.onFailure(transport); 
+			            template.onFailure(transport); 
 			        }
 				  });
 	});

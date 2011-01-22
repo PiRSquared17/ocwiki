@@ -36,14 +36,7 @@
 
 function render(div, id) {
 	div = $(div);
-    new Ajax.Request(
-        restPath + '/topic_reports/' + id + '/children', 
-        {
-            method: 'get',
-            requestHeaders : {
-                Accept : 'application/json'
-            },
-            evalJSON : true,
+    WebService.get('/topic_reports/' + id + '/children', {
             onSuccess : function(transport) {
                 var children = transport.responseJSON.result;
                 div.innerHTML = '';
@@ -56,21 +49,14 @@ function render(div, id) {
                 }
             },
             onFailure : function(transport) {
-                DefaultTemplate.onFailure(transport);
+                template.onFailure(transport);
             }
         }); 
 }
 
 function renderRoot() {
     if ($F('root-id') != '') {
-        new Ajax.Request(
-            restPath + '/topic_reports/' + $F('root-id'), 
-            {
-                method: 'get',
-                requestHeaders : {
-                    Accept : 'application/json'
-                },
-                evalJSON : true,
+        WebService.get('/topic_reports/' + $F('root-id'), {
                 onSuccess : function(transport) {
                     var root = transport.responseJSON.result;
                     $('topicTree-container').innerHTML = entryTemplate.evaluate(root);
@@ -87,7 +73,7 @@ function renderRoot() {
                     if (code == 'not found') {
                     	$('topicTree-message').innerHTML = 'Không tìm thấy chủ đề';              
                     } else {
-                        DefaultTemplate.onFailure(transport);
+                        template.onFailure(transport);
                     }
                 }
             }); 

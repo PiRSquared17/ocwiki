@@ -13,19 +13,14 @@
 	
 	// Connect len server lay du lieu ve
 	Event.observe(window,'load',function(){
-		new Ajax.Request(restPath + "/draft/",{
-			method: 'get',
-			requestHeaders : {
-		       Accept : 'application/json'
-	  		},
-		    evalJSON : true,
+		WebService.get("/draft/", {
 		    onSuccess : function(transport) {
 	  		   	var contentDraft = transport.responseJSON.result;
 	  		   	content = contentDraft.text;
 	  		  	$('draft-content').innerHTML = content;
 		    },
 		    onFailure: function(transport){ 
-		    	DefaultTemplate.onFailure(transport); 
+		    	template.onFailure(transport); 
 			}
 		});
 	});
@@ -53,21 +48,15 @@
 	function save(){
 		var content = $F('draft-content');
 		var text = {"text": content};
-		new Ajax.Request(restPath + '/draft/',{
-			method: 'post',
-			requestHeaders : {
-		       Accept : 'application/json'
-	  		},
-	  		contentType: 'application/json',
+		WebService.post('/draft/',{
 	  		postBody: Object.toJSON({
 		  		"text": content
 	  		}),
-		    evalJSON : true,
 		    onSuccess : function(transport) {
 	  		   	
 		    },
 		    onFailure: function(transport){ 
-		    	//DefaultTemplate.onFailure(transport); 
+		    	//template.onFailure(transport); 
 			}
 		});
 		return false;

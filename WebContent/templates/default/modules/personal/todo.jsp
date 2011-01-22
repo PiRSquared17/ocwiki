@@ -32,18 +32,11 @@
 		markMenu = new Menu('mark-menu', 'markMenu', function() {
 	        this.closeDelayTime = 300;
 	    });
-		new Ajax.Request(restPath + '/resource_reports/' + resourceID,
-		{
-			method: 'get',
-			requestHeader:{
-				Accept: 'application/json'
-			},
-			evalJSON : true,
+		WebService.get('/resource_reports/' + resourceID, {
 			onSuccess : function(transport) {
 			    resourceReport = transport.responseJSON.result;
 				resourceCustomization = {
 			        'resource': { 'id': resourceID },
-			        'user': { 'id': ${sessionScope.user.id} },
 			        'like': resourceReport.like,
 			        'todo': resourceReport.todo,
 			        'level': resourceReport.level
@@ -52,7 +45,7 @@
 				updateMarkStatus();
 			},
 			onFailure: function(transport) {
-	            DefaultTemplate.onFailure(transport); 
+	            template.onFailure(transport); 
 	        }
 		});
 	});
@@ -70,16 +63,17 @@
 	
 	function updateMarkStatus() {
 		var markStatus = '';
-        if (resourceCustomization.level == 1) {
+        if (resourceCustomization.level == Level_HARD) {
             markStatus = 'Khó';
-        } else if (resourceCustomization.level == -1) {
+        } else if (resourceCustomization.level == Level_EASY) {
             markStatus = 'Dễ';
         }
         if (resourceCustomization.todo == 'TODO') {
             if (markStatus != '') {
-                markStatus += ', ';
+                markStatus += ', cần làm';
+            } else {
+                markStatus = 'Cần làm';
             }
-            markStatus += ' cần làm';
         }
         if (markStatus == '') {
         	markStatus = 'Đánh dấu';
@@ -133,21 +127,15 @@
     }
 	
 	function saveCustomization() {
-		new Ajax.Request(restPath + '/resource_customizations/' + resourceID,
+		WebService.post('/resource_customizations/' + resourceID,
         {
-            method: 'post',
-            requestHeader:{
-                Accept: 'application/json'
-            },
-            contentType: 'application/json',
             postBody: Object.toJSON(resourceCustomization),
-            evalJSON : true,
             onSuccess : function(transport) {
                 resourceCustomization = transport.responseJSON.result;
                 updateMarkStatus();
             },
             onFailure: function(transport) {
-                DefaultTemplate.onFailure(transport); 
+                template.onFailure(transport); 
             }
         });
 		updateLikeStatus();

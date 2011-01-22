@@ -96,15 +96,9 @@ function markResourceDeleted() {
             ok: function(win) 
             {   
                 resource.accessibility = $F('lock_value');
-                new Ajax.Request(restPath + '/resources/'+ resourceID,
+                WebService.post('/resources/'+ resourceID,
                     {
-                    method:'post',
-                    contentType: 'application/json',
                     postBody: Object.toJSON(resource),
-                    requestHeaders : {
-                        Accept : 'application/json'
-                    },
-                    evalJSON : true,
                     onSuccess : function(transport) 
                     {
                         resource = transport.responseJSON.result;
@@ -116,7 +110,7 @@ function markResourceDeleted() {
                         if (code == 'old version') {
                               openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
                         } else {
-                            DefaultTemplate.onFailure(transport);
+                            template.onFailure(transport);
                         }
                     }
                 });
@@ -128,30 +122,23 @@ function markResourceDeleted() {
     function unlockArticle()
     {
         resource = {accessibility : 'EVERYONE', status : 'NORMAL'};
-        new Ajax.Request(restPath + '/resources/'+ resourceID,
+        WebService.post('/resources/'+ resourceID, {
+            postBody: Object.toJSON(resource),
+            onSuccess : function(transport) 
             {
-                method:'post',
-                contentType: 'application/json',
-                postBody: Object.toJSON(resource),
-                requestHeaders : {
-                    Accept : 'application/json'
-                },
-                evalJSON : true,
-                onSuccess : function(transport) 
-                {
-                    resource = transport.responseJSON.result;
-                    location.reload(true);
-                },
-                onFailure: function(transport)
-                {
-                    var code = transport.responseJSON.code;
-                    if (code == 'old version') {
-                          openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
-                    } else {
-                        DefaultTemplate.onFailure(transport); 
-                    }
+                resource = transport.responseJSON.result;
+                location.reload(true);
+            },
+            onFailure: function(transport)
+            {
+                var code = transport.responseJSON.code;
+                if (code == 'old version') {
+                      openInfoDialog("Có người đã sửa tài nguyên này trước bạn, hãy tải lại trang!");
+                } else {
+                    template.onFailure(transport); 
                 }
-            });
+            }
+        });
         return;
     }
 </script>

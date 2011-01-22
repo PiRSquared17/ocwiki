@@ -17,13 +17,7 @@
 	var relatedBaseQuestionList;
 	var timeout;
 	Event.observe(window, 'load', function() {
-		new Ajax.Request(restPath + '/questions/related/'+ resourceID,
-				  {
-				    method:'get',
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
+		WebService.get('/questions/related/'+ resourceID,  {
 					onSuccess : function(transport) {
 						relatedBaseQuestionList = transport.responseJSON.result;
 						if (relatedBaseQuestionList && relatedBaseQuestionList.length > 0) {
@@ -36,7 +30,7 @@
 						}
 					},
 				    onFailure: function(transport) {
-			            DefaultTemplate.onFailure(transport); 
+			            template.onFailure(transport); 
 			        }
 				  });
 	});

@@ -72,51 +72,40 @@
 	var userID  = ${action.displayedUser.id} ;
 	var user;
 	var timeout;
-	new Ajax.Request(restPath + '/users/'+ userID,
-			  {
-			    method:'get',
-				requestHeaders : {
-					Accept : 'application/json'
-				},
-				evalJSON : true,
-				onSuccess : function(transport) {
-					user = transport.responseJSON.result;
-				},
-			    onFailure: function(transport)
-                {
-                    DefaultTemplate.onFailure(transport); 
-			    }
-			  });
+	Event.observe(window, function() {
+	    WebService.get('/users/'+ userID,  {
+	        onSuccess : function(transport) {
+	            user = transport.responseJSON.result;
+	        },
+	        onFailure: function(transport)
+	              {
+	                  template.onFailure(transport); 
+	        }
+	      });
+	});
 		
 	function unlockUser()
 	{
 		user.blocked = false;
 		user.blockExpiredDate = "";
 		
-		new Ajax.Request(restPath + '/users/'+ userID,
-				  {
-				    method:'post',
-				    contentType: 'application/json',
-				    postBody: Object.toJSON(user),
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) 
-					{
-						user = transport.responseJSON.result;
-						location.reload(true);
-					},
-				    onFailure: function(transport)
-	                {
-	                    var code = transport.responseJSON.code;
-	                    if (code == 'old version') {
-	                          openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
-	                    } else {
-	                        DefaultTemplate.onFailure(transport); 
-	                    }
-					}
-				   });
+		WebService.post('/users/'+ userID,  {
+		    postBody: Object.toJSON(user),
+			onSuccess : function(transport) 
+			{
+				user = transport.responseJSON.result;
+				location.reload(true);
+			},
+		    onFailure: function(transport)
+	              {
+	                  var code = transport.responseJSON.code;
+	                  if (code == 'old version') {
+	                        openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
+	                  } else {
+	                      template.onFailure(transport); 
+	                  }
+			}
+  	    });
 		return ;
 	}
 	
@@ -147,15 +136,9 @@
 				else
 					user.blockExpiredDate = '';
 				user.blocked = true;
-				new Ajax.Request(restPath + '/users/'+ userID,
+				WebService.post('/users/'+ userID,
 				  {
-				    method:'post',
-				    contentType: 'application/json',
 				    postBody: Object.toJSON(user),
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
 					onSuccess : function(transport) 
 					{
 						user = transport.responseJSON.result;
@@ -167,7 +150,7 @@
                         if (code == 'old version') {
                               openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
                         } else {
-                            DefaultTemplate.onFailure(transport); 
+                            template.onFailure(transport); 
                         }
                     }
 				   });
@@ -181,30 +164,21 @@
 		user.warningMessage = "";
 		user.warningExpiredDate = "";
 		
-		new Ajax.Request(restPath + '/users/'+ userID,
-				  {
-				    method:'post',
-				    contentType: 'application/json',
-				    postBody: Object.toJSON(user),
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) 
-					{
-						user = transport.responseJSON.result;
-						location.reload(true);
-					},
-				    onFailure: function(transport)
-                    {
-                        var code = transport.responseJSON.code;
-                        if (code == 'old version') {
-                              openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
-                        } else {
-                            DefaultTemplate.onFailure(transport); 
-                        }
-                    }
-				   });
+		WebService.post('/users/'+ userID,  {
+		    postBody: Object.toJSON(user),
+			onSuccess : function(transport) {
+				user = transport.responseJSON.result;
+				location.reload(true);
+			},
+		    onFailure: function(transport) {
+                 var code = transport.responseJSON.code;
+                 if (code == 'old version') {
+                       openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
+                 } else {
+                     template.onFailure(transport); 
+                 }
+             }
+	   });
 		return ;
 	}
 
@@ -241,15 +215,9 @@
 					else
 						user.warningExpiredDate = '';
 					user.warningMessage = $F('message');
-					new Ajax.Request(restPath + '/users/'+ userID,
+					WebService.post('/users/'+ userID,
 					{
-					    method:'post',
-					    contentType: 'application/json',
 					    postBody: Object.toJSON(user),
-						requestHeaders : {
-							Accept : 'application/json'
-						},
-						evalJSON : true,
 						onSuccess : function(transport) 
 						{
 							user = transport.responseJSON.result;
@@ -261,7 +229,7 @@
 	                        if (code == 'old version') {
 	                              openInfoDialog("Có người đã sửa tài khoản này trước bạn, hãy tải lại trang!");
 	                        } else {
-	                            DefaultTemplate.onFailure(transport); 
+	                            template.onFailure(transport); 
 	                        }
 	                    }
 					});

@@ -537,7 +537,7 @@
         <class>oop.module.CommentModule</class>
         <position>action-bottom</position>
         <inAction>article.view</inAction>
-        <order>1</order>
+        <order>2</order>
     </module>
     <module>
         <name>topic-children</name>
@@ -637,7 +637,7 @@
         <position>top_right</position>
         <order>0</order>
     </module>
-    
+
     <module>
         <name>todo</name>
         <class>oop.module.personal.Todo</class>

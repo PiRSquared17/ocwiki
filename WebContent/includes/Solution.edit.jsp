@@ -42,18 +42,13 @@
 </ocw:form>
 <script type="text/javascript">
 	var solution = null;
-	new Ajax.Request(restPath + '/solutions/' + resourceId,{
-		method: 'get',
-		requestHeaders : {
-	       Accept : 'application/json'
-  		},
-	    evalJSON : true,
+	WebService.get('/solutions/' + resourceId,{
 	    onSuccess : function(transport) {
 	       solution = transport.responseJSON.result;
 	       template();
 	    },
 	    onFailure: function(transport){ 
-	    	DefaultTemplate.onFailure(transport); 
+	    	template.onFailure(transport); 
 		}
 	});
 	
@@ -68,22 +63,16 @@
 		solution.namespace = {id: $F('namespaedit')};
 		solution.name = name;
 		solution.content={text : content};
-		new Ajax.Request(restPath + '/solutions/'+ resourceId,
+		WebService.post('/solutions/'+ resourceId,
 				{
-					method: 'post',
-					requestHeaders:{
-						Accept:'application/json'
-					},
-					contentType: 'application/json',
 					postBody: Object.toJSON({
 				          article: solution,
 				          summary: $F('articleEdit-summary'),
 				          checked: $F('articleEdit-minor')
 				     }),
-				     evalJSON: true,
 				     onSuccess: successCallback,
 				     onFailure: function(transport){
-				    	  DefaultTemplate.onFailure(transport); 
+				    	  template.onFailure(transport); 
 				    	  failureCallback();
 				 	 }
 				});

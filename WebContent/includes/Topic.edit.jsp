@@ -32,17 +32,12 @@
 	});
 
 	// Lay doi tuong topic ve
-	new Ajax.Request(restPath + '/topics/' + resourceId,{
-		method: 'get',
-		requestHeaders : {
-	       Accept : 'application/json'
-  		},
-	    evalJSON : true,
+	WebService.get('/topics/' + resourceId,{
 	    onSuccess : function(transport) {
 	       topic = transport.responseJSON.result;
 	    },
 	    onFailure: function(transport){ 
-	    	DefaultTemplate.onFailure(transport); 
+	    	template.onFailure(transport); 
 		}
 	});
 	
@@ -55,21 +50,15 @@
 		var parentId = $('Parent-topic-edit').value;
 		topic.content.text = content;
 		topic.parent = {"id": parentId};
-		new Ajax.Request(restPath + '/topics/' + resourceId,{
-			method: 'post',
-			requestHeaders : {
-		       Accept : 'application/json'
-	  		},
-	  		contentType: 'application/json',
+		WebService.post('/topics/' + resourceId,{
 		    postBody: Object.toJSON({
 		          article: topic,
 		          summary: $F('articleEdit-summary'),
 		          minor: $('articleEdit-minor').checked
 		    }),
-		    evalJSON : true,
 		    onSuccess : successCallback,
 		    onFailure: function(transport){ 
-		    	DefaultTemplate.onFailure(transport); 
+		    	template.onFailure(transport); 
 		    	failureCallback();
 			}
 		});

@@ -123,17 +123,12 @@
 <!--
 	var file;
 	Event.observe(window, 'load', function() {
-		new Ajax.Request(restPath + '/files/' + resourceId,{
-			method: 'get',
-			requestHeaders : {
-		       Accept : 'application/json'
-				},
-		    evalJSON : true,
+		WebService.get('/files/' + resourceId,{
 		    onSuccess : function(transport) {
 				file = transport.responseJSON.result;
 		    },
 		    onFailure: function(transport){ 
-		    	DefaultTemplate.onFailure(transport); 
+		    	template.onFailure(transport); 
 			}
 		});
 	});	
@@ -152,19 +147,13 @@
 		file.license = $F('license');
 		file.dateOfWork = new Date();
 
-		new Ajax.Request(restPath + '/files/' + resourceId,
+		WebService.post('/files/' + resourceId,
 				  {
-				    method:'post',
-				    contentType: 'application/json',
 				    postBody: Object.toJSON({
 				          article: file,
 				          summary: $F('articleEdit-summary'),
 				          minor: $('articleEdit-minor').checked
 				      }),
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
 					onSuccess : successCallback,
 				    onFailure: function(transport)
 	                {
@@ -175,7 +164,7 @@
 		                    if(code == 'not upload yet')
 		                    	$('articleEdit-error').innerHTML = 'Bạn phải tải tệp tin lên trước khi lưu!';
 		                    else{
-	                        	DefaultTemplate.onFailure(transport); 
+	                        	template.onFailure(transport); 
 		                    }
 	                    }
 	                    failureCallback();
