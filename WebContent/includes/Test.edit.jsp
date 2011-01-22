@@ -242,12 +242,7 @@
 		else{
 			$('Message-' + Nosection).innerHTML = '';
 		}
-		new Ajax.Request(restPath + '/questions/' + $F('id-question-add'),{
-			method:'get',
-			requestHeaders : {
-		      Accept : 'application/json'
-		  },
-		  evalJSON : true,
+		WebService.get('/questions/' + $F('id-question-add'),{
 		  onSuccess : function(transport) {
 			  question = transport.responseJSON.result;
 			  var question_of_section = {"id":questionId,"baseResource":{"article":question,"id": questionId},"mark":mark};
@@ -273,7 +268,7 @@
 		      Khoiphuc(questionId);
 		  },
 		  onFailure: function(){ 
-			  DefaultTemplate.onFailure(transport);
+			  template.onFailure(transport);
 		  } 
 		});
 	}
@@ -353,19 +348,13 @@
 		}
 		if (test.topics.length <= 0) delete test.topics;
 		
-		new Ajax.Request(restPath + '/tests/' + resourceId,
+		WebService.post('/tests/' + resourceId,
 			    {
-			      method:'post',
-			      requestHeaders : {
-			          Accept : 'application/json'
-			      },
-			      contentType: 'application/json',
 			      postBody: Object.toJSON({
 			          article: test,
 			          summary: $F('articleEdit-summary'),
 			          minor: $('articleEdit-minor').checked
 			      }),
-			      evalJSON: true,
 			      onSuccess: successCallback,
 			      onFailure: function(transport) {
 			    	  var code = transport.responseJSON.code;

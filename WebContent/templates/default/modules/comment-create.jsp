@@ -42,37 +42,27 @@
 		//for (i=68;i<200;i++){ //batch add comments
 		//var newComment = {message: i};
 		
-		new Ajax.Request(
-				restPath + '/comments/resource/' + articleID,
-				{
-					method: 'post',
-					contentType: 'application/json',
-				    postBody: Object.toJSON(newComment),
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) {
-						var newPostComment = transport.responseJSON.result;
-						var newPostCommentReport = {comment:newPostComment, /*user:getUser(),*/ status:'NORMAL' , likeCount: 0};
-						if (commentCount == 0){
-							$('commentslist').innerHTML=showComments(newPostCommentReport,0);
-						} else {
-							$('commentslist').innerHTML+=showComments(newPostCommentReport);
-						}
-						tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';	
-						$('cannot-post').hide();
-						commentCount++;
-						pageCount = getPageCount(commentCount);
-						//can có curPage?
-						pagination();			
-					},
-				    onFailure: function(transport)
-				    { 
-						DefaultTemplate.onFailure(transport); 
-				    }		
-				}				
-			);
-		//}
+		WebService.post('/comments/resource/' + articleID, {
+		    postBody: Object.toJSON(newComment),
+			onSuccess : function(transport) {
+				var newPostComment = transport.responseJSON.result;
+				var newPostCommentReport = {comment:newPostComment, /*user:getUser(),*/ status:'NORMAL' , likeCount: 0};
+				if (commentCount == 0){
+					$('commentslist').innerHTML=showComments(newPostCommentReport,0);
+				} else {
+					$('commentslist').innerHTML+=showComments(newPostCommentReport);
+				}
+				tinyMCE.getInstanceById('comment-input').getBody().innerHTML='';	
+				$('cannot-post').hide();
+				commentCount++;
+				pageCount = getPageCount(commentCount);
+				//can có curPage?
+				pagination();			
+			},
+		    onFailure: function(transport)
+		    { 
+				template.onFailure(transport); 
+		    }		
+		});
 	}
 </script>

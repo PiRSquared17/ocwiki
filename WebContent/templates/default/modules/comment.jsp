@@ -21,44 +21,36 @@
 		curPageCommCount = 0
 		var comments;
 		var commentslisthtml = '';
-		new Ajax.Request(
-				restPath + '/comment_reports/resource/' + articleID + '/latest',
-				{
-					method: 'get',
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) {
-						//alert(transport.responseText);
-						var listResult = transport.responseJSON;
-						commentCount = listResult.totalCount;
-						pageCount = getPageCount(listResult.totalCount);
-						curPage = pageCount-1;
-						
-						comments = listResult.result;
-						if (comments==null){
-							$('commentslist').innerHTML = 'Chưa có nhận xét';
-							pagination();
-						} else {
-							if (comments.length>0){
-								for (i=0;i<comments.length;i++){
-									commentslisthtml+=showComments(comments[i]);					
-								}
-								$('commentslist').innerHTML = commentslisthtml;
-								pagination();
-							} else {
-								$('commentslist').innerHTML = 'Chưa có nhận xét';
-								pagination();
-							}
+		WebService.get('/comment_reports/resource/' + articleID + '/latest', {
+			onSuccess : function(transport) {
+				//alert(transport.responseText);
+				var listResult = transport.responseJSON;
+				commentCount = listResult.totalCount;
+				pageCount = getPageCount(listResult.totalCount);
+				curPage = pageCount-1;
+				
+				comments = listResult.result;
+				if (comments==null){
+					$('commentslist').innerHTML = 'Chưa có nhận xét';
+					pagination();
+				} else {
+					if (comments.length>0){
+						for (i=0;i<comments.length;i++){
+							commentslisthtml+=showComments(comments[i]);					
 						}
-					},
-				    onFailure: function(transport)
-				    { 
-						DefaultTemplate.onFailure(transport); 
-				    }		
+						$('commentslist').innerHTML = commentslisthtml;
+						pagination();
+					} else {
+						$('commentslist').innerHTML = 'Chưa có nhận xét';
+						pagination();
+					}
 				}
-			);
+			},
+		    onFailure: function(transport)
+		    { 
+				template.onFailure(transport); 
+		    }		
+		});
 	}
 
 	function loadPage(page){
@@ -66,38 +58,31 @@
 		var start = page*10;
 		var comments;
 		var commentslisthtml = '';
-		new Ajax.Request(
-				restPath + '/comment_reports/resource/' + articleID + '?start='+start,
-				{
-					method: 'get',
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) {
-						//alert(transport.responseText);
-						var listResult = transport.responseJSON;
-						comments = listResult.result;
-						if (comments==null){
-							$('commentslist').innerHTML = 'Chưa có nhận xét';
-						} else {
-							if (comments.length>0){
-								for (i=0;i<comments.length;i++){
-									commentslisthtml+=showComments(comments[i]);					
-								}
-								$('commentslist').innerHTML = commentslisthtml;
-								curPage = page;
-								pagination();
-							} else {
-								$('commentslist').innerHTML = 'Chưa có nhận xét';
-							}
+		WebService.get('/comment_reports/resource/' + articleID + '?start='+start, {
+			onSuccess : function(transport) {
+				//alert(transport.responseText);
+				var listResult = transport.responseJSON;
+				comments = listResult.result;
+				if (comments==null){
+					$('commentslist').innerHTML = 'Chưa có nhận xét';
+				} else {
+					if (comments.length>0){
+						for (i=0;i<comments.length;i++){
+							commentslisthtml+=showComments(comments[i]);					
 						}
-					},
-				    onFailure: function()
-				    { 
-						$('commentslist').innerHTML = 'Gặp lỗi khi tải nhận xét!';
-				    }		
+						$('commentslist').innerHTML = commentslisthtml;
+						curPage = page;
+						pagination();
+					} else {
+						$('commentslist').innerHTML = 'Chưa có nhận xét';
+					}
 				}
+			},
+		    onFailure: function()
+		    { 
+				$('commentslist').innerHTML = 'Gặp lỗi khi tải nhận xét!';
+		    }		
+		}
 			);
 	}
 
@@ -136,106 +121,78 @@
 	function likeComment(lid){
 		
 		var newCommentCustomization = {comment:{id: lid}, status:'LIKE'};
-		new Ajax.Request(				
-				restPath + '/comment_customizations',
-				{
-					method: 'post',
-					contentType: 'application/json',
-				    postBody: Object.toJSON(newCommentCustomization),
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) {
-						var newCommentReport = transport.responseJSON.result;
-						$('commentlikecount'+lid).innerHTML=newCommentReport.likeCount;
-						if (newCommentReport.likeCount<=0) {
-							$('commentlikecountpreview'+lid).hide();
-						} else {
-							$('commentlikecountpreview'+lid).show();
-						}
-						$('commentmessage'+lid).show();
-						
-						$('commentlike'+lid).hide();
-						$('commentunlike'+lid).show();
-						$('commenthide'+lid).show();
-						$('commentunhide'+lid).hide();
-					},
-				    onFailure: function(transport){ 
-						DefaultTemplate.onFailure(transport); 
-				    }		
-				}				
-			);
+		WebService.post('/comment_customizations', {
+		    postBody: Object.toJSON(newCommentCustomization),
+			onSuccess : function(transport) {
+				var newCommentReport = transport.responseJSON.result;
+				$('commentlikecount'+lid).innerHTML=newCommentReport.likeCount;
+				if (newCommentReport.likeCount<=0) {
+					$('commentlikecountpreview'+lid).hide();
+				} else {
+					$('commentlikecountpreview'+lid).show();
+				}
+				$('commentmessage'+lid).show();
+				
+				$('commentlike'+lid).hide();
+				$('commentunlike'+lid).show();
+				$('commenthide'+lid).show();
+				$('commentunhide'+lid).hide();
+			},
+		    onFailure: function(transport){ 
+				template.onFailure(transport); 
+		    }		
+		});
 	}
 
 	function unlihiComment(lhid){
-		
 		var newCommentCustomization = {comment:{id: lhid}, status:'NORMAL'};
-		new Ajax.Request(				
-				restPath + '/comment_customizations',
-				{
-					method: 'post',
-					contentType: 'application/json',
-				    postBody: Object.toJSON(newCommentCustomization),
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) {
-						var newCommentReport = transport.responseJSON.result;
-						$('commentlikecount'+lhid).innerHTML=newCommentReport.likeCount;
-						if (newCommentReport.likeCount<=0) {
-							$('commentlikecountpreview'+lhid).hide();
-						} else {
-							$('commentlikecountpreview'+lhid).show();
-						}
-						$('commentmessage'+lhid).show();
-						
-						$('commentlike'+lhid).show();
-						$('commentunlike'+lhid).hide();
-						$('commenthide'+lhid).show();
-						$('commentunhide'+lhid).hide();
-					},
-				    onFailure: function(transport){ 
-						DefaultTemplate.onFailure(transport); 
-				    }		
-				}				
-			);
+		WebService.post('/comment_customizations', {
+		    postBody: Object.toJSON(newCommentCustomization),
+			onSuccess : function(transport) {
+				var newCommentReport = transport.responseJSON.result;
+				$('commentlikecount'+lhid).innerHTML=newCommentReport.likeCount;
+				if (newCommentReport.likeCount<=0) {
+					$('commentlikecountpreview'+lhid).hide();
+				} else {
+					$('commentlikecountpreview'+lhid).show();
+				}
+				$('commentmessage'+lhid).show();
+				
+				$('commentlike'+lhid).show();
+				$('commentunlike'+lhid).hide();
+				$('commenthide'+lhid).show();
+				$('commentunhide'+lhid).hide();
+			},
+		    onFailure: function(transport){ 
+				template.onFailure(transport); 
+		    }		
+		});
 	}
 	
 	function hideComment(hid){
 		
 		var newCommentCustomization = {comment:{id: hid}, status:'HIDDEN'};
-		new Ajax.Request(				
-				restPath + '/comment_customizations',
-				{
-					method: 'post',
-					contentType: 'application/json',
-				    postBody: Object.toJSON(newCommentCustomization),
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
-					onSuccess : function(transport) {
-						var newCommentReport = transport.responseJSON.result;
-						$('commentlikecount'+hid).innerHTML=newCommentReport.likeCount;
-						if (newCommentReport.likeCount<=0) {
-							$('commentlikecountpreview'+hid).hide();
-						} else {
-							$('commentlikecountpreview'+hid).show();
-						}
-						$('commentmessage'+hid).hide();
-						
-						$('commenthide'+hid).hide();
-						$('commentunhide'+hid).show();
-						$('commentlike'+hid).show();
-						$('commentunlike'+hid).hide();
-					},
-				    onFailure: function(transport){ 
-						DefaultTemplate.onFailure(transport); 
-				    }		
-				}				
-			);
+		WebService.post('/comment_customizations', {
+		    postBody: Object.toJSON(newCommentCustomization),
+			onSuccess : function(transport) {
+				var newCommentReport = transport.responseJSON.result;
+				$('commentlikecount'+hid).innerHTML=newCommentReport.likeCount;
+				if (newCommentReport.likeCount<=0) {
+					$('commentlikecountpreview'+hid).hide();
+				} else {
+					$('commentlikecountpreview'+hid).show();
+				}
+				$('commentmessage'+hid).hide();
+				
+				$('commenthide'+hid).hide();
+				$('commentunhide'+hid).show();
+				$('commentlike'+hid).show();
+				$('commentunlike'+hid).hide();
+			},
+		    onFailure: function(transport){ 
+				template.onFailure(transport); 
+		    }		
+		});
 	}
 	
 	function del(id){

@@ -60,7 +60,7 @@ function getResult(form, info) {
         },
         onFailure: function(transport)
         { 
-            DefaultTemplate.onFailure(transport);
+            template.onFailure(transport);
         }
     });
 }

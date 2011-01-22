@@ -6,6 +6,6 @@
 	<subclass name="oop.data.log.ResourceLog" extends="oop.data.log.Log"
 		abstract="true">
 		<many-to-one name="resource" column="resource" class="oop.data.Resource"
-			access="field"></many-to-one>
+			access="field" cascade="all"></many-to-one>
 	</subclass>
 </hibernate-mapping>

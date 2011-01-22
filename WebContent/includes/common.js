@@ -119,7 +119,6 @@ Editor.previewTextField = function(id){
 	textfield.hide();
 };
 
-
 Editor.EditTextField = function(id){
 	var element = $(id);
 	var content ='';
@@ -327,3 +326,56 @@ function setVisible(elementOrId, b) {
 		elem.hide();
 	}
 }
+
+var WebService = Class.create();
+
+WebService.get = function(url, options) {
+	var requestOptions = Object.clone(options);
+	requestOptions.method = 'get';
+	WebService.request(url, requestOptions);
+};
+
+WebService.post = function(url, options) {
+	var requestOptions = Object.clone(options);
+	requestOptions.method = 'post';
+	WebService.request(url, requestOptions);
+}
+
+WebService.request = function(url, options) {
+	var ajaxOptions = {
+	      requestHeaders : {
+	          Accept : 'application/json'
+	      },
+	      contentType: 'application/json',
+	      evalJSON: true
+	};
+	Object.extend(ajaxOptions, options);
+	if (options.data) {
+		delete ajaxOptions.data;
+		ajaxOptions.postBody = Object.toJSON(options.data);
+	}
+	new Ajax.Request(restPath + url, ajaxOptions);
+}
+
+var OcwikiTemplate = Class.create({
+	promptLogin: function() {
+		mess = 'Bạn chưa đăng nhập hoặc phiên làm việc của bạn đã hết hạn.'
+			+ 'Hãy đăng nhập.';
+		alert(mess);
+	},
+	
+	onFailure: function(transport) {
+		var mess = 'Có lỗi xảy ra';
+		if (transport.responseJSON.code) {
+			mess += ': ' + transport.responseJSON.code;
+		}
+		mess += '. Xin lỗi vì sự bất tiện.';
+		alert(mess);
+	}
+});
+
+var template = new OcwikiTemplate();
+
+Level_HARD = 1;
+Level_EASY = -1;
+Level_NORMAL = 0;

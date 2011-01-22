@@ -16,9 +16,10 @@
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
         </c:when>
         <c:otherwise>
-            <script type="text/javascript" src="${templatePath}/js/prototype.js"></script>
+            <script type="text/javascript" src="${homeDir}/js/prototype.js"></script>
         </c:otherwise>
     </c:choose>
+    <script type="text/javascript" src="${homeDir}/js/prototype_update_helper.js"></script>
 
 	<script type="text/javascript" src="${templatePath}/js/autocomplete.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/tiny_mce/tiny_mce.js"></script>

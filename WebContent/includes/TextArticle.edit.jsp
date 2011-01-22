@@ -38,18 +38,13 @@
 <!--
 	var textarticle=null;
 	
-	new Ajax.Request(restPath + '/texts/'+ resourceId,
+	WebService.get('/texts/'+ resourceId,
 	{
-	  method:'get',
-	  requestHeaders : {
-	      Accept : 'application/json'
-	  },
-	  evalJSON : true,
 	  onSuccess : function(transport) {
 		  textarticle = transport.responseJSON.result;
 	  },
 	  onFailure: function(transport){
-		  DefaultTemplate.onFailure(transport); 
+		  template.onFailure(transport); 
 	  }
 	});
 
@@ -62,22 +57,16 @@
 		textarticle.content={text : tinymce.get('edit_context').getContent()};
 		textarticle.namespace={id : $F('namespaedit')};
 		textarticle.name = $('edit_name').value;
-		new Ajax.Request(restPath + '/texts/'+ resourceId,
+		WebService.post('/texts/'+ resourceId,
 			{
-				method: 'post',
-				requestHeaders:{
-					Accept:'application/json'
-				},
-				contentType: 'application/json',
 				postBody: Object.toJSON({
 			          article: textarticle,
 			          summary: $F('articleEdit-summary'),
 			          checked: $F('articleEdit-minor')
 			     }),
-			     evalJSON: true,
 			     onSuccess: successCallback,
 			     onFailure: function(transport){
-			    	  DefaultTemplate.onFailure(transport); 
+			    	  template.onFailure(transport); 
 			    	  failureCallback();
 			     }
 			});

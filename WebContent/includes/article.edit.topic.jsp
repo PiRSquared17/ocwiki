@@ -45,12 +45,7 @@
 			return;
 		}
 		if (articleTopic.topics.length <= 0) delete articleTopic.topics;
-		new Ajax.Request(restPath + '/topics/' + idTopic,{
-			method: 'get',
-			requestHeaders : {
-		       Accept : 'application/json'
-	  		},
-		    evalJSON : true,
+		WebService.get('/topics/' + idTopic,{
 		    onSuccess : function(transport) {
 	  			topicElement = transport.responseJSON.result;
 	  			var tpName = topicElement.name;
@@ -59,7 +54,7 @@
 		       	$('add-topic-content').insert({before: topicTempl.evaluate(data)});
 		    },
 		    onFailure: function(transport){ 
-		    	DefaultTemplate.onFailure(transport); 
+		    	template.onFailure(transport); 
 			}
 		});
 	}

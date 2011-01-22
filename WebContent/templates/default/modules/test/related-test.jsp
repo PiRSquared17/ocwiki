@@ -18,13 +18,7 @@
 	var timeout;
 
 	Event.observe(window, 'load', function() {
-		new Ajax.Request(restPath + '/tests/related/'+ resourceID,
-				  {
-				    method:'get',
-					requestHeaders : {
-						Accept : 'application/json'
-					},
-					evalJSON : true,
+		WebService.get('/tests/related/'+ resourceID,  {
 					onSuccess : function(transport) {
 						//alert(transport.responseText);
 						var i;
@@ -39,7 +33,7 @@
 						}
 					},
 				    onFailure: function(transport) {
-			            DefaultTemplate.onFailure(transport); 
+			            template.onFailure(transport); 
 			        }
 				  });
 	});

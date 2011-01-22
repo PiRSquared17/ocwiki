@@ -68,27 +68,20 @@
 	function fblogin() {
 	  FB.login(function(response) {
 	      if (response.session) {
-	          new Ajax.Request(
-	                  restPath + '/login/facebook',
-	                  {
-	                      method : 'get',
-	                      requestHeaders : {
-	                          Accept : 'application/json'
-	                      },
-	                      evalJSON : true,
-	                      onSuccess : function(transport) {
-	                          location.reload(true);
-	                      },
-	                      onFailure : function(transport) {
-	                          alert(transport.responseText);
-	                          var code = transport.responseJSON.code;
-	                          if (code == 'account blocked') {
-	                              alert('Tài khoản của bạn đã bị khoá.');
-	                          } else {
-	                              DefaultTemplate.onFailure(transport); 
-	                          }
-	                      }
-	                  });
+	          WebService.get('/login/facebook', {
+			    onSuccess : function(transport) {
+			        location.reload(true);
+			    },
+			    onFailure : function(transport) {
+			        alert(transport.responseText);
+			        var code = transport.responseJSON.code;
+			        if (code == 'account blocked') {
+			            alert('Tài khoản của bạn đã bị khoá.');
+			        } else {
+			            template.onFailure(transport); 
+			        }
+			    }
+			});
 	      }
 	    });
 	}
@@ -160,7 +153,7 @@ function session_login() {
 				} else if (code == 'account blocked') {
 					$('session_nameError').innerHTML = 'Tài khoản đã bị khoá';
 				} else {
-				    DefaultTemplate.onFailure(transport); 
+				    template.onFailure(transport); 
 				}
 			}
 		});
