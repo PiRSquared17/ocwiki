@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.7deb1
+-- version 3.3.7deb3build0.10.10.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 07, 2010 at 10:04 PM
+-- Generation Time: Jan 23, 2011 at 11:35 AM
 -- Server version: 5.1.49
--- PHP Version: 5.3.3-1ubuntu9.1
+-- PHP Version: 5.3.3-1ubuntu9.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -14,7 +14,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
 
 --
 -- Database: `ocwiki`
@@ -26,6 +25,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `Answer`
 --
 
+DROP TABLE IF EXISTS `Answer`;
 CREATE TABLE IF NOT EXISTS `Answer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) NOT NULL,
@@ -1030,6 +1030,7 @@ INSERT INTO `Answer` (`id`, `content`, `correct`) VALUES
 -- Table structure for table `AnswerAttempt`
 --
 
+DROP TABLE IF EXISTS `AnswerAttempt`;
 CREATE TABLE IF NOT EXISTS `AnswerAttempt` (
   `timestamp` datetime NOT NULL,
   `question` bigint(20) NOT NULL,
@@ -1060,6 +1061,7 @@ INSERT INTO `AnswerAttempt` (`timestamp`, `question`, `USER`, `CORRECT`) VALUES
 -- Table structure for table `Article`
 --
 
+DROP TABLE IF EXISTS `Article`;
 CREATE TABLE IF NOT EXISTS `Article` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `discriminator` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -1083,7 +1085,7 @@ CREATE TABLE IF NOT EXISTS `Article` (
   KEY `FKC38C3A53EA647FAC` (`content`),
   KEY `FKC38C3A53232F5FBE` (`parent`),
   KEY `solution_question` (`solution_question`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=612 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=652 ;
 
 --
 -- Dumping data for table `Article`
@@ -1468,7 +1470,47 @@ INSERT INTO `Article` (`id`, `discriminator`, `namespace`, `content`, `name`, `p
 (608, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, 'DSC01076.JPG', '<p>ljlkj</p>', 'UNKNOWN', '2010-11-07 19:56:13', '<p>jlkjl</p>', '<p>jlkjlk</p>', NULL),
 (609, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, 'my.png', '', 'UNKNOWN', '2010-11-07 19:56:52', '', '', NULL),
 (610, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, 'my.png', '<p>ljlkj</p>', 'UNKNOWN', '2010-11-07 19:56:56', '<p>jlkjl</p>', '<p>jlkjlk kj l</p>', NULL),
-(611, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, 'gtd.trx', '', 'UNKNOWN', '2010-11-07 19:58:13', '', '', NULL);
+(611, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, 'gtd.trx', '', 'UNKNOWN', '2010-11-07 19:58:13', '', '', NULL),
+(612, 'Solution', 0, NULL, 'Bài giải mới', NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', 'UNKNOWN', '2010-11-07 22:47:06', 'UNKNOWN', 'UNKNOWN', 417),
+(613, 'Solution', 0, 1807, 'Bài giải mới', NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', 'UNKNOWN', '2010-11-07 22:47:12', 'UNKNOWN', 'UNKNOWN', 417),
+(614, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, NULL, '', 'UNKNOWN', '2010-11-08 00:19:47', '', '', NULL),
+(615, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, 'DSC02555.JPG', '', 'UNKNOWN', '2010-11-08 00:20:12', '', '', NULL),
+(616, 'File', 0, NULL, 'Tập tin mới', NULL, NULL, NULL, NULL, 'DSC02555.JPG', '<p>kljlkj</p>', 'UNKNOWN', '2010-11-08 00:20:19', '<p>jlkjklj</p>', '<p>lkjlkj</p>', NULL),
+(617, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:23:16', 'UNKNOWN', 'UNKNOWN', NULL),
+(618, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:26:42', 'UNKNOWN', 'UNKNOWN', NULL),
+(619, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:29:29', 'UNKNOWN', 'UNKNOWN', NULL),
+(620, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:29:46', 'UNKNOWN', 'UNKNOWN', NULL),
+(621, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:38:01', 'UNKNOWN', 'UNKNOWN', NULL),
+(622, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:40:15', 'UNKNOWN', 'UNKNOWN', NULL),
+(623, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:41:32', 'UNKNOWN', 'UNKNOWN', NULL),
+(624, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:42:36', 'UNKNOWN', 'UNKNOWN', NULL),
+(625, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:43:32', 'UNKNOWN', 'UNKNOWN', NULL),
+(626, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:57:49', 'UNKNOWN', 'UNKNOWN', NULL),
+(627, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:58:08', 'UNKNOWN', 'UNKNOWN', NULL),
+(628, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 11:58:26', 'UNKNOWN', 'UNKNOWN', NULL),
+(629, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:00:45', 'UNKNOWN', 'UNKNOWN', NULL),
+(630, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:01:09', 'UNKNOWN', 'UNKNOWN', NULL),
+(631, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:01:21', 'UNKNOWN', 'UNKNOWN', NULL),
+(632, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:01:34', 'UNKNOWN', 'UNKNOWN', NULL),
+(633, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:01:44', 'UNKNOWN', 'UNKNOWN', NULL),
+(634, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:01:55', 'UNKNOWN', 'UNKNOWN', NULL),
+(635, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:02:14', 'UNKNOWN', 'UNKNOWN', NULL),
+(636, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:02:27', 'UNKNOWN', 'UNKNOWN', NULL),
+(637, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:02:39', 'UNKNOWN', 'UNKNOWN', NULL),
+(638, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:03:04', 'UNKNOWN', 'UNKNOWN', NULL),
+(639, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:03:21', 'UNKNOWN', 'UNKNOWN', NULL),
+(640, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:05:50', 'UNKNOWN', 'UNKNOWN', NULL),
+(641, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:06:39', 'UNKNOWN', 'UNKNOWN', NULL),
+(642, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:08:16', 'UNKNOWN', 'UNKNOWN', NULL),
+(643, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 12:11:17', 'UNKNOWN', 'UNKNOWN', NULL),
+(644, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 13:14:12', 'UNKNOWN', 'UNKNOWN', NULL),
+(645, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 13:14:34', 'UNKNOWN', 'UNKNOWN', NULL),
+(646, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 13:14:51', 'UNKNOWN', 'UNKNOWN', NULL),
+(647, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 13:16:49', 'UNKNOWN', 'UNKNOWN', NULL),
+(648, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 13:17:18', 'UNKNOWN', 'UNKNOWN', NULL),
+(649, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 13:25:01', 'UNKNOWN', 'UNKNOWN', NULL),
+(650, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 13:31:35', 'UNKNOWN', 'UNKNOWN', NULL),
+(651, 'Test', 4, 1646, 'Tiếng Anh khối D 100504203841', NULL, NULL, 'MUL', 180, NULL, 'UNKNOWN', 'UNKNOWN', '2011-01-04 13:31:59', 'UNKNOWN', 'UNKNOWN', NULL);
 
 -- --------------------------------------------------------
 
@@ -1476,6 +1518,7 @@ INSERT INTO `Article` (`id`, `discriminator`, `namespace`, `content`, `name`, `p
 -- Table structure for table `ArticleAttachment`
 --
 
+DROP TABLE IF EXISTS `ArticleAttachment`;
 CREATE TABLE IF NOT EXISTS `ArticleAttachment` (
   `article_id` bigint(20) NOT NULL,
   `file_id` bigint(20) NOT NULL,
@@ -1495,6 +1538,7 @@ CREATE TABLE IF NOT EXISTS `ArticleAttachment` (
 -- Table structure for table `ArticleEmbed`
 --
 
+DROP TABLE IF EXISTS `ArticleEmbed`;
 CREATE TABLE IF NOT EXISTS `ArticleEmbed` (
   `article_id` bigint(20) NOT NULL,
   `file_id` bigint(20) NOT NULL,
@@ -1514,6 +1558,7 @@ CREATE TABLE IF NOT EXISTS `ArticleEmbed` (
 -- Table structure for table `ArticleTopic`
 --
 
+DROP TABLE IF EXISTS `ArticleTopic`;
 CREATE TABLE IF NOT EXISTS `ArticleTopic` (
   `article_id` bigint(20) NOT NULL,
   `topic_id` bigint(20) NOT NULL,
@@ -1802,7 +1847,112 @@ INSERT INTO `ArticleTopic` (`article_id`, `topic_id`) VALUES
 (601, 504),
 (602, 504),
 (602, 516),
-(602, 520);
+(602, 520),
+(617, 504),
+(617, 516),
+(617, 520),
+(618, 504),
+(618, 516),
+(618, 520),
+(619, 504),
+(619, 516),
+(619, 520),
+(620, 504),
+(620, 516),
+(620, 520),
+(621, 504),
+(621, 516),
+(621, 520),
+(622, 504),
+(622, 516),
+(622, 520),
+(623, 504),
+(623, 516),
+(623, 520),
+(624, 504),
+(624, 516),
+(624, 520),
+(625, 504),
+(625, 516),
+(625, 520),
+(626, 504),
+(626, 516),
+(626, 520),
+(627, 504),
+(627, 516),
+(627, 520),
+(628, 504),
+(628, 516),
+(628, 520),
+(629, 504),
+(629, 516),
+(629, 520),
+(630, 504),
+(630, 516),
+(630, 520),
+(631, 504),
+(631, 516),
+(631, 520),
+(632, 504),
+(632, 516),
+(632, 520),
+(633, 504),
+(633, 516),
+(633, 520),
+(634, 504),
+(634, 516),
+(634, 520),
+(635, 504),
+(635, 516),
+(635, 520),
+(636, 504),
+(636, 516),
+(636, 520),
+(637, 504),
+(637, 516),
+(637, 520),
+(638, 504),
+(638, 516),
+(638, 520),
+(639, 504),
+(639, 516),
+(639, 520),
+(640, 504),
+(640, 516),
+(640, 520),
+(641, 504),
+(641, 516),
+(641, 520),
+(642, 504),
+(642, 516),
+(642, 520),
+(643, 504),
+(643, 516),
+(643, 520),
+(644, 504),
+(644, 516),
+(644, 520),
+(645, 504),
+(645, 516),
+(645, 520),
+(646, 504),
+(646, 516),
+(646, 520),
+(647, 504),
+(647, 516),
+(647, 520),
+(648, 504),
+(648, 516),
+(648, 520),
+(649, 504),
+(649, 516),
+(649, 520),
+(650, 504),
+(650, 516),
+(650, 520),
+(651, 504),
+(651, 516),
+(651, 520);
 
 -- --------------------------------------------------------
 
@@ -1810,6 +1960,7 @@ INSERT INTO `ArticleTopic` (`article_id`, `topic_id`) VALUES
 -- Table structure for table `BaseQuestionAnswer`
 --
 
+DROP TABLE IF EXISTS `BaseQuestionAnswer`;
 CREATE TABLE IF NOT EXISTS `BaseQuestionAnswer` (
   `question_id` bigint(20) NOT NULL,
   `answer_id` bigint(20) NOT NULL,
@@ -2860,6 +3011,7 @@ INSERT INTO `BaseQuestionAnswer` (`question_id`, `answer_id`, `answer_index`) VA
 -- Table structure for table `ChoiceAnswerAnswer`
 --
 
+DROP TABLE IF EXISTS `ChoiceAnswerAnswer`;
 CREATE TABLE IF NOT EXISTS `ChoiceAnswerAnswer` (
   `choice` bigint(20) NOT NULL,
   `answer` bigint(20) NOT NULL,
@@ -2889,6 +3041,7 @@ INSERT INTO `ChoiceAnswerAnswer` (`choice`, `answer`) VALUES
 -- Table structure for table `Comment`
 --
 
+DROP TABLE IF EXISTS `Comment`;
 CREATE TABLE IF NOT EXISTS `Comment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user` bigint(20) NOT NULL,
@@ -2900,7 +3053,7 @@ CREATE TABLE IF NOT EXISTS `Comment` (
   KEY `FK27D95BBC53C202BC` (`revision`),
   KEY `FK27D95BBC4A301B22` (`resource`),
   KEY `FK27D95BBCB1E4DD9C` (`user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `Comment`
@@ -2912,9 +3065,8 @@ INSERT INTO `Comment` (`id`, `user`, `timestamp`, `message`, `resource`, `revisi
 (3, 1, '2010-09-13 00:24:39', '<p>kjkljj</p>\n<p>jkj</p>\n<p>&nbsp;</p>', 90, 90),
 (4, 1, '2010-10-05 17:52:14', '<p>nhận x&eacute;t linh tinh....</p>', 91, 91),
 (5, 1, '2010-10-07 08:52:10', '<p>jkafsjfklsjadlj</p>', 458, 450),
-(6, 1, '2010-10-08 23:47:16', '<p>jsdlfkjafas</p>\n<p>fas</p>\n<p>d</p>', 95, 95),
-(7, 1, '2010-10-08 23:47:30', '<p>jlkjj</p>\n<p>jkjk</p>\n<p>j</p>', 95, 95),
-(8, 1, '2010-10-08 23:48:51', '<p>kjlkj</p>\n<p>jkj</p>\n<p>kj</p>', 95, 95);
+(6, 1, '2010-10-08 23:47:16', 'câu này khó...', 95, 95),
+(7, 2, '2010-10-08 23:47:30', 'kiến thức lớp 10 thôi mà', 95, 95);
 
 -- --------------------------------------------------------
 
@@ -2922,6 +3074,7 @@ INSERT INTO `Comment` (`id`, `user`, `timestamp`, `message`, `resource`, `revisi
 -- Table structure for table `CommentCustomization`
 --
 
+DROP TABLE IF EXISTS `CommentCustomization`;
 CREATE TABLE IF NOT EXISTS `CommentCustomization` (
   `user` bigint(20) NOT NULL,
   `comment` bigint(20) NOT NULL,
@@ -2943,6 +3096,7 @@ INSERT INTO `CommentCustomization` (`user`, `comment`, `status`) VALUES
 --
 -- Stand-in structure for view `CommentReportWithoutUser`
 --
+DROP VIEW IF EXISTS `CommentReportWithoutUser`;
 CREATE TABLE IF NOT EXISTS `CommentReportWithoutUser` (
 `comment` bigint(20)
 ,`like_count` bigint(21)
@@ -2952,6 +3106,7 @@ CREATE TABLE IF NOT EXISTS `CommentReportWithoutUser` (
 --
 -- Stand-in structure for view `CommentReportWithUser`
 --
+DROP VIEW IF EXISTS `CommentReportWithUser`;
 CREATE TABLE IF NOT EXISTS `CommentReportWithUser` (
 `comment` bigint(20)
 ,`user` bigint(20)
@@ -2961,9 +3116,36 @@ CREATE TABLE IF NOT EXISTS `CommentReportWithUser` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `DailyStatistic`
+--
+
+DROP TABLE IF EXISTS `DailyStatistic`;
+CREATE TABLE IF NOT EXISTS `DailyStatistic` (
+  `stat_date` date NOT NULL,
+  `view_count` bigint(20) NOT NULL,
+  `edit_count` bigint(20) NOT NULL,
+  `resource_count` bigint(20) NOT NULL,
+  `member_count` bigint(20) NOT NULL,
+  PRIMARY KEY (`stat_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci;
+
+--
+-- Dumping data for table `DailyStatistic`
+--
+
+INSERT INTO `DailyStatistic` (`stat_date`, `view_count`, `edit_count`, `resource_count`, `member_count`) VALUES
+('2011-01-11', 1, 398, 323, 5),
+('2011-01-20', 12, 398, 323, 5),
+('2011-01-22', 20, 398, 323, 5),
+('2011-01-23', 21, 398, 323, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `FacebookAccount`
 --
 
+DROP TABLE IF EXISTS `FacebookAccount`;
 CREATE TABLE IF NOT EXISTS `FacebookAccount` (
   `uid` varchar(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `user` bigint(11) NOT NULL,
@@ -2985,6 +3167,7 @@ INSERT INTO `FacebookAccount` (`uid`, `user`) VALUES
 -- Table structure for table `History`
 --
 
+DROP TABLE IF EXISTS `History`;
 CREATE TABLE IF NOT EXISTS `History` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user` bigint(20) DEFAULT NULL,
@@ -3011,6 +3194,7 @@ INSERT INTO `History` (`id`, `user`, `taken_date`, `mark`, `time`, `revision`) V
 -- Table structure for table `HistoryAnswer`
 --
 
+DROP TABLE IF EXISTS `HistoryAnswer`;
 CREATE TABLE IF NOT EXISTS `HistoryAnswer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `discriminator` varchar(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
@@ -3043,6 +3227,7 @@ INSERT INTO `HistoryAnswer` (`id`, `discriminator`, `question`, `history`) VALUE
 -- Table structure for table `Log`
 --
 
+DROP TABLE IF EXISTS `Log`;
 CREATE TABLE IF NOT EXISTS `Log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -3071,6 +3256,7 @@ CREATE TABLE IF NOT EXISTS `Log` (
 -- Table structure for table `Namespace`
 --
 
+DROP TABLE IF EXISTS `Namespace`;
 CREATE TABLE IF NOT EXISTS `Namespace` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -3096,6 +3282,7 @@ INSERT INTO `Namespace` (`id`, `name`) VALUES
 -- Table structure for table `OpenIDAccount`
 --
 
+DROP TABLE IF EXISTS `OpenIDAccount`;
 CREATE TABLE IF NOT EXISTS `OpenIDAccount` (
   `url` varchar(200) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `user` bigint(20) NOT NULL,
@@ -3115,6 +3302,7 @@ CREATE TABLE IF NOT EXISTS `OpenIDAccount` (
 -- Table structure for table `Question`
 --
 
+DROP TABLE IF EXISTS `Question`;
 CREATE TABLE IF NOT EXISTS `Question` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `base_resource` bigint(20) DEFAULT NULL,
@@ -3377,6 +3565,7 @@ INSERT INTO `Question` (`id`, `base_resource`, `base_revision`, `mark`) VALUES
 -- Table structure for table `Resource`
 --
 
+DROP TABLE IF EXISTS `Resource`;
 CREATE TABLE IF NOT EXISTS `Resource` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
@@ -3392,7 +3581,7 @@ CREATE TABLE IF NOT EXISTS `Resource` (
   KEY `FKE2E602515DDB135C` (`author`),
   KEY `FKE2E602515EB7070E` (`link`),
   KEY `FKE2E6025172978E26` (`article`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=536 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=538 ;
 
 --
 -- Dumping data for table `Resource`
@@ -3401,7 +3590,7 @@ CREATE TABLE IF NOT EXISTS `Resource` (
 INSERT INTO `Resource` (`id`, `version`, `create_date`, `type`, `article`, `author`, `status`, `link`, `accessibility`, `average_level`) VALUES
 (62, 0, '2010-08-25 01:15:32', 'oop.data.Test', 62, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (63, 2, '2010-08-25 01:15:32', 'oop.data.Test', 63, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
-(64, 1, '2010-08-25 01:15:32', 'oop.data.Test', 602, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(64, 36, '2010-08-25 01:15:32', 'oop.data.Test', 651, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (65, 0, '2010-08-25 01:15:32', 'oop.data.Test', 65, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (66, 0, '2010-08-25 01:15:32', 'oop.data.Test', 66, 1, 'DELETED', NULL, 'EVERYONE', '0.50'),
 (88, 10, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 604, 1, 'NORMAL', NULL, 'NO_ONE', '0.50'),
@@ -3643,8 +3832,8 @@ INSERT INTO `Resource` (`id`, `version`, `create_date`, `type`, `article`, `auth
 (415, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 415, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (416, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 416, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (417, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 417, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
-(418, 0, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 418, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
-(458, 0, '2010-09-12 12:51:57', 'oop.data.TextArticle', 466, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(418, 1, '2010-08-25 01:15:32', 'oop.data.BaseQuestion', 418, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
+(458, 1, '2010-09-12 12:51:57', 'oop.data.TextArticle', 466, 1, 'NORMAL', NULL, 'AUTHOR_ONLY', '0.50'),
 (461, 1, '2010-09-12 18:57:47', 'oop.data.Topic', 512, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (462, 4, '2010-09-12 18:57:58', 'oop.data.Topic', 524, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
 (463, 0, '2010-09-12 18:58:29', 'oop.data.Topic', 477, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
@@ -3719,7 +3908,9 @@ INSERT INTO `Resource` (`id`, `version`, `create_date`, `type`, `article`, `auth
 (532, 0, '2010-10-05 18:02:57', 'oop.data.Test', 599, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
 (533, 0, '2010-10-30 15:35:39', 'oop.data.File', 603, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
 (534, 0, '2010-11-03 13:10:37', 'oop.data.TextArticle', 605, 1, 'NEW', NULL, 'EVERYONE', '0.50'),
-(535, 5, '2010-11-07 19:55:49', 'oop.data.File', 611, 1, 'NORMAL', NULL, 'EVERYONE', '0.50');
+(535, 5, '2010-11-07 19:55:49', 'oop.data.File', 611, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(536, 1, '2010-11-07 22:47:06', 'oop.data.Solution', 613, 1, 'NORMAL', NULL, 'EVERYONE', '0.50'),
+(537, 2, '2010-11-08 00:19:47', 'oop.data.File', 616, 1, 'NORMAL', NULL, 'EVERYONE', '0.50');
 
 --
 -- Triggers `Resource`
@@ -3805,6 +3996,7 @@ DELIMITER ;
 -- Table structure for table `ResourceCustomization`
 --
 
+DROP TABLE IF EXISTS `ResourceCustomization`;
 CREATE TABLE IF NOT EXISTS `ResourceCustomization` (
   `RESOURCE` bigint(20) NOT NULL,
   `USER` bigint(20) NOT NULL,
@@ -3826,6 +4018,10 @@ INSERT INTO `ResourceCustomization` (`RESOURCE`, `USER`, `LEVEL`, `LIKE`, `TODO`
 (64, 1, 0, 'LIKE', 'NORMAL', 0),
 (90, 1, -1, 'NORMAL', 'TODO', 1),
 (93, 1, -1, 'NORMAL', 'NORMAL', 1),
+(413, 1, 0, 'LIKE', 'TODO', 0),
+(414, 1, -1, 'LIKE', 'TODO', 0),
+(415, 1, 1, 'LIKE', 'NORMAL', 0),
+(418, 1, 0, 'LIKE', 'TODO', 0),
 (458, 1, 0, 'LIKE', 'NORMAL', 0),
 (532, 1, 0, 'LIKE', 'NORMAL', 0);
 
@@ -3834,6 +4030,7 @@ INSERT INTO `ResourceCustomization` (`RESOURCE`, `USER`, `LEVEL`, `LIKE`, `TODO`
 --
 -- Stand-in structure for view `ResourceReportWithoutUser`
 --
+DROP VIEW IF EXISTS `ResourceReportWithoutUser`;
 CREATE TABLE IF NOT EXISTS `ResourceReportWithoutUser` (
 `resource` bigint(20)
 ,`like_count` bigint(21)
@@ -3844,6 +4041,7 @@ CREATE TABLE IF NOT EXISTS `ResourceReportWithoutUser` (
 --
 -- Stand-in structure for view `ResourceReportWithUser`
 --
+DROP VIEW IF EXISTS `ResourceReportWithUser`;
 CREATE TABLE IF NOT EXISTS `ResourceReportWithUser` (
 `resource` bigint(20)
 ,`user` bigint(20)
@@ -3856,9 +4054,30 @@ CREATE TABLE IF NOT EXISTS `ResourceReportWithUser` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ResourceViewCounter`
+--
+
+DROP TABLE IF EXISTS `ResourceViewCounter`;
+CREATE TABLE IF NOT EXISTS `ResourceViewCounter` (
+  `resource` bigint(20) NOT NULL AUTO_INCREMENT,
+  `view_count` bigint(20) NOT NULL,
+  PRIMARY KEY (`resource`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=457 ;
+
+--
+-- Dumping data for table `ResourceViewCounter`
+--
+
+INSERT INTO `ResourceViewCounter` (`resource`, `view_count`) VALUES
+(456, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Revision`
 --
 
+DROP TABLE IF EXISTS `Revision`;
 CREATE TABLE IF NOT EXISTS `Revision` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource` bigint(20) NOT NULL,
@@ -3871,7 +4090,7 @@ CREATE TABLE IF NOT EXISTS `Revision` (
   KEY `FKE7AEF61E5DDB135C` (`author`),
   KEY `FKE7AEF61E72978E26` (`article`),
   KEY `FKE7AEF61E4A301B22` (`resource`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=574 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=612 ;
 
 --
 -- Dumping data for table `Revision`
@@ -4237,7 +4456,45 @@ INSERT INTO `Revision` (`id`, `resource`, `article`, `author`, `timestamp`, `sum
 (570, 535, 608, 1, '2010-11-07 19:56:13', '', b'0'),
 (571, 535, 609, 1, '2010-11-07 19:56:52', '', b'0'),
 (572, 535, 610, 1, '2010-11-07 19:56:56', '', b'0'),
-(573, 535, 611, 1, '2010-11-07 19:58:13', '', b'0');
+(573, 535, 611, 1, '2010-11-07 19:58:13', '', b'0'),
+(574, 536, 613, 1, '2010-11-07 22:47:12', '', b'0'),
+(575, 537, 615, 1, '2010-11-08 00:20:12', '', b'0'),
+(576, 537, 616, 1, '2010-11-08 00:20:19', '', b'0'),
+(577, 64, 617, 1, '2011-01-04 11:23:17', '', b'0'),
+(578, 64, 618, 1, '2011-01-04 11:26:42', '', b'0'),
+(579, 64, 619, 1, '2011-01-04 11:29:29', '', b'0'),
+(580, 64, 620, 1, '2011-01-04 11:29:46', '', b'0'),
+(581, 64, 621, 1, '2011-01-04 11:38:01', '', b'0'),
+(582, 64, 622, 1, '2011-01-04 11:40:15', '', b'0'),
+(583, 64, 623, 1, '2011-01-04 11:41:32', '', b'0'),
+(584, 64, 624, 1, '2011-01-04 11:42:36', '', b'0'),
+(585, 64, 625, 1, '2011-01-04 11:43:32', '', b'0'),
+(586, 64, 626, 1, '2011-01-04 11:57:49', '', b'0'),
+(587, 64, 627, 1, '2011-01-04 11:58:09', '', b'0'),
+(588, 64, 628, 1, '2011-01-04 11:58:26', '', b'0'),
+(589, 64, 629, 1, '2011-01-04 12:00:45', '', b'0'),
+(590, 64, 630, 1, '2011-01-04 12:01:09', '', b'0'),
+(591, 64, 631, 1, '2011-01-04 12:01:21', '', b'0'),
+(592, 64, 632, 1, '2011-01-04 12:01:34', '', b'0'),
+(593, 64, 633, 1, '2011-01-04 12:01:44', '', b'0'),
+(594, 64, 634, 1, '2011-01-04 12:01:56', '', b'0'),
+(595, 64, 635, 1, '2011-01-04 12:02:14', '', b'0'),
+(596, 64, 636, 1, '2011-01-04 12:02:27', '', b'0'),
+(597, 64, 637, 1, '2011-01-04 12:02:39', '', b'0'),
+(598, 64, 638, 1, '2011-01-04 12:03:04', '', b'0'),
+(599, 64, 639, 1, '2011-01-04 12:03:21', '', b'0'),
+(600, 64, 640, 1, '2011-01-04 12:05:50', '', b'0'),
+(601, 64, 641, 1, '2011-01-04 12:06:39', '', b'0'),
+(602, 64, 642, 1, '2011-01-04 12:08:17', '', b'0'),
+(603, 64, 643, 1, '2011-01-04 12:11:17', '', b'0'),
+(604, 64, 644, 1, '2011-01-04 13:14:12', '', b'0'),
+(605, 64, 645, 1, '2011-01-04 13:14:35', '', b'0'),
+(606, 64, 646, 1, '2011-01-04 13:14:51', '', b'0'),
+(607, 64, 647, 1, '2011-01-04 13:16:49', '', b'0'),
+(608, 64, 648, 1, '2011-01-04 13:17:18', '', b'0'),
+(609, 64, 649, 1, '2011-01-04 13:25:01', '', b'0'),
+(610, 64, 650, 1, '2011-01-04 13:31:35', '', b'0'),
+(611, 64, 651, 1, '2011-01-04 13:31:59', '', b'0');
 
 -- --------------------------------------------------------
 
@@ -4245,12 +4502,13 @@ INSERT INTO `Revision` (`id`, `resource`, `article`, `author`, `timestamp`, `sum
 -- Table structure for table `Section`
 --
 
+DROP TABLE IF EXISTS `Section`;
 CREATE TABLE IF NOT EXISTS `Section` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK64A2EC42EA647FAC` (`content`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=344 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=355 ;
 
 --
 -- Dumping data for table `Section`
@@ -4307,7 +4565,18 @@ INSERT INTO `Section` (`id`, `content`) VALUES
 (330, 1592),
 (331, 1593),
 (332, 1594),
-(333, 1595);
+(333, 1595),
+(344, 1812),
+(345, 1813),
+(346, 1814),
+(347, 1815),
+(348, 1816),
+(349, 1817),
+(350, 1818),
+(351, 1819),
+(352, 1820),
+(353, 1821),
+(354, 1821);
 
 -- --------------------------------------------------------
 
@@ -4315,6 +4584,7 @@ INSERT INTO `Section` (`id`, `content`) VALUES
 -- Table structure for table `SectionQuestion`
 --
 
+DROP TABLE IF EXISTS `SectionQuestion`;
 CREATE TABLE IF NOT EXISTS `SectionQuestion` (
   `section_id` bigint(20) NOT NULL,
   `question_id` bigint(20) NOT NULL,
@@ -4351,6 +4621,17 @@ INSERT INTO `SectionQuestion` (`section_id`, `question_id`, `question_index`) VA
 (309, 107, 19),
 (310, 108, 0),
 (310, 109, 1),
+(334, 109, 3),
+(344, 109, 3),
+(345, 109, 3),
+(346, 109, 3),
+(347, 109, 3),
+(348, 109, 3),
+(349, 109, 3),
+(350, 109, 3),
+(351, 109, 3),
+(352, 109, 3),
+(353, 109, 3),
 (310, 110, 2),
 (310, 111, 3),
 (310, 112, 4),
@@ -4417,6 +4698,17 @@ INSERT INTO `SectionQuestion` (`section_id`, `question_id`, `question_index`) VA
 (341, 165, 0),
 (342, 165, 0),
 (343, 165, 0),
+(344, 165, 0),
+(345, 165, 0),
+(346, 165, 0),
+(347, 165, 0),
+(348, 165, 0),
+(349, 165, 0),
+(350, 165, 0),
+(351, 165, 0),
+(352, 165, 0),
+(353, 165, 0),
+(354, 165, 0),
 (318, 166, 1),
 (334, 166, 1),
 (335, 166, 1),
@@ -4428,6 +4720,17 @@ INSERT INTO `SectionQuestion` (`section_id`, `question_id`, `question_index`) VA
 (341, 166, 1),
 (342, 166, 1),
 (343, 166, 1),
+(344, 166, 1),
+(345, 166, 1),
+(346, 166, 1),
+(347, 166, 1),
+(348, 166, 1),
+(349, 166, 1),
+(350, 166, 1),
+(351, 166, 1),
+(352, 166, 1),
+(353, 166, 1),
+(354, 166, 1),
 (318, 167, 2),
 (334, 167, 2),
 (335, 167, 2),
@@ -4439,6 +4742,17 @@ INSERT INTO `SectionQuestion` (`section_id`, `question_id`, `question_index`) VA
 (341, 167, 2),
 (342, 167, 2),
 (343, 167, 2),
+(344, 167, 2),
+(345, 167, 2),
+(346, 167, 2),
+(347, 167, 2),
+(348, 167, 2),
+(349, 167, 2),
+(350, 167, 2),
+(351, 167, 2),
+(352, 167, 2),
+(353, 167, 2),
+(354, 167, 2),
 (293, 168, 0),
 (328, 168, 0),
 (293, 169, 1),
@@ -4746,6 +5060,7 @@ INSERT INTO `SectionQuestion` (`section_id`, `question_id`, `question_index`) VA
 -- Table structure for table `SectionStructure`
 --
 
+DROP TABLE IF EXISTS `SectionStructure`;
 CREATE TABLE IF NOT EXISTS `SectionStructure` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` bigint(20) DEFAULT NULL,
@@ -4764,6 +5079,7 @@ CREATE TABLE IF NOT EXISTS `SectionStructure` (
 -- Table structure for table `SectionStructureConstraint`
 --
 
+DROP TABLE IF EXISTS `SectionStructureConstraint`;
 CREATE TABLE IF NOT EXISTS `SectionStructureConstraint` (
   `section_id` bigint(20) NOT NULL,
   `constraint_id` bigint(20) NOT NULL,
@@ -4784,6 +5100,7 @@ CREATE TABLE IF NOT EXISTS `SectionStructureConstraint` (
 -- Table structure for table `TestSection`
 --
 
+DROP TABLE IF EXISTS `TestSection`;
 CREATE TABLE IF NOT EXISTS `TestSection` (
   `test_id` bigint(20) NOT NULL,
   `section_id` bigint(20) NOT NULL,
@@ -4840,6 +5157,18 @@ INSERT INTO `TestSection` (`test_id`, `section_id`, `section_index`) VALUES
 (66, 332, 4),
 (66, 333, 5),
 (602, 334, 0),
+(617, 334, 0),
+(618, 334, 0),
+(619, 334, 0),
+(620, 334, 0),
+(621, 334, 0),
+(622, 334, 0),
+(623, 334, 0),
+(624, 334, 0),
+(625, 334, 0),
+(626, 334, 0),
+(627, 334, 0),
+(628, 334, 0),
 (602, 335, 1),
 (602, 336, 2),
 (602, 337, 3),
@@ -4848,7 +5177,30 @@ INSERT INTO `TestSection` (`test_id`, `section_id`, `section_index`) VALUES
 (602, 340, 6),
 (602, 341, 7),
 (602, 342, 8),
-(602, 343, 9);
+(602, 343, 9),
+(629, 344, 0),
+(630, 344, 0),
+(631, 344, 0),
+(632, 345, 0),
+(633, 345, 0),
+(634, 345, 0),
+(635, 346, 0),
+(636, 347, 0),
+(637, 347, 0),
+(638, 348, 0),
+(639, 348, 0),
+(640, 348, 0),
+(641, 349, 0),
+(642, 349, 0),
+(643, 349, 0),
+(644, 350, 0),
+(645, 350, 0),
+(646, 350, 0),
+(647, 351, 0),
+(648, 352, 0),
+(649, 353, 0),
+(650, 353, 0),
+(651, 354, 0);
 
 -- --------------------------------------------------------
 
@@ -4856,6 +5208,7 @@ INSERT INTO `TestSection` (`test_id`, `section_id`, `section_index`) VALUES
 -- Table structure for table `TestSectionStructure`
 --
 
+DROP TABLE IF EXISTS `TestSectionStructure`;
 CREATE TABLE IF NOT EXISTS `TestSectionStructure` (
   `id` bigint(20) NOT NULL,
   `section_id` bigint(20) NOT NULL,
@@ -4876,6 +5229,7 @@ CREATE TABLE IF NOT EXISTS `TestSectionStructure` (
 -- Table structure for table `TestStructureConstraint`
 --
 
+DROP TABLE IF EXISTS `TestStructureConstraint`;
 CREATE TABLE IF NOT EXISTS `TestStructureConstraint` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) COLLATE utf8_vietnamese1_ci NOT NULL,
@@ -4895,11 +5249,12 @@ CREATE TABLE IF NOT EXISTS `TestStructureConstraint` (
 -- Table structure for table `Text`
 --
 
+DROP TABLE IF EXISTS `Text`;
 CREATE TABLE IF NOT EXISTS `Text` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` mediumtext COLLATE utf8_vietnamese1_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1807 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese1_ci AUTO_INCREMENT=1822 ;
 
 --
 -- Dumping data for table `Text`
@@ -6698,7 +7053,22 @@ INSERT INTO `Text` (`id`, `text`) VALUES
 (1803, '<p>that she</p>'),
 (1804, '<p>I ______ this letter around for days without looking at it.</p>'),
 (1805, '<p>have been carrying</p>'),
-(1806, '<p>has been carrying</p>');
+(1806, '<p>has been carrying</p>'),
+(1807, '<p>ljlkjlkjlk</p>'),
+(1808, NULL),
+(1809, NULL),
+(1810, '<p>abc</p>'),
+(1811, '<p>ABC</p>'),
+(1812, '<p>alkjlkfj</p>'),
+(1813, '<p>alkjlkfj</p>\n<p>afds</p>\n<p>fa</p>'),
+(1814, '<p>alkjlkfj</p>\n<p>kjljlj</p>\n<p>afds</p>\n<p>fa</p>'),
+(1815, '<p>alkjlkfj</p>\n<p>kk</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>kjljlj</p>\n<p>afds</p>\n<p>fa</p>'),
+(1816, '<p>alkjlkfj</p>\n<p>kk</p>\n<p>kjljlj</p>\n<p>afds</p>\n<p>fa</p>'),
+(1817, '<p>alkjlkfj</p>\n<p>fa</p>'),
+(1818, '<p>alkjlkfj</p>\n<p>faasfjlajfl</p>'),
+(1819, '<p>alkjlkfjlkj kl jj lk j</p>\n<p>faasfjlajfl</p>'),
+(1820, '<p>alkjlkfjlkj kl jj lk j</p>\n<p>faasfjlajfl&nbsp; klj j j lkj lkj klj kj lkjkljkljlkj</p>'),
+(1821, '<p>alkjlkfjlkj kl jj lk j</p>\n<p>faasfjlajfl  klj j j lkj lkj klj kj lkjkljkljlkj</p>');
 
 -- --------------------------------------------------------
 
@@ -6706,6 +7076,7 @@ INSERT INTO `Text` (`id`, `text`) VALUES
 -- Table structure for table `TopicConstraintTopic`
 --
 
+DROP TABLE IF EXISTS `TopicConstraintTopic`;
 CREATE TABLE IF NOT EXISTS `TopicConstraintTopic` (
   `constraint_id` bigint(20) NOT NULL,
   `topic_id` bigint(20) NOT NULL,
@@ -6724,6 +7095,7 @@ CREATE TABLE IF NOT EXISTS `TopicConstraintTopic` (
 --
 -- Stand-in structure for view `TopicReport`
 --
+DROP VIEW IF EXISTS `TopicReport`;
 CREATE TABLE IF NOT EXISTS `TopicReport` (
 `resource` bigint(20)
 ,`children_count` bigint(21)
@@ -6735,6 +7107,7 @@ CREATE TABLE IF NOT EXISTS `TopicReport` (
 -- Table structure for table `TopicSet`
 --
 
+DROP TABLE IF EXISTS `TopicSet`;
 CREATE TABLE IF NOT EXISTS `TopicSet` (
   `topic` bigint(20) NOT NULL,
   `left_index` int(11) NOT NULL,
@@ -6814,6 +7187,7 @@ INSERT INTO `TopicSet` (`topic`, `left_index`, `right_index`) VALUES
 --
 -- Stand-in structure for view `TopicSetInfo`
 --
+DROP VIEW IF EXISTS `TopicSetInfo`;
 CREATE TABLE IF NOT EXISTS `TopicSetInfo` (
 `name` varchar(255)
 ,`id` bigint(20)
@@ -6828,6 +7202,7 @@ CREATE TABLE IF NOT EXISTS `TopicSetInfo` (
 -- Table structure for table `User`
 --
 
+DROP TABLE IF EXISTS `User`;
 CREATE TABLE IF NOT EXISTS `User` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) NOT NULL,
@@ -6865,7 +7240,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 --
 
 INSERT INTO `User` (`id`, `version`, `name`, `pass`, `email`, `ugroup`, `blocked`, `warning`, `avatar`, `register_date`, `block_expired_date`, `warning_expired_date`, `pref_template`, `first_name`, `middle_name`, `last_name`, `name_ordering`, `about`, `birthday`, `website`, `hometown`, `location`, `bio`, `gender`, `timezone`, `draft`) VALUES
-(1, 4, 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', 'admin', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', '<p><br _mce_bogus="1"></p>'),
+(1, 10, 'admin', '1234', 'admin@ocwiki.org', 'admin', b'0', NULL, '1.png', '2010-08-25 00:47:13', NULL, NULL, 'default', 'admin', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', '<p>lkjljlkjklj</p>'),
 (2, 0, 'teacher', '1234', 'teacher@ocwiki.org', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'teacher', NULL, '', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', NULL),
 (3, 0, 'cumeo89', '1234', 'cumeo89@gmail.com', 'teacher', b'0', NULL, NULL, '2010-08-25 00:47:13', NULL, NULL, 'default', 'Minh', NULL, 'Lê', 'LAST_FIRST', '', NULL, '', '', '', '', 'UNKNOWN', '+7', NULL),
 (4, 0, 'greenriver', '1234', 'greenriver_89@yahoo.com', 'user', b'0', NULL, NULL, '2010-10-03 01:28:13', '2010-10-31 15:21:22', '2010-10-31 15:21:22', 'default', 'Thắng', NULL, 'Phạm', 'LAST_FIRST', NULL, NULL, NULL, NULL, NULL, NULL, 'UNKNOWN', '+7', 'abc xyz'),
@@ -7120,3 +7495,19 @@ ALTER TABLE `TopicConstraintTopic`
 --
 ALTER TABLE `TopicSet`
   ADD CONSTRAINT `TopicSet_ibfk_1` FOREIGN KEY (`topic`) REFERENCES `Resource` (`id`) ON DELETE CASCADE;
+
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `incrementResourceViewCounter`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `incrementResourceViewCounter`(resource_id int)
+begin
+update ResourceViewCounter set view_count = view_count+1 where resource = resource_id;
+if ROW_COUNT() <= 0 then
+  insert into ResourceViewCounter(resource, view_count) values (resource_id, 1);
+end if;
+select * from ResourceViewCounter where resource = resource_id;
+end$$
+
+DELIMITER ;

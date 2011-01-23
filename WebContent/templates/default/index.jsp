@@ -19,7 +19,7 @@
             <script type="text/javascript" src="${homeDir}/js/prototype.js"></script>
         </c:otherwise>
     </c:choose>
-    <script type="text/javascript" src="${homeDir}/js/prototype_update_helper.js"></script>
+    <%-- <script type="text/javascript" src="${homeDir}/js/prototype_update_helper.js"></script> --%>
 
 	<script type="text/javascript" src="${templatePath}/js/autocomplete.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/tiny_mce/tiny_mce.js"></script>
