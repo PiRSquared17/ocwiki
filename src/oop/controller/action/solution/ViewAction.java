@@ -17,7 +17,6 @@ public class ViewAction extends AbstractAction {
 	
 	@Override
 	protected void performImpl() throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		resource = ResourceDAO.fetchById(getParams().getLong("id"));
 		if(resource==null){
 			throw new ActionException("Không tìm thấy câu hỏi!");

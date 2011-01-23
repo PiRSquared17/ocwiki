@@ -13,7 +13,6 @@ public class RestoreAction extends AbstractAction {
 	
 	@Override
 	protected void performImpl() {
-		// TODO Auto-generated method stub
 		revisionId = getParams().getInt("revisionId");
 		oldRevision = RevisionDAO.fetch(revisionId);
 		if (getParams().hasParameter("cofirm")){

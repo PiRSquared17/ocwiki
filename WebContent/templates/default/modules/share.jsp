@@ -10,6 +10,7 @@
 
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher:'b52d3378-3f03-434c-a81b-eeac4052b94c'});</script> 
+<%-- XXX đoạn này gây treo trang web nếu kết nối mạng có vấn đề???
 
 <!-- linkhay button -->
 <script type="text/javascript">
@@ -21,3 +22,5 @@ var linkhay_style = '2';
 //-->
 </script>
 <script type="text/javascript" src="http://linkhay.com/widgets/linkhay.js"></script>
+
+ --%>

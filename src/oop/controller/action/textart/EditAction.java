@@ -16,7 +16,6 @@ public class EditAction extends AbstractResourceAction<TextArticle> {
 
 	@Override
 	protected void performImpl() throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		resource = TextArticleDAO.fetchById(getParams().getLong("id"));
 		if(resource == null){
 			throw new ActionException("Khong tim thay Text" + getParams().getLong("id"));
