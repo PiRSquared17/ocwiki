@@ -16,7 +16,6 @@ public class ViewAction extends AbstractAction {
 
 	@Override
 	protected void performImpl() throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		long id = getParams().getLong("revID");
 		revision = RevisionDAO.fetch(id);
 		if (revision == null) {

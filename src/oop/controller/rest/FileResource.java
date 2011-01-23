@@ -97,7 +97,6 @@ public class FileResource extends AbstractResource {
 	}
 
 	private void validate(FileBean file) {
-		// TODO Auto-generated method stub
 		WebServiceUtils.assertValid(file != null, "File is empty");
 	}
 

@@ -53,21 +53,12 @@ public class IndexUpdateListener implements PostUpdateEventListener,
 	}
 
 	@Override
-	public void onPostUpdateCollection(PostCollectionUpdateEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void onPostUpdateCollection(PostCollectionUpdateEvent arg0) { }
 
 	@Override
-	public void onPostRemoveCollection(PostCollectionRemoveEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void onPostRemoveCollection(PostCollectionRemoveEvent arg0) { }
 
 	@Override
-	public void onPostRecreateCollection(PostCollectionRecreateEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void onPostRecreateCollection(PostCollectionRecreateEvent arg0) { }
 
 }

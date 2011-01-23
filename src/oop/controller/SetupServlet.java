@@ -89,7 +89,7 @@ public class SetupServlet extends HttpServlet {
 				"</ol>" +
 				"<b>Hãy đảm bảo người sử dụng CSDL có quyền xoá-tạo CSDL.</b>" +
 				"</p>" +
-				"<p>Để cấm script này (khi triển khai) hãy đổi tên tệp setup.sql.";
+				"<p>Để cấm script này (khi triển khai) hãy đổi tên hoặc xoá tệp setup.sql.";
 		response.getWriter().print(html);
 	}
 
