@@ -92,8 +92,8 @@ public class PreferenceAction extends AbstractAction {
 		ImageIO.write(image, "png", imageFile);
 
 		BufferedImage thumbnail = ImageUtils.ensureMaxSize(image, Config.get()
-				.getAvatarThumbnailDimension(), Config.get()
-				.getAvatarThumbnailDimension());
+				.getAvatarThumbnailSize(), Config.get()
+				.getAvatarThumbnailSize());
 		final File thumbnailFile = new File(destDir + "/thumbnail/" + fileName);
 		ImageIO.write(thumbnail, "PNG", thumbnailFile);
 		

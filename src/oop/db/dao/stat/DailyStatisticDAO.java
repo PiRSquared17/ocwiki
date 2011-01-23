@@ -17,19 +17,27 @@ import org.hibernate.Transaction;
 public class DailyStatisticDAO {
 
 	public static DailyStatistic fetch(Date date) {
-		Session session = HibernateUtil.getSession();
-		String hql = "from DailyStatistic where date=:date";
-		Query query = session.createQuery(hql);
-		query.setDate(":date", date);
-		return (DailyStatistic) query.uniqueResult();
+		try {
+			Session session = HibernateUtil.getSession();
+			String hql = "from DailyStatistic where date=:date";
+			Query query = session.createQuery(hql);
+			query.setDate(":date", date);
+			return (DailyStatistic) query.uniqueResult();
+		} catch (HibernateException ex) {
+			return new DailyStatistic();
+		}
 	}
 	
 	public static DailyStatistic fetchLastStatistic() {
-		Session session = HibernateUtil.getSession();
-		String hql = "from DailyStatistic order by date desc";
-		Query query = session.createQuery(hql);
-		query.setMaxResults(1);
-		return (DailyStatistic) query.uniqueResult();
+		try {
+			Session session = HibernateUtil.getSession();
+			String hql = "from DailyStatistic order by date desc";
+			Query query = session.createQuery(hql);
+			query.setMaxResults(1);
+			return (DailyStatistic) query.uniqueResult();
+		} catch (HibernateException ex) {
+			return new DailyStatistic();
+		}
 	}
 	
 	public static DailyStatistic saveCurrentStatistic() {

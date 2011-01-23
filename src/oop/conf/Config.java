@@ -50,7 +50,7 @@ public class Config implements Serializable {
 	
 	private int maxAvatarFileSize = 2; // MB
 	private int maxAvatarDimension = 150; // pixels
-	private int avatarThumbnailDimension = 32; // pixels
+	private int avatarThumbnailSize = 32; // pixels
 	private int maxUploadFileSize = 10; // MB
 	
 	private Set<ModuleDescriptor> moduleDescriptors = new HashSet<ModuleDescriptor>();
@@ -425,12 +425,12 @@ public class Config implements Serializable {
 		this.maxUploadFileSize = maxUploadFileSize;
 	}
 
-	public void setAvatarThumbnailDimension(int avatarThumbnailDimension) {
-		this.avatarThumbnailDimension = avatarThumbnailDimension;
+	public void setAvatarThumbnailSize(int avatarThumbnailSize) {
+		this.avatarThumbnailSize = avatarThumbnailSize;
 	}
 
-	public int getAvatarThumbnailDimension() {
-		return avatarThumbnailDimension;
+	public int getAvatarThumbnailSize() {
+		return avatarThumbnailSize;
 	}
 
 	public void setRecreateDatabaseWhenSetup(boolean recreateDatabaseWhenSetup) {

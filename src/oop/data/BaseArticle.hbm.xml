@@ -5,12 +5,13 @@
 <hibernate-mapping>
 	<subclass name="oop.data.BaseArticle" extends="oop.data.CategorizableArticle"
 		abstract="true">
-		<set name="embeds" table="ArticleEmbed" inverse="false" fetch="subselect">
+		<set name="embeds" table="ArticleEmbed" inverse="false" 
+		          fetch="subselect" cascade="all">
 			<key column="article_id" />
 			<many-to-many column="file_id" class="oop.data.Resource" />
 		</set>
 		<set name="attachments" table="ArticleAttachment" inverse="false"
-			fetch="subselect">
+			     fetch="subselect" cascade="all">
 			<key column="article_id" />
 			<many-to-many column="file_id" class="oop.data.Resource" />
 		</set>
