@@ -640,9 +640,10 @@
         <name>site-counter</name>
         <class>oop.module.SiteCounterModule</class>
         <position>right</position>
+        <inAction>homepage</inAction>
         <order>3</order>
     </module>
-
+    
     <module>
         <name>todo</name>
         <class>oop.module.personal.Todo</class>
