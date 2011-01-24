@@ -94,8 +94,8 @@
 	<!-- content begins -->
 	<div class="clear"></div>
 	<div id="main">
-	    <div id="rightWrapper">
-		<div id="right">
+	    <div id="centerWrapper">
+		<div id="center">
             <c:if test="${not empty sessionScope.user.warningMessage}">
                 <div class="notification">Bạn bị cảnh cáo với lí do: 
                      ${sessionScope.user.warningMessage}  
@@ -153,6 +153,16 @@
 		    </c:forEach>
 		</div>
 		
+		<c:if test="${u:size(modules['right']) > 0}">
+		<div id="right">
+		      <c:forEach items="${modules['right']}" var="item">
+		          <c:set var="module" scope="request" value="${item}"></c:set>
+                  <h5>${module.title}</h5>
+		          <jsp:include page="modules/${module.page}"></jsp:include>
+		      </c:forEach>
+		</div>
+		</c:if>
+
 	   	<div id="mainbot">
 		    <c:forEach items="${modules['bottom']}" var="item">
 		       <c:set var="module" scope="request" value="${item}"></c:set>

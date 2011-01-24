@@ -636,6 +636,12 @@
         <position>top_right</position>
         <order>0</order>
     </module>
+    <module>
+        <name>site-counter</name>
+        <class>oop.module.SiteCounterModule</class>
+        <position>right</position>
+        <order>3</order>
+    </module>
 
     <module>
         <name>todo</name>
