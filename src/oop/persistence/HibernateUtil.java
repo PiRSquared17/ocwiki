@@ -24,17 +24,18 @@ public class HibernateUtil {
 			sessionFactory.close();
 			sessionFactory = null;
 		}
-		if (!config.isLazyStartup()) {
-			init();
-		} else {
+		if (config.isLazyStartup()) {
 			// get it initialized in a different thread
 			new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
+					// khác với init ở chỗ lời gọi này synchronized
 					HibernateUtil.getSessionFactory();
 				}
 			}).start();
+		} else {
+			init();
 		}
 	}
 
@@ -99,7 +100,7 @@ public class HibernateUtil {
 	 * @return
 	 */
 	public static SessionFactory getSessionFactory() {
-		if (sessionFactory == null && config.isLazyStartup()) {
+		if (config.isLazyStartup() && sessionFactory == null) {
 			synchronized (config) {
 				if (sessionFactory == null) {
 					init();
