@@ -16,25 +16,42 @@ import org.hibernate.Transaction;
 
 public class DailyStatisticDAO {
 
+	/**
+	 * Đảm bảo luôn trả về một đối tượng khác null.
+	 * @param date
+	 * @return
+	 */
 	public static DailyStatistic fetch(Date date) {
 		try {
 			Session session = HibernateUtil.getSession();
 			String hql = "from DailyStatistic where date=:date";
 			Query query = session.createQuery(hql);
 			query.setDate("date", date);
-			return (DailyStatistic) query.uniqueResult();
+			DailyStatistic value = (DailyStatistic) query.uniqueResult();
+			if (value == null) {
+				return new DailyStatistic();
+			}
+			return value;
 		} catch (HibernateException ex) {
 			return new DailyStatistic();
 		}
 	}
 	
+	/**
+	 * Đảm bảo luôn trả về một đối tượng khác null.
+	 * @return
+	 */
 	public static DailyStatistic fetchLastStatistic() {
 		try {
 			Session session = HibernateUtil.getSession();
 			String hql = "from DailyStatistic order by date desc";
 			Query query = session.createQuery(hql);
 			query.setMaxResults(1);
-			return (DailyStatistic) query.uniqueResult();
+			DailyStatistic value = (DailyStatistic) query.uniqueResult();
+			if (value == null) {
+				return new DailyStatistic();
+			}
+			return value;
 		} catch (HibernateException ex) {
 			return new DailyStatistic();
 		}
