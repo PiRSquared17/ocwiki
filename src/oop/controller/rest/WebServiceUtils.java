@@ -12,17 +12,6 @@ import oop.db.dao.TopicDAO;
 
 public final class WebServiceUtils {
 
-	public static <T extends CategorizableArticle> void copyTopics(T article,
-			T data) {
-		article.getTopics().clear();
-		for (Resource<Topic> topic : data.getTopics()) {
-			assertValid(topic != null, "topic is empty");
-			topic = TopicDAO.fetchById(topic.getId());
-			assertValid(topic != null, "topic not found");
-			article.getTopics().add(topic);
-		}
-	}
-
 	public static void assertValid(boolean valid, String errorCode) {
 		if (!valid) {
 			throw new WebApplicationException(Response.status(Status.NOT_FOUND)
