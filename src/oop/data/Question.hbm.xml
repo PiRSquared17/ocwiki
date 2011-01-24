@@ -7,11 +7,11 @@
 			<generator class="identity" />
 		</id>
         <many-to-one name="baseResource" class="oop.data.Resource"
-            access="field" fetch="select" not-null="false">
+            access="field" fetch="select" not-null="false" cascade="all">
             <column name="base_resource" />
         </many-to-one>
         <many-to-one name="baseRevision" class="oop.data.Revision"
-            access="field" fetch="select" not-null="false">
+            access="field" fetch="select" not-null="false" cascade="all">
             <column name="base_revision" />
         </many-to-one>
 		<property name="mark" type="double">
