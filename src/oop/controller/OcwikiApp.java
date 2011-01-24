@@ -46,11 +46,7 @@ public class OcwikiApp implements ServletContextListener {
 			String configPath = context.getRealPath(context.getInitParameter("configDir"));
 			initializeImpl(configPath);
 			DailyStatistic lastStatistic = DailyStatisticDAO.fetchLastStatistic();
-			if (lastStatistic == null) {
-				SiteViewCountUtil.initialize(0);
-			} else {
-				SiteViewCountUtil.initialize(lastStatistic.getViewCount());
-			}
+			SiteViewCountUtil.initialize(lastStatistic.getViewCount());
 		} catch (ConfigIOException e) {
 			configException = e;
 		}
