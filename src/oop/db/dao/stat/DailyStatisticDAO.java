@@ -21,7 +21,7 @@ public class DailyStatisticDAO {
 			Session session = HibernateUtil.getSession();
 			String hql = "from DailyStatistic where date=:date";
 			Query query = session.createQuery(hql);
-			query.setDate(":date", date);
+			query.setDate("date", date);
 			return (DailyStatistic) query.uniqueResult();
 		} catch (HibernateException ex) {
 			return new DailyStatistic();

@@ -23,8 +23,8 @@ public class SiteCounterModule extends DefaultModule {
 		DailyStatistic yesterdayStatistic = DailyStatisticDAO.fetch(yesterday.getTime());
 
 		GregorianCalendar dayBeforeThisWeek = new GregorianCalendar();
-		int dayOfWeek = dayBeforeThisWeek.get(Calendar.DAY_OF_WEEK);
-		dayBeforeThisWeek.add(Calendar.DATE, -dayOfWeek);
+		int dayFromMonday = (dayBeforeThisWeek.get(Calendar.DAY_OF_WEEK) + 7 - Calendar.MONDAY) % 7;
+		dayBeforeThisWeek.add(Calendar.DATE, -dayFromMonday-1);
 		DailyStatistic dayBeforeThisWeekStatistic = DailyStatisticDAO.fetch(dayBeforeThisWeek.getTime());
 		
 		GregorianCalendar dayBeforeThisMonth = new GregorianCalendar();

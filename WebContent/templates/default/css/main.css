@@ -37,7 +37,7 @@ hr {
 	
 }
 
-#rightWrapper {
+#centerWrapper {
 	float: right;
 	width: 610px;
 	/*margin-right: 10px;*/
@@ -45,59 +45,51 @@ hr {
 	border-right: 1px #c2ffa7 solid;
 }
 
-#rightBottom {
-	background-image: url("../images/right-border.png");
-	background-position: top left;
-	background-repeat: repeat-x;
-	height: 1px;
-	width: 100%;
-}
-
-#right {
+#center {
 	background: white;
 	padding: 10px;
 	min-height: 450px;
 }
 
-#right ol,#right ul {
+#center ol,#center ul {
 	margin-left: 30px;
 }
 
-#right h2 {
+#center h2 {
 	margin: 0;
 	padding: 0;
 	padding-top: 10px;
 	color: #196050;
 }
 
-#right img {
+#center img {
 	border: 0;
 }
 
-#right .test-description {
+#center .test-description {
 	clear: both;
 }
 
-#right .section {
+#center .section {
 	clear: both;
 }
 
-#right th {
+#center th {
 	text-align: center;
 	vertical-align: top;
 }
 
-#right td {
+#center td {
 	vertical-align: top;
 }
 
-#right .section-text-wrapper {
+#center .section-text-wrapper {
 	clear: both;
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
 
-#right .section-text {
+#center .section-text {
 	padding-right: 90px;
 }
 
@@ -105,20 +97,20 @@ hr {
 	background: #ffefef;
 }
 
-#right .mouse-in {
+#center .mouse-in {
 	background: #ffefef;
 }
 
-#right .mouse-out {
+#center .mouse-out {
 	background: none;
 }
 
-#right .question-wrapper {
+#center .question-wrapper {
 	margin-top: 10px;
 	clear: both;
 }
 
-#right .section-wrapper {
+#center .section-wrapper {
 	margin-top: 0px;
 	clear: both;
 }
@@ -160,7 +152,7 @@ hr {
 	margin-right: 5px;
 }
 
-#right .question {
+#center .question {
 	padding-right: 90px;
 }
 
@@ -191,24 +183,24 @@ hr {
 	display: block;
 }
 
-#right .column-count {
+#center .column-count {
 	width: 250px;
 	text-align: right;
 }
 
-#right .mouse-in .buttons {
+#center .mouse-in .buttons {
 	display: block;
 }
 
-#right .mouse-out .buttons {
+#center .mouse-out .buttons {
 	display: none;
 }
 
-#right .column-buttons {
+#center .column-buttons {
 	width: 200px;
 }
 
-#right .row-constraint td {
+#center .row-constraint td {
 	height: 20px;
 }
 
@@ -229,12 +221,12 @@ body {
 	/*background: #F3F3F3;*/
 }
 
-#right ol,#right ul {
+#center ol,#center ul {
 	margin-left: 30px;
 	line-height: 20px;
 }
 
-#right h3 { /*padding-left: 30px;*/
+#center h3 { /*padding-left: 30px;*/
 	
 }
 
@@ -327,16 +319,16 @@ table {
 	text-align: left;
 }
 
-#right table {
+#center table {
 	width: 100%;
 	clear: both;
 }
 
-#right .mceLayout {
+#center .mceLayout {
 	clear: none;
 }
 
-#right .mceToolbar {
+#center .mceToolbar {
 	width: auto;
 }
 
@@ -383,11 +375,11 @@ div.error-validating {
 	font-weight: bold;
 }
 
-#right #qc_content_container,#right #qc_content {
+#center #qc_content_container,#center #qc_content {
 	width: 400px;
 }
 
-#right #tc_description_container,#right #tc_description {
+#center #tc_description_container,#center #tc_description {
 	width: 400px;
 }
 
@@ -395,18 +387,18 @@ div.error-validating {
 	float: left;
 }
 
-#right .navigator {
+#center .navigator {
 	float: right;
 }
 
-#right .empty-notif {
+#center .empty-notif {
 	text-align: center;
 	margin-bottom: 10px;
 	margin-top: 10px;
 	font-style: italic;
 }
 
-#right .list-new {
+#center .list-new {
 	margin-left: 20px;
 }
 
@@ -591,7 +583,7 @@ legend {
 	list-style: none;
 }
 
-#right .jsmenu ul {
+#center .jsmenu ul {
 	line-height: normal;
 }
 
