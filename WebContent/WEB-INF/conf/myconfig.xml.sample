@@ -8,4 +8,5 @@
     <mysqlCommand>mysql</mysqlCommand>
     <contactEmail>opencourseware.wiki@gmail.com</contactEmail>
     <recreateDatabaseWhenSetup>true</recreateDatabaseWhenSetup>
+    <lazyStartup>true</lazyStartup>
 </config>

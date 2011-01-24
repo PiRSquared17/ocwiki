@@ -9,7 +9,6 @@
 	<uploadPath>${homeDir}/uploads</uploadPath>
 	<uploadDir>/uploads</uploadDir>
 	<defaultTemplate>default</defaultTemplate>
-	<lazyStartup>true</lazyStartup>
 	<logoPath>ocw_logo_tiny.png</logoPath>
 	<copyright>CS Force © 2010</copyright>
     <maxAvatarFileSize>2</maxAvatarFileSize>
