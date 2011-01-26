@@ -52,7 +52,8 @@ public class User implements Serializable, Entity, HasVersion {
 	private Gender gender = Gender.UNKNOWN;
 	private String timezone = "+7:00";
 	private String draft;
-
+	private boolean bot;
+	
 	public User() {
 	}
 
@@ -332,6 +333,14 @@ public class User implements Serializable, Entity, HasVersion {
 			return ((User) obj).id == id;
 		}
 		return false;
+	}
+
+	public void setBot(boolean bot) {
+		this.bot = bot;
+	}
+
+	public boolean isBot() {
+		return bot;
 	}
 	
 }
