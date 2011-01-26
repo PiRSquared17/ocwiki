@@ -47,6 +47,8 @@ public class Config implements Serializable {
 	private String texCgi = "http://www.imathas.com/cgi-bin/mimetex.cgi";
 	private boolean recreateDatabaseWhenSetup = false;
 	private String contactEmail;
+	private String recaptchaPublicKey;
+	private String recaptchaPrivateKey;
 	
 	private int maxAvatarFileSize = 2; // MB
 	private int maxAvatarDimension = 150; // pixels
@@ -447,6 +449,22 @@ public class Config implements Serializable {
 
 	public String getContactEmail() {
 		return contactEmail;
+	}
+
+	public String getRecaptchaPublicKey() {
+		return recaptchaPublicKey;
+	}
+
+	public void setRecaptchaPublicKey(String recaptchaPublicKey) {
+		this.recaptchaPublicKey = recaptchaPublicKey;
+	}
+
+	public String getRecaptchaPrivateKey() {
+		return recaptchaPrivateKey;
+	}
+
+	public void setRecaptchaPrivateKey(String recaptchaPrivateKey) {
+		this.recaptchaPrivateKey = recaptchaPrivateKey;
 	}
 	
 }
