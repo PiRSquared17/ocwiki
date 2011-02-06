@@ -7,9 +7,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Không tìm thấy tài nguyên - ${config.siteName}</title>
-	<link rel="stylesheet" href="${config.homeDir}/css/error.css" type="text/css" />
 	<script type="text/javascript" src="${config.homeDir}/js/prototype.js"></script>
-	<script type="text/javascript" src="${config.homeDir}/js/error.js"></script>
+	<script type="text/javascript" src="${templatePath}/js/main.js"></script>
+	<link rel="stylesheet" href="${templatePath}/css/error.css" type="text/css" />
 </head>
 <body>
 <div id="content">

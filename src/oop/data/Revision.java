@@ -6,15 +6,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 @XmlRootElement
 public class Revision<T extends Article> implements ArticleContainer<T> {
-
-	public String getQualifiedName() {
-		return article.getQualifiedName();
-	}
 
 	private long id;
 	private Resource<T> resource;
@@ -100,10 +95,11 @@ public class Revision<T extends Article> implements ArticleContainer<T> {
 	}
 
 	public String getName() {
-		if (StringUtils.isEmpty(article.getName())) {
-			return "#" + resource.getId();
-		}
-		return article.getName();
+		return resource.getName();
+	}
+
+	public String getQualifiedName() {
+		return resource.getQualifiedName();
 	}
 	
 }

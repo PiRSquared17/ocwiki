@@ -58,20 +58,9 @@
 	    });
 	</script>
 	
+	<%@ include file="/includes/jsvars.jsp" %>
 	<script type="text/javascript" src="${homeDir}/js/common.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/main.js"></script>
-	<script type="text/javascript">
-	<!-- // initialize global variables
-	   articlePath = '${config.articlePath}';
-	   actionPath = '${config.actionPath}';
-	   apiPath = '${config.apiPath}';
-	   uploadPath = '${config.uploadPath}';
-	   restPath = '${config.restPath}';
-	   templatePath = '${templatePath}';
-	   login = ${sessionScope.login ? true : false};
-	   resource = ${u:toJson(action.resourceBean)};
-	//-->
-	</script>
 	
 </head>
 <body>

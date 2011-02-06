@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Lỗi nội bộ - ${config.siteName}</title>
-	<link rel="stylesheet" href="${config.homeDir}/css/error.css" type="text/css" />
+	<link rel="stylesheet" href="${templatePath}/css/error.css" type="text/css" />
 </head>
 <body>
 <div id="content">

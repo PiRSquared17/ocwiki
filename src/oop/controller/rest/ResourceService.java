@@ -86,4 +86,5 @@ public class ResourceService extends AbstractResource {
 		return new ObjectResult<ResourceBean>(ResourceMapper.get().toBean(
 				resource));
 	}
+	
 }

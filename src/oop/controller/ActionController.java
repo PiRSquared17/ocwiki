@@ -23,6 +23,7 @@ import oop.module.Module;
 import oop.persistence.HibernateUtil;
 import oop.util.SessionUtils;
 import oop.util.SiteViewCountUtil;
+import oop.util.TemplateUtils;
 import oop.util.Utils;
 
 import org.apache.commons.collections.Transformer;
@@ -60,8 +61,7 @@ public class ActionController extends HttpServlet {
 		
 		try {
 			// set variables
-			String template = StringUtils.defaultIfEmpty((String) request
-					.getSession().getAttribute("template"), "default");
+			String template = TemplateUtils.getTemplate(request);
 	
 			// !!!IMPORTANT!!! Encoding error if delete the next line
 			request.setCharacterEncoding("UTF-8");

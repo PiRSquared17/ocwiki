@@ -63,6 +63,7 @@ public abstract class Article implements Entity {
 	/**
 	 * Set the <code>name</code> property of article to specified value.
 	 * @param name
+	 * @see <a href="http://code.google.com/p/ocwiki/wiki/ArticleName">Article name</a>
 	 */
 	public void setName(String name) {
 		name = standardlizeSpaces(name);
@@ -73,7 +74,7 @@ public abstract class Article implements Entity {
 	}
 
 	public static boolean isValidNameCharacter(char ch) {
-		if (ch == '#' || ch == ':') {
+		if (ch == '#' || ch == ':' || ch == 127) {
 			return false;
 		}
 		if (ch >= 0 && ch <= 31) {
@@ -81,11 +82,13 @@ public abstract class Article implements Entity {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Kiểm tra một chuỗi có phải tên hợp lệ hay không.
+	 * 
 	 * @param str
 	 * @return
+	 * @see <a href="http://code.google.com/p/ocwiki/wiki/ArticleName">Article name</a>
 	 */
 	public static boolean isValidName(String str) {
 		str = standardlizeSpaces(str);
@@ -93,6 +96,9 @@ public abstract class Article implements Entity {
 	}
 
 	private static boolean checkNameImpl(String str) {
+		if (str == null) {
+			return true;
+		}
 		if (str.length() > 255) {
 			return false;
 		}
@@ -112,6 +118,9 @@ public abstract class Article implements Entity {
 	 * @return Xâu đã được chuẩn hoá.
 	 */
 	public static String standardlizeSpaces(String str) {
+		if (str == null) {
+			return null;
+		}
 		StringBuilder sb = new StringBuilder(str.length());
 		int i = 0;
 		while (i < str.length() && Character.isWhitespace(str.charAt(i))) {
@@ -135,6 +144,11 @@ public abstract class Article implements Entity {
 		return sb.toString();
 	}
 
+	/**
+	 * Trả về tên cơ sở của bài viết
+	 * @see <a href="http://code.google.com/p/ocwiki/wiki/ArticleName">Article name</a>
+	 * @return Tên cơ sở của bài viết
+	 */
 	public String getName() {
 		return name;
 	}
@@ -156,13 +170,6 @@ public abstract class Article implements Entity {
 	@XmlElement
 	public Namespace getNamespace() {
 		return namespace;
-	}
-	
-	public String getQualifiedName() {
-		if (getName() == null) {
-			return null;
-		}
-		return getNamespace().getName() + ":" + getName();
 	}
 
 	public void setContentString(String contentStr) {
