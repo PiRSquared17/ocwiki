@@ -40,16 +40,12 @@ public class OcwikiApp implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
 	public void contextInitialized(ServletContextEvent evt) {
-		try {
-			context = evt.getServletContext();
-			config = new Config();
-			String configPath = context.getRealPath(context.getInitParameter("configDir"));
-			initializeImpl(configPath);
-			DailyStatistic lastStatistic = DailyStatisticDAO.fetchLastStatistic();
-			SiteViewCountUtil.initialize(lastStatistic.getViewCount());
-		} catch (ConfigIOException e) {
-			configException = e;
-		}
+		context = evt.getServletContext();
+		config = new Config();
+		String configPath = context.getRealPath(context.getInitParameter("configDir"));
+		initializeImpl(configPath);
+		DailyStatistic lastStatistic = DailyStatisticDAO.fetchLastStatistic();
+		SiteViewCountUtil.initialize(lastStatistic.getViewCount());
 	}
 
 	private void initializeImpl(String configPath) {

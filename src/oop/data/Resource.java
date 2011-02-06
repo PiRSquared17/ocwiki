@@ -187,7 +187,16 @@ public class Resource<T extends Article> implements ArticleContainer<T>,
 		this.accessibility = accessibility;
 	}
 
+	/**
+	 * Trả về tên đầy đủ của bài.
+	 * 
+	 * @return
+	 * @see <a href="http://code.google.com/p/ocwiki/wiki/ArticleName">Article name</a>
+	 */
 	public String getQualifiedName() {
+		if (getNamespace().getId() == Namespace.MAIN) {
+			return getName();
+		}
 		return getNamespace().getName() + ":" + getName();
 	}
 
