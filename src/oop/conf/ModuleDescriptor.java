@@ -1,8 +1,10 @@
 package oop.conf;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import oop.controller.Parameter;
 import oop.data.Article;
 import oop.module.DefaultModule;
 import oop.module.Module;
@@ -23,6 +25,7 @@ public class ModuleDescriptor {
 	private String page;
 	private Class<? extends Module> clazz;
 	private boolean disabled;
+	private List<Parameter> parameters;
 
 	public String getName() {
 		return name;
@@ -86,6 +89,7 @@ public class ModuleDescriptor {
 	
 	public Module createModule() throws InstantiationException, IllegalAccessException {
 		Module module = (clazz == null ? new DefaultModule() : clazz.newInstance());
+		module.setDescriptor(this);
 		module.setTitle(title);
 		module.setPage(StringUtils.defaultIfEmpty(page, name + ".jsp"));
 		module.setOrder(order);
@@ -135,6 +139,14 @@ public class ModuleDescriptor {
 	@Override
 	public String toString() {
 		return name + "(" + position + ", " + order + ")";
+	}
+
+	public void setParameters(List<Parameter> parameters) {
+		this.parameters = parameters;
+	}
+
+	public List<Parameter> getParameters() {
+		return parameters;
 	}
 	
 }

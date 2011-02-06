@@ -288,15 +288,6 @@
   </function>
 
   <function>
-    <description>
-      Kiểm tra lớp A có phải trùng hoặc là lớp cha của B hay không.
-    </description>
-    <name>assignableFrom</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
-    <function-signature>boolean isAssignableFrom(java.lang.String, java.lang.String)</function-signature>
-  </function>
-
-  <function>
     <description>Lấy về tên của một biến enum</description>
     <name>name</name>
     <function-class>org.apache.commons.lang.UtilFunctions</function-class>

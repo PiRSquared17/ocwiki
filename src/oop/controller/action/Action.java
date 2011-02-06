@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import oop.conf.ActionDescriptor;
 import oop.controller.ActionController;
+import oop.controller.rest.bean.ResourceBean;
 import oop.data.Article;
 import oop.data.Resource;
 
@@ -45,5 +46,7 @@ public interface Action {
 	public String getTitle();
 	
 	public void setTitle(String title);
+
+	public abstract ResourceBean getResourceBean();
 
 }

@@ -209,7 +209,7 @@ function openID_login(){
 					} else if (code == 'connection error') {
 						$('openID_loginError').innerHTML = 'Không thể kết nối tới nhà cung cấp OpenID';
 					} else {
-					    DefaultTemplate.onFailure(transport); 
+					    template.onFailure(transport); 
 					}
 				}
 			});

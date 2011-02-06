@@ -235,6 +235,7 @@ public abstract class AbstractAction implements Action {
 		return null;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public ResourceBean getResourceBean() {
 		try {
