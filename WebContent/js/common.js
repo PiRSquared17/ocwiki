@@ -332,13 +332,13 @@ var WebService = Class.create();
 WebService.get = function(url, options) {
 	var requestOptions = Object.clone(options);
 	requestOptions.method = 'get';
-	WebService.request(url, requestOptions);
+	return WebService.request(url, requestOptions);
 };
 
 WebService.post = function(url, options) {
 	var requestOptions = Object.clone(options);
 	requestOptions.method = 'post';
-	WebService.request(url, requestOptions);
+	return WebService.request(url, requestOptions);
 }
 
 WebService.request = function(url, options) {
@@ -354,7 +354,10 @@ WebService.request = function(url, options) {
 		delete ajaxOptions.data;
 		ajaxOptions.postBody = Object.toJSON(options.data);
 	}
-	new Ajax.Request(restPath + url, ajaxOptions);
+	if (!options.onFailure) {
+		options.onFailure = template.onFailure;
+	}
+	return new Ajax.Request(restPath + url, ajaxOptions);
 }
 
 var OcwikiTemplate = Class.create({
@@ -376,6 +379,6 @@ var OcwikiTemplate = Class.create({
 
 var template = new OcwikiTemplate();
 
-Level_HARD = 1;
-Level_EASY = -1;
-Level_NORMAL = 0;
+LEVEL_HARD = 1;
+LEVEL_EASY = -1;
+LEVEL_NORMAL = 0;

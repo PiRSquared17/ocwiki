@@ -1,5 +1,7 @@
 package oop.module;
 
+import oop.conf.ModuleDescriptor;
+import oop.controller.Parameter;
 import oop.data.Article;
 import oop.data.Resource;
 
@@ -9,6 +11,7 @@ public class DefaultModule implements Module {
 	private String page;
 	private int position;
 	private Resource<? extends Article> resource;
+	private ModuleDescriptor descriptor;
 	
 	@Override
 	public void init() throws Exception {
@@ -53,6 +56,32 @@ public class DefaultModule implements Module {
 	@Override
 	public Article getArticle() {
 		return resource == null ? null : resource.getArticle();
+	}
+	
+	@Override
+	public ModuleDescriptor getDescriptor() {
+		return descriptor;
+	}
+	
+	@Override
+	public void setDescriptor(ModuleDescriptor descriptor) {
+		this.descriptor = descriptor;
+	}
+
+	/**
+	 * Trả về giá trị của tham số có tên <code>name</code>. Nếu tham số không
+	 * tồn tại, trả về giá trị null.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public String getParam(String name) {
+		for (Parameter param : getDescriptor().getParameters()) {
+			if (name.equals(param.getName())) {
+				return param.getValue();
+			}
+		}
+		return null;
 	}
 	
 }

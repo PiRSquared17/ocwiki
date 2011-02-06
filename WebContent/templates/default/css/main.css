@@ -38,17 +38,24 @@ hr {
 }
 
 #centerWrapper {
-	float: right;
-	width: 610px;
+	margin-left: 178px;
+	width: 760px;
 	/*margin-right: 10px;*/
 	border-left: 1px #c2ffa7 solid;
 	border-right: 1px #c2ffa7 solid;
 }
 
 #center {
+	width: 610px;
+	float:left;
 	background: white;
 	padding: 10px;
 	min-height: 450px;
+}
+
+#right {
+	margin-left: 610px;
+	width: 150px;
 }
 
 #center ol,#center ul {
@@ -210,7 +217,7 @@ body {
 
 #content {
 	margin: 0 auto;
-	width: 798px;
+	width: 948px;
 	text-align: left;
 }
 
@@ -267,6 +274,7 @@ body {
 
 #left {
 	width: 178px;
+	float: left;
 	background: transparent;
 }
 
@@ -308,7 +316,7 @@ body {
 
 #innerFooter {
 	margin: 0 auto;
-    width: 798px;
+    width: 948px;
 }
 
 #footer p {

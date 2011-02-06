@@ -4,6 +4,7 @@ import oop.conf.APIDescriptor;
 import oop.conf.ActionDescriptor;
 import oop.conf.Config;
 import oop.conf.ModuleDescriptor;
+import oop.controller.Parameter;
 import oop.util.xstream.ClassConverter;
 import oop.util.xstream.ConfigConverter;
 import oop.util.xstream.EntityConverter;
@@ -21,6 +22,9 @@ public final class XMLUtils {
 		xstream.alias("action", ActionDescriptor.class);
 		xstream.alias("api", APIDescriptor.class);
 		xstream.alias("module", ModuleDescriptor.class);
+		xstream.alias("param", Parameter.class);
+		xstream.addImplicitCollection(ModuleDescriptor.class, "parameters",
+				Parameter.class);
 		xstream.addImplicitCollection(Config.class, "actionDescriptors",
 				ActionDescriptor.class);
 		xstream.addImplicitCollection(Config.class, "apiDescriptors",

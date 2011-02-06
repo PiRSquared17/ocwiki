@@ -667,4 +667,14 @@
         <position>footer-left</position>
         <order>0</order>
     </module>
+    <module>
+        <name>article</name>
+        <class>oop.module.ArticleModule</class>
+        <position>right</position>
+        <order>2</order>
+        <param>
+            <name>resource-id</name>
+            <value>65</value>
+        </param>
+    </module>
 </config>

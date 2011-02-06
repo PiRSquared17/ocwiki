@@ -26,7 +26,7 @@
     <function-class>oop.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String formatDate(java.util.Date)</function-signature>
     <example>
-      ${util:formatDate(date)}
+      ${u:formatDate(date)}
     </example>
   </function>
 
@@ -38,7 +38,7 @@
     <function-class>oop.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String formatDateTime(java.util.Date)</function-signature>
     <example>
-      ${util:formatDateTime(dateTime)}
+      ${u:formatDateTime(dateTime)}
     </example>
   </function>
   
@@ -50,7 +50,7 @@
     <function-class>oop.data.BaseQuestion</function-class>
     <function-signature>java.lang.String getLevelName(int)</function-signature>
     <example>
-      ${util:levelName(3)}
+      ${u:levelName(3)}
     </example>
   </function>
   
@@ -62,7 +62,7 @@
     <function-class>oop.util.Utils</function-class>
     <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
     <example>
-      ${util:urlEncode('action=homepage')}
+      ${u:urlEncode('action=homepage')}
     </example>
   </function>
   
@@ -74,7 +74,7 @@
     <function-class>oop.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String stripHTML(java.lang.String)</function-signature>
     <example>
-      ${util:urlEncode('&lt;p&gt;&lt;/p&gt;&lt;p&gt;content&lt;/p&gt;')}
+      ${u:stripHTML('&lt;p&gt;&lt;/p&gt;&lt;p&gt;content&lt;/p&gt;')}
     </example>
   </function>
   
@@ -86,7 +86,7 @@
     <function-class>oop.taglib.UtilFunctions</function-class>
     <function-signature>long round(double)</function-signature>
     <example>
-      ${util:round(9.5)}
+      ${u:round(9.5)}
     </example>
   </function>
   
@@ -98,7 +98,7 @@
     <function-class>oop.taglib.UtilFunctions</function-class>
     <function-signature>long floor(double)</function-signature>
     <example>
-      ${util:floor(9.5)}
+      ${u:floor(9.5)}
     </example>
   </function>
 
@@ -110,7 +110,7 @@
     <function-class>oop.taglib.UtilFunctions</function-class>
     <function-signature>int size(java.lang.Object)</function-signature>
     <example>
-      ${util:size(list)}
+      ${u:size(list)}
     </example>
   </function>
 
@@ -122,7 +122,7 @@
     <function-class>oop.taglib.UtilFunctions</function-class>
     <function-signature>boolean contains(java.lang.Object, java.lang.Object)</function-signature>
     <example>
-      ${util:contains(answers, answer)}
+      ${u:contains(answers, answer)}
     </example>
   </function>
 
@@ -134,7 +134,7 @@
     <function-class>oop.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String ellipsize(java.lang.String, int)</function-signature>
     <example>
-      ${util:ellipsize(s, 30)}
+      ${u:ellipsize(s, 30)}
     </example>
   </function>
   
@@ -146,7 +146,7 @@
     <function-class>oop.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String toAlpha(int)</function-signature>
     <example>
-      ${util:alpha(0)}
+      ${u:alpha(0)}
     </example>
   </function>
 
@@ -158,7 +158,7 @@
     <function-class>org.apache.commons.lang.ObjectUtils</function-class>
     <function-signature>java.lang.Object defaultIfNull(java.lang.Object, java.lang.Object)</function-signature>
     <example>
-      ${util:defaultIfNull(a, b)}
+      ${u:defaultIfNull(a, b)}
     </example>
   </function>
 
@@ -170,7 +170,7 @@
     <function-class>oop.util.JsonUtils</function-class>
     <function-signature>java.lang.String toJson(java.lang.Object)</function-signature>
     <example>
-      ${util:toJson(resource)}
+      ${u:toJson(resource)}
     </example>
   </function>
 
@@ -179,6 +179,15 @@
     <name>escapeJs</name>
     <function-class>org.apache.commons.lang.StringEscapeUtils</function-class>
     <function-signature>java.lang.String escapeJavaScript(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <description>
+      Kiểm tra lớp A có phải trùng hoặc là lớp cha của B hay không.
+    </description>
+    <name>assignableFrom</name>
+    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-signature>boolean isAssignableFrom(java.lang.Object, java.lang.Object)</function-signature>
   </function>
 
 </taglib>

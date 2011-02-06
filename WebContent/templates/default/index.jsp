@@ -5,6 +5,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>${fn:escapeXml(pageTitle)}</title>
+	<c:if test="${not empty action.resource and 
+	       u:assignableFrom('oop.data.CategorizableArticle', action.resource.type)}">
+	   <c:set var="keywords" value=""></c:set>
+	   <c:forEach items="${action.resource.article.topics}" var="topic">
+	       <c:set var="keywords" value="${keywords}${topic.name}, "></c:set>
+	   </c:forEach>
+	   <meta name="keywords" content="${keywords}"></meta>
+	</c:if>
 	
 	<link rel="shortcut icon" href="${templatePath}/images/favicon.png">
     <link rel="stylesheet" href="${templatePath}/css/main.css" type="text/css" />
@@ -28,10 +36,8 @@
 	<script type="text/javascript" src="${templatePath}/js/windowjs/javascripts/window.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js"></script>
 	<script type="text/javascript">
-	var AMTcgiloc = '${config.texCgi}';
-	</script>
-	<script type="text/javascript">
-	   var tinymceOptions = {
+        var AMTcgiloc = '${config.texCgi}';
+	    var tinymceOptions = {
 	            mode : "textareas",
 	            editor_deselector : "mceNoEditor",
 	            //skin : "o2k7",
@@ -47,12 +53,12 @@
 	            //TODO: change!                
 	            content_css : "${templatePath}/css/editor-content.css"
 	        };
-	   Element.observe(window, 'load', function() {
-		tinyMCE.init(tinymceOptions);
-	   });
+	    Element.observe(window, 'load', function() {
+		    tinyMCE.init(tinymceOptions);
+	    });
 	</script>
 	
-	<script type="text/javascript" src="${homeDir}/includes/common.js"></script>
+	<script type="text/javascript" src="${homeDir}/js/common.js"></script>
 	<script type="text/javascript" src="${templatePath}/js/main.js"></script>
 	<script type="text/javascript">
 	<!-- // initialize global variables
@@ -94,80 +100,82 @@
 	<!-- content begins -->
 	<div class="clear"></div>
 	<div id="main">
-	    <div id="centerWrapper">
-		<div id="center">
-            <c:if test="${not empty sessionScope.user.warningMessage}">
-                <div class="notification">Bạn bị cảnh cáo với lí do: 
-                     ${sessionScope.user.warningMessage}  
+        
+        <div id="left">
+            <ul>
+                <li><ocw:actionLink name="textart.list">Bài viết</ocw:actionLink></li>
+                <li><ocw:actionLink name="question.list">Câu hỏi</ocw:actionLink></li>
+                <li><ocw:actionLink name="test.list">Đề thi</ocw:actionLink></li>
+                <li><ocw:actionLink name="topic.list">Chủ đề</ocw:actionLink></li>
+            </ul>
+            <c:set var="i" value="0"></c:set>
+            <c:forEach items="${modules['left']}" var="item">
+                <c:set var="module" scope="request" value="${item}"></c:set>
+                <div id="leftmod${i}" class="accor-container">
+                    <h5 class="modtitle accor-header">${module.title}</h5>
+                    <div class="accor-bodyWrapper">
+                        <div class="accor-body">
+                        <jsp:include page="modules/${module.page}"></jsp:include>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                    <!--
+                    new AccordionHandler('leftmod${i}');
+                    //-->
+                    </script>
+                    <c:set var="i" value="${i+1}"></c:set>
                 </div>
-            </c:if>
+            </c:forEach>
+        </div>
+	
+	    <div id="centerWrapper">
+			<div id="center">
+	            <c:if test="${not empty sessionScope.user.warningMessage}">
+	                <div class="notification">Bạn bị cảnh cáo với lí do: 
+	                     ${sessionScope.user.warningMessage}  
+	                </div>
+	            </c:if>
+	
+				<!-- ########################################## -->
+				<!--  nội dung action được đặt ở đây -->
+				<!-- ########################################## -->
+				<c:catch var="ex">
+					<jsp:include page="actions/${action.descriptor.name}.jsp" />
+				</c:catch>
+				<c:choose>
+	                <c:when test="${empty ex}">
+		                <c:forEach items="${modules['action-bottom']}" var="item">
+		                   <c:set var="module" scope="request" value="${item}"></c:set>
+		                    <h3>${module.title}</h3>
+		                    <div class="article-bottom">
+		                        <jsp:include page="modules/${module.page}"></jsp:include>
+		                    </div>
+		                </c:forEach>
+	                </c:when>
+	                <c:otherwise>
+	                    <pre style="color:red">${ex}</pre>
+	                </c:otherwise>			
+				</c:choose>
+				<div class="clear"></div>
 
-			<!-- ########################################## -->
-			<!--  nội dung action được đặt ở đây -->
-			<!-- ########################################## -->
-			<c:catch var="ex">
-				<jsp:include page="actions/${action.descriptor.name}.jsp" />
-			</c:catch>
-			<c:choose>
-                <c:when test="${empty ex}">
-	                <c:forEach items="${modules['action-bottom']}" var="item">
-	                   <c:set var="module" scope="request" value="${item}"></c:set>
-	                    <h3>${module.title}</h3>
-	                    <div class="article-bottom">
-	                        <jsp:include page="modules/${module.page}"></jsp:include>
-	                    </div>
-	                </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <pre style="color:red">${ex}</pre>
-                </c:otherwise>			
-			</c:choose>
-			<div class="clear"></div>
+	            <c:forEach items="${modules['bottom']}" var="item">
+	               <c:set var="module" scope="request" value="${item}"></c:set>
+	               <jsp:include page="modules/${module.page}"></jsp:include>
+	            </c:forEach>
+
+			</div>
+        
+	        <div id="right">
+	              <c:forEach items="${modules['right']}" var="item">
+	                  <c:set var="module" scope="request" value="${item}"></c:set>
+	                  <h5>${module.title}</h5>
+	                  <jsp:include page="modules/${module.page}"></jsp:include>
+	              </c:forEach>
+	        </div>
+            <div class="clear"></div>
 		</div>
-		</div>
-		
-		<div id="left">
-	        <ul>
-	            <li><ocw:actionLink name="textart.list">Bài viết</ocw:actionLink></li>
-	            <li><ocw:actionLink name="question.list">Câu hỏi</ocw:actionLink></li>
-	            <li><ocw:actionLink name="test.list">Đề thi</ocw:actionLink></li>
-	            <li><ocw:actionLink name="topic.list">Chủ đề</ocw:actionLink></li>
-	        </ul>
-	        <c:set var="i" value="0"></c:set>
-		    <c:forEach items="${modules['left']}" var="item">
-		        <c:set var="module" scope="request" value="${item}"></c:set>
-		        <div id="leftmod${i}" class="accor-container">
-			        <h5 class="modtitle accor-header">${module.title}</h5>
-			        <div class="accor-bodyWrapper">
-    			        <div class="accor-body">
-		                <jsp:include page="modules/${module.page}"></jsp:include>
-		                </div>
-		            </div>
-		            <script type="text/javascript">
-					<!--
-					new AccordionHandler('leftmod${i}');
-					//-->
-					</script>
-		            <c:set var="i" value="${i+1}"></c:set>
-	            </div>
-		    </c:forEach>
-		</div>
-		
-		<c:if test="${u:size(modules['right']) > 0}">
-		<div id="right">
-		      <c:forEach items="${modules['right']}" var="item">
-		          <c:set var="module" scope="request" value="${item}"></c:set>
-                  <h5>${module.title}</h5>
-		          <jsp:include page="modules/${module.page}"></jsp:include>
-		      </c:forEach>
-		</div>
-		</c:if>
 
 	   	<div id="mainbot">
-		    <c:forEach items="${modules['bottom']}" var="item">
-		       <c:set var="module" scope="request" value="${item}"></c:set>
-		       <jsp:include page="modules/${module.page}"></jsp:include>
-		    </c:forEach>
 	   	</div>
 	    <!--content ends -->
 	</div>

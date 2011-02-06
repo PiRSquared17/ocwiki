@@ -63,9 +63,9 @@
 	
 	function updateMarkStatus() {
 		var markStatus = '';
-        if (resourceCustomization.level == Level_HARD) {
+        if (resourceCustomization.level == LEVEL_HARD) {
             markStatus = 'Khó';
-        } else if (resourceCustomization.level == Level_EASY) {
+        } else if (resourceCustomization.level == LEVEL_EASY) {
             markStatus = 'Dễ';
         }
         if (resourceCustomization.todo == 'TODO') {

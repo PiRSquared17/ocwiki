@@ -1,5 +1,7 @@
 package oop.data;
 
+import java.security.InvalidParameterException;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -57,9 +59,80 @@ public abstract class Article implements Entity {
 	public void setContent(Text content) {
 		this.content = content;
 	}
-
+	
+	/**
+	 * Set the <code>name</code> property of article to specified value.
+	 * @param name
+	 */
 	public void setName(String name) {
+		name = standardlizeSpaces(name);
+		if (!checkNameImpl(name)) {
+			throw new InvalidParameterException("Invalid article name.");
+		}
 		this.name = name;
+	}
+
+	public static boolean isValidNameCharacter(char ch) {
+		if (ch == '#' || ch == ':') {
+			return false;
+		}
+		if (ch >= 0 && ch <= 31) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Kiểm tra một chuỗi có phải tên hợp lệ hay không.
+	 * @param str
+	 * @return
+	 */
+	public static boolean isValidName(String str) {
+		str = standardlizeSpaces(str);
+		return checkNameImpl(str);
+	}
+
+	private static boolean checkNameImpl(String str) {
+		if (str.length() > 255) {
+			return false;
+		}
+		for (int i = str.length()-1; i >= 0; i--) {
+			if (!isValidNameCharacter(str.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Xoá các khoảng trắng ở đầu và cuối chuỗi, thay nhiều khoảng trắng
+	 * liên tiếp ở giữa chuỗi bằng một khoảng trắng, thay các kí tự trắng
+	 * (tab, lind feed, form feed,...) bằng dấu cách thông thường. 
+	 * @param str
+	 * @return Xâu đã được chuẩn hoá.
+	 */
+	public static String standardlizeSpaces(String str) {
+		StringBuilder sb = new StringBuilder(str.length());
+		int i = 0;
+		while (i < str.length() && Character.isWhitespace(str.charAt(i))) {
+			i++;
+		}
+		for (; i < str.length(); i++) {
+			char ch = str.charAt(i);
+			if (Character.isWhitespace(ch)) {
+				sb.append(' ');
+				while (i < str.length() - 1
+						&& Character.isWhitespace(str.charAt(i + 1))) {
+					i++;
+				}
+			} else {
+				sb.append(ch);
+			}
+		}
+		if (sb.charAt(sb.length() - 1) == ' ') {
+			sb.deleteCharAt(sb.length() - 1);
+		}
+		return sb.toString();
 	}
 
 	public String getName() {

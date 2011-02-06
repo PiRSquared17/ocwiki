@@ -75,10 +75,33 @@ public final class UtilFunctions {
 		return html.replaceAll("\\<.*?\\>", "");
 	}
 
-	public static boolean isAssignableFrom(String a, String b) {
+	/**
+	 * Kiểm tra a có phải là b hoặc lớp tổ tiên của b hay không.
+	 * Nếu một tham số không phải kiểu Class, nó sẽ được coi là
+	 * chứa tên của lớp. 
+	 * @param a đối tượng kiểu Class hoặc String
+	 * @param b đối tượng kiểu Class hoặc String
+	 * @return true nếu a là b hoặc tổ tiên của b, false nếu ngược lại
+	 */
+	public static boolean isAssignableFrom(Object a, Object b) {
+		if (a == null || b == null) {
+			return false;
+		}
 		try {
-			Class<?> classA = Class.forName(a);
-			Class<?> classB = Class.forName(b);
+			Class<?> classA;
+			if (a instanceof Class<?>) {
+				classA = (Class<?>)a;
+			} else {
+				classA = Class.forName(a.toString());
+			}
+			
+			Class<?> classB;
+			if (b instanceof Class<?>) {
+				classB = (Class<?>)b;
+			} else {
+				classB = Class.forName(b.toString());
+			}
+
 			return classA.isAssignableFrom(classB);
 		} catch (ClassNotFoundException e) {
 			return false;
@@ -89,6 +112,15 @@ public final class UtilFunctions {
 		return e.name();
 	}
 
+	/**
+	 * Kiểm tra <code>coll</code> có chứa phần tử obj hay không.
+	 * <code>coll</code> có thể là Collection, Map hoặc mảng. Nếu
+	 * <code>coll</code> là Map, kiểm tra trong tập các giá trị của 
+	 * nó (không kiểm tra khoá). 
+	 * @param coll Collection, Map hoặc array của các đối tượng
+	 * @param obj đối tượng cần tìm
+	 * @return 
+	 */
 	public static boolean contains(Object coll, Object obj) {
 		if (coll instanceof Collection<?>) {
 			return ((Collection<?>)coll).contains(obj);
