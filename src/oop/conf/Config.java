@@ -26,6 +26,7 @@ public class Config implements Serializable {
 	private String homeDir = "http://localhost:8080";
 	private String luceneIndexDirectory = "WEB-INF/lucene/indexes";
 	private String articlePath = "${homeDir}/article";
+	private String revisionPath = "${homeDir}/rev";
 	private String actionPath = "${homeDir}/action";
 	private String apiPath = "${homeDir}/api";
 	private String restPath = "${homeDir}/rest";
@@ -43,7 +44,9 @@ public class Config implements Serializable {
 	private String uploadDir = "/uploads";
 	private String facebookAppId = null;
 	private String facebookSecret = null;
+
 	private boolean useCDN = false;
+	private boolean usePrettyUrl = false;
 	private String texCgi = "http://www.imathas.com/cgi-bin/mimetex.cgi";
 	private boolean recreateDatabaseWhenSetup = false;
 	private String contactEmail;
@@ -466,5 +469,21 @@ public class Config implements Serializable {
 	public void setRecaptchaPrivateKey(String recaptchaPrivateKey) {
 		this.recaptchaPrivateKey = recaptchaPrivateKey;
 	}
-	
+
+	public void setUsePrettyUrl(boolean usePrettyUrl) {
+		this.usePrettyUrl = usePrettyUrl;
+	}
+
+	public boolean isUsePrettyUrl() {
+		return usePrettyUrl;
+	}
+
+	public void setRevisionPath(String revisionPath) {
+		this.revisionPath = revisionPath;
+	}
+
+	public String getRevisionPath() {
+		return revisionPath;
+	}
+
 }

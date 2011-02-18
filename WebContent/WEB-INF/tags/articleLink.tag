@@ -14,19 +14,40 @@
 <jsp:doBody var="body" />
 <c:choose>
     <c:when test="${not empty revision}">
-        <c:set var="url" value="${homeDir}/article/revision/${revision.id}"></c:set>
+        <c:choose>
+            <c:when test="${config.usePrettyUrl}">
+                <c:set var="url" value="${config.revisionPath}/${revision.id}"></c:set>
+            </c:when>
+            <c:otherwise>
+                <c:set var="url" value="${config.actionPath}/article.viewold?id=${revision.id}"></c:set>
+            </c:otherwise>
+        </c:choose>
         <c:if test="${empty fn:trim(body)}">
             <c:set var="body" value="${revision.resource.name}"></c:set>
         </c:if>
     </c:when>
     <c:when test="${not empty resource}">
-        <c:set var="url" value="${homeDir}/article/${resource.id}"></c:set>
+        <c:choose>
+            <c:when test="${config.usePrettyUrl}">
+	           <c:set var="url" value="${config.articlePath}/${resource.id}"></c:set>
+	           <c:if test="${not empty resource.article.namespace}">
+	               <c:set var="url" value="${url}-${resource.article.namespace.urlName}"></c:set>
+	           </c:if>
+	           <c:if test="${not empty resource.article.name}">
+	               <c:set var="url" value="${url}-${resource.article.urlName}"></c:set>
+	           </c:if>
+	           <c:set var="url" value="${url}.html"></c:set>
+            </c:when>
+            <c:otherwise>
+               <c:set var="url" value="${config.actionPath}/article.view?id=${resource.id}"></c:set>
+            </c:otherwise>
+        </c:choose>
 		<c:if test="${empty fn:trim(body)}">
 		    <c:set var="body" value="${resource.name}"></c:set>
 		</c:if>
     </c:when>
     <c:otherwise>
-        error! no resource or revision specified.
+        <code>error! no resource or revision specified.</code>
     </c:otherwise>
 </c:choose>
 
