@@ -24,6 +24,8 @@ public class Namespace implements Entity {
 	@XmlElement
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
+	
+	private String urlName;
 
 	Namespace() {
 	}
@@ -40,6 +42,10 @@ public class Namespace implements Entity {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getUrlName() {
+		return urlName;
 	}
 	
 	@Override
