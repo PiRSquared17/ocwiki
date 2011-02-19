@@ -50,6 +50,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>,
 	private Set<ResourceLog> logs = new HashSet<ResourceLog>();
 	private Set<Resource<? extends Article>> linkedResources = new HashSet<Resource<? extends Article>>();
 	private Resource<? extends Article> link = null;
+	private String urlFriendlyName;
 
 	public Resource() {
 	}
@@ -136,6 +137,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>,
 	
 	public void setArticle(T article) {
 		this.article = article;
+		computeUrlFriendlyName();
 	}
 	
 	@XmlElement(name="articleType")
@@ -203,6 +205,17 @@ public class Resource<T extends Article> implements ArticleContainer<T>,
 	@XmlTransient
 	public Set<Revision<T>> getRevisions() {
 		return revisions;
+	}
+	
+	public String getUrlFriendlyName() {
+		if (urlFriendlyName == null) {
+			computeUrlFriendlyName();
+		}
+		return urlFriendlyName;
+	}
+
+	private void computeUrlFriendlyName() {
+		urlFriendlyName = Utils.toUrlFriendly(getQualifiedName());
 	}
 	
 	@Override

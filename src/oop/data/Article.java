@@ -25,8 +25,6 @@ public abstract class Article implements Entity {
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	private String name;
 	
-	private String urlName;
-	
 	@IndexedEmbedded
 	private Namespace namespace;
 
@@ -72,14 +70,9 @@ public abstract class Article implements Entity {
 		if (!checkNameImpl(name)) {
 			throw new InvalidParameterException("Invalid article name.");
 		}
-		urlName = Utils.toUrlFriendly(name);
 		this.name = name;
 	}
 
-	public String getUrlName() {
-		return urlName;
-	}
-	
 	public static boolean isValidNameCharacter(char ch) {
 		if (ch == '#' || ch == ':' || ch == 127) {
 			return false;

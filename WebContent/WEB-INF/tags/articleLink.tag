@@ -30,11 +30,8 @@
         <c:choose>
             <c:when test="${config.usePrettyUrl}">
 	           <c:set var="url" value="${config.articlePath}/${resource.id}"></c:set>
-	           <c:if test="${not empty resource.article.namespace}">
-	               <c:set var="url" value="${url}-${resource.article.namespace.urlName}"></c:set>
-	           </c:if>
 	           <c:if test="${not empty resource.article.name}">
-	               <c:set var="url" value="${url}-${resource.article.urlName}"></c:set>
+	               <c:set var="url" value="${url}-${resource.urlFriendlyName}"></c:set>
 	           </c:if>
 	           <c:set var="url" value="${url}.html"></c:set>
             </c:when>

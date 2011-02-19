@@ -10,11 +10,12 @@ public class CharTest {
 	public static final String CHARACTERS =
 			"àÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬđĐèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆ"
 		    + "ìÌỉỈĩĨíÍịỊòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢ"
-		    + "ùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰ ";
+		    + "ùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰýÝ :+\\<>\"*,!?%$=@#~[]`|^";
+	
     public static final String CHARS2 = 
 			"aAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAaAdDeEeEeEeEeEeEeEeEeEeEeE"
 		    + "iIiIiIiIiIoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoOoO"
-		    + "uUuUuUuUuUuUuUuUuUuUuU_";
+		    + "uUuUuUuUuUuUuUuUuUuUuUyY____\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
     @Test
     public void perform() {
@@ -41,7 +42,7 @@ public class CharTest {
 		}
     	System.out.println();
     	for (int i = 0; i < c2.length; i++) {
-    		System.out.print("'" + c2[i] + "', ");
+    		System.out.print("'" + (c2[i] == '\0' ? "\\0" : c2[i]) + "', ");
     	}
     	System.out.println();
     	System.out.println("Total: " + c1.length);
@@ -51,6 +52,9 @@ public class CharTest {
     public void urlFriendly() {
     	Assert.assertEquals("khong_dau", Utils.toUrlFriendly("không dấu"));
     	Assert.assertEquals("De_thi_thu_dai_hoc", Utils.toUrlFriendly("Đề thi thử đại học"));
+    	Assert.assertEquals("kY_tu_DaC_bIET", Utils.toUrlFriendly("k,Ý* tự:Đ?<ặ>!C bI\"ỆT///"));
+    	Assert.assertEquals("html_special", Utils.toUrlFriendly("html# s@p><\"ecial"));
+    	Assert.assertEquals("linux_special", Utils.toUrlFriendly("lin|^ux s[p]eci`al"));
     }
     
 }
