@@ -15,6 +15,7 @@
     <maxAvatarDimension>150</maxAvatarDimension>
     <maxUploadFileSize>10</maxUploadFileSize>
     <avatarThumbnailSize>32</avatarThumbnailSize>
+    <usePrettyUrl>true</usePrettyUrl>
 
     <!--********************************************************************
                                  Actions 

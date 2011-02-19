@@ -11,8 +11,5 @@
         <property name="name" type="java.lang.String" access="field">
             <column name="name" not-null="true" />
         </property>
-        <property name="urlName" type="java.lang.String" access="field">
-            <column name="url_name" not-null="true" />
-        </property>
     </class>
 </hibernate-mapping>
