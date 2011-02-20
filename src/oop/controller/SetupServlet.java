@@ -34,6 +34,7 @@ public class SetupServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String sqlPath = getServletContext().getRealPath("/WEB-INF/setup.sql");
 		Config config = Config.get();
+		response.setBufferSize(0);
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		printInstructions(response);
