@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 16:16:24 20-08-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<subclass name="org.ocwiki.data.log.NewRevisionLog" extends="org.ocwiki.data.log.ResourceLog"
+		abstract="false" discriminator-value="REV">
+		<many-to-one name="newRevision" column="new_revision"
+			class="org.ocwiki.data.Revision" access="field"></many-to-one>
+		<many-to-one name="oldRevision" column="old_revision"
+			class="org.ocwiki.data.Revision" access="field"></many-to-one>
+	</subclass>
+</hibernate-mapping>

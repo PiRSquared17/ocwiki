@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 2, 2010 7:14:50 PM by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="org.ocwiki.data.FacebookAccount" table="FacebookAccount">
+        <id name="uid" type="java.lang.String">
+            <column name="UID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="user" class="org.ocwiki.data.User" fetch="join">
+            <column name="USER" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

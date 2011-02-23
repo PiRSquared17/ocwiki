@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="org.ocwiki.data.Comment" table="Comment" mutable="false">
+		<id name="id" column="id" access="field">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="user" access="field" column="user" lazy="proxy"
+			class="org.ocwiki.data.User" fetch="join" not-null="true" />
+		<property name="timestamp" access="field" type="java.util.Date">
+			<column name="timestamp" not-null="true"
+				sql-type="timestamp default CURRENT_TIMESTAMP"></column>
+		</property>
+		<property name="message" access="field" type="java.lang.String">
+			<column name="message" sql-type="text" not-null="true"></column>
+		</property>
+		<many-to-one name="resource" access="field" column="resource"
+			class="org.ocwiki.data.Resource" />
+		<many-to-one name="revision" access="field" column="revision"
+			class="org.ocwiki.data.Revision" />
+	</class>
+</hibernate-mapping>
