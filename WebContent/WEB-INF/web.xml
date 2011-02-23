@@ -9,7 +9,7 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   <listener>
-    <listener-class>oop.controller.OcwikiApp</listener-class>
+    <listener-class>org.ocwiki.controller.OcwikiApp</listener-class>
   </listener>
   <error-page>
     <error-code>404</error-code>
@@ -27,7 +27,7 @@
     <description></description>
     <display-name>ActionController</display-name>
     <servlet-name>ActionController</servlet-name>
-    <servlet-class>oop.controller.ActionController</servlet-class>
+    <servlet-class>org.ocwiki.controller.ActionController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ActionController</servlet-name>
@@ -41,7 +41,7 @@
     <description></description>
     <display-name>APIController</display-name>
     <servlet-name>APIController</servlet-name>
-    <servlet-class>oop.controller.APIController</servlet-class>
+    <servlet-class>org.ocwiki.controller.APIController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>APIController</servlet-name>
@@ -53,7 +53,7 @@
     <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
     <init-param>
       <param-name>com.sun.jersey.config.property.packages</param-name>
-      <param-value>oop.controller.rest</param-value>
+      <param-value>org.ocwiki.controller.rest</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
@@ -63,7 +63,7 @@
   <filter>
     <display-name>rest-filter</display-name>
     <filter-name>rest-filter</filter-name>
-    <filter-class>oop.filter.RestFilter</filter-class>
+    <filter-class>org.ocwiki.filter.RestFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>rest-filter</filter-name>
@@ -73,7 +73,7 @@
     <description></description>
     <display-name>SetupServlet</display-name>
     <servlet-name>SetupServlet</servlet-name>
-    <servlet-class>oop.controller.SetupServlet</servlet-class>
+    <servlet-class>org.ocwiki.controller.SetupServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SetupServlet</servlet-name>
@@ -82,7 +82,7 @@
   <filter>
     <display-name>url-rewrite</display-name>
     <filter-name>url-rewrite</filter-name>
-    <filter-class>oop.filter.UrlRewritingFilter</filter-class>
+    <filter-class>org.ocwiki.filter.UrlRewritingFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>url-rewrite</filter-name>
@@ -93,7 +93,7 @@
     <description></description>
     <display-name>ErrorController</display-name>
     <servlet-name>ErrorController</servlet-name>
-    <servlet-class>oop.controller.ErrorController</servlet-class>
+    <servlet-class>org.ocwiki.controller.ErrorController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ErrorController</servlet-name>

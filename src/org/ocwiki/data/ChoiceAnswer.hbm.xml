@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<subclass name="org.ocwiki.data.ChoiceAnswer" extends="org.ocwiki.data.HistoryAnswer"
+	       discriminator-value="Choice">
+	    <set name="choices" table="ChoiceAnswerAnswer">
+	       <key column="choice"></key>
+		   <many-to-many column="answer" class="org.ocwiki.data.Answer"/>
+		</set>
+	</subclass>
+</hibernate-mapping>

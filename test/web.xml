@@ -9,13 +9,13 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   <listener>
-    <listener-class>oop.controller.OcwikiApp</listener-class>
+    <listener-class>org.ocwiki.controller.OcwikiApp</listener-class>
   </listener>
   <servlet>
     <description></description>
     <display-name>ActionController</display-name>
     <servlet-name>ActionController</servlet-name>
-    <servlet-class>oop.controller.ActionController</servlet-class>
+    <servlet-class>org.ocwiki.controller.ActionController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ActionController</servlet-name>
@@ -29,7 +29,7 @@
     <description></description>
     <display-name>APIController</display-name>
     <servlet-name>APIController</servlet-name>
-    <servlet-class>oop.controller.APIController</servlet-class>
+    <servlet-class>org.ocwiki.controller.APIController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>APIController</servlet-name>
@@ -39,7 +39,7 @@
     <description></description>
     <display-name>ArticleController</display-name>
     <servlet-name>ArticleController</servlet-name>
-    <servlet-class>oop.controller.ArticleController</servlet-class>
+    <servlet-class>org.ocwiki.controller.ArticleController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ArticleController</servlet-name>
@@ -51,7 +51,7 @@
     <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
     <init-param>
       <param-name>com.sun.jersey.config.property.packages</param-name>
-      <param-value>oop.controller.rest</param-value>
+      <param-value>org.ocwiki.controller.rest</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -62,7 +62,7 @@
   <filter>
     <display-name>rest-filter</display-name>
     <filter-name>rest-filter</filter-name>
-    <filter-class>oop.filter.RestFilter</filter-class>
+    <filter-class>org.ocwiki.filter.RestFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>rest-filter</filter-name>

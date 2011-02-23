@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 22:00:03 19-07-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="org.ocwiki.data.SectionStructure" table="SectionStructure"
+		mutable="false">
+		<id name="id" type="long" access="field">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="content" class="org.ocwiki.data.Text" fetch="join"
+			cascade="all" not-null="true">
+			<column name="content" />
+		</many-to-one>
+		<list inverse="false" name="constraints" lazy="true"
+			table="SectionStructureConstraint" cascade="all">
+			<key column="section_id" />
+			<index column="constraint_index"></index>
+			<many-to-many column="constraint_id" class="org.ocwiki.data.Constraint" />
+		</list>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<subclass name="org.ocwiki.data.TopicConstraint" extends="org.ocwiki.data.Constraint"
+		discriminator-value="TOP">
+		<set name="topics" table="TopicConstraintTopic" fetch="join">
+			<key column="constraint_id" />
+			<many-to-many class="org.ocwiki.data.Resource" column="topic_id" />
+		</set>
+	</subclass>
+</hibernate-mapping>
