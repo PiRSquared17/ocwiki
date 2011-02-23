@@ -14,7 +14,7 @@
     <description>Cắt bỏ các khoảng trắng ở hai đầu đoạn mã</description>
     <display-name>Trim</display-name>
     <name>trim</name>
-    <tag-class>oop.taglib.TrimTag</tag-class>
+    <tag-class>org.ocwiki.taglib.TrimTag</tag-class>
     <body-content>scriptless</body-content>
   </tag>
 
@@ -23,7 +23,7 @@
       Định dạng ngày 
     </description>
     <name>formatDate</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String formatDate(java.util.Date)</function-signature>
     <example>
       ${u:formatDate(date)}
@@ -35,7 +35,7 @@
       Định dạng ngày giờ
     </description>
     <name>formatDateTime</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String formatDateTime(java.util.Date)</function-signature>
     <example>
       ${u:formatDateTime(dateTime)}
@@ -47,7 +47,7 @@
       Trả về tên của độ khó
     </description>
     <name>levelName</name>
-    <function-class>oop.data.BaseQuestion</function-class>
+    <function-class>org.ocwiki.data.BaseQuestion</function-class>
     <function-signature>java.lang.String getLevelName(int)</function-signature>
     <example>
       ${u:levelName(3)}
@@ -59,7 +59,7 @@
       Mã hoá URL
     </description>
     <name>urlEncode</name>
-    <function-class>oop.util.Utils</function-class>
+    <function-class>org.ocwiki.util.Utils</function-class>
     <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
     <example>
       ${u:urlEncode('action=homepage')}
@@ -71,7 +71,7 @@
       Xoá bỏ các thẻ HTML
     </description>
     <name>stripHTML</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String stripHTML(java.lang.String)</function-signature>
     <example>
       ${u:stripHTML('&lt;p&gt;&lt;/p&gt;&lt;p&gt;content&lt;/p&gt;')}
@@ -83,7 +83,7 @@
       Làm tròn
     </description>
     <name>round</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>long round(double)</function-signature>
     <example>
       ${u:round(9.5)}
@@ -95,7 +95,7 @@
       Làm tròn xuống
     </description>
     <name>floor</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>long floor(double)</function-signature>
     <example>
       ${u:floor(9.5)}
@@ -107,7 +107,7 @@
       Kích thước Collection, Map
     </description>
     <name>size</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>int size(java.lang.Object)</function-signature>
     <example>
       ${u:size(list)}
@@ -119,7 +119,7 @@
       Kiểm tra phần tử có trong Collection/Map hay không
     </description>
     <name>contains</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>boolean contains(java.lang.Object, java.lang.Object)</function-signature>
     <example>
       ${u:contains(answers, answer)}
@@ -131,7 +131,7 @@
       Rút ngắn xâu kí tự nếu cần
     </description>
     <name>ellipsize</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String ellipsize(java.lang.String, int)</function-signature>
     <example>
       ${u:ellipsize(s, 30)}
@@ -143,7 +143,7 @@
       Chuyển số thứ tự (bắt đầu từ 0) từ số sang chữ cái hoa ('A'..'Z')
     </description>
     <name>alpha</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>java.lang.String toAlpha(int)</function-signature>
     <example>
       ${u:alpha(0)}
@@ -167,7 +167,7 @@
       Trả về chuỗi JSON của đối tượng.
     </description>
     <name>toJson</name>
-    <function-class>oop.util.JsonUtils</function-class>
+    <function-class>org.ocwiki.util.JsonUtils</function-class>
     <function-signature>java.lang.String toJson(java.lang.Object)</function-signature>
     <example>
       ${u:toJson(resource)}
@@ -186,7 +186,7 @@
       Kiểm tra lớp A có phải trùng hoặc là lớp cha của B hay không.
     </description>
     <name>assignableFrom</name>
-    <function-class>oop.taglib.UtilFunctions</function-class>
+    <function-class>org.ocwiki.taglib.UtilFunctions</function-class>
     <function-signature>boolean isAssignableFrom(java.lang.Object, java.lang.Object)</function-signature>
   </function>
 

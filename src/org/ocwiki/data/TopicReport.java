@@ -50,5 +50,19 @@ public class TopicReport implements Serializable {
 	public void setArticleCount(int articleCount) {
 		this.articleCount = articleCount;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof TopicReport) {
+			TopicReport report = (TopicReport) obj;
+			return report.equals(report.resource);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return resource.hashCode();
+	}
 
 }

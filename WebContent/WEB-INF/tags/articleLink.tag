@@ -1,10 +1,10 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="resource"
     description="Đối tượng bài viết (lớp Resource)" required="false" 
-    rtexprvalue="true" type="oop.data.Resource"%>
+    rtexprvalue="true" type="org.ocwiki.data.Resource"%>
 <%@ attribute name="revision"
     description="Đối tượng phiên bản bài viết (lớp Revision)" required="false" 
-    rtexprvalue="true" type="oop.data.Revision"%>
+    rtexprvalue="true" type="org.ocwiki.data.Revision"%>
 <%@ attribute name="onclick" description="Mã xử lí sự kiện nhấn chuột"
 	required="false" type="java.lang.String"%>
 <%@ attribute name="id" description="id"

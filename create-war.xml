@@ -5,7 +5,7 @@
         <delete file="dist/ocwiki.war" />
         <war destfile="dist/ocwiki.war" webxml="WebContent/WEB-INF/web.xml" update="true">
             <classes dir="build/classes">
-                <exclude name="oop/test/**"/>
+                <exclude name="org/ocwiki/test/**"/>
             </classes>
             <fileset dir="WebContent">
                 <exclude name="examples/**"/>

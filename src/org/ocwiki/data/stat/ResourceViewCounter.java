@@ -34,4 +34,18 @@ public class ResourceViewCounter implements Serializable {
 		return viewCount;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ResourceViewCounter) {
+			ResourceViewCounter counter = (ResourceViewCounter) obj;
+			return resource.equals(counter.resource);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return resource.hashCode();
+	}
+	
 }

@@ -21,13 +21,13 @@
        </ocw:actionLink>]
     </c:if>
 	<c:choose>
-	    <c:when test="${u:assignableFrom('oop.data.BaseQuestion', type)}">
+	    <c:when test="${u:assignableFrom('org.ocwiki.data.BaseQuestion', type)}">
 	        [<ocw:actionLink name="solution.list">
 	           <ocw:param name="id" value="${action.resource.id}"></ocw:param>
 	           bài giải
 	        </ocw:actionLink>]
 	    </c:when>
-	    <c:when test="${u:assignableFrom('oop.data.Test', type)}">
+	    <c:when test="${u:assignableFrom('org.ocwiki.data.Test', type)}">
 	        [<ocw:actionLink name="test.solve">
 			    <ocw:param name="testId" value="${action.resource.id}"></ocw:param>
 			    làm

@@ -25,7 +25,7 @@ public final class HistoryDAO {
 
 	public static List<TestAttempt> fetchByUser(long userId, int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from History where user.id=:userId order by id desc";
+		String hql = "from TestAttempt where user.id=:userId order by id desc";
 		Query query = session.createQuery(hql);
 		query.setLong("userId", userId);
 		query.setFirstResult(start);
@@ -35,7 +35,7 @@ public final class HistoryDAO {
 	
 	public static long countByUser(long userId) {
 		Session session = HibernateUtil.getSession();
-		String hql = "select count(*) from History where user.id=:userId";
+		String hql = "select count(*) from TestAttempt where user.id=:userId";
 		Query query = session.createQuery(hql);
 		query.setLong("userId", userId);
 		return (Long)query.uniqueResult();

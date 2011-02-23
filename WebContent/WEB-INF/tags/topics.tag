@@ -1,7 +1,7 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="article"
     description="Đối tượng bài viết (lớp BaseArticle)" required="true" 
-    rtexprvalue="true" type="oop.data.BaseArticle"%>
+    rtexprvalue="true" type="org.ocwiki.data.BaseArticle"%>
 <%@ attribute name="editable"
     description="Có hiện các nút sửa đổi hay không" required="false"%>
 <%@ include file="/includes/common.jsp"%>

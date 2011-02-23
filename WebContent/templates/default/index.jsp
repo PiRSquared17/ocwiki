@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>${fn:escapeXml(pageTitle)}</title>
 	<c:if test="${not empty action.resource and 
-	       u:assignableFrom('oop.data.CategorizableArticle', action.resource.type)}">
+	       u:assignableFrom('org.ocwiki.data.CategorizableArticle', action.resource.type)}">
 	   <c:set var="keywords" value=""></c:set>
 	   <c:forEach items="${action.resource.article.topics}" var="topic">
 	       <c:set var="keywords" value="${keywords}${topic.name}, "></c:set>

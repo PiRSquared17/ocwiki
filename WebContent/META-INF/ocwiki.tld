@@ -15,7 +15,7 @@
     <description>Chèn form HTML</description>
     <display-name>form</display-name>
     <name>form</name>
-    <tag-class>oop.taglib.FormTag</tag-class>
+    <tag-class>org.ocwiki.taglib.FormTag</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
         <description>Tên hành động</description>
@@ -42,7 +42,7 @@
     <description>Tạo nút nhấn đến hành động</description>
     <display-name>Nút hành động</display-name>
     <name>actionButton</name>
-    <tag-class>oop.taglib.ActionButtonTag</tag-class>
+    <tag-class>org.ocwiki.taglib.ActionButtonTag</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
         <description>Tên của hành động</description>
@@ -70,7 +70,7 @@
     <description>Tạo liên kết đến hành động</description>
     <display-name>Liên kết hành động</display-name>
     <name>actionLink</name>
-    <tag-class>oop.taglib.ActionLinkTag</tag-class>
+    <tag-class>org.ocwiki.taglib.ActionLinkTag</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
         <description>Tên của hành động</description>
@@ -105,7 +105,7 @@
     <description>Thiết lập một tham số cho hành động</description>
     <display-name>Tham số</display-name>
     <name>param</name>
-    <tag-class>oop.taglib.ParamTag</tag-class>
+    <tag-class>org.ocwiki.taglib.ParamTag</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
         <description>Tên của tham số</description>
@@ -135,7 +135,7 @@
     <description>Chuyển đổi văn bản từ định dạng nội bộ thành HTML</description>
     <display-name>Parse content</display-name>
     <name>parse</name>
-    <tag-class>oop.taglib.ParseTag</tag-class>
+    <tag-class>org.ocwiki.taglib.ParseTag</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
         <description>Đối tượng resource chứa văn bản</description>
@@ -144,7 +144,7 @@
         <rtexprvalue>true</rtexprvalue>
     </attribute>    
     <attribute>
-        <description>Đối tượng văn bản (String hoặc oop.data.Text)</description>
+        <description>Đối tượng văn bản (String hoặc org.ocwiki.data.Text)</description>
         <name>content</name>
         <required>false</required>
         <rtexprvalue>true</rtexprvalue>
@@ -156,7 +156,7 @@
 		chứa trong thẻ</description>
     <display-name>Tạo chuỗi JS</display-name>
     <name>setJs</name>
-    <tag-class>oop.taglib.SetJsTag</tag-class>
+    <tag-class>org.ocwiki.taglib.SetJsTag</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
         <description>Tên biến chứa kết quả</description>
@@ -242,7 +242,7 @@
       Trả về đường dẫn đến hành động (action).
     </description>
     <name>actionUrl</name>
-    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-class>org.ocwiki.controller.action.ActionUtil</function-class>
     <function-signature>java.lang.String getActionURL(java.lang.String)</function-signature>
     <example>
       ${ocw:actionUrl('ques.view')}
@@ -254,7 +254,7 @@
       Trả về đường dẫn đến REST web service.
     </description>
     <name>restUrl</name>
-    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-class>org.ocwiki.controller.action.ActionUtil</function-class>
     <function-signature>java.lang.String getRestURL(java.lang.String)</function-signature>
     <example>
       ${ocw:restUrl('questions/1234')}
@@ -266,7 +266,7 @@
       Trả về đường dẫn đến API.
     </description>
     <name>apiUrl</name>
-    <function-class>oop.controller.action.ActionUtil</function-class>
+    <function-class>org.ocwiki.controller.action.ActionUtil</function-class>
     <function-signature>java.lang.String getAPIURL(java.lang.String)</function-signature>
     <example>
       ${ocw:apiUrl('topic.search')}
@@ -278,8 +278,8 @@
       Kiểm tra người sử dụng có quyền thực hiện hành động được cho trước hay không.
     </description>
     <name>checkPermission</name>
-    <function-class>oop.controller.action.ActionUtil</function-class>
-    <function-signature>boolean checkPermission(oop.data.User, java.lang.String)</function-signature>
+    <function-class>org.ocwiki.controller.action.ActionUtil</function-class>
+    <function-signature>boolean checkPermission(org.ocwiki.data.User, java.lang.String)</function-signature>
     <example><![CDATA[
       <c:if test="${ocw:checkPermission('question.edit', sessionScope.user)}">
         link to question editing action

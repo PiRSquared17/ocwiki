@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 	<!-- Generated 21:37:01 15-08-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<class name="org.ocwiki.data.History" table="History" mutable="false">
+	<class name="org.ocwiki.data.TestAttempt" table="TestAttempt" mutable="false">
 		<id name="id" type="long" access="field">
 			<column name="id" />
 			<generator class="identity" />
