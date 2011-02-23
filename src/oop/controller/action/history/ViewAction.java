@@ -6,13 +6,13 @@ import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
-import oop.data.History;
+import oop.data.TestAttempt;
 import oop.db.dao.HistoryDAO;
 import oop.taglib.UtilFunctions;
 
 public class ViewAction extends AbstractAction {
 
-	private History history;
+	private TestAttempt history;
 
 	@Override
 	protected void performImpl() throws IOException, ServletException {
@@ -27,7 +27,7 @@ public class ViewAction extends AbstractAction {
 				+ UtilFunctions.formatDateTime(history.getTakenDate()));
 	}
 	
-	public History getHistory() {
+	public TestAttempt getHistory() {
 		return history;
 	}
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class History implements Entity {
+public class TestAttempt implements Entity {
 
 	private long id;
 	private User user;
@@ -15,10 +15,10 @@ public class History implements Entity {
 	private int time;
 	private Set<HistoryAnswer> answers;
 	
-	History() {
+	TestAttempt() {
 	}
 
-	public History(User user, Revision<Test> revision, Date takenDate,
+	public TestAttempt(User user, Revision<Test> revision, Date takenDate,
 			Set<HistoryAnswer> answers, int time) {
 		this.user = user;
 		this.revision = revision;

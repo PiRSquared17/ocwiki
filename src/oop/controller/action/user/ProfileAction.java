@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import oop.controller.action.AbstractAction;
 import oop.controller.action.ActionException;
 import oop.data.CommentStatus;
-import oop.data.History;
+import oop.data.TestAttempt;
 import oop.data.Resource;
 import oop.data.Test;
 import oop.data.User;
@@ -23,7 +23,7 @@ import com.oreilly.servlet.ParameterNotFoundException;
 public class ProfileAction extends AbstractAction {
 
 	private User user;
-	private List<History> histories;
+	private List<TestAttempt> histories;
 	private List<Resource<Test>> tests;
 	private long likedComments;
 	private long hiddenComments;
@@ -59,7 +59,7 @@ public class ProfileAction extends AbstractAction {
 		return user;
 	}
 	
-	public List<History> getHistories() {
+	public List<TestAttempt> getHistories() {
 		return histories;
 	}
 	

@@ -51,7 +51,7 @@ public final class XMLUtils {
 		xstream.alias("ans", oop.data.Answer.class);
 		xstream.alias("art", oop.data.Article.class);
 		xstream.alias("ques", oop.data.BaseQuestion.class);
-		xstream.alias("hist", oop.data.History.class);
+		xstream.alias("hist", oop.data.TestAttempt.class);
 		xstream.alias("lc", oop.data.LevelConstraint.class);
 		xstream.alias("sq", oop.data.Question.class);
 		xstream.alias("sect", oop.data.Section.class);
