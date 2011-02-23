@@ -6,14 +6,14 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import oop.controller.action.AbstractAction;
-import oop.data.History;
+import oop.data.TestAttempt;
 import oop.db.dao.HistoryDAO;
 
 public class ListAction extends AbstractAction {
 
 	private int start;
 	private int size;
-	private List<History> histories;
+	private List<TestAttempt> histories;
 	private long count;
 
 	@Override
@@ -32,7 +32,7 @@ public class ListAction extends AbstractAction {
 		return size;
 	}
 
-	public List<History> getHistories() {
+	public List<TestAttempt> getHistories() {
 		return histories;
 	}
 

@@ -29,7 +29,7 @@ public final class JsonUtils {
 		oop.data.ResourceSearchReport.class,
 		oop.data.Revision.class,
 		oop.data.BaseQuestion.class,
-		oop.data.History.class,
+		oop.data.TestAttempt.class,
 		oop.data.LevelConstraint.class,
 		oop.data.Preferences.class,
 		oop.data.Question.class,

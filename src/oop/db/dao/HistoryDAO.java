@@ -2,7 +2,7 @@ package oop.db.dao;
 
 import java.util.List;
 
-import oop.data.History;
+import oop.data.TestAttempt;
 import oop.persistence.HibernateUtil;
 
 import org.hibernate.HibernateException;
@@ -18,12 +18,12 @@ public final class HistoryDAO {
 	 * @param id
 	 * @return
 	 */
-	public static History fetchById(long id) {
+	public static TestAttempt fetchById(long id) {
 		Session session = HibernateUtil.getSession();
-		return (History) session.get(History.class, id);
+		return (TestAttempt) session.get(TestAttempt.class, id);
 	}
 
-	public static List<History> fetchByUser(long userId, int start, int length) {
+	public static List<TestAttempt> fetchByUser(long userId, int start, int length) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from History where user.id=:userId order by id desc";
 		Query query = session.createQuery(hql);
@@ -41,7 +41,7 @@ public final class HistoryDAO {
 		return (Long)query.uniqueResult();
 	}
 
-	public static History persist(History history) {
+	public static TestAttempt persist(TestAttempt history) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = null;
 		try {

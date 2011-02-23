@@ -12,7 +12,7 @@ import oop.controller.action.ActionException;
 import oop.data.Answer;
 import oop.data.BaseQuestion;
 import oop.data.ChoiceAnswer;
-import oop.data.History;
+import oop.data.TestAttempt;
 import oop.data.HistoryAnswer;
 import oop.data.Test;
 import oop.db.dao.HistoryDAO;
@@ -35,7 +35,7 @@ public class SolveAction extends AbstractResourceAction<Test> {
 		if ("done".equals(submit)) {
 			Set<HistoryAnswer> answers = getChoiceAnswers();
 			int time = getParams().getInt("time");
-			History history = new History(getUser(),
+			TestAttempt history = new TestAttempt(getUser(),
 					ResourceDAO.fetchCurrentRevision(resource), new Date(),
 					answers, time);
 			HistoryDAO.persist(history);
