@@ -6,7 +6,7 @@
     <li class="level1">Tạo mới
     <ul class="level2 dropdown">
         <li><a href="#" onclick="createQuestion(); return false">Câu hỏi</a></li>
-        <c:if test="${u:assignableFrom('oop.data.BaseQuestion', action.resource.type)}">
+        <c:if test="${u:assignableFrom('org.ocwiki.data.BaseQuestion', action.resource.type)}">
 	        <li><a href="#" onclick="createSolution(resource.id); return false">Bài giải</a></li>
         </c:if>
         <li><a href="#" onclick="createTest(); return false">Đề thi</a></li>

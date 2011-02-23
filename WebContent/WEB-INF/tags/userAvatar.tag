@@ -1,6 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="user" description="Đối tượng người dùng"
-	required="false" type="oop.data.User"%>
+	required="false" type="org.ocwiki.data.User"%>
 <%@ include file="/includes/common.jsp" %>
 	
 <c:choose>

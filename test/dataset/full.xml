@@ -14830,7 +14830,7 @@ jkj
     <column>count</column>
     <column>level</column>
   </table>
-  <table name="History">
+  <table name="TestAttempt">
     <column>id</column>
     <column>user</column>
     <column>test</column>

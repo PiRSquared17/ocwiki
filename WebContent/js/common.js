@@ -190,7 +190,7 @@ var ResourceService = Class.create( {
 
 function createQuestion() {
 	resource = {
-		articleType: 'oop.data.BaseQuestion',
+		articleType: 'org.ocwiki.data.BaseQuestion',
 		article: {
 		    type: 'baseQuestionBean',
 		    name: 'Câu hỏi mới',
@@ -204,7 +204,7 @@ function createQuestion() {
 
 function createSolution(questionId) {
     resource = {
-            articleType: 'oop.data.Solution',
+            articleType: 'org.ocwiki.data.Solution',
             article: {
                 type: 'solutionBean',
                 name: 'Bài giải mới',
@@ -221,7 +221,7 @@ function createSolution(questionId) {
 
 function createTest() {
     resource = {
-        articleType: 'oop.data.Test',
+        articleType: 'org.ocwiki.data.Test',
         article: {
             type: 'testBean',
             name: 'Đề thi mới',
@@ -235,7 +235,7 @@ function createTest() {
 
 function createFile() {
     resource = {
-        articleType: 'oop.data.File',
+        articleType: 'org.ocwiki.data.File',
         article: {
             type: 'fileBean',
             name: 'Tập tin mới',
@@ -249,7 +249,7 @@ function createFile() {
 
 function createTextArticle() {
     resource = {
-        articleType: 'oop.data.TextArticle',
+        articleType: 'org.ocwiki.data.TextArticle',
         article: {
             type: 'textArticleBean',
             name: 'Bài viết mới',
@@ -263,7 +263,7 @@ function createTextArticle() {
 
 function createTestStructure() {
     resource = {
-        articleType: 'oop.data.TestStructure',
+        articleType: 'org.ocwiki.data.TestStructure',
         article: {
             type: 'testStructureBean',
             name: 'Cấu trúc đề mới',
@@ -277,7 +277,7 @@ function createTestStructure() {
 
 function createTopic() {
     resource = {
-        articleType: 'oop.data.Topic',
+        articleType: 'org.ocwiki.data.Topic',
         article: {
             type: 'topicBean',
             name: 'Chủ đề mới',
