@@ -10,7 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 import org.ocwiki.controller.rest.bean.MapperUtils;
-import org.ocwiki.controller.rest.bean.QuestionBean;
+import org.ocwiki.controller.rest.bean.TestQuestionBean;
 import org.ocwiki.controller.rest.bean.ResourceSearchReportBean;
 import org.ocwiki.controller.rest.bean.ResourceSearchReportMapper;
 import org.ocwiki.controller.rest.bean.RevisionBean;
@@ -124,7 +124,7 @@ public class TestResource extends AbstractResource {
 					.getQuestions()) > 0, "too little questions");
 //			WebServiceUtils.assertValid(TextBean.isNotBlank(section.getContent()),
 //					"section content is blank");
-			for (QuestionBean question : section.getQuestions()) {
+			for (TestQuestionBean question : section.getQuestions()) {
 				if (question != null && question.getId() > 0) {
 					continue;
 				}

@@ -4,11 +4,11 @@ import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.TestQuestion;
 import org.ocwiki.persistence.HibernateUtil;
 
-public class QuestionMapper implements Mapper<QuestionBean, TestQuestion> {
+public class TestQuestionMapper implements Mapper<TestQuestionBean, TestQuestion> {
 
 	@Override
-	public QuestionBean toBean(TestQuestion value) {
-		QuestionBean bean = new QuestionBean();
+	public TestQuestionBean toBean(TestQuestion value) {
+		TestQuestionBean bean = new TestQuestionBean();
 		bean.setId(value.getId());
 		bean.setMark(value.getMark());
 		bean.setBase(MultichoiceQuestionMapper.get().toBean(value.getBase()));
@@ -20,7 +20,7 @@ public class QuestionMapper implements Mapper<QuestionBean, TestQuestion> {
 	}
 
 	@Override
-	public TestQuestion toEntity(QuestionBean value) {
+	public TestQuestion toEntity(TestQuestionBean value) {
 		if (value.getId() == 0) {
 			TestQuestion entity = new TestQuestion(); 
 			entity.setId(value.getId());
@@ -34,9 +34,9 @@ public class QuestionMapper implements Mapper<QuestionBean, TestQuestion> {
 		return (TestQuestion) HibernateUtil.getSession().load(TestQuestion.class, value.getId());
 	}
 
-	private static QuestionMapper DEFAULT_INSTANCE = new QuestionMapper();
+	private static TestQuestionMapper DEFAULT_INSTANCE = new TestQuestionMapper();
 
-	public static QuestionMapper get() {
+	public static TestQuestionMapper get() {
 		return DEFAULT_INSTANCE;
 	}
 	

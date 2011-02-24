@@ -10,7 +10,7 @@ public class SectionBean {
 
 	private long id;
 	private TextBean content;
-	private List<QuestionBean> questions = new ArrayList<QuestionBean>();
+	private List<TestQuestionBean> questions = new ArrayList<TestQuestionBean>();
 
 	public SectionBean() {
 	}
@@ -31,11 +31,11 @@ public class SectionBean {
 		this.content = content;
 	}
 
-	public List<QuestionBean> getQuestions() {
+	public List<TestQuestionBean> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<QuestionBean> questions) {
+	public void setQuestions(List<TestQuestionBean> questions) {
 		this.questions = questions;
 	}
 

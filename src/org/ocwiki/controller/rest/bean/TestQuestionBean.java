@@ -3,7 +3,7 @@ package org.ocwiki.controller.rest.bean;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class QuestionBean {
+public class TestQuestionBean {
 
 	private long id;
 	private double mark;
@@ -11,7 +11,7 @@ public class QuestionBean {
 	private ResourceReferenceBean baseResource;
 	private RevisionReferenceBean baseRevision;
 
-	public QuestionBean() {
+	public TestQuestionBean() {
 	}
 	
 	public long getId() {
