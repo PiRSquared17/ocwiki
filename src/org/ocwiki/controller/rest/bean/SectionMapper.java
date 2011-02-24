@@ -1,7 +1,6 @@
 package org.ocwiki.controller.rest.bean;
 
 import org.ocwiki.data.Section;
-import org.ocwiki.persistence.HibernateUtil;
 
 public class SectionMapper implements Mapper<SectionBean, Section> {
 
@@ -11,7 +10,7 @@ public class SectionMapper implements Mapper<SectionBean, Section> {
 		bean.setId(value.getId());
 		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		MapperUtils.toBeans(bean.getQuestions(), value.getQuestions(),
-				QuestionMapper.get());
+				TestQuestionMapper.get());
 		return bean;
 	}
 
@@ -22,7 +21,7 @@ public class SectionMapper implements Mapper<SectionBean, Section> {
 			entity.setId(value.getId());
 			entity.setContent(TextMapper.get().toEntity(value.getContent()));
 			MapperUtils.toEntities(value.getQuestions(), entity.getQuestions(),
-					QuestionMapper.get());
+					TestQuestionMapper.get());
 			return entity;
 //		}
 //		return (Section) HibernateUtil.getSession().load(Section.class,

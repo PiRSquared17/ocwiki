@@ -55,7 +55,7 @@ public final class JsonUtils {
 		org.ocwiki.controller.rest.bean.CommentReportBean.class,
 		org.ocwiki.controller.rest.bean.FileBean.class,
 		org.ocwiki.controller.rest.bean.LevelConstraintBean.class,
-		org.ocwiki.controller.rest.bean.QuestionBean.class,
+		org.ocwiki.controller.rest.bean.TestQuestionBean.class,
 		org.ocwiki.controller.rest.bean.ResourceBean.class,
 		org.ocwiki.controller.rest.bean.ResourceReferenceBean.class,
 		org.ocwiki.controller.rest.bean.ResourceSearchReportBean.class,
