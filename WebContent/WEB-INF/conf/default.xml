@@ -41,7 +41,7 @@
       <class>org.ocwiki.controller.action.article.ViewAction</class>
     </action>
     <action>
-      <name>article.view.BaseQuestion</name>
+      <name>article.view.MultichoiceQuestion</name>
       <class>org.ocwiki.controller.action.article.ViewAction</class>
     </action>
     <action>
@@ -587,7 +587,7 @@
         <order>7</order>
         <page>question/test.jsp</page>
         <inAction>article.view</inAction>
-        <articleType>org.ocwiki.data.BaseQuestion</articleType>
+        <articleType>org.ocwiki.data.MultichoiceQuestion</articleType>
     </module>
     <module>
     	<disabled>true</disabled>
@@ -599,7 +599,7 @@
         <page>test/related-test.jsp</page>
         <inAction>article.view</inAction>
         <articleType>org.ocwiki.data.TextArticle</articleType>
-        <articleType>org.ocwiki.data.BaseQuestion</articleType>
+        <articleType>org.ocwiki.data.MultichoiceQuestion</articleType>
     </module>
     <module>
     	<disabled>true</disabled>
@@ -611,16 +611,16 @@
         <page>TextArticle/related-TextArticle.jsp</page>
         <inAction>article.view</inAction>
         <articleType>org.ocwiki.data.Test</articleType>
-        <articleType>org.ocwiki.data.BaseQuestion</articleType>
+        <articleType>org.ocwiki.data.MultichoiceQuestion</articleType>
     </module>
     <module>
     	<disabled>true</disabled>
-        <name>related-BaseQuestion</name>
+        <name>related-MultichoiceQuestion</name>
         <title>Câu hỏi liên quan</title>
-        <class>org.ocwiki.module.question.RelatedBaseQuestion</class>
+        <class>org.ocwiki.module.question.RelatedQuestion</class>
         <position>action-bottom</position>
         <order>5</order>
-        <page>question/related-BaseQuestion.jsp</page>
+        <page>question/related-MultichoiceQuestion.jsp</page>
         <inAction>article.view</inAction>
         <articleType>org.ocwiki.data.TextArticle</articleType>
         <articleType>org.ocwiki.data.Test</articleType>

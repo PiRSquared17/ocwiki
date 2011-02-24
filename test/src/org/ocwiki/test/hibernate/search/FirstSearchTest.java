@@ -2,7 +2,7 @@ package org.ocwiki.test.hibernate.search;
 
 import java.util.List;
 
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.persistence.HibernateUtil;
 import org.ocwiki.test.rest.servletunit.AbstractResourceTest;

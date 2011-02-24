@@ -7,13 +7,13 @@ import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractResourceAction;
 import org.ocwiki.controller.action.ActionException;
-import org.ocwiki.data.BaseQuestion;
-import org.ocwiki.data.Question;
+import org.ocwiki.data.MultichoiceQuestion;
+import org.ocwiki.data.TestQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Section;
 import org.ocwiki.data.Test;
 import org.ocwiki.data.Text;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 import org.ocwiki.db.dao.ResourceDAO;
 import org.ocwiki.db.dao.TestDAO;
 
@@ -73,10 +73,10 @@ public class AddQuestionAction extends AbstractResourceAction<Test> {
 		long topicId = getParams().getLong("taq_topicid");
 		int quantity = getParams().getInt("taq_quantity");
 
-		List<Resource<BaseQuestion>> bases = BaseQuestionDAO.fetchRandomly(
+		List<Resource<MultichoiceQuestion>> bases = MultichoiceQuestionDAO.fetchRandomly(
 				resource.getId(), topicId, quantity);
-		for (Resource<BaseQuestion> base : bases) {
-			Question question = new Question(base, 1);
+		for (Resource<MultichoiceQuestion> base : bases) {
+			TestQuestion question = new TestQuestion(base, 1);
 			section.getQuestions().add(question);
 		}
 
@@ -95,9 +95,9 @@ public class AddQuestionAction extends AbstractResourceAction<Test> {
 
 	private void addQuestionByAjaxSearch(Section section) {
 		try {
-			Resource<BaseQuestion> base = ResourceDAO.fetchById(getParams()
-					.getLong("taq_question"), BaseQuestion.class);
-			section.getQuestions().add(new Question(base, 1));
+			Resource<MultichoiceQuestion> base = ResourceDAO.fetchById(getParams()
+					.getLong("taq_question"), MultichoiceQuestion.class);
+			section.getQuestions().add(new TestQuestion(base, 1));
 			addMessage("Đã thêm 1 câu hỏi.");
 			goNextAction();
 		} catch (NumberFormatException ex) {
@@ -107,9 +107,9 @@ public class AddQuestionAction extends AbstractResourceAction<Test> {
 
 	private void addQuestionById(Section section) {
 		try {
-			Resource<BaseQuestion> base = ResourceDAO.fetchById(getParams()
-					.getLong("taq_question"), BaseQuestion.class);
-			section.getQuestions().add(new Question(base, 1));
+			Resource<MultichoiceQuestion> base = ResourceDAO.fetchById(getParams()
+					.getLong("taq_question"), MultichoiceQuestion.class);
+			section.getQuestions().add(new TestQuestion(base, 1));
 			addMessage("Đã thêm 1 câu hỏi.");
 			goNextAction();
 		} catch (NumberFormatException ex) {

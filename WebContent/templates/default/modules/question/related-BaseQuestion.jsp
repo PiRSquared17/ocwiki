@@ -2,7 +2,7 @@
 <%@ include file="/includes/common.jsp" %>
 
 
-<div id="relatedBaseQuestionContainer">
+<div id="relatedMultichoiceQuestionContainer">
 </div>
 
 <ocw:setJs var="baseQuestionTemplate">
@@ -14,19 +14,19 @@
 <script language="javascript">
 	var baseQuestionTemplate = new Template('${baseQuestionTemplate}');
 	var resourceID  = ${action.resource.id} ;
-	var relatedBaseQuestionList;
+	var relatedMultichoiceQuestionList;
 	var timeout;
 	Event.observe(window, 'load', function() {
 		WebService.get('/questions/related/'+ resourceID,  {
 					onSuccess : function(transport) {
-						relatedBaseQuestionList = transport.responseJSON.result;
-						if (relatedBaseQuestionList && relatedBaseQuestionList.length > 0) {
-							for(i = 0 ; i < relatedBaseQuestionList.length ; i++){
-								var baseQuestion = relatedBaseQuestionList[i];
-								$('relatedBaseQuestionContainer').insert(baseQuestionTemplate.evaluate(baseQuestion));
+						relatedMultichoiceQuestionList = transport.responseJSON.result;
+						if (relatedMultichoiceQuestionList && relatedMultichoiceQuestionList.length > 0) {
+							for(i = 0 ; i < relatedMultichoiceQuestionList.length ; i++){
+								var baseQuestion = relatedMultichoiceQuestionList[i];
+								$('relatedMultichoiceQuestionContainer').insert(baseQuestionTemplate.evaluate(baseQuestion));
 							}
 						} else {
-							$('relatedBaseQuestionContainer').insert('Không có');
+							$('relatedMultichoiceQuestionContainer').insert('Không có');
 						}
 					},
 				    onFailure: function(transport) {

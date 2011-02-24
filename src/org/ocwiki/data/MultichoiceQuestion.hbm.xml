@@ -2,10 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<subclass name="org.ocwiki.data.BaseQuestion" 
-		extends="org.ocwiki.data.BaseArticle" discriminator-value="BaseQuestion">
-		<property name="level" type="int" />
-		<list name="answers" table="BaseQuestionAnswer" lazy="true"
+	<subclass name="org.ocwiki.data.MultichoiceQuestion" 
+		extends="org.ocwiki.data.Question" discriminator-value="MultichoiceQuestion">
+		<list name="answers" table="MultichoiceQuestionAnswer" lazy="true"
 			cascade="all" inverse="false" fetch="subselect">
 			<key column="question_id" />
 			<index column="answer_index"></index>

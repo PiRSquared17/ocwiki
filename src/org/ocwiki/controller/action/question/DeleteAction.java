@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import org.ocwiki.controller.action.AbstractAction;
 import org.ocwiki.controller.action.ActionException;
 import org.ocwiki.data.Status;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 
 public class DeleteAction extends AbstractAction {
 	
@@ -17,7 +17,7 @@ public class DeleteAction extends AbstractAction {
 			int count = getParams().count("ql_questions");
 			for (int i = 0; i < count; i++) {
 				long id = getParams().getIndexedLong("ql_questions", i);
-				BaseQuestionDAO.fetchById(id).setStatus(Status.DELETED);
+				MultichoiceQuestionDAO.fetchById(id).setStatus(Status.DELETED);
 			}
 			addMessage("Đã xóa " + count + " mục.");
 			setNextAction("question.list&ql_submit=");

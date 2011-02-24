@@ -7,7 +7,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.bind.JAXBException;
 
 import org.ocwiki.controller.rest.util.ObjectResult;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Comment;
 import org.ocwiki.data.CommentStatus;
 import org.ocwiki.util.JsonUtils;
@@ -48,7 +48,7 @@ public class CommentServiceTest extends AbstractServiceTest {
 	}
 	
 //	@Test
-	public void testBaseQuestionUpdate() throws IOException, JAXBException {
+	public void testMultichoiceQuestionUpdate() throws IOException, JAXBException {
 		WebResource resource = createResource("/basequestion/88");
 		String json = "{" +
 				"\"id\":\"88\"," +
@@ -60,11 +60,11 @@ public class CommentServiceTest extends AbstractServiceTest {
 					"{\"id\":\"323\",\"content\":{\"id\":\"58\",\"text\":\"answer3\"},\"correct\":\"false\"}" +
 				"]," +
 				"\"level\":\"3\"}";
-		BaseQuestion newQuestion = JsonUtils.fromJson(json, BaseQuestion.class);
-		BaseQuestion question = resource
+		MultichoiceQuestion newQuestion = JsonUtils.fromJson(json, MultichoiceQuestion.class);
+		MultichoiceQuestion question = resource
 				.accept(MediaType.APPLICATION_JSON)
 				.type(MediaType.APPLICATION_JSON)
-				.post(BaseQuestion.class, newQuestion);
+				.post(MultichoiceQuestion.class, newQuestion);
 		Assert.assertNotNull(question);
 	}
 

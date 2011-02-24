@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractAction;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Namespace;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Text;
@@ -42,9 +42,9 @@ public class CreateAction extends AbstractAction {
 
 		if (hasNoErrors()) {
 			Namespace namespace = NamespaceDAO.fetch(Namespace.QUESTION);
-			BaseQuestion question = new BaseQuestion(namespace, new Text(
+			MultichoiceQuestion question = new MultichoiceQuestion(namespace, new Text(
 					content), level);
-			Resource<BaseQuestion> resource = saveNewResource(question);
+			Resource<MultichoiceQuestion> resource = saveNewResource(question);
 			setNextAction("answer.create&question=" + resource.getId());
 		}
 	}

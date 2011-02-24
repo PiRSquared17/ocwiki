@@ -8,15 +8,15 @@ public class TestVersion {
 
 	private Article test;
 	private String code;
-	private Map<Section, List<Question>> questions = new HashMap<Section, List<Question>>();
-	private Map<Question, List<Answer>> answers = new HashMap<Question, List<Answer>>();
+	private Map<Section, List<TestQuestion>> questions = new HashMap<Section, List<TestQuestion>>();
+	private Map<TestQuestion, List<Answer>> answers = new HashMap<TestQuestion, List<Answer>>();
 
 	TestVersion() {
 	}
 	
 	public TestVersion(Article test, String code,
-			Map<Section, List<Question>> questions,
-			Map<Question, List<Answer>> answers) {
+			Map<Section, List<TestQuestion>> questions,
+			Map<TestQuestion, List<Answer>> answers) {
 		super();
 		this.test = test;
 		this.code = code;
@@ -40,19 +40,19 @@ public class TestVersion {
 		this.test = test;
 	}
 
-	public void setQuestions(Map<Section, List<Question>> questions) {
+	public void setQuestions(Map<Section, List<TestQuestion>> questions) {
 		this.questions = questions;
 	}
 	
-	public Map<Section, List<Question>> getQuestions() {
+	public Map<Section, List<TestQuestion>> getQuestions() {
 		return questions;
 	}
 
-	public void setAnswers(Map<Question, List<Answer>> answers) {
+	public void setAnswers(Map<TestQuestion, List<Answer>> answers) {
 		this.answers = answers;
 	}
 
-	public Map<Question, List<Answer>> getAnswers() {
+	public Map<TestQuestion, List<Answer>> getAnswers() {
 		return answers;
 	}
 

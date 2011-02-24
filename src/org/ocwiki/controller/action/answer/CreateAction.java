@@ -7,18 +7,18 @@ import javax.servlet.ServletException;
 import org.ocwiki.controller.action.AbstractResourceAction;
 import org.ocwiki.controller.action.ActionException;
 import org.ocwiki.data.Answer;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Text;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class CreateAction extends AbstractResourceAction<BaseQuestion> {
+public class CreateAction extends AbstractResourceAction<MultichoiceQuestion> {
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
 		try {
-			resource = BaseQuestionDAO.fetchById(getParams()
+			resource = MultichoiceQuestionDAO.fetchById(getParams()
 					.getLong("question"));
 			question = resource.getArticle().copy();
 		} catch (NumberFormatException e) {
@@ -56,9 +56,9 @@ public class CreateAction extends AbstractResourceAction<BaseQuestion> {
 		}
 	}
 
-	private BaseQuestion question;
+	private MultichoiceQuestion question;
 
-	public BaseQuestion getQuestion() {
+	public MultichoiceQuestion getQuestion() {
 		return question;
 	}
 

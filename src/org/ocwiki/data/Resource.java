@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.ocwiki.data.log.ResourceLog;
 import org.ocwiki.persistence.search.ArticleTypeBridge;
-import org.ocwiki.persistence.search.BaseQuestionBridge;
+import org.ocwiki.persistence.search.MultichoiceQuestionBridge;
 import org.ocwiki.persistence.search.ResourceCustomizationBridge;
 import org.ocwiki.persistence.search.TestBridge;
 import org.ocwiki.util.Utils;
@@ -246,8 +246,8 @@ public class Resource<T extends Article> implements ArticleContainer<T>,
 	}
 	
 	@Field(index=Index.TOKENIZED, store=Store.NO)
-	@FieldBridge(impl=BaseQuestionBridge.class)
-	Object getBaseQuestion() {
+	@FieldBridge(impl=MultichoiceQuestionBridge.class)
+	Object getMultichoiceQuestion() {
 		return this;
 	}
 	

@@ -6,11 +6,11 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class BaseQuestionBean extends BaseArticleBean {
+public class MultichoiceQuestionBean extends BaseArticleBean {
 	private int level;
 	private List<AnswerBean> answers = new ArrayList<AnswerBean>();
 
-	public BaseQuestionBean() {
+	public MultichoiceQuestionBean() {
 	}
 	
 	public int getLevel() {

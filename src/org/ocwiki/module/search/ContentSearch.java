@@ -3,7 +3,7 @@ package org.ocwiki.module.search;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.File;
 import org.ocwiki.data.Test;
 import org.ocwiki.data.TestStructure;
@@ -18,7 +18,7 @@ public class ContentSearch implements ISearchElement {
 		searchAbleClass = new ArrayList<Class>();
 		searchAbleClass.add(Topic.class);
 		searchAbleClass.add(File.class);
-		searchAbleClass.add(BaseQuestion.class);
+		searchAbleClass.add(MultichoiceQuestion.class);
 		searchAbleClass.add(Test.class);
 		searchAbleClass.add(TestStructure.class);
 		searchAbleClass.add(TextArticle.class);

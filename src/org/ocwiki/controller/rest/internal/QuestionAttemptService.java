@@ -12,12 +12,12 @@ import javax.ws.rs.core.MediaType;
 import org.ocwiki.controller.rest.AbstractResource;
 import org.ocwiki.controller.rest.util.ListResult;
 import org.ocwiki.data.Answer;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.ResourceCustomization;
 import org.ocwiki.data.User;
 import org.ocwiki.data.QuestionAttempt;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 import org.ocwiki.db.dao.ResourceCustomizationDAO;
 import org.ocwiki.db.dao.QuestionAttemptDAO;
 import org.ocwiki.util.Utils;
@@ -30,7 +30,7 @@ import com.oreilly.servlet.ParameterNotFoundException;
 @Path(QuestionAttemptService.PATH)
 public class QuestionAttemptService extends AbstractResource {
 
-	public static final String PATH = "/answer_attempts";
+	public static final String PATH = "/q_attempts";
 
 	@GET
 	@Path("/{resourceId: \\d+}")
@@ -48,7 +48,7 @@ public class QuestionAttemptService extends AbstractResource {
 	public JSONObject answer(@PathParam("resourceId") long resourceId)
 			throws NumberFormatException, ParameterNotFoundException,
 			JSONException {
-		Resource<BaseQuestion> resource = BaseQuestionDAO.fetchById(resourceId);
+		Resource<MultichoiceQuestion> resource = MultichoiceQuestionDAO.fetchById(resourceId);
 		List<Answer> answers = resource.getArticle().getAnswers();
 		int choiceCount = getParams().count("answers");
 		boolean choosed[] = new boolean[answers.size()];

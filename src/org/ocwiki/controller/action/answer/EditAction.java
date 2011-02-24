@@ -7,14 +7,14 @@ import javax.servlet.ServletException;
 import org.ocwiki.controller.action.AbstractResourceAction;
 import org.ocwiki.controller.action.ActionException;
 import org.ocwiki.data.Answer;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Text;
 import org.ocwiki.db.dao.ResourceDAO;
 import org.ocwiki.util.Utils;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditAction extends AbstractResourceAction<BaseQuestion> {
+public class EditAction extends AbstractResourceAction<MultichoiceQuestion> {
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
@@ -41,7 +41,7 @@ public class EditAction extends AbstractResourceAction<BaseQuestion> {
 		String submit = getParams().get("submit");
 		if ("save".equals(submit)) {
 
-			BaseQuestion question = resource.getArticle().copy();
+			MultichoiceQuestion question = resource.getArticle().copy();
 			Answer answer = Utils.replaceByCopy(question.getAnswers(),
 					answerIndex);
 

@@ -89,17 +89,17 @@ public class TestResource extends AbstractResource {
 		List<Section> newSections = new ArrayList<Section>();
 		for (Section section : src.getSections()) {
 			if (section.getId() <= 0) {
-				for (Question question : section.getQuestions()) {
+				for (TestQuestion question : section.getQuestions()) {
 					if (question.getId() <= 0) {
 						if (question.getBaseRevision() != null) {
-							Revision<BaseQuestion> revision = RevisionDAO
+							Revision<MultichoiceQuestion> revision = RevisionDAO
 									.fetch(question.getBaseRevision().getId(),
-											BaseQuestion.class);
+											MultichoiceQuestion.class);
 							question.setBaseContainer(revision);
 						} else if (question.getBaseResource() != null) {
-							Resource<BaseQuestion> resource = ResourceDAO
+							Resource<MultichoiceQuestion> resource = ResourceDAO
 									.fetchById(question.getBaseResource()
-											.getId(), BaseQuestion.class);
+											.getId(), MultichoiceQuestion.class);
 							question.setBaseContainer(resource);
 						}
 					}

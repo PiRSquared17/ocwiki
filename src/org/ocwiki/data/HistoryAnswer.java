@@ -3,16 +3,16 @@ package org.ocwiki.data;
 public abstract class HistoryAnswer {
 
 	private long id;
-	private BaseQuestion question;
+	private MultichoiceQuestion question;
 
 	public HistoryAnswer() {
 	}
 
-	public void setQuestion(BaseQuestion question) {
+	public void setQuestion(MultichoiceQuestion question) {
 		this.question = question;
 	}
 
-	public BaseQuestion getQuestion() {
+	public MultichoiceQuestion getQuestion() {
 		return question;
 	}
 	

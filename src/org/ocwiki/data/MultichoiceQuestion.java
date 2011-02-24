@@ -10,16 +10,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 @XmlRootElement
-public class BaseQuestion extends BaseArticle {
+public class MultichoiceQuestion extends Question {
 
-	private int level;
 	@IndexedEmbedded
 	private List<Answer> answers = new ArrayList<Answer>();
 
-	public BaseQuestion() {
+	public MultichoiceQuestion() {
 	}
 	
-	public BaseQuestion(Namespace namespace, Text content, int level) {
+	public MultichoiceQuestion(Namespace namespace, Text content, int level) {
 		super(namespace, content);
 		this.level = level;
 	}
@@ -30,30 +29,6 @@ public class BaseQuestion extends BaseArticle {
 	@Deprecated
 	public int getMark() {
 		return 1;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public static String getLevelName(int level) {
-		switch (level) {
-		case 1:
-			return "Rất khó";
-		case 2:
-			return "Khó";
-		case 3:
-			return "Trung bình";
-		case 4:
-			return "Dễ";
-		case 5:
-			return "Rất dễ";
-		}
-		return "<Không hợp lệ>";
 	}
 
 	public List<Answer> getAnswers() {
@@ -80,19 +55,19 @@ public class BaseQuestion extends BaseArticle {
 
 	protected <T> T copyTo(T obj) {
 		super.copyTo(obj);
-		BaseQuestion question = (BaseQuestion) obj;
+		MultichoiceQuestion question = (MultichoiceQuestion) obj;
 		question.setAnswers(new ArrayList<Answer>(getAnswers()));
 		question.setLevel(getLevel());
 		return obj;
 	}
 	
-	public BaseQuestion copy() {
-		return copyTo(new BaseQuestion());
+	public MultichoiceQuestion copy() {
+		return copyTo(new MultichoiceQuestion());
 	}
 	
 	@Override
 	public String toString() {
-		return "BaseQuestion #" + getId();
+		return "MultichoiceQuestion #" + getId();
 	}
 
 }

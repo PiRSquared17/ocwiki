@@ -1,6 +1,6 @@
 package org.ocwiki.controller.rest.bean;
 
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.File;
 import org.ocwiki.data.Solution;
 import org.ocwiki.data.Topic;
@@ -19,7 +19,7 @@ public class SolutionMapper implements Mapper<SolutionBean, Solution> {
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
 		MapperUtils.toBeans(bean.getAttachments(), value.getAttachments(), fileMapper);
 		MapperUtils.toBeans(bean.getEmbeds(), value.getEmbeds(), fileMapper);
-		ResourceReferenceMapper<BaseQuestion> questionMapper = ResourceReferenceMapper.get();
+		ResourceReferenceMapper<MultichoiceQuestion> questionMapper = ResourceReferenceMapper.get();
 		bean.setQuestion(questionMapper.toBean(value.getQuestion()));
 		return bean;
 	}
@@ -36,7 +36,7 @@ public class SolutionMapper implements Mapper<SolutionBean, Solution> {
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
 		MapperUtils.toEntities(value.getAttachments(), entity.getAttachments(), fileMapper);
 		MapperUtils.toEntities(value.getEmbeds(), entity.getEmbeds(), fileMapper);
-		ResourceReferenceMapper<BaseQuestion> questionMapper = ResourceReferenceMapper.get();
+		ResourceReferenceMapper<MultichoiceQuestion> questionMapper = ResourceReferenceMapper.get();
 		entity.setQuestion(questionMapper.toEntity(value.getQuestion()));
 		return entity;
 	}

@@ -9,20 +9,20 @@ import javax.servlet.ServletException;
 import org.ocwiki.controller.action.AbstractResourceAction;
 import org.ocwiki.controller.action.ActionException;
 import org.ocwiki.data.Article;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Text;
 import org.ocwiki.data.Topic;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 import org.ocwiki.db.dao.TopicDAO;
 
 import com.oreilly.servlet.ParameterNotFoundException;
 
-public class EditAction extends AbstractResourceAction<BaseQuestion> {
+public class EditAction extends AbstractResourceAction<MultichoiceQuestion> {
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
-		resource = BaseQuestionDAO.fetchById(getParams().getLong("id"));
+		resource = MultichoiceQuestionDAO.fetchById(getParams().getLong("id"));
 		if (resource == null) {
 			throw new ActionException("Không tìm thấy câu hỏi");
 		}
@@ -35,7 +35,7 @@ public class EditAction extends AbstractResourceAction<BaseQuestion> {
 	}
 
 	private void doEdit() {
-		BaseQuestion question = resource.getArticle().copy();
+		MultichoiceQuestion question = resource.getArticle().copy();
 		
 		Set<Resource<Topic>> newTopics = new HashSet<Resource<Topic>>();
 		for (int i = 0; i < getParams().count("topics"); i++) {

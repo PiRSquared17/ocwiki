@@ -1,7 +1,7 @@
 package org.ocwiki.controller.rest.bean;
 
 import org.ocwiki.data.Article;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.File;
 import org.ocwiki.data.Solution;
 import org.ocwiki.data.Test;
@@ -16,8 +16,8 @@ public class ArticleMapper implements Mapper<ArticleBean, Article> {
 	@Override
 	public ArticleBean toBean(Article value) {
 		Hibernate.initialize(value);
-		if (value instanceof BaseQuestion) {
-			return BaseQuestionMapper.get().toBean((BaseQuestion) value);
+		if (value instanceof MultichoiceQuestion) {
+			return MultichoiceQuestionMapper.get().toBean((MultichoiceQuestion) value);
 		}
 		if (value instanceof Test) {
 			return TestMapper.get().toBean((Test) value);
@@ -42,8 +42,8 @@ public class ArticleMapper implements Mapper<ArticleBean, Article> {
 
 	@Override
 	public Article toEntity(ArticleBean bean) {
-		if (bean instanceof BaseQuestionBean) {
-			return BaseQuestionMapper.get().toEntity((BaseQuestionBean) bean);
+		if (bean instanceof MultichoiceQuestionBean) {
+			return MultichoiceQuestionMapper.get().toEntity((MultichoiceQuestionBean) bean);
 		}
 		if (bean instanceof TestBean) {
 			return TestMapper.get().toEntity((TestBean) bean);

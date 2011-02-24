@@ -18,7 +18,7 @@
 				<column name="section_id" />
 			</key>
 			<index column="question_index"></index>
-			<many-to-many column="question_id" class="org.ocwiki.data.Question" />
+			<many-to-many column="question_id" class="org.ocwiki.data.TestQuestion" />
 		</list>
 	</class>
 </hibernate-mapping>

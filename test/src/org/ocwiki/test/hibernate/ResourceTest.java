@@ -3,7 +3,7 @@ package org.ocwiki.test.hibernate;
 import junit.framework.Assert;
 import org.ocwiki.data.Answer;
 import org.ocwiki.data.Article;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Namespace;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Revision;
@@ -22,7 +22,7 @@ public class ResourceTest extends HibernateTest {
 	@Test
 	public void testSaveDetached() {
 		User admin = UserDAO.fetchById(1);
-		BaseQuestion newQuestion = new BaseQuestion(new Namespace(3, ""),
+		MultichoiceQuestion newQuestion = new MultichoiceQuestion(new Namespace(3, ""),
 				new Text("xyz"), 3);
 		newQuestion.getAnswers().add(new Answer(new Text("answer 0"), true));
 		newQuestion.getAnswers().add(createAnswer1());

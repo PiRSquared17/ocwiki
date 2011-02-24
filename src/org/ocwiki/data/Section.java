@@ -11,7 +11,7 @@ public class Section implements Entity, Copiable<Section> {
 
 	private long id;
 	private Text content;
-	private List<Question> questions = new ArrayList<Question>();
+	private List<TestQuestion> questions = new ArrayList<TestQuestion>();
 
 	public Section() {
 	}
@@ -20,19 +20,19 @@ public class Section implements Entity, Copiable<Section> {
 		this.content = content;
 	}
 
-	public Map<Long, Question> getQuestionById() {
-		HashMap<Long, Question> questionMap = new HashMap<Long, Question>();
-		for (Question q : getQuestions()) {
+	public Map<Long, TestQuestion> getQuestionById() {
+		HashMap<Long, TestQuestion> questionMap = new HashMap<Long, TestQuestion>();
+		for (TestQuestion q : getQuestions()) {
 			questionMap.put(q.getId(), q);
 		}
 		return questionMap;
 	}
 
-	public List<Question> getQuestions() {
+	public List<TestQuestion> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<Question> questions) {
+	public void setQuestions(List<TestQuestion> questions) {
 		this.questions = questions;
 	}
 
@@ -51,7 +51,7 @@ public class Section implements Entity, Copiable<Section> {
 	public Section copy() {
 		Section section = new Section();
 		section.setContent(getContent());
-		section.setQuestions(new ArrayList<Question>(getQuestions()));
+		section.setQuestions(new ArrayList<TestQuestion>(getQuestions()));
 		return section;
 	}
 

@@ -50,10 +50,10 @@ public final class XMLUtils {
 		// alias data entries
 		xstream.alias("ans", org.ocwiki.data.Answer.class);
 		xstream.alias("art", org.ocwiki.data.Article.class);
-		xstream.alias("ques", org.ocwiki.data.BaseQuestion.class);
+		xstream.alias("ques", org.ocwiki.data.MultichoiceQuestion.class);
 		xstream.alias("hist", org.ocwiki.data.TestAttempt.class);
 		xstream.alias("lc", org.ocwiki.data.LevelConstraint.class);
-		xstream.alias("sq", org.ocwiki.data.Question.class);
+		xstream.alias("sq", org.ocwiki.data.TestQuestion.class);
 		xstream.alias("sect", org.ocwiki.data.Section.class);
 		xstream.alias("sstr", org.ocwiki.data.SectionStructure.class);
 		xstream.alias("test", org.ocwiki.data.Test.class);
