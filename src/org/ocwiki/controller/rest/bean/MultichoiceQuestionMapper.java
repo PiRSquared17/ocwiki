@@ -1,14 +1,14 @@
 package org.ocwiki.controller.rest.bean;
 
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.File;
 import org.ocwiki.data.Topic;
 
-public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion> {
+public class MultichoiceQuestionMapper implements Mapper<MultichoiceQuestionBean, MultichoiceQuestion> {
 
 	@Override
-	public BaseQuestionBean toBean(BaseQuestion value) {
-		BaseQuestionBean bean = new BaseQuestionBean();
+	public MultichoiceQuestionBean toBean(MultichoiceQuestion value) {
+		MultichoiceQuestionBean bean = new MultichoiceQuestionBean();
 		bean.setId(value.getId());
 		bean.setName(value.getName());
 		bean.setNamespace(value.getNamespace());
@@ -24,8 +24,8 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 	}
 
 	@Override
-	public BaseQuestion toEntity(BaseQuestionBean value) {
-		BaseQuestion entity = new BaseQuestion();
+	public MultichoiceQuestion toEntity(MultichoiceQuestionBean value) {
+		MultichoiceQuestion entity = new MultichoiceQuestion();
 		entity.setId(value.getId());
 		entity.setName(value.getName());
 		entity.setNamespace(value.getNamespace());
@@ -40,9 +40,9 @@ public class BaseQuestionMapper implements Mapper<BaseQuestionBean, BaseQuestion
 		return entity;
 	}
 
-	private static BaseQuestionMapper DEFAULT_INSTANCE = new BaseQuestionMapper();
+	private static MultichoiceQuestionMapper DEFAULT_INSTANCE = new MultichoiceQuestionMapper();
 
-	public static BaseQuestionMapper get() {
+	public static MultichoiceQuestionMapper get() {
 		return DEFAULT_INSTANCE;
 	}
 	

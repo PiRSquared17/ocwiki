@@ -6,22 +6,22 @@ import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractAction;
 import org.ocwiki.controller.action.ActionException;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Namespace;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Solution;
 import org.ocwiki.data.Text;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 import org.ocwiki.db.dao.ResourceDAO;
 
 public class CreateSolution extends AbstractAction {
 
-	Resource<BaseQuestion> resource;
-	BaseQuestion basequestion;
+	Resource<MultichoiceQuestion> resource;
+	MultichoiceQuestion basequestion;
 	
 	@Override
 	protected void performImpl() throws IOException, ServletException {
-		resource = BaseQuestionDAO.fetchById(getParams().getLong("id"));
+		resource = MultichoiceQuestionDAO.fetchById(getParams().getLong("id"));
 		if(resource==null){
 			throw new ActionException("Không tìm thấy câu hỏi!");
 		}
@@ -46,11 +46,11 @@ public class CreateSolution extends AbstractAction {
 		
 	}
 	
-	public Resource<BaseQuestion> getResource(){
+	public Resource<MultichoiceQuestion> getResource(){
 		return resource;
 	}
 	
-	public BaseQuestion getQuestion(){
+	public MultichoiceQuestion getQuestion(){
 		return basequestion;
 	}
 

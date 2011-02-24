@@ -7,10 +7,10 @@ import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractAction;
 import org.ocwiki.controller.action.ActionException;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Solution;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 import org.ocwiki.db.dao.SolutionDAO;
 
 public class ListAction extends AbstractAction {
@@ -18,7 +18,7 @@ public class ListAction extends AbstractAction {
 	private int size;
 	private int start;
 	private List<Resource<Solution>> solutions;
-	private Resource<BaseQuestion> question;
+	private Resource<MultichoiceQuestion> question;
 
 	@Override
 	protected void performImpl() throws IOException, ServletException {
@@ -28,7 +28,7 @@ public class ListAction extends AbstractAction {
 		
 		size = getParams().getInt("size", 20);
 		start = getParams().getInt("start", 0);
-		question = BaseQuestionDAO.fetchById(getParams().getLong("id"));
+		question = MultichoiceQuestionDAO.fetchById(getParams().getLong("id"));
 		solutions = SolutionDAO.fetchByQuestion(question.getId(), start, size);
 	}
 
@@ -48,7 +48,7 @@ public class ListAction extends AbstractAction {
 		return solutions.size();
 	}
 	
-	public Resource<BaseQuestion> getQuestion() {
+	public Resource<MultichoiceQuestion> getQuestion() {
 		return question;
 	}
 

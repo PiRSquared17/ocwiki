@@ -8,7 +8,7 @@ import javax.xml.bind.JAXBException;
 import org.ocwiki.conf.Config;
 import org.ocwiki.data.Answer;
 import org.ocwiki.data.Article;
-import org.ocwiki.data.Question;
+import org.ocwiki.data.TestQuestion;
 import org.ocwiki.data.Section;
 import org.ocwiki.data.Test;
 import org.ocwiki.data.TestVersion;
@@ -149,7 +149,7 @@ public class DocXDocument {
 				wordMLPackage.getMainDocumentPart().addParagraph(paragraph);
 			}
 
-			for (Question question : version.getQuestions().get(section)) {
+			for (TestQuestion question : version.getQuestions().get(section)) {
 				paragraphs = WMLStyle.question(question.getContent().getText(),
 						questionNumber);
 				for (String paragraph : paragraphs) {

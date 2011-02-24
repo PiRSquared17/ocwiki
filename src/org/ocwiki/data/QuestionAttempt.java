@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class QuestionAttempt {
 
-	private Resource<BaseQuestion> question;
+	private Resource<MultichoiceQuestion> question;
 	private User user;
 	private boolean correct;
 	private Date timestamp;
@@ -15,7 +15,7 @@ public class QuestionAttempt {
 	public QuestionAttempt() {
 	}
 	
-	public QuestionAttempt(Resource<BaseQuestion> question, User user, boolean correct) {
+	public QuestionAttempt(Resource<MultichoiceQuestion> question, User user, boolean correct) {
 		super();
 		this.timestamp = new Date();
 		this.question = question;
@@ -23,11 +23,11 @@ public class QuestionAttempt {
 		this.correct = correct;
 	}
 
-	public Resource<BaseQuestion> getQuestion() {
+	public Resource<MultichoiceQuestion> getQuestion() {
 		return question;
 	}
 
-	public void setQuestion(Resource<BaseQuestion> question) {
+	public void setQuestion(Resource<MultichoiceQuestion> question) {
 		this.question = question;
 	}
 

@@ -7,7 +7,7 @@ public class QuestionBean {
 
 	private long id;
 	private double mark;
-	private BaseQuestionBean base;
+	private MultichoiceQuestionBean base;
 	private ResourceReferenceBean baseResource;
 	private RevisionReferenceBean baseRevision;
 
@@ -46,11 +46,11 @@ public class QuestionBean {
 		this.baseRevision = baseRevision;
 	}
 
-	public void setBase(BaseQuestionBean base) {
+	public void setBase(MultichoiceQuestionBean base) {
 		this.base = base;
 	}
 
-	public BaseQuestionBean getBase() {
+	public MultichoiceQuestionBean getBase() {
 		return base;
 	}
 

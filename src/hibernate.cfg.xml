@@ -22,10 +22,11 @@
         <mapping resource="org/ocwiki/data/Article.hbm.xml" />
         <mapping resource="org/ocwiki/data/Text.hbm.xml" />
         <mapping resource="org/ocwiki/data/File.hbm.xml" />
-        <mapping resource="org/ocwiki/data/BaseQuestion.hbm.xml" />
+        <mapping resource="org/ocwiki/data/Question.hbm.xml" />
+        <mapping resource="org/ocwiki/data/MultichoiceQuestion.hbm.xml" />
         <mapping resource="org/ocwiki/data/QuestionAttempt.hbm.xml" />
         <mapping resource="org/ocwiki/data/Answer.hbm.xml" />
-        <mapping resource="org/ocwiki/data/Question.hbm.xml" />
+        <mapping resource="org/ocwiki/data/TestQuestion.hbm.xml" />
         <mapping resource="org/ocwiki/data/Section.hbm.xml" />
         <mapping resource="org/ocwiki/data/Test.hbm.xml" />
         <mapping resource="org/ocwiki/data/SectionStructure.hbm.xml" />

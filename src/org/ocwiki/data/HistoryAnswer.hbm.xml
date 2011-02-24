@@ -11,7 +11,7 @@
 		<discriminator type="string" length="20">
 			<column name="discriminator"></column>
 		</discriminator>
-		<many-to-one name="question" class="org.ocwiki.data.BaseQuestion" fetch="join">
+		<many-to-one name="question" class="org.ocwiki.data.MultichoiceQuestion" fetch="join">
 			<column name="question" not-null="true"></column>
 		</many-to-one>
 	</class>

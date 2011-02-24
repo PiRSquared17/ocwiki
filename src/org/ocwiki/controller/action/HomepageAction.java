@@ -5,12 +5,12 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Test;
 import org.ocwiki.data.TestStructure;
 import org.ocwiki.data.TextArticle;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 import org.ocwiki.db.dao.TestDAO;
 import org.ocwiki.db.dao.TestStructureDAO;
 import org.ocwiki.db.dao.TextArticleDAO;
@@ -20,7 +20,7 @@ public class HomepageAction extends AbstractAction {
 
 	private List<Resource<Test>> tests;
 	private List<Resource<TestStructure>> testStructures;
-	private List<Resource<BaseQuestion>> questions;
+	private List<Resource<MultichoiceQuestion>> questions;
 	private List<Resource<TextArticle>> textArticles;
 	private long testCount;
 	private long questionCount;
@@ -34,10 +34,10 @@ public class HomepageAction extends AbstractAction {
 		tests = TestDAO.fetchLatest(0, 10);
 		textArticles = TextArticleDAO.fetchNewest(0, 10);
 		testStructures = TestStructureDAO.fetch(0, 10);
-		questions = BaseQuestionDAO.fetch(0, 10);
+		questions = MultichoiceQuestionDAO.fetch(0, 10);
 		testCount = TestDAO.count();
 		textArticleCount = TextArticleDAO.count();
-		questionCount = BaseQuestionDAO.count();
+		questionCount = MultichoiceQuestionDAO.count();
 		structCount = TestStructureDAO.count();
 		userCount = UserDAO.count();
 	}
@@ -50,7 +50,7 @@ public class HomepageAction extends AbstractAction {
 		return testStructures;
 	}
 	
-	public List<Resource<BaseQuestion>> getQuestions() {
+	public List<Resource<MultichoiceQuestion>> getQuestions() {
 		return questions;
 	}
 	

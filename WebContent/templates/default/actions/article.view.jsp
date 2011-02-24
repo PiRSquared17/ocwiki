@@ -21,7 +21,7 @@
        </ocw:actionLink>]
     </c:if>
 	<c:choose>
-	    <c:when test="${u:assignableFrom('org.ocwiki.data.BaseQuestion', type)}">
+	    <c:when test="${u:assignableFrom('org.ocwiki.data.MultichoiceQuestion', type)}">
 	        [<ocw:actionLink name="solution.list">
 	           <ocw:param name="id" value="${action.resource.id}"></ocw:param>
 	           bài giải

@@ -3,9 +3,9 @@ package org.ocwiki.controller.api.question;
 import java.util.List;
 
 import org.ocwiki.controller.api.AbstractAPI;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
@@ -15,12 +15,12 @@ public class Search extends AbstractAPI {
 	@Override
 	public Object performImpl() throws Exception {
 		String query = getParams().get("query");
-		List<Resource<BaseQuestion>> questions = BaseQuestionDAO
+		List<Resource<MultichoiceQuestion>> questions = MultichoiceQuestionDAO
 				.fetchByContent("%" + query + "%", 20);
 
 		JSONArray suggestions = new JSONArray();
 		JSONArray data = new JSONArray();
-		for (Resource<BaseQuestion> question : questions) {
+		for (Resource<MultichoiceQuestion> question : questions) {
 			suggestions.put(question.getName());
 			data.put(question.getId());
 		}

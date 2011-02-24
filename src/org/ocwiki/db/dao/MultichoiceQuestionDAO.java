@@ -3,7 +3,7 @@ package org.ocwiki.db.dao;
 import java.util.Collections;
 import java.util.List;
 
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Topic;
 import org.ocwiki.persistence.HibernateUtil;
@@ -12,13 +12,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 @SuppressWarnings("unchecked")
-public class BaseQuestionDAO {
+public class MultichoiceQuestionDAO {
 
-	public static List<Resource<BaseQuestion>> fetchByTopic(long topicId, int start,
+	public static List<Resource<MultichoiceQuestion>> fetchByTopic(long topicId, int start,
 			int length) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in " +
-				"(from BaseQuestion " +
+				"(from MultichoiceQuestion " +
 				"where :topic in elements(topics)) " +
 				"order by id desc";
 		Query query = session.createQuery(hql);
@@ -29,10 +29,10 @@ public class BaseQuestionDAO {
 		return query.list();
 	}
 
-	public static List<Resource<BaseQuestion>> fetchByAuthor(long authorId, int start,
+	public static List<Resource<MultichoiceQuestion>> fetchByAuthor(long authorId, int start,
 			int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Resource where article in (from BaseQuestion) " +
+		String hql = "from Resource where article in (from MultichoiceQuestion) " +
 				"and author=:author" +
 				"order by id desc";
 		Query query = session.createQuery(hql);
@@ -43,9 +43,9 @@ public class BaseQuestionDAO {
 		return query.list();
 	}
 
-	public static List<Resource<BaseQuestion>> fetch(int start, int length) {
+	public static List<Resource<MultichoiceQuestion>> fetch(int start, int length) {
 		Session session = HibernateUtil.getSession();
-		String hql = "from Resource where article in (from BaseQuestion) " +
+		String hql = "from Resource where article in (from MultichoiceQuestion) " +
 				"and status = 'NORMAL' " +
 				"order by id desc";
 		Query query = session.createQuery(hql);
@@ -59,14 +59,14 @@ public class BaseQuestionDAO {
 	 * @param id
 	 * @return
 	 */
-	public static Resource<BaseQuestion> fetchById(long id) {
-		return ResourceDAO.fetchById(id, BaseQuestion.class);
+	public static Resource<MultichoiceQuestion> fetchById(long id) {
+		return ResourceDAO.fetchById(id, MultichoiceQuestion.class);
 	}
 
 	public static long countByAuthor(long authorId) {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from Resource where article in " +
-				"(from BaseQuestion) " +
+				"(from MultichoiceQuestion) " +
 				"and author=:author";
 		Query query = session.createQuery(hql);
 		Object author = session.load(Topic.class, authorId);
@@ -77,18 +77,18 @@ public class BaseQuestionDAO {
 	public static long countByTopic(long topicId) {
 		Session session = HibernateUtil.getSession();
 		String hql = "select count(*) from Resource where article in " +
-				"(from BaseQuestion where :topic in elements(topics))";
+				"(from MultichoiceQuestion where :topic in elements(topics))";
 		Query query = session.createQuery(hql);
 		Object topic = session.load(Topic.class, topicId);
 		query.setEntity("topic", topic);
 		return (Long) query.uniqueResult();
 	}
 
-	public static List<Resource<BaseQuestion>> fetchByContent(String content,
+	public static List<Resource<MultichoiceQuestion>> fetchByContent(String content,
 			int limit) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in "
-				+ "(from BaseQuestion where content.text like :content)";
+				+ "(from MultichoiceQuestion where content.text like :content)";
 		Query query = session.createQuery(hql);
 		query.setString("content", content);
 		query.setMaxResults(limit);
@@ -104,12 +104,12 @@ public class BaseQuestionDAO {
 	 * @param quantity
 	 * @return
 	 */
-	public static List<Resource<BaseQuestion>> fetchRandomly(long testId,
+	public static List<Resource<MultichoiceQuestion>> fetchRandomly(long testId,
 			long topicId, int quantity) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in (" +
-				"from BaseQuestion as q " +
-				"where q not in (select base from Question " +
+				"from MultichoiceQuestion as q " +
+				"where q not in (select base from TestQuestion " +
 						"where section in (" +
 							"from Section where test = :test.article) " +
 					"and :topic in elements(topics) " +
@@ -124,14 +124,14 @@ public class BaseQuestionDAO {
 	/**
 	 * Dùng cho chức năng sinh đề tự động, tạm thời bị bỏ. TODO implement again?
 	 */
-	public static List<BaseQuestion> fetchByInfo(long testId, int level,
+	public static List<MultichoiceQuestion> fetchByInfo(long testId, int level,
 			int mark, long topicId, int count) {
 		return Collections.emptyList();
 	}
 
 	public static long count() {
 		String sql = "SELECT COUNT(*) from Resource where article in " +
-				"(FROM  BaseQuestion) and status='NORMAL'";
+				"(FROM  MultichoiceQuestion) and status='NORMAL'";
 		return HibernateUtil.count(sql);
 	}
 

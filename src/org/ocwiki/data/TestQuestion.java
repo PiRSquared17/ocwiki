@@ -9,19 +9,19 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.ocwiki.util.Copiable;
 
-public class Question implements Entity, Copiable<Question> {
+public class TestQuestion implements Entity, Copiable<TestQuestion> {
 
 	private long id;
 	@XmlElement
-	private Resource<? extends BaseQuestion> baseResource;
+	private Resource<? extends MultichoiceQuestion> baseResource;
 	@XmlElement
-	private Revision<? extends BaseQuestion> baseRevision;
+	private Revision<? extends MultichoiceQuestion> baseRevision;
 	private double mark;
 
-	public Question() {
+	public TestQuestion() {
 	}
 
-	public Question(ArticleContainer<? extends BaseQuestion> baseContainer, double d) {
+	public TestQuestion(ArticleContainer<? extends MultichoiceQuestion> baseContainer, double d) {
 		setBaseContainer(baseContainer);
 		this.mark = d;
 	}
@@ -74,43 +74,43 @@ public class Question implements Entity, Copiable<Question> {
 	}
 
 	@XmlElement
-	public BaseQuestion getBase() {
+	public MultichoiceQuestion getBase() {
 		return baseResource.getArticle();
 	}
 
 	@XmlTransient
-	public ArticleContainer<? extends BaseQuestion> getBaseContainer() {
+	public ArticleContainer<? extends MultichoiceQuestion> getBaseContainer() {
 		return baseRevision == null ? baseResource : baseRevision;
 	}
 	
-	public Resource<? extends BaseQuestion> getBaseResource() {
+	public Resource<? extends MultichoiceQuestion> getBaseResource() {
 		return baseResource;
 	}
 	
-	public Revision<? extends BaseQuestion> getBaseRevision() {
+	public Revision<? extends MultichoiceQuestion> getBaseRevision() {
 		return baseRevision;
 	}
 
-	public void setBaseContainer(ArticleContainer<? extends BaseQuestion> baseContainer) {
+	public void setBaseContainer(ArticleContainer<? extends MultichoiceQuestion> baseContainer) {
 		if (baseContainer instanceof Resource<?>) {
-			baseResource = (Resource<? extends BaseQuestion>) baseContainer;
+			baseResource = (Resource<? extends MultichoiceQuestion>) baseContainer;
 			baseRevision = null;
 		} else if (baseContainer instanceof Revision<?>) {
-			baseResource = ((Revision<? extends BaseQuestion>) baseContainer).getResource();
-			baseRevision = (Revision<? extends BaseQuestion>) baseContainer;
+			baseResource = ((Revision<? extends MultichoiceQuestion>) baseContainer).getResource();
+			baseRevision = (Revision<? extends MultichoiceQuestion>) baseContainer;
 		}
 	}
 
 	@Override
-	public Question copy() {
-		return new Question(getBaseContainer(), getMark());
+	public TestQuestion copy() {
+		return new TestQuestion(getBaseContainer(), getMark());
 	}
 
-	public void setBaseResource(Resource<BaseQuestion> resource) {
+	public void setBaseResource(Resource<MultichoiceQuestion> resource) {
 		this.baseResource = resource;
 	}
 
-	public void setBaseRevision(Revision<BaseQuestion> revision) {
+	public void setBaseRevision(Revision<MultichoiceQuestion> revision) {
 		this.baseRevision = revision;
 	}
 

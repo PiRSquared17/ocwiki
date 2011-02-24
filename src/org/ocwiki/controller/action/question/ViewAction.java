@@ -6,17 +6,17 @@ import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractResourceAction;
 import org.ocwiki.controller.action.ActionException;
-import org.ocwiki.data.BaseQuestion;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.data.MultichoiceQuestion;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 
-public class ViewAction extends AbstractResourceAction<BaseQuestion> {
+public class ViewAction extends AbstractResourceAction<MultichoiceQuestion> {
 	
-	private BaseQuestion question;
+	private MultichoiceQuestion question;
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
 		try {
-			resource = BaseQuestionDAO.fetchById(getParams().getLong("id"));
+			resource = MultichoiceQuestionDAO.fetchById(getParams().getLong("id"));
 			if (resource == null) {
 				throw new ActionException("Không tìm thấy câu hỏi");
 			} 
@@ -28,7 +28,7 @@ public class ViewAction extends AbstractResourceAction<BaseQuestion> {
 		}
 	}
 	
-	public BaseQuestion getQuestion() {
+	public MultichoiceQuestion getQuestion() {
 		return question;
 	}
 	

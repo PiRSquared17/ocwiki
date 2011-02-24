@@ -5,7 +5,7 @@
 <c:set var="question" value="${empty article ? action.article : article}"></c:set>
 
 <form id="question-form" method="post" 
-        action="${config.restPath}/answer_attempts/${resource.id}">
+        action="${config.restPath}/q_attempts/${resource.id}">
 <div>
     <ocw:parse resource="${resource}">${question.content}</ocw:parse>
     <div class="answer-list-wrapper">

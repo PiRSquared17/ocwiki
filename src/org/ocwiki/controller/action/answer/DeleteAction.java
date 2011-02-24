@@ -5,15 +5,15 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractResourceAction;
-import org.ocwiki.data.BaseQuestion;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.data.MultichoiceQuestion;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 
-public class DeleteAction extends AbstractResourceAction<BaseQuestion> {
+public class DeleteAction extends AbstractResourceAction<MultichoiceQuestion> {
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
-		resource = BaseQuestionDAO.fetchById(getParams().getLong("question"));
-		BaseQuestion question = resource.getArticle().copy();
+		resource = MultichoiceQuestionDAO.fetchById(getParams().getLong("question"));
+		MultichoiceQuestion question = resource.getArticle().copy();
 		question.getAnswers().get(getParams().getInt("answer"));
 		saveNewRevision(resource, question);
 		

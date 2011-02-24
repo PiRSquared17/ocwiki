@@ -6,9 +6,9 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractAction;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
-import org.ocwiki.db.dao.BaseQuestionDAO;
+import org.ocwiki.db.dao.MultichoiceQuestionDAO;
 
 public class ListAction extends AbstractAction {
 
@@ -16,7 +16,7 @@ public class ListAction extends AbstractAction {
 	private int start;
 	private int size;
 	private long count;
-	private List<Resource<BaseQuestion>> questions;
+	private List<Resource<MultichoiceQuestion>> questions;
 
 	@Override
 	public void performImpl() throws IOException, ServletException {
@@ -32,13 +32,13 @@ public class ListAction extends AbstractAction {
 		start = getParams().getInt("start", 0);
 		size = getParams().getInt("size", PAGE_LENGTH);
 
-		questions = BaseQuestionDAO.fetch(start, size);
-		count = BaseQuestionDAO.count();
+		questions = MultichoiceQuestionDAO.fetch(start, size);
+		count = MultichoiceQuestionDAO.count();
 
 		request.setAttribute("questions", questions);
 	}
 	
-	public List<Resource<BaseQuestion>> getQuestions() {
+	public List<Resource<MultichoiceQuestion>> getQuestions() {
 		return questions;
 	}
 	

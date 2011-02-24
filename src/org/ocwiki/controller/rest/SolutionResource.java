@@ -11,7 +11,7 @@ import org.ocwiki.controller.rest.bean.RevisionBean;
 import org.ocwiki.controller.rest.bean.SolutionBean;
 import org.ocwiki.controller.rest.bean.SolutionMapper;
 import org.ocwiki.controller.rest.util.ObjectResult;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Solution;
 import org.ocwiki.data.TextArticle;
@@ -35,7 +35,7 @@ public class SolutionResource extends AbstractResource {
 	}
 	
 	@POST
-	public ObjectResult<TextArticle> create(TextArticle text,Resource<BaseQuestion> res){
+	public ObjectResult<TextArticle> create(TextArticle text,Resource<MultichoiceQuestion> res){
 		User user = SessionUtils.getUser(getSession());
 		ResourceDAO.create(user, TextArticle.class, text);
 		return new ObjectResult<TextArticle>(text);

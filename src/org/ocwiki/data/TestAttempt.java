@@ -30,7 +30,7 @@ public class TestAttempt implements Entity {
 	private double computeMark() {
 		double mark = 0;
 		for (Section section : getTest().getSections()) {
-			for (Question question : section.getQuestions()) {
+			for (TestQuestion question : section.getQuestions()) {
 				for (HistoryAnswer answer : answers) {
 					if (answer.getQuestion().equals(question.getBase())) {
 						if (answer.isCorrect()) {
@@ -84,11 +84,11 @@ public class TestAttempt implements Entity {
 		return answers;
 	}
 	
-	private Map<BaseQuestion, HistoryAnswer> answerByQuestionMap;
+	private Map<MultichoiceQuestion, HistoryAnswer> answerByQuestionMap;
 	
-	public Map<BaseQuestion, HistoryAnswer> getAnswerByQuestion() {
+	public Map<MultichoiceQuestion, HistoryAnswer> getAnswerByQuestion() {
 		if (answerByQuestionMap == null) {
-			answerByQuestionMap = new HashMap<BaseQuestion, HistoryAnswer>();
+			answerByQuestionMap = new HashMap<MultichoiceQuestion, HistoryAnswer>();
 			for (HistoryAnswer answer : answers) {
 				answerByQuestionMap.put(answer.getQuestion(), answer);
 			}

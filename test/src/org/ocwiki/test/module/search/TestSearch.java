@@ -1,7 +1,7 @@
 package org.ocwiki.test.module.search;
 
 import junit.framework.Assert;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.module.search.ContentSearch;
 import org.ocwiki.module.search.MockSearch;
 import org.ocwiki.module.search.Search;
@@ -31,7 +31,7 @@ public class TestSearch {
 		SearchElement se = new SearchElement(null, new ContentSearch("test"));
 		searchInstance.addSearchElement(se);
 		searchInstance.addSearchElement( SearchOperator.AND, new MockSearch() );
-		System.out.println(searchInstance.buildSearchQueryForClass(BaseQuestion.class));
-		Assert.assertEquals("from org.ocwiki.data.BaseQuestion as basequestion where  ( basequestion.content like '%test%' ) and (  true  ) ", searchInstance.buildSearchQueryForClass(BaseQuestion.class));
+		System.out.println(searchInstance.buildSearchQueryForClass(MultichoiceQuestion.class));
+		Assert.assertEquals("from org.ocwiki.data.MultichoiceQuestion as basequestion where  ( basequestion.content like '%test%' ) and (  true  ) ", searchInstance.buildSearchQueryForClass(MultichoiceQuestion.class));
 	}
 }

@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractAction;
 import org.ocwiki.data.Article;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.Solution;
 import org.ocwiki.data.Status;
@@ -162,7 +162,7 @@ public class SearchAction extends AbstractAction {
 	
 	private String translateArticleTypeName(String str) {
 		if ("question".equals(str)) {
-			return BaseQuestion.class.getSimpleName();
+			return MultichoiceQuestion.class.getSimpleName();
 		} else if ("test".equals(str)) {
 			return Test.class.getSimpleName();
 		} else if ("text".equals(str)) {

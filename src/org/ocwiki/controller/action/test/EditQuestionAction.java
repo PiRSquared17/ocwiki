@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractResourceAction;
-import org.ocwiki.data.Question;
+import org.ocwiki.data.TestQuestion;
 import org.ocwiki.data.Section;
 import org.ocwiki.data.Test;
 import org.ocwiki.db.dao.ResourceDAO;
@@ -17,7 +17,7 @@ public class EditQuestionAction extends AbstractResourceAction<Test> {
 
 	private Section section;
 	private Test test;
-	private Question question;
+	private TestQuestion question;
 
 	@Override
 	public void performImpl() throws IOException, ServletException {

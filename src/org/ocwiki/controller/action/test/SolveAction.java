@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import org.ocwiki.controller.action.AbstractResourceAction;
 import org.ocwiki.controller.action.ActionException;
 import org.ocwiki.data.Answer;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.ChoiceAnswer;
 import org.ocwiki.data.TestAttempt;
 import org.ocwiki.data.HistoryAnswer;
@@ -55,7 +55,7 @@ public class SolveAction extends AbstractResourceAction<Test> {
 			if (key.startsWith("q")) {
 				ChoiceAnswer choiceAnswer = new ChoiceAnswer();
 				long questionId = Long.parseLong(key.substring(1));
-				choiceAnswer.setQuestion(HibernateUtil.load(BaseQuestion.class, questionId));
+				choiceAnswer.setQuestion(HibernateUtil.load(MultichoiceQuestion.class, questionId));
 				String[] params = (String[]) request.getParameterMap().get(key);
 				for (int i = 0; i < params.length; i++) {
 					long answerId = Long.parseLong(params[i]);

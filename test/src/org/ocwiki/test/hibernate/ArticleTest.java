@@ -3,7 +3,7 @@ package org.ocwiki.test.hibernate;
 import java.util.List;
 
 import org.ocwiki.data.Answer;
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Namespace;
 import org.ocwiki.data.ResourceSearchReport;
 import org.ocwiki.data.Text;
@@ -17,8 +17,8 @@ public class ArticleTest extends HibernateTest {
 
 	@Test
 	public void testPersist() {
-		BaseQuestion question = ArticleDAO.fetchById(88);
-		BaseQuestion newQuestion = question.copy();
+		MultichoiceQuestion question = ArticleDAO.fetchById(88);
+		MultichoiceQuestion newQuestion = question.copy();
 		ArticleDAO.persist(newQuestion);
 		
 		Assert.assertTrue("Chưa lưu được câu hỏi", newQuestion.getId() > 0);
@@ -28,7 +28,7 @@ public class ArticleTest extends HibernateTest {
 
 	@Test
 	public void testDetached() {
-		BaseQuestion newQuestion = new BaseQuestion(new Namespace(3, ""),
+		MultichoiceQuestion newQuestion = new MultichoiceQuestion(new Namespace(3, ""),
 				new Text("xyz"), 3);
 		newQuestion.getAnswers().add(new Answer(new Text("answer 0"), true));
 		newQuestion.getAnswers().add(createAnswer1());

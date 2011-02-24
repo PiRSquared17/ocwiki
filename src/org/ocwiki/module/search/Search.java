@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.ocwiki.data.BaseQuestion;
+import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.File;
 import org.ocwiki.data.Test;
 import org.ocwiki.data.TestStructure;
@@ -19,7 +19,7 @@ public class Search {
 	private static Map<Class<?>, String> entityAliases = null;
 	static {
 		entityAliases = new Hashtable<Class<?>, String>();
-		entityAliases.put(BaseQuestion.class, "basequestion");
+		entityAliases.put(MultichoiceQuestion.class, "basequestion");
 		entityAliases.put(Test.class, "test");
 		entityAliases.put(TestStructure.class, "teststructure");
 		entityAliases.put(TextArticle.class, "textarticle");

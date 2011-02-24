@@ -190,7 +190,7 @@ var ResourceService = Class.create( {
 
 function createQuestion() {
 	resource = {
-		articleType: 'org.ocwiki.data.BaseQuestion',
+		articleType: 'org.ocwiki.data.MultichoiceQuestion',
 		article: {
 		    type: 'baseQuestionBean',
 		    name: 'Câu hỏi mới',

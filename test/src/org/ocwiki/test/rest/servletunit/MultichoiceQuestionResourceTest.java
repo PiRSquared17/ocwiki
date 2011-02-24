@@ -2,25 +2,24 @@ package org.ocwiki.test.rest.servletunit;
 
 import java.io.IOException;
 
-import org.ocwiki.controller.rest.resources.basequestion.BaseQuestionServiceImpl;
-import org.ocwiki.data.Namespace;
-
 import org.codehaus.jackson.JsonNode;
 import org.junit.Assert;
 import org.junit.Test;
+import org.ocwiki.controller.rest.MultichoiceQuestionResource;
+import org.ocwiki.data.Namespace;
 import org.xml.sax.SAXException;
 
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class BaseQuestionServiceTest extends AbstractResourceTest {
+public class MultichoiceQuestionResourceTest extends AbstractResourceTest {
 
 	@Test
 	public void testRetrieve() throws IOException, SAXException {
 		ServletUnitClient client = getServletRunner().newClient();
 		WebResponse response = client
-				.getResponse(createRequest(BaseQuestionServiceImpl.PATH + "/88"));
+				.getResponse(createRequest(MultichoiceQuestionResource.PATH + "/88"));
 		
 		System.out.println(response.getText());
 		JsonNode root = parseJSON(response);
@@ -57,9 +56,9 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
 //		String json = "{}";
-//		JsonUtils.fromJson(json, new TypeReference<Revision<BaseQuestion>>() {});
+//		JsonUtils.fromJson(json, new TypeReference<Revision<MultichoiceQuestion>>() {});
 		WebRequest request = new JsonBodyPostWebRequest(
-				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
+				getRestPath(MultichoiceQuestionResource.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		System.out.println(response.getText());
@@ -111,7 +110,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
 		WebRequest request = new JsonBodyPostWebRequest(
-				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
+				getRestPath(MultichoiceQuestionResource.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
@@ -136,7 +135,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
 		WebRequest request = new JsonBodyPostWebRequest(
-				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
+				getRestPath(MultichoiceQuestionResource.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
@@ -162,7 +161,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
 		WebRequest request = new JsonBodyPostWebRequest(
-				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
+				getRestPath(MultichoiceQuestionResource.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
@@ -188,7 +187,7 @@ public class BaseQuestionServiceTest extends AbstractResourceTest {
 				"\"summary\": \"sửa bằng unit test\"," +
 				"\"minor\": true}";
 		WebRequest request = new JsonBodyPostWebRequest(
-				getRestPath(BaseQuestionServiceImpl.PATH + "/88"), json);
+				getRestPath(MultichoiceQuestionResource.PATH + "/88"), json);
 		client.setExceptionsThrownOnErrorStatus(false);
 		WebResponse response = client.getResponse(request);
 		
