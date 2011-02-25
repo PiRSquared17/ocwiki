@@ -8,7 +8,7 @@
     <ocw:parse resource="${resource}">${question.content}</ocw:parse>
     <div class="answer-list-wrapper">
     <c:set var="answerIndex" value="0"></c:set>
-    <c:forEach items="${question.answers}" var="answer">
+    <c:forEach items="${question.choices}" var="answer">
         <div class="answer-wrapper mouse-out"
                 onmouseover="this.removeClassName('mouse-out'); this.addClassName('mouse-in');" 
                 onmouseout="this.removeClassName('mouse-in'); this.addClassName('mouse-out');">

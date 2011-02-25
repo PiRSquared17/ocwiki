@@ -65,13 +65,13 @@
 				        <div class="question-content-wrapper">${question.content}</div>
 						<div>
 				             <c:set var="j" value="0" />
-				             <div class="answer-list-wrapper">
-				             <c:forEach items="${question.answers}" var="answer">
-				                <div class="answer-wrapper">
+				             <div class="choice-list-wrapper">
+				             <c:forEach items="${question.choices}" var="choice">
+				                <div class="choice-wrapper">
 				                     <div class="number-wrapper">
 				                        <b>${u:alpha(j)}</b>.
 				                     </div>
-				                     <div>${answer.content}</div>
+				                     <div>${choice.content}</div>
 				                     <c:set var="j" value="${j+1}" />
 				                 </div>
 				             </c:forEach>
@@ -118,8 +118,8 @@
         <div class="question-content-wrapper">\#{question.baseResource.article.content.text}</div>
 		<div>
              <c:set var="j" value="0" />
-             <div class="answer-list-wrapper" id="add-\#{lasQuestionTest}">
-             	\#{answers}
+             <div class="choice-list-wrapper" id="add-\#{lasQuestionTest}">
+             	\#{choices}
              </div>
          </div>
 	</div>
@@ -133,7 +133,7 @@
 </ocw:setJs>
 
 <ocw:setJs templateVar="AnswerTempl">
-	<div class="answer-wrapper">
+	<div class="choice-wrapper">
         <div class="number-wrapper">
            <b>\#{oder_ans}</b>.
         </div>
@@ -246,20 +246,20 @@
 		  onSuccess : function(transport) {
 			  question = transport.responseJSON.result;
 			  var question_of_section = {"id":questionId,"baseResource":{"article":question,"id": questionId},"mark":mark};
-		      var answer = question.answers;
+		      var choice = question.choices;
 		      var section = test.sections[Nosection];
 		      var add_question='add-section-'+Nosection;
-		      var answers='';
+		      var choices='';
 		      var lienket = 'http://localhost:8080/tracnghiem/article/' + questionId;
-		      for(index=0;index<answer.length;index++){
-			      var content = answer[index].content.text;
+		      for(index=0;index<choice.length;index++){
+			      var content = choice[index].content.text;
 			      var u_index = st_char.charAt(index);
 			      var dt = {"content":content,"oder_ans":u_index};
-				  answers+=AnswerTempl.evaluate(dt);
+				  choices+=AnswerTempl.evaluate(dt);
 			      //$(id_add).insert({after: AnswerTempl.evaluate(dt)});
 		      }
 		      var data={"question":question_of_section,"lastQuestion":ques_length,
-				      "indexsection":Nosection,"templatePath":templatePath,"answers":answers,"indexquestion": ques_length - 1,
+				      "indexsection":Nosection,"templatePath":templatePath,"choices":choices,"indexquestion": ques_length - 1,
 				      "lastQuestionTest":lastQuestion,"link":lienket};
 		      $(add_question).insert({before: QuestionTempl.evaluate(data)});
 		      lastQuestion++;

@@ -23,12 +23,12 @@ public class TestBridge implements FieldBridge {
 			StringBuilder questions = new StringBuilder();
 			StringBuilder answers = new StringBuilder();
 			for (Section section : test.getSections()) {
-				sections.append(section.getContent().getText()).append(' ');
+				sections.append(section.getContent().getText()).append(". ");
 				for (TestQuestion question : section.getQuestions()) {
 					MultichoiceQuestion baseQuestion = question.getBase();
-					questions.append(baseQuestion.getContent().getText()).append(' ');
+					questions.append(baseQuestion.getContent().getText()).append(". ");
 					for (Choice choice : question.getAnswers()) {
-						answers.append(choice.getContent().getText()).append(' ');
+						answers.append(choice.getContent().getText()).append(". ");
 					}
 				}
 			}
@@ -36,7 +36,7 @@ public class TestBridge implements FieldBridge {
 					Field.Store.NO, Field.Index.ANALYZED));
 			document.add(new Field(name + ".questions", questions.toString(),
 					Field.Store.NO, Field.Index.ANALYZED));
-			document.add(new Field(name + ".answers", answers.toString(),
+			document.add(new Field(name + ".choices", answers.toString(),
 					Field.Store.NO, Field.Index.ANALYZED));
 		}
 	}

@@ -4,11 +4,11 @@
 <hibernate-mapping>
 	<subclass name="org.ocwiki.data.MultichoiceQuestion" 
 		extends="org.ocwiki.data.Question" discriminator-value="MultichoiceQuestion">
-		<list name="answers" table="MultichoiceQuestionChoice" lazy="true"
+		<list name="choices" table="MultichoiceQuestionChoice" lazy="true"
 			cascade="all" inverse="false" fetch="subselect">
 			<key column="question_id" />
-			<index column="answer_index"></index>
-			<many-to-many column="answer_id" class="org.ocwiki.data.Answer" />
+			<index column="choice_index"></index>
+			<many-to-many column="choice_id" class="org.ocwiki.data.Answer" />
 		</list>
 	</subclass>
 </hibernate-mapping>

@@ -37,8 +37,8 @@ import com.oreilly.servlet.ParameterNotFoundException;
 public class SearchAction extends AbstractAction {
 
 	private static final String[] FULLTEXT_FIELDS = { "article.name",
-			"article.content.text", "baseQuestion.answers", "test.sections",
-			"test.questions", "test.answers" };
+			"article.content.text", "question.choices", "test.sections",
+			"test.questions", "test.choices" };
 	private static final String[] AUTHOR_FIELDS = { "author.name",
 			"author.email", "author.firtName", "author.lastName", "author.bio",
 			"author.middleName" };

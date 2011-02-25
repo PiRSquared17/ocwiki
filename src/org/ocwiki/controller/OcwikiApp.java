@@ -9,10 +9,7 @@ import javax.servlet.ServletContextListener;
 import org.ocwiki.conf.Config;
 import org.ocwiki.conf.ConfigIO;
 import org.ocwiki.conf.ConfigIOException;
-import org.ocwiki.data.stat.DailyStatistic;
-import org.ocwiki.db.dao.stat.DailyStatisticDAO;
 import org.ocwiki.persistence.HibernateUtil;
-import org.ocwiki.util.SiteViewCountUtil;
 
 /**
  * Application Lifecycle Listener implementation class Initializer
@@ -44,8 +41,6 @@ public class OcwikiApp implements ServletContextListener {
 		config = new Config();
 		String configPath = context.getRealPath(context.getInitParameter("configDir"));
 		initializeImpl(configPath);
-		DailyStatistic lastStatistic = DailyStatisticDAO.fetchLastStatistic();
-		SiteViewCountUtil.initialize(lastStatistic.getViewCount());
 	}
 
 	private void initializeImpl(String configPath) {
@@ -71,7 +66,6 @@ public class OcwikiApp implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent arg0) {
-    	DailyStatisticDAO.saveCurrentStatistic();
     }
 
     public ServletContext getServletContext() {

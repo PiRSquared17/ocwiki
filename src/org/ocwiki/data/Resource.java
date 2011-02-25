@@ -252,7 +252,7 @@ public class Resource<T extends Article> implements ArticleContainer<T>,
 	
 	@Field(index=Index.TOKENIZED, store=Store.NO)
 	@FieldBridge(impl=MultichoiceQuestionBridge.class)
-	Object getMultichoiceQuestion() {
+	Object getQuestion() {
 		return this;
 	}
 	

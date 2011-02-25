@@ -8,25 +8,25 @@
         action="${config.restPath}/q_attempts/${resource.id}">
 <div>
     <ocw:parse resource="${resource}">${question.content}</ocw:parse>
-    <div class="answer-list-wrapper">
-    <c:set var="answerIndex" value="0"></c:set>
-    <c:forEach items="${question.answers}" var="answer">
-        <div class="answer-wrapper mouse-highlight">
+    <div class="choice-list-wrapper">
+    <c:set var="choiceIndex" value="0"></c:set>
+    <c:forEach items="${question.choices}" var="choice">
+        <div class="choice-wrapper mouse-highlight">
             <div class="check-wrapper">
-                <input type="radio" name="answers" value="${answer.id}" id="answer-${answer.id}">
+                <input type="radio" name="choices" value="${choice.id}" id="choice-${choice.id}">
             </div>
             <div style="margin-right: 60px">
-                 <label for="answer-${answer.id}">
-                     <ocw:parse resource="${resource}">${answer.content}</ocw:parse>
+                 <label for="choice-${choice.id}">
+                     <ocw:parse resource="${resource}">${choice.content}</ocw:parse>
                  </label>
             </div>
         </div>
-        <c:set var="answerIndex" value="${answerIndex+1}"></c:set>
+        <c:set var="choiceIndex" value="${choiceIndex+1}"></c:set>
     </c:forEach>
     </div>
 </div>
-<button type="button" onclick="getResult('question-form', 'question-answer-result')">Trả lời</button>
-<span id="question-answer-result"></span>
+<button type="button" onclick="getResult('question-form', 'question-choice-result')">Trả lời</button>
+<span id="question-choice-result"></span>
 </form>
 
 <ocw:topics article="${question}"/>

@@ -20,7 +20,7 @@ public class MultichoiceQuestionBridge implements FieldBridge {
 			for (Choice choice : question.getChoices()) {
 				answers.append(choice.getContent().getText()).append(' ');
 			}
-			document.add(new Field(name + ".answers", answers.toString(),
+			document.add(new Field(name + ".choices", answers.toString(),
 					Field.Store.NO, Field.Index.ANALYZED));
 		}
 	}
