@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.ocwiki.controller.rest.AbstractResource;
 import org.ocwiki.controller.rest.util.ListResult;
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 import org.ocwiki.data.ResourceCustomization;
@@ -49,7 +49,7 @@ public class QuestionAttemptService extends AbstractResource {
 			throws NumberFormatException, ParameterNotFoundException,
 			JSONException {
 		Resource<MultichoiceQuestion> resource = MultichoiceQuestionDAO.fetchById(resourceId);
-		List<Answer> answers = resource.getArticle().getAnswers();
+		List<Choice> answers = resource.getArticle().getChoices();
 		int choiceCount = getParams().count("answers");
 		boolean choosed[] = new boolean[answers.size()];
 		boolean correct = true;

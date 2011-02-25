@@ -1,7 +1,7 @@
 package org.ocwiki.test.hibernate;
 
 import junit.framework.Assert;
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.data.Article;
 import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Namespace;
@@ -24,9 +24,9 @@ public class ResourceTest extends HibernateTest {
 		User admin = UserDAO.fetchById(1);
 		MultichoiceQuestion newQuestion = new MultichoiceQuestion(new Namespace(3, ""),
 				new Text("xyz"), 3);
-		newQuestion.getAnswers().add(new Answer(new Text("answer 0"), true));
-		newQuestion.getAnswers().add(createAnswer1());
-		newQuestion.getAnswers().add(createAnswer2());
+		newQuestion.getChoices().add(new Choice(new Text("answer 0"), true));
+		newQuestion.getChoices().add(createChoice1());
+		newQuestion.getChoices().add(createChoice2());
 		ArticleDAO.persist(newQuestion);
 		
 		Resource<Article> resource = ResourceDAO.fetchById(88);
@@ -38,20 +38,20 @@ public class ResourceTest extends HibernateTest {
 		Assert.assertEquals(true, ((Revision<Article>) CollectionUtils.get(resource.getRevisions(), 1)).isMinor());
 	}
 
-	private Answer createAnswer2() {
+	private Choice createChoice2() {
 		Text text2 = new Text("linh tinh");
 		text2.setId(57);
-		Answer answer2 = new Answer(text2, false);
-		answer2.setId(322);
-		return answer2;
+		Choice choice2 = new Choice(text2, false);
+		choice2.setId(322);
+		return choice2;
 	}
 
-	private Answer createAnswer1() {
+	private Choice createChoice1() {
 		Text text1 = new Text("carry");
 		text1.setId(56);
-		Answer answer1 = new Answer(text1, false);
-		answer1.setId(321);
-		return answer1;
+		Choice choice1 = new Choice(text1, false);
+		choice1.setId(321);
+		return choice1;
 	}
 	
 }

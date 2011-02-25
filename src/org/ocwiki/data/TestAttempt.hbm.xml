@@ -28,7 +28,7 @@
 		</property>
 		<set name="answers" cascade="all" inverse="false">
 		    <key column="history" not-null="true" foreign-key="id"></key>
-		    <one-to-many class="org.ocwiki.data.HistoryAnswer"/>
+		    <one-to-many class="org.ocwiki.data.Answer"/>
 		</set>
 	</class>
 </hibernate-mapping>

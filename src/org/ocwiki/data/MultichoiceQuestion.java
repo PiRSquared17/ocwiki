@@ -13,7 +13,7 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 public class MultichoiceQuestion extends Question {
 
 	@IndexedEmbedded
-	private List<Answer> answers = new ArrayList<Answer>();
+	private List<Choice> choices = new ArrayList<Choice>();
 
 	public MultichoiceQuestion() {
 	}
@@ -31,12 +31,12 @@ public class MultichoiceQuestion extends Question {
 		return 1;
 	}
 
-	public List<Answer> getAnswers() {
-		return answers;
+	public List<Choice> getChoices() {
+		return choices;
 	}
 	
-	public void setAnswers(List<Answer> answers) {
-		this.answers = answers;
+	public void setChoices(List<Choice> choices) {
+		this.choices = choices;
 	}
 
 	/**
@@ -45,10 +45,10 @@ public class MultichoiceQuestion extends Question {
 	 * @return
 	 */
 	@Deprecated
-	public Map<Long, Answer> getAnswerById() {
-		Map<Long, Answer> answerMap = new HashMap<Long, Answer>();
-		for (Answer answer : getAnswers()) {
-			answerMap.put(answer.getId(), answer);
+	public Map<Long, Choice> getAnswerById() {
+		Map<Long, Choice> answerMap = new HashMap<Long, Choice>();
+		for (Choice choice : getChoices()) {
+			answerMap.put(choice.getId(), choice);
 		}
 		return answerMap;
 	}
@@ -56,7 +56,7 @@ public class MultichoiceQuestion extends Question {
 	protected <T> T copyTo(T obj) {
 		super.copyTo(obj);
 		MultichoiceQuestion question = (MultichoiceQuestion) obj;
-		question.setAnswers(new ArrayList<Answer>(getAnswers()));
+		question.setChoices(new ArrayList<Choice>(getChoices()));
 		question.setLevel(getLevel());
 		return obj;
 	}

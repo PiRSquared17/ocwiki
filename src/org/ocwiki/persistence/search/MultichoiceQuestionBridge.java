@@ -1,6 +1,6 @@
 package org.ocwiki.persistence.search;
 
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Resource;
 
@@ -17,8 +17,8 @@ public class MultichoiceQuestionBridge implements FieldBridge {
 		if (((Resource<?>)value).getArticle() instanceof MultichoiceQuestion) {
 			MultichoiceQuestion question = (MultichoiceQuestion) ((Resource<?>)value).getArticle();
 			StringBuilder answers = new StringBuilder();
-			for (Answer answer : question.getAnswers()) {
-				answers.append(answer.getContent().getText()).append(' ');
+			for (Choice choice : question.getChoices()) {
+				answers.append(choice.getContent().getText()).append(' ');
 			}
 			document.add(new Field(name + ".answers", answers.toString(),
 					Field.Store.NO, Field.Index.ANALYZED));

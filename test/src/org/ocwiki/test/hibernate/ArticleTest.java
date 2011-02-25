@@ -2,7 +2,7 @@ package org.ocwiki.test.hibernate;
 
 import java.util.List;
 
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Namespace;
 import org.ocwiki.data.ResourceSearchReport;
@@ -30,39 +30,39 @@ public class ArticleTest extends HibernateTest {
 	public void testDetached() {
 		MultichoiceQuestion newQuestion = new MultichoiceQuestion(new Namespace(3, ""),
 				new Text("xyz"), 3);
-		newQuestion.getAnswers().add(new Answer(new Text("answer 0"), true));
-		newQuestion.getAnswers().add(createAnswer1());
-		newQuestion.getAnswers().add(createAnswer2());
+		newQuestion.getChoices().add(new Choice(new Text("answer 0"), true));
+		newQuestion.getChoices().add(createChoice1());
+		newQuestion.getChoices().add(createChoice2());
 		ArticleDAO.persist(newQuestion);
 		
 		Assert.assertTrue(newQuestion.getId() != 0);
-		Assert.assertTrue(newQuestion.getAnswers().get(0).getId() != 0);
-		Assert.assertTrue(newQuestion.getAnswers().get(1).getId() == 321);
-		Assert.assertTrue(newQuestion.getAnswers().get(2).getId() == 322);
-		Assert.assertTrue(newQuestion.getAnswers().get(2).getContent().getId() == 57);
+		Assert.assertTrue(newQuestion.getChoices().get(0).getId() != 0);
+		Assert.assertTrue(newQuestion.getChoices().get(1).getId() == 321);
+		Assert.assertTrue(newQuestion.getChoices().get(2).getId() == 322);
+		Assert.assertTrue(newQuestion.getChoices().get(2).getContent().getId() == 57);
 		
 		// assert immutation
 		long id = newQuestion.getId();
 		HibernateUtil.closeSession(); // close session to fetch data again
 		newQuestion = ArticleDAO.fetchById(id);
-		Assert.assertEquals("will be carrying", newQuestion.getAnswers().get(2)
+		Assert.assertEquals("will be carrying", newQuestion.getChoices().get(2)
 				.getContent().getText());
 	}
 
-	private Answer createAnswer2() {
+	private Choice createChoice2() {
 		Text text2 = new Text("linh tinh");
 		text2.setId(57);
-		Answer answer2 = new Answer(text2, false);
-		answer2.setId(322);
-		return answer2;
+		Choice choice2 = new Choice(text2, false);
+		choice2.setId(322);
+		return choice2;
 	}
 
-	private Answer createAnswer1() {
+	private Choice createChoice1() {
 		Text text1 = new Text("carry");
 		text1.setId(56);
-		Answer answer1 = new Answer(text1, false);
-		answer1.setId(321);
-		return answer1;
+		Choice choice1 = new Choice(text1, false);
+		choice1.setId(321);
+		return choice1;
 	}
 	
 	@Test

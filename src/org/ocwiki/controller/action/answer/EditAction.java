@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractResourceAction;
 import org.ocwiki.controller.action.ActionException;
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Text;
 import org.ocwiki.db.dao.ResourceDAO;
@@ -42,18 +42,18 @@ public class EditAction extends AbstractResourceAction<MultichoiceQuestion> {
 		if ("save".equals(submit)) {
 
 			MultichoiceQuestion question = resource.getArticle().copy();
-			Answer answer = Utils.replaceByCopy(question.getAnswers(),
+			Choice choice = Utils.replaceByCopy(question.getChoices(),
 					answerIndex);
 
 			try {
 				String content = getParams().getString("content");
-				answer.setContent(new Text(content));
+				choice.setContent(new Text(content));
 			} catch (ParameterNotFoundException e) {
 				addError("content", "Bạn cần nhập nội dung phương án trả lời.");
 			}
 
 			boolean correct = getParams().getBoolean("correct", false);
-			answer.setCorrect(correct);
+			choice.setCorrect(correct);
 
 			if (hasNoErrors()) {
 				saveNewRevision(resource, question);

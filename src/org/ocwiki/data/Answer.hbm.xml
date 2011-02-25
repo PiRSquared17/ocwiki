@@ -1,13 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 19:07:23 18-07-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<class name="org.ocwiki.data.Answer" table="Answer" mutable="false">
-		<id name="id" type="long" column="id" access="field">
+	<class name="org.ocwiki.data.Answer" table="Answer" abstract="true"
+		  mutable="false">
+		<id name="id" type="long" access="field">
 			<generator class="identity" />
 		</id>
-		<many-to-one name="content" column="content" class="org.ocwiki.data.Text"
-			fetch="join" cascade="all" not-null="true" />
-		<property name="correct" type="boolean" not-null="true" />
+		<discriminator type="string" length="20">
+			<column name="discriminator"></column>
+		</discriminator>
+		<many-to-one name="question" class="org.ocwiki.data.MultichoiceQuestion" fetch="join">
+			<column name="question" not-null="true"></column>
+		</many-to-one>
 	</class>
 </hibernate-mapping>

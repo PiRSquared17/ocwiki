@@ -52,6 +52,7 @@ public class Config implements Serializable {
 	private String contactEmail;
 	private String recaptchaPublicKey;
 	private String recaptchaPrivateKey;
+	private int resourceViewBufferSize = 100;
 	
 	private int maxAvatarFileSize = 2; // MB
 	private int maxAvatarDimension = 150; // pixels
@@ -484,6 +485,14 @@ public class Config implements Serializable {
 
 	public String getRevisionPath() {
 		return revisionPath;
+	}
+
+	public void setResourceViewBufferSize(int resourceViewBufferSize) {
+		this.resourceViewBufferSize = resourceViewBufferSize;
+	}
+
+	public int getResourceViewBufferSize() {
+		return resourceViewBufferSize;
 	}
 
 }

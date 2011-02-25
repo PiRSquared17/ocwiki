@@ -32,10 +32,10 @@ public class TestQuestion implements Entity, Copiable<TestQuestion> {
 	 * @return
 	 */
 	@Deprecated
-	public Map<Long, Answer> getAnswerById() {
-		Map<Long, Answer> usedAnswerMap = new HashMap<Long, Answer>();
-		for (Answer answer : getAnswers()) {
-			usedAnswerMap.put(answer.getId(), answer);
+	public Map<Long, Choice> getChoiceById() {
+		Map<Long, Choice> usedAnswerMap = new HashMap<Long, Choice>();
+		for (Choice choice : getAnswers()) {
+			usedAnswerMap.put(choice.getId(), choice);
 		}
 		return usedAnswerMap;
 	}
@@ -50,8 +50,8 @@ public class TestQuestion implements Entity, Copiable<TestQuestion> {
 	}
 
 	@XmlTransient
-	public List<Answer> getAnswers() {
-		return getBase().getAnswers();
+	public List<Choice> getAnswers() {
+		return getBase().getChoices();
 	}
 
 	@XmlElement

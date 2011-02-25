@@ -48,7 +48,7 @@ public final class XMLUtils {
 		xstream.aliasField("class", ActionDescriptor.class, "actionClass");
 		xstream.aliasField("class", ModuleDescriptor.class, "clazz");
 		// alias data entries
-		xstream.alias("ans", org.ocwiki.data.Answer.class);
+		xstream.alias("ans", org.ocwiki.data.Choice.class);
 		xstream.alias("art", org.ocwiki.data.Article.class);
 		xstream.alias("ques", org.ocwiki.data.MultichoiceQuestion.class);
 		xstream.alias("hist", org.ocwiki.data.TestAttempt.class);

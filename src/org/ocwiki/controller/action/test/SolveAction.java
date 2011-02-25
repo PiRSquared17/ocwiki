@@ -9,11 +9,11 @@ import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractResourceAction;
 import org.ocwiki.controller.action.ActionException;
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.ChoiceAnswer;
 import org.ocwiki.data.TestAttempt;
-import org.ocwiki.data.HistoryAnswer;
+import org.ocwiki.data.Answer;
 import org.ocwiki.data.Test;
 import org.ocwiki.db.dao.HistoryDAO;
 import org.ocwiki.db.dao.ResourceDAO;
@@ -33,7 +33,7 @@ public class SolveAction extends AbstractResourceAction<Test> {
 			throw new ActionException("Đề thi chưa hoàn thiện.");
 		}
 		if ("done".equals(submit)) {
-			Set<HistoryAnswer> answers = getChoiceAnswers();
+			Set<Answer> answers = getChoiceAnswers();
 			int time = getParams().getInt("time");
 			TestAttempt history = new TestAttempt(getUser(),
 					ResourceDAO.fetchCurrentRevision(resource), new Date(),
@@ -48,8 +48,8 @@ public class SolveAction extends AbstractResourceAction<Test> {
 		}
 	}
 
-	private Set<HistoryAnswer> getChoiceAnswers() {
-		Set<HistoryAnswer> answers = new HashSet<HistoryAnswer>();
+	private Set<Answer> getChoiceAnswers() {
+		Set<Answer> answers = new HashSet<Answer>();
 		for (Object obj : request.getParameterMap().keySet()) {
 			String key = (String) obj;
 			if (key.startsWith("q")) {
@@ -59,8 +59,8 @@ public class SolveAction extends AbstractResourceAction<Test> {
 				String[] params = (String[]) request.getParameterMap().get(key);
 				for (int i = 0; i < params.length; i++) {
 					long answerId = Long.parseLong(params[i]);
-					Answer answer = HibernateUtil.load(Answer.class, answerId);
-					choiceAnswer.getChoices().add(answer);
+					Choice choice = HibernateUtil.load(Choice.class, answerId);
+					choiceAnswer.getChoices().add(choice);
 				}
 				answers.add(choiceAnswer);
 			}

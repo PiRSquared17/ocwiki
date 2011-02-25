@@ -1,6 +1,6 @@
 package org.ocwiki.persistence.search;
 
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.TestQuestion;
 import org.ocwiki.data.Resource;
@@ -27,8 +27,8 @@ public class TestBridge implements FieldBridge {
 				for (TestQuestion question : section.getQuestions()) {
 					MultichoiceQuestion baseQuestion = question.getBase();
 					questions.append(baseQuestion.getContent().getText()).append(' ');
-					for (Answer answer : question.getAnswers()) {
-						answers.append(answer.getContent().getText()).append(' ');
+					for (Choice choice : question.getAnswers()) {
+						answers.append(choice.getContent().getText()).append(' ');
 					}
 				}
 			}

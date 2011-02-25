@@ -9,14 +9,14 @@ public class TestVersion {
 	private Article test;
 	private String code;
 	private Map<Section, List<TestQuestion>> questions = new HashMap<Section, List<TestQuestion>>();
-	private Map<TestQuestion, List<Answer>> answers = new HashMap<TestQuestion, List<Answer>>();
+	private Map<TestQuestion, List<Choice>> answers = new HashMap<TestQuestion, List<Choice>>();
 
 	TestVersion() {
 	}
 	
 	public TestVersion(Article test, String code,
 			Map<Section, List<TestQuestion>> questions,
-			Map<TestQuestion, List<Answer>> answers) {
+			Map<TestQuestion, List<Choice>> answers) {
 		super();
 		this.test = test;
 		this.code = code;
@@ -48,11 +48,11 @@ public class TestVersion {
 		return questions;
 	}
 
-	public void setAnswers(Map<TestQuestion, List<Answer>> answers) {
+	public void setAnswers(Map<TestQuestion, List<Choice>> answers) {
 		this.answers = answers;
 	}
 
-	public Map<TestQuestion, List<Answer>> getAnswers() {
+	public Map<TestQuestion, List<Choice>> getAnswers() {
 		return answers;
 	}
 

@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class MultichoiceQuestionBean extends BaseArticleBean {
 	private int level;
-	private List<AnswerBean> answers = new ArrayList<AnswerBean>();
+	private List<ChoiceBean> choices = new ArrayList<ChoiceBean>();
 
 	public MultichoiceQuestionBean() {
 	}
@@ -21,12 +21,12 @@ public class MultichoiceQuestionBean extends BaseArticleBean {
 		this.level = level;
 	}
 
-	public List<AnswerBean> getAnswers() {
-		return answers;
+	public List<ChoiceBean> getChoices() {
+		return choices;
 	}
 
-	public void setAnswers(List<AnswerBean> answers) {
-		this.answers = answers;
+	public void setChoices(List<ChoiceBean> choices) {
+		this.choices = choices;
 	}
 
 }

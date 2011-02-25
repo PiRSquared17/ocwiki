@@ -13,13 +13,13 @@ public class TestAttempt implements Entity {
 	private Date takenDate;
 	private double mark;
 	private int time;
-	private Set<HistoryAnswer> answers;
+	private Set<Answer> answers;
 	
 	TestAttempt() {
 	}
 
 	public TestAttempt(User user, Revision<Test> revision, Date takenDate,
-			Set<HistoryAnswer> answers, int time) {
+			Set<Answer> answers, int time) {
 		this.user = user;
 		this.revision = revision;
 		this.takenDate = takenDate;
@@ -31,7 +31,7 @@ public class TestAttempt implements Entity {
 		double mark = 0;
 		for (Section section : getTest().getSections()) {
 			for (TestQuestion question : section.getQuestions()) {
-				for (HistoryAnswer answer : answers) {
+				for (Answer answer : answers) {
 					if (answer.getQuestion().equals(question.getBase())) {
 						if (answer.isCorrect()) {
 							mark += question.getMark();
@@ -71,7 +71,7 @@ public class TestAttempt implements Entity {
 		return revision;
 	}
 
-	public void setAnswers(Set<HistoryAnswer> answers) {
+	public void setAnswers(Set<Answer> answers) {
 		this.answers = answers;
 		if (answers == null) {
 			mark = 0;
@@ -80,16 +80,16 @@ public class TestAttempt implements Entity {
 		}
 	}
 
-	public Set<HistoryAnswer> getAnswers() {
+	public Set<Answer> getAnswers() {
 		return answers;
 	}
 	
-	private Map<MultichoiceQuestion, HistoryAnswer> answerByQuestionMap;
+	private Map<Question, Answer> answerByQuestionMap;
 	
-	public Map<MultichoiceQuestion, HistoryAnswer> getAnswerByQuestion() {
+	public Map<Question, Answer> getAnswerByQuestion() {
 		if (answerByQuestionMap == null) {
-			answerByQuestionMap = new HashMap<MultichoiceQuestion, HistoryAnswer>();
-			for (HistoryAnswer answer : answers) {
+			answerByQuestionMap = new HashMap<Question, Answer>();
+			for (Answer answer : answers) {
 				answerByQuestionMap.put(answer.getQuestion(), answer);
 			}
 		}

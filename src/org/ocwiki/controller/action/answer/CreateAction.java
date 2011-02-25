@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 
 import org.ocwiki.controller.action.AbstractResourceAction;
 import org.ocwiki.controller.action.ActionException;
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.data.MultichoiceQuestion;
 import org.ocwiki.data.Text;
 import org.ocwiki.db.dao.MultichoiceQuestionDAO;
@@ -30,20 +30,20 @@ public class CreateAction extends AbstractResourceAction<MultichoiceQuestion> {
 		title("Tạo câu trả lời mới" );
 
 		if (getParams().hasParameter("submit")) {
-			Answer answer = new Answer();
+			Choice choice = new Choice();
 
 			try {
 				String content = getParams().getString("content");
-				answer.setContent(new Text(content));
+				choice.setContent(new Text(content));
 			} catch (ParameterNotFoundException e) {
 				addError("content", "Bạn cần nhập nội dung phương án trả lời.");
 			}
 
 			boolean correct = getParams().getBoolean("correct", false);
-			answer.setCorrect(correct);
+			choice.setCorrect(correct);
 
 			if (hasNoErrors()) {
-				question.getAnswers().add(answer);
+				question.getChoices().add(choice);
 				saveNewRevision(resource, question);
 
 				if ("more".equals(getParams().get("submit"))) {

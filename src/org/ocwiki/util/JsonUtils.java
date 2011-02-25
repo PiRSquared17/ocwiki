@@ -22,7 +22,7 @@ public final class JsonUtils {
 
 	public static final Set<Class<?>> TYPE_SET;
 	public static final Class<?>[] TYPES = {
-		org.ocwiki.data.Answer.class,
+		org.ocwiki.data.Choice.class,
 		org.ocwiki.data.Resource.class,
 		org.ocwiki.data.ResourceCustomization.class,
 		org.ocwiki.data.ResourceReport.class,
@@ -48,7 +48,7 @@ public final class JsonUtils {
 		org.ocwiki.data.CommentCustomization.class,
 		org.ocwiki.data.CommentReport.class,
 		
-		org.ocwiki.controller.rest.bean.AnswerBean.class,
+		org.ocwiki.controller.rest.bean.ChoiceBean.class,
 		org.ocwiki.controller.rest.bean.ArticleReferenceBean.class,
 		org.ocwiki.controller.rest.bean.MultichoiceQuestionBean.class,
 		org.ocwiki.controller.rest.bean.CommentBean.class,

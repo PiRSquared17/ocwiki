@@ -9,7 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.ocwiki.controller.rest.bean.AnswerBean;
+import org.ocwiki.controller.rest.bean.ChoiceBean;
 import org.ocwiki.controller.rest.bean.MapperUtils;
 import org.ocwiki.controller.rest.bean.MultichoiceQuestionBean;
 import org.ocwiki.controller.rest.bean.MultichoiceQuestionMapper;
@@ -76,13 +76,13 @@ public class MultichoiceQuestionResource extends AbstractResource  {
 		WebServiceUtils.assertValid(TextBean.isNotBlank(question.getContent()),
 				"question content is blank");
 		WebServiceUtils.assertValid(
-				CollectionUtils.size(question.getAnswers()) >= 2,
+				CollectionUtils.size(question.getChoices()) >= 2,
 				"too little answers");
 		WebServiceUtils.assertValid(
-				CollectionUtils.size(question.getAnswers()) < 10,
+				CollectionUtils.size(question.getChoices()) < 10,
 				"too many answers");
 		boolean hasCorrect = false;
-		for (AnswerBean answer : question.getAnswers()) {
+		for (ChoiceBean answer : question.getChoices()) {
 			WebServiceUtils.assertValid(answer != null, "answer is empty");
 			WebServiceUtils.assertValid(TextBean.isNotBlank(answer.getContent()),
 					"answer content is blank");
