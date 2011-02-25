@@ -19,10 +19,10 @@ import org.ocwiki.conf.ModuleDescriptor;
 import org.ocwiki.controller.action.Action;
 import org.ocwiki.controller.action.ActionException;
 import org.ocwiki.data.User;
+import org.ocwiki.db.dao.stat.SiteViewCounter;
 import org.ocwiki.module.Module;
 import org.ocwiki.persistence.HibernateUtil;
 import org.ocwiki.util.SessionUtils;
-import org.ocwiki.util.SiteViewCountUtil;
 import org.ocwiki.util.TemplateUtils;
 import org.ocwiki.util.Utils;
 
@@ -57,7 +57,7 @@ public class ActionController extends HttpServlet {
 		// to display error message. We should tell it we're in controller, not
 		// directly invocation
 		request.setAttribute("inController", true);
-		SiteViewCountUtil.incrementAndGet();
+		SiteViewCounter.incrementAndGet();
 		
 		try {
 			// set variables

@@ -13,6 +13,7 @@
         <mapping resource="org/ocwiki/data/Namespace.hbm.xml" />
         <mapping resource="org/ocwiki/data/Revision.hbm.xml" />
         <mapping resource="org/ocwiki/data/Resource.hbm.xml" />
+        <mapping resource="org/ocwiki/data/stat/ResourceView.hbm.xml" />
         <mapping resource="org/ocwiki/data/ResourceReport.hbm.xml" />
         <mapping resource="org/ocwiki/data/ResourceCustomization.hbm.xml" />
         <mapping resource="org/ocwiki/data/CategorizableArticle.hbm.xml" />
@@ -25,7 +26,7 @@
         <mapping resource="org/ocwiki/data/Question.hbm.xml" />
         <mapping resource="org/ocwiki/data/MultichoiceQuestion.hbm.xml" />
         <mapping resource="org/ocwiki/data/QuestionAttempt.hbm.xml" />
-        <mapping resource="org/ocwiki/data/Answer.hbm.xml" />
+        <mapping resource="org/ocwiki/data/Choice.hbm.xml" />
         <mapping resource="org/ocwiki/data/TestQuestion.hbm.xml" />
         <mapping resource="org/ocwiki/data/Section.hbm.xml" />
         <mapping resource="org/ocwiki/data/Test.hbm.xml" />

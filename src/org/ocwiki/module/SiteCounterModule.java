@@ -1,11 +1,11 @@
 package org.ocwiki.module;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.ocwiki.data.stat.DailyStatistic;
 import org.ocwiki.db.dao.stat.DailyStatisticDAO;
-import org.ocwiki.util.SiteViewCountUtil;
+import org.ocwiki.db.dao.stat.SiteViewCounter;
+import org.ocwiki.util.DateUtils;
 
 public class SiteCounterModule extends DefaultModule {
 
@@ -13,29 +13,20 @@ public class SiteCounterModule extends DefaultModule {
 	private long lastWeekViewCount;
 	private long lastMonthViewCount;
 	private long allTimeViewCount;
-	
+
 	@Override
 	public void init() throws Exception {
 		super.init();
-
-		GregorianCalendar yesterday = new GregorianCalendar();
-		yesterday.add(Calendar.DATE, -1);
-		DailyStatistic yesterdayStatistic = DailyStatisticDAO.fetch(yesterday.getTime());
-
-		GregorianCalendar dayBeforeThisWeek = new GregorianCalendar();
-		int dayFromMonday = (dayBeforeThisWeek.get(Calendar.DAY_OF_WEEK) + 7 - Calendar.MONDAY) % 7;
-		dayBeforeThisWeek.add(Calendar.DATE, -dayFromMonday-1);
-		DailyStatistic dayBeforeThisWeekStatistic = DailyStatisticDAO.fetch(dayBeforeThisWeek.getTime());
-		
-		GregorianCalendar dayBeforeThisMonth = new GregorianCalendar();
-		dayBeforeThisMonth.set(Calendar.DATE, 1);
-		dayBeforeThisMonth.add(Calendar.DATE, -1);
-		DailyStatistic dayBeforeThisMonthStatistic = DailyStatisticDAO.fetch(dayBeforeThisMonth.getTime());
-		
-		allTimeViewCount = SiteViewCountUtil.get();
-		todayViewCount = allTimeViewCount - yesterdayStatistic.getViewCount();
-		lastWeekViewCount = allTimeViewCount - dayBeforeThisWeekStatistic.getViewCount();
-		lastMonthViewCount = allTimeViewCount - dayBeforeThisMonthStatistic.getViewCount();
+		List<DailyStatistic> stats = DailyStatisticDAO.fetch(
+				DateUtils.getLastMonth(), DateUtils.getLastWeek(),
+				DateUtils.getYesterday());
+		allTimeViewCount = SiteViewCounter.get();
+		todayViewCount = allTimeViewCount
+				- (stats.size() >= 1 ? stats.get(0).getViewCount() : 0);
+		lastWeekViewCount = allTimeViewCount
+				- (stats.size() >= 2 ? stats.get(1).getViewCount() : 0);
+		lastMonthViewCount = allTimeViewCount
+				- (stats.size() >= 3 ? stats.get(2).getViewCount() : 0);
 	}
 
 	public long getTodayViewCount() {
@@ -53,5 +44,5 @@ public class SiteCounterModule extends DefaultModule {
 	public long getAllTimeViewCount() {
 		return allTimeViewCount;
 	}
-	
+
 }

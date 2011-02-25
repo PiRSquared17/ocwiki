@@ -32,13 +32,13 @@
                 <div class="question-content-wrapper">${question.content}</div>
                 <div>
                     <c:set var="j" value="0" />
-                    <div class="answer-list-wrapper">
-                    <c:forEach items="${question.answers}" var="answer">
-                       <div class="answer-wrapper">
+                    <div class="choice-list-wrapper">
+                    <c:forEach items="${question.choices}" var="choice">
+                       <div class="choice-wrapper">
                             <div class="number-wrapper">
                                <b>${u:alpha(j)}</b>.
                             </div>
-                            <div>${answer.content}</div>
+                            <div>${choice.content}</div>
                             <c:set var="j" value="${j+1}" />
                         </div>
                     </c:forEach>

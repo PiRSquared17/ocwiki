@@ -9,9 +9,10 @@ public final class ResourceViewDAO {
 
 	public static void persist(ResourceView resourceView) {
 		session.save(resourceView);
-		if (n >= OcwikiApp.get().getConfig().getResourceViewBufferSize()) {
+		if (++n >= OcwikiApp.get().getConfig().getResourceViewBufferSize()) {
 			session.flush();
 			session.clear();
+			n = 0;
 		}
 	}
 	
