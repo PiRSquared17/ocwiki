@@ -8,7 +8,7 @@
 			cascade="all" inverse="false" fetch="subselect">
 			<key column="question_id" />
 			<index column="choice_index"></index>
-			<many-to-many column="choice_id" class="org.ocwiki.data.Answer" />
+			<many-to-many column="choice_id" class="org.ocwiki.data.Choice" />
 		</list>
 	</subclass>
 </hibernate-mapping>
