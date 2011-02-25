@@ -4,7 +4,7 @@
 <hibernate-mapping>
 	<class name="org.ocwiki.data.stat.ResourceView" table="ResourceView">
 		<id name="timestamp" type="java.util.Date" access="field">
-			<column name="timestamp" sql-type="datetime" />
+			<column name="view_timestamp"/>
 		</id>
 		<many-to-one name="user" class="org.ocwiki.data.User"
 			access="field" fetch="join">
