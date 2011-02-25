@@ -4,7 +4,7 @@
 <hibernate-mapping>
 	<subclass name="org.ocwiki.data.MultichoiceQuestion" 
 		extends="org.ocwiki.data.Question" discriminator-value="MultichoiceQuestion">
-		<list name="answers" table="MultichoiceQuestionAnswer" lazy="true"
+		<list name="answers" table="MultichoiceQuestionChoice" lazy="true"
 			cascade="all" inverse="false" fetch="subselect">
 			<key column="question_id" />
 			<index column="answer_index"></index>

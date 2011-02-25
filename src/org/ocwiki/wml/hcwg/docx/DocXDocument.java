@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import javax.xml.bind.JAXBException;
 
 import org.ocwiki.conf.Config;
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.data.Article;
 import org.ocwiki.data.TestQuestion;
 import org.ocwiki.data.Section;
@@ -157,9 +157,9 @@ public class DocXDocument {
 				}
 
 				int answerNumber = 0;
-				for (Answer answer : version.getAnswers().get(question)) {
+				for (Choice choice : version.getAnswers().get(question)) {
 					answerNumber++;
-					paragraphs = WMLStyle.answer(answer.getContent().getText(), 
+					paragraphs = WMLStyle.answer(choice.getContent().getText(), 
 							UtilFunctions.toAlpha(answerNumber));
 					for (String paragraph : paragraphs) {
 						wordMLPackage.getMainDocumentPart().addParagraph(

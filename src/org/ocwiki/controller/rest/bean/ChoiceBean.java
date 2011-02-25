@@ -3,14 +3,14 @@ package org.ocwiki.controller.rest.bean;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class AnswerBean {
+public class ChoiceBean {
 	private long id;
 	private TextBean content;
 	private boolean correct;
 
-	public AnswerBean() {
+	public ChoiceBean() {
 	}
-	
+
 	public long getId() {
 		return id;
 	}

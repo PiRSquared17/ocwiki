@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="org.ocwiki.data.Choice" table="Choice" mutable="false">
+		<id name="id" type="long" column="id" access="field">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="content" column="content" class="org.ocwiki.data.Text"
+			fetch="join" cascade="all" not-null="true" />
+		<property name="correct" type="boolean" not-null="true" />
+	</class>
+</hibernate-mapping>

@@ -3,40 +3,41 @@ package org.ocwiki.data;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ChoiceAnswer extends HistoryAnswer {
+public class ChoiceAnswer extends Answer {
 
-	private Set<Answer> choosedAnswers = new HashSet<Answer>();
+	private Set<Choice> choices = new HashSet<Choice>();
 
 	public ChoiceAnswer() {
 	}
 	
-	public Answer getChoice() {
-		if (choosedAnswers.size() == 1) {
-			return choosedAnswers.iterator().next();
+	public Choice getChoice() {
+		if (choices.size() == 1) {
+			return choices.iterator().next();
 		}
 		return null;
 	}
 
-	public void setChoices(Set<Answer> answers) {
-		this.choosedAnswers = answers;
+	public void setChoices(Set<Choice> answers) {
+		this.choices = answers;
 	}
 
-	public Set<Answer> getChoices() {
-		return choosedAnswers;
+	public Set<Choice> getChoices() {
+		return choices;
 	}
 
 	@Override
 	public boolean isCorrect() {
 		int correctCount = 0;
-		for (Answer answer : getQuestion().getAnswers()) {
-			if (answer.isCorrect() != choosedAnswers.contains(answer)) {
+		MultichoiceQuestion question = (MultichoiceQuestion) getQuestion();
+		for (Choice choice : question.getChoices()) {
+			if (choice.isCorrect() != choices.contains(choice)) {
 				return false;
 			}
-			if (answer.isCorrect()) {
+			if (choice.isCorrect()) {
 				correctCount++;
 			}
 		}
-		if (correctCount != choosedAnswers.size()) {
+		if (correctCount != choices.size()) {
 			return false;
 		}
 		return true;
@@ -46,10 +47,10 @@ public class ChoiceAnswer extends HistoryAnswer {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getQuestion().getId()).append(" -> [");
-		for (Answer answer : choosedAnswers) {
-			sb.append(answer.getId()).append(", ");
+		for (Choice choice : choices) {
+			sb.append(choice.getId()).append(", ");
 		}
-		if (!choosedAnswers.isEmpty()) {
+		if (!choices.isEmpty()) {
 			sb.delete(sb.length()-2, sb.length());
 		}
 		sb.append("]");

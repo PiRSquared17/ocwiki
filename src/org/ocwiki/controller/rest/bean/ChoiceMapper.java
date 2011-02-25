@@ -1,13 +1,13 @@
 package org.ocwiki.controller.rest.bean;
 
-import org.ocwiki.data.Answer;
+import org.ocwiki.data.Choice;
 import org.ocwiki.persistence.HibernateUtil;
 
-public class AnswerMapper implements Mapper<AnswerBean, Answer> {
+public class ChoiceMapper implements Mapper<ChoiceBean, Choice> {
 
 	@Override
-	public AnswerBean toBean(Answer value) {
-		AnswerBean bean = new AnswerBean();
+	public ChoiceBean toBean(Choice value) {
+		ChoiceBean bean = new ChoiceBean();
 		bean.setId(value.getId());
 		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		bean.setCorrect(value.isCorrect());
@@ -15,20 +15,20 @@ public class AnswerMapper implements Mapper<AnswerBean, Answer> {
 	}
 
 	@Override
-	public Answer toEntity(AnswerBean value) {
+	public Choice toEntity(ChoiceBean value) {
 		if (value.getId() == 0) {
-			Answer entity = new Answer();
+			Choice entity = new Choice();
 			entity.setContent(TextMapper.get().toEntity(value.getContent()));
 			entity.setCorrect(value.isCorrect());
 			return entity;
 		}
-		return (Answer) HibernateUtil.getSession().load(Answer.class,
+		return (Choice) HibernateUtil.getSession().load(Choice.class,
 				value.getId());
 	}
 
-	private static AnswerMapper DEFAULT_INSTANCE = new AnswerMapper();
+	private static ChoiceMapper DEFAULT_INSTANCE = new ChoiceMapper();
 
-	public static AnswerMapper get() {
+	public static ChoiceMapper get() {
 		return DEFAULT_INSTANCE;
 	}
 	

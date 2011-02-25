@@ -14,7 +14,7 @@ public class DeleteAction extends AbstractResourceAction<MultichoiceQuestion> {
 	public void performImpl() throws IOException, ServletException {
 		resource = MultichoiceQuestionDAO.fetchById(getParams().getLong("question"));
 		MultichoiceQuestion question = resource.getArticle().copy();
-		question.getAnswers().get(getParams().getInt("answer"));
+		question.getChoices().get(getParams().getInt("answer"));
 		saveNewRevision(resource, question);
 		
 		setNextAction("question.view&id=" + resource.getId());

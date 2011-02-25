@@ -14,7 +14,7 @@ public class MultichoiceQuestionMapper implements Mapper<MultichoiceQuestionBean
 		bean.setNamespace(value.getNamespace());
 		bean.setContent(TextMapper.get().toBean(value.getContent()));
 		bean.setLevel(value.getLevel());
-		MapperUtils.toBeans(bean.getAnswers(), value.getAnswers(), AnswerMapper.get());
+		MapperUtils.toBeans(bean.getChoices(), value.getChoices(), ChoiceMapper.get());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toBeans(bean.getTopics(), value.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();
@@ -31,7 +31,7 @@ public class MultichoiceQuestionMapper implements Mapper<MultichoiceQuestionBean
 		entity.setNamespace(value.getNamespace());
 		entity.setContent(TextMapper.get().toEntity(value.getContent()));
 		entity.setLevel(value.getLevel());
-		MapperUtils.toEntities(value.getAnswers(), entity.getAnswers(), AnswerMapper.get());
+		MapperUtils.toEntities(value.getChoices(), entity.getChoices(), ChoiceMapper.get());
 		ResourceReferenceMapper<Topic> topicMapper = ResourceReferenceMapper.get();
 		MapperUtils.toEntities(value.getTopics(), entity.getTopics(), topicMapper);
 		ResourceReferenceMapper<File> fileMapper = ResourceReferenceMapper.get();

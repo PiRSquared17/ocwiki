@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<subclass name="org.ocwiki.data.ChoiceAnswer" extends="org.ocwiki.data.HistoryAnswer"
+	<subclass name="org.ocwiki.data.ChoiceAnswer" extends="org.ocwiki.data.Answer"
 	       discriminator-value="Choice">
-	    <set name="choices" table="ChoiceAnswerAnswer">
+	    <set name="choices" table="ChoiceAnswerChoice">
 	       <key column="choice"></key>
 		   <many-to-many column="answer" class="org.ocwiki.data.Answer"/>
 		</set>

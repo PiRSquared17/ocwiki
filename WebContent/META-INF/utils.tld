@@ -47,7 +47,7 @@
       Trả về tên của độ khó
     </description>
     <name>levelName</name>
-    <function-class>org.ocwiki.data.BaseQuestion</function-class>
+    <function-class>org.ocwiki.data.Question</function-class>
     <function-signature>java.lang.String getLevelName(int)</function-signature>
     <example>
       ${u:levelName(3)}
