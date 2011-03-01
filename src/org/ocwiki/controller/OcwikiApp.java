@@ -1,6 +1,7 @@
 package org.ocwiki.controller;
 
 import java.io.File;
+import java.util.EventObject;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -44,7 +45,7 @@ public class OcwikiApp implements ServletContextListener {
 	}
 
 	private void initializeImpl(String configPath) {
-		ConfigIO.loadDirectory(config, configPath);
+		ConfigIO.load(configPath, config);
 		config.setHomeDir(config.getDomain() + context.getContextPath());
 		
 		context.setAttribute("app", this);
@@ -53,6 +54,8 @@ public class OcwikiApp implements ServletContextListener {
 		context.setAttribute("scriptPath", getScriptPath());
 
 		HibernateUtil.setConfig(config);
+
+		fireAppInitialized();
 	}
 	
 	public static void initialize(String configPath) {
@@ -66,6 +69,8 @@ public class OcwikiApp implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent arg0) {
+    	fireAppDestroying();
+    	HibernateUtil.getSessionFactory().close();
     }
 
     public ServletContext getServletContext() {
@@ -102,6 +107,20 @@ public class OcwikiApp implements ServletContextListener {
 			return (File)context.getAttribute("javax.servlet.context.tempdir");
 		}
 		return new File(System.getProperty("java.io.tmpdir"));
+	}
+
+	private void fireAppInitialized() {
+		EventObject event = new EventObject(this);
+		for (OcwikiAppListener listener : config.getListeners()) {
+			listener.appInitialized(event);
+		}
+	}
+	
+	private void fireAppDestroying() {
+		EventObject event = new EventObject(this);
+		for (OcwikiAppListener listener : config.getListeners()) {
+			listener.appDestroying(event);
+		}
 	}
 
 }

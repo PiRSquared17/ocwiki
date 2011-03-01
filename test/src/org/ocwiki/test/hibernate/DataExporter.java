@@ -16,7 +16,7 @@ public class DataExporter {
 
 	public static void main(String[] args) throws Exception {
 		Config config = new Config();
-		ConfigIO.loadDirectory(config, "WebContent/WEB-INF/conf");
+		ConfigIO.load("WebContent/WEB-INF/conf", config);
 
 		// database connection
 		Class.forName("com.mysql.jdbc.Driver");

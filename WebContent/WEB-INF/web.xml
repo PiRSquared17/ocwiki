@@ -11,12 +11,6 @@
   <listener>
     <listener-class>org.ocwiki.controller.OcwikiApp</listener-class>
   </listener>
-  <listener>
-    <listener-class>org.ocwiki.db.dao.stat.ResourceViewDAOInitializer</listener-class>
-  </listener>
-  <listener>
-    <listener-class>org.ocwiki.db.dao.stat.SiteViewCounterInitializer</listener-class>
-  </listener>
   <error-page>
     <error-code>404</error-code>
     <location>/error/404</location>

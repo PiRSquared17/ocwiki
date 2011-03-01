@@ -209,9 +209,6 @@ public class Resource<T extends Article> implements ArticleContainer<T>,
 	}
 	
 	public String getUrlFriendlyName() {
-		if (urlFriendlyName == null) {
-			computeUrlFriendlyName();
-		}
 		return urlFriendlyName;
 	}
 

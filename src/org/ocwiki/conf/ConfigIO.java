@@ -3,6 +3,7 @@ package org.ocwiki.conf;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
 
 import org.ocwiki.util.XMLUtils;
 
@@ -11,35 +12,45 @@ public class ConfigIO {
 	public static final String DEFAULT_FILE_NAME = "default.xml";
 	
 	public static void load(File file, Config config) {
-		FileInputStream input = null;
 		try {
-			try {
-				input = new FileInputStream(file);
-				XMLUtils.getXStream().fromXML(input, config);
-				config.doneLoading();
-			} finally {
-				if (input != null) {
-					input.close();
-				}
+			if (file.isDirectory()) {
+				loadDirectory(file, config);
+			} else {
+				loadFile(file, config);
 			}
+			config.doneLoading();
 		} catch (Exception e) {
 			throw new ConfigIOException(file, e);
 		}
 	}
 
-	public static void loadDirectory(Config config, String dirPath) {
-		File dir = new File(dirPath);
-		File defaultFile = new File(dirPath + "/" + DEFAULT_FILE_NAME);
+	public static void load(String path, Config config) {
+		load(new File(path), config);
+	}
+	
+	private static void loadFile(File file, Config config) throws IOException {
+		FileInputStream input = null;
+		try {
+			input = new FileInputStream(file);
+			XMLUtils.getXStream().fromXML(input, config);
+		} finally {
+			if (input != null) {
+				input.close();
+			}
+		}
+	}
+	
+	private static void loadDirectory(File dir, Config config) throws IOException {
+		File defaultFile = new File(dir.getAbsolutePath() + "/" + DEFAULT_FILE_NAME);
 		if (defaultFile.exists()) {
-			load(defaultFile, config);
+			loadFile(defaultFile, config);
 		}
 		File[] confFiles = dir.listFiles(CONFIG_FILE_FILTER);
 		for (File file : confFiles) {
 			if (!file.equals(defaultFile)) {
-				load(file, config);
+				loadFile(file, config);
 			}
 		}
-		config.doneLoading();
 	}
 
 	private static FilenameFilter CONFIG_FILE_FILTER = new FilenameFilter() {

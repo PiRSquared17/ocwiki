@@ -23,6 +23,8 @@ public final class XMLUtils {
 		xstream.alias("api", APIDescriptor.class);
 		xstream.alias("module", ModuleDescriptor.class);
 		xstream.alias("param", Parameter.class);
+		xstream.addImplicitCollection(Config.class, "listenerClasses",
+				"listener", Class.class);
 		xstream.addImplicitCollection(ModuleDescriptor.class, "parameters",
 				Parameter.class);
 		xstream.addImplicitCollection(Config.class, "actionDescriptors",
@@ -47,22 +49,6 @@ public final class XMLUtils {
 		xstream.aliasField("class", APIDescriptor.class, "clazz");
 		xstream.aliasField("class", ActionDescriptor.class, "actionClass");
 		xstream.aliasField("class", ModuleDescriptor.class, "clazz");
-		// alias data entries
-		xstream.alias("ans", org.ocwiki.data.Choice.class);
-		xstream.alias("art", org.ocwiki.data.Article.class);
-		xstream.alias("ques", org.ocwiki.data.MultichoiceQuestion.class);
-		xstream.alias("hist", org.ocwiki.data.TestAttempt.class);
-		xstream.alias("lc", org.ocwiki.data.LevelConstraint.class);
-		xstream.alias("sq", org.ocwiki.data.TestQuestion.class);
-		xstream.alias("sect", org.ocwiki.data.Section.class);
-		xstream.alias("sstr", org.ocwiki.data.SectionStructure.class);
-		xstream.alias("test", org.ocwiki.data.Test.class);
-		xstream.alias("tstr", org.ocwiki.data.TestStructure.class);
-		xstream.alias("txt", org.ocwiki.data.Text.class);
-		xstream.alias("top", org.ocwiki.data.Topic.class);
-		xstream.alias("tc", org.ocwiki.data.TopicConstraint.class);
-		xstream.alias("user", org.ocwiki.data.User.class);
-		xstream.alias("chg", org.ocwiki.data.log.ResourceLog.class);
 		// converters
 		xstream.registerConverter(new EntityConverter());
 		xstream.registerConverter(new ClassConverter());
