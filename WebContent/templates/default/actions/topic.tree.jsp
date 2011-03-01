@@ -99,7 +99,7 @@ function collapse(id) {
     $('topic' + id + '-collapse').hide();
 }
 
-Event.observe(window, 'load', function() {
+Event.observe(window, 'ready', function() {
     filterNumericKey('root-id');
 
     new Autocomplete('root-name', {

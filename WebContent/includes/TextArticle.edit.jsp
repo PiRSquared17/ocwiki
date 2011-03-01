@@ -10,7 +10,7 @@
 			<td>Không gian tên:</td>
 			<td>	
 				<select id="namespaedit">
-					<option value="0" ${textedit.namespace.id==0 ? 'selected="selected"':''} >Chinh</option>
+					<option value="0" ${textedit.namespace.id==0 ? 'selected="selected"':''} >Chính</option>
 					<option value="1" ${textedit.namespace.id==1 ? 'selected="selected"':''} >OCWIKI</option>
 				</select>
 			</td>

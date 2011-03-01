@@ -76,7 +76,7 @@ public abstract class AbstractResource {
 	protected User getUserNullSafe() {
 		User user = SessionUtils.getUser(getSession());
 		if (user == null) {
-			throw new WebApplicationException(Response.status(Status.NOT_FOUND)
+			throw new WebApplicationException(Response.status(Status.UNAUTHORIZED)
 					.entity(new ErrorResult("login required")).build());
 		}
 		return user;

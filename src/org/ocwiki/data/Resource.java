@@ -138,7 +138,6 @@ public class Resource<T extends Article> implements ArticleContainer<T>,
 	
 	public void setArticle(T article) {
 		this.article = article;
-		computeUrlFriendlyName();
 	}
 	
 	@XmlElement(name="articleType")
@@ -209,6 +208,9 @@ public class Resource<T extends Article> implements ArticleContainer<T>,
 	}
 	
 	public String getUrlFriendlyName() {
+		if (urlFriendlyName == null) {
+			computeUrlFriendlyName();
+		}
 		return urlFriendlyName;
 	}
 

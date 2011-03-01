@@ -538,6 +538,7 @@
         <class>org.ocwiki.module.CommentModule</class>
         <position>action-bottom</position>
         <inAction>article.view</inAction>
+        <resourceStatus>NORMAL</resourceStatus>
         <order>2</order>
     </module>
     <module>
@@ -676,7 +677,7 @@
         <order>2</order>
         <param>
             <name>resource-id</name>
-            <value>65</value>
+            <value>538</value>
         </param>
     </module>
 </config>
