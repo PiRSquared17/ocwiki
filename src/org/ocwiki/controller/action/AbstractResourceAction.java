@@ -6,7 +6,6 @@ import org.ocwiki.data.Resource;
 public abstract class AbstractResourceAction<T extends Article> extends AbstractAction {
 
 	protected Resource<T> resource;
-	
 
 	@Override
 	public Resource<T> getResource() {

@@ -61,7 +61,7 @@ public class DailyStatisticDAO {
 					ResourceDAO.count(), UserDAO.count());
 
 			tx = session.beginTransaction();
-			session.saveOrUpdate(stat);
+			session.merge(stat);
 			tx.commit();
 
 			return stat;

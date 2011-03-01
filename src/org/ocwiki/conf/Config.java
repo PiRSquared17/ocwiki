@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.ocwiki.controller.OcwikiApp;
+import org.ocwiki.controller.OcwikiAppListener;
 
 public class Config implements Serializable {
 
@@ -44,6 +45,8 @@ public class Config implements Serializable {
 	private String uploadDir = "/uploads";
 	private String facebookAppId = null;
 	private String facebookSecret = null;
+	private List<OcwikiAppListener> listeners = new ArrayList<OcwikiAppListener>();
+	private Set<Class<OcwikiAppListener>> listenerClasses = new HashSet<Class<OcwikiAppListener>>();
 
 	private boolean useCDN = false;
 	private boolean usePrettyUrl = false;
@@ -330,6 +333,14 @@ public class Config implements Serializable {
 		for (Entry<String, List<ModuleDescriptor>> entries : moduleMap.entrySet()) {
 			Collections.sort(entries.getValue(), MODULE_POSITION_COMPARATOR);
 		}
+		// create listeners
+		for (Class<OcwikiAppListener> clazz : getListenerClasses()) {
+			try {
+				listeners.add(clazz.newInstance());
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	public void setFacebookAppId(String facebookAppId) {
@@ -493,6 +504,22 @@ public class Config implements Serializable {
 
 	public int getResourceViewBufferSize() {
 		return resourceViewBufferSize;
+	}
+
+	public void setListeners(List<OcwikiAppListener> listeners) {
+		this.listeners = listeners;
+	}
+
+	public List<OcwikiAppListener> getListeners() {
+		return listeners;
+	}
+
+	public void setListenerClasses(Set<Class<OcwikiAppListener>> listenerClasses) {
+		this.listenerClasses = listenerClasses;
+	}
+
+	public Set<Class<OcwikiAppListener>> getListenerClasses() {
+		return listenerClasses;
 	}
 
 }

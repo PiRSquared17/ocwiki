@@ -3,8 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="org.ocwiki.data.stat.DailyStatistic" table="DailyStatistic">
-		<id name="date" type="date" access="field">
-			<column name="stat_date" />
+		<id name="date" type="java.util.Date" access="field">
+			<column name="stat_datetime" sql-type="datetime" />
+            <generator class="assigned"></generator>
 		</id>
         <property name="viewCount" type="long" access="field">
             <column name="view_count"></column>

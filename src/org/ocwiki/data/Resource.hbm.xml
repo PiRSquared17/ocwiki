@@ -17,7 +17,7 @@
 			<column name="type" not-null="true" />
 		</property>
 		<many-to-one name="article" class="org.ocwiki.data.Article" 
-			access="field" fetch="select" cascade="all" lazy="false">
+			access="property" fetch="select" cascade="all" lazy="false">
 			<column name="article" not-null="true" />
 		</many-to-one>
 		<many-to-one name="author" class="org.ocwiki.data.User" access="field"
@@ -45,7 +45,7 @@
 			</type>
 		</property>
         <property name="urlFriendlyName" type="java.lang.String" access="field">
-            <column name="url_name" not-null="true" />
+            <column name="url_name" not-null="false" />
         </property>
         <property name="viewCount" type="long" access="field">
             <column name="view_count" not-null="true" default="0" />

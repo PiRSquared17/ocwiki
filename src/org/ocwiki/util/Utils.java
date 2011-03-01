@@ -212,6 +212,9 @@ public final class Utils {
 	 * @return
 	 */
 	public static String toUrlFriendly(String s) {
+		if (s == null) {
+			return null;
+		}
 		int maxLength = Math.min(s.length(), 236);
 		char[] buffer = new char[maxLength];
 		int n = 0;

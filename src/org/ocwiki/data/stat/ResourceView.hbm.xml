@@ -2,9 +2,11 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="org.ocwiki.data.stat.ResourceView" table="ResourceView">
+	<class name="org.ocwiki.data.stat.ResourceView" table="ResourceView"
+		mutable="false">
 		<id name="timestamp" type="java.util.Date" access="field">
-			<column name="view_timestamp"/>
+			<column name="view_timestamp" sql-type="datetime" />
+			<generator class="assigned"></generator>
 		</id>
 		<many-to-one name="user" class="org.ocwiki.data.User"
 			access="field" fetch="join">

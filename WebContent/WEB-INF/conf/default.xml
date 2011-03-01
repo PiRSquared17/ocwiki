@@ -16,7 +16,8 @@
     <maxUploadFileSize>10</maxUploadFileSize>
     <avatarThumbnailSize>32</avatarThumbnailSize>
     <usePrettyUrl>true</usePrettyUrl>
-
+	<listener>org.ocwiki.db.dao.stat.ResourceViewDAOInitializer</listener>
+	<listener>org.ocwiki.db.dao.stat.SiteViewCounterInitializer</listener>
     <!--********************************************************************
                                  Actions 
      ********************************************************************-->
