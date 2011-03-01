@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.ocwiki.controller.Parameter;
 import org.ocwiki.data.Article;
+import org.ocwiki.data.Status;
 import org.ocwiki.module.DefaultModule;
 import org.ocwiki.module.Module;
 
@@ -26,6 +27,7 @@ public class ModuleDescriptor {
 	private Class<? extends Module> clazz;
 	private boolean disabled;
 	private List<Parameter> parameters;
+	private Status resourceStatus;
 
 	public String getName() {
 		return name;
@@ -147,6 +149,14 @@ public class ModuleDescriptor {
 
 	public List<Parameter> getParameters() {
 		return parameters;
+	}
+
+	public void setResourceStatus(Status resourceStatus) {
+		this.resourceStatus = resourceStatus;
+	}
+
+	public Status getResourceStatus() {
+		return resourceStatus;
 	}
 	
 }

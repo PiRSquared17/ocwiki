@@ -44,9 +44,6 @@
 				<param name="enumClass">org.ocwiki.data.ResourceAccessibility</param>
 			</type>
 		</property>
-        <property name="urlFriendlyName" type="java.lang.String" access="field">
-            <column name="url_name" not-null="false" />
-        </property>
         <property name="viewCount" type="long" access="field">
             <column name="view_count" not-null="true" default="0" />
         </property>

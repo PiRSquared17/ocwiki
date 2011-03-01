@@ -18,6 +18,7 @@ import org.ocwiki.conf.Config;
 import org.ocwiki.conf.ModuleDescriptor;
 import org.ocwiki.controller.action.Action;
 import org.ocwiki.controller.action.ActionException;
+import org.ocwiki.data.Status;
 import org.ocwiki.data.User;
 import org.ocwiki.db.dao.stat.SiteViewCounter;
 import org.ocwiki.module.Module;
@@ -71,7 +72,7 @@ public class ActionController extends HttpServlet {
 			request.setAttribute("templatePath", Config.get().getTemplatePath()
 					.replaceAll("\\$\\{template\\}", template));
 			request.setAttribute("pageTitle", Config.get().getSiteName());
-	
+
 			// perform action
 			// get action descriptor
 			String actionStr;
@@ -211,7 +212,17 @@ public class ActionController extends HttpServlet {
 									user.getGroup()))) {
 						continue;
 					}
+					if (descriptor.getResourceStatus() != null
+							&& (action.getResource() == null || 
+									action.getResource().getStatus() != 
+										descriptor.getResourceStatus())) {
+						continue;
+					}
 					if (descriptor.getArticleType() != null) {
+						if (action.getResource() == null ||
+								action.getResource().getStatus() != Status.NORMAL) {
+							continue;
+						}
 						boolean found = false;
 						for (Class<?> type : descriptor.getArticleType()) {
 							if (type.isAssignableFrom(

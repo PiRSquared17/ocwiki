@@ -66,7 +66,7 @@ function markResourceDeleted() {
     WebService.post('/resources/' + resource.id, {
         data: resource,
         onSuccess: function (transport) {
-            window.reload();
+        	location.reload(true);
         },
         onFailure: function(transport){ 
             template.onFailure(transport); 

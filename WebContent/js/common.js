@@ -156,7 +156,7 @@ var ResourceService = Class.create( {
 					  successCallback(transport.responseJSON.result);
 				  },
 				  onFailure: function(transport){ 
-					  DefaultTemplate.onFailure(transport); 
+					  template.onFailure(transport); 
 					  if (failCallback) {
 						  failCallback(transport);
 					  }
@@ -166,24 +166,24 @@ var ResourceService = Class.create( {
 	
 	update: function(value, successCallback, failCallback) {
 		new Ajax.Request(restPath + '/resources/' + value.id,
-				{
-				  method:'put',
-				  requestHeaders : {
-				      Accept : 'application/json'
-				  },
-				  contentType: 'application/json',
-				  postBody: Object.toJSON(value),
-				  evalJSON : true,
-				  onSuccess : function(transport) {
-					  successCallback(transport.responseJSON.result);
-				  },
-				  onFailure: function(transport){ 
-					  DefaultTemplate.onFailure(transport); 
-					  if (failCallback) {
-						  failCallback(transport);
-					  }
-			      }
-			    });
+			{
+			  method:'put',
+			  requestHeaders : {
+			      Accept : 'application/json'
+			  },
+			  contentType: 'application/json',
+			  postBody: Object.toJSON(value),
+			  evalJSON : true,
+			  onSuccess : function(transport) {
+				  successCallback(transport.responseJSON.result);
+			  },
+			  onFailure: function(transport){ 
+				  template.onFailure(transport); 
+				  if (failCallback) {
+					  failCallback(transport);
+				  }
+		      }
+		    });
 	}
 });
 
@@ -298,22 +298,15 @@ function getEditorContent(id) {
 }
 
 function sendCreateRequest(resource) {
-    new Ajax.Request(restPath + '/resources',
+    WebService.post('/resources',
     {
-        method:'post',
-        contentType: 'application/json',
-        postBody: Object.toJSON(resource),
-        requestHeaders : 
-        {
-            Accept : 'application/json'
-        },
-        evalJSON : true,
+        data: resource,
         onSuccess : function(transport) {
             var id = transport.responseJSON.result.id;
             location.href = actionPath + '/article.edit?id=' + id;
         },
         onFailure: function(transport) {
-            DefaultTemplate.onFailure(transport); 
+            template.onFailure(transport); 
         }
     });
 }
@@ -339,7 +332,7 @@ WebService.post = function(url, options) {
 	var requestOptions = Object.clone(options);
 	requestOptions.method = 'post';
 	return WebService.request(url, requestOptions);
-}
+};
 
 WebService.request = function(url, options) {
 	var ajaxOptions = {
@@ -358,7 +351,7 @@ WebService.request = function(url, options) {
 		options.onFailure = template.onFailure;
 	}
 	return new Ajax.Request(restPath + url, ajaxOptions);
-}
+};
 
 var OcwikiTemplate = Class.create({
 	promptLogin: function() {

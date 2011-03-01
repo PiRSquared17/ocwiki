@@ -28,6 +28,7 @@ public class SiteViewCounterInitializer implements OcwikiAppListener {
 
 	@Override
 	public void appDestroying(EventObject evt) {
+		timer.cancel();
 		saveCurrentStatistics();
 	}
 
