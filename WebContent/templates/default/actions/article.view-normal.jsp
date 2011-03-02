@@ -13,10 +13,8 @@
         sửa
     </ocw:actionLink>]
     <c:if test="${sessionScope.login && sessionScope.user.group == 'admin'}">
-        <c:if test="${action.resource.status != 'DELETED'}">
-            [<a href="#" onclick="lockArticle(); return false;">khoá</a>]
-        </c:if> 
-       [<ocw:actionLink name="article.delete" onclick="markResourceDeleted(); return false;">
+       [<a href="#" onclick="lockArticle(); return false;">khoá</a>]
+       [<ocw:actionLink name="article.delete">
            <ocw:param name="id" value="${action.resource.id}"></ocw:param>
            xoá
        </ocw:actionLink>]

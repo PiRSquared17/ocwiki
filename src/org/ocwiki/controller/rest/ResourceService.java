@@ -81,7 +81,6 @@ public class ResourceService extends AbstractResource {
 		assertResourceFound(resource);
 		assertVersion(resource, data);
 		resource.setAccessibility(data.getAccessibility());
-		resource.setStatus(data.getStatus());
 		ResourceDAO.persist(resource);
 		return new ObjectResult<ResourceBean>(ResourceMapper.get().toBean(
 				resource));
