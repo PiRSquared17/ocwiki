@@ -18,6 +18,7 @@
         <mapping resource="org/ocwiki/data/ResourceCustomization.hbm.xml" />
         <mapping resource="org/ocwiki/data/CategorizableArticle.hbm.xml" />
         <mapping resource="org/ocwiki/data/TextArticle.hbm.xml" />
+        <mapping resource="org/ocwiki/data/CourseHome.hbm.xml" />
         <mapping resource="org/ocwiki/data/Solution.hbm.xml" />
         <mapping resource="org/ocwiki/data/BaseArticle.hbm.xml" />
         <mapping resource="org/ocwiki/data/Article.hbm.xml" />

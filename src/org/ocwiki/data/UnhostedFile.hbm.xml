@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 21:35:18 19-08-2010 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<subclass name="org.ocwiki.data.File" discriminator-value="File"
+		extends="org.ocwiki.data.CategorizableArticle">
+		<property name="filename" type="java.lang.String" column="filename"
+			access="field"></property>
+		<property name="author" type="java.lang.String" column="author"
+			access="field"></property>
+	</subclass>
+</hibernate-mapping>
