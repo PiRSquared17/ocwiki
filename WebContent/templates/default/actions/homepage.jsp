@@ -5,8 +5,7 @@
 <p>Hiện tại chúng ta có <b>${action.userCount}</b> thành viên, đóng góp 
 <b>${action.textArticleCount}</b> bài viết, 
 <b>${action.questionCount}</b> câu hỏi, 
-<b>${action.testCount}</b> đề thi và 
-<b>${action.structCount}</b> cấu trúc đề.</p>
+<b>${action.testCount}</b> đề thi.</p>
 
 <div>
 <h3>Bài viết mới</h3>
@@ -42,17 +41,6 @@
         <ocw:articleLink resource="${test}">${test.name}</ocw:articleLink>
         ${u:formatDateTime(test.createDate)} . . 
         <ocw:userLink user="${test.author}"></ocw:userLink> 
-    </li>
-</c:forEach>
-</ul>
-
-<h3>Cấu trúc đề mới</h3>
-<ul class="list-new">
-<c:forEach items="${action.testStructures}" var="struct">
-    <li>
-        <ocw:articleLink resource="${struct}"></ocw:articleLink>
-        ${u:formatDateTime(struct.createDate)} . . 
-        <ocw:userLink user="${struct.author}"></ocw:userLink> 
     </li>
 </c:forEach>
 </ul>

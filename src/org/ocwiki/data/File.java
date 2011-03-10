@@ -10,7 +10,6 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
 
-
 @XmlRootElement
 public class File extends CategorizableArticle {
 

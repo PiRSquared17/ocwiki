@@ -11,6 +11,9 @@ public class ResourceView {
 	private User user;
 	private Date timestamp;
 
+	public ResourceView() {
+	}
+	
 	public ResourceView(Resource<?> resource, User user) {
 		super();
 		this.resource = resource;

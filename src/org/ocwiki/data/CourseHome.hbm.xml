@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 19:07:23 18-07-2010 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<subclass name="org.ocwiki.data.TextArticle"
-		discriminator-value="Text" extends="org.ocwiki.data.BaseArticle">
+	<subclass name="org.ocwiki.data.CourseHome"
+		discriminator-value="Course" extends="org.ocwiki.data.TextArticle">
 	</subclass>
 </hibernate-mapping>
