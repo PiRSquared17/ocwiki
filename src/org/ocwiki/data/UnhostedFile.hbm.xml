@@ -1,13 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-	<!-- Generated 21:35:18 19-08-2010 by Hibernate Tools 3.3.0.GA -->
+<!-- Generated Mar 25, 2011 4:37:23 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-	<subclass name="org.ocwiki.data.File" discriminator-value="File"
-		extends="org.ocwiki.data.CategorizableArticle">
-		<property name="filename" type="java.lang.String" column="filename"
-			access="field"></property>
-		<property name="author" type="java.lang.String" column="author"
-			access="field"></property>
-	</subclass>
+    <subclass name="org.ocwiki.data.UnhostedFile" extends="org.ocwiki.data.CategorizableArticle" discriminator-value="UnhostedFile" lazy="false">
+        <many-to-one name="content" class="org.ocwiki.data.Text" fetch="join">
+            <column name="CONTENT" />
+        </many-to-one>
+        <property name="type" type="java.lang.String">
+            <column name="TYPE" />
+        </property>
+        <set name="links" table="LINK" inverse="false" lazy="true">
+            <key>
+                <column name="CONTENT" />
+            </key>
+            <one-to-many class="org.ocwiki.data.Link" />
+        </set>
+    </subclass>
 </hibernate-mapping>

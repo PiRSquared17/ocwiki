@@ -12,9 +12,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.ocwiki.controller.action.search.SearchHelper;
 import org.ocwiki.controller.rest.bean.MapperUtils;
 import org.ocwiki.controller.rest.bean.ResourceBean;
 import org.ocwiki.controller.rest.bean.ResourceMapper;
+import org.ocwiki.controller.rest.bean.ResourceReferenceBean;
+import org.ocwiki.controller.rest.bean.ResourceReferenceMapper;
 import org.ocwiki.controller.rest.util.ListResult;
 import org.ocwiki.controller.rest.util.ObjectResult;
 import org.ocwiki.data.Article;
@@ -27,6 +30,41 @@ import org.ocwiki.db.dao.ResourceDAO;
 public class ResourceService extends AbstractResource {
 	
 	public static final String PATH = "/resources";
+
+	@GET
+	@Path("/")
+	public ListResult<ResourceReferenceBean> list(
+			@QueryParam("query") String query,
+			@DefaultValue("0") @QueryParam("start") int start,
+			@DefaultValue("10") @QueryParam("size") int size) {
+		SearchHelper helper = new SearchHelper();
+		helper.setQuery(query);
+		helper.setStart(start);
+		helper.setSize(size);
+		List<Resource<? extends Article>> entities = helper
+				.search(getRequest());
+		return (ListResult<ResourceReferenceBean>) MapperUtils.toBeans(
+				entities, ResourceReferenceMapper.get());
+	}
+	
+	@GET
+	@Path("/namespace/{namespaceId: \\d+}")
+	public ListResult<ResourceBean> listByNamespace(
+			@PathParam("namespaceId") long namespaceID, 
+			@DefaultValue("0") @QueryParam("start") int start,
+			@DefaultValue("10") @QueryParam("size") int size){
+		assertParamValid(size <= MAX_PAGE_SIZE, "size", "too large");
+		List<Resource<Article>> resList = ResourceDAO.fetchByNamespace(
+				namespaceID, start, size);
+		String nextUrl = null;
+		if (resList.size() >= size) {
+			nextUrl = PATH + "/namespace/" + namespaceID + "?start="
+					+ (start + size) + "&size=" + size;
+		}
+		List<ResourceBean> beans = MapperUtils.toBeans(resList, ResourceMapper
+				.get());
+		return new ListResult<ResourceBean>(beans, nextUrl);
+	}
 	
 	@POST
 	public ObjectResult<ResourceBean> create(ResourceBean bean) {
@@ -50,25 +88,6 @@ public class ResourceService extends AbstractResource {
 		assertResourceFound(resource);
 		return new ObjectResult<ResourceBean>(ResourceMapper.get().toBean(
 				resource));
-	}
-	
-	@GET
-	@Path("/namespace/{namespaceId: \\d+}")
-	public ListResult<ResourceBean> resourceList(
-			@PathParam("namespaceId") long namespaceID, 
-			@DefaultValue("0") @QueryParam("start") int start,
-			@DefaultValue("10") @QueryParam("size") int size){
-		assertParamValid(size <= MAX_PAGE_SIZE, "size", "too large");
-		List<Resource<Article>> resList = ResourceDAO.fetchByNamespace(
-				namespaceID, start, size);
-		String nextUrl = null;
-		if (resList.size() >= size) {
-			nextUrl = PATH + "/namespace/" + namespaceID + "?start="
-					+ (start + size) + "&size=" + size;
-		}
-		List<ResourceBean> beans = MapperUtils.toBeans(resList, ResourceMapper
-				.get());
-		return new ListResult<ResourceBean>(beans, nextUrl);
 	}
 	
 	@POST
