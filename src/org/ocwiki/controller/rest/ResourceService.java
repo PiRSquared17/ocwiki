@@ -43,8 +43,9 @@ public class ResourceService extends AbstractResource {
 		helper.setSize(size);
 		List<Resource<? extends Article>> entities = helper
 				.search(getRequest());
-		return (ListResult<ResourceReferenceBean>) MapperUtils.toBeans(
+		List<ResourceReferenceBean> beans = MapperUtils.toBeans(
 				entities, ResourceReferenceMapper.get());
+		return new ListResult<ResourceReferenceBean>(beans);
 	}
 	
 	@GET
@@ -67,6 +68,7 @@ public class ResourceService extends AbstractResource {
 	}
 	
 	@POST
+	@Path("/")
 	public ObjectResult<ResourceBean> create(ResourceBean bean) {
 		assertParamValid("data must not be null", bean != null);
 		assertParamValid("article must not be null", bean.getArticle() != null);
