@@ -6,6 +6,7 @@ import java.util.Set;
 public class UnhostedFile extends CategorizableArticle {
 
 	private Text content;
+	private String type;
 	private Set<Link> links = new HashSet<Link>();
 	
 	public UnhostedFile() {
@@ -34,6 +35,14 @@ public class UnhostedFile extends CategorizableArticle {
 
 	public void setLinks(Set<Link> links) {
 		this.links = links;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 }

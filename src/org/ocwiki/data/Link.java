@@ -2,6 +2,7 @@ package org.ocwiki.data;
 
 public class Link {
 
+	private long id;
 	private String url;
 	private String password;
 	private boolean broken;
@@ -44,6 +45,14 @@ public class Link {
 	@Override
 	public int hashCode() {
 		return url.hashCode();
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getId() {
+		return id;
 	}
 	
 }

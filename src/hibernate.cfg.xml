@@ -42,6 +42,8 @@
         <mapping resource="org/ocwiki/data/Comment.hbm.xml" />
         <mapping resource="org/ocwiki/data/CommentReport.hbm.xml" />
         <mapping resource="org/ocwiki/data/CommentCustomization.hbm.xml" />
+        <mapping resource="org/ocwiki/data/UnhostedFile.hbm.xml" />
+        <mapping resource="org/ocwiki/data/Link.hbm.xml" />
         <mapping resource="org/ocwiki/data/stat/DailyStatistic.hbm.xml" />
         <mapping resource="org/ocwiki/data/log/Log.hbm.xml" />
         <mapping resource="org/ocwiki/data/log/ResourceLog.hbm.xml" />
