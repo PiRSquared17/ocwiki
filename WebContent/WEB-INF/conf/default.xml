@@ -23,6 +23,11 @@
      ********************************************************************-->
 
     <action>
+        <name>hello-world</name>
+        <class>org.ocwiki.controller.action.HelloWorldAction</class>
+    </action>
+
+    <action>
       <name>homepage</name>
       <class>org.ocwiki.controller.action.HomepageAction</class>
     </action>
