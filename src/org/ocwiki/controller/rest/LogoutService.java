@@ -10,8 +10,9 @@ public class LogoutService extends AbstractResource {
 	public static final String PATH = "/logout";
 
 	@Path("/")
-	public void logout() {
+	public String logout() {
 		SessionUtils.logout(getSession());
+		return "";
 	}
 	
 }
