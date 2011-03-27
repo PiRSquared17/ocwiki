@@ -65,7 +65,8 @@ public class HibernateUtil {
 		hconf.setProperty("hibernate.search.default.directory_provider",
 				"org.hibernate.search.store.FSDirectoryProvider");
 		String indexBasePath = config.getLuceneIndexDirectory();
-		if (OcwikiApp.get() != null) {
+		if (OcwikiApp.get() != null
+				&& OcwikiApp.get().getServletContext() != null) {
 			indexBasePath = OcwikiApp.get().getServletContext()
 					.getRealPath(indexBasePath);
 		}

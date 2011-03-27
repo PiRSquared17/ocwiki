@@ -22,7 +22,7 @@ public class OcwikiApp implements ServletContextListener {
 	public static final String NAME = "OCWiki";
 	
     private ServletContext context;
-	private Config config;
+	private Config config = new Config();
 	private ConfigIOException configException = null;
 
 	/**
@@ -39,19 +39,19 @@ public class OcwikiApp implements ServletContextListener {
      */
 	public void contextInitialized(ServletContextEvent evt) {
 		context = evt.getServletContext();
-		config = new Config();
 		String configPath = context.getRealPath(context.getInitParameter("configDir"));
 		initializeImpl(configPath);
 	}
 
 	private void initializeImpl(String configPath) {
 		ConfigIO.load(configPath, config);
-		config.setHomeDir(config.getDomain() + context.getContextPath());
-		
-		context.setAttribute("app", this);
-		context.setAttribute("config", config);
-		context.setAttribute("homeDir", config.getHomeDir());
-		context.setAttribute("scriptPath", getScriptPath());
+		if (context != null) {
+			config.setHomeDir(config.getDomain() + context.getContextPath());
+			context.setAttribute("app", this);
+			context.setAttribute("config", config);
+			context.setAttribute("homeDir", config.getHomeDir());
+			context.setAttribute("scriptPath", getScriptPath());
+		}
 
 		HibernateUtil.setConfig(config);
 

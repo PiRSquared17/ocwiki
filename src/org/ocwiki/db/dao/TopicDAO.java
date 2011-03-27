@@ -13,6 +13,41 @@ import org.hibernate.Session;
 @SuppressWarnings("unchecked")
 public final class TopicDAO {
 
+	/**
+	 * <p>
+	 * Fetch the most popular topics, order by popularity descreasely.
+	 * </p>
+	 * <p>
+	 * Popularity of a topic is measured by the amount of views caused by it,
+	 * its descendants and pages that belong to it or its descendants.
+	 * </p>
+	 * 
+	 * TODO: implement the correct query!
+	 * @param start
+	 * @param size
+	 * @return list of the most popular topics.
+	 */
+	public static List<Resource<Topic>> listPopular(int start, int size) {
+		Session session = HibernateUtil.getSession();
+		/*
+		 * untested hql
+		 * 
+		String hql = "from Resource r1 where article in (from Topic) " +
+				"and status='NORMAL' " +
+				"order by (r1.viewCount + (select sum(r2.viewCount) " +
+						"from Resource r2 " +
+						"where r2.article in (from CategorizableArticle) " +
+						"and r1 in elements(r2.article.topics))) desc";
+		*/
+		String hql = "from Resource where article in (from Topic) " +
+				"and status='NORMAL' " +
+				"order by viewCount desc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(start);
+		query.setMaxResults(size);
+		return query.list();
+	}
+	
 	public static List<Resource<Topic>> listOrderByName(int start, int size) {
 		Session session = HibernateUtil.getSession();
 		String hql = "from Resource where article in (from Topic) " +

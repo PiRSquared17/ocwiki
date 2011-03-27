@@ -41,4 +41,9 @@ public class TopicTest extends HibernateTest {
 		System.out.println(topics.size());
 	}
 	
+	@Test
+	public void testListPopularity() {
+		TopicDAO.listPopular(0, 10);
+	}
+	
 }
