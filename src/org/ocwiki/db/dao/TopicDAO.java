@@ -25,9 +25,10 @@ public final class TopicDAO {
 	 * TODO: implement the correct query!
 	 * @param start
 	 * @param size
-	 * @return list of the most popular topics.
+	 * @return list of arrays of topics and their popularity. The first element
+	 * of an array is the topic and the second is the popularity measurement.
 	 */
-	public static List<Resource<Topic>> listPopular(int start, int size) {
+	public static List<Object[]> listPopular(int start, int size) {
 		Session session = HibernateUtil.getSession();
 		/*
 		 * untested hql
@@ -39,7 +40,8 @@ public final class TopicDAO {
 						"where r2.article in (from CategorizableArticle) " +
 						"and r1 in elements(r2.article.topics))) desc";
 		*/
-		String hql = "from Resource where article in (from Topic) " +
+		String hql = "select r, r.viewCount " +
+				"from Resource r where article in (from Topic) " +
 				"and status='NORMAL' " +
 				"order by viewCount desc";
 		Query query = session.createQuery(hql);
