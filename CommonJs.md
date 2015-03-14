@@ -1,0 +1,1 @@
+Thư viện các hàm Javascript thường dùng, được tham chiếu đến trong tất cả các trang của project.
